@@ -472,3 +472,26 @@ python /home/hengjie/code_sync/rexgroundingct/dataset/download_ct_rate_challenge
   --list-only \
   --manifest /mnt/shengdata1/hengjie/datasets/rexgroundingct/ct/ct_rate_rexgroundingct_paths.txt
 ```
+
+## 13. Check CT readiness for VoxTell experiments
+
+Use the experiment poller to verify whether the downloaded CT files are complete
+for the next stage:
+
+```bash
+cd /home/hengjie/code_sync/rexgroundingct
+
+python scripts/rexgroundingct/poll_ct_subset.py --splits val
+python scripts/rexgroundingct/poll_ct_subset.py --splits train val
+python scripts/rexgroundingct/poll_ct_subset.py --splits train val test
+```
+
+Expected complete counts:
+
+- `val`: `200` CT files, needed for pretrained VoxTell validation evaluation.
+- `train val`: `3,192` CT files, needed for fine-tuning and validation.
+- `train val test`: `3,492` CT files, the full MICCAI challenge subset.
+
+The poller returns exit code `0` only when all requested files are present and
+there are no Hugging Face `.incomplete` files under the CT root. The VoxTell
+experiment launchers use the same readiness condition.

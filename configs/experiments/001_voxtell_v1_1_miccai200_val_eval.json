@@ -1,0 +1,22 @@
+{
+  "experiment": "001_voxtell_v1_1_miccai200_val_eval",
+  "split": "val",
+  "model_repo": "mrokuss/VoxTell",
+  "model_name": "voxtell_v1.1",
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "segmentations": "/data/hengjie/datasets/rexgroundingct/segmentations",
+  "ct_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct",
+  "experiment_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/001_voxtell_v1_1_miccai200_val_eval",
+  "num_gpus": 4,
+  "reference_metrics": {
+    "voxtell_paper_figure4_finetuned_val": {
+      "dice": 0.282,
+      "hit5": 0.678
+    },
+    "rexrank_main_benchmark_voxtell": {
+      "global_dice": 0.285,
+      "hit_rate": 0.615,
+      "instance_f1": 0.227
+    }
+  }
+}
