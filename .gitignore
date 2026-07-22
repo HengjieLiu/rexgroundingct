@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Repo-local experiment views may point at heavy runtime outputs.
+experiments/*/runtime
+experiments/**/logs/
+experiments/**/predictions/
+experiments/**/checkpoints/
+experiments/**/eval/
+experiments/**/*.log
+experiments/**/*.nii
+experiments/**/*.nii.gz
+experiments/**/*.pt
+experiments/**/*.pth
+experiments/**/*.ckpt
+experiments/**/*.safetensors

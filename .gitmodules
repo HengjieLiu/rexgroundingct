@@ -1,0 +1,3 @@
+[submodule "external/VoxTell"]
+	path = external/VoxTell
+	url = https://github.com/MIC-DKFZ/VoxTell.git
