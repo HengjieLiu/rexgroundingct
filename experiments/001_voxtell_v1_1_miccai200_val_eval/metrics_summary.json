@@ -1,0 +1,48 @@
+{
+  "canonical_config": {
+    "bytes": 745,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/001_voxtell_v1_1_miccai200_val_eval.json",
+    "repo_path": "configs/experiments/001_voxtell_v1_1_miccai200_val_eval.json",
+    "sha256": "55c86cd0398c4411c316bcd6008959346391cedbfd33d6d2b05cfdad821325eb"
+  },
+  "eval_json": {
+    "bytes": 108901,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/001_voxtell_v1_1_miccai200_val_eval/eval/val_quick_global_eval.json",
+    "sha256": "64785353215501545a9bf9d47b6f01610d7499403ed79e9ed81b15c5656571ca"
+  },
+  "id": "001_voxtell_v1_1_miccai200_val_eval",
+  "metrics": {
+    "hit_rate": 0.5354330708661418,
+    "mean_global_dice_per_case": 0.23428744819501357,
+    "mean_global_dice_per_finding": 0.22522803991156426,
+    "total_cases": 200,
+    "total_findings": 381
+  },
+  "repo_commit": "8b093773c08c2c18a922c934f2b427c1184dddaf",
+  "repo_dir": "experiments/001_voxtell_v1_1_miccai200_val_eval",
+  "repo_metrics": "experiments/001_voxtell_v1_1_miccai200_val_eval/metrics_summary.json",
+  "report": {
+    "bytes": 1986,
+    "copied": true,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/001_voxtell_v1_1_miccai200_val_eval/reports/val_evaluation_report.md",
+    "repo_path": "experiments/001_voxtell_v1_1_miccai200_val_eval/report.md",
+    "repo_sha256": "4feb6d7c4b594cfd6de01996db1ea639ef54e2a83957b5bbe1135c8ad4eff7db",
+    "sha256": "4feb6d7c4b594cfd6de01996db1ea639ef54e2a83957b5bbe1135c8ad4eff7db"
+  },
+  "runtime_config_matches_canonical": true,
+  "runtime_config_snapshot": {
+    "bytes": 745,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/001_voxtell_v1_1_miccai200_val_eval/config/001_voxtell_v1_1_miccai200_val_eval.json",
+    "sha256": "55c86cd0398c4411c316bcd6008959346391cedbfd33d6d2b05cfdad821325eb"
+  },
+  "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/001_voxtell_v1_1_miccai200_val_eval",
+  "runtime_link_status": "exists",
+  "status": "evaluation_complete",
+  "synced_at_utc": "2026-07-22T22:31:12.881794+00:00",
+  "title": "VoxTell v1.1 MICCAI 200-case validation evaluation",
+  "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
+}

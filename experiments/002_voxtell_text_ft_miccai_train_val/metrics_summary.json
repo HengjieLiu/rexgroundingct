@@ -1,0 +1,41 @@
+{
+  "canonical_config": {
+    "bytes": 919,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/002_voxtell_text_ft_miccai_train_val.json",
+    "repo_path": "configs/experiments/002_voxtell_text_ft_miccai_train_val.json",
+    "sha256": "2f722a266f81a599cb95230bce1467b80b8e2e3dfd9176bf72aa02d0432f5f57"
+  },
+  "eval_json": {
+    "bytes": null,
+    "exists": false,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val/eval/val_official_eval.json",
+    "sha256": null
+  },
+  "id": "002_voxtell_text_ft_miccai_train_val",
+  "metrics": null,
+  "repo_commit": "8b093773c08c2c18a922c934f2b427c1184dddaf",
+  "repo_dir": "experiments/002_voxtell_text_ft_miccai_train_val",
+  "repo_metrics": "experiments/002_voxtell_text_ft_miccai_train_val/metrics_summary.json",
+  "report": {
+    "bytes": null,
+    "copied": false,
+    "exists": false,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val/reports/train_val_finetuning_report.md",
+    "repo_path": "experiments/002_voxtell_text_ft_miccai_train_val/report.md",
+    "sha256": null
+  },
+  "runtime_config_matches_canonical": true,
+  "runtime_config_snapshot": {
+    "bytes": 919,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val/config/002_voxtell_text_ft_miccai_train_val.json",
+    "sha256": "2f722a266f81a599cb95230bce1467b80b8e2e3dfd9176bf72aa02d0432f5f57"
+  },
+  "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val",
+  "runtime_link_status": "exists",
+  "status": "runtime_initialized",
+  "synced_at_utc": "2026-07-22T22:31:12.888254+00:00",
+  "title": "VoxTell text-conditioned fine-tuning on MICCAI train and val",
+  "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
+}
