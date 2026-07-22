@@ -1,3 +1,9 @@
+---
+created: 2026-07-22
+updated: 2026-07-22
+status: active
+---
+
 | split | case_name | finding_id | category | entity_count | English prompt | 中文翻译 |
 | --- | --- | --- | --- | --- | --- | --- |
 | train | train_1741_b_2.nii.gz | 0 | 2b | 1 | Irregularly circumscribed nodular consolidation area adjacent to the diaphragm in the basal segment of the lower lobe of the right lung | 边界不规则（irregularly circumscribed） 结节状实变（nodular consolidation） 区域（area） 邻近（adjacent to） 膈肌（diaphragm） 位于 基底段（basal segment） 的 右肺下叶（lower lobe of the right lung） |

@@ -1,6 +1,10 @@
-# VoxTell Normalization Findings and Plan
+---
+created: 2026-07-22
+updated: 2026-07-22
+status: active
+---
 
-Date: 2026-07-22
+# VoxTell Normalization Findings and Plan
 
 ## Context
 

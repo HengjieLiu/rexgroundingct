@@ -1,6 +1,10 @@
-# ReXGroundingCT Prompt Illustration
+---
+created: 2026-07-22
+updated: 2026-07-22
+status: active
+---
 
-Date: 2026-07-22
+# ReXGroundingCT Prompt Illustration
 
 This folder documents the English free-text prompts used in the ReXGroundingCT
 train/val/test splits and provides Chinese translations for prompt
@@ -24,18 +28,18 @@ analysis. They are not certified clinical report translations.
 | test | 300 | 582 | 542 |
 | total | 3492 | 8650 | 6926 |
 
-## Files
+## Folder Map
 
-- `2026-07-22_prompt_translation_unique_bilingual.md`
+- `unique_prompts_bilingual.md`
   - One row per unique English prompt.
   - Includes Chinese translation and train/val/test/total appearance counts.
 
-- `2026-07-22_prompt_translation_instances_bilingual.md`
+- `prompt_instances_bilingual.md`
   - One row per prompt occurrence.
   - Preserves split, case name, finding ID, category, and entity count when
     available.
 
-- `2026-07-22_prompt_vocabulary_bilingual_counts.md`
+- `vocabulary_bilingual.md`
   - Structured glossary of disease, anatomy, location, morphology, size,
     severity, temporal, and uncertainty terms.
   - Includes raw surface variants, split counts, and example prompts.

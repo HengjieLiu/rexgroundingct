@@ -1,3 +1,9 @@
+---
+created: 2026-07-22
+updated: 2026-07-22
+status: active
+---
+
 # Download ReXGroundingCT from Hugging Face
 
 This guide downloads the gated Hugging Face dataset

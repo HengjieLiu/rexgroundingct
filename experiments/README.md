@@ -1,7 +1,24 @@
+---
+created: 2026-07-22
+updated: 2026-07-22
+status: active
+---
+
 # ReXGroundingCT Experiments
 
 This directory is a lightweight repo-local index. It keeps configs and
 small summaries easy to inspect while large outputs remain on `/mnt/shengdata1`.
+
+## Folder Map
+
+- `README.md`: experiment index overview and drift policy.
+- `registry.yaml`: generated machine-readable experiment summary.
+- `<experiment-id>/README.md`: one experiment's status and ownership rules.
+- `<experiment-id>/metrics_summary.json`: small synced metrics/provenance
+  summary.
+- `<experiment-id>/sync_manifest.json`: synced hash and path manifest.
+- `<experiment-id>/report.md`: small copied runtime report when available.
+- `<experiment-id>/runtime`: ignored symlink to heavyweight runtime outputs.
 
 ## Drift Policy
 

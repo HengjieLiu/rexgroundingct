@@ -1,3 +1,9 @@
+---
+created: 2026-07-22
+updated: 2026-07-22
+status: active
+---
+
 | English concept | 中文 | Category | Raw variants | train | val | test | total | Example prompts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Nodule | 结节 | Disease / Finding | nodules (1356); nodule (757) | 1790 | 131 | 192 | 2113 | Several subcentimeter nonspecific pulmonary nodules in both lungs / A few subcentimeter nodules in both lungs / Nodule or nodular consolidation at the junction of the posterobasal and anterobasal segments in the lower lobe of the right lung, 30x22 mm with surrounding ground-glass appearance |

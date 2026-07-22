@@ -12,8 +12,11 @@ from pathlib import Path
 
 
 DEFAULT_METADATA = Path("/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json")
-DEFAULT_OUTPUT_DIR = Path("docs/prompt_illustration")
+DEFAULT_OUTPUT_DIR = Path("docs/voxtell/prompts")
 DOC_DATE = "2026-07-22"
+PROMPT_UNIQUE_DOC = "unique_prompts_bilingual.md"
+PROMPT_INSTANCES_DOC = "prompt_instances_bilingual.md"
+PROMPT_VOCAB_DOC = "vocabulary_bilingual.md"
 SPLITS = ("train", "val", "test")
 EXPECTED_PROMPT_COUNTS = {"train": 7687, "val": 381, "test": 582}
 EXPECTED_UNIQUE_PROMPTS = 6926
@@ -26,6 +29,11 @@ def md_escape(value: object) -> str:
 
 def write_table(path: Path, headers: list[str], rows: list[list[object]]) -> None:
     with path.open("w", encoding="utf-8") as f:
+        f.write("---\n")
+        f.write(f"created: {DOC_DATE}\n")
+        f.write(f"updated: {DOC_DATE}\n")
+        f.write("status: active\n")
+        f.write("---\n\n")
         f.write("| " + " | ".join(headers) + " |\n")
         f.write("| " + " | ".join("---" for _ in headers) + " |\n")
         for row in rows:
@@ -697,9 +705,13 @@ def build_vocabulary_rows(split_counts: dict[str, Counter]) -> list[list[object]
 def write_readme(path: Path, metadata_path: Path, split_case_counts: dict[str, int], split_prompt_counts: dict[str, int], split_unique_counts: dict[str, int], total_unique: int) -> None:
     total_cases = sum(split_case_counts.values())
     total_prompt_instances = sum(split_prompt_counts.values())
-    content = f"""# ReXGroundingCT Prompt Illustration
+    content = f"""---
+created: {DOC_DATE}
+updated: {DOC_DATE}
+status: active
+---
 
-Date: {DOC_DATE}
+# ReXGroundingCT Prompt Illustration
 
 This folder documents the English free-text prompts used in the ReXGroundingCT
 train/val/test splits and provides Chinese translations for prompt
@@ -723,18 +735,18 @@ analysis. They are not certified clinical report translations.
 | test | {split_case_counts['test']} | {split_prompt_counts['test']} | {split_unique_counts['test']} |
 | total | {total_cases} | {total_prompt_instances} | {total_unique} |
 
-## Files
+## Folder Map
 
-- `{DOC_DATE}_prompt_translation_unique_bilingual.md`
+- `{PROMPT_UNIQUE_DOC}`
   - One row per unique English prompt.
   - Includes Chinese translation and train/val/test/total appearance counts.
 
-- `{DOC_DATE}_prompt_translation_instances_bilingual.md`
+- `{PROMPT_INSTANCES_DOC}`
   - One row per prompt occurrence.
   - Preserves split, case name, finding ID, category, and entity count when
     available.
 
-- `{DOC_DATE}_prompt_vocabulary_bilingual_counts.md`
+- `{PROMPT_VOCAB_DOC}`
   - Structured glossary of disease, anatomy, location, morphology, size,
     severity, temporal, and uncertainty terms.
   - Includes raw surface variants, split counts, and example prompts.
@@ -835,17 +847,17 @@ def main() -> int:
         len(total_counts),
     )
     write_table(
-        args.output_dir / f"{DOC_DATE}_prompt_translation_unique_bilingual.md",
+        args.output_dir / PROMPT_UNIQUE_DOC,
         ["ID", "English prompt", "中文翻译", "train", "val", "test", "total"],
         unique_rows,
     )
     write_table(
-        args.output_dir / f"{DOC_DATE}_prompt_translation_instances_bilingual.md",
+        args.output_dir / PROMPT_INSTANCES_DOC,
         ["split", "case_name", "finding_id", "category", "entity_count", "English prompt", "中文翻译"],
         instance_rows,
     )
     write_table(
-        args.output_dir / f"{DOC_DATE}_prompt_vocabulary_bilingual_counts.md",
+        args.output_dir / PROMPT_VOCAB_DOC,
         ["English concept", "中文", "Category", "Raw variants", "train", "val", "test", "total", "Example prompts"],
         vocab_rows,
     )

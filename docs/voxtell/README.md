@@ -1,4 +1,19 @@
+---
+created: 2026-07-22
+updated: 2026-07-22
+status: active
+---
+
 # VoxTell ReXGroundingCT Experiments
+
+## Folder Map
+
+- `README.md`: experiment workflow overview, launch commands, and current
+  VoxTell status.
+- `preprocessing.md`: direct inference loading, preprocessing, orientation, and
+  export details.
+- `normalization.md`: normalization findings and planned ablations.
+- `prompts/`: bilingual prompt-reference docs generated from MICCAI metadata.
 
 ## Paths
 

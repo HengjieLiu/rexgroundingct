@@ -1,3 +1,9 @@
+---
+created: 2026-07-22
+updated: 2026-07-22
+status: active
+---
+
 | ID | English prompt | 中文翻译 | train | val | test | total |
 | --- | --- | --- | --- | --- | --- | --- |
 | P00001 | Subcentimeter nonspecific nodules in both lungs | 双肺亚厘米非特异性结节（subcentimeter nonspecific nodules） | 99 | 4 | 5 | 108 |

@@ -1,7 +1,21 @@
+---
+created: 2026-07-22
+updated: 2026-07-22
+status: active
+---
+
 # VoxTell v1.1 MICCAI 200-case validation evaluation
 
 This is a repo-local index for a runtime experiment. Edit the canonical
 config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
+
+## Folder Map
+
+- `README.md`: this experiment's status and ownership rules.
+- `metrics_summary.json`: synced metrics and provenance summary.
+- `sync_manifest.json`: hashes, paths, and sync provenance.
+- `report.md`: small copied runtime report when available.
+- `runtime`: ignored symlink to heavyweight runtime outputs.
 
 ## Status
 
