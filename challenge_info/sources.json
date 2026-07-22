@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "rexgroundingct",
+      "category": "core",
+      "title": "ReXGroundingCT",
+      "url": "https://rexrank.ai/ReXGroundingCT/",
+      "snapshot_path": "raw/rexrank.ai/ReXGroundingCT/index.html",
+      "output": "rexgroundingct.md",
+      "kind": "html",
+      "handler": "rexgrounding_index",
+      "required": true,
+      "validate_contains": ["ReXGroundingCT", "Model Performance", "Per-Category Results"],
+      "official_reason": "Official ReXrank dataset page and baseline leaderboard."
+    },
+    {
+      "id": "rexgroundingct_challenge",
+      "category": "core",
+      "title": "ReXGroundingCT Challenge @ MICCAI 2026",
+      "url": "https://rexrank.ai/ReXGroundingCT/challenge.html",
+      "snapshot_path": "raw/rexrank.ai/ReXGroundingCT/challenge.html",
+      "output": "rexgroundingct_challenge.md",
+      "kind": "html",
+      "handler": "challenge",
+      "required": true,
+      "validate_contains": ["ReXGrounding Challenge", "Leaderboard", "Register & Submit", "Evaluation Metrics"],
+      "official_reason": "Official MICCAI 2026 challenge rules, registration page, and live leaderboard client."
+    },
+    {
+      "id": "rexrankct_submission_guideline",
+      "category": "core",
+      "title": "ReXrankCT Submission Guideline",
+      "url": "https://rexrank.ai/explore/submission_guideline_ct.html",
+      "snapshot_path": "raw/rexrank.ai/explore/submission_guideline_ct.html",
+      "output": "rexrankct_submission_guideline.md",
+      "kind": "html",
+      "handler": "generic_html",
+      "required": true,
+      "validate_contains": ["ReXrankCT Submission Instructions", "How to Submit", "Removing Your Models"],
+      "official_reason": "Official prediction-format and legacy submission instructions linked from the challenge."
+    },
+    {
+      "id": "huggingface_dataset_card",
+      "category": "companion",
+      "title": "ReXGroundingCT Dataset Card",
+      "url": "https://huggingface.co/datasets/rajpurkarlab/ReXGroundingCT",
+      "snapshot_path": "raw/huggingface.co/datasets/rajpurkarlab/ReXGroundingCT.html",
+      "output": "huggingface_dataset_card.md",
+      "kind": "html",
+      "handler": "generic_html",
+      "required": true,
+      "validate_contains": ["ReXGroundingCT", "Dataset Structure", "Segmentation Masks"],
+      "official_reason": "Official dataset distribution page, schema, license, and update record."
+    },
+    {
+      "id": "github_dataset_generation",
+      "category": "companion",
+      "title": "ReXGroundingCT Data Generation Repository",
+      "url": "https://raw.githubusercontent.com/rajpurkarlab/ReXGroundingCT/main/README.md",
+      "display_url": "https://github.com/rajpurkarlab/ReXGroundingCT",
+      "snapshot_path": "raw/raw.githubusercontent.com/rajpurkarlab/ReXGroundingCT/main/README.md",
+      "output": "github_dataset_generation.md",
+      "kind": "native_markdown",
+      "handler": "native_markdown",
+      "required": true,
+      "validate_contains": ["ReXGroundingCT Data Generation", "Dataset", "Citation"],
+      "official_reason": "Official source-code and dataset-generation repository maintained by the dataset authors."
+    },
+    {
+      "id": "arxiv_paper_record",
+      "category": "companion",
+      "title": "ReXGroundingCT Paper Record",
+      "url": "https://arxiv.org/abs/2507.22030",
+      "snapshot_path": "raw/arxiv.org/abs/2507.22030.html",
+      "output": "arxiv_paper_record.md",
+      "kind": "html",
+      "handler": "arxiv_record",
+      "required": true,
+      "validate_contains": ["ReXGroundingCT", "2507.22030", "Abstract"],
+      "official_reason": "Author-submitted paper record, abstract, authors, and citation identifier."
+    },
+    {
+      "id": "miccai_2026_challenge_listing",
+      "category": "companion",
+      "title": "MICCAI 2026 Challenge Listing",
+      "url": "https://conferences.miccai.org/2026/en/challenges.asp",
+      "snapshot_path": "raw/conferences.miccai.org/2026/en/challenges.asp.html",
+      "output": "miccai_2026_challenge_listing.md",
+      "kind": "html",
+      "handler": "miccai_listing",
+      "required": true,
+      "validate_contains": ["CHALLENGES", "ReXGrounding", "Grounding Free-Text Findings to 3D CT Segmentations"],
+      "official_reason": "Official MICCAI 2026 conference listing confirming the challenge and event entry."
+    }
+  ],
+  "data_sources": [
+    {
+      "id": "rexgroundingct_model_results",
+      "category": "data",
+      "url": "https://rexrank.ai/ReXGroundingCT/ReXGroundingCT.csv",
+      "snapshot_path": "raw/rexrank.ai/ReXGroundingCT/ReXGroundingCT.csv",
+      "kind": "csv",
+      "required": true,
+      "validate_contains": ["Model,Model URL,Institution", "Global Dice", "Instance F1"]
+    },
+    {
+      "id": "rexgroundingct_per_category_results",
+      "category": "data",
+      "url": "https://rexrank.ai/ReXGroundingCT/per_category_results.csv",
+      "snapshot_path": "raw/rexrank.ai/ReXGroundingCT/per_category_results.csv",
+      "kind": "csv",
+      "required": true,
+      "validate_contains": ["Model,Version,Category,Dice,Hit Rate"]
+    },
+    {
+      "id": "rexgroundingct_category_counts",
+      "category": "data",
+      "url": "https://rexrank.ai/ReXGroundingCT/category_counts.csv",
+      "snapshot_path": "raw/rexrank.ai/ReXGroundingCT/category_counts.csv",
+      "kind": "csv",
+      "required": true,
+      "validate_contains": ["Category,n", "1a", "2h"]
+    },
+    {
+      "id": "rexrank_gh_pages_branch",
+      "category": "metadata",
+      "url": "https://api.github.com/repos/rajpurkarlab/ReXrank/branches/gh-pages",
+      "snapshot_path": "raw/api.github.com/repos/rajpurkarlab/ReXrank/branches/gh-pages.json",
+      "kind": "json",
+      "required": false,
+      "validate_contains": ["gh-pages", "commit", "sha"]
+    }
+  ]
+}

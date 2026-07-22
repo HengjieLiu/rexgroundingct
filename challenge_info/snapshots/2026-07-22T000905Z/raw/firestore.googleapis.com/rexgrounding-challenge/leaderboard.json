@@ -1,0 +1,4419 @@
+{
+  "documents": [
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/8LlM7r2Rys9Hkdlq2ZLX",
+      "fields": {
+        "publicCases": {
+          "integerValue": "150"
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-21T12:52:08.638Z"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "instancePrecision": {
+          "doubleValue": 0.042297244858362434
+        },
+        "dice": {
+          "doubleValue": 0.14608371254514371
+        },
+        "registeredTeam": {
+          "stringValue": "FARM"
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "instanceF1": {
+          "doubleValue": 0.074478988725657655
+        },
+        "institution": {
+          "stringValue": "Fudan Univerisity"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.31142857142857144
+        },
+        "submissionNumber": {
+          "integerValue": "1"
+        },
+        "submitterKey": {
+          "stringValue": "s_ce177f1b6e99ecdc"
+        },
+        "baseLabel": {
+          "stringValue": "FARM-VoxTell-FT-HZ-2"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.023511183280584443
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.16268318930710032
+                    },
+                    "hit": {
+                      "doubleValue": 0.54639175257731953
+                    },
+                    "n": {
+                      "integerValue": "97"
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.16899794884674516
+                    },
+                    "hit": {
+                      "doubleValue": 0.58695652173913049
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.55935212585082228
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "dice": {
+                      "doubleValue": 0.19292852587514944
+                    },
+                    "hit": {
+                      "doubleValue": 0.61538461538461542
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "16"
+                    },
+                    "hit": {
+                      "doubleValue": 0.25
+                    },
+                    "dice": {
+                      "doubleValue": 0.073393761717347822
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "13"
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.0030124588095171529
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "2"
+                    },
+                    "dice": {
+                      "doubleValue": 0.0071294785925388312
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.078103005405924367
+                    },
+                    "hit": {
+                      "doubleValue": 0.16666666666666666
+                    },
+                    "n": {
+                      "integerValue": "6"
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "hit": {
+                      "doubleValue": 0.8
+                    },
+                    "dice": {
+                      "doubleValue": 0.14998466247495137
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.11820160282345164
+                    },
+                    "hit": {
+                      "doubleValue": 0.3
+                    },
+                    "n": {
+                      "integerValue": "10"
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.0707457599156692
+                    },
+                    "hit": {
+                      "doubleValue": 0.24590163934426229
+                    },
+                    "n": {
+                      "integerValue": "61"
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "dice": {
+                      "doubleValue": 0.077325641398823391
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "team": {
+          "stringValue": "FARM-VoxTell-FT-HZ-2"
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "submitter": {
+          "stringValue": "Jie Xu"
+        },
+        "hitRate": {
+          "doubleValue": 0.44039735099337746
+        },
+        "status": {
+          "stringValue": "published"
+        }
+      },
+      "createTime": "2026-07-21T12:01:19.118516Z",
+      "updateTime": "2026-07-21T12:52:08.682346Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ED3SexyaVg7vTfoJaKlC",
+      "fields": {
+        "team": {
+          "stringValue": "FARM-VoxTell-FT-Test"
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "hitRate": {
+          "doubleValue": 0.423841059602649
+        },
+        "submitter": {
+          "stringValue": "Jie Xu"
+        },
+        "status": {
+          "stringValue": "published"
+        },
+        "submitterKey": {
+          "stringValue": "s_ce177f1b6e99ecdc"
+        },
+        "baseLabel": {
+          "stringValue": "FARM-VoxTell-FT-Test"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.019266615334822663
+                    },
+                    "n": {
+                      "integerValue": "2"
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.047415444150175512
+                    },
+                    "hit": {
+                      "doubleValue": 0.125
+                    },
+                    "n": {
+                      "integerValue": "16"
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "13"
+                    },
+                    "dice": {
+                      "doubleValue": 0.11758780103731747
+                    },
+                    "hit": {
+                      "doubleValue": 0.38461538461538464
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.25532279854526074
+                    },
+                    "hit": {
+                      "doubleValue": 0.66666666666666663
+                    },
+                    "n": {
+                      "integerValue": "39"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.37601122669275194
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "46"
+                    },
+                    "hit": {
+                      "doubleValue": 0.5
+                    },
+                    "dice": {
+                      "doubleValue": 0.17732819081560749
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "97"
+                    },
+                    "dice": {
+                      "doubleValue": 0.18783058109355208
+                    },
+                    "hit": {
+                      "doubleValue": 0.57731958762886593
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.23714335127497854
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "dice": {
+                      "doubleValue": 0.082547224109624451
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.10576999767056253
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "n": {
+                      "integerValue": "10"
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.11475409836065574
+                    },
+                    "dice": {
+                      "doubleValue": 0.047604361031739484
+                    },
+                    "n": {
+                      "integerValue": "61"
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "hit": {
+                      "doubleValue": 0.6
+                    },
+                    "dice": {
+                      "doubleValue": 0.093992160278900089
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "hit": {
+                      "doubleValue": 0.16666666666666666
+                    },
+                    "dice": {
+                      "doubleValue": 0.058375988941895475
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "submissionNumber": {
+          "integerValue": "1"
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "instanceF1": {
+          "doubleValue": 0.061621621621621631
+        },
+        "institution": {
+          "stringValue": "Fudan Univerisity"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.32571428571428573
+        },
+        "dice": {
+          "doubleValue": 0.16314807528635744
+        },
+        "registeredTeam": {
+          "stringValue": "FARM"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-16T13:06:15.306Z"
+        },
+        "instancePrecision": {
+          "doubleValue": 0.034029850746268658
+        },
+        "publicCases": {
+          "integerValue": "150"
+        }
+      },
+      "createTime": "2026-07-16T12:00:30.961033Z",
+      "updateTime": "2026-07-16T13:06:15.341590Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/FD1GXhzCYzVkmZstNwYj",
+      "fields": {
+        "publicCases": {
+          "integerValue": "150"
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-08T22:54:12.130Z"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "instancePrecision": {
+          "doubleValue": 0.19636852723604573
+        },
+        "registeredTeam": {
+          "stringValue": "MUW"
+        },
+        "dice": {
+          "doubleValue": 0.27680000396376908
+        },
+        "instanceRecall": {
+          "doubleValue": 0.41714285714285715
+        },
+        "instanceF1": {
+          "doubleValue": 0.2670324645633288
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "institution": {
+          "stringValue": "Medical University of Vienna"
+        },
+        "submissionNumber": {
+          "integerValue": "1"
+        },
+        "baseLabel": {
+          "stringValue": "MUW-GroundCT-v2"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.69565217391304346
+                    },
+                    "dice": {
+                      "doubleValue": 0.32049399556554664
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.544368223075003
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "hit": {
+                      "doubleValue": 0.69230769230769229
+                    },
+                    "dice": {
+                      "doubleValue": 0.31381341530650825
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.066750971995473085
+                    },
+                    "hit": {
+                      "doubleValue": 0.25
+                    },
+                    "n": {
+                      "integerValue": "16"
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "13"
+                    },
+                    "hit": {
+                      "doubleValue": 0.61538461538461542
+                    },
+                    "dice": {
+                      "doubleValue": 0.30431716339879095
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.045073992647017724
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "n": {
+                      "integerValue": "2"
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.21513561398823511
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "97"
+                    },
+                    "dice": {
+                      "doubleValue": 0.26560852996038153
+                    },
+                    "hit": {
+                      "doubleValue": 0.65979381443298968
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "dice": {
+                      "doubleValue": 0.14829595565291298
+                    },
+                    "hit": {
+                      "doubleValue": 0.6
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "61"
+                    },
+                    "dice": {
+                      "doubleValue": 0.25199407365160659
+                    },
+                    "hit": {
+                      "doubleValue": 0.75409836065573765
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.5
+                    },
+                    "dice": {
+                      "doubleValue": 0.18716799855678282
+                    },
+                    "n": {
+                      "integerValue": "10"
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "dice": {
+                      "doubleValue": 0.097150552081725058
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.10905125738856702
+                    },
+                    "hit": {
+                      "doubleValue": 0.33333333333333331
+                    },
+                    "n": {
+                      "integerValue": "6"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "submitterKey": {
+          "stringValue": "s_a5372c315703fa5f"
+        },
+        "submitter": {
+          "stringValue": "Ronald Fecso"
+        },
+        "hitRate": {
+          "doubleValue": 0.64238410596026485
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "status": {
+          "stringValue": "published"
+        },
+        "team": {
+          "stringValue": "MUW-GroundCT-v2"
+        }
+      },
+      "createTime": "2026-07-07T12:01:56.805567Z",
+      "updateTime": "2026-07-09T16:26:53.796755Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/GiHjhHkmR6G8L5Z3Y3eO",
+      "fields": {
+        "team": {
+          "stringValue": "JECT"
+        },
+        "status": {
+          "stringValue": "published"
+        },
+        "submitter": {
+          "stringValue": "hanbinko"
+        },
+        "hitRate": {
+          "doubleValue": 0.6556291390728477
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "submissionNumber": {
+          "integerValue": "1"
+        },
+        "submitterKey": {
+          "stringValue": "s_afa3cdfa976c6749"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "dice": {
+                      "doubleValue": 0.15172209386220464
+                    },
+                    "hit": {
+                      "doubleValue": 0.33333333333333331
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "dice": {
+                      "doubleValue": 0.11885448017651674
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.77049180327868849
+                    },
+                    "dice": {
+                      "doubleValue": 0.24180482866485892
+                    },
+                    "n": {
+                      "integerValue": "61"
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "10"
+                    },
+                    "hit": {
+                      "doubleValue": 0.3
+                    },
+                    "dice": {
+                      "doubleValue": 0.13439111969101017
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.12594317293006249
+                    },
+                    "hit": {
+                      "doubleValue": 0.4
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.73195876288659789
+                    },
+                    "dice": {
+                      "doubleValue": 0.26276017601085483
+                    },
+                    "n": {
+                      "integerValue": "97"
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.4239160590932412
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "2"
+                    },
+                    "dice": {
+                      "doubleValue": 0.038586302292421493
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.3125
+                    },
+                    "dice": {
+                      "doubleValue": 0.087975358958739563
+                    },
+                    "n": {
+                      "integerValue": "16"
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.15703185630845462
+                    },
+                    "hit": {
+                      "doubleValue": 0.46153846153846156
+                    },
+                    "n": {
+                      "integerValue": "13"
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "hit": {
+                      "doubleValue": 0.61538461538461542
+                    },
+                    "dice": {
+                      "doubleValue": 0.22373498443211828
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.35030663049744
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "46"
+                    },
+                    "hit": {
+                      "doubleValue": 0.76086956521739135
+                    },
+                    "dice": {
+                      "doubleValue": 0.28622027694692603
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "baseLabel": {
+          "stringValue": "JECT"
+        },
+        "dice": {
+          "doubleValue": 0.24786336664971165
+        },
+        "registeredTeam": {
+          "stringValue": "iRAIL"
+        },
+        "institution": {
+          "stringValue": "SeoulNationalUniversity"
+        },
+        "instanceF1": {
+          "doubleValue": 0.26271186440677963
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.35428571428571426
+        },
+        "publicCases": {
+          "integerValue": "150"
+        },
+        "instancePrecision": {
+          "doubleValue": 0.20875420875420875
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-08T22:54:12.689Z"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        }
+      },
+      "createTime": "2026-07-06T06:01:56.501102Z",
+      "updateTime": "2026-07-09T16:26:54.635652Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/RNCMYsCT6oK6uv9lE6f9",
+      "fields": {
+        "institution": {
+          "stringValue": "Gachon  University"
+        },
+        "instanceF1": {
+          "doubleValue": 0.27555555555555561
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.44285714285714284
+        },
+        "dice": {
+          "doubleValue": 0.31414836188657991
+        },
+        "registeredTeam": {
+          "stringValue": "AIMHI"
+        },
+        "instancePrecision": {
+          "doubleValue": 0.2
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-13T01:31:02.301Z"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "publicCases": {
+          "integerValue": "150"
+        },
+        "team": {
+          "stringValue": "Grounder"
+        },
+        "status": {
+          "stringValue": "published"
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "submitter": {
+          "stringValue": "Kwang-Hyun Uhm"
+        },
+        "hitRate": {
+          "doubleValue": 0.70198675496688745
+        },
+        "submitterKey": {
+          "stringValue": "s_109ff8c216d362be"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.35836306948956553
+                    },
+                    "hit": {
+                      "doubleValue": 0.73913043478260865
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "dice": {
+                      "doubleValue": 0.60964095236661031
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "dice": {
+                      "doubleValue": 0.34175046051590596
+                    },
+                    "hit": {
+                      "doubleValue": 0.74358974358974361
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "16"
+                    },
+                    "hit": {
+                      "doubleValue": 0.4375
+                    },
+                    "dice": {
+                      "doubleValue": 0.15264908598444984
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.69230769230769229
+                    },
+                    "dice": {
+                      "doubleValue": 0.36491328524695216
+                    },
+                    "n": {
+                      "integerValue": "13"
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "2"
+                    },
+                    "dice": {
+                      "doubleValue": 0.014752105955792506
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.63834912184239678
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "97"
+                    },
+                    "hit": {
+                      "doubleValue": 0.76288659793814428
+                    },
+                    "dice": {
+                      "doubleValue": 0.31886368982055574
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "dice": {
+                      "doubleValue": 0.0962402112299151
+                    },
+                    "hit": {
+                      "doubleValue": 0.4
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.15850381529525032
+                    },
+                    "hit": {
+                      "doubleValue": 0.3
+                    },
+                    "n": {
+                      "integerValue": "10"
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.28431581066663281
+                    },
+                    "hit": {
+                      "doubleValue": 0.80327868852459017
+                    },
+                    "n": {
+                      "integerValue": "61"
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.11312086194035767
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "dice": {
+                      "doubleValue": 0.13875515325452245
+                    },
+                    "hit": {
+                      "doubleValue": 0.33333333333333331
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "baseLabel": {
+          "stringValue": "Grounder"
+        },
+        "submissionNumber": {
+          "integerValue": "1"
+        }
+      },
+      "createTime": "2026-07-13T01:16:39.988881Z",
+      "updateTime": "2026-07-13T01:31:02.341755Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/UIkUX3HDR4SGcLukI6mG",
+      "fields": {
+        "institution": {
+          "stringValue": "Gachon  University"
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "instanceF1": {
+          "doubleValue": 0.32904884318766064
+        },
+        "instanceRecall": {
+          "doubleValue": 0.45714285714285713
+        },
+        "dice": {
+          "doubleValue": 0.33190491061381711
+        },
+        "registeredTeam": {
+          "stringValue": "AIMHI"
+        },
+        "instancePrecision": {
+          "doubleValue": 0.25702811244979917
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-18T12:09:11.754Z"
+        },
+        "publicCases": {
+          "integerValue": "150"
+        },
+        "team": {
+          "stringValue": "Grounder_1.1"
+        },
+        "status": {
+          "stringValue": "published"
+        },
+        "hitRate": {
+          "doubleValue": 0.74503311258278149
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "submitter": {
+          "stringValue": "Kwang-Hyun Uhm"
+        },
+        "submitterKey": {
+          "stringValue": "s_109ff8c216d362be"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.782608695652174
+                    },
+                    "dice": {
+                      "doubleValue": 0.35288142140735423
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.67283477835627481
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "16"
+                    },
+                    "dice": {
+                      "doubleValue": 0.13182463468269279
+                    },
+                    "hit": {
+                      "doubleValue": 0.4375
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "13"
+                    },
+                    "hit": {
+                      "doubleValue": 0.61538461538461542
+                    },
+                    "dice": {
+                      "doubleValue": 0.35979023548608463
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.0056542812017755135
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "n": {
+                      "integerValue": "2"
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "hit": {
+                      "doubleValue": 0.79487179487179482
+                    },
+                    "dice": {
+                      "doubleValue": 0.37139648162168859
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.12289319367510039
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.36511977589389871
+                    },
+                    "hit": {
+                      "doubleValue": 0.83505154639175261
+                    },
+                    "n": {
+                      "integerValue": "97"
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.14318435321476267
+                    },
+                    "hit": {
+                      "doubleValue": 0.6
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.5
+                    },
+                    "dice": {
+                      "doubleValue": 0.21820451094438673
+                    },
+                    "n": {
+                      "integerValue": "10"
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.28144383361952829
+                    },
+                    "hit": {
+                      "doubleValue": 0.80327868852459017
+                    },
+                    "n": {
+                      "integerValue": "61"
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "dice": {
+                      "doubleValue": 0.11181952741747903
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.33333333333333331
+                    },
+                    "dice": {
+                      "doubleValue": 0.15610233089672518
+                    },
+                    "n": {
+                      "integerValue": "6"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "baseLabel": {
+          "stringValue": "Grounder_1.1"
+        },
+        "submissionNumber": {
+          "integerValue": "1"
+        }
+      },
+      "createTime": "2026-07-18T12:01:21.480548Z",
+      "updateTime": "2026-07-18T12:09:11.791247Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/dWPUPs1LVCnaEzRsXPlC",
+      "fields": {
+        "status": {
+          "stringValue": "published"
+        },
+        "hitRate": {
+          "doubleValue": 0.59933774834437081
+        },
+        "submitter": {
+          "stringValue": "Kristhian Aguilar"
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "team": {
+          "stringValue": "VoxTell-FT"
+        },
+        "submissionNumber": {
+          "integerValue": "1"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.16376334564467018
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.74226804123711343
+                    },
+                    "dice": {
+                      "doubleValue": 0.25834070065740439
+                    },
+                    "n": {
+                      "integerValue": "97"
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.31743931338644454
+                    },
+                    "hit": {
+                      "doubleValue": 0.67391304347826086
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.578625235419067
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "13"
+                    },
+                    "hit": {
+                      "doubleValue": 0.61538461538461542
+                    },
+                    "dice": {
+                      "doubleValue": 0.34839484788526115
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.125
+                    },
+                    "dice": {
+                      "doubleValue": 0.024893551453184684
+                    },
+                    "n": {
+                      "integerValue": "16"
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "2"
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.023750146454356608
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "dice": {
+                      "doubleValue": 0.36274301741756276
+                    },
+                    "hit": {
+                      "doubleValue": 0.69230769230769229
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "hit": {
+                      "doubleValue": 0.33333333333333331
+                    },
+                    "dice": {
+                      "doubleValue": 0.11767282914042985
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.033676464201857138
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "dice": {
+                      "doubleValue": 0.088387241610356188
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "61"
+                    },
+                    "dice": {
+                      "doubleValue": 0.17958514448419866
+                    },
+                    "hit": {
+                      "doubleValue": 0.54098360655737709
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "10"
+                    },
+                    "dice": {
+                      "doubleValue": 0.13415869056405333
+                    },
+                    "hit": {
+                      "doubleValue": 0.3
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "baseLabel": {
+          "stringValue": "VoxTell-FT"
+        },
+        "submitterKey": {
+          "stringValue": "s_fa1ba9a496c2814c"
+        },
+        "registeredTeam": {
+          "stringValue": "MICLab"
+        },
+        "dice": {
+          "doubleValue": 0.26482990014295116
+        },
+        "instanceRecall": {
+          "doubleValue": 0.42
+        },
+        "institution": {
+          "stringValue": "UNICAMP"
+        },
+        "instanceF1": {
+          "doubleValue": 0.11125827814569536
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "publicCases": {
+          "integerValue": "150"
+        },
+        "instancePrecision": {
+          "doubleValue": 0.064122137404580157
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-20T18:47:55.893Z"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        }
+      },
+      "createTime": "2026-07-20T18:00:33.767562Z",
+      "updateTime": "2026-07-20T18:47:55.949805Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/farm-voxtell-ft",
+      "fields": {
+        "registeredTeam": {
+          "stringValue": "FARM"
+        },
+        "dice": {
+          "doubleValue": 0.16314807528635744
+        },
+        "instanceRecall": {
+          "doubleValue": 0.32571428571428573
+        },
+        "instanceF1": {
+          "doubleValue": 0.061621621621621631
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "institution": {
+          "stringValue": "Fudan Univerisity"
+        },
+        "publicCases": {
+          "integerValue": "150"
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-08T22:54:12.950Z"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "instancePrecision": {
+          "doubleValue": 0.034029850746268658
+        },
+        "submitter": {
+          "stringValue": "Jie Xu"
+        },
+        "hitRate": {
+          "doubleValue": 0.423841059602649
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "team": {
+          "stringValue": "FARM-VoxTell-FT"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.25532279854526074
+                    },
+                    "hit": {
+                      "doubleValue": 0.66666666666666663
+                    },
+                    "n": {
+                      "integerValue": "39"
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "16"
+                    },
+                    "hit": {
+                      "doubleValue": 0.125
+                    },
+                    "dice": {
+                      "doubleValue": 0.047415444150175512
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.38461538461538464
+                    },
+                    "dice": {
+                      "doubleValue": 0.11758780103731747
+                    },
+                    "n": {
+                      "integerValue": "13"
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.019266615334822663
+                    },
+                    "n": {
+                      "integerValue": "2"
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.17732819081560752
+                    },
+                    "hit": {
+                      "doubleValue": 0.5
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "dice": {
+                      "doubleValue": 0.37601122669275194
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.18783058109355208
+                    },
+                    "hit": {
+                      "doubleValue": 0.57731958762886593
+                    },
+                    "n": {
+                      "integerValue": "97"
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.23714335127497854
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.082547224109624451
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.11475409836065574
+                    },
+                    "dice": {
+                      "doubleValue": 0.047604361031739484
+                    },
+                    "n": {
+                      "integerValue": "61"
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "10"
+                    },
+                    "dice": {
+                      "doubleValue": 0.10576999767056253
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "dice": {
+                      "doubleValue": 0.093992160278900089
+                    },
+                    "hit": {
+                      "doubleValue": 0.6
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "hit": {
+                      "doubleValue": 0.16666666666666666
+                    },
+                    "dice": {
+                      "doubleValue": 0.058375988941895475
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "submitterKey": {
+          "stringValue": "s_ce177f1b6e99ecdc"
+        }
+      },
+      "createTime": "2026-07-03T15:26:53.622235Z",
+      "updateTime": "2026-07-09T16:26:55.438050Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/g7GfbJ7eWGtZIZd5PjA8",
+      "fields": {
+        "team": {
+          "stringValue": "FARM-VoxTell-FT-HZ"
+        },
+        "status": {
+          "stringValue": "published"
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "submitter": {
+          "stringValue": "Jie Xu"
+        },
+        "hitRate": {
+          "doubleValue": 0.44039735099337746
+        },
+        "submitterKey": {
+          "stringValue": "s_ce177f1b6e99ecdc"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.16268318930710032
+                    },
+                    "hit": {
+                      "doubleValue": 0.54639175257731953
+                    },
+                    "n": {
+                      "integerValue": "97"
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.023511183280584443
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "2"
+                    },
+                    "dice": {
+                      "doubleValue": 0.0071294785925388312
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "16"
+                    },
+                    "hit": {
+                      "doubleValue": 0.25
+                    },
+                    "dice": {
+                      "doubleValue": 0.073393761717347822
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.0030124588095171529
+                    },
+                    "n": {
+                      "integerValue": "13"
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "dice": {
+                      "doubleValue": 0.19292852587514944
+                    },
+                    "hit": {
+                      "doubleValue": 0.61538461538461542
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.55935212585082228
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "46"
+                    },
+                    "hit": {
+                      "doubleValue": 0.58695652173913049
+                    },
+                    "dice": {
+                      "doubleValue": 0.16899794884674516
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "dice": {
+                      "doubleValue": 0.078103005405924367
+                    },
+                    "hit": {
+                      "doubleValue": 0.16666666666666666
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.11820160282345164
+                    },
+                    "hit": {
+                      "doubleValue": 0.3
+                    },
+                    "n": {
+                      "integerValue": "10"
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "dice": {
+                      "doubleValue": 0.077325641398823391
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.0707457599156692
+                    },
+                    "hit": {
+                      "doubleValue": 0.24590163934426229
+                    },
+                    "n": {
+                      "integerValue": "61"
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "hit": {
+                      "doubleValue": 0.8
+                    },
+                    "dice": {
+                      "doubleValue": 0.14998466247495137
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "baseLabel": {
+          "stringValue": "FARM-VoxTell-FT-HZ"
+        },
+        "submissionNumber": {
+          "integerValue": "1"
+        },
+        "institution": {
+          "stringValue": "Fudan Univerisity"
+        },
+        "instanceF1": {
+          "doubleValue": 0.074478988725657655
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.31142857142857144
+        },
+        "dice": {
+          "doubleValue": 0.14608371254514371
+        },
+        "registeredTeam": {
+          "stringValue": "FARM"
+        },
+        "instancePrecision": {
+          "doubleValue": 0.042297244858362434
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-20T12:50:52.490Z"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "publicCases": {
+          "integerValue": "150"
+        }
+      },
+      "createTime": "2026-07-20T12:01:18.101492Z",
+      "updateTime": "2026-07-20T12:50:52.548298Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/iAxelwnQpe0sQrW0SPX8",
+      "fields": {
+        "team": {
+          "stringValue": "JECT_base"
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "submitter": {
+          "stringValue": "hanbinko"
+        },
+        "hitRate": {
+          "doubleValue": 0.72185430463576161
+        },
+        "status": {
+          "stringValue": "published"
+        },
+        "submitterKey": {
+          "stringValue": "s_afa3cdfa976c6749"
+        },
+        "baseLabel": {
+          "stringValue": "JECT_base"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "97"
+                    },
+                    "hit": {
+                      "doubleValue": 0.80412371134020622
+                    },
+                    "dice": {
+                      "doubleValue": 0.32354262252788724
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "dice": {
+                      "doubleValue": 0.44417385111176239
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.36529021024820951
+                    },
+                    "hit": {
+                      "doubleValue": 0.74358974358974361
+                    },
+                    "n": {
+                      "integerValue": "39"
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "13"
+                    },
+                    "dice": {
+                      "doubleValue": 0.30886465104749194
+                    },
+                    "hit": {
+                      "doubleValue": 0.61538461538461542
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.10222311362549269
+                    },
+                    "hit": {
+                      "doubleValue": 0.3125
+                    },
+                    "n": {
+                      "integerValue": "16"
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.031166107980887887
+                    },
+                    "n": {
+                      "integerValue": "2"
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.35766066501722049
+                    },
+                    "hit": {
+                      "doubleValue": 0.782608695652174
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "dice": {
+                      "doubleValue": 0.5524197875468605
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "dice": {
+                      "doubleValue": 0.16042522977279239
+                    },
+                    "hit": {
+                      "doubleValue": 0.33333333333333331
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "61"
+                    },
+                    "dice": {
+                      "doubleValue": 0.29604668860681638
+                    },
+                    "hit": {
+                      "doubleValue": 0.80327868852459017
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.19869064639698966
+                    },
+                    "hit": {
+                      "doubleValue": 0.6
+                    },
+                    "n": {
+                      "integerValue": "10"
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "dice": {
+                      "doubleValue": 0.07923297535136864
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "hit": {
+                      "doubleValue": 0.4
+                    },
+                    "dice": {
+                      "doubleValue": 0.071565434584754478
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "submissionNumber": {
+          "integerValue": "1"
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "instanceF1": {
+          "doubleValue": 0.305672268907563
+        },
+        "institution": {
+          "stringValue": "SeoulNationalUniversity"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.4157142857142857
+        },
+        "dice": {
+          "doubleValue": 0.31527127471742195
+        },
+        "registeredTeam": {
+          "stringValue": "iRAIL"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-15T18:11:40.159Z"
+        },
+        "instancePrecision": {
+          "doubleValue": 0.24169435215946844
+        },
+        "publicCases": {
+          "integerValue": "150"
+        }
+      },
+      "createTime": "2026-07-15T18:01:19.508188Z",
+      "updateTime": "2026-07-15T18:11:40.199994Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/mlwdvs3iEKZmZCUzxKRs",
+      "fields": {
+        "instancePrecision": {
+          "doubleValue": 0.16792656587473
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-20T19:01:36.262Z"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "publicCases": {
+          "integerValue": "150"
+        },
+        "institution": {
+          "stringValue": "Medical University of Vienna"
+        },
+        "instanceF1": {
+          "doubleValue": 0.24373040752351097
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.44428571428571428
+        },
+        "dice": {
+          "doubleValue": 0.29977695275360627
+        },
+        "registeredTeam": {
+          "stringValue": "MUW"
+        },
+        "submitterKey": {
+          "stringValue": "s_a5372c315703fa5f"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "hit": {
+                      "doubleValue": 0.33333333333333331
+                    },
+                    "dice": {
+                      "doubleValue": 0.15562023677090661
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.054146963900282549
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "61"
+                    },
+                    "hit": {
+                      "doubleValue": 0.80327868852459017
+                    },
+                    "dice": {
+                      "doubleValue": 0.27264870200814312
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "10"
+                    },
+                    "hit": {
+                      "doubleValue": 0.6
+                    },
+                    "dice": {
+                      "doubleValue": 0.22176042036931887
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "dice": {
+                      "doubleValue": 0.10767715556165032
+                    },
+                    "hit": {
+                      "doubleValue": 0.6
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.711340206185567
+                    },
+                    "dice": {
+                      "doubleValue": 0.29121303178117597
+                    },
+                    "n": {
+                      "integerValue": "97"
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.38719015741038709
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "dice": {
+                      "doubleValue": 0.34629033322605157
+                    },
+                    "hit": {
+                      "doubleValue": 0.74358974358974361
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.76923076923076927
+                    },
+                    "dice": {
+                      "doubleValue": 0.3546425651360634
+                    },
+                    "n": {
+                      "integerValue": "13"
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.074004508671895786
+                    },
+                    "hit": {
+                      "doubleValue": 0.25
+                    },
+                    "n": {
+                      "integerValue": "16"
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.051056914486509647
+                    },
+                    "hit": {
+                      "doubleValue": 0.5
+                    },
+                    "n": {
+                      "integerValue": "2"
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.34039365254450321
+                    },
+                    "hit": {
+                      "doubleValue": 0.73913043478260865
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.55149963425195681
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "baseLabel": {
+          "stringValue": "MUW-GroundCT-v3"
+        },
+        "submissionNumber": {
+          "integerValue": "1"
+        },
+        "team": {
+          "stringValue": "MUW-GroundCT-v3"
+        },
+        "status": {
+          "stringValue": "published"
+        },
+        "hitRate": {
+          "doubleValue": 0.695364238410596
+        },
+        "submitter": {
+          "stringValue": "Ronald Fecso"
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        }
+      },
+      "createTime": "2026-07-20T18:48:58.880397Z",
+      "updateTime": "2026-07-20T19:01:36.315418Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/muw-groundct",
+      "fields": {
+        "submitterKey": {
+          "stringValue": "s_a5372c315703fa5f"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.36155897099104306
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.19780771740370037
+                    },
+                    "hit": {
+                      "doubleValue": 0.54639175257731953
+                    },
+                    "n": {
+                      "integerValue": "97"
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.31385534111993557
+                    },
+                    "hit": {
+                      "doubleValue": 0.69565217391304346
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "dice": {
+                      "doubleValue": 0.38312241077739284
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.32320201277509536
+                    },
+                    "hit": {
+                      "doubleValue": 0.66666666666666663
+                    },
+                    "n": {
+                      "integerValue": "39"
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "16"
+                    },
+                    "dice": {
+                      "doubleValue": 0.038733792025335334
+                    },
+                    "hit": {
+                      "doubleValue": 0.0625
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "13"
+                    },
+                    "dice": {
+                      "doubleValue": 0.23753116691123341
+                    },
+                    "hit": {
+                      "doubleValue": 0.61538461538461542
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.00028372279454695951
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "n": {
+                      "integerValue": "2"
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "dice": {
+                      "doubleValue": 0.12024020271288487
+                    },
+                    "hit": {
+                      "doubleValue": 0.33333333333333331
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.4
+                    },
+                    "dice": {
+                      "doubleValue": 0.077926028276404463
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "dice": {
+                      "doubleValue": 0.061041018233682631
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "61"
+                    },
+                    "hit": {
+                      "doubleValue": 0.67213114754098358
+                    },
+                    "dice": {
+                      "doubleValue": 0.22949746074007388
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "10"
+                    },
+                    "hit": {
+                      "doubleValue": 0.5
+                    },
+                    "dice": {
+                      "doubleValue": 0.17021372456656914
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "team": {
+          "stringValue": "MUW-GroundCT"
+        },
+        "submitter": {
+          "stringValue": "Ronald Fecso"
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "hitRate": {
+          "doubleValue": 0.57284768211920534
+        },
+        "instancePrecision": {
+          "doubleValue": 0.12627291242362526
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-08T22:54:13.502Z"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "publicCases": {
+          "integerValue": "150"
+        },
+        "institution": {
+          "stringValue": "Medical University of Vienna"
+        },
+        "instanceF1": {
+          "doubleValue": 0.18618618618618618
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.35428571428571426
+        },
+        "dice": {
+          "doubleValue": 0.24248245225391241
+        },
+        "registeredTeam": {
+          "stringValue": "MUW"
+        }
+      },
+      "createTime": "2026-07-02T20:18:37.500602Z",
+      "updateTime": "2026-07-09T16:26:56.238648Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/muw-text2unet",
+      "fields": {
+        "team": {
+          "stringValue": "MUW-Text2UNet"
+        },
+        "submitter": {
+          "stringValue": "Ronald Fecso"
+        },
+        "hitRate": {
+          "doubleValue": 0.30132450331125826
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "submitterKey": {
+          "stringValue": "s_a5372c315703fa5f"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.0067553463808414016
+                    },
+                    "hit": {
+                      "doubleValue": 0.030927835051546393
+                    },
+                    "n": {
+                      "integerValue": "97"
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.080113883684341178
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "2"
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 7.31195747264004e-05
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "13"
+                    },
+                    "hit": {
+                      "doubleValue": 0.61538461538461542
+                    },
+                    "dice": {
+                      "doubleValue": 0.17279685704505945
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "16"
+                    },
+                    "dice": {
+                      "doubleValue": 0.0088887849435807364
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "hit": {
+                      "doubleValue": 0.58974358974358976
+                    },
+                    "dice": {
+                      "doubleValue": 0.2623477970607308
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "dice": {
+                      "doubleValue": 0.0089110675900503
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.17765090191126981
+                    },
+                    "hit": {
+                      "doubleValue": 0.56521739130434778
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "dice": {
+                      "doubleValue": 0.04858300376930913
+                    },
+                    "hit": {
+                      "doubleValue": 0.16666666666666666
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.014353422452632377
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "61"
+                    },
+                    "hit": {
+                      "doubleValue": 0.42622950819672129
+                    },
+                    "dice": {
+                      "doubleValue": 0.1250077979657542
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.3
+                    },
+                    "dice": {
+                      "doubleValue": 0.11444247369018194
+                    },
+                    "n": {
+                      "integerValue": "10"
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.058111613202826727
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "instanceF1": {
+          "doubleValue": 0.040678727946960334
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "institution": {
+          "stringValue": "Medical University of Vienna"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.25857142857142856
+        },
+        "dice": {
+          "doubleValue": 0.1061985532480955
+        },
+        "registeredTeam": {
+          "stringValue": "MUW"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-08T22:54:13.759Z"
+        },
+        "instancePrecision": {
+          "doubleValue": 0.022075862910110988
+        },
+        "publicCases": {
+          "integerValue": "150"
+        }
+      },
+      "createTime": "2026-06-27T18:25:58.611680Z",
+      "updateTime": "2026-07-09T16:26:57.036160Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/muw-text2unet-v2",
+      "fields": {
+        "instancePrecision": {
+          "doubleValue": 0.073253833049403749
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-08T22:54:14.359Z"
+        },
+        "publicCases": {
+          "integerValue": "150"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.36857142857142855
+        },
+        "institution": {
+          "stringValue": "Medical University of Vienna"
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "instanceF1": {
+          "doubleValue": 0.1222169587873046
+        },
+        "registeredTeam": {
+          "stringValue": "MUW"
+        },
+        "dice": {
+          "doubleValue": 0.18756892437453124
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "hit": {
+                      "doubleValue": 0.33333333333333331
+                    },
+                    "dice": {
+                      "doubleValue": 0.08374441394006156
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "dice": {
+                      "doubleValue": 0.048132496790916537
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.15053471968568022
+                    },
+                    "hit": {
+                      "doubleValue": 0.57377049180327866
+                    },
+                    "n": {
+                      "integerValue": "61"
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "dice": {
+                      "doubleValue": 0.15862735816134177
+                    },
+                    "n": {
+                      "integerValue": "10"
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "dice": {
+                      "doubleValue": 0.027038188442592564
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "97"
+                    },
+                    "dice": {
+                      "doubleValue": 0.175256367200493
+                    },
+                    "hit": {
+                      "doubleValue": 0.60824742268041232
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.17289560543371654
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "16"
+                    },
+                    "dice": {
+                      "doubleValue": 0.016875510569049731
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.61538461538461542
+                    },
+                    "dice": {
+                      "doubleValue": 0.29783167904210672
+                    },
+                    "n": {
+                      "integerValue": "13"
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.00011846275361073804
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "n": {
+                      "integerValue": "2"
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "dice": {
+                      "doubleValue": 0.25830689760228365
+                    },
+                    "hit": {
+                      "doubleValue": 0.69230769230769229
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.52173913043478259
+                    },
+                    "dice": {
+                      "doubleValue": 0.20504040977285293
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "dice": {
+                      "doubleValue": 0.1566156616203796
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "submitterKey": {
+          "stringValue": "s_a5372c315703fa5f"
+        },
+        "submitter": {
+          "stringValue": "Ronald Fecso"
+        },
+        "hitRate": {
+          "doubleValue": 0.5298013245033113
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "team": {
+          "stringValue": "MUW-Text2UNet-v2"
+        }
+      },
+      "createTime": "2026-06-28T23:39:38.009118Z",
+      "updateTime": "2026-07-09T16:26:57.892237Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/thoraxtell",
+      "fields": {
+        "submitter": {
+          "stringValue": "Moritz Langenberg"
+        },
+        "hitRate": {
+          "doubleValue": 0.6887417218543046
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "team": {
+          "stringValue": "ThoraxTell"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "hit": {
+                      "doubleValue": 0.5
+                    },
+                    "dice": {
+                      "doubleValue": 0.097780901218982877
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "10"
+                    },
+                    "dice": {
+                      "doubleValue": 0.12078522658574045
+                    },
+                    "hit": {
+                      "doubleValue": 0.5
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "61"
+                    },
+                    "hit": {
+                      "doubleValue": 0.819672131147541
+                    },
+                    "dice": {
+                      "doubleValue": 0.26603392740741749
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "dice": {
+                      "doubleValue": 0.054430231642710047
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.16189147075667981
+                    },
+                    "hit": {
+                      "doubleValue": 0.8
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.75257731958762886
+                    },
+                    "dice": {
+                      "doubleValue": 0.30279891082386273
+                    },
+                    "n": {
+                      "integerValue": "97"
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.57921522812884019
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "16"
+                    },
+                    "dice": {
+                      "doubleValue": 0.055163207237901475
+                    },
+                    "hit": {
+                      "doubleValue": 0.125
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.53846153846153844
+                    },
+                    "dice": {
+                      "doubleValue": 0.3262323186992368
+                    },
+                    "n": {
+                      "integerValue": "13"
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 1.3221835448240033e-11
+                    },
+                    "n": {
+                      "integerValue": "2"
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "hit": {
+                      "doubleValue": 0.76923076923076927
+                    },
+                    "dice": {
+                      "doubleValue": 0.32522417118067981
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.67391304347826086
+                    },
+                    "dice": {
+                      "doubleValue": 0.32213657335839019
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "dice": {
+                      "doubleValue": 0.30800912293111293
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "submitterKey": {
+          "stringValue": "s_2946bebb1da60e48"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.50428571428571434
+        },
+        "institution": {
+          "stringValue": "DKFZ Heidelberg"
+        },
+        "instanceF1": {
+          "doubleValue": 0.1628228782287823
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "registeredTeam": {
+          "stringValue": "DKFZ"
+        },
+        "dice": {
+          "doubleValue": 0.29567575667570467
+        },
+        "instancePrecision": {
+          "doubleValue": 0.097084708470847089
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-08T22:54:14.628Z"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "publicCases": {
+          "integerValue": "150"
+        }
+      },
+      "createTime": "2026-07-03T22:55:46.713218Z",
+      "updateTime": "2026-07-09T16:26:58.692958Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/voxtell-ft",
+      "fields": {
+        "submitter": {
+          "stringValue": "Abdullah"
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "hitRate": {
+          "doubleValue": 0.39072847682119205
+        },
+        "team": {
+          "stringValue": "VoXTell-FT"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.025757260056980053
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "46"
+                    },
+                    "dice": {
+                      "doubleValue": 0.11826028828209602
+                    },
+                    "hit": {
+                      "doubleValue": 0.34782608695652173
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "dice": {
+                      "doubleValue": 0.16492025179937228
+                    },
+                    "hit": {
+                      "doubleValue": 0.4358974358974359
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.0038461477098020386
+                    },
+                    "n": {
+                      "integerValue": "2"
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "16"
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.0072111693835081817
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "13"
+                    },
+                    "hit": {
+                      "doubleValue": 0.46153846153846156
+                    },
+                    "dice": {
+                      "doubleValue": 0.12915646001688944
+                    }
+                  }
+                }
+              },
+              "unknown": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "3"
+                    },
+                    "dice": {
+                      "doubleValue": 0.094668411222751533
+                    },
+                    "hit": {
+                      "doubleValue": 0.33333333333333331
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.052224377852176831
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              },
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.67021276595744683
+                    },
+                    "dice": {
+                      "doubleValue": 0.23092725368266498
+                    },
+                    "n": {
+                      "integerValue": "94"
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "dice": {
+                      "doubleValue": 0.022419812685271816
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "10"
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "dice": {
+                      "doubleValue": 0.062519855796089832
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "5"
+                    },
+                    "dice": {
+                      "doubleValue": 0.010771874163289747
+                    },
+                    "hit": {
+                      "doubleValue": 0
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.059014312391272118
+                    },
+                    "hit": {
+                      "doubleValue": 0.21311475409836064
+                    },
+                    "n": {
+                      "integerValue": "61"
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0
+                    },
+                    "dice": {
+                      "doubleValue": 0.022614693729159013
+                    },
+                    "n": {
+                      "integerValue": "6"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "submitterKey": {
+          "stringValue": "s_885376c724e95d9a"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.36428571428571427
+        },
+        "institution": {
+          "stringValue": "HBKU"
+        },
+        "instanceF1": {
+          "doubleValue": 0.049128215008188036
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "registeredTeam": {
+          "stringValue": ""
+        },
+        "dice": {
+          "doubleValue": 0.15275595030763781
+        },
+        "instancePrecision": {
+          "doubleValue": 0.026340254105980787
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-08T22:54:15.192Z"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "publicCases": {
+          "integerValue": "150"
+        }
+      },
+      "createTime": "2026-06-27T18:25:57.969606Z",
+      "updateTime": "2026-07-09T16:26:59.485495Z"
+    },
+    {
+      "name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/wgSa4gzMtw2SBLVB28l2",
+      "fields": {
+        "submissionNumber": {
+          "integerValue": "2"
+        },
+        "submitterKey": {
+          "stringValue": "s_30b752466158decc"
+        },
+        "baseLabel": {
+          "stringValue": "VoXTell-FT"
+        },
+        "perCategory": {
+          "mapValue": {
+            "fields": {
+              "2d": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.27972612382660877
+                    },
+                    "hit": {
+                      "doubleValue": 0.711340206185567
+                    },
+                    "n": {
+                      "integerValue": "97"
+                    }
+                  }
+                }
+              },
+              "2g": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "1"
+                    },
+                    "dice": {
+                      "doubleValue": 0.24339767682018987
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    }
+                  }
+                }
+              },
+              "2c": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "39"
+                    },
+                    "hit": {
+                      "doubleValue": 0.76923076923076927
+                    },
+                    "dice": {
+                      "doubleValue": 0.3267603406790302
+                    }
+                  }
+                }
+              },
+              "1f": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "2"
+                    },
+                    "hit": {
+                      "doubleValue": 0.5
+                    },
+                    "dice": {
+                      "doubleValue": 0.066556365978265961
+                    }
+                  }
+                }
+              },
+              "2e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "13"
+                    },
+                    "dice": {
+                      "doubleValue": 0.32247232862743086
+                    },
+                    "hit": {
+                      "doubleValue": 0.61538461538461542
+                    }
+                  }
+                }
+              },
+              "1c": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.0625
+                    },
+                    "dice": {
+                      "doubleValue": 0.01419175290724969
+                    },
+                    "n": {
+                      "integerValue": "16"
+                    }
+                  }
+                }
+              },
+              "2h": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.43034923759394123
+                    },
+                    "hit": {
+                      "doubleValue": 1
+                    },
+                    "n": {
+                      "integerValue": "1"
+                    }
+                  }
+                }
+              },
+              "2b": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.69565217391304346
+                    },
+                    "dice": {
+                      "doubleValue": 0.29307793765872991
+                    },
+                    "n": {
+                      "integerValue": "46"
+                    }
+                  }
+                }
+              },
+              "1d": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "6"
+                    },
+                    "dice": {
+                      "doubleValue": 0.1270823416335623
+                    },
+                    "hit": {
+                      "doubleValue": 0.33333333333333331
+                    }
+                  }
+                }
+              },
+              "2a": {
+                "mapValue": {
+                  "fields": {
+                    "hit": {
+                      "doubleValue": 0.65573770491803274
+                    },
+                    "dice": {
+                      "doubleValue": 0.22302538938738178
+                    },
+                    "n": {
+                      "integerValue": "61"
+                    }
+                  }
+                }
+              },
+              "1e": {
+                "mapValue": {
+                  "fields": {
+                    "n": {
+                      "integerValue": "10"
+                    },
+                    "dice": {
+                      "doubleValue": 0.15050043130533106
+                    },
+                    "hit": {
+                      "doubleValue": 0.4
+                    }
+                  }
+                }
+              },
+              "1b": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.097925159884326762
+                    },
+                    "hit": {
+                      "doubleValue": 0.2
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              },
+              "1a": {
+                "mapValue": {
+                  "fields": {
+                    "dice": {
+                      "doubleValue": 0.15451861901416125
+                    },
+                    "hit": {
+                      "doubleValue": 0.8
+                    },
+                    "n": {
+                      "integerValue": "5"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "team": {
+          "stringValue": "VoXTell-FT (submission 2)"
+        },
+        "submitter": {
+          "stringValue": "Syed Abdullah Basit"
+        },
+        "hitRate": {
+          "doubleValue": 0.64238410596026485
+        },
+        "leaderboardSplit": {
+          "stringValue": "public-50pct"
+        },
+        "status": {
+          "stringValue": "published"
+        },
+        "publicCases": {
+          "integerValue": "150"
+        },
+        "updatedAt": {
+          "timestampValue": "2026-07-08T22:54:15.452Z"
+        },
+        "totalFindings": {
+          "integerValue": "302"
+        },
+        "instancePrecision": {
+          "doubleValue": 0.090933990687482882
+        },
+        "dice": {
+          "doubleValue": 0.27600876668488494
+        },
+        "registeredTeam": {
+          "stringValue": "HBKU"
+        },
+        "totalCases": {
+          "integerValue": "150"
+        },
+        "instanceF1": {
+          "doubleValue": 0.15260859572512067
+        },
+        "institution": {
+          "stringValue": "Hamad Bin Khalifa University"
+        },
+        "instanceRecall": {
+          "doubleValue": 0.47428571428571431
+        }
+      },
+      "createTime": "2026-07-05T12:00:58.990708Z",
+      "updateTime": "2026-07-09T16:27:00.276970Z"
+    }
+  ]
+}

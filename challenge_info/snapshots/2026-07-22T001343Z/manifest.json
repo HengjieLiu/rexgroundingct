@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "tool_version": "1.0.0",
+  "snapshot_id": "2026-07-22T001343Z",
+  "extracted_at_utc": "2026-07-22T00:13:43Z",
+  "extracted_at_local": "2026-07-21T17:13:43-07:00",
+  "rexrank_gh_pages_commit": "a0f39149ef7eee3b23bb2f674fe91fbeb18d40ba",
+  "sources": [
+    {
+      "id": "rexgroundingct",
+      "category": "core",
+      "required": true,
+      "requested_url": "https://rexrank.ai/ReXGroundingCT/",
+      "final_url": "https://rexrank.ai/ReXGroundingCT/",
+      "snapshot_path": "raw/rexrank.ai/ReXGroundingCT/index.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "charset": "utf-8",
+      "etag": "\"6a5d6d5a-79d9\"",
+      "last_modified": "Mon, 20 Jul 2026 00:35:38 GMT",
+      "fetched_at_utc": "2026-07-22T00:13:43Z",
+      "bytes": 31193,
+      "sha256": "b5818cbbea4e6d9868a0fff6186a434cffa6b7539343de6b36dd3f98474a9704"
+    },
+    {
+      "id": "rexgroundingct_challenge",
+      "category": "core",
+      "required": true,
+      "requested_url": "https://rexrank.ai/ReXGroundingCT/challenge.html",
+      "final_url": "https://rexrank.ai/ReXGroundingCT/challenge.html",
+      "snapshot_path": "raw/rexrank.ai/ReXGroundingCT/challenge.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "charset": "utf-8",
+      "etag": "\"6a5d6d5a-c8e3\"",
+      "last_modified": "Mon, 20 Jul 2026 00:35:38 GMT",
+      "fetched_at_utc": "2026-07-22T00:13:43Z",
+      "bytes": 51427,
+      "sha256": "3b1264e89db26266254c3b4912d2d5e3a533ee53944405d801d341f69d85eb1d"
+    },
+    {
+      "id": "rexrankct_submission_guideline",
+      "category": "core",
+      "required": true,
+      "requested_url": "https://rexrank.ai/explore/submission_guideline_ct.html",
+      "final_url": "https://rexrank.ai/explore/submission_guideline_ct.html",
+      "snapshot_path": "raw/rexrank.ai/explore/submission_guideline_ct.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "charset": "utf-8",
+      "etag": "\"6a5d6d5a-16fb\"",
+      "last_modified": "Mon, 20 Jul 2026 00:35:38 GMT",
+      "fetched_at_utc": "2026-07-22T00:13:43Z",
+      "bytes": 5883,
+      "sha256": "771a84f15ea9696f59c653637541d1de96abde138992cbeaa48945090bbd1e7e"
+    },
+    {
+      "id": "huggingface_dataset_card",
+      "category": "companion",
+      "required": true,
+      "requested_url": "https://huggingface.co/datasets/rajpurkarlab/ReXGroundingCT",
+      "final_url": "https://huggingface.co/datasets/rajpurkarlab/ReXGroundingCT",
+      "snapshot_path": "raw/huggingface.co/datasets/rajpurkarlab/ReXGroundingCT.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "charset": "utf-8",
+      "etag": "W/\"1ebdf-xgwcqFjkvcwi0XmA+lOL3TJkw2c\"",
+      "last_modified": null,
+      "fetched_at_utc": "2026-07-22T00:13:43Z",
+      "bytes": 125919,
+      "sha256": "e4a0ecee73305b3510b9d3ca1f1bfcbe473a04d36800b3abb5aeceb47d7fb47f"
+    },
+    {
+      "id": "github_dataset_generation",
+      "category": "companion",
+      "required": true,
+      "requested_url": "https://raw.githubusercontent.com/rajpurkarlab/ReXGroundingCT/main/README.md",
+      "final_url": "https://raw.githubusercontent.com/rajpurkarlab/ReXGroundingCT/main/README.md",
+      "snapshot_path": "raw/raw.githubusercontent.com/rajpurkarlab/ReXGroundingCT/main/README.md",
+      "http_status": 200,
+      "content_type": "text/plain",
+      "charset": "utf-8",
+      "etag": "\"02f67f7eca09c855ea3dbde33c05398168286f7d895d34a73d51c23c9e02d207\"",
+      "last_modified": null,
+      "fetched_at_utc": "2026-07-22T00:13:43Z",
+      "bytes": 908,
+      "sha256": "587e0588b050ed515a38997514a8497e6dd51a5c9580e6aaf48e835627fd9bec"
+    },
+    {
+      "id": "arxiv_paper_record",
+      "category": "companion",
+      "required": true,
+      "requested_url": "https://arxiv.org/abs/2507.22030",
+      "final_url": "https://arxiv.org/abs/2507.22030",
+      "snapshot_path": "raw/arxiv.org/abs/2507.22030.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "charset": "utf-8",
+      "etag": null,
+      "last_modified": "Tue, 28 Oct 2025 01:59:21 GMT",
+      "fetched_at_utc": "2026-07-22T00:13:43Z",
+      "bytes": 48297,
+      "sha256": "2feb8dc0e8c0ddf40802ad86bc0c65c1cbfb9cb95aabb7b3f6c7ca7550b3823e"
+    },
+    {
+      "id": "miccai_2026_challenge_listing",
+      "category": "companion",
+      "required": true,
+      "requested_url": "https://conferences.miccai.org/2026/en/challenges.asp",
+      "final_url": "https://conferences.miccai.org/2026/en/challenges.asp",
+      "snapshot_path": "raw/conferences.miccai.org/2026/en/challenges.asp.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "charset": "windows-1254",
+      "etag": null,
+      "last_modified": null,
+      "fetched_at_utc": "2026-07-22T00:13:43Z",
+      "bytes": 41928,
+      "sha256": "81337ec4a9ad9c1457825532a166e7650848c755c31b0cdbcad6d53f5ac36467"
+    },
+    {
+      "id": "rexgroundingct_model_results",
+      "category": "data",
+      "required": true,
+      "requested_url": "https://rexrank.ai/ReXGroundingCT/ReXGroundingCT.csv",
+      "final_url": "https://rexrank.ai/ReXGroundingCT/ReXGroundingCT.csv",
+      "snapshot_path": "raw/rexrank.ai/ReXGroundingCT/ReXGroundingCT.csv",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "charset": "utf-8",
+      "etag": "\"6a5d6d5a-2e7\"",
+      "last_modified": "Mon, 20 Jul 2026 00:35:38 GMT",
+      "fetched_at_utc": "2026-07-22T00:13:45Z",
+      "bytes": 743,
+      "sha256": "b8cd4c063002c598876ea8e227e396258c651da73c7dc69e0ae46d012daddc8e"
+    },
+    {
+      "id": "rexgroundingct_per_category_results",
+      "category": "data",
+      "required": true,
+      "requested_url": "https://rexrank.ai/ReXGroundingCT/per_category_results.csv",
+      "final_url": "https://rexrank.ai/ReXGroundingCT/per_category_results.csv",
+      "snapshot_path": "raw/rexrank.ai/ReXGroundingCT/per_category_results.csv",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "charset": "utf-8",
+      "etag": "\"6a5d6d5a-10f0\"",
+      "last_modified": "Mon, 20 Jul 2026 00:35:38 GMT",
+      "fetched_at_utc": "2026-07-22T00:13:45Z",
+      "bytes": 4336,
+      "sha256": "4ca83e4165e931d8d54b6abea5e67aea89e16073e633c8a25b94911ef2bec073"
+    },
+    {
+      "id": "rexgroundingct_category_counts",
+      "category": "data",
+      "required": true,
+      "requested_url": "https://rexrank.ai/ReXGroundingCT/category_counts.csv",
+      "final_url": "https://rexrank.ai/ReXGroundingCT/category_counts.csv",
+      "snapshot_path": "raw/rexrank.ai/ReXGroundingCT/category_counts.csv",
+      "http_status": 200,
+      "content_type": "text/csv",
+      "charset": "utf-8",
+      "etag": "\"6a5d6d5a-56\"",
+      "last_modified": "Mon, 20 Jul 2026 00:35:38 GMT",
+      "fetched_at_utc": "2026-07-22T00:13:45Z",
+      "bytes": 86,
+      "sha256": "b9ba170f7a26ea91799088e3f434807141cdde1b5338dde9ad668171e9f455b5"
+    },
+    {
+      "id": "rexrank_gh_pages_branch",
+      "category": "metadata",
+      "required": false,
+      "requested_url": "https://api.github.com/repos/rajpurkarlab/ReXrank/branches/gh-pages",
+      "final_url": "https://api.github.com/repos/rajpurkarlab/ReXrank/branches/gh-pages",
+      "snapshot_path": "raw/api.github.com/repos/rajpurkarlab/ReXrank/branches/gh-pages.json",
+      "http_status": 200,
+      "content_type": "application/json",
+      "charset": "utf-8",
+      "etag": "W/\"f7fbbb3320a0c100821c1cf2060ed504960c860e1849f4a70edb4ed13077cbce\"",
+      "last_modified": null,
+      "fetched_at_utc": "2026-07-22T00:13:45Z",
+      "bytes": 3794,
+      "sha256": "b040c1bfd943b0c47d1102d8f966eada9cd6031c2bfea93da8d1da971dbeeaad"
+    },
+    {
+      "id": "challenge_public_leaderboard",
+      "category": "dynamic_data",
+      "required": true,
+      "requested_url": "https://firestore.googleapis.com/v1/projects/rexgrounding-challenge/databases/(default)/documents/leaderboard",
+      "final_url": "https://firestore.googleapis.com/v1/projects/rexgrounding-challenge/databases/(default)/documents/leaderboard",
+      "snapshot_path": "raw/firestore.googleapis.com/rexgrounding-challenge/leaderboard.json",
+      "http_status": 200,
+      "content_type": "application/json",
+      "charset": "utf-8",
+      "etag": null,
+      "last_modified": null,
+      "fetched_at_utc": "2026-07-22T00:13:45Z",
+      "bytes": 125456,
+      "sha256": "d33ccef8f34dfb2e242eb48f648f88fad8d40948db972f37c4748bcb2de47f7a"
+    }
+  ],
+  "generated": [
+    {
+      "path": "generated/README.md",
+      "bytes": 6911,
+      "sha256": "f45435759689b1e13a3b3b38fbf9a0f32922dbafbf074041a6d946034b2b3669"
+    },
+    {
+      "path": "generated/SUMMARY.md",
+      "bytes": 10718,
+      "sha256": "34a6a51fdd20cabc961c0d49289c0c534392e00f6bfd60943f5b6f3aa1445eb7"
+    },
+    {
+      "path": "generated/arxiv_paper_record.md",
+      "bytes": 10808,
+      "sha256": "05e98c865649d73c503f30404e5a6b85999f6a392739e3c10c0cffe938ad649e"
+    },
+    {
+      "path": "generated/github_dataset_generation.md",
+      "bytes": 1442,
+      "sha256": "19302cb71894e1892d7541f6e02fb38521444257fb22a89cb3258d52c1c5a7d2"
+    },
+    {
+      "path": "generated/huggingface_dataset_card.md",
+      "bytes": 10677,
+      "sha256": "2b3e13461db6ce86882ff0da99c582993bbaa86d7c4a3bd5141b3731a02a3eea"
+    },
+    {
+      "path": "generated/miccai_2026_challenge_listing.md",
+      "bytes": 852,
+      "sha256": "f4c957cb7b3a9b705f2b759c51d878147b9c4aebf15b0e248a788b51d79e4978"
+    },
+    {
+      "path": "generated/rexgroundingct.md",
+      "bytes": 11858,
+      "sha256": "ef43875db3189a9992e35b8209943b714758ccb36c4d872e1f4d08e144c71e76"
+    },
+    {
+      "path": "generated/rexgroundingct_challenge.md",
+      "bytes": 33123,
+      "sha256": "81b46b035212d60e1544667bab7fc06a1295bfaa2828e6f3088d82f2059a44c1"
+    },
+    {
+      "path": "generated/rexrankct_submission_guideline.md",
+      "bytes": 2548,
+      "sha256": "fdd4ede5a6ccbfe03cbbc3f6a2b6539dc3aaf01f8cf0dc29908ca9ac7e18af55"
+    }
+  ],
+  "warnings": [],
+  "privacy_scope": "Public web sources and the public read-only Firestore leaderboard collection only."
+}
