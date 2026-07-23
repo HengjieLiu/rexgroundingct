@@ -5,6 +5,7 @@ experiments:
     title: "VoxTell v1.1 MICCAI 200-case validation evaluation"
     status: "evaluation_complete"
     canonical_config: "configs/experiments/001_voxtell_v1_1_miccai200_val_eval.json"
+    execution_spec: null
     runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/001_voxtell_v1_1_miccai200_val_eval"
     runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/001_voxtell_v1_1_miccai200_val_eval/config/001_voxtell_v1_1_miccai200_val_eval.json"
     runtime_config_matches_canonical: true
@@ -18,6 +19,7 @@ experiments:
     title: "VoxTell text-conditioned fine-tuning on MICCAI train and val"
     status: "runtime_initialized"
     canonical_config: "configs/experiments/002_voxtell_text_ft_miccai_train_val.json"
+    execution_spec: "experiments/002_voxtell_text_ft_miccai_train_val/codex_execution_spec.md"
     runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val"
     runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val/config/002_voxtell_text_ft_miccai_train_val.json"
     runtime_config_matches_canonical: true

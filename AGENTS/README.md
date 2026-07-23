@@ -19,6 +19,10 @@ Read all files here before making changes.
 6. `hardware.md`: known machine, GPU, and storage assumptions.
 7. `goals.md`: current research goals and open decisions.
 
+After this folder, read `../docs/ai_workflow.md` and
+`../docs/current_status.md` for substantial experiment, submission, or workflow
+work.
+
 ## Folder Map
 
 - `README.md`: this index and required reading order.
@@ -29,3 +33,5 @@ Read all files here before making changes.
 - `literature_and_code.md`: source material and implementation map.
 - `hardware.md`: hardware and runtime capacity assumptions.
 - `goals.md`: project goals to refine over time.
+- `reference_ai_workflows/`: workflow summaries from prior research projects
+  used as adaptation evidence for this repo.

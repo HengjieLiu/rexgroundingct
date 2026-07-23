@@ -106,6 +106,11 @@ def status_for(runtime_dir: Path, report: Path, eval_json: Path) -> str:
 
 def render_experiment_readme(record: dict[str, Any]) -> str:
     report_path = record["report"].get("repo_path") if record["report"].get("copied") else "not available"
+    execution_spec_path = (
+        record["execution_spec"].get("repo_path")
+        if record["execution_spec"].get("exists")
+        else "not available"
+    )
     lines = [
         "---",
         "created: 2026-07-22",
@@ -121,6 +126,7 @@ def render_experiment_readme(record: dict[str, Any]) -> str:
         "## Folder Map",
         "",
         "- `README.md`: this experiment's status and ownership rules.",
+        "- `codex_execution_spec.md`: active or historical Codex execution spec.",
         "- `metrics_summary.json`: synced metrics and provenance summary.",
         "- `sync_manifest.json`: hashes, paths, and sync provenance.",
         "- `report.md`: small copied runtime report when available.",
@@ -130,6 +136,7 @@ def render_experiment_readme(record: dict[str, Any]) -> str:
         "",
         f"- Status: `{record['status']}`",
         f"- Canonical config: `{record['canonical_config']['repo_path']}`",
+        f"- Execution spec: `{execution_spec_path}`",
         f"- Runtime directory: `{record['runtime_dir']}`",
         "- Runtime link: `runtime` is ignored by git and points to the runtime directory.",
         "",
@@ -145,6 +152,7 @@ def render_experiment_readme(record: dict[str, Any]) -> str:
         "- Runtime config files are snapshots and should not be edited by hand.",
         "- Logs, predictions, checkpoints, and raw evaluator outputs stay on `/mnt/shengdata1`.",
         "- Re-run the sync script after an evaluation or training run writes a new report.",
+        "- Keep `codex_execution_spec.md` current before substantial long-running work.",
         "",
     ]
     return "\n".join(lines)
@@ -167,12 +175,18 @@ def render_registry(records: list[dict[str, Any]]) -> str:
     for record in records:
         metrics = record.get("metrics") or {}
         repo_report = record["report"].get("repo_path") if record["report"].get("copied") else None
+        execution_spec = (
+            record["execution_spec"].get("repo_path")
+            if record["execution_spec"].get("exists")
+            else None
+        )
         lines.extend(
             [
                 f"  - id: {yaml_quote(record['id'])}",
                 f"    title: {yaml_quote(record['title'])}",
                 f"    status: {yaml_quote(record['status'])}",
                 f"    canonical_config: {yaml_quote(record['canonical_config']['repo_path'])}",
+                f"    execution_spec: {yaml_quote(execution_spec)}",
                 f"    runtime_dir: {yaml_quote(record['runtime_dir'])}",
                 f"    runtime_config_snapshot: {yaml_quote(record['runtime_config_snapshot']['path'])}",
                 f"    runtime_config_matches_canonical: {yaml_quote(record['runtime_config_matches_canonical'])}",
@@ -206,6 +220,7 @@ def render_top_readme(records: list[dict[str, Any]]) -> str:
         "- `README.md`: experiment index overview and drift policy.",
         "- `registry.yaml`: generated machine-readable experiment summary.",
         "- `<experiment-id>/README.md`: one experiment's status and ownership rules.",
+        "- `<experiment-id>/codex_execution_spec.md`: active or historical Codex execution spec.",
         "- `<experiment-id>/metrics_summary.json`: small synced metrics/provenance summary.",
         "- `<experiment-id>/sync_manifest.json`: synced hash and path manifest.",
         "- `<experiment-id>/report.md`: small copied runtime report when available.",
@@ -214,6 +229,7 @@ def render_top_readme(records: list[dict[str, Any]]) -> str:
         "## Drift Policy",
         "",
         "- Edit canonical configs under `configs/experiments/`.",
+        "- Write or update `codex_execution_spec.md` before substantial long-running experiment work.",
         "- Runtime configs are hashed snapshots copied at run start.",
         "- `experiments/*/runtime` symlinks are ignored by git.",
         "- Use `scripts/rexgroundingct/check_experiment_consistency.py` before committing.",
@@ -263,6 +279,8 @@ def sync_one(
     )
     eval_record = artifact_record(eval_json)
     metrics = summarize_eval(eval_json)
+    execution_spec = artifact_record(repo_dir / "codex_execution_spec.md")
+    execution_spec["repo_path"] = rel_to_repo(repo_dir / "codex_execution_spec.md")
 
     record: dict[str, Any] = {
         "id": experiment,
@@ -280,6 +298,7 @@ def sync_one(
         "runtime_config_matches_canonical": runtime_config_matches,
         "report": report_record,
         "eval_json": eval_record,
+        "execution_spec": execution_spec,
         "repo_metrics": rel_to_repo(repo_dir / "metrics_summary.json"),
         "metrics": metrics,
         "repo_commit": git_commit(REPO_ROOT),

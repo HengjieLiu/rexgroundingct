@@ -12,6 +12,7 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 ## Folder Map
 
 - `README.md`: this experiment's status and ownership rules.
+- `codex_execution_spec.md`: active or historical Codex execution spec.
 - `metrics_summary.json`: synced metrics and provenance summary.
 - `sync_manifest.json`: hashes, paths, and sync provenance.
 - `report.md`: small copied runtime report when available.
@@ -21,6 +22,7 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 
 - Status: `evaluation_complete`
 - Canonical config: `configs/experiments/001_voxtell_v1_1_miccai200_val_eval.json`
+- Execution spec: `not available`
 - Runtime directory: `/mnt/shengdata1/hengjie/experiments/rexgroundingct/001_voxtell_v1_1_miccai200_val_eval`
 - Runtime link: `runtime` is ignored by git and points to the runtime directory.
 
@@ -36,3 +38,4 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 - Runtime config files are snapshots and should not be edited by hand.
 - Logs, predictions, checkpoints, and raw evaluator outputs stay on `/mnt/shengdata1`.
 - Re-run the sync script after an evaluation or training run writes a new report.
+- Keep `codex_execution_spec.md` current before substantial long-running work.

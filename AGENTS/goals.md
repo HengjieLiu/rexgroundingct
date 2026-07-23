@@ -13,6 +13,8 @@ status: active
   metrics.
 - Prepare a challenge-valid text-conditioned fine-tuning path.
 - Keep docs navigable for both humans and coding agents.
+- Keep AI-assisted work recoverable through specs, current-status updates,
+  prompt archives, and canonical checks.
 
 ## Open Decisions To Fill Later
 
@@ -20,4 +22,5 @@ status: active
 - Whether to add CT-specific HU normalization as a controlled ablation.
 - Whether to reorganize scripts into smaller packages after the experiment
   workflow stabilizes.
-- Which submission packaging workflow should become canonical.
+- Which candidate model and checkpoint should enter the canonical submission
+  packaging workflow.

@@ -36,6 +36,11 @@ BLOCKED_GIT_PATTERNS = [
 ]
 
 
+def is_python_cache_path(path: str) -> bool:
+    posix = PurePosixPath(path)
+    return "__pycache__" in posix.parts or posix.suffix in {".pyc", ".pyo", ".pyd"}
+
+
 def matches_any(path: str, patterns: list[str]) -> bool:
     posix = PurePosixPath(path)
     return any(posix.match(pattern) for pattern in patterns)
@@ -67,6 +72,14 @@ def check_git_artifacts(errors: list[str], warnings: list[str]) -> None:
         bad = sorted(path for path in paths if matches_any(path, BLOCKED_GIT_PATTERNS))
         for path in bad:
             errors.append(f"Blocked {label} experiment artifact in git view: {path}")
+
+    for label, paths in [
+        ("tracked", tracked),
+        ("staged", staged),
+    ]:
+        bad = sorted(path for path in paths if is_python_cache_path(path))
+        for path in bad:
+            errors.append(f"Blocked {label} Python cache artifact in git view: {path}")
 
 
 def compare_hash(

@@ -161,7 +161,7 @@ def validate_fetch(source: dict[str, Any], result: FetchResult) -> None:
     text = decode_text(result.content, result.charset)
     haystack = text
     if source.get("kind") == "html":
-        visible_text = BeautifulSoup(result.content, "html.parser").get_text(" ", strip=True)
+        visible_text = BeautifulSoup(text, "html.parser").get_text(" ", strip=True)
         haystack = text + "\n" + visible_text
     missing = [needle for needle in source.get("validate_contains", []) if needle not in haystack]
     if missing:
@@ -232,7 +232,7 @@ class MarkdownConverter:
         self.base_url = base_url
 
     def convert(self, content: bytes, selector: str | None = None) -> str:
-        soup = BeautifulSoup(content, "html.parser")
+        soup = BeautifulSoup(decode_text(content), "html.parser")
         for node in soup.find_all(["script", "style", "noscript", "template", "svg", "canvas"]):
             node.decompose()
         root: Tag | BeautifulSoup = soup.select_one(selector) if selector else (soup.body or soup)
@@ -647,7 +647,7 @@ def fetch_public_leaderboard(challenge_html: bytes, fetcher: Callable[[str], Fet
 
 
 def find_section_markdown(content: bytes, base_url: str, heading_text: str) -> str:
-    soup = BeautifulSoup(content, "html.parser")
+    soup = BeautifulSoup(decode_text(content), "html.parser")
     for node in soup.find_all(["script", "style", "noscript", "template", "svg", "canvas"]):
         node.decompose()
     heading = next(
@@ -695,7 +695,7 @@ def find_section_markdown(content: bytes, base_url: str, heading_text: str) -> s
 
 
 def miccai_listing_markdown(content: bytes, base_url: str) -> str:
-    soup = BeautifulSoup(content, "html.parser")
+    soup = BeautifulSoup(decode_text(content), "html.parser")
     target_row = next((row for row in soup.find_all("tr") if "ReXGrounding" in row.get_text(" ", strip=True)), None)
     if target_row is None:
         raise ValueError("MICCAI challenge table does not contain ReXGrounding")
@@ -714,7 +714,7 @@ def miccai_listing_markdown(content: bytes, base_url: str) -> str:
 
 
 def arxiv_record_markdown(content: bytes, base_url: str) -> str:
-    soup = BeautifulSoup(content, "html.parser")
+    soup = BeautifulSoup(decode_text(content), "html.parser")
     selector = "main" if soup.select_one("main") else ("#content" if soup.select_one("#content") else None)
     return MarkdownConverter(base_url).convert(content, selector)
 
@@ -789,10 +789,16 @@ def build_summary(
         "timeline": find_section_markdown(challenge.content, "https://rexrank.ai/ReXGroundingCT/challenge.html", "Timeline"),
         "metrics": find_section_markdown(challenge.content, "https://rexrank.ai/ReXGroundingCT/challenge.html", "Evaluation Metrics"),
     }
-    guideline_text = BeautifulSoup(submission.content, "html.parser").get_text(" ", strip=True)
+    guideline_text = BeautifulSoup(
+        decode_text(submission.content, submission.charset),
+        "html.parser",
+    ).get_text(" ", strip=True)
     if "Compose an email" not in guideline_text or "Send the email" not in guideline_text:
         raise ValueError("Submission guideline no longer contains the archived email-submission wording")
-    challenge_text = BeautifulSoup(challenge.content, "html.parser").get_text(" ", strip=True)
+    challenge_text = BeautifulSoup(
+        decode_text(challenge.content, challenge.charset),
+        "html.parser",
+    ).get_text(" ", strip=True)
     if "This is the only submission channel" not in challenge_text:
         raise ValueError("Challenge page no longer identifies its current submission channel")
 

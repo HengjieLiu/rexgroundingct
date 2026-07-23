@@ -14,8 +14,8 @@ small summaries easy to inspect while large outputs remain on `/mnt/shengdata1`.
 - `README.md`: experiment index overview and drift policy.
 - `registry.yaml`: generated machine-readable experiment summary.
 - `<experiment-id>/README.md`: one experiment's status and ownership rules.
-- `<experiment-id>/metrics_summary.json`: small synced metrics/provenance
-  summary.
+- `<experiment-id>/codex_execution_spec.md`: active or historical Codex execution spec.
+- `<experiment-id>/metrics_summary.json`: small synced metrics/provenance summary.
 - `<experiment-id>/sync_manifest.json`: synced hash and path manifest.
 - `<experiment-id>/report.md`: small copied runtime report when available.
 - `<experiment-id>/runtime`: ignored symlink to heavyweight runtime outputs.
@@ -23,6 +23,7 @@ small summaries easy to inspect while large outputs remain on `/mnt/shengdata1`.
 ## Drift Policy
 
 - Edit canonical configs under `configs/experiments/`.
+- Write or update `codex_execution_spec.md` before substantial long-running experiment work.
 - Runtime configs are hashed snapshots copied at run start.
 - `experiments/*/runtime` symlinks are ignored by git.
 - Use `scripts/rexgroundingct/check_experiment_consistency.py` before committing.
