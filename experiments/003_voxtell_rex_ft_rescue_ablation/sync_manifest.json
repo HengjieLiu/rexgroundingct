@@ -1,0 +1,48 @@
+{
+  "canonical_config": {
+    "bytes": 4602,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/003_voxtell_rex_ft_rescue_ablation.json",
+    "repo_path": "configs/experiments/003_voxtell_rex_ft_rescue_ablation.json",
+    "sha256": "a3c6387fee4e53f46fc06958b73fff7d5fa101764318a61c3cb86ee2411493d3"
+  },
+  "eval_json": {
+    "bytes": null,
+    "exists": false,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/eval/val_quick_global_eval.json",
+    "sha256": null
+  },
+  "execution_spec": {
+    "bytes": 4216,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/experiments/003_voxtell_rex_ft_rescue_ablation/codex_execution_spec.md",
+    "repo_path": "experiments/003_voxtell_rex_ft_rescue_ablation/codex_execution_spec.md",
+    "sha256": "ad14df587ad84856ba0111ef6425890376dacc6aa3d13f308c875008e611be3e"
+  },
+  "id": "003_voxtell_rex_ft_rescue_ablation",
+  "metrics": null,
+  "repo_commit": "d0c4e9a97bf2333b3d96c3815bbbf98333857c45",
+  "repo_dir": "experiments/003_voxtell_rex_ft_rescue_ablation",
+  "repo_metrics": "experiments/003_voxtell_rex_ft_rescue_ablation/metrics_summary.json",
+  "report": {
+    "bytes": null,
+    "copied": false,
+    "exists": false,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/reports/train_val_finetuning_report.md",
+    "repo_path": "experiments/003_voxtell_rex_ft_rescue_ablation/report.md",
+    "sha256": null
+  },
+  "runtime_config_matches_canonical": true,
+  "runtime_config_snapshot": {
+    "bytes": 4602,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/config/003_voxtell_rex_ft_rescue_ablation.json",
+    "sha256": "a3c6387fee4e53f46fc06958b73fff7d5fa101764318a61c3cb86ee2411493d3"
+  },
+  "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation",
+  "runtime_link_status": "created",
+  "status": "runtime_initialized",
+  "synced_at_utc": "2026-07-24T06:24:58.608552+00:00",
+  "title": "VoxTell ReX fine-tuning rescue ablation",
+  "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
+}

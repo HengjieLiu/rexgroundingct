@@ -1,10 +1,10 @@
 {
   "canonical_config": {
-    "bytes": 919,
+    "bytes": 4679,
     "exists": true,
     "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/002_voxtell_text_ft_miccai_train_val.json",
     "repo_path": "configs/experiments/002_voxtell_text_ft_miccai_train_val.json",
-    "sha256": "2f722a266f81a599cb95230bce1467b80b8e2e3dfd9176bf72aa02d0432f5f57"
+    "sha256": "4cf19ff68b9e61ec39f912ea41a1e9af4ae8727ecb386668cb03142250d59dbc"
   },
   "eval_json": {
     "bytes": null,
@@ -13,15 +13,15 @@
     "sha256": null
   },
   "execution_spec": {
-    "bytes": 3595,
+    "bytes": 4953,
     "exists": true,
     "path": "/home/hengjie/code_sync/rexgroundingct/experiments/002_voxtell_text_ft_miccai_train_val/codex_execution_spec.md",
     "repo_path": "experiments/002_voxtell_text_ft_miccai_train_val/codex_execution_spec.md",
-    "sha256": "8ed78f512e0fdda9547ae14ca4bfb51eeef2c1836bda946e653937aedf4df6e7"
+    "sha256": "0c812d874d7ec2dce3fa83c8213c4d925afac1d8b75759910f0c950d18918147"
   },
   "id": "002_voxtell_text_ft_miccai_train_val",
   "metrics": null,
-  "repo_commit": "d2c607242fb51d607cfbeefd813970a5c21eff16",
+  "repo_commit": "d0c4e9a97bf2333b3d96c3815bbbf98333857c45",
   "repo_dir": "experiments/002_voxtell_text_ft_miccai_train_val",
   "repo_metrics": "experiments/002_voxtell_text_ft_miccai_train_val/metrics_summary.json",
   "report": {
@@ -34,15 +34,15 @@
   },
   "runtime_config_matches_canonical": true,
   "runtime_config_snapshot": {
-    "bytes": 919,
+    "bytes": 4679,
     "exists": true,
     "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val/config/002_voxtell_text_ft_miccai_train_val.json",
-    "sha256": "2f722a266f81a599cb95230bce1467b80b8e2e3dfd9176bf72aa02d0432f5f57"
+    "sha256": "4cf19ff68b9e61ec39f912ea41a1e9af4ae8727ecb386668cb03142250d59dbc"
   },
   "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val",
   "runtime_link_status": "exists",
   "status": "runtime_initialized",
-  "synced_at_utc": "2026-07-23T00:39:31.047768+00:00",
+  "synced_at_utc": "2026-07-24T06:24:58.597571+00:00",
   "title": "VoxTell text-conditioned fine-tuning on MICCAI train and val",
   "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
 }
