@@ -37,6 +37,28 @@ python3 -c "import voxtell; print(voxtell.__file__)"
 voxtell-predict --help
 ```
 
+Run JupyterLab for repo notebooks:
+
+```bash
+docker run --rm -it \
+  --ipc=host \
+  --shm-size=32g \
+  --user "$(id -u):$(id -g)" \
+  -p 8888:8888 \
+  -v /home/hengjie/code_sync/rexgroundingct:/workspace \
+  -v /data/hengjie:/data/hengjie \
+  -v /mnt/shengdata1:/mnt/shengdata1 \
+  -e HOME=/tmp \
+  -e HF_HOME=/data/hengjie/datasets/rexgroundingct/.hf_home \
+  -e HF_HUB_CACHE=/data/hengjie/datasets/rexgroundingct/.hf_home/hub \
+  -e HF_XET_CACHE=/data/hengjie/datasets/rexgroundingct/.hf_home/xet \
+  rexgroundingct-voxtell:cu126 \
+  bash -lc "cd /workspace && jupyter lab --ip=0.0.0.0 --port=8888 --no-browser"
+```
+
+The visualization notebooks do not require GPU access. Add `--gpus all` to the
+Jupyter command only when testing GPU code from the same container.
+
 Do not bake Hugging Face tokens into the image. Use the mounted `HF_HOME` above
 or pass `HF_TOKEN` at runtime.
 

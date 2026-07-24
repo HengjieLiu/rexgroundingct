@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.ipynb_checkpoints/
 
 # Repo-local experiment views may point at heavy runtime outputs.
 experiments/*/runtime
@@ -17,3 +18,12 @@ experiments/**/*.pt
 experiments/**/*.pth
 experiments/**/*.ckpt
 experiments/**/*.safetensors
+
+# Local checkout of the upstream challenge repo with large model/data assets.
+external/RexGrounding_challenge2026/
+
+# Visualization notebooks are tracked as source; large generated artifacts are not.
+visualization/.ipynb_checkpoints/
+visualization/outputs/
+visualization/**/*_executed.ipynb
+visualization/**/*.png

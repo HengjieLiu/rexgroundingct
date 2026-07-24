@@ -40,6 +40,9 @@ RUN pip install -e /opt/VoxTell \
       scipy \
       scikit-image \
       matplotlib \
+      jupyterlab \
+      ipykernel \
+      nbconvert \
       rich \
       hf_xet
 
