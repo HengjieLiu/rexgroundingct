@@ -41,6 +41,15 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
         "primary_eval_json": Path("eval/val_official_eval.json"),
         "readiness_json": Path("config/train_val_ct_readiness.json"),
     },
+    "003_voxtell_rex_ft_rescue_ablation": {
+        "title": "VoxTell ReX fine-tuning rescue ablation",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT / "003_voxtell_rex_ft_rescue_ablation.json"
+        ),
+        "primary_report": Path("reports/train_val_finetuning_report.md"),
+        "primary_eval_json": Path("eval/val_quick_global_eval.json"),
+        "readiness_json": Path("config/train_val_ct_readiness.json"),
+    },
 }
 
 

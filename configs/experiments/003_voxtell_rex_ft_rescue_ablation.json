@@ -1,0 +1,138 @@
+{
+  "experiment": "003_voxtell_rex_ft_rescue_ablation",
+  "status": "implemented_pending_launch",
+  "base_model_repo": "mrokuss/VoxTell",
+  "base_model_name": "voxtell_v1.1",
+  "train_split": "train",
+  "validation_split": "val",
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "segmentations": "/data/hengjie/datasets/rexgroundingct/segmentations",
+  "ct_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct",
+  "experiment_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation",
+  "shared_training": {
+    "initialize_from": "voxtell_v1.1",
+    "patch_size": [
+      192,
+      192,
+      192
+    ],
+    "normalization": "voxtell_default_crop_nonzero_per_volume_zscore",
+    "orientation_fix": "convert_gt_from_raw_FXYZ_to_voxtell_nnunet_FZYX_before_crop_and_patch",
+    "seed": 20260723,
+    "epochs_short": 5,
+    "epochs_full": 100,
+    "steps_per_epoch": 100,
+    "batch_size": 1,
+    "gradient_accumulation": 1,
+    "distributed": false,
+    "global_events_full": 10000,
+    "global_events_short_prefix": 500,
+    "sample_schedule_policy": "one 10000-event materialized schedule per variant; short run consumes first 500 events; fresh full run consumes all events from index 0",
+    "one_finding_fallback": "1 positive + 2 negatives; confusion not solved but moving forward"
+  },
+  "optimizer": {
+    "optimizer": "SGD",
+    "nesterov": true,
+    "momentum": 0.99,
+    "weight_decay": 0.00003,
+    "encoder_lr": 0.0000001,
+    "decoder_lr": 0.000001,
+    "lr_schedule": "poly",
+    "poly_power": 0.9,
+    "warmup_updates": 100,
+    "clip_grad_norm": 12.0
+  },
+  "variants": {
+    "v1_opt": {
+      "gpu": 0,
+      "description": "low differential LR, warmup, poly schedule, gradient clipping",
+      "require_positive_crop": false,
+      "loss_mode": "dice_bce",
+      "voxel_bce_weighting": false,
+      "deep_supervision_weights": [
+        1.0,
+        0.5,
+        0.25,
+        0.125,
+        0.0625
+      ]
+    },
+    "v12_opt_poscrop": {
+      "gpu": 1,
+      "description": "v1 plus require every selected positive prompt to be non-empty in the sampled patch",
+      "require_positive_crop": true,
+      "loss_mode": "dice_bce",
+      "voxel_bce_weighting": false,
+      "deep_supervision_weights": [
+        1.0,
+        0.5,
+        0.25,
+        0.125,
+        0.0625
+      ]
+    },
+    "v123_opt_poscrop_emptyloss": {
+      "gpu": 2,
+      "description": "v12 plus empty-target BCE-only loss and weighted BCE",
+      "require_positive_crop": true,
+      "loss_mode": "empty_bce_only",
+      "empty_target_loss_weight": 0.5,
+      "voxel_bce_weighting": true,
+      "bce_foreground_weight": 1.0,
+      "bce_boundary_weight": 1.5,
+      "bce_background_weight": 0.5,
+      "bce_boundary_radius": 10,
+      "deep_supervision_weights": [
+        1.0,
+        0.5,
+        0.25,
+        0.125,
+        0.0625
+      ]
+    },
+    "v1234_opt_poscrop_emptyloss_ds": {
+      "gpu": 3,
+      "description": "v123 plus external deep-supervision weighting that drops the lowest-resolution output",
+      "require_positive_crop": true,
+      "loss_mode": "empty_bce_only",
+      "empty_target_loss_weight": 0.5,
+      "voxel_bce_weighting": true,
+      "bce_foreground_weight": 1.0,
+      "bce_boundary_weight": 1.5,
+      "bce_background_weight": 0.5,
+      "bce_boundary_radius": 10,
+      "deep_supervision_weights": [
+        1.0,
+        0.5,
+        0.25,
+        0.125,
+        0.0
+      ]
+    }
+  },
+  "validation": {
+    "fixed_val20_json": "configs/evaluation/rexgroundingct_val20_seed20260723.json",
+    "fixed_val200_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "val20_epochs_full": [
+      20,
+      40,
+      60,
+      80,
+      100
+    ],
+    "val200_epochs_full": [
+      100
+    ],
+    "global_only_eval": true,
+    "dataset_selection": "fixed evaluator-compatible JSON overrides; do not use --limit for probe definition"
+  },
+  "known_differences_from_pretraining_or_voxtell_paper": [
+    "ReX one-finding fallback uses 1 positive + 2 negatives because paper fallback is unresolved",
+    "Runs use 100 optimizer updates per epoch by project standardization",
+    "Runs are single GPU true batch1 with no gradient accumulation",
+    "Exp003 uses low differential fine-tuning LR based on external successful ReX runs",
+    "Variants v12+ enforce every selected positive prompt to be non-empty in the patch",
+    "Variants v123+ use empty-target BCE-only downweighted loss and weighted BCE",
+    "Variant v1234 drops the lowest-resolution deep-supervision output"
+  ]
+}
