@@ -1,6 +1,6 @@
 ---
 created: 2026-07-22
-updated: 2026-07-22
+updated: 2026-07-23
 status: active
 ---
 
@@ -48,6 +48,25 @@ image /= max(std, eps)
 
 There is no CT-specific clipping, HU windowing, or dataset-level CT
 normalization in the public `voxtell_v1.1` direct inference path.
+
+### Side note: normalization scope for patches and multiscale inference
+
+The public inference path normalizes the whole crop-to-nonzero image before
+sliding-window patch inference. It does **not** independently z-score each
+`192 x 192 x 192` patch.
+
+This matters for future patch-size and multiscale experiments. To stay aligned
+with VoxTell pretraining and current fine-tuning, the safe order is:
+
+1. Load and reorient the full CT.
+2. Crop the full CT to its nonzero region.
+3. Compute one z-score normalization over that cropped full image.
+4. Sample, resize, or slide patches from this already-normalized image.
+
+Do not z-score each sampled or resampled patch independently unless the goal is
+an explicit normalization ablation. Patch-local normalization would change the
+input distribution by removing case-level intensity context and would confound
+patch-size or multiscale conclusions.
 
 ### VoxTell is not CT-only
 

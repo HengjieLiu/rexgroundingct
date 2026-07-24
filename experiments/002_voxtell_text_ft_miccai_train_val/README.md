@@ -13,6 +13,11 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 
 - `README.md`: this experiment's status and ownership rules.
 - `codex_execution_spec.md`: active or historical Codex execution spec.
+- `training_finetuning_spec.md`: human-readable training and fine-tuning spec.
+- `sampler_fallback_decision.md`: unresolved one-finding fallback decision.
+- `reproducibility_policy.md`: fixed seed, fixed val20 probe, and train schedule rules.
+- `single_gpu_probe_results.md`: actual single-GPU probe and smoke metrics.
+- `five_epoch_batch_ddp_comparison.md`: planned 5-epoch batch/DDP comparison.
 - `metrics_summary.json`: synced metrics and provenance summary.
 - `sync_manifest.json`: hashes, paths, and sync provenance.
 - `report.md`: small copied runtime report when available.

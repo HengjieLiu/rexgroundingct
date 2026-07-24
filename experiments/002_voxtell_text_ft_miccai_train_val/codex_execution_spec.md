@@ -9,42 +9,69 @@ experiment_id: "002_voxtell_text_ft_miccai_train_val"
 
 ## Objective
 
-Establish a challenge-valid text-conditioned VoxTell fine-tuning path on the
-MICCAI train split and evaluate it against the validation split. The first
-baseline should isolate ReXGroundingCT fine-tuning while preserving VoxTell's
-default preprocessing.
+Establish a challenge-valid, text-conditioned VoxTell fine-tuning path on the
+MICCAI train split and evaluate it against the validation split. The first real
+baseline is a paper-aligned single-GPU run that preserves VoxTell's default
+`192^3` patch size and z-score preprocessing.
+
+## Canonical Decisions
+
+- Baseline spec:
+  `experiments/002_voxtell_text_ft_miccai_train_val/training_finetuning_spec.md`
+- One-finding sampler fallback:
+  `experiments/002_voxtell_text_ft_miccai_train_val/sampler_fallback_decision.md`
+- Reproducibility policy:
+  `experiments/002_voxtell_text_ft_miccai_train_val/reproducibility_policy.md`
+- Canonical config:
+  `configs/experiments/002_voxtell_text_ft_miccai_train_val.json`
+
+The fallback decision is intentionally labeled as
+`confusion_not_solved_but_moving_forward`: multi-finding cases use
+`2` positive + `1` negative prompt, while one-finding cases use
+`1` positive + `2` negatives with forced foreground anchoring on the sole
+positive target. Training always has `3` prompt channels; inference uses only
+the actual case prompts.
 
 ## Prior Evidence
 
 - Experiment 001 corrected-orientation quick/global validation Dice per finding:
   `0.225228`.
-- `docs/voxtell/preprocessing.md` documents the corrected orientation export
-  and VoxTell direct inference path.
+- Experiment 001 fixed the ReX/VoxTell orientation mismatch at inference export.
+- Experiment 002 must apply the inverse orientation transform to masks before
+  training, because CTs are read through `NibabelIOWithReorient` but released GT
+  masks are stored in raw evaluator layout.
 - `docs/voxtell/normalization.md` recommends keeping VoxTell z-score
   normalization for the first fine-tuning baseline.
 - Public `voxtell-finetune` is an nnU-Net encoder-transfer workflow and is not
   the primary free-text grounding path for this challenge.
 
-## Scope
+## In Scope
 
-In scope:
-
-- Precompute ReXGroundingCT prompt embeddings when available.
-- Run the 4-GPU text-conditioned smoke loop after train+val CT readiness passes.
-- Run the longer fine-tuning loop only after the smoke run succeeds.
+- Precompute ReXGroundingCT train+val prompt embeddings.
+- Probe the largest feasible single-GPU batch size with real
+  forward/backward/optimizer steps.
+- Run the first baseline on a single GPU, no DDP:
+  `5` epochs, `100` optimizer updates per epoch.
+- Save an inference-compatible fine-tuned VoxTell model directory.
+- Optionally run a 20-case validation quick/global evaluation after training.
+- Use the fixed val20 seed-20260723 probe for quick validation.
+- Use materialized train patch schedules for batch/DDP comparisons.
+- Use fixed LR with no learning-rate decay for the current runs; keep
+  `--lr-schedule poly` available for later controlled comparisons.
 - Keep runtime logs, checkpoints, predictions, and evaluator outputs under
   `/mnt/shengdata1`.
 
-Out of scope:
+## Out of Scope For This Baseline
 
-- CT-specific HU/window normalization ablations.
-- Script-to-package refactors.
+- HU/window input.
+- Non-`192^3` patch-size fine-tuning.
+- 4-GPU DDP training.
+- Full nnU-Net augmentation parity.
 - Test-set submission packaging.
 - Changes to the upstream VoxTell submodule.
 
 ## Inputs And Paths
 
-- Canonical config: `configs/experiments/002_voxtell_text_ft_miccai_train_val.json`
 - Metadata: `/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json`
 - Segmentations: `/data/hengjie/datasets/rexgroundingct/segmentations`
 - CT root: `/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct`
@@ -53,54 +80,52 @@ Out of scope:
 - Repo-local index:
   `experiments/002_voxtell_text_ft_miccai_train_val`
 
-## Method
+## Execution
 
 Inside the VoxTell Docker container, run:
 
 ```bash
 bash /workspace/scripts/rexgroundingct/run_002_precompute_text_embeddings.sh
-bash /workspace/scripts/rexgroundingct/run_002_voxtell_text_ft_smoke.sh
-MAX_ITERATIONS=10000 CHECKPOINT_EVERY=500 \
-  bash /workspace/scripts/rexgroundingct/run_002_voxtell_text_ft_full.sh
+bash /workspace/scripts/rexgroundingct/run_002_single_gpu_zscore192_baseline.sh
 ```
 
-The launchers snapshot the canonical config, poll CT readiness, and pass
-`--allow-experimental-train` explicitly.
-
-## Smoke Gate
-
-The smoke run must complete on `train + val` readiness with:
-
-- no missing CT or segmentation errors;
-- a runtime `run_manifest.json`;
-- a smoke log under runtime `logs/`;
-- smoke metrics under runtime `reports/`;
-- no tracked runtime artifacts in Git.
+The baseline launcher snapshots the canonical config, polls CT readiness, runs a
+single-GPU batch-size probe, trains for `500` optimizer updates, and writes time
+and peak-memory reports.
 
 ## Success Criteria
 
-- Full run completes and writes a final checkpoint under runtime `checkpoints/`.
-- Validation evaluation produces a report and metrics JSON under runtime
-  `reports/` and `eval/`.
-- `sync_experiment_index.py` copies small summaries into the repo-local
-  experiment index.
-- `check_experiment_consistency.py` passes.
+- Batch probe writes `reports/batch_probe.json` and `reports/batch_probe.md`.
+- Training writes `reports/training_metrics.json` and
+  `reports/training_report.md`.
+- Final checkpoint exists under the run directory.
+- Inference-compatible model exists under `model/`.
+- If quick validation is enabled, validation predictions and quick/global eval
+  reports are written under the same run directory.
+- No heavyweight runtime artifacts are tracked in Git.
 
 ## Verification
 
+Host-side:
+
 ```bash
+python -m py_compile scripts/rexgroundingct/train_text_conditioned_voxtell.py \
+  scripts/rexgroundingct/precompute_text_embeddings.py
 python scripts/rexgroundingct/check_repo_workflow.py
 ```
 
-If Docker-only dependencies are needed, run the experiment commands inside
-`rexgroundingct-voxtell:cu126` and run repo checks from the host afterward.
+Docker-side, when dependencies are needed:
+
+```bash
+bash /workspace/scripts/rexgroundingct/run_002_single_gpu_zscore192_baseline.sh
+```
 
 ## Closeout Plan
 
-After smoke or full results:
+After a runtime result exists:
 
-1. Run `python scripts/rexgroundingct/sync_experiment_index.py`.
-2. Inspect `experiments/002_voxtell_text_ft_miccai_train_val/metrics_summary.json`.
-3. Add or sync a small report when runtime results exist.
+1. Inspect the batch probe and training reports.
+2. Decide whether the largest single-GPU batch size makes 4-GPU DDP worthwhile.
+3. Run `python scripts/rexgroundingct/sync_experiment_index.py`.
 4. Update `docs/current_status.md` if the next action changes.
 5. Keep heavyweight runtime artifacts out of Git.

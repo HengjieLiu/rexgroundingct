@@ -1,6 +1,6 @@
 {
   "experiment": "002_voxtell_text_ft_miccai_train_val",
-  "status": "experimental_scaffold",
+  "status": "paper_aligned_single_gpu_baseline_ready",
   "base_model_repo": "mrokuss/VoxTell",
   "base_model_name": "voxtell_v1.1",
   "train_split": "train",
@@ -14,14 +14,110 @@
     "gpu_type": "NVIDIA RTX 6000 Ada Generation",
     "vram_gib_each": 48
   },
-  "training_defaults": {
-    "batch_size_per_gpu": 1,
-    "gradient_accumulation": 4,
-    "effective_batch_size": 16,
-    "amp": true,
-    "smoke_cases": 4,
-    "smoke_iterations": 20,
-    "full_epochs": 50,
-    "validate_every_epochs": 5
+  "baseline": {
+    "name": "single_gpu_zscore_192",
+    "first_run_gpu": 0,
+    "distributed": false,
+    "model": {
+      "initialize_from": "voxtell_v1.1",
+      "train_text_conditioned_decoder": true,
+      "train_image_encoder": true
+    },
+    "preprocessing": {
+      "reader": "nnunetv2.imageio.NibabelIOWithReorient",
+      "orientation_fix": "convert_gt_from_raw_FXYZ_to_voxtell_nnunet_FZYX_before_crop_and_patch",
+      "crop": "crop_to_nonzero",
+      "normalization": "voxtell_default_per_volume_zscore",
+      "hu_or_window_input": false,
+      "patch_size": [
+        192,
+        192,
+        192
+      ]
+    },
+    "sampling": {
+      "seed": 20260723,
+      "data_order_policy": "use_materialized_sample_schedule_for_batch_or_ddp_comparisons",
+      "sample_schedule_schema": "case_prompt_anchor_plus_patch_seed_v2",
+      "epoch_unit": "optimizer_updates",
+      "steps_per_epoch": 100,
+      "prompts_per_sample": 3,
+      "multi_finding_case": {
+        "positive_prompts": 2,
+        "negative_prompts": 1
+      },
+      "one_finding_fallback": {
+        "decision_status": "confusion_not_solved_but_moving_forward",
+        "positive_prompts": 1,
+        "negative_prompts": 2,
+        "duplicate_positive_prompt": false,
+        "force_foreground_anchor": true
+      },
+      "negative_targets": "empty_masks",
+      "foreground_oversample_probability": 0.85,
+      "foreground_anchor": "one_selected_positive_finding"
+    },
+    "optimization": {
+      "optimizer": "SGD",
+      "initial_lr": 0.0001,
+      "lr_schedule": "fixed",
+      "available_lr_schedules": [
+        "fixed",
+        "poly"
+      ],
+      "poly_power": 0.9,
+      "momentum": 0.99,
+      "nesterov": true,
+      "weight_decay": 0.00003,
+      "amp": true,
+      "gradient_accumulation": 1,
+      "first_run_epochs": 5,
+      "first_run_optimizer_updates": 500
+    },
+    "loss": {
+      "components": [
+        "BCEWithLogits",
+        "soft_dice"
+      ],
+      "deep_supervision": true,
+      "deep_supervision_weight_ratios": [
+        1.0,
+        0.5,
+        0.25,
+        0.125,
+        0.0625
+      ]
+    },
+    "batch_probe": {
+      "enabled": true,
+      "min_batch_size": 1,
+      "max_batch_size": 8,
+      "probe_steps_per_batch_size": 2,
+      "default_batch_selection": "recommended_fastest_seconds_per_case_patch"
+    },
+    "quick_validation": {
+      "split": "val",
+      "limit_cases": 20,
+      "fixed_probe_json": "configs/evaluation/rexgroundingct_val20_seed20260723.json",
+      "fixed_probe_manifest": "configs/evaluation/rexgroundingct_val20_seed20260723.manifest.json",
+      "selection_seed": 20260723,
+      "selection_algorithm": "np.random.default_rng(seed).permutation(val_split_size)[:20]",
+      "global_only_eval": true,
+      "use_actual_case_prompts_only": true
+    }
+  },
+  "known_differences_from_voxtell_paper": [
+    "one-finding ReXGroundingCT cases use 1 positive + 2 negatives because the paper fallback is unknown",
+    "one-finding fallback cases force a foreground anchor so the sole positive target is non-empty when the mask exists",
+    "current runs use fixed learning rate with no learning-rate decay; poly learning-rate decay remains available but is not used",
+    "first baseline uses 100 optimizer updates per epoch instead of 250 iterations per epoch",
+    "first baseline runs 5 epochs instead of 2000 epochs",
+    "standard nnU-Net augmentation is not implemented in the lightweight trainer yet",
+    "deep-supervision weights use the paper ratios but are normalized in the implemented loss"
+  ],
+  "future_ablation_notes": {
+    "patch_size_changes": "Do not change patch size silently. VoxTell positional embeddings and inference patching must change consistently.",
+    "hu_input_changes": "HU/window input is a separate input-distribution ablation and requires fine-tuning before inference.",
+    "ensembles": "Train separate named subruns and ensemble probability/logit outputs from actual case prompts at inference."
   }
 }
