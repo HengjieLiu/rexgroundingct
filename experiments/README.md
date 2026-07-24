@@ -35,3 +35,5 @@ small summaries easy to inspect while large outputs remain on `/mnt/shengdata1`.
 | `001_voxtell_v1_1_miccai200_val_eval` | `evaluation_complete` | `experiments/001_voxtell_v1_1_miccai200_val_eval/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/001_voxtell_v1_1_miccai200_val_eval` |
 | `002_voxtell_text_ft_miccai_train_val` | `runtime_initialized` | `` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val` |
 | `003_voxtell_rex_ft_rescue_ablation` | `runtime_initialized` | `` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation` |
+| `004_voxtell_v123_native_vs_2mm_global_context_ft` | `runtime_initialized` | `` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft` |
+| `005_voxtell_global_proposal_local_cascade` | `evaluation_complete` | `experiments/005_voxtell_global_proposal_local_cascade/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/005_voxtell_global_proposal_local_cascade` |

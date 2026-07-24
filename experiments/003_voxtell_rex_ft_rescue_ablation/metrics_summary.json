@@ -21,7 +21,7 @@
   },
   "id": "003_voxtell_rex_ft_rescue_ablation",
   "metrics": null,
-  "repo_commit": "d0c4e9a97bf2333b3d96c3815bbbf98333857c45",
+  "repo_commit": "b86a19ce286b3aa69474834e0e3c722d4eb522fd",
   "repo_dir": "experiments/003_voxtell_rex_ft_rescue_ablation",
   "repo_metrics": "experiments/003_voxtell_rex_ft_rescue_ablation/metrics_summary.json",
   "report": {
@@ -40,9 +40,9 @@
     "sha256": "a3c6387fee4e53f46fc06958b73fff7d5fa101764318a61c3cb86ee2411493d3"
   },
   "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation",
-  "runtime_link_status": "created",
+  "runtime_link_status": "exists",
   "status": "runtime_initialized",
-  "synced_at_utc": "2026-07-24T06:24:58.608552+00:00",
+  "synced_at_utc": "2026-07-24T18:56:03.884904+00:00",
   "title": "VoxTell ReX fine-tuning rescue ablation",
   "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
 }

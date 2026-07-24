@@ -43,3 +43,31 @@ experiments:
     mean_global_dice_per_finding: null
     hit_rate: null
     overall_instance_f1: null
+  - id: "004_voxtell_v123_native_vs_2mm_global_context_ft"
+    title: "VoxTell v123 native versus 2 mm global-context continuation"
+    status: "runtime_initialized"
+    canonical_config: "configs/experiments/004_voxtell_v123_native_vs_2mm_global_context_ft.json"
+    execution_spec: "experiments/004_voxtell_v123_native_vs_2mm_global_context_ft/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft/config/004_voxtell_v123_native_vs_2mm_global_context_ft.json"
+    runtime_config_matches_canonical: true
+    repo_report: null
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft/reports/paired_comparison_report.md"
+    repo_metrics: "experiments/004_voxtell_v123_native_vs_2mm_global_context_ft/metrics_summary.json"
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null
+  - id: "005_voxtell_global_proposal_local_cascade"
+    title: "VoxTell global proposal to local segmentation cascade"
+    status: "evaluation_complete"
+    canonical_config: "configs/experiments/005_voxtell_global_proposal_local_cascade.json"
+    execution_spec: "experiments/005_voxtell_global_proposal_local_cascade/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/005_voxtell_global_proposal_local_cascade"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/005_voxtell_global_proposal_local_cascade/config/005_voxtell_global_proposal_local_cascade.json"
+    runtime_config_matches_canonical: true
+    repo_report: "experiments/005_voxtell_global_proposal_local_cascade/report.md"
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/005_voxtell_global_proposal_local_cascade/reports/final_comparison.md"
+    repo_metrics: "experiments/005_voxtell_global_proposal_local_cascade/metrics_summary.json"
+    mean_global_dice_per_finding: "0.15243050281725434"
+    hit_rate: "0.4041994750656168"
+    overall_instance_f1: null

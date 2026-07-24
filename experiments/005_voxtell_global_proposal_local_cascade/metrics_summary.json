@@ -1,0 +1,55 @@
+{
+  "canonical_config": {
+    "bytes": 2624,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/005_voxtell_global_proposal_local_cascade.json",
+    "repo_path": "configs/experiments/005_voxtell_global_proposal_local_cascade.json",
+    "sha256": "a9580527ad511cb014a0b0463ccccb54f45a0e2f9e0983f0aa22383f842c4086"
+  },
+  "eval_json": {
+    "bytes": 109385,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/005_voxtell_global_proposal_local_cascade/runs/latest/strict_inclusion/cascade_step05000_val200/eval/val_quick_global_eval.json",
+    "sha256": "dcb90a55ffc1b6786b6a40640d82e451b6263df5af12f48f8964f5f9489b97fb"
+  },
+  "execution_spec": {
+    "bytes": 3580,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/experiments/005_voxtell_global_proposal_local_cascade/codex_execution_spec.md",
+    "repo_path": "experiments/005_voxtell_global_proposal_local_cascade/codex_execution_spec.md",
+    "sha256": "db065a9b3171c27b794846f32d339e19f2120a6189860e1712a07dce7b5e2556"
+  },
+  "id": "005_voxtell_global_proposal_local_cascade",
+  "metrics": {
+    "hit_rate": 0.4041994750656168,
+    "mean_global_dice_per_case": 0.15728214064337628,
+    "mean_global_dice_per_finding": 0.15243050281725434,
+    "total_cases": 200,
+    "total_findings": 381
+  },
+  "repo_commit": "b86a19ce286b3aa69474834e0e3c722d4eb522fd",
+  "repo_dir": "experiments/005_voxtell_global_proposal_local_cascade",
+  "repo_metrics": "experiments/005_voxtell_global_proposal_local_cascade/metrics_summary.json",
+  "report": {
+    "bytes": 459,
+    "copied": true,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/005_voxtell_global_proposal_local_cascade/reports/final_comparison.md",
+    "repo_path": "experiments/005_voxtell_global_proposal_local_cascade/report.md",
+    "repo_sha256": "0645d3a21322eae0aeaf4d5975a84f6ec41501a3d691998422eb385565689b63",
+    "sha256": "0645d3a21322eae0aeaf4d5975a84f6ec41501a3d691998422eb385565689b63"
+  },
+  "runtime_config_matches_canonical": true,
+  "runtime_config_snapshot": {
+    "bytes": 2624,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/005_voxtell_global_proposal_local_cascade/config/005_voxtell_global_proposal_local_cascade.json",
+    "sha256": "a9580527ad511cb014a0b0463ccccb54f45a0e2f9e0983f0aa22383f842c4086"
+  },
+  "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/005_voxtell_global_proposal_local_cascade",
+  "runtime_link_status": "exists",
+  "status": "evaluation_complete",
+  "synced_at_utc": "2026-07-24T18:56:03.930813+00:00",
+  "title": "VoxTell global proposal to local segmentation cascade",
+  "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
+}
