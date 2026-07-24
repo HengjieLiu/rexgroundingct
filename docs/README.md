@@ -17,6 +17,8 @@ Start here when looking for project context.
 - `submission.md`: challenge submission packaging and final pre-submit checks.
 - `templates/`: reusable execution spec and experiment closeout templates.
 - `codex_prompts/`: polished reusable prompts and adapted plans.
+- `brainstorm/`: dated research notes covering model capability gaps,
+  counterfactual supervision, and candidate redesigns.
 - `voxtell/`: VoxTell experiment workflow, preprocessing notes, normalization
   notes, and prompt-analysis references.
 - `../dataset/README.md`: gated ReXGroundingCT and CT-RATE download workflow.
