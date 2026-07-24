@@ -1,0 +1,59 @@
+{
+  "experiment": "005_voxtell_global_proposal_local_cascade",
+  "status": "active",
+  "objective": "maximize candidate-region hit, full lesion inclusion, and target coverage before native-resolution local segmentation",
+  "runtime_limit_hours": 24,
+  "seed": 20260723,
+  "stage1": {
+    "architecture": "lightweight prompt-conditioned 3D U-Net with text FiLM",
+    "input": "entire crop-to-nonzero CT, z-scored once in native space, resampled through 2 mm to 4 mm isotropic, center-padded to 192^3",
+    "physical_fov_mm": [768, 768, 768],
+    "target": "global grid positions whose mapped native 192^3 patch fully contains the finding; hit-region fallback only when full inclusion is geometrically impossible",
+    "optimizer": "AdamW",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "warmup_updates": 100,
+    "schedule": "cosine",
+    "loss": "foreground-weighted BCE + Tversky(beta=0.8) + valid-center probability-mass ranking loss; downweighted empty-prompt BCE",
+    "updates": 5000,
+    "updates_per_epoch": 100,
+    "batch_size": 1,
+    "prompts_per_sample": 3,
+    "proposal_top_k": [1, 3, 5],
+    "nms_radius_global_voxels": 8
+  },
+  "variants": {
+    "strict_inclusion": {
+      "gpu": 0,
+      "target_margin_global_voxels": 0,
+      "description": "supervise only candidate centers satisfying full inclusion"
+    },
+    "inclusion_margin16mm": {
+      "gpu": 1,
+      "target_margin_global_voxels": 4,
+      "description": "expand inclusion-center supervision by 16 mm to favor recall and robustness"
+    }
+  },
+  "stage2": {
+    "model": "exp003 v123 epoch100",
+    "input": "top-3 native-resolution 192^3 crops per finding",
+    "normalization": "native crop-to-nonzero full-volume z-score once before crop extraction",
+    "candidate_merge": "voxelwise maximum probability",
+    "threshold": 0.5
+  },
+  "validation": {
+    "proposal_val20_every_updates": 500,
+    "cascade_val20_updates": [1000, 2500, 5000],
+    "proposal_val200_update": 5000,
+    "cascade_val200_update": 5000,
+    "fixed_val20": "configs/evaluation/rexgroundingct_val20_seed20260723.json",
+    "fixed_val200": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "intermediate_metrics": ["hit_at_1/3/5", "full_inclusion_at_1/3/5", "target_coverage_at_1/3/5", "cascade Dice", "cascade hit rate"]
+  },
+  "resource_coordination": {
+    "stage1_gpus": [0, 1],
+    "exp004_training_gpus": [2, 3],
+    "cascade_launch_rule": "defer while assigned GPU memory exceeds 15 GiB or exp004 has an incomplete checkpoint evaluation",
+    "manual_early_stop": "create runtime control/STOP_ALL or control/STOP_<variant>"
+  }
+}

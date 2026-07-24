@@ -50,6 +50,29 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
         "primary_eval_json": Path("eval/val_quick_global_eval.json"),
         "readiness_json": Path("config/train_val_ct_readiness.json"),
     },
+    "004_voxtell_v123_native_vs_2mm_global_context_ft": {
+        "title": "VoxTell v123 native versus 2 mm global-context continuation",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "004_voxtell_v123_native_vs_2mm_global_context_ft.json"
+        ),
+        "primary_report": Path("reports/paired_comparison_report.md"),
+        "primary_eval_json": Path(
+            "runs/latest/native192_cont100/eval_epoch100_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("config/train_val_ct_readiness.json"),
+    },
+    "005_voxtell_global_proposal_local_cascade": {
+        "title": "VoxTell global proposal to local segmentation cascade",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT / "005_voxtell_global_proposal_local_cascade.json"
+        ),
+        "primary_report": Path("reports/final_comparison.md"),
+        "primary_eval_json": Path(
+            "runs/latest/strict_inclusion/cascade_step05000_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("config/train_val_ct_readiness.json"),
+    },
 }
 
 

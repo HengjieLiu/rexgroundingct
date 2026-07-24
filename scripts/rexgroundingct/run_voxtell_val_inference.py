@@ -263,6 +263,8 @@ def run_case(
     overwrite: bool,
     runtime_metadata: dict,
     output_type: str,
+    probability_output_dir: Path | None = None,
+    threshold: float = 0.5,
 ) -> dict:
     name = entry["name"]
     ct_path = ct_rate_abs_path(name, ct_root)
@@ -282,7 +284,12 @@ def run_case(
         "output_type": output_type,
         "status": "pending",
     }
-    if pred_path.exists() and not overwrite:
+    probability_path = probability_output_dir / name if probability_output_dir is not None else None
+    if (
+        pred_path.exists()
+        and (probability_path is None or probability_path.exists())
+        and not overwrite
+    ):
         result["status"] = "skipped_existing"
         return result
     if not ct_path.is_file():
@@ -293,8 +300,13 @@ def run_case(
         return result
 
     image, ct_properties = reader.read_images([str(ct_path)])
-    if output_type == "mask":
+    probability_prediction = None
+    if output_type == "mask" and probability_output_dir is None:
         prediction = predictor.predict_single_image(image, prompts)
+        output_dtype = np.uint8
+    elif output_type == "mask":
+        probability_prediction = predict_single_image_probabilities(predictor, image, prompts)
+        prediction = (probability_prediction >= threshold).astype(np.uint8, copy=False)
         output_dtype = np.uint8
     elif output_type == "probability":
         prediction = predict_single_image_probabilities(predictor, image, prompts)
@@ -318,6 +330,26 @@ def run_case(
             )
         result["probability_range"] = [min_probability, max_probability]
     save_4d_prediction(prediction, gt_path, pred_path, output_dtype=output_dtype)
+    if probability_prediction is not None and probability_output_dir is not None:
+        exported_probability, _ = export_prediction_to_gt_layout(
+            probability_prediction,
+            gt_img,
+            ct_properties,
+            name,
+            output_dtype=np.float32,
+        )
+        probability_path = probability_output_dir / name
+        save_4d_prediction(
+            exported_probability,
+            gt_path,
+            probability_path,
+            output_dtype=np.float32,
+        )
+        result["probability_path"] = str(probability_path)
+        result["probability_range"] = [
+            float(np.min(exported_probability)),
+            float(np.max(exported_probability)),
+        ]
     result["status"] = "written"
     result["shape"] = list(prediction.shape)
     result["orientation"] = export_metadata
@@ -343,6 +375,8 @@ def main() -> int:
     parser.add_argument("--embeddings", type=Path, default=None)
     parser.add_argument("--no-precomputed", action="store_true")
     parser.add_argument("--output-type", choices=["mask", "probability"], default="mask")
+    parser.add_argument("--probability-output-dir", type=Path, default=None)
+    parser.add_argument("--threshold", type=float, default=0.5)
     parser.add_argument("--status-json", type=Path, default=None)
     args = parser.parse_args()
 
@@ -350,6 +384,10 @@ def main() -> int:
         raise ValueError("--num-shards must be >= 1")
     if not (0 <= args.shard_index < args.num_shards):
         raise ValueError("--shard-index must satisfy 0 <= shard < num_shards")
+    if not (0.0 <= args.threshold <= 1.0):
+        raise ValueError("--threshold must be between 0 and 1")
+    if args.output_type == "probability" and args.probability_output_dir is not None:
+        raise ValueError("--probability-output-dir is only valid with --output-type mask")
 
     selected_by_case = args.case_index is not None or args.case_name is not None
     if args.dataset_json is not None:
@@ -387,7 +425,12 @@ def main() -> int:
     eval_root = _eval_root_from_output_dir(args.output_dir)
     lock_path = None
     if eval_root is not None:
-        if _completed_summary(eval_root, args.output_dir, args.split, entries):
+        complete_outputs = _completed_summary(eval_root, args.output_dir, args.split, entries)
+        if args.probability_output_dir is not None:
+            complete_outputs = complete_outputs and _prediction_names_complete(
+                args.probability_output_dir, entries
+            )
+        if complete_outputs:
             print(f"Completed eval already exists under {eval_root}; skipping inference.", flush=True)
             return 0
         lock_path = _acquire_eval_lock(
@@ -420,6 +463,8 @@ def main() -> int:
 
     statuses = []
     args.output_dir.mkdir(parents=True, exist_ok=True)
+    if args.probability_output_dir is not None:
+        args.probability_output_dir.mkdir(parents=True, exist_ok=True)
     for entry in tqdm(entries, desc=f"{args.split} shard {args.shard_index}/{args.num_shards}"):
         try:
             statuses.append(
@@ -433,6 +478,8 @@ def main() -> int:
                     overwrite=args.overwrite,
                     runtime_metadata=runtime_metadata,
                     output_type=args.output_type,
+                    probability_output_dir=args.probability_output_dir,
+                    threshold=args.threshold,
                 )
             )
         except Exception as exc:  # noqa: BLE001 - keep batch progress resumable

@@ -222,6 +222,7 @@ class RexVoxTellPatchSampler:
         negative_prompt_pool: list[str],
         ct_root: Path,
         seg_dir: Path,
+        preprocessed_cache_dir: Path | None,
         patch_size: tuple[int, int, int],
         foreground_oversample_prob: float,
         seed: int,
@@ -239,6 +240,7 @@ class RexVoxTellPatchSampler:
         self.negative_prompt_pool = negative_prompt_pool
         self.ct_root = ct_root
         self.seg_dir = seg_dir
+        self.preprocessed_cache_dir = preprocessed_cache_dir
         self.patch_size = patch_size
         self.foreground_oversample_prob = float(foreground_oversample_prob)
         self.rng = np.random.default_rng(seed)
@@ -261,6 +263,24 @@ class RexVoxTellPatchSampler:
         cached = self.cache.get(name)
         if cached is not None:
             return cached
+
+        if self.preprocessed_cache_dir is not None:
+            from voxtell_2mm import load_cached_case
+
+            image, targets, metadata = load_cached_case(self.preprocessed_cache_dir, name)
+            prompts = sorted_prompts(entry)
+            if len(prompts) != int(targets.shape[0]):
+                raise ValueError(f"{name}: {len(prompts)} prompts but {targets.shape[0]} cached targets")
+            case = CaseData(
+                name=name,
+                image=np.ascontiguousarray(image, dtype=np.float32),
+                targets=np.ascontiguousarray(targets, dtype=np.float32),
+                prompts=prompts,
+                bbox=metadata["crop_bbox_zyx"],
+                orientation=metadata["orientation"],
+            )
+            self.cache.put(name, case)
+            return case
 
         ct_path = ct_rate_abs_path(name, self.ct_root)
         gt_path = self.seg_dir / name
@@ -1070,6 +1090,9 @@ def sampler_config(args: argparse.Namespace) -> dict[str, Any]:
         "min_positive_voxels": args.min_positive_voxels,
         "max_positive_crop_attempts": args.max_positive_crop_attempts,
         "max_sample_attempts": args.max_sample_attempts,
+        "preprocessed_cache_dir": (
+            str(args.preprocessed_cache_dir) if args.preprocessed_cache_dir is not None else None
+        ),
     }
 
 
@@ -1084,6 +1107,7 @@ def save_checkpoint(
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     model = network.module if hasattr(network, "module") else network
+    tmp = path.with_name(f".{path.name}.tmp.{os.getpid()}")
     torch.save(
         {
             "epoch": int(epoch),
@@ -1093,14 +1117,34 @@ def save_checkpoint(
             "grad_scaler": scaler.state_dict(),
             "experiment": args.experiment_id,
             "patch_size": list(parse_patch_size(args.patch_size)),
-            "normalization": "voxtell_default_crop_nonzero_zscore",
+            "normalization": (
+                "voxtell_crop_nonzero_full_volume_zscore_then_2mm"
+                if args.preprocessed_cache_dir is not None
+                else "voxtell_default_crop_nonzero_zscore"
+            ),
+            "preprocessed_cache_dir": (
+                str(args.preprocessed_cache_dir) if args.preprocessed_cache_dir is not None else None
+            ),
             "sampler_fallback": "one_finding_uses_1_positive_2_negatives",
             "lr_schedule": args.lr_schedule,
             "optimizer_config": optimizer_config(args),
             "loss_config": loss_config(args),
         },
-        path,
+        tmp,
     )
+    os.replace(tmp, path)
+
+
+def point_latest_checkpoint(latest: Path, checkpoint: Path) -> None:
+    """Atomically make the rolling checkpoint a hard link to an immutable save."""
+    latest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = latest.with_name(f".{latest.name}.tmp.{os.getpid()}")
+    try:
+        tmp.unlink()
+    except FileNotFoundError:
+        pass
+    os.link(checkpoint, tmp)
+    os.replace(tmp, latest)
 
 
 def materialize_inference_model(model_dir: Path, checkpoint: Path, output_model_dir: Path) -> None:
@@ -1234,6 +1278,7 @@ def build_sampler(
         negative_prompt_pool=negative_prompt_pool,
         ct_root=args.ct_root,
         seg_dir=args.seg_dir,
+        preprocessed_cache_dir=args.preprocessed_cache_dir,
         patch_size=parse_patch_size(args.patch_size),
         foreground_oversample_prob=args.foreground_oversample_prob,
         seed=seed,
@@ -1674,6 +1719,8 @@ def run_train(
                 )
                 progress.update(1)
                 progress.set_postfix(loss=f"{loss:.4f}", lr=f"{optimizer_lr(optimizer):.2e}")
+                immutable_checkpoint_written = False
+                checkpoint_step_path = None
                 if args.checkpoint_every_updates and global_update % args.checkpoint_every_updates == 0:
                     checkpoint_step_path = (
                         args.run_dir / "checkpoints" / f"checkpoint_update_{global_update:06d}.pth"
@@ -1687,21 +1734,36 @@ def run_train(
                         global_update,
                         args,
                     )
-                    save_checkpoint(
-                        args.run_dir / "checkpoints" / "checkpoint_latest.pth",
-                        network,
-                        optimizer,
-                        scaler,
-                        epoch,
-                        global_update,
-                        args,
-                    )
+                    immutable_checkpoint_written = True
+                latest_interval = (
+                    args.latest_checkpoint_every_updates
+                    if args.latest_checkpoint_every_updates is not None
+                    else args.checkpoint_every_updates
+                )
+                if latest_interval and global_update % latest_interval == 0:
+                    latest_path = args.run_dir / "checkpoints" / "checkpoint_latest.pth"
+                    if immutable_checkpoint_written and checkpoint_step_path is not None:
+                        point_latest_checkpoint(latest_path, checkpoint_step_path)
+                    else:
+                        save_checkpoint(
+                            latest_path,
+                            network,
+                            optimizer,
+                            scaler,
+                            epoch,
+                            global_update,
+                            args,
+                        )
                     partial_metrics = {
                         "status": "running",
                         "global_update": global_update,
                         "mean_loss": float(np.mean(losses)),
                         "last_loss": float(losses[-1]),
-                        "last_checkpoint": str(checkpoint_step_path),
+                        "last_checkpoint": str(
+                            checkpoint_step_path
+                            if checkpoint_step_path is not None
+                            else args.run_dir / "checkpoints" / "checkpoint_latest.pth"
+                        ),
                         "sample_stats": dict(sample_stats),
                         "updates": update_records,
                     }
@@ -1714,8 +1776,10 @@ def run_train(
         elapsed_total = time.perf_counter() - start_time
         final_checkpoint = args.run_dir / "checkpoints" / "checkpoint_final.pth"
         save_checkpoint(final_checkpoint, network, optimizer, scaler, args.epochs, global_update, args)
-        inference_model_dir = args.run_dir / "model"
-        materialize_inference_model(model_dir, final_checkpoint, inference_model_dir)
+        inference_model_dir = None
+        if args.materialize_final_model:
+            inference_model_dir = args.run_dir / "model"
+            materialize_inference_model(model_dir, final_checkpoint, inference_model_dir)
         metrics = {
             "status": "completed",
             "created_at_utc": utc_now_iso(),
@@ -1746,7 +1810,7 @@ def run_train(
             "sample_stats": dict(sample_stats),
             "updates": update_records,
             "checkpoint_final": str(final_checkpoint),
-            "inference_model_dir": str(inference_model_dir),
+            "inference_model_dir": str(inference_model_dir) if inference_model_dir is not None else None,
         }
         write_json(args.run_dir / "reports" / "training_metrics.json", metrics)
         write_training_report(args.run_dir / "reports" / "training_report.md", metrics)
@@ -1756,13 +1820,16 @@ def run_train(
                 "training_metrics": str(args.run_dir / "reports" / "training_metrics.json"),
                 "training_report": str(args.run_dir / "reports" / "training_report.md"),
                 "checkpoint_final": str(final_checkpoint),
-                "inference_model_dir": str(inference_model_dir),
+                "inference_model_dir": (
+                    str(inference_model_dir) if inference_model_dir is not None else None
+                ),
                 "updated_at_utc": utc_now_iso(),
             }
         )
         write_json(args.run_dir / "run_manifest.json", manifest)
         print(f"Wrote final checkpoint: {final_checkpoint}")
-        print(f"Wrote inference model: {inference_model_dir}")
+        if inference_model_dir is not None:
+            print(f"Wrote inference model: {inference_model_dir}")
         print(f"Peak allocated GiB: {metrics['memory']['max_allocated_gib']:.3f}")
         print(f"Elapsed seconds: {elapsed_total:.3f}")
     return 0
@@ -1793,6 +1860,7 @@ def main() -> int:
     parser.add_argument("--foreground-oversample-prob", type=float, default=0.85)
     parser.add_argument("--case-cache-size", type=int, default=4)
     parser.add_argument("--sample-schedule", type=Path, default=None)
+    parser.add_argument("--preprocessed-cache-dir", type=Path, default=None)
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--steps-per-epoch", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=1)
@@ -1809,6 +1877,12 @@ def main() -> int:
     parser.add_argument("--clip-grad-norm", type=float, default=0.0)
     parser.add_argument("--amp", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--checkpoint-every-updates", type=int, default=100)
+    parser.add_argument("--latest-checkpoint-every-updates", type=int, default=None)
+    parser.add_argument(
+        "--materialize-final-model",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+    )
     parser.add_argument("--loss-mode", choices=["dice_bce", "empty_bce_only"], default="dice_bce")
     parser.add_argument("--empty-target-loss-weight", type=float, default=0.5)
     parser.add_argument("--voxel-bce-weighting", action=argparse.BooleanOptionalAction, default=False)
