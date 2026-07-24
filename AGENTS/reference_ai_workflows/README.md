@@ -6,16 +6,22 @@ status: active
 
 # Reference AI Workflows
 
-This folder stores workflow summaries from prior completed research projects.
-They are adaptation evidence for `docs/ai_workflow.md`, not rules to copy
-verbatim.
+This folder stores imported workflow summaries from prior research projects and
+portable workflow exports from this repository. They are adaptation evidence,
+not rules to copy verbatim.
 
-## Sources
+## Imported References
 
 - `ai_assisted_research_workflow_summary_doserad2026_2026-07-22_d4053028f76e.md`
 - `ai_assisted_research_workflow_summary_inrorspline_2026-07-22_2ee1ce9cec77.md`
 
+## Current Project Exports
+
+- `ai_assisted_research_workflow_summary_rexgroundingct_2026-07-23_2ac8fc61efe4.md`
+
 ## Usage
 
-Read these summaries when updating the local AI-assisted research workflow.
-Prefer lightweight adaptations that preserve the current ReXGroundingCT layout.
+Read the imported summaries when updating the local AI-assisted research
+workflow. Use the ReXGroundingCT export as a commit-pinned snapshot that future
+projects can digest and adapt. Prefer lightweight changes that preserve each
+target repository's current layout.
