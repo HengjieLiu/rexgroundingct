@@ -1,0 +1,226 @@
+{
+  "test": [
+    {
+      "categories": {
+        "0": "1e",
+        "1": "2c"
+      },
+      "findings": {
+        "0": "Centrilobular nodular opacities in the lateral basal segment of the right lower lobe",
+        "1": "Mild surrounding ground-glass in the lateral basal segment of the right lower lobe"
+      },
+      "name": "train_19753_a_2.nii.gz",
+      "seg_path": "train_19753_a_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "1c",
+        "1": "1c"
+      },
+      "findings": {
+        "0": "Mild paraseptal emphysema at the apices of both upper lobes",
+        "1": "Mild centrilobular emphysema at the apices of both upper lobes"
+      },
+      "name": "train_3029_a_1.nii.gz",
+      "seg_path": "train_3029_a_1.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2c"
+      },
+      "findings": {
+        "0": "Peripheral patchy ground-glass opacity in the posterior right lower lobe adjacent to the costovertebral junction"
+      },
+      "name": "train_19711_a_1.nii.gz",
+      "seg_path": "train_19711_a_1.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2a"
+      },
+      "findings": {
+        "0": "Reticulonodular fibrotic scarring in both lung apices"
+      },
+      "name": "train_2553_a_2.nii.gz",
+      "seg_path": "train_2553_a_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2d"
+      },
+      "findings": {
+        "0": "Subcentimeter nodule in the lateral aspect of the left lower lobe, difficult to distinguish from a vessel on end"
+      },
+      "name": "train_18411_a_2.nii.gz",
+      "seg_path": "train_18411_a_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2a",
+        "1": "1c"
+      },
+      "findings": {
+        "0": "Linear atelectasis in the lingular segment of the left upper lobe",
+        "1": "Minimal emphysematous changes in both lungs"
+      },
+      "name": "train_2675_a_1.nii.gz",
+      "seg_path": "train_2675_a_1.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2a",
+        "1": "1c"
+      },
+      "findings": {
+        "0": "Parenchymal scarring in the apices of both lungs, left lower lobe superior segment and medial, lateral, and posterior basal segments, left upper lobe lingular inferior segment, and right lower lobe posterior and lateral basal segments",
+        "1": "Minimal paraseptal emphysema in the apices of both lungs"
+      },
+      "name": "train_3011_a_2.nii.gz",
+      "seg_path": "train_3011_a_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2g",
+        "1": "2e"
+      },
+      "findings": {
+        "0": "Right pneumothorax with pleural air largely filling the right hemithorax, most pronounced at the upper lobe level, measuring approximately 60 mm in maximal thickness; not present on the prior examination",
+        "1": "Bilateral pleural effusions, greater on the right; right effusion measures approximately 60 mm; small left pleural effusion"
+      },
+      "name": "train_19891_a_2.nii.gz",
+      "seg_path": "train_19891_a_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2b",
+        "1": "2b",
+        "2": "2c"
+      },
+      "findings": {
+        "0": "Areas of pneumonic consolidation with air bronchograms in the middle lobe",
+        "1": "Areas of pneumonic consolidation with air bronchograms in the lower lobes of both lungs, more prominently on the right",
+        "2": "Areas of ground-glass opacity in the lung parenchyma"
+      },
+      "name": "train_13481_a_2.nii.gz",
+      "seg_path": "train_13481_a_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2d"
+      },
+      "findings": {
+        "0": "Indeterminate subcentimeter pulmonary nodules in both lungs"
+      },
+      "name": "train_2458_a_2.nii.gz",
+      "seg_path": "train_2458_a_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2c",
+        "1": "2b"
+      },
+      "findings": {
+        "0": "Diffuse ground-glass opacities in all segments of both lungs",
+        "1": "Areas of consolidation in all segments of both lungs"
+      },
+      "name": "train_13256_b_2.nii.gz",
+      "seg_path": "train_13256_b_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2d"
+      },
+      "findings": {
+        "0": "Bilateral subcentimeter pulmonary nodules"
+      },
+      "name": "train_19456_b_1.nii.gz",
+      "seg_path": "train_19456_b_1.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2c",
+        "1": "2b"
+      },
+      "findings": {
+        "0": "Scattered bilateral subpleural ground-glass opacities",
+        "1": "Scattered bilateral subpleural consolidation-like opacities"
+      },
+      "name": "train_19348_a_2.nii.gz",
+      "seg_path": "train_19348_a_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2d",
+        "1": "1e"
+      },
+      "findings": {
+        "0": "6x5 mm semisolid nodule in the posterobasal segment of the right lower lobe",
+        "1": "Subcentimeter pure calcific nonspecific nodules in both lung parenchyma"
+      },
+      "name": "train_13020_a_2.nii.gz",
+      "seg_path": "train_13020_a_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2d"
+      },
+      "findings": {
+        "0": "Peripheral nodular consolidations with ground-glass halo in the anterior, lateral, and posterobasal segments of the right lower lobe, largest measuring 12 x 10 mm"
+      },
+      "name": "train_2560_b_2.nii.gz",
+      "seg_path": "train_2560_b_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2a"
+      },
+      "findings": {
+        "0": "Bilateral apical pleuroparenchymal scarring"
+      },
+      "name": "train_19038_a_2.nii.gz",
+      "seg_path": "train_19038_a_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2d"
+      },
+      "findings": {
+        "0": "A few subcentimeter pulmonary nodules in both lungs, some entirely calcified"
+      },
+      "name": "train_18729_a_1.nii.gz",
+      "seg_path": "train_18729_a_1.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2a"
+      },
+      "findings": {
+        "0": "Fibrotic bands in the medial segment of the right middle lobe"
+      },
+      "name": "train_13288_a_2.nii.gz",
+      "seg_path": "train_13288_a_2.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2c"
+      },
+      "findings": {
+        "0": "Patchy ground-glass opacity in the apicoposterior segment of the left upper lobe"
+      },
+      "name": "train_13431_a_1.nii.gz",
+      "seg_path": "train_13431_a_1.nii.gz"
+    },
+    {
+      "categories": {
+        "0": "2a",
+        "1": "2h"
+      },
+      "findings": {
+        "0": "Fibrotic changes in the middle lobe of the right lung",
+        "1": "Fissural air cyst in the superior segment of the lower lobe of the left lung"
+      },
+      "name": "train_13102_a_1.nii.gz",
+      "seg_path": "train_13102_a_1.nii.gz"
+    }
+  ]
+}
