@@ -1,6 +1,6 @@
 ---
 created: 2026-07-22
-updated: 2026-07-22
+updated: 2026-07-24
 status: active
 ---
 
@@ -14,6 +14,13 @@ status: active
 - Do not use broad `git add .`; stage the exact files intended for each commit.
 - Preserve user or runtime changes that are unrelated to the current task.
 - Use `rg` for repo search and `git mv` for tracked file moves.
+
+## Guide Types
+
+- `command.md`: reusable quick commands for common user requests.
+- `workflow_reflect/`: workflow reflection, scaffold review, upgrade prompts,
+  and historical workflow evidence.
+- `workflow.md`: durable repo workflow rules that should apply across tasks.
 
 ## Checks
 
@@ -48,4 +55,6 @@ For documentation-only changes, still run the Git whitespace checks.
 
 - Keep generated or synced artifacts in their intended commit topic.
 - Keep heavyweight runtime artifacts out of Git.
+- For multi-file research milestones, follow the topic-clustered commit
+  preparation command in `command.md`.
 - Mention any skipped checks in the final handoff.

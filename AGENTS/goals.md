@@ -1,6 +1,6 @@
 ---
 created: 2026-07-22
-updated: 2026-07-22
+updated: 2026-07-24
 status: active
 ---
 
@@ -14,7 +14,7 @@ status: active
 - Prepare a challenge-valid text-conditioned fine-tuning path.
 - Keep docs navigable for both humans and coding agents.
 - Keep AI-assisted work recoverable through specs, current-status updates,
-  prompt archives, and canonical checks.
+  reusable commands, workflow reflection, and canonical checks.
 
 ## Open Decisions To Fill Later
 

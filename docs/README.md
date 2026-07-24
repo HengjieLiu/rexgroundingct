@@ -1,6 +1,6 @@
 ---
 created: 2026-07-22
-updated: 2026-07-22
+updated: 2026-07-24
 status: active
 ---
 
@@ -11,12 +11,11 @@ Start here when looking for project context.
 ## Folder Map
 
 - `ai_workflow.md`: AI-assisted research workflow, execution spec rules,
-  closeout loop, prompt archive policy, and canonical checks.
+  closeout loop, agent command/reflection split, and canonical checks.
 - `current_status.md`: current decisions, active work, blockers, and next
   actions.
 - `submission.md`: challenge submission packaging and final pre-submit checks.
 - `templates/`: reusable execution spec and experiment closeout templates.
-- `codex_prompts/`: polished reusable prompts and adapted plans.
 - `brainstorm/`: dated research notes covering model capability gaps,
   counterfactual supervision, and candidate redesigns.
 - `voxtell/`: VoxTell experiment workflow, preprocessing notes, normalization

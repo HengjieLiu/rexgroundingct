@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-07-23
+updated: 2026-07-24
 status: active
 ---
 
@@ -13,8 +13,8 @@ logs during work, clear closeout after work, and no codebase reorganization.
 
 Reference summaries:
 
-- `../AGENTS/reference_ai_workflows/ai_assisted_research_workflow_summary_doserad2026_2026-07-22_d4053028f76e.md`
-- `../AGENTS/reference_ai_workflows/ai_assisted_research_workflow_summary_inrorspline_2026-07-22_2ee1ce9cec77.md`
+- `../AGENTS/workflow_reflect/reference_ai_workflows/ai_assisted_research_workflow_summary_doserad2026_2026-07-22_d4053028f76e.md`
+- `../AGENTS/workflow_reflect/reference_ai_workflows/ai_assisted_research_workflow_summary_inrorspline_2026-07-22_2ee1ce9cec77.md`
 
 ## Operating Principle
 
@@ -108,17 +108,24 @@ Closeout should answer:
 - which artifacts are authoritative;
 - next decision or stop condition.
 
-## Prompt Archive
+## Agent Commands And Workflow Reflection
 
-Reusable prompts and adapted plans live under:
+Reusable quick commands live in:
 
 ```text
-docs/codex_prompts/
+../AGENTS/command.md
 ```
 
-Archive polished prompts for repeatable tasks, not raw chat transcripts. Good
-candidates include experiment launch planning, submission packaging, challenge
-source refresh, and major workflow upgrades.
+Workflow reflection, scaffold review, upgrade prompts, and historical workflow
+evidence live under:
+
+```text
+../AGENTS/workflow_reflect/
+```
+
+Use commands for recurring short task patterns such as topic-clustered commit
+preparation. Use workflow reflection when improving the agent guidance itself
+or adapting lessons from prior projects.
 
 ## Submission Work
 

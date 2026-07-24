@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-07-23
+updated: 2026-07-24
 status: active
 ---
 
@@ -88,5 +88,6 @@ edit.
   epoch 20/40/60/80/100 evals.
 - After new runtime results, run `sync_experiment_index.py`, run consistency
   checks, and promote conclusions into this file if the next action changes.
-- Add polished reusable prompts under `docs/codex_prompts/` when a task pattern
-  should be repeated later.
+- Add reusable quick commands to `AGENTS/command.md` and workflow reflection or
+  upgrade prompts under `AGENTS/workflow_reflect/` when a task pattern should
+  be repeated later.
