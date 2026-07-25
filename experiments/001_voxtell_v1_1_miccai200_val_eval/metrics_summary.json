@@ -27,7 +27,7 @@
     "total_cases": 200,
     "total_findings": 381
   },
-  "repo_commit": "b86a19ce286b3aa69474834e0e3c722d4eb522fd",
+  "repo_commit": "50c2dec1241cc350a02cfe1423b9edb2585c40ec",
   "repo_dir": "experiments/001_voxtell_v1_1_miccai200_val_eval",
   "repo_metrics": "experiments/001_voxtell_v1_1_miccai200_val_eval/metrics_summary.json",
   "report": {
@@ -49,7 +49,7 @@
   "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/001_voxtell_v1_1_miccai200_val_eval",
   "runtime_link_status": "exists",
   "status": "evaluation_complete",
-  "synced_at_utc": "2026-07-24T18:56:03.867233+00:00",
+  "synced_at_utc": "2026-07-25T22:46:36.380579+00:00",
   "title": "VoxTell v1.1 MICCAI 200-case validation evaluation",
   "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
 }

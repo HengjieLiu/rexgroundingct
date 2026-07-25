@@ -1,0 +1,55 @@
+{
+  "canonical_config": {
+    "bytes": 5194,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/006_voxtell_cached_native_v123_lr_ablation.json",
+    "repo_path": "configs/experiments/006_voxtell_cached_native_v123_lr_ablation.json",
+    "sha256": "b8e587a36a2a51e4ee9696a1690f557883f0d1deeae6c77602b225ebf154a210"
+  },
+  "eval_json": {
+    "bytes": 108158,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/runs/latest/v123_cached_e5_d4/eval_epoch100_val200/eval/val_quick_global_eval.json",
+    "sha256": "a0282d36cc8246a2a996908d5af94e6b3e1bb0fe3542d52bf2bc1e3c0778e93b"
+  },
+  "execution_spec": {
+    "bytes": 4335,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/experiments/006_voxtell_cached_native_v123_lr_ablation/codex_execution_spec.md",
+    "repo_path": "experiments/006_voxtell_cached_native_v123_lr_ablation/codex_execution_spec.md",
+    "sha256": "05761882229097e1ffd72b5fe114283c0d3250bc20e780b675d8f25ce69651d5"
+  },
+  "id": "006_voxtell_cached_native_v123_lr_ablation",
+  "metrics": {
+    "hit_rate": 0.7611548556430446,
+    "mean_global_dice_per_case": 0.34386073155267993,
+    "mean_global_dice_per_finding": 0.32413407768565705,
+    "total_cases": 200,
+    "total_findings": 381
+  },
+  "repo_commit": "50c2dec1241cc350a02cfe1423b9edb2585c40ec",
+  "repo_dir": "experiments/006_voxtell_cached_native_v123_lr_ablation",
+  "repo_metrics": "experiments/006_voxtell_cached_native_v123_lr_ablation/metrics_summary.json",
+  "report": {
+    "bytes": 2036,
+    "copied": true,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/reports/lr_ablation_report.md",
+    "repo_path": "experiments/006_voxtell_cached_native_v123_lr_ablation/report.md",
+    "repo_sha256": "40bf9fcc17289011ce31cb7d0217ac33a04e0a9543fb33145ca6f11f94435f64",
+    "sha256": "40bf9fcc17289011ce31cb7d0217ac33a04e0a9543fb33145ca6f11f94435f64"
+  },
+  "runtime_config_matches_canonical": true,
+  "runtime_config_snapshot": {
+    "bytes": 5194,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/config/006_voxtell_cached_native_v123_lr_ablation.json",
+    "sha256": "b8e587a36a2a51e4ee9696a1690f557883f0d1deeae6c77602b225ebf154a210"
+  },
+  "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation",
+  "runtime_link_status": "exists",
+  "status": "evaluation_complete",
+  "synced_at_utc": "2026-07-25T22:46:36.444786+00:00",
+  "title": "VoxTell cached-native v123 learning-rate ablation",
+  "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
+}

@@ -20,7 +20,7 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 
 ## Status
 
-- Status: `runtime_initialized`
+- Status: `evaluation_complete`
 - Canonical config: `configs/experiments/004_voxtell_v123_native_vs_2mm_global_context_ft.json`
 - Execution spec: `experiments/004_voxtell_v123_native_vs_2mm_global_context_ft/codex_execution_spec.md`
 - Runtime directory: `/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft`
@@ -28,7 +28,7 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 
 ## Synced Small Artifacts
 
-- Report snapshot: `not available`
+- Report snapshot: `experiments/004_voxtell_v123_native_vs_2mm_global_context_ft/report.md`
 - Metrics summary: `metrics_summary.json`
 - Sync manifest: `sync_manifest.json`
 

@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-07-24
+updated: 2026-07-25
 status: active
 ---
 
@@ -20,6 +20,12 @@ edit.
   rescue ablation: four single-GPU batch1 variants with fixed train schedules,
   fixed val20/val200 probes, smoke-tested optimizer/loss/sampler switches, and
   active run group `exp003_full_20260723T075256Z`.
+- `006_voxtell_cached_native_v123_lr_ablation` completed the cached-native v123
+  sanity check and learning-rate ablation for run group
+  `exp006_cached_native_lr_20260725T050001Z`. All four arms finished training,
+  recovery evaluation filled the planned val20/val200 summaries, and the
+  strongest epoch-100 val200 arm is `v123_cached_e5_d4` with Dice `0.3241`,
+  hit rate `0.7612`, and `290 / 381` hits.
 - Submission packaging is now documented at `docs/submission.md` but should not
   be used for final submission until a candidate checkpoint and test prediction
   set exist.
@@ -37,6 +43,12 @@ edit.
   materialized schedule per variant, the fixed
   `rexgroundingct_val20_seed20260723` probe, and the fixed
   `rexgroundingct_val200_seed20260723` 200-case validation order.
+- Future VoxTell experiments must explicitly classify preprocessing as
+  unchanged, cached-equivalent, or intentionally changed. Standard cache IDs and
+  required fields are tracked in `docs/voxtell/preprocessing_variants.md`.
+- The shared native VoxTell cache `crop_zscore_native_v1` is complete under
+  `/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/` with
+  3,192 train/val cases, 8,068 targets, and 0 empty targets.
 - Experiment 002 current fine-tuning runs use fixed LR with no learning-rate
   decay; poly LR remains selectable as a later controlled option.
 - Treat `experiments/` as a repo-local index. Heavy runtime outputs live under
@@ -68,8 +80,19 @@ edit.
   It polls every 5 minutes and waits for `v1_opt` epoch-100 val200 eval to
   complete before launching the four-model probability ensemble under
   `ensembles/epoch100_val200`.
+- Experiment 004 exposed a native preprocessing throughput bottleneck: the
+  native arm repeatedly performs CT load, orientation, crop, z-score, and mask
+  loading on demand, while cached variants avoid most of that CPU/I/O work.
+  This does not invalidate exp004, but future native-control continuations
+  should use a cached-equivalent native preprocessing cache when runtime
+  comparison is not the scientific question.
 - CT-specific HU normalization remains a later controlled ablation, not part of
   the first fine-tuning baseline.
+- Experiment 006 resolved the native preprocessing throughput bottleneck with
+  cached-equivalent preprocessing and improved fixed val200 performance over
+  the previous exp004 native continuation. Treat `v123_cached_e5_d4` epoch 100
+  as the current strongest validation candidate, pending submission packaging
+  and test-set prediction work.
 - Full challenge submission workflow needs a candidate checkpoint, test CT
   readiness, prediction packaging, and official source refresh.
 - Public challenge pages can change during the submission window; refresh
@@ -91,3 +114,5 @@ edit.
 - Add reusable quick commands to `AGENTS/command.md` and workflow reflection or
   upgrade prompts under `AGENTS/workflow_reflect/` when a task pattern should
   be repeated later.
+- Review experiment 006 `v123_cached_e5_d4` epoch 100 as the next candidate
+  checkpoint for packaging and test-set prediction work.

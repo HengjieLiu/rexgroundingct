@@ -45,17 +45,17 @@ experiments:
     overall_instance_f1: null
   - id: "004_voxtell_v123_native_vs_2mm_global_context_ft"
     title: "VoxTell v123 native versus 2 mm global-context continuation"
-    status: "runtime_initialized"
+    status: "evaluation_complete"
     canonical_config: "configs/experiments/004_voxtell_v123_native_vs_2mm_global_context_ft.json"
     execution_spec: "experiments/004_voxtell_v123_native_vs_2mm_global_context_ft/codex_execution_spec.md"
     runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft"
     runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft/config/004_voxtell_v123_native_vs_2mm_global_context_ft.json"
     runtime_config_matches_canonical: true
-    repo_report: null
+    repo_report: "experiments/004_voxtell_v123_native_vs_2mm_global_context_ft/report.md"
     runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft/reports/paired_comparison_report.md"
     repo_metrics: "experiments/004_voxtell_v123_native_vs_2mm_global_context_ft/metrics_summary.json"
-    mean_global_dice_per_finding: null
-    hit_rate: null
+    mean_global_dice_per_finding: "0.292775289814533"
+    hit_rate: "0.7060367454068242"
     overall_instance_f1: null
   - id: "005_voxtell_global_proposal_local_cascade"
     title: "VoxTell global proposal to local segmentation cascade"
@@ -70,4 +70,18 @@ experiments:
     repo_metrics: "experiments/005_voxtell_global_proposal_local_cascade/metrics_summary.json"
     mean_global_dice_per_finding: "0.15243050281725434"
     hit_rate: "0.4041994750656168"
+    overall_instance_f1: null
+  - id: "006_voxtell_cached_native_v123_lr_ablation"
+    title: "VoxTell cached-native v123 learning-rate ablation"
+    status: "evaluation_complete"
+    canonical_config: "configs/experiments/006_voxtell_cached_native_v123_lr_ablation.json"
+    execution_spec: "experiments/006_voxtell_cached_native_v123_lr_ablation/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/config/006_voxtell_cached_native_v123_lr_ablation.json"
+    runtime_config_matches_canonical: true
+    repo_report: "experiments/006_voxtell_cached_native_v123_lr_ablation/report.md"
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/reports/lr_ablation_report.md"
+    repo_metrics: "experiments/006_voxtell_cached_native_v123_lr_ablation/metrics_summary.json"
+    mean_global_dice_per_finding: "0.32413407768565705"
+    hit_rate: "0.7611548556430446"
     overall_instance_f1: null

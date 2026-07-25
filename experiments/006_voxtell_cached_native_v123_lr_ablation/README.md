@@ -4,7 +4,7 @@ updated: 2026-07-22
 status: active
 ---
 
-# VoxTell text-conditioned fine-tuning on MICCAI train and val
+# VoxTell cached-native v123 learning-rate ablation
 
 This is a repo-local index for a runtime experiment. Edit the canonical
 config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
@@ -20,15 +20,15 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 
 ## Status
 
-- Status: `runtime_initialized`
-- Canonical config: `configs/experiments/002_voxtell_text_ft_miccai_train_val.json`
-- Execution spec: `experiments/002_voxtell_text_ft_miccai_train_val/codex_execution_spec.md`
-- Runtime directory: `/mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val`
+- Status: `evaluation_complete`
+- Canonical config: `configs/experiments/006_voxtell_cached_native_v123_lr_ablation.json`
+- Execution spec: `experiments/006_voxtell_cached_native_v123_lr_ablation/codex_execution_spec.md`
+- Runtime directory: `/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation`
 - Runtime link: `runtime` is ignored by git and points to the runtime directory.
 
 ## Synced Small Artifacts
 
-- Report snapshot: `not available`
+- Report snapshot: `experiments/006_voxtell_cached_native_v123_lr_ablation/report.md`
 - Metrics summary: `metrics_summary.json`
 - Sync manifest: `sync_manifest.json`
 

@@ -7,10 +7,10 @@
     "sha256": "2978c06c77c50329453af8d29c0510643ed121a1cf3183464ccb0805e4ecade3"
   },
   "eval_json": {
-    "bytes": null,
-    "exists": false,
+    "bytes": 108345,
+    "exists": true,
     "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft/runs/latest/native192_cont100/eval_epoch100_val200/eval/val_quick_global_eval.json",
-    "sha256": null
+    "sha256": "1643066407aafa5e430340a2b384f8c656ed5b6f0baaaa311da2d2a1899bc5b3"
   },
   "execution_spec": {
     "bytes": 4904,
@@ -20,17 +20,24 @@
     "sha256": "cb8c8fd7b493dd72a99b5ba36f6367126aa447e09824d0e562886c6f3527f4c4"
   },
   "id": "004_voxtell_v123_native_vs_2mm_global_context_ft",
-  "metrics": null,
-  "repo_commit": "b86a19ce286b3aa69474834e0e3c722d4eb522fd",
+  "metrics": {
+    "hit_rate": 0.7060367454068242,
+    "mean_global_dice_per_case": 0.30639871979471506,
+    "mean_global_dice_per_finding": 0.292775289814533,
+    "total_cases": 200,
+    "total_findings": 381
+  },
+  "repo_commit": "50c2dec1241cc350a02cfe1423b9edb2585c40ec",
   "repo_dir": "experiments/004_voxtell_v123_native_vs_2mm_global_context_ft",
   "repo_metrics": "experiments/004_voxtell_v123_native_vs_2mm_global_context_ft/metrics_summary.json",
   "report": {
-    "bytes": null,
-    "copied": false,
-    "exists": false,
+    "bytes": 2999,
+    "copied": true,
+    "exists": true,
     "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft/reports/paired_comparison_report.md",
     "repo_path": "experiments/004_voxtell_v123_native_vs_2mm_global_context_ft/report.md",
-    "sha256": null
+    "repo_sha256": "afdd5f3fbcba73dbfacbc10f7294098679ac164cf78309b7aa258a91d860616f",
+    "sha256": "afdd5f3fbcba73dbfacbc10f7294098679ac164cf78309b7aa258a91d860616f"
   },
   "runtime_config_matches_canonical": true,
   "runtime_config_snapshot": {
@@ -41,8 +48,8 @@
   },
   "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft",
   "runtime_link_status": "exists",
-  "status": "runtime_initialized",
-  "synced_at_utc": "2026-07-24T18:56:03.894714+00:00",
+  "status": "evaluation_complete",
+  "synced_at_utc": "2026-07-25T22:46:36.414450+00:00",
   "title": "VoxTell v123 native versus 2 mm global-context continuation",
   "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
 }
