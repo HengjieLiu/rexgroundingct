@@ -73,6 +73,17 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
         ),
         "readiness_json": Path("config/train_val_ct_readiness.json"),
     },
+    "006_voxtell_cached_native_v123_lr_ablation": {
+        "title": "VoxTell cached-native v123 learning-rate ablation",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT / "006_voxtell_cached_native_v123_lr_ablation.json"
+        ),
+        "primary_report": Path("reports/lr_ablation_report.md"),
+        "primary_eval_json": Path(
+            "runs/latest/v123_cached_e5_d4/eval_epoch100_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("config/train_val_ct_readiness.json"),
+    },
 }
 
 
