@@ -12,6 +12,9 @@ This note summarizes the current understanding of VoxTell image normalization fo
 ReXGroundingCT and proposes how to handle normalization in direct inference and
 future fine-tuning experiments.
 
+For standard cache IDs and preprocessing-variant requirements, see
+`preprocessing_variants.md`.
+
 The immediate question was whether VoxTell's z-score normalization is mainly a
 multi-modality choice for CT, MR, and PET, and whether raw HU values might be
 better for this lung CT challenge.

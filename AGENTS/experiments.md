@@ -12,9 +12,31 @@ status: active
   evaluation on the 200-case MICCAI validation split.
 - `002_voxtell_text_ft_miccai_train_val`: text-conditioned VoxTell fine-tuning
   scaffold for MICCAI train and validation data.
+- `003_voxtell_rex_ft_rescue_ablation`: four-arm VoxTell rescue fine-tuning
+  ablation with fixed schedules and fixed val20/val200 probes.
+- `004_voxtell_v123_native_vs_2mm_global_context_ft`: paired continuation from
+  exp003 v123 epoch 100 comparing native VoxTell preprocessing with 2 mm
+  global-context preprocessing.
+- `005_voxtell_global_proposal_local_cascade`: two-stage global proposal to
+  local VoxTell segmentation cascade.
+- `006_voxtell_cached_native_v123_lr_ablation`: cached-equivalent native v123
+  fine-tuning sanity check and learning-rate ablation.
 
 Do not rename experiment IDs casually. Runtime paths, configs, manifests, and
 reports depend on them.
+
+## Preprocessing Contract
+
+Every substantial experiment spec must state whether preprocessing is:
+
+- unchanged from the VoxTell baseline;
+- cached-equivalent to the baseline; or
+- intentionally changed as a method variable.
+
+For VoxTell/ReXGroundingCT work, record normalization scope, resampling,
+patch/window policy, cache ownership, orientation/export checks, and expected
+data-pipeline bottlenecks. Use `docs/voxtell/preprocessing_variants.md` for the
+standard cache IDs and required fields.
 
 ## Canonical Files
 

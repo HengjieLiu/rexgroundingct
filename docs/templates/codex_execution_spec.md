@@ -35,6 +35,18 @@ Out of scope:
 - Runtime experiment directory:
 - Repo-local summary directory:
 
+## Data And Preprocessing Contract
+
+- Baseline reference:
+- Changed preprocessing variables:
+- Unchanged controls:
+- Normalization scope:
+- Resampling and interpolation:
+- Patch/window policy:
+- Cache root and ownership:
+- Orientation/export check:
+- Comparability caveat:
+
 ## Method
 
 Describe the exact implementation or experiment plan. Include training,

@@ -11,6 +11,9 @@ status: active
 This note documents the preprocessing workflow used by our corrected
 ReXGroundingCT VoxTell direct inference pipeline for Experiment 001.
 
+For standardized cached preprocessing variants and future experiment contracts,
+see `preprocessing_variants.md`.
+
 Primary implementation points:
 
 - VoxTell predictor:

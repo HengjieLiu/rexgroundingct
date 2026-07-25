@@ -12,6 +12,8 @@ status: active
   VoxTell status.
 - `preprocessing.md`: direct inference loading, preprocessing, orientation, and
   export details.
+- `preprocessing_variants.md`: standard preprocessing/cache variants and the
+  required contract for future spacing, normalization, and cache experiments.
 - `normalization.md`: normalization findings and planned ablations.
 - `prompts/`: bilingual prompt-reference docs generated from MICCAI metadata.
 
