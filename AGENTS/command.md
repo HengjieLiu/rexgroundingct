@@ -14,10 +14,22 @@ Use `workflow.md` for durable repo workflow rules. Use `workflow_reflect/` for
 workflow reflection, scaffold review, upgrade prompts, and historical workflow
 evidence.
 
+## Command Index
+
+| Command | How To Call It | Use When |
+| --- | --- | --- |
+| Topic-Clustered Commit Preparation | `prepare commits by topic, wait for approval` | The user wants a reviewable commit plan for a dirty tree before any staging or commits. |
+
 ## Topic-Clustered Commit Preparation
 
 Use this command when the user asks to prepare commits, group dirty-tree changes
 by topic, or draft a commit plan for review.
+
+Recommended shorthand:
+
+```text
+prepare commits by topic, wait for approval
+```
 
 ```text
 Prepare a series of topic-clustered commits for this repo.
