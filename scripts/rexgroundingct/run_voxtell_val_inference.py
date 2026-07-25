@@ -253,6 +253,43 @@ def predict_single_image_probabilities(
     return probabilities_reverted_cropping
 
 
+def predict_preprocessed_crop_probabilities(
+    predictor: VoxTellPredictor,
+    image_czyx: np.ndarray,
+    prompts: list[str],
+) -> np.ndarray:
+    """Run VoxTell on an already cropped and normalized cached image."""
+    text_embeddings = predictor.embed_text_prompts(prompts)
+    data_tensor = torch.from_numpy(np.ascontiguousarray(image_czyx, dtype=np.float32))
+    logits = predictor.predict_sliding_window_return_logits(data_tensor, text_embeddings).to("cpu")
+    with torch.no_grad():
+        probabilities = torch.sigmoid(logits.float()).numpy().astype(np.float32, copy=False)
+    if not np.isfinite(probabilities).all():
+        raise RuntimeError("Encountered non-finite cached VoxTell probabilities")
+    return np.ascontiguousarray(probabilities)
+
+
+def restore_cached_native_crop(
+    prediction_crop: np.ndarray,
+    metadata: dict,
+) -> np.ndarray:
+    """Insert native cached crop predictions back into reoriented full image space."""
+    native_shape = tuple(int(value) for value in metadata["native_cropped_shape_zyx"])
+    cached_shape = tuple(int(value) for value in metadata["resampled_shape_zyx"])
+    if cached_shape != native_shape:
+        raise ValueError(
+            "run_voxtell_val_inference.py only supports native cached inference. "
+            f"Cached shape {cached_shape} differs from native cropped shape {native_shape}; "
+            "use the 2 mm inference wrapper for resampled caches."
+        )
+    orig_shape = tuple(int(value) for value in metadata["original_reoriented_shape_zyx"])
+    restored = np.zeros([prediction_crop.shape[0], *orig_shape], dtype=prediction_crop.dtype)
+    return np.asarray(
+        insert_crop_into_image(restored, prediction_crop, metadata["crop_bbox_zyx"]),
+        dtype=prediction_crop.dtype,
+    )
+
+
 def run_case(
     predictor: VoxTellPredictor,
     reader: NibabelIOWithReorient,
@@ -265,6 +302,7 @@ def run_case(
     output_type: str,
     probability_output_dir: Path | None = None,
     threshold: float = 0.5,
+    preprocessed_cache_dir: Path | None = None,
 ) -> dict:
     name = entry["name"]
     ct_path = ct_rate_abs_path(name, ct_root)
@@ -299,20 +337,46 @@ def run_case(
         result["status"] = "missing_gt"
         return result
 
-    image, ct_properties = reader.read_images([str(ct_path)])
     probability_prediction = None
-    if output_type == "mask" and probability_output_dir is None:
-        prediction = predictor.predict_single_image(image, prompts)
-        output_dtype = np.uint8
-    elif output_type == "mask":
-        probability_prediction = predict_single_image_probabilities(predictor, image, prompts)
-        prediction = (probability_prediction >= threshold).astype(np.uint8, copy=False)
-        output_dtype = np.uint8
-    elif output_type == "probability":
-        prediction = predict_single_image_probabilities(predictor, image, prompts)
-        output_dtype = np.float32
+    cache_metadata = None
+    if preprocessed_cache_dir is not None:
+        from voxtell_preprocessed_cache import load_cached_case
+
+        image, _targets, cache_metadata = load_cached_case(
+            preprocessed_cache_dir,
+            name,
+            require_targets=False,
+        )
+        if cache_metadata.get("preprocess_id") != "crop_zscore_native_v1":
+            raise ValueError(
+                f"{name}: --preprocessed-cache-dir for this wrapper requires "
+                f"crop_zscore_native_v1, got {cache_metadata.get('preprocess_id')!r}"
+            )
+        crop_probability = predict_preprocessed_crop_probabilities(predictor, image, prompts)
+        probability_prediction = restore_cached_native_crop(crop_probability, cache_metadata)
+        ct_properties = cache_metadata["ct_properties"]
+        if output_type == "mask":
+            prediction = (probability_prediction >= threshold).astype(np.uint8, copy=False)
+            output_dtype = np.uint8
+        elif output_type == "probability":
+            prediction = probability_prediction
+            output_dtype = np.float32
+        else:
+            raise ValueError(f"Unsupported output_type: {output_type}")
     else:
-        raise ValueError(f"Unsupported output_type: {output_type}")
+        image, ct_properties = reader.read_images([str(ct_path)])
+        if output_type == "mask" and probability_output_dir is None:
+            prediction = predictor.predict_single_image(image, prompts)
+            output_dtype = np.uint8
+        elif output_type == "mask":
+            probability_prediction = predict_single_image_probabilities(predictor, image, prompts)
+            prediction = (probability_prediction >= threshold).astype(np.uint8, copy=False)
+            output_dtype = np.uint8
+        elif output_type == "probability":
+            prediction = predict_single_image_probabilities(predictor, image, prompts)
+            output_dtype = np.float32
+        else:
+            raise ValueError(f"Unsupported output_type: {output_type}")
     gt_img = nib.load(str(gt_path))
     prediction, export_metadata = export_prediction_to_gt_layout(
         prediction,
@@ -353,6 +417,13 @@ def run_case(
     result["status"] = "written"
     result["shape"] = list(prediction.shape)
     result["orientation"] = export_metadata
+    if cache_metadata is not None:
+        result["preprocessed_cache"] = {
+            "cache_root": str(preprocessed_cache_dir),
+            "preprocess_id": cache_metadata.get("preprocess_id"),
+            "image_sha256": cache_metadata.get("image_sha256"),
+            "targets_sha256": cache_metadata.get("targets_sha256"),
+        }
     return result
 
 
@@ -377,6 +448,7 @@ def main() -> int:
     parser.add_argument("--output-type", choices=["mask", "probability"], default="mask")
     parser.add_argument("--probability-output-dir", type=Path, default=None)
     parser.add_argument("--threshold", type=float, default=0.5)
+    parser.add_argument("--preprocessed-cache-dir", type=Path, default=None)
     parser.add_argument("--status-json", type=Path, default=None)
     args = parser.parse_args()
 
@@ -480,6 +552,7 @@ def main() -> int:
                     output_type=args.output_type,
                     probability_output_dir=args.probability_output_dir,
                     threshold=args.threshold,
+                    preprocessed_cache_dir=args.preprocessed_cache_dir,
                 )
             )
         except Exception as exc:  # noqa: BLE001 - keep batch progress resumable

@@ -145,6 +145,21 @@ def parse_patch_size(values: list[int]) -> tuple[int, int, int]:
     return patch_size
 
 
+def parse_checkpoint_updates(value: str | None) -> set[int]:
+    if value is None or not value.strip():
+        return set()
+    updates: set[int] = set()
+    for item in value.split(","):
+        item = item.strip()
+        if not item:
+            continue
+        update = int(item)
+        if update <= 0:
+            raise ValueError("--checkpoint-updates values must be positive")
+        updates.add(update)
+    return updates
+
+
 def reorient_target_to_voxtell_layout(
     target_fxyz: np.ndarray,
     ct_properties: dict[str, Any],
@@ -265,9 +280,15 @@ class RexVoxTellPatchSampler:
             return cached
 
         if self.preprocessed_cache_dir is not None:
-            from voxtell_2mm import load_cached_case
+            from voxtell_preprocessed_cache import load_cached_case
 
-            image, targets, metadata = load_cached_case(self.preprocessed_cache_dir, name)
+            image, targets, metadata = load_cached_case(
+                self.preprocessed_cache_dir,
+                name,
+                require_targets=True,
+            )
+            if targets is None:
+                raise ValueError(f"{name}: cached case does not contain training targets")
             prompts = sorted_prompts(entry)
             if len(prompts) != int(targets.shape[0]):
                 raise ValueError(f"{name}: {len(prompts)} prompts but {targets.shape[0]} cached targets")
@@ -1083,6 +1104,42 @@ def loss_config(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def preprocessing_config(args: argparse.Namespace) -> dict[str, Any]:
+    if args.preprocessed_cache_dir is None:
+        return {
+            "mode": "on_the_fly",
+            "preprocessed_cache_dir": None,
+            "preprocess_id": "voxtell_default_on_the_fly",
+            "normalization": "voxtell_default_crop_nonzero_zscore",
+        }
+
+    manifest_path = args.preprocessed_cache_dir / "manifest.json"
+    config: dict[str, Any] = {
+        "mode": "preprocessed_cache",
+        "preprocessed_cache_dir": str(args.preprocessed_cache_dir),
+        "manifest_path": str(manifest_path),
+        "preprocess_id": "unknown",
+        "normalization": "unknown",
+    }
+    if manifest_path.is_file():
+        manifest = json.loads(manifest_path.read_text())
+        config.update(
+            {
+                "manifest_sha256": sha256_file(manifest_path),
+                "preprocess_id": manifest.get("preprocess_id", "unknown"),
+                "normalization": manifest.get("normalization", "unknown"),
+                "cases": manifest.get("cases"),
+                "targets": manifest.get("targets"),
+                "empty_targets": manifest.get("empty_targets"),
+                "foreground_fallback_targets": manifest.get("foreground_fallback_targets"),
+                "splits": manifest.get("splits"),
+            }
+        )
+    else:
+        config["manifest_missing"] = True
+    return config
+
+
 def sampler_config(args: argparse.Namespace) -> dict[str, Any]:
     return {
         "foreground_oversample_probability": args.foreground_oversample_prob,
@@ -1093,6 +1150,7 @@ def sampler_config(args: argparse.Namespace) -> dict[str, Any]:
         "preprocessed_cache_dir": (
             str(args.preprocessed_cache_dir) if args.preprocessed_cache_dir is not None else None
         ),
+        "preprocessing": preprocessing_config(args),
     }
 
 
@@ -1108,6 +1166,7 @@ def save_checkpoint(
     path.parent.mkdir(parents=True, exist_ok=True)
     model = network.module if hasattr(network, "module") else network
     tmp = path.with_name(f".{path.name}.tmp.{os.getpid()}")
+    preprocessing = preprocessing_config(args)
     torch.save(
         {
             "epoch": int(epoch),
@@ -1117,18 +1176,16 @@ def save_checkpoint(
             "grad_scaler": scaler.state_dict(),
             "experiment": args.experiment_id,
             "patch_size": list(parse_patch_size(args.patch_size)),
-            "normalization": (
-                "voxtell_crop_nonzero_full_volume_zscore_then_2mm"
-                if args.preprocessed_cache_dir is not None
-                else "voxtell_default_crop_nonzero_zscore"
-            ),
+            "normalization": preprocessing["normalization"],
             "preprocessed_cache_dir": (
                 str(args.preprocessed_cache_dir) if args.preprocessed_cache_dir is not None else None
             ),
+            "preprocessing_config": preprocessing,
             "sampler_fallback": "one_finding_uses_1_positive_2_negatives",
             "lr_schedule": args.lr_schedule,
             "optimizer_config": optimizer_config(args),
             "loss_config": loss_config(args),
+            "checkpoint_updates": sorted(parse_checkpoint_updates(args.checkpoint_updates)),
         },
         tmp,
     )
@@ -1264,6 +1321,7 @@ def runtime_manifest(
         "optimizer_config": optimizer_config(args),
         "loss_config": loss_config(args),
         "sampler_config": sampler_config(args),
+        "preprocessing_config": preprocessing_config(args),
     }
 
 
@@ -1640,6 +1698,14 @@ def run_train(
     scaler = torch.amp.GradScaler("cuda", enabled=device.type == "cuda" and args.amp)
 
     total_updates = int(args.epochs * args.steps_per_epoch)
+    checkpoint_updates = parse_checkpoint_updates(args.checkpoint_updates)
+    if checkpoint_updates:
+        out_of_horizon = [update for update in sorted(checkpoint_updates) if update > total_updates]
+        if out_of_horizon:
+            raise ValueError(
+                f"--checkpoint-updates contains updates beyond this run horizon "
+                f"({total_updates}): {out_of_horizon}"
+            )
     schedule_events = load_sample_schedule(args.sample_schedule) if args.sample_schedule else None
     if schedule_events is None:
         sampler: Any = build_sampler(train_entries[rank::world_size], negative_pool, args, args.seed + rank)
@@ -1721,7 +1787,14 @@ def run_train(
                 progress.set_postfix(loss=f"{loss:.4f}", lr=f"{optimizer_lr(optimizer):.2e}")
                 immutable_checkpoint_written = False
                 checkpoint_step_path = None
-                if args.checkpoint_every_updates and global_update % args.checkpoint_every_updates == 0:
+                write_immutable_checkpoint = bool(
+                    global_update in checkpoint_updates
+                    or (
+                        args.checkpoint_every_updates
+                        and global_update % args.checkpoint_every_updates == 0
+                    )
+                )
+                if write_immutable_checkpoint:
                     checkpoint_step_path = (
                         args.run_dir / "checkpoints" / f"checkpoint_update_{global_update:06d}.pth"
                     )
@@ -1796,6 +1869,8 @@ def run_train(
             "optimizer_config": optimizer_config(args),
             "loss_config": loss_config(args),
             "sampler_config": sampler_config(args),
+            "preprocessing_config": preprocessing_config(args),
+            "checkpoint_updates": sorted(checkpoint_updates),
             "elapsed_seconds": elapsed_total,
             "updates_per_second": global_update / elapsed_total if elapsed_total > 0 else None,
             "mean_update_seconds": elapsed_total / global_update if global_update else None,
@@ -1877,6 +1952,11 @@ def main() -> int:
     parser.add_argument("--clip-grad-norm", type=float, default=0.0)
     parser.add_argument("--amp", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--checkpoint-every-updates", type=int, default=100)
+    parser.add_argument(
+        "--checkpoint-updates",
+        default="",
+        help="Optional comma-separated immutable checkpoint update numbers.",
+    )
     parser.add_argument("--latest-checkpoint-every-updates", type=int, default=None)
     parser.add_argument(
         "--materialize-final-model",
@@ -1920,6 +2000,10 @@ def main() -> int:
         raise ValueError("--warmup-updates must be >= 0")
     if args.clip_grad_norm < 0:
         raise ValueError("--clip-grad-norm must be >= 0")
+    if args.checkpoint_every_updates < 0:
+        raise ValueError("--checkpoint-every-updates must be >= 0")
+    if args.latest_checkpoint_every_updates is not None and args.latest_checkpoint_every_updates < 0:
+        raise ValueError("--latest-checkpoint-every-updates must be >= 0")
     if args.empty_target_loss_weight < 0:
         raise ValueError("--empty-target-loss-weight must be >= 0")
     if args.bce_boundary_radius < 0:
@@ -1937,6 +2021,7 @@ def main() -> int:
         raise ValueError("--steps-per-epoch must be >= 1")
     if not (0.0 <= args.foreground_oversample_prob <= 1.0):
         raise ValueError("--foreground-oversample-prob must be between 0 and 1")
+    parse_checkpoint_updates(args.checkpoint_updates)
 
     args.exp_dir.mkdir(parents=True, exist_ok=True)
     if args.run_dir is None:
