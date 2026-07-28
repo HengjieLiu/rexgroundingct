@@ -1,0 +1,55 @@
+{
+  "canonical_config": {
+    "bytes": 6722,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/008_voxtell_dual_branch_proposal_refinement_ablation.json",
+    "repo_path": "configs/experiments/008_voxtell_dual_branch_proposal_refinement_ablation.json",
+    "sha256": "b7282467c62dd2d6d3ff347f36ce7ff9ec548344061b3e5e4b4369a78d157f38"
+  },
+  "eval_json": {
+    "bytes": 108109,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/latest/v3_dualfusion_softguide_joint/eval_epoch100_val200/eval/val_quick_global_eval.json",
+    "sha256": "a0d3cf68851806797ed6b20e7cdb84d73241d8396158ff4853df5f84b07fa019"
+  },
+  "execution_spec": {
+    "bytes": 7390,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/experiments/008_voxtell_dual_branch_proposal_refinement_ablation/codex_execution_spec.md",
+    "repo_path": "experiments/008_voxtell_dual_branch_proposal_refinement_ablation/codex_execution_spec.md",
+    "sha256": "0bf0c9e51a002dfd59090d551de6232bad86b80bb778ecd803d3378366df330c"
+  },
+  "id": "008_voxtell_dual_branch_proposal_refinement_ablation",
+  "metrics": {
+    "hit_rate": 0.7559055118110236,
+    "mean_global_dice_per_case": 0.35039599789696735,
+    "mean_global_dice_per_finding": 0.33452015530600027,
+    "total_cases": 200,
+    "total_findings": 381
+  },
+  "repo_commit": "d529308764b87bc5823b73541e96ee32d02fa429",
+  "repo_dir": "experiments/008_voxtell_dual_branch_proposal_refinement_ablation",
+  "repo_metrics": "experiments/008_voxtell_dual_branch_proposal_refinement_ablation/metrics_summary.json",
+  "report": {
+    "bytes": 1436,
+    "copied": true,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/reports/dual_branch_ablation_report.md",
+    "repo_path": "experiments/008_voxtell_dual_branch_proposal_refinement_ablation/report.md",
+    "repo_sha256": "541028e97a8e5421eb60f21ee47bc78c686153a7350977fb756f8dd258cfdb9d",
+    "sha256": "541028e97a8e5421eb60f21ee47bc78c686153a7350977fb756f8dd258cfdb9d"
+  },
+  "runtime_config_matches_canonical": true,
+  "runtime_config_snapshot": {
+    "bytes": 6722,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/config/008_voxtell_dual_branch_proposal_refinement_ablation.json",
+    "sha256": "b7282467c62dd2d6d3ff347f36ce7ff9ec548344061b3e5e4b4369a78d157f38"
+  },
+  "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation",
+  "runtime_link_status": "exists",
+  "status": "evaluation_complete",
+  "synced_at_utc": "2026-07-28T00:25:30.453368+00:00",
+  "title": "VoxTell dual-branch proposal/refinement ablation",
+  "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
+}
