@@ -1,0 +1,197 @@
+{
+  "bs1": {
+    "checkpoints": {
+      "10000": {
+        "loss": 0.4975344240665436,
+        "rolling100_loss": 0.371031021848321
+      },
+      "2000": {
+        "loss": 0.6406809091567993,
+        "rolling100_loss": 0.44125772908329963
+      },
+      "2500": {
+        "loss": 0.5343707203865051,
+        "rolling100_loss": 0.4112914843112231
+      },
+      "4000": {
+        "loss": 0.5426973700523376,
+        "rolling100_loss": 0.4263417928665877
+      },
+      "500": {
+        "loss": 0.5798476338386536,
+        "rolling100_loss": 0.44271177813410756
+      },
+      "5000": {
+        "loss": 0.6027624011039734,
+        "rolling100_loss": 0.4164643570408225
+      },
+      "6000": {
+        "loss": 0.7002084255218506,
+        "rolling100_loss": 0.4152015352994204
+      },
+      "7500": {
+        "loss": 0.49227046966552734,
+        "rolling100_loss": 0.3891127490997315
+      },
+      "8000": {
+        "loss": 0.533616840839386,
+        "rolling100_loss": 0.3995814276859165
+      }
+    },
+    "first100_mean_loss": 0.44784732535481453,
+    "first_step": 1,
+    "last100_mean_loss": 0.371031021848321,
+    "last_loss": 0.4975344240665436,
+    "last_step": 10000,
+    "max_loss": 1.7020316123962402,
+    "min_loss": 0.025401268154382706,
+    "name": "exp006_bs1_e5_d4",
+    "overall_mean_loss": 0.41137674407400193,
+    "updates": 10000
+  },
+  "bs1_source": {
+    "batch_size": 1,
+    "completed_updates": 10000,
+    "grad_accum": 1,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/runs/latest/v123_cached_e5_d4/reports/training_metrics.json",
+    "sha256": "f7695361cd3e45a4da705f646ac48be6f3eb6aa93c4089a60a7995b4a8d6843b",
+    "status": "completed",
+    "world_size": 1
+  },
+  "bs4": {
+    "checkpoints": {
+      "10000": {
+        "loss": 0.22066831588745117,
+        "rolling100_loss": 0.35549149274826053
+      },
+      "2000": {
+        "loss": 0.45804476737976074,
+        "rolling100_loss": 0.40826303452253343
+      },
+      "2500": {
+        "loss": 0.40736401081085205,
+        "rolling100_loss": 0.39140927553176885
+      },
+      "4000": {
+        "loss": 0.5147367715835571,
+        "rolling100_loss": 0.3785860104858876
+      },
+      "500": {
+        "loss": 0.5889537334442139,
+        "rolling100_loss": 0.42449302867054944
+      },
+      "5000": {
+        "loss": 0.3013744354248047,
+        "rolling100_loss": 0.37416213557124134
+      },
+      "6000": {
+        "loss": 0.33364441990852356,
+        "rolling100_loss": 0.3759403352439404
+      },
+      "7500": {
+        "loss": 0.3063887059688568,
+        "rolling100_loss": 0.36084028244018557
+      },
+      "8000": {
+        "loss": 0.39232927560806274,
+        "rolling100_loss": 0.36519878298044206
+      }
+    },
+    "first100_mean_loss": 0.45525052860379217,
+    "first_step": 1,
+    "last100_mean_loss": 0.3554914927482605,
+    "last_loss": 0.22066831588745117,
+    "last_step": 10000,
+    "max_loss": 0.8460656404495239,
+    "min_loss": 0.06964987516403198,
+    "name": "exp007_ddp_bs4_e5_d4",
+    "overall_mean_loss": 0.38198396604284646,
+    "updates": 10000
+  },
+  "bs4_sources": [
+    {
+      "completed_updates": 2500,
+      "first_step": 1,
+      "last_step": 2500,
+      "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/reports/training_metrics_segment_epoch025.json",
+      "segment_updates_completed": 2500,
+      "sha256": "94b9df14005a2c5406d0c2c40d0f021783e5bf932cf2dc9f239333cc1a10517e",
+      "start_global_update": 0,
+      "status": "completed",
+      "target_global_update": 2500,
+      "updates": 2500
+    },
+    {
+      "completed_updates": 5000,
+      "first_step": 2501,
+      "last_step": 5000,
+      "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/reports/training_metrics_segment_epoch050.json",
+      "segment_updates_completed": 2500,
+      "sha256": "1a39400e511d63f07f065f01bb6587475e9e2fdb7f58081a6e030715564edc8f",
+      "start_global_update": 2500,
+      "status": "completed",
+      "target_global_update": 5000,
+      "updates": 2500
+    },
+    {
+      "completed_updates": 7500,
+      "first_step": 5001,
+      "last_step": 7500,
+      "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/reports/training_metrics_segment_epoch075.json",
+      "segment_updates_completed": 2500,
+      "sha256": "462150d5993113aeb82ff60331b8e2e2b94cd76c2e0be88e85673293b7d8b93e",
+      "start_global_update": 5000,
+      "status": "completed",
+      "target_global_update": 7500,
+      "updates": 2500
+    },
+    {
+      "completed_updates": 10000,
+      "first_step": 7501,
+      "last_step": 10000,
+      "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/reports/training_metrics_segment_epoch100.json",
+      "segment_updates_completed": 2500,
+      "sha256": "89809c8fc5f62c28628238c2eefe0a05c86f4ea285e721c3caee9c4062efa1c3",
+      "start_global_update": 7500,
+      "status": "completed",
+      "target_global_update": 10000,
+      "updates": 2500
+    }
+  ],
+  "plot_path": "/home/hengjie/code_sync/rexgroundingct/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/loss_curve_bs4_vs_bs1_optimizer_step.png",
+  "rolling_windows": [
+    100,
+    500
+  ],
+  "val200": {
+    "100": {
+      "dice": 0.3309543045692373,
+      "findings": 381,
+      "hit_rate": 0.7585301837270341,
+      "hits": 289,
+      "summary_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/eval_epoch100_val200/reports/val_quick_global_eval_summary.json"
+    },
+    "25": {
+      "dice": 0.3091432431859407,
+      "findings": 381,
+      "hit_rate": 0.7454068241469817,
+      "hits": 284,
+      "summary_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/eval_epoch025_val200/reports/val_quick_global_eval_summary.json"
+    },
+    "50": {
+      "dice": 0.33326758330355544,
+      "findings": 381,
+      "hit_rate": 0.7559055118110236,
+      "hits": 288,
+      "summary_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/eval_epoch050_val200/reports/val_quick_global_eval_summary.json"
+    },
+    "75": {
+      "dice": 0.33181016378253786,
+      "findings": 381,
+      "hit_rate": 0.7611548556430446,
+      "hits": 290,
+      "summary_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/eval_epoch075_val200/reports/val_quick_global_eval_summary.json"
+    }
+  },
+  "x_axis": "optimizer_update"
+}

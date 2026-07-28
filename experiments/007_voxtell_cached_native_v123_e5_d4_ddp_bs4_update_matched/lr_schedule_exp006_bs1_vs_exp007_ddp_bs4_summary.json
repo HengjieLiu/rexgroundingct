@@ -1,0 +1,109 @@
+{
+  "formula": {
+    "warmup": "factor = step / 100 for step <= 100",
+    "poly": "factor = (1 - clip((step - 100) / (10000 - 100), 0, 1)) ** 0.9 after warmup",
+    "encoder_lr": "1e-5 * factor",
+    "decoder_lr": "1e-4 * factor"
+  },
+  "checkpoint_values": [
+    {
+      "optimizer_update": 1,
+      "epoch_at_100_updates_per_epoch": 0.01,
+      "lr_factor": 0.01,
+      "encoder_lr": 1.0000000000000001e-07,
+      "decoder_lr": 1.0000000000000002e-06,
+      "exp006_patch_events_seen": 1,
+      "exp007_patch_events_seen": 4
+    },
+    {
+      "optimizer_update": 100,
+      "epoch_at_100_updates_per_epoch": 1.0,
+      "lr_factor": 1.0,
+      "encoder_lr": 1e-05,
+      "decoder_lr": 0.0001,
+      "exp006_patch_events_seen": 100,
+      "exp007_patch_events_seen": 400
+    },
+    {
+      "optimizer_update": 500,
+      "epoch_at_100_updates_per_epoch": 5.0,
+      "lr_factor": 0.9635617897399725,
+      "encoder_lr": 9.635617897399726e-06,
+      "decoder_lr": 9.635617897399725e-05,
+      "exp006_patch_events_seen": 500,
+      "exp007_patch_events_seen": 2000
+    },
+    {
+      "optimizer_update": 2000,
+      "epoch_at_100_updates_per_epoch": 20.0,
+      "lr_factor": 0.825485241601318,
+      "encoder_lr": 8.254852416013181e-06,
+      "decoder_lr": 8.25485241601318e-05,
+      "exp006_patch_events_seen": 2000,
+      "exp007_patch_events_seen": 8000
+    },
+    {
+      "optimizer_update": 2500,
+      "epoch_at_100_updates_per_epoch": 25.0,
+      "lr_factor": 0.778903153085323,
+      "encoder_lr": 7.78903153085323e-06,
+      "decoder_lr": 7.78903153085323e-05,
+      "exp006_patch_events_seen": 2500,
+      "exp007_patch_events_seen": 10000
+    },
+    {
+      "optimizer_update": 4000,
+      "epoch_at_100_updates_per_epoch": 40.0,
+      "lr_factor": 0.6371833959472287,
+      "encoder_lr": 6.3718339594722875e-06,
+      "decoder_lr": 6.371833959472288e-05,
+      "exp006_patch_events_seen": 4000,
+      "exp007_patch_events_seen": 16000
+    },
+    {
+      "optimizer_update": 5000,
+      "epoch_at_100_updates_per_epoch": 50.0,
+      "lr_factor": 0.5407559774365832,
+      "encoder_lr": 5.407559774365832e-06,
+      "decoder_lr": 5.407559774365832e-05,
+      "exp006_patch_events_seen": 5000,
+      "exp007_patch_events_seen": 20000
+    },
+    {
+      "optimizer_update": 6000,
+      "epoch_at_100_updates_per_epoch": 60.0,
+      "lr_factor": 0.4423665878318266,
+      "encoder_lr": 4.4236658783182665e-06,
+      "decoder_lr": 4.423665878318266e-05,
+      "exp006_patch_events_seen": 6000,
+      "exp007_patch_events_seen": 24000
+    },
+    {
+      "optimizer_update": 7500,
+      "epoch_at_100_updates_per_epoch": 75.0,
+      "lr_factor": 0.28978395316220223,
+      "encoder_lr": 2.8978395316220224e-06,
+      "decoder_lr": 2.8978395316220225e-05,
+      "exp006_patch_events_seen": 7500,
+      "exp007_patch_events_seen": 30000
+    },
+    {
+      "optimizer_update": 8000,
+      "epoch_at_100_updates_per_epoch": 80.0,
+      "lr_factor": 0.23705838477544094,
+      "encoder_lr": 2.3705838477544097e-06,
+      "decoder_lr": 2.3705838477544094e-05,
+      "exp006_patch_events_seen": 8000,
+      "exp007_patch_events_seen": 32000
+    },
+    {
+      "optimizer_update": 10000,
+      "epoch_at_100_updates_per_epoch": 100.0,
+      "lr_factor": 0.0,
+      "encoder_lr": 0.0,
+      "decoder_lr": 0.0,
+      "exp006_patch_events_seen": 10000,
+      "exp007_patch_events_seen": 40000
+    }
+  ]
+}

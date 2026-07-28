@@ -1,0 +1,55 @@
+{
+  "canonical_config": {
+    "bytes": 4470,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json",
+    "repo_path": "configs/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json",
+    "sha256": "1fb38255df996dc80b014ab3678b6981212a1a8bd82ac54ee2c4657543b63ec8"
+  },
+  "eval_json": {
+    "bytes": 108181,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/latest/ddp_bs4/eval_epoch100_val200/eval/val_quick_global_eval.json",
+    "sha256": "52a639fc13acef4742ce8432f69b79f99e3de3ddd2926838cf3077a0a060c35b"
+  },
+  "execution_spec": {
+    "bytes": 5967,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/codex_execution_spec.md",
+    "repo_path": "experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/codex_execution_spec.md",
+    "sha256": "09d079dcb19833cb95a7e6dbbbb8deb8c1cb422829d31c092254c5f0fe24bc59"
+  },
+  "id": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+  "metrics": {
+    "hit_rate": 0.7585301837270341,
+    "mean_global_dice_per_case": 0.34900955056039634,
+    "mean_global_dice_per_finding": 0.3309543045692373,
+    "total_cases": 200,
+    "total_findings": 381
+  },
+  "repo_commit": "d529308764b87bc5823b73541e96ee32d02fa429",
+  "repo_dir": "experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+  "repo_metrics": "experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/metrics_summary.json",
+  "report": {
+    "bytes": 2736,
+    "copied": true,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/reports/ddp_bs4_update_matched_report.md",
+    "repo_path": "experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/report.md",
+    "repo_sha256": "5b5475b603cc8960a850d44c4c28abc8ad7cb4541eeb14eb69a84ab0ae77aa4d",
+    "sha256": "5b5475b603cc8960a850d44c4c28abc8ad7cb4541eeb14eb69a84ab0ae77aa4d"
+  },
+  "runtime_config_matches_canonical": true,
+  "runtime_config_snapshot": {
+    "bytes": 4470,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/config/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json",
+    "sha256": "1fb38255df996dc80b014ab3678b6981212a1a8bd82ac54ee2c4657543b63ec8"
+  },
+  "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+  "runtime_link_status": "created",
+  "status": "evaluation_complete",
+  "synced_at_utc": "2026-07-26T18:30:36.475811+00:00",
+  "title": "VoxTell cached-native v123 e5/d4 DDP batch4 update-matched run",
+  "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
+}
