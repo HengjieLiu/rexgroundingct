@@ -84,6 +84,58 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
         ),
         "readiness_json": Path("config/train_val_ct_readiness.json"),
     },
+    "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched": {
+        "title": "VoxTell cached-native v123 e5/d4 DDP batch4 update-matched run",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json"
+        ),
+        "primary_report": Path("reports/ddp_bs4_update_matched_report.md"),
+        "primary_eval_json": Path(
+            "runs/latest/ddp_bs4/eval_epoch100_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("config/train_val_ct_readiness.json"),
+    },
+    "008_voxtell_dual_branch_proposal_refinement_ablation": {
+        "title": "VoxTell dual-branch proposal/refinement ablation",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "008_voxtell_dual_branch_proposal_refinement_ablation.json"
+        ),
+        "primary_report": Path("reports/dual_branch_ablation_report.md"),
+        "primary_eval_json": Path(
+            "runs/latest/v3_dualfusion_softguide_joint/"
+            "eval_epoch100_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("config/train_val_ct_readiness.json"),
+    },
+    "009_voxtell_s3_attention_coupling_ablation": {
+        "title": "VoxTell S3 attention coupling ablation",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "009_voxtell_s3_attention_coupling_ablation.json"
+        ),
+        "primary_report": Path("reports/s3_attention_coupling_report.md"),
+        "primary_eval_json": Path(
+            "runs/latest/s3v3_logit_residual_half_quarter/"
+            "eval_epoch100_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("config/train_val_ct_readiness.json"),
+    },
+    "010_voxtell_public_anatomy_prior_fusion": {
+        "title": "VoxTell public anatomy-prior fusion",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "010_voxtell_public_anatomy_prior_fusion.json"
+        ),
+        "primary_report": Path(
+            "reports/totalsegmentator_val200_anatomy_audit.md"
+        ),
+        "primary_eval_json": Path(
+            "reports/totalsegmentator_val200_anatomy_audit.json"
+        ),
+        "readiness_json": Path("reports/val200_progress.json"),
+    },
 }
 
 

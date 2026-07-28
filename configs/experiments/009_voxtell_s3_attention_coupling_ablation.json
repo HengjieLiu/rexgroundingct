@@ -1,0 +1,144 @@
+{
+  "experiment": "009_voxtell_s3_attention_coupling_ablation",
+  "status": "implementation",
+  "objective": "compare a baseline exp006 e5/d4 continuation against three half-quarter S3 attention coupling strategies after all-scale S3 OOMed at smoke",
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "segmentations": "/data/hengjie/datasets/rexgroundingct/segmentations",
+  "ct_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct",
+  "experiment_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation",
+  "initialization": {
+    "source_experiment": "006_voxtell_cached_native_v123_lr_ablation",
+    "source_run_group": "exp006_cached_native_lr_20260725T050001Z",
+    "source_arm": "v123_cached_e5_d4",
+    "source_epoch": 100,
+    "source_model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/runs/exp006_cached_native_lr_20260725T050001Z/v123_cached_e5_d4/model_epoch100",
+    "load_policy": "baseline loads source weights directly; S3 arms wrap source VoxTell and initialize effective coupling scale to zero",
+    "optimizer_policy": "reset optimizer, momentum, AMP scaler, update counter, warmup, and poly horizon",
+    "source_val20": {
+      "mean_global_dice_per_finding": 0.3907023703162601,
+      "hit_rate": 0.7419354838709677,
+      "hits": 23,
+      "findings": 31
+    },
+    "source_val200": {
+      "mean_global_dice_per_finding": 0.32413407768565705,
+      "hit_rate": 0.7611548556430446,
+      "hits": 290,
+      "findings": 381
+    }
+  },
+  "preprocessing": {
+    "classification": "cached-equivalent to VoxTell native baseline",
+    "cache_id": "crop_zscore_native_v1",
+    "cache_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1",
+    "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+    "cases": 3192,
+    "targets": 8068,
+    "empty_targets": 0,
+    "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+    "patch_size": [192, 192, 192]
+  },
+  "schedule": {
+    "seed": 20260723,
+    "source_jsonl": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/config/train_schedule_v123_ddp_bs4_seed20260723_100ep_100steps_gb4.jsonl",
+    "source_jsonl_sha256": "acdfed8dd8d9908e9ea33d6790d47f8f7e3cbeed4bad326274d115d38e96a0aa",
+    "source_event_start_inclusive": 10000,
+    "source_event_stop_exclusive": 20000,
+    "events": 10000,
+    "epochs": 100,
+    "updates_per_epoch": 100,
+    "batch_size": 1,
+    "gradient_accumulation": 1,
+    "world_size_per_arm": 1,
+    "prompt_policy": "multi-finding 2 positive + 1 negative; one-finding 1 positive + 2 negatives; every selected positive nonempty in its sampled patch"
+  },
+  "architecture": {
+    "model_type": "voxtell_s3_attention_v1",
+    "shared_components": [
+      "image encoder",
+      "decoder",
+      "bottleneck projection",
+      "text projection",
+      "text-image transformer",
+      "positional encoding"
+    ],
+    "s3_scales": ["1/2", "1/4"],
+    "revision_reason": "all-scale S3 with full-resolution 1/1 hidden attention OOMed during one-update smoke on 48 GiB GPUs; revised plan drops 1/1 and keeps scales 1/2 + 1/4 only",
+    "coupling_ramp_updates": 2000,
+    "variants": [
+      {
+        "name": "baseline_cont100",
+        "gpu": 0,
+        "s3_variant": null,
+        "coupling": "none"
+      },
+      {
+        "name": "s3v1_fixedrho_suppress_half_quarter",
+        "gpu": 1,
+        "s3_variant": "s3v1_fixedrho_suppress_half_quarter",
+        "s3_scales": ["1/2", "1/4"],
+        "coupling": "fixedrho_suppress",
+        "rho_fixed": 0.25
+      },
+      {
+        "name": "s3v2_balanced_feature_half_quarter",
+        "gpu": 2,
+        "s3_variant": "s3v2_balanced_feature_half_quarter",
+        "s3_scales": ["1/2", "1/4"],
+        "coupling": "balanced_feature",
+        "alpha_target": 0.25
+      },
+      {
+        "name": "s3v3_logit_residual_half_quarter",
+        "gpu": 3,
+        "s3_variant": "s3v3_logit_residual_half_quarter",
+        "s3_scales": ["1/2", "1/4"],
+        "coupling": "logit_residual",
+        "beta_target": 1.0
+      }
+    ]
+  },
+  "training": {
+    "single_gpu_per_arm": true,
+    "distributed": false,
+    "batch_size": 1,
+    "gradient_accumulation": 1,
+    "total_optimizer_updates": 10000,
+    "checkpoint_updates": [500, 2000, 4000, 6000, 8000, 10000],
+    "rolling_checkpoint_interval": 500,
+    "optimizer": "SGD",
+    "nesterov": true,
+    "momentum": 0.99,
+    "weight_decay": 0.00003,
+    "encoder_lr": 0.00001,
+    "non_encoder_lr": 0.0001,
+    "lr_schedule": "poly",
+    "poly_power": 0.9,
+    "warmup_updates": 100,
+    "gradient_clip_max_norm": 12.0,
+    "all_parameters_trainable": true
+  },
+  "loss": {
+    "base": "v123",
+    "empty_target": "weighted BCE only with loss weight 0.5",
+    "bce_weights_foreground_boundary_background": [1.0, 1.5, 0.5],
+    "boundary_radius": 10,
+    "deep_supervision_weights": [1.0, 0.5, 0.25, 0.125, 0.0625],
+    "s3_attention_loss_weight": 0.05,
+    "s3_hard_bg_loss_weight": 0.01,
+    "s3_fullres_alignment_loss_weight": 0.0,
+    "s3_supervision_policy": "all nonempty positive prompt channels; pooled/dilated localization and hard background margin at 1/2 and 1/4 only; prompt-specific category gating deferred"
+  },
+  "validation": {
+    "val20_json": "configs/evaluation/rexgroundingct_val20_seed20260723.json",
+    "val20_json_sha256": "31557d624c47ee8c06799bf89cceb862471b34cfd47065001d6092e32d0dab5d",
+    "val20_epochs": [0, 5, 20, 40, 60, 80, 100],
+    "val200_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "val200_json_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "val200_epochs": [100],
+    "final_threshold": 0.5,
+    "policy": "each arm stops its trainer, evaluates synchronously on the same GPU, writes the milestone report, and resumes only after reporting completes",
+    "sidecar": false
+  },
+  "interpretation_limit": "S3 arms are compared against an explicit same-source continuation baseline, but all revised S3 arms share 1/2 + 1/4 scales so this experiment isolates coupling style, not scale effects."
+}

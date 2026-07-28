@@ -1,0 +1,73 @@
+{
+  "experiment": "010_voxtell_public_anatomy_prior_fusion",
+  "status": "data_audit",
+  "objective": "measure which public TotalSegmentator anatomy labels are present and useful in the fixed ReXGroundingCT val200 cohort before implementing VoxTell anatomy fusion",
+  "external_dependency": {
+    "repository": "https://github.com/wasserth/TotalSegmentator.git",
+    "submodule_path": "external/TotalSegmentator",
+    "git_tag": "v2.16.0",
+    "git_commit": "099b679c76350effc701889d22f25fdbf060cea6",
+    "upstream_container_image": "wasserth/totalsegmentator:2.16.0",
+    "upstream_container_digest": "sha256:e2229ec932d0cd38a463c6aa537cfead1406e9fe43c3bca81f476382709c6921",
+    "runtime_container_image": "rexgroundingct-totalsegmentator:2.16.0-cu126",
+    "runtime_container_image_id": "sha256:047cfe9e32a9001de0f55d04bffdb1ad81bf59b8f9f7de049103cf5d15d0acb7",
+    "runtime_base_image": "rexgroundingct-voxtell:cu126",
+    "runtime_policy": "install pinned TotalSegmentator with --no-deps so the host-compatible CUDA 12.6 PyTorch build is preserved"
+  },
+  "inputs": {
+    "val_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "val_json_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "expected_cases": 200,
+    "ct_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct",
+    "segmentation_root": "/data/hengjie/datasets/rexgroundingct/segmentations",
+    "ct_input_contract": "original HU-valued CT in source LPS geometry"
+  },
+  "storage": {
+    "weights_root": "/mnt/shengdata1/hengjie/models/totalsegmentator/2.16.0",
+    "cache_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_total_fast_3mm_v2_16_0",
+    "experiment_root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/010_voxtell_public_anatomy_prior_fusion",
+    "heavy_files_in_git": false,
+    "cache_format": "one native-geometry uint8 multilabel NIfTI plus JSON metadata per case"
+  },
+  "phase_a_val200_inventory": {
+    "task": "total",
+    "class_count": 117,
+    "fast": true,
+    "model_spacing_mm": 3.0,
+    "save_low_resolution": false,
+    "output_geometry": "upsampled to original CT shape and affine",
+    "multilabel": true,
+    "statistics": true,
+    "statistics_extra": true,
+    "resampling_order": 1,
+    "higher_order_resampling": false,
+    "body_crop": false,
+    "worker_count": 4,
+    "gpu_assignment": [0, 1, 2, 3],
+    "minimum_free_gpu_memory_mib_for_full_workers": 24000,
+    "poll_seconds": 60,
+    "resume_policy": "skip complete cases; use per-case locks and atomic completion markers"
+  },
+  "phase_b_quality_check": {
+    "status": "planned_after_phase_a",
+    "cases": 20,
+    "comparison": "1.5 mm total ROI subset versus 3 mm phase-A masks",
+    "selection": "thoracic labels retained after label-frequency and target-overlap audit",
+    "purpose": "choose the final high-resolution anatomy ontology and cache recipe"
+  },
+  "visual_quality_control": {
+    "per_case_three_plane_pngs": 200,
+    "contact_sheet_cases": 20,
+    "groups": [
+      "lung lobes",
+      "trachea",
+      "cardiovascular",
+      "thoracic bones"
+    ],
+    "aggregate_figures": [
+      "label case-frequency chart",
+      "case-by-label presence heatmap"
+    ]
+  },
+  "selection_rule": "retain labels only when they provide thoracic location, side, lobe, airway, pleural-adjacent, mediastinal, or chest-wall context; merge repetitive ribs and vertebrae into grouped channels"
+}
