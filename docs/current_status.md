@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-07-25
+updated: 2026-07-27
 status: active
 ---
 
@@ -26,6 +26,22 @@ edit.
   recovery evaluation filled the planned val20/val200 summaries, and the
   strongest epoch-100 val200 arm is `v123_cached_e5_d4` with Dice `0.3241`,
   hit rate `0.7612`, and `290 / 381` hits.
+- `008_voxtell_dual_branch_proposal_refinement_ablation` completed all four
+  independent proposal/refinement arms in run group
+  `exp008_dual_branch_20260726T182647Z`. The epoch-80 pause resumed from full
+  optimizer and AMP state at update 8000, preserved the original poly LR
+  horizon and deterministic event cursor, and finished update 10000 with LR
+  zero. Fixed val20 and val200 evaluations are complete at epoch 100.
+  `v1_sharedfusion_softguide` has the best val200 Dice (`0.3366`) with hit rate
+  `0.7533` (`287 / 381`); `v3_dualfusion_softguide_joint` has the best hit rate
+  (`0.7559`, `288 / 381`) with Dice `0.3345`.
+- `010_voxtell_public_anatomy_prior_fusion` is in its public-anatomy data-audit
+  phase. TotalSegmentator is pinned at `v2.16.0`; weights and outputs live
+  under `/mnt/shengdata1/hengjie`. A corrected CUDA 12.6 smoke segmented the
+  first fixed val200 case in 22.7 seconds with 1,269 MiB incremental GPU
+  memory, exact source geometry, and 87 of 117 labels observed. Four val200
+  workers and an automatic report/visualization finalizer are launched but
+  gated until two consecutive checks show at least 24,000 MiB free per GPU.
 - Submission packaging is now documented at `docs/submission.md` but should not
   be used for final submission until a candidate checkpoint and test prediction
   set exist.
@@ -93,6 +109,23 @@ edit.
   the previous exp004 native continuation. Treat `v123_cached_e5_d4` epoch 100
   as the current strongest validation candidate, pending submission packaging
   and test-set prediction work.
+- Experiment 008 epoch-0 val20 preserved hit rate exactly at `23 / 31`.
+  Independent mixed-precision sliding-window runs differed from the stored
+  Exp006 Dice by at most `3.2e-5`, despite bitwise same-patch logit identity.
+  The recorded aggregate equivalence gate therefore uses Dice tolerance
+  `1e-4` while requiring exact hit counts. Inference window batches 2 and 4
+  were slower than batch 1, so synchronous milestone evaluation uses batch 1.
+- Experiment 008 has no same-source single-branch continuation control.
+  Improvements over epoch 0 cannot be attributed entirely to the dual-branch
+  architecture.
+- Experiment 008 epoch-100 val200 improved Dice over the Exp006 starting model
+  for all four arms, but no arm exceeded its `0.7612` hit rate. From epoch 80
+  to 100, all four arms improved val200 Dice. Shared fusion is the Dice-first
+  choice, while joint dual fusion is the better hit-preserving choice.
+- The upstream TotalSegmentator 2.16.0 Docker image bundles a CUDA 13 PyTorch
+  build and silently falls back to CPU on this host. Exp010 uses the pinned
+  submodule installed with `--no-deps` into the validated CUDA 12.6 VoxTell
+  base image and requires `run_report.device == "gpu"`.
 - Full challenge submission workflow needs a candidate checkpoint, test CT
   readiness, prediction packaging, and official source refresh.
 - Public challenge pages can change during the submission window; refresh
@@ -116,3 +149,11 @@ edit.
   be repeated later.
 - Review experiment 006 `v123_cached_e5_d4` epoch 100 as the next candidate
   checkpoint for packaging and test-set prediction work.
+- Use the completed experiment 008 val200 results to decide whether the next
+  challenge candidate should prioritize `v1_sharedfusion_softguide` for Dice
+  or `v3_dualfusion_softguide_joint` for hit preservation. Retain the caveat
+  that experiment 008 lacks a same-source single-branch continuation control.
+- After the exp010 val200 anatomy inventory completes, inspect all-case QC and
+  the label/target-overlap tables, then run the selected thoracic ROI subset
+  at 1.5 mm on the fixed first 20 validation cases before generating a
+  train/validation anatomy cache.

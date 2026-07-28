@@ -21,6 +21,15 @@ status: active
   local VoxTell segmentation cascade.
 - `006_voxtell_cached_native_v123_lr_ablation`: cached-equivalent native v123
   fine-tuning sanity check and learning-rate ablation.
+- `007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched`: cached-native
+  v123 e5/d4 DDP global-batch-4 run with pause/eval/resume val200 checkpoints.
+- `008_voxtell_dual_branch_proposal_refinement_ablation`: four-arm
+  proposal/refinement continuation testing shared versus branch-adapted fusion,
+  precision pressure, and detached versus joint soft guidance.
+- `009_voxtell_s3_attention_coupling_ablation`: S3 attention coupling ablation
+  comparing revised half- and quarter-scale attention variants.
+- `010_voxtell_public_anatomy_prior_fusion`: public anatomy-prior fusion and
+  TotalSegmentator val200 anatomy-audit experiment line.
 
 Do not rename experiment IDs casually. Runtime paths, configs, manifests, and
 reports depend on them.

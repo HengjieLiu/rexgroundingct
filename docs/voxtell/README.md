@@ -15,6 +15,16 @@ status: active
 - `preprocessing_variants.md`: standard preprocessing/cache variants and the
   required contract for future spacing, normalization, and cache experiments.
 - `normalization.md`: normalization findings and planned ablations.
+- `ddp_and_effective_batch_size.md`: DDP, gradient accumulation, global batch
+  size, and comparison rules for VoxTell fine-tuning.
+- `asymmetric_proposal_refinement.md`: dual-branch high-recall proposal,
+  soft-guided refinement, asymmetric losses, fusion alternatives, literature,
+  and the experiment 008 design.
+- `exp008_variant_reference.md`: exact side-by-side experiment 008 model/data
+  flow charts, losses, gradient paths, training contract, and interim evidence.
+- `bronchopulmonary_segments_and_pseudo_segment_priors.md`: ReX segment-language
+  evidence, S1-S10 anatomy, TotalSegmentator capability gap, geometric and
+  airway-guided segment priors, and their validation safeguards.
 - `prompts/`: bilingual prompt-reference docs generated from MICCAI metadata.
 
 ## Paths

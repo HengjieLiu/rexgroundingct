@@ -85,3 +85,59 @@ experiments:
     mean_global_dice_per_finding: "0.32413407768565705"
     hit_rate: "0.7611548556430446"
     overall_instance_f1: null
+  - id: "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched"
+    title: "VoxTell cached-native v123 e5/d4 DDP batch4 update-matched run"
+    status: "evaluation_complete"
+    canonical_config: "configs/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json"
+    execution_spec: "experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/config/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json"
+    runtime_config_matches_canonical: true
+    repo_report: "experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/report.md"
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/reports/ddp_bs4_update_matched_report.md"
+    repo_metrics: "experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/metrics_summary.json"
+    mean_global_dice_per_finding: "0.3309543045692373"
+    hit_rate: "0.7585301837270341"
+    overall_instance_f1: null
+  - id: "008_voxtell_dual_branch_proposal_refinement_ablation"
+    title: "VoxTell dual-branch proposal/refinement ablation"
+    status: "evaluation_complete"
+    canonical_config: "configs/experiments/008_voxtell_dual_branch_proposal_refinement_ablation.json"
+    execution_spec: "experiments/008_voxtell_dual_branch_proposal_refinement_ablation/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/config/008_voxtell_dual_branch_proposal_refinement_ablation.json"
+    runtime_config_matches_canonical: true
+    repo_report: "experiments/008_voxtell_dual_branch_proposal_refinement_ablation/report.md"
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/reports/dual_branch_ablation_report.md"
+    repo_metrics: "experiments/008_voxtell_dual_branch_proposal_refinement_ablation/metrics_summary.json"
+    mean_global_dice_per_finding: "0.33452015530600027"
+    hit_rate: "0.7559055118110236"
+    overall_instance_f1: null
+  - id: "009_voxtell_s3_attention_coupling_ablation"
+    title: "VoxTell S3 attention coupling ablation"
+    status: "evaluation_complete"
+    canonical_config: "configs/experiments/009_voxtell_s3_attention_coupling_ablation.json"
+    execution_spec: "experiments/009_voxtell_s3_attention_coupling_ablation/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/config/009_voxtell_s3_attention_coupling_ablation.json"
+    runtime_config_matches_canonical: true
+    repo_report: null
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/reports/s3_attention_coupling_report.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: "0.3326611841869791"
+    hit_rate: "0.7611548556430446"
+    overall_instance_f1: null
+  - id: "010_voxtell_public_anatomy_prior_fusion"
+    title: "VoxTell public anatomy-prior fusion"
+    status: "evaluation_complete"
+    canonical_config: "configs/experiments/010_voxtell_public_anatomy_prior_fusion.json"
+    execution_spec: "experiments/010_voxtell_public_anatomy_prior_fusion/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/010_voxtell_public_anatomy_prior_fusion"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/010_voxtell_public_anatomy_prior_fusion/config/010_voxtell_public_anatomy_prior_fusion.json"
+    runtime_config_matches_canonical: true
+    repo_report: null
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/010_voxtell_public_anatomy_prior_fusion/reports/totalsegmentator_val200_anatomy_audit.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null
