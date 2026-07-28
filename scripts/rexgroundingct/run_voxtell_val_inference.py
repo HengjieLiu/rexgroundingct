@@ -23,9 +23,47 @@ from tqdm import tqdm
 from voxtell.inference.predictor import VoxTellPredictor
 
 from common import CT_ROOT, REX_METADATA, REX_SEG_DIR, ct_rate_abs_path, load_split_entries, sorted_prompts, write_json
+from voxtell_dual_branch import (
+    DualBranchVoxTellPredictor,
+    load_model_spec as load_dual_model_spec,
+)
+from voxtell_s3_attention import (
+    S3AttentionVoxTellPredictor,
+    load_model_spec as load_s3_model_spec,
+)
 
 
 DEFAULT_EVAL_LOCK_STALE_SECONDS = 12 * 60 * 60
+
+
+def load_model_spec_kind(model_dir: Path | None) -> tuple[str, dict] | None:
+    if model_dir is None:
+        return None
+    path = Path(model_dir) / "model_spec.json"
+    if not path.is_file():
+        return None
+    data = json.loads(path.read_text())
+    model_type = data.get("model_type")
+    if model_type == "voxtell_dual_branch_v1":
+        return "dual", load_dual_model_spec(Path(model_dir))
+    if model_type == "voxtell_s3_attention_v1":
+        return "s3", load_s3_model_spec(Path(model_dir))
+    raise ValueError(f"Unsupported model type in {path}: {model_type!r}")
+
+
+def parse_thresholds(value: str) -> tuple[float, ...]:
+    thresholds = tuple(float(part.strip()) for part in value.split(",") if part.strip())
+    if not thresholds:
+        raise ValueError("At least one proposal threshold is required")
+    if any(threshold < 0.0 or threshold > 1.0 for threshold in thresholds):
+        raise ValueError("Proposal thresholds must be between 0 and 1")
+    if len(set(thresholds)) != len(thresholds):
+        raise ValueError("Proposal thresholds must be unique")
+    return thresholds
+
+
+def threshold_label(threshold: float) -> str:
+    return f"thr{int(round(float(threshold) * 100)):03d}"
 
 
 def _serializable_ornt(ornt: np.ndarray) -> list[list[int | float]]:
@@ -68,6 +106,19 @@ def _completed_summary(eval_root: Path, output_dir: Path, split: str, entries: l
     )
 
 
+def _all_required_outputs_complete(
+    eval_root: Path,
+    output_dir: Path,
+    split: str,
+    entries: list[dict],
+    additional_output_dirs: list[Path] | None = None,
+) -> bool:
+    return _completed_summary(eval_root, output_dir, split, entries) and all(
+        _prediction_names_complete(required_dir, entries)
+        for required_dir in (additional_output_dirs or [])
+    )
+
+
 def _lock_metadata(phase: str) -> dict:
     return {
         "created_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
@@ -98,6 +149,7 @@ def _acquire_eval_lock(
     output_dir: Path,
     split: str,
     entries: list[dict],
+    additional_output_dirs: list[Path] | None,
     poll_seconds: float,
     stale_seconds: float,
 ) -> Path | None:
@@ -106,7 +158,13 @@ def _acquire_eval_lock(
     lock_path = eval_root / ".eval.lock"
     eval_root.mkdir(parents=True, exist_ok=True)
     while True:
-        if _completed_summary(eval_root, output_dir, split, entries):
+        if _all_required_outputs_complete(
+            eval_root,
+            output_dir,
+            split,
+            entries,
+            additional_output_dirs,
+        ):
             print(f"Completed eval already exists under {eval_root}; skipping inference.", flush=True)
             return None
         try:
@@ -269,6 +327,35 @@ def predict_preprocessed_crop_probabilities(
     return np.ascontiguousarray(probabilities)
 
 
+def predict_preprocessed_crop_branch_probabilities(
+    predictor: DualBranchVoxTellPredictor,
+    image_czyx: np.ndarray,
+    prompts: list[str],
+) -> dict[str, np.ndarray]:
+    """Run one dual model pass and return proposal and final probabilities."""
+    text_embeddings = predictor.embed_text_prompts(prompts)
+    data_tensor = torch.from_numpy(np.ascontiguousarray(image_czyx, dtype=np.float32))
+    logits = predictor.predict_sliding_window_return_branch_logits(
+        data_tensor,
+        text_embeddings,
+    )
+    probabilities: dict[str, np.ndarray] = {}
+    with torch.no_grad():
+        for branch, branch_logits in logits.items():
+            value = (
+                torch.sigmoid(branch_logits.float())
+                .cpu()
+                .numpy()
+                .astype(np.float32, copy=False)
+            )
+            if not np.isfinite(value).all():
+                raise RuntimeError(
+                    f"Encountered non-finite cached VoxTell {branch} probabilities"
+                )
+            probabilities[branch] = np.ascontiguousarray(value)
+    return probabilities
+
+
 def restore_cached_native_crop(
     prediction_crop: np.ndarray,
     metadata: dict,
@@ -303,6 +390,8 @@ def run_case(
     probability_output_dir: Path | None = None,
     threshold: float = 0.5,
     preprocessed_cache_dir: Path | None = None,
+    proposal_output_root: Path | None = None,
+    proposal_thresholds: tuple[float, ...] = (0.1, 0.3, 0.5),
 ) -> dict:
     name = entry["name"]
     ct_path = ct_rate_abs_path(name, ct_root)
@@ -323,9 +412,19 @@ def run_case(
         "status": "pending",
     }
     probability_path = probability_output_dir / name if probability_output_dir is not None else None
+    proposal_paths = {
+        threshold_label(proposal_threshold): (
+            proposal_output_root
+            / threshold_label(proposal_threshold)
+            / "predictions"
+            / name
+        )
+        for proposal_threshold in proposal_thresholds
+    } if proposal_output_root is not None else {}
     if (
         pred_path.exists()
         and (probability_path is None or probability_path.exists())
+        and all(path.exists() for path in proposal_paths.values())
         and not overwrite
     ):
         result["status"] = "skipped_existing"
@@ -338,6 +437,7 @@ def run_case(
         return result
 
     probability_prediction = None
+    proposal_probability_prediction = None
     cache_metadata = None
     if preprocessed_cache_dir is not None:
         from voxtell_preprocessed_cache import load_cached_case
@@ -352,8 +452,34 @@ def run_case(
                 f"{name}: --preprocessed-cache-dir for this wrapper requires "
                 f"crop_zscore_native_v1, got {cache_metadata.get('preprocess_id')!r}"
             )
-        crop_probability = predict_preprocessed_crop_probabilities(predictor, image, prompts)
-        probability_prediction = restore_cached_native_crop(crop_probability, cache_metadata)
+        if proposal_output_root is not None:
+            if not isinstance(predictor, DualBranchVoxTellPredictor):
+                raise ValueError(
+                    "--proposal-output-root requires a dual-branch model directory"
+                )
+            crop_probabilities = predict_preprocessed_crop_branch_probabilities(
+                predictor,
+                image,
+                prompts,
+            )
+            probability_prediction = restore_cached_native_crop(
+                crop_probabilities["final"],
+                cache_metadata,
+            )
+            proposal_probability_prediction = restore_cached_native_crop(
+                crop_probabilities["proposal"],
+                cache_metadata,
+            )
+        else:
+            crop_probability = predict_preprocessed_crop_probabilities(
+                predictor,
+                image,
+                prompts,
+            )
+            probability_prediction = restore_cached_native_crop(
+                crop_probability,
+                cache_metadata,
+            )
         ct_properties = cache_metadata["ct_properties"]
         if output_type == "mask":
             prediction = (probability_prediction >= threshold).astype(np.uint8, copy=False)
@@ -364,6 +490,10 @@ def run_case(
         else:
             raise ValueError(f"Unsupported output_type: {output_type}")
     else:
+        if proposal_output_root is not None:
+            raise ValueError(
+                "Proposal-output export currently requires --preprocessed-cache-dir"
+            )
         image, ct_properties = reader.read_images([str(ct_path)])
         if output_type == "mask" and probability_output_dir is None:
             prediction = predictor.predict_single_image(image, prompts)
@@ -414,6 +544,68 @@ def run_case(
             float(np.min(exported_probability)),
             float(np.max(exported_probability)),
         ]
+    if proposal_probability_prediction is not None:
+        exported_proposal_probability, _ = export_prediction_to_gt_layout(
+            proposal_probability_prediction,
+            gt_img,
+            ct_properties,
+            name,
+            output_dtype=np.float32,
+        )
+        ground_truth = np.asanyarray(gt_img.dataobj)
+        if ground_truth.ndim == 3:
+            ground_truth = ground_truth[None]
+        ground_truth = ground_truth > 0
+        if ground_truth.shape != exported_proposal_probability.shape:
+            raise ValueError(
+                f"{name}: GT shape {ground_truth.shape} does not match exported "
+                f"proposal shape {exported_proposal_probability.shape}"
+            )
+        proposal_metrics: dict[str, dict] = {}
+        for proposal_threshold in proposal_thresholds:
+            label = threshold_label(proposal_threshold)
+            proposal_mask = (
+                exported_proposal_probability >= proposal_threshold
+            ).astype(np.uint8, copy=False)
+            proposal_path = proposal_paths[label]
+            save_4d_prediction(
+                proposal_mask,
+                gt_path,
+                proposal_path,
+                output_dtype=np.uint8,
+            )
+            finding_metrics = []
+            for finding_index in range(proposal_mask.shape[0]):
+                gt_mask = ground_truth[finding_index]
+                pred_mask = proposal_mask[finding_index] > 0
+                gt_voxels = int(gt_mask.sum())
+                pred_voxels = int(pred_mask.sum())
+                intersection = int(np.logical_and(gt_mask, pred_mask).sum())
+                finding_metrics.append(
+                    {
+                        "finding_index": finding_index,
+                        "gt_voxels": gt_voxels,
+                        "proposal_voxels": pred_voxels,
+                        "intersection_voxels": intersection,
+                        "gt_voxel_coverage": (
+                            intersection / gt_voxels if gt_voxels else None
+                        ),
+                        "proposal_to_gt_volume_ratio": (
+                            pred_voxels / gt_voxels if gt_voxels else None
+                        ),
+                        "has_overlap": bool(intersection > 0),
+                    }
+                )
+            proposal_metrics[label] = {
+                "threshold": proposal_threshold,
+                "prediction_path": str(proposal_path),
+                "findings": finding_metrics,
+            }
+        result["proposal_probability_range"] = [
+            float(np.min(exported_proposal_probability)),
+            float(np.max(exported_proposal_probability)),
+        ]
+        result["proposal_metrics"] = proposal_metrics
     result["status"] = "written"
     result["shape"] = list(prediction.shape)
     result["orientation"] = export_metadata
@@ -449,8 +641,12 @@ def main() -> int:
     parser.add_argument("--probability-output-dir", type=Path, default=None)
     parser.add_argument("--threshold", type=float, default=0.5)
     parser.add_argument("--preprocessed-cache-dir", type=Path, default=None)
+    parser.add_argument("--sliding-window-batch-size", type=int, default=1)
+    parser.add_argument("--proposal-output-root", type=Path, default=None)
+    parser.add_argument("--proposal-thresholds", default="0.1,0.3,0.5")
     parser.add_argument("--status-json", type=Path, default=None)
     args = parser.parse_args()
+    proposal_thresholds = parse_thresholds(args.proposal_thresholds)
 
     if args.num_shards < 1:
         raise ValueError("--num-shards must be >= 1")
@@ -460,6 +656,10 @@ def main() -> int:
         raise ValueError("--threshold must be between 0 and 1")
     if args.output_type == "probability" and args.probability_output_dir is not None:
         raise ValueError("--probability-output-dir is only valid with --output-type mask")
+    if args.sliding_window_batch_size < 1:
+        raise ValueError("--sliding-window-batch-size must be >= 1")
+    if args.proposal_output_root is not None and args.output_type != "mask":
+        raise ValueError("--proposal-output-root requires --output-type mask")
 
     selected_by_case = args.case_index is not None or args.case_name is not None
     if args.dataset_json is not None:
@@ -497,11 +697,23 @@ def main() -> int:
     eval_root = _eval_root_from_output_dir(args.output_dir)
     lock_path = None
     if eval_root is not None:
-        complete_outputs = _completed_summary(eval_root, args.output_dir, args.split, entries)
+        additional_output_dirs = []
         if args.probability_output_dir is not None:
-            complete_outputs = complete_outputs and _prediction_names_complete(
-                args.probability_output_dir, entries
-            )
+            additional_output_dirs.append(args.probability_output_dir)
+        if args.proposal_output_root is not None:
+            for proposal_threshold in proposal_thresholds:
+                additional_output_dirs.append(
+                    args.proposal_output_root
+                    / threshold_label(proposal_threshold)
+                    / "predictions"
+                )
+        complete_outputs = _all_required_outputs_complete(
+            eval_root,
+            args.output_dir,
+            args.split,
+            entries,
+            additional_output_dirs,
+        )
         if complete_outputs:
             print(f"Completed eval already exists under {eval_root}; skipping inference.", flush=True)
             return 0
@@ -510,10 +722,17 @@ def main() -> int:
             output_dir=args.output_dir,
             split=args.split,
             entries=entries,
+            additional_output_dirs=additional_output_dirs,
             poll_seconds=float(os.environ.get("EVAL_LOCK_POLL_SECONDS", "60")),
             stale_seconds=float(os.environ.get("EVAL_LOCK_STALE_SECONDS", str(DEFAULT_EVAL_LOCK_STALE_SECONDS))),
         )
-        if lock_path is None and _completed_summary(eval_root, args.output_dir, args.split, entries):
+        if lock_path is None and _all_required_outputs_complete(
+            eval_root,
+            args.output_dir,
+            args.split,
+            entries,
+            additional_output_dirs,
+        ):
             return 0
 
     device = torch.device(f"cuda:{args.gpu}" if torch.cuda.is_available() else "cpu")
@@ -523,14 +742,44 @@ def main() -> int:
         "cuda_available": bool(torch.cuda.is_available()),
         "cuda_device_count": int(torch.cuda.device_count()) if torch.cuda.is_available() else 0,
         "cuda_device_name": torch.cuda.get_device_name(args.gpu) if torch.cuda.is_available() else None,
+        "sliding_window_batch_size": args.sliding_window_batch_size,
     }
     print(f"Runtime: {runtime_metadata}", flush=True)
-    predictor = VoxTellPredictor(
-        model_dir=str(args.model_dir) if args.model_dir else None,
-        device=device,
-        embedding_bank=str(args.embeddings) if args.embeddings else None,
-        use_precomputed_embeddings=not args.no_precomputed,
-    )
+    model_spec_record = load_model_spec_kind(args.model_dir)
+    if model_spec_record is not None and model_spec_record[0] == "dual":
+        predictor = DualBranchVoxTellPredictor(
+            model_dir=args.model_dir,
+            device=device,
+            embedding_bank=str(args.embeddings) if args.embeddings else None,
+            use_precomputed_embeddings=not args.no_precomputed,
+            sliding_window_batch_size=args.sliding_window_batch_size,
+        )
+    elif model_spec_record is not None and model_spec_record[0] == "s3":
+        if args.proposal_output_root is not None:
+            raise ValueError("--proposal-output-root requires a dual-branch model directory")
+        if args.sliding_window_batch_size != 1:
+            raise ValueError("Sliding-window batching is currently implemented for dual-branch models only")
+        predictor = S3AttentionVoxTellPredictor(
+            model_dir=args.model_dir,
+            device=device,
+            embedding_bank=str(args.embeddings) if args.embeddings else None,
+            use_precomputed_embeddings=not args.no_precomputed,
+        )
+    else:
+        if args.proposal_output_root is not None:
+            raise ValueError(
+                "--proposal-output-root requires a model directory with model_spec.json"
+            )
+        if args.sliding_window_batch_size != 1:
+            raise ValueError(
+                "Sliding-window batching is currently implemented for dual-branch models only"
+            )
+        predictor = VoxTellPredictor(
+            model_dir=str(args.model_dir) if args.model_dir else None,
+            device=device,
+            embedding_bank=str(args.embeddings) if args.embeddings else None,
+            use_precomputed_embeddings=not args.no_precomputed,
+        )
     reader = NibabelIOWithReorient()
 
     statuses = []
@@ -553,6 +802,8 @@ def main() -> int:
                     probability_output_dir=args.probability_output_dir,
                     threshold=args.threshold,
                     preprocessed_cache_dir=args.preprocessed_cache_dir,
+                    proposal_output_root=args.proposal_output_root,
+                    proposal_thresholds=proposal_thresholds,
                 )
             )
         except Exception as exc:  # noqa: BLE001 - keep batch progress resumable

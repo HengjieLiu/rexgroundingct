@@ -52,11 +52,43 @@ from common import (
     VOXTELL_SUBMODULE,
 )
 from poll_ct_subset import snapshot as ct_snapshot
+from voxtell_dual_branch import (
+    MODEL_SPEC_FILENAME,
+    VARIANTS as DUAL_BRANCH_VARIANTS,
+    DualBranchVoxTellModel,
+    is_dual_branch_model,
+    model_spec_from_network as dual_model_spec_from_network,
+    unwrap_dual_branch,
+    write_model_spec,
+)
+from voxtell_s3_attention import (
+    VARIANTS as S3_ATTENTION_VARIANTS,
+    S3AttentionVoxTellModel,
+    coupling_scale_for_update,
+    is_s3_attention_model,
+    model_spec_from_network as s3_model_spec_from_network,
+    s3_attention_stats,
+    set_s3_coupling_scale,
+    unwrap_s3_attention,
+)
 
 
 DEFAULT_PATCH_SIZE = (192, 192, 192)
 DEFAULT_DEEP_SUPERVISION_WEIGHTS = (1.0, 0.5, 0.25, 0.125, 0.0625)
 EXPERIMENT_ID = "002_voxtell_text_ft_miccai_train_val"
+
+
+def model_spec_from_network(
+    network: torch.nn.Module,
+    source_model_dir: str | None = None,
+) -> dict[str, Any] | None:
+    return dual_model_spec_from_network(
+        network,
+        source_model_dir=source_model_dir,
+    ) or s3_model_spec_from_network(
+        network,
+        source_model_dir=source_model_dir,
+    )
 
 
 @dataclass(frozen=True)
@@ -931,9 +963,248 @@ def deep_supervision_loss(
     return total
 
 
+def asymmetric_tversky_loss_nonempty(
+    logits: torch.Tensor,
+    target: torch.Tensor,
+    alpha: float,
+    beta: float,
+    eps: float = 1e-6,
+) -> torch.Tensor:
+    """Calculate soft Tversky loss over nonempty prompt targets only."""
+    probabilities = torch.sigmoid(logits.float())
+    target = target.float()
+    dims = tuple(range(2, probabilities.ndim))
+    target_nonempty = target.sum(dim=dims) > 0.5
+    true_positive = (probabilities * target).sum(dim=dims)
+    false_positive = (probabilities * (1.0 - target)).sum(dim=dims)
+    false_negative = ((1.0 - probabilities) * target).sum(dim=dims)
+    index = (true_positive + eps) / (
+        true_positive
+        + float(alpha) * false_positive
+        + float(beta) * false_negative
+        + eps
+    )
+    losses = 1.0 - index
+    if target_nonempty.any():
+        return losses[target_nonempty].mean()
+    return logits.float().sum() * 0.0
+
+
+def dual_branch_loss(
+    outputs: dict[str, torch.Tensor | list[torch.Tensor]],
+    target: torch.Tensor,
+    args: argparse.Namespace,
+    network: torch.nn.Module,
+) -> tuple[torch.Tensor, dict[str, float]]:
+    proposal_outputs = outputs["proposal"]
+    final_outputs = outputs["final"]
+    if isinstance(proposal_outputs, torch.Tensor):
+        proposal_outputs = [proposal_outputs]
+    if isinstance(final_outputs, torch.Tensor):
+        final_outputs = [final_outputs]
+    proposal_v123 = deep_supervision_loss(proposal_outputs, target, args)
+    final_v123 = deep_supervision_loss(final_outputs, target, args)
+    proposal_recall = asymmetric_tversky_loss_nonempty(
+        proposal_outputs[0],
+        target,
+        alpha=args.proposal_tversky_alpha,
+        beta=args.proposal_tversky_beta,
+    )
+    model = unwrap_dual_branch(network)
+    if model is None:
+        raise TypeError("dual_branch_loss requires DualBranchVoxTellModel")
+    final_precision_weight = (
+        model.final_precision_weight
+        if args.final_precision_weight is None
+        else float(args.final_precision_weight)
+    )
+    final_precision = asymmetric_tversky_loss_nonempty(
+        final_outputs[0],
+        target,
+        alpha=args.precision_tversky_alpha,
+        beta=args.precision_tversky_beta,
+    )
+    proposal_loss = (
+        proposal_v123
+        + float(args.proposal_recall_weight) * proposal_recall
+    )
+    total = (
+        final_v123
+        + float(args.proposal_branch_weight) * proposal_loss
+        + final_precision_weight * final_precision
+    )
+    components = {
+        "final_v123": float(final_v123.detach().cpu()),
+        "proposal_v123": float(proposal_v123.detach().cpu()),
+        "proposal_recall_tversky": float(proposal_recall.detach().cpu()),
+        "proposal_loss": float(proposal_loss.detach().cpu()),
+        "final_precision_tversky": float(final_precision.detach().cpu()),
+        "weighted_proposal": float(
+            (float(args.proposal_branch_weight) * proposal_loss).detach().cpu()
+        ),
+        "weighted_final_precision": float(
+            (final_precision_weight * final_precision).detach().cpu()
+        ),
+        "total": float(total.detach().cpu()),
+    }
+    return total, components
+
+
+def binary_cross_entropy_probability(
+    prediction: torch.Tensor,
+    target: torch.Tensor,
+    eps: float = 1e-6,
+) -> torch.Tensor:
+    prediction = prediction.float().clamp(min=eps, max=1.0 - eps)
+    target = target.float()
+    return -(
+        target * torch.log(prediction)
+        + (1.0 - target) * torch.log1p(-prediction)
+    ).mean()
+
+
+def s3_attention_auxiliary_loss(
+    network: torch.nn.Module,
+    target: torch.Tensor,
+    args: argparse.Namespace,
+) -> tuple[torch.Tensor, dict[str, float]]:
+    model = unwrap_s3_attention(network)
+    if model is None:
+        raise TypeError("s3_attention_auxiliary_loss requires S3AttentionVoxTellModel")
+    zero = target.sum() * 0.0
+    target_nonempty = target.float().flatten(start_dim=2).sum(dim=2) > 0.5
+    if not target_nonempty.any():
+        stats = {
+            "s3_attention_supervised_prompts": 0.0,
+            "s3_attention_loss": 0.0,
+            "s3_attention_hard_bg_loss": 0.0,
+            "s3_fullres_fg_bg_loss": 0.0,
+        }
+        return zero, stats
+
+    direct_losses: list[torch.Tensor] = []
+    hard_losses: list[torch.Tensor] = []
+    fullres_losses: list[torch.Tensor] = []
+    per_scale_stats: dict[str, list[torch.Tensor]] = {}
+    margin = float(args.s3_attention_margin)
+    hard_fraction = float(args.s3_hard_background_fraction)
+    sample_cap = max(1, int(args.s3_fullres_sample_cap))
+
+    for scale, per_prompt_maps in model.last_s3_attention_maps.items():
+        if not per_prompt_maps:
+            continue
+        attention = torch.cat(per_prompt_maps, dim=1).squeeze(2).float()
+        if attention.shape[:2] != target.shape[:2]:
+            raise ValueError(
+                f"S3 attention {scale} prompt shape {attention.shape[:2]} "
+                f"does not match target {target.shape[:2]}"
+            )
+        scale_dice: list[torch.Tensor] = []
+        scale_pos: list[torch.Tensor] = []
+        scale_bg: list[torch.Tensor] = []
+
+        if scale == "1/1":
+            for batch_idx, prompt_idx in target_nonempty.nonzero(as_tuple=False).tolist():
+                att = attention[batch_idx, prompt_idx]
+                fg_mask = target[batch_idx, prompt_idx] > 0.5
+                bg_mask = ~fg_mask
+                if not bool(fg_mask.any()) or not bool(bg_mask.any()):
+                    continue
+                fg_values = att[fg_mask]
+                if fg_values.numel() > sample_cap:
+                    fg_values = fg_values[
+                        torch.randperm(fg_values.numel(), device=fg_values.device)[:sample_cap]
+                    ]
+                bg_values = att[bg_mask]
+                k = min(sample_cap, bg_values.numel())
+                hard_bg = torch.topk(bg_values, k=k, sorted=False).values
+                fg_mean = fg_values.mean()
+                bg_mean = hard_bg.mean()
+                fullres_losses.append(F.relu(margin - fg_mean + bg_mean))
+                scale_pos.append(fg_mean.detach())
+                scale_bg.append(bg_mean.detach())
+        else:
+            flat_target = target.reshape(-1, 1, *target.shape[2:])
+            pooled = F.adaptive_max_pool3d(flat_target, attention.shape[2:])
+            dilated = F.max_pool3d(
+                pooled.float(),
+                kernel_size=3,
+                stride=1,
+                padding=1,
+            ).reshape_as(attention) > 0.5
+            for batch_idx, prompt_idx in target_nonempty.nonzero(as_tuple=False).tolist():
+                att = attention[batch_idx, prompt_idx]
+                coarse_target = dilated[batch_idx, prompt_idx].float()
+                if not bool((coarse_target > 0.5).any()):
+                    continue
+                intersection = (att * coarse_target).sum()
+                dice = (2.0 * intersection + 1e-5) / (
+                    att.sum() + coarse_target.sum() + 1e-5
+                )
+                direct_losses.append(
+                    (1.0 - dice)
+                    + binary_cross_entropy_probability(att, coarse_target)
+                )
+                positive_region = coarse_target > 0.5
+                background_values = att[~positive_region]
+                pos_mean = att[positive_region].mean()
+                k = max(
+                    1,
+                    min(
+                        background_values.numel(),
+                        int(np.ceil(hard_fraction * float(background_values.numel()))),
+                    ),
+                )
+                hard_bg_mean = torch.topk(background_values, k=k, sorted=False).values.mean()
+                hard_losses.append(F.relu(margin - pos_mean + hard_bg_mean))
+                scale_dice.append(dice.detach())
+                scale_pos.append(pos_mean.detach())
+                scale_bg.append(hard_bg_mean.detach())
+
+        per_scale_stats[scale] = [scale_dice, scale_pos, scale_bg]
+
+    direct = torch.stack(direct_losses).mean() if direct_losses else zero
+    hard = torch.stack(hard_losses).mean() if hard_losses else zero
+    fullres = torch.stack(fullres_losses).mean() if fullres_losses else zero
+    total = (
+        float(args.s3_attention_loss_weight) * direct
+        + float(args.s3_hard_bg_loss_weight) * hard
+        + float(args.s3_fullres_alignment_loss_weight) * fullres
+    )
+    stats = {
+        "s3_attention_supervised_prompts": float(target_nonempty.sum().item()),
+        "s3_attention_loss": float(direct.detach().cpu()),
+        "s3_attention_hard_bg_loss": float(hard.detach().cpu()),
+        "s3_fullres_fg_bg_loss": float(fullres.detach().cpu()),
+        "s3_weighted_auxiliary_loss": float(total.detach().cpu()),
+    }
+    for scale, values in per_scale_stats.items():
+        suffix = scale.replace("/", "over")
+        dice_values, pos_values, bg_values = values
+        stats[f"s3_attention_dice_{suffix}"] = (
+            float(torch.stack(dice_values).mean().cpu()) if dice_values else 0.0
+        )
+        stats[f"s3_attention_pos_mean_{suffix}"] = (
+            float(torch.stack(pos_values).mean().cpu()) if pos_values else 0.0
+        )
+        stats[f"s3_attention_hard_bg_mean_{suffix}"] = (
+            float(torch.stack(bg_values).mean().cpu()) if bg_values else 0.0
+        )
+    return total, stats
+
+
 def set_deep_supervision(network: torch.nn.Module, enabled: bool) -> None:
     model = network.module if hasattr(network, "module") else network
     model.deep_supervision = enabled
+    dual_model = unwrap_dual_branch(model)
+    if dual_model is not None:
+        dual_model.proposal_decoder.deep_supervision = True
+        dual_model.refinement_decoder.decoder.deep_supervision = True
+        return
+    s3_model = unwrap_s3_attention(model)
+    if s3_model is not None:
+        s3_model.decoder.deep_supervision = enabled
+        return
     if hasattr(model, "decoder"):
         model.decoder.deep_supervision = enabled
 
@@ -1035,6 +1306,133 @@ def make_batch(
     return images, targets, text_embeddings, stats
 
 
+def parameter_group_l2_norm(
+    named_parameters: list[tuple[str, torch.nn.Parameter]],
+    use_gradients: bool,
+) -> float | None:
+    tensors = []
+    for _name, parameter in named_parameters:
+        value = parameter.grad if use_gradients else parameter
+        if value is not None:
+            tensors.append(value.detach())
+    if not tensors:
+        return None
+    norms = torch._foreach_norm(tensors, 2.0)
+    total = torch.linalg.vector_norm(torch.stack([norm.float() for norm in norms]), 2.0)
+    return float(total.cpu())
+
+
+def dual_branch_norm_metrics(network: torch.nn.Module) -> dict[str, float | None]:
+    model = unwrap_dual_branch(network)
+    if model is None:
+        return {}
+    named = list(model.named_parameters())
+    proposal_prefixes = (
+        "proposal_decoder.",
+        "proposal_projectors.",
+        "proposal_fusion_adapter.",
+    )
+    refinement_prefixes = (
+        "refinement_decoder.",
+        "refinement_projectors.",
+        "refinement_fusion_adapter.",
+    )
+    proposal = [
+        (name, parameter)
+        for name, parameter in named
+        if name.startswith(proposal_prefixes)
+    ]
+    refinement = [
+        (name, parameter)
+        for name, parameter in named
+        if name.startswith(refinement_prefixes)
+    ]
+    guides = [
+        (name, parameter)
+        for name, parameter in named
+        if name.startswith("refinement_decoder.guide_adapters.")
+    ]
+    proposal_fusion_adapters = [
+        (name, parameter)
+        for name, parameter in named
+        if name.startswith("proposal_fusion_adapter.")
+    ]
+    refinement_fusion_adapters = [
+        (name, parameter)
+        for name, parameter in named
+        if name.startswith("refinement_fusion_adapter.")
+    ]
+    return {
+        "proposal_grad_norm": parameter_group_l2_norm(proposal, use_gradients=True),
+        "refinement_grad_norm": parameter_group_l2_norm(
+            refinement,
+            use_gradients=True,
+        ),
+        "guide_parameter_norm": parameter_group_l2_norm(
+            guides,
+            use_gradients=False,
+        ),
+        "guide_grad_norm": parameter_group_l2_norm(guides, use_gradients=True),
+        "proposal_fusion_adapter_parameter_norm": parameter_group_l2_norm(
+            proposal_fusion_adapters,
+            use_gradients=False,
+        ),
+        "proposal_fusion_adapter_grad_norm": parameter_group_l2_norm(
+            proposal_fusion_adapters,
+            use_gradients=True,
+        ),
+        "refinement_fusion_adapter_parameter_norm": parameter_group_l2_norm(
+            refinement_fusion_adapters,
+            use_gradients=False,
+        ),
+        "refinement_fusion_adapter_grad_norm": parameter_group_l2_norm(
+            refinement_fusion_adapters,
+            use_gradients=True,
+        ),
+    }
+
+
+def s3_attention_norm_metrics(network: torch.nn.Module) -> dict[str, float | None]:
+    model = unwrap_s3_attention(network)
+    if model is None:
+        return {}
+    named = list(model.named_parameters())
+    attention = [
+        (name, parameter)
+        for name, parameter in named
+        if name.startswith("s3_attention_gates.")
+    ]
+    residual = [
+        (name, parameter)
+        for name, parameter in named
+        if name.startswith("logit_residual_head.")
+    ]
+    metrics = {
+        "s3_attention_parameter_norm": parameter_group_l2_norm(
+            attention,
+            use_gradients=False,
+        ),
+        "s3_attention_grad_norm": parameter_group_l2_norm(
+            attention,
+            use_gradients=True,
+        ),
+    }
+    if residual:
+        metrics.update(
+            {
+                "s3_logit_residual_parameter_norm": parameter_group_l2_norm(
+                    residual,
+                    use_gradients=False,
+                ),
+                "s3_logit_residual_grad_norm": parameter_group_l2_norm(
+                    residual,
+                    use_gradients=True,
+                ),
+            }
+        )
+    return metrics
+
+
 def run_optimizer_update(
     network: torch.nn.Module,
     optimizer: torch.optim.Optimizer,
@@ -1046,10 +1444,20 @@ def run_optimizer_update(
     grad_accum: int,
     amp: bool,
     args: argparse.Namespace,
-) -> tuple[float, Counter, float | None]:
+    global_update: int = 0,
+) -> tuple[float, Counter, float | None, dict[str, float | None]]:
     optimizer.zero_grad(set_to_none=True)
     stats: Counter = Counter()
     loss_values = []
+    component_values: dict[str, list[float]] = {}
+    if is_s3_attention_model(network):
+        set_s3_coupling_scale(
+            network,
+            coupling_scale_for_update(
+                global_update,
+                int(args.s3_coupling_ramp_updates),
+            ),
+        )
     for _ in range(grad_accum):
         images, targets, text_embeddings, batch_stats = make_batch(
             sampler=sampler,
@@ -1059,20 +1467,56 @@ def run_optimizer_update(
         )
         stats.update(batch_stats)
         with torch.autocast(device.type, enabled=device.type == "cuda" and amp):
-            outputs = network(images, text_embeddings)
-            loss = deep_supervision_loss(outputs, targets, args)
+            if is_dual_branch_model(network):
+                outputs = network(images, text_embeddings, return_branches=True)
+                loss, components = dual_branch_loss(
+                    outputs,
+                    targets,
+                    args,
+                    network,
+                )
+                for name, value in components.items():
+                    component_values.setdefault(name, []).append(float(value))
+            elif is_s3_attention_model(network):
+                outputs = network(images, text_embeddings)
+                base_loss = deep_supervision_loss(outputs, targets, args)
+                aux_loss, components = s3_attention_auxiliary_loss(
+                    network,
+                    targets,
+                    args,
+                )
+                loss = base_loss + aux_loss
+                component_values.setdefault("s3_base_v123", []).append(
+                    float(base_loss.detach().cpu())
+                )
+                for name, value in components.items():
+                    component_values.setdefault(name, []).append(float(value))
+                for name, value in s3_attention_stats(network).items():
+                    component_values.setdefault(name, []).append(float(value))
+            else:
+                outputs = network(images, text_embeddings)
+                loss = deep_supervision_loss(outputs, targets, args)
             scaled_loss = loss / grad_accum
         scaler.scale(scaled_loss).backward()
         loss_values.append(float(loss.detach().cpu()))
     grad_norm = None
-    if args.clip_grad_norm and args.clip_grad_norm > 0:
+    if (
+        (args.clip_grad_norm and args.clip_grad_norm > 0)
+        or is_dual_branch_model(network)
+        or is_s3_attention_model(network)
+    ):
         scaler.unscale_(optimizer)
+    norm_metrics = dual_branch_norm_metrics(network)
+    norm_metrics.update(s3_attention_norm_metrics(network))
+    if args.clip_grad_norm and args.clip_grad_norm > 0:
         parameters = [parameter for parameter in network.parameters() if parameter.requires_grad]
         grad_norm_tensor = torch.nn.utils.clip_grad_norm_(parameters, float(args.clip_grad_norm))
         grad_norm = float(grad_norm_tensor.detach().cpu())
     scaler.step(optimizer)
     scaler.update()
-    return float(np.mean(loss_values)), stats, grad_norm
+    for name, values in component_values.items():
+        norm_metrics[f"loss_{name}"] = float(np.mean(values))
+    return float(np.mean(loss_values)), stats, grad_norm, norm_metrics
 
 
 def optimizer_config(args: argparse.Namespace) -> dict[str, Any]:
@@ -1101,6 +1545,22 @@ def loss_config(args: argparse.Namespace) -> dict[str, Any]:
         "bce_background_weight": args.bce_background_weight,
         "bce_boundary_radius": args.bce_boundary_radius,
         "deep_supervision_weights": list(parse_deep_supervision_weights(args.deep_supervision_weights)),
+        "dual_branch_variant": args.dual_branch_variant,
+        "proposal_branch_weight": args.proposal_branch_weight,
+        "proposal_recall_weight": args.proposal_recall_weight,
+        "proposal_tversky_alpha": args.proposal_tversky_alpha,
+        "proposal_tversky_beta": args.proposal_tversky_beta,
+        "final_precision_weight_override": args.final_precision_weight,
+        "precision_tversky_alpha": args.precision_tversky_alpha,
+        "precision_tversky_beta": args.precision_tversky_beta,
+        "s3_attention_variant": args.s3_attention_variant,
+        "s3_coupling_ramp_updates": args.s3_coupling_ramp_updates,
+        "s3_attention_loss_weight": args.s3_attention_loss_weight,
+        "s3_hard_bg_loss_weight": args.s3_hard_bg_loss_weight,
+        "s3_fullres_alignment_loss_weight": args.s3_fullres_alignment_loss_weight,
+        "s3_attention_margin": args.s3_attention_margin,
+        "s3_hard_background_fraction": args.s3_hard_background_fraction,
+        "s3_fullres_sample_cap": args.s3_fullres_sample_cap,
     }
 
 
@@ -1167,6 +1627,10 @@ def save_checkpoint(
     model = network.module if hasattr(network, "module") else network
     tmp = path.with_name(f".{path.name}.tmp.{os.getpid()}")
     preprocessing = preprocessing_config(args)
+    model_spec = model_spec_from_network(
+        network,
+        source_model_dir=str(args.model_dir) if args.model_dir is not None else None,
+    )
     torch.save(
         {
             "epoch": int(epoch),
@@ -1186,10 +1650,43 @@ def save_checkpoint(
             "optimizer_config": optimizer_config(args),
             "loss_config": loss_config(args),
             "checkpoint_updates": sorted(parse_checkpoint_updates(args.checkpoint_updates)),
+            "model_spec": model_spec,
         },
         tmp,
     )
     os.replace(tmp, path)
+
+
+def load_checkpoint_for_training(
+    path: Path,
+    network: torch.nn.Module,
+    optimizer: torch.optim.Optimizer,
+    scaler: torch.amp.GradScaler,
+    device: torch.device,
+) -> dict[str, Any]:
+    if not path.is_file():
+        raise FileNotFoundError(f"Missing resume checkpoint: {path}")
+    checkpoint = torch.load(path, map_location=device)
+    expected_spec = model_spec_from_network(network)
+    checkpoint_spec = checkpoint.get("model_spec")
+    if expected_spec is not None:
+        if checkpoint_spec is None:
+            raise ValueError(f"Dual-branch resume checkpoint has no model_spec: {path}")
+        if checkpoint_spec.get("variant") != expected_spec.get("variant"):
+            raise ValueError(
+                f"Resume checkpoint variant {checkpoint_spec.get('variant')!r} does not "
+                f"match requested variant {expected_spec.get('variant')!r}"
+            )
+    model = network.module if hasattr(network, "module") else network
+    model.load_state_dict(checkpoint["network_weights"], strict=True)
+    optimizer.load_state_dict(checkpoint["optimizer"])
+    if "grad_scaler" in checkpoint:
+        scaler.load_state_dict(checkpoint["grad_scaler"])
+    for state in optimizer.state.values():
+        for key, value in list(state.items()):
+            if torch.is_tensor(value):
+                state[key] = value.to(device)
+    return checkpoint
 
 
 def point_latest_checkpoint(latest: Path, checkpoint: Path) -> None:
@@ -1204,11 +1701,18 @@ def point_latest_checkpoint(latest: Path, checkpoint: Path) -> None:
     os.replace(tmp, latest)
 
 
-def materialize_inference_model(model_dir: Path, checkpoint: Path, output_model_dir: Path) -> None:
+def materialize_inference_model(
+    model_dir: Path,
+    checkpoint: Path,
+    output_model_dir: Path,
+    model_spec: dict[str, Any] | None = None,
+) -> None:
     output_model_dir.mkdir(parents=True, exist_ok=True)
     (output_model_dir / "fold_0").mkdir(exist_ok=True)
     shutil.copy2(model_dir / "plans.json", output_model_dir / "plans.json")
     shutil.copy2(checkpoint, output_model_dir / "fold_0" / "checkpoint_final.pth")
+    if model_spec is not None:
+        write_model_spec(output_model_dir / MODEL_SPEC_FILENAME, model_spec)
 
 
 def write_training_report(path: Path, metrics: dict[str, Any]) -> None:
@@ -1224,6 +1728,7 @@ def write_training_report(path: Path, metrics: dict[str, Any]) -> None:
         f"- LR schedule: `{metrics['lr_schedule']}`",
         f"- LR groups: `{metrics.get('lrs_final')}`",
         f"- Loss mode: `{metrics.get('loss_config', {}).get('loss_mode')}`",
+        f"- Dual-branch variant: `{metrics.get('loss_config', {}).get('dual_branch_variant')}`",
         f"- Deep supervision weights: `{metrics.get('loss_config', {}).get('deep_supervision_weights')}`",
         f"- Require positive crop: `{metrics.get('sampler_config', {}).get('require_positive_crop')}`",
         f"- Patch size: `{metrics['patch_size']}`",
@@ -1289,6 +1794,65 @@ def is_oom_error(exc: BaseException) -> bool:
 def prepare_runtime_dirs(run_dir: Path) -> None:
     for child in ["config", "logs", "checkpoints", "reports", "eval", "model", "predictions"]:
         (run_dir / child).mkdir(parents=True, exist_ok=True)
+
+
+def wait_for_run_control_pause(
+    run_dir: Path,
+    mode: str,
+    target_global_update: int | None,
+    epochs: int,
+    steps_per_epoch: int,
+) -> None:
+    """Wait before a training segment when its run-control marker is present."""
+    if mode != "train":
+        return
+    target = int(target_global_update or (int(epochs) * int(steps_per_epoch)))
+    control_dir = run_dir / "control"
+    marker = control_dir / f"pause_before_update_{target:06d}"
+    if not marker.is_file():
+        return
+
+    control_dir.mkdir(parents=True, exist_ok=True)
+    status_path = control_dir / "pause_status.json"
+    entered_at = utc_now_iso()
+    poll_seconds = max(1.0, float(os.environ.get("RUN_CONTROL_POLL_SECONDS", "5")))
+    next_heartbeat = 0.0
+    print(
+        f"Run-control pause active before target update {target}: {marker}",
+        flush=True,
+    )
+    while marker.is_file():
+        now = time.monotonic()
+        if now >= next_heartbeat:
+            write_json(
+                status_path,
+                {
+                    "state": "paused",
+                    "entered_at_utc": entered_at,
+                    "heartbeat_at_utc": utc_now_iso(),
+                    "marker": str(marker),
+                    "pid": os.getpid(),
+                    "target_global_update": target,
+                    "updates_consumed_in_segment": 0,
+                    "resume_action": f"remove {marker}",
+                },
+            )
+            next_heartbeat = now + 60.0
+        time.sleep(poll_seconds)
+
+    write_json(
+        status_path,
+        {
+            "state": "resumed",
+            "entered_at_utc": entered_at,
+            "resumed_at_utc": utc_now_iso(),
+            "marker": str(marker),
+            "pid": os.getpid(),
+            "target_global_update": target,
+            "updates_consumed_before_resume": 0,
+        },
+    )
+    print(f"Run-control pause released for target update {target}.", flush=True)
 
 
 def runtime_manifest(
@@ -1382,6 +1946,7 @@ class ScheduledPatchSampler:
         world_size: int,
         local_events_per_update: int,
         required_global_events: int,
+        start_global_update: int = 0,
     ) -> None:
         if local_events_per_update < 1:
             raise ValueError("local_events_per_update must be >= 1")
@@ -1392,13 +1957,15 @@ class ScheduledPatchSampler:
                 f"Schedule has {len(events)} events but this run requires "
                 f"{required_global_events} global patch events"
             )
+        if start_global_update < 0:
+            raise ValueError("start_global_update must be >= 0")
         self.base_sampler = base_sampler
         self.events = events
         self.rank = int(rank)
         self.world_size = int(world_size)
         self.local_events_per_update = int(local_events_per_update)
         self.required_global_events = int(required_global_events)
-        self.local_sample_count = 0
+        self.local_sample_count = int(start_global_update) * self.local_events_per_update
         self.global_events_per_update = self.local_events_per_update * self.world_size
 
     def sample(self) -> PatchSample:
@@ -1455,7 +2022,51 @@ def create_predictor_and_network(
         embedding_bank=str(args.embeddings),
         use_precomputed_embeddings=False,
     )
-    network = predictor.network.to(device)
+    network: torch.nn.Module = predictor.network
+    if args.dual_branch_variant is not None:
+        network = DualBranchVoxTellModel(
+            source_model=network,
+            variant=args.dual_branch_variant,
+            deep_supervision=True,
+        )
+        predictor.network = network
+        spec = model_spec_from_network(network, source_model_dir=str(model_dir))
+        if spec is None:
+            raise RuntimeError("Failed to construct dual-branch model specification")
+        write_model_spec(args.run_dir / "config" / MODEL_SPEC_FILENAME, spec)
+    if args.s3_attention_variant is not None:
+        network = S3AttentionVoxTellModel(
+            source_model=network,
+            variant=args.s3_attention_variant,
+            deep_supervision=True,
+            coupling_ramp_updates=args.s3_coupling_ramp_updates,
+        )
+        predictor.network = network
+        spec = model_spec_from_network(network, source_model_dir=str(model_dir))
+        if spec is None:
+            raise RuntimeError("Failed to construct S3 attention model specification")
+        write_model_spec(args.run_dir / "config" / MODEL_SPEC_FILENAME, spec)
+    if args.init_checkpoint is not None:
+        checkpoint = torch.load(
+            args.init_checkpoint,
+            map_location=torch.device("cpu"),
+            weights_only=False,
+        )
+        checkpoint_spec = checkpoint.get("model_spec")
+        requested_spec = model_spec_from_network(network)
+        if requested_spec is not None:
+            if checkpoint_spec is None:
+                raise ValueError(
+                    f"Initialization checkpoint has no model_spec: {args.init_checkpoint}"
+                )
+            if checkpoint_spec.get("variant") != requested_spec.get("variant"):
+                raise ValueError(
+                    f"Initialization checkpoint variant "
+                    f"{checkpoint_spec.get('variant')!r} does not match "
+                    f"{requested_spec.get('variant')!r}"
+                )
+        network.load_state_dict(checkpoint["network_weights"], strict=True)
+    network = network.to(device)
     set_deep_supervision(network, True)
     network.train()
     return predictor, network
@@ -1605,7 +2216,7 @@ def run_batch_probe(
             for _ in range(args.probe_steps):
                 synchronize(device)
                 start = time.perf_counter()
-                loss, update_stats, _grad_norm = run_optimizer_update(
+                loss, update_stats, _grad_norm, _component_metrics = run_optimizer_update(
                     network=network,
                     optimizer=optimizer,
                     scaler=scaler,
@@ -1616,6 +2227,7 @@ def run_batch_probe(
                     grad_accum=args.grad_accum,
                     amp=args.amp,
                     args=args,
+                    global_update=len(losses),
                 )
                 synchronize(device)
                 update_seconds.append(time.perf_counter() - start)
@@ -1687,6 +2299,12 @@ def run_train(
     manifest: dict[str, Any],
 ) -> int:
     _predictor, network = create_predictor_and_network(args, model_dir, device)
+    active_model_spec = model_spec_from_network(
+        network,
+        source_model_dir=str(model_dir),
+    )
+    if active_model_spec is not None:
+        manifest["model_spec"] = active_model_spec
     if distributed:
         network = DDP(
             network,
@@ -1698,6 +2316,11 @@ def run_train(
     scaler = torch.amp.GradScaler("cuda", enabled=device.type == "cuda" and args.amp)
 
     total_updates = int(args.epochs * args.steps_per_epoch)
+    target_global_update = int(args.target_global_update or total_updates)
+    if target_global_update > total_updates:
+        raise ValueError(
+            f"--target-global-update {target_global_update} exceeds total run horizon {total_updates}"
+        )
     checkpoint_updates = parse_checkpoint_updates(args.checkpoint_updates)
     if checkpoint_updates:
         out_of_horizon = [update for update in sorted(checkpoint_updates) if update > total_updates]
@@ -1706,8 +2329,33 @@ def run_train(
                 f"--checkpoint-updates contains updates beyond this run horizon "
                 f"({total_updates}): {out_of_horizon}"
             )
+
+    global_update = 0
+    resumed_checkpoint: dict[str, Any] | None = None
+    if args.resume_checkpoint is not None:
+        resumed_checkpoint = load_checkpoint_for_training(
+            args.resume_checkpoint,
+            network,
+            optimizer,
+            scaler,
+            device,
+        )
+        global_update = int(resumed_checkpoint.get("global_update", 0))
+        if global_update < 0:
+            raise ValueError(f"Resume checkpoint has invalid global_update: {global_update}")
+        if global_update > target_global_update:
+            raise ValueError(
+                f"Resume checkpoint is already at update {global_update}, beyond target "
+                f"{target_global_update}"
+            )
+        if global_update >= total_updates:
+            raise ValueError(
+                f"Resume checkpoint is already at or beyond horizon {total_updates}: {global_update}"
+            )
     schedule_events = load_sample_schedule(args.sample_schedule) if args.sample_schedule else None
     if schedule_events is None:
+        if args.resume_checkpoint is not None:
+            raise ValueError("Resuming deterministic segmented training requires --sample-schedule")
         sampler: Any = build_sampler(train_entries[rank::world_size], negative_pool, args, args.seed + rank)
     else:
         base_sampler = build_sampler(train_entries, negative_pool, args, args.seed)
@@ -1720,10 +2368,12 @@ def run_train(
             world_size=world_size,
             local_events_per_update=local_events_per_update,
             required_global_events=required_global_events,
+            start_global_update=global_update,
         )
         manifest["sample_schedule"] = sample_schedule_summary(args, schedule_events, world_size)
 
-    global_update = 0
+    start_global_update = global_update
+    segment_target_updates = target_global_update - start_global_update
     losses: list[float] = []
     update_records: list[dict[str, Any]] = []
     sample_stats: Counter = Counter()
@@ -1731,75 +2381,114 @@ def run_train(
     start_time = time.perf_counter()
 
     progress = tqdm(
-        total=total_updates,
+        total=segment_target_updates,
         desc=f"{args.experiment_id} training updates",
         disable=not main_process,
     )
-    for epoch in range(1, args.epochs + 1):
-        for step_in_epoch in range(1, args.steps_per_epoch + 1):
-            lr = set_learning_rate(
-                optimizer=optimizer,
-                base_lr=args.lr,
-                update_index_zero_based=global_update,
-                total_updates=total_updates,
-                power=args.poly_power,
-                schedule=args.lr_schedule,
-                warmup_updates=args.warmup_updates,
+    while global_update < target_global_update:
+        epoch = int(global_update // args.steps_per_epoch) + 1
+        step_in_epoch = int(global_update % args.steps_per_epoch) + 1
+        lr = set_learning_rate(
+            optimizer=optimizer,
+            base_lr=args.lr,
+            update_index_zero_based=global_update,
+            total_updates=total_updates,
+            power=args.poly_power,
+            schedule=args.lr_schedule,
+            warmup_updates=args.warmup_updates,
+        )
+        synchronize(device)
+        update_start = time.perf_counter()
+        loss, stats, grad_norm, component_metrics = run_optimizer_update(
+            network=network,
+            optimizer=optimizer,
+            scaler=scaler,
+            sampler=sampler,
+            embedding_bank=embedding_bank,
+            device=device,
+            batch_size=args.batch_size,
+            grad_accum=args.grad_accum,
+            amp=args.amp,
+            args=args,
+            global_update=global_update,
+        )
+        synchronize(device)
+        elapsed = time.perf_counter() - update_start
+        loss_tensor = torch.tensor(loss, device=device)
+        if distributed:
+            dist.all_reduce(loss_tensor, op=dist.ReduceOp.SUM)
+            loss_tensor /= world_size
+        loss = float(loss_tensor.detach().cpu())
+        global_update += 1
+        sample_stats.update(stats)
+        losses.append(loss)
+        if main_process:
+            update_memory = (
+                {
+                    "memory_allocated_gib": (
+                        torch.cuda.memory_allocated(device) / float(1024**3)
+                    ),
+                    "memory_reserved_gib": (
+                        torch.cuda.memory_reserved(device) / float(1024**3)
+                    ),
+                }
+                if device.type == "cuda"
+                else {
+                    "memory_allocated_gib": 0.0,
+                    "memory_reserved_gib": 0.0,
+                }
             )
-            synchronize(device)
-            update_start = time.perf_counter()
-            loss, stats, grad_norm = run_optimizer_update(
-                network=network,
-                optimizer=optimizer,
-                scaler=scaler,
-                sampler=sampler,
-                embedding_bank=embedding_bank,
-                device=device,
-                batch_size=args.batch_size,
-                grad_accum=args.grad_accum,
-                amp=args.amp,
-                args=args,
+            update_records.append(
+                {
+                    "global_update": global_update,
+                    "epoch": epoch,
+                    "step_in_epoch": step_in_epoch,
+                    "loss": loss,
+                    "lr": lr,
+                    "lrs": optimizer_lrs(optimizer),
+                    "grad_norm": grad_norm,
+                    "update_seconds": elapsed,
+                    **update_memory,
+                    **component_metrics,
+                }
             )
-            synchronize(device)
-            elapsed = time.perf_counter() - update_start
-            loss_tensor = torch.tensor(loss, device=device)
-            if distributed:
-                dist.all_reduce(loss_tensor, op=dist.ReduceOp.SUM)
-                loss_tensor /= world_size
-            loss = float(loss_tensor.detach().cpu())
-            global_update += 1
-            sample_stats.update(stats)
-            losses.append(loss)
-            if main_process:
-                update_records.append(
-                    {
-                        "global_update": global_update,
-                        "epoch": epoch,
-                        "step_in_epoch": step_in_epoch,
-                        "loss": loss,
-                        "lr": lr,
-                        "lrs": optimizer_lrs(optimizer),
-                        "grad_norm": grad_norm,
-                        "update_seconds": elapsed,
-                    }
+            progress.update(1)
+            progress.set_postfix(loss=f"{loss:.4f}", lr=f"{optimizer_lr(optimizer):.2e}")
+            immutable_checkpoint_written = False
+            checkpoint_step_path = None
+            write_immutable_checkpoint = bool(
+                global_update in checkpoint_updates
+                or (
+                    args.checkpoint_every_updates
+                    and global_update % args.checkpoint_every_updates == 0
                 )
-                progress.update(1)
-                progress.set_postfix(loss=f"{loss:.4f}", lr=f"{optimizer_lr(optimizer):.2e}")
-                immutable_checkpoint_written = False
-                checkpoint_step_path = None
-                write_immutable_checkpoint = bool(
-                    global_update in checkpoint_updates
-                    or (
-                        args.checkpoint_every_updates
-                        and global_update % args.checkpoint_every_updates == 0
-                    )
+            )
+            if write_immutable_checkpoint:
+                checkpoint_step_path = (
+                    args.run_dir / "checkpoints" / f"checkpoint_update_{global_update:06d}.pth"
                 )
-                if write_immutable_checkpoint:
-                    checkpoint_step_path = (
-                        args.run_dir / "checkpoints" / f"checkpoint_update_{global_update:06d}.pth"
-                    )
+                save_checkpoint(
+                    checkpoint_step_path,
+                    network,
+                    optimizer,
+                    scaler,
+                    epoch,
+                    global_update,
+                    args,
+                )
+                immutable_checkpoint_written = True
+            latest_interval = (
+                args.latest_checkpoint_every_updates
+                if args.latest_checkpoint_every_updates is not None
+                else args.checkpoint_every_updates
+            )
+            if latest_interval and global_update % latest_interval == 0:
+                latest_path = args.run_dir / "checkpoints" / "checkpoint_latest.pth"
+                if immutable_checkpoint_written and checkpoint_step_path is not None:
+                    point_latest_checkpoint(latest_path, checkpoint_step_path)
+                else:
                     save_checkpoint(
-                        checkpoint_step_path,
+                        latest_path,
                         network,
                         optimizer,
                         scaler,
@@ -1807,40 +2496,23 @@ def run_train(
                         global_update,
                         args,
                     )
-                    immutable_checkpoint_written = True
-                latest_interval = (
-                    args.latest_checkpoint_every_updates
-                    if args.latest_checkpoint_every_updates is not None
-                    else args.checkpoint_every_updates
-                )
-                if latest_interval and global_update % latest_interval == 0:
-                    latest_path = args.run_dir / "checkpoints" / "checkpoint_latest.pth"
-                    if immutable_checkpoint_written and checkpoint_step_path is not None:
-                        point_latest_checkpoint(latest_path, checkpoint_step_path)
-                    else:
-                        save_checkpoint(
-                            latest_path,
-                            network,
-                            optimizer,
-                            scaler,
-                            epoch,
-                            global_update,
-                            args,
-                        )
-                    partial_metrics = {
-                        "status": "running",
-                        "global_update": global_update,
-                        "mean_loss": float(np.mean(losses)),
-                        "last_loss": float(losses[-1]),
-                        "last_checkpoint": str(
-                            checkpoint_step_path
-                            if checkpoint_step_path is not None
-                            else args.run_dir / "checkpoints" / "checkpoint_latest.pth"
-                        ),
-                        "sample_stats": dict(sample_stats),
-                        "updates": update_records,
-                    }
-                    write_json(args.run_dir / "reports" / "training_metrics.json", partial_metrics)
+                partial_metrics = {
+                    "status": "running",
+                    "global_update": global_update,
+                    "start_global_update": start_global_update,
+                    "target_global_update": target_global_update,
+                    "segment_updates_completed": len(losses),
+                    "mean_loss": float(np.mean(losses)),
+                    "last_loss": float(losses[-1]),
+                    "last_checkpoint": str(
+                        checkpoint_step_path
+                        if checkpoint_step_path is not None
+                        else args.run_dir / "checkpoints" / "checkpoint_latest.pth"
+                    ),
+                    "sample_stats": dict(sample_stats),
+                    "updates": update_records,
+                }
+                write_json(args.run_dir / "reports" / "training_metrics.json", partial_metrics)
 
     if distributed:
         dist.barrier()
@@ -1848,11 +2520,21 @@ def run_train(
         progress.close()
         elapsed_total = time.perf_counter() - start_time
         final_checkpoint = args.run_dir / "checkpoints" / "checkpoint_final.pth"
-        save_checkpoint(final_checkpoint, network, optimizer, scaler, args.epochs, global_update, args)
+        final_epoch = int((max(global_update, 1) - 1) // args.steps_per_epoch) + 1
+        save_checkpoint(final_checkpoint, network, optimizer, scaler, final_epoch, global_update, args)
         inference_model_dir = None
         if args.materialize_final_model:
             inference_model_dir = args.run_dir / "model"
-            materialize_inference_model(model_dir, final_checkpoint, inference_model_dir)
+            materialize_inference_model(
+                model_dir,
+                final_checkpoint,
+                inference_model_dir,
+                model_spec=model_spec_from_network(
+                    network,
+                    source_model_dir=str(model_dir),
+                ),
+            )
+        segment_updates_completed = len(losses)
         metrics = {
             "status": "completed",
             "created_at_utc": utc_now_iso(),
@@ -1860,24 +2542,40 @@ def run_train(
             "epochs": args.epochs,
             "steps_per_epoch": args.steps_per_epoch,
             "total_updates": total_updates,
+            "start_global_update": start_global_update,
+            "target_global_update": target_global_update,
             "completed_updates": global_update,
+            "segment_updates_completed": segment_updates_completed,
             "batch_size": args.batch_size,
             "grad_accum": args.grad_accum,
             "world_size": world_size,
+            "resume_checkpoint": str(args.resume_checkpoint) if args.resume_checkpoint else None,
+            "resume_checkpoint_update": (
+                int(resumed_checkpoint.get("global_update", 0))
+                if resumed_checkpoint is not None
+                else None
+            ),
             "patch_size": list(parse_patch_size(args.patch_size)),
             "lr_schedule": args.lr_schedule,
             "optimizer_config": optimizer_config(args),
             "loss_config": loss_config(args),
+            "model_spec": active_model_spec,
             "sampler_config": sampler_config(args),
             "preprocessing_config": preprocessing_config(args),
             "checkpoint_updates": sorted(checkpoint_updates),
             "elapsed_seconds": elapsed_total,
-            "updates_per_second": global_update / elapsed_total if elapsed_total > 0 else None,
-            "mean_update_seconds": elapsed_total / global_update if global_update else None,
-            "mean_loss": float(np.mean(losses)),
-            "last_loss": float(losses[-1]),
-            "min_loss": float(np.min(losses)),
-            "max_loss": float(np.max(losses)),
+            "updates_per_second": (
+                segment_updates_completed / elapsed_total
+                if elapsed_total > 0 and segment_updates_completed
+                else None
+            ),
+            "mean_update_seconds": (
+                elapsed_total / segment_updates_completed if segment_updates_completed else None
+            ),
+            "mean_loss": float(np.mean(losses)) if losses else None,
+            "last_loss": float(losses[-1]) if losses else None,
+            "min_loss": float(np.min(losses)) if losses else None,
+            "max_loss": float(np.max(losses)) if losses else None,
             "lr_final": optimizer_lr(optimizer),
             "lrs_final": optimizer_lrs(optimizer),
             "memory": cuda_memory_report(device),
@@ -1925,6 +2623,18 @@ def main() -> int:
     parser.add_argument("--ct-root", type=Path, default=CT_ROOT)
     parser.add_argument("--seg-dir", type=Path, default=REX_SEG_DIR)
     parser.add_argument("--model-dir", type=Path, default=None)
+    parser.add_argument(
+        "--dual-branch-variant",
+        choices=sorted(DUAL_BRANCH_VARIANTS),
+        default=None,
+        help="Opt in to the local proposal/refinement VoxTell architecture.",
+    )
+    parser.add_argument(
+        "--s3-attention-variant",
+        choices=sorted(S3_ATTENTION_VARIANTS),
+        default=None,
+        help="Opt in to the local S3 attention coupling architecture.",
+    )
     parser.add_argument("--embeddings", type=Path, default=None)
     parser.add_argument("--gpu", type=int, default=0)
     parser.add_argument("--local-rank", type=int, default=None)
@@ -1936,6 +2646,19 @@ def main() -> int:
     parser.add_argument("--case-cache-size", type=int, default=4)
     parser.add_argument("--sample-schedule", type=Path, default=None)
     parser.add_argument("--preprocessed-cache-dir", type=Path, default=None)
+    parser.add_argument(
+        "--init-checkpoint",
+        type=Path,
+        default=None,
+        help="Load network weights only before creating a fresh optimizer.",
+    )
+    parser.add_argument("--resume-checkpoint", type=Path, default=None)
+    parser.add_argument(
+        "--target-global-update",
+        type=int,
+        default=None,
+        help="Stop after reaching this absolute optimizer-update count within the run horizon.",
+    )
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--steps-per-epoch", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=1)
@@ -1974,6 +2697,20 @@ def main() -> int:
         "--deep-supervision-weights",
         default=",".join(str(value) for value in DEFAULT_DEEP_SUPERVISION_WEIGHTS),
     )
+    parser.add_argument("--proposal-branch-weight", type=float, default=0.5)
+    parser.add_argument("--proposal-recall-weight", type=float, default=0.5)
+    parser.add_argument("--proposal-tversky-alpha", type=float, default=0.3)
+    parser.add_argument("--proposal-tversky-beta", type=float, default=0.7)
+    parser.add_argument("--final-precision-weight", type=float, default=None)
+    parser.add_argument("--precision-tversky-alpha", type=float, default=0.7)
+    parser.add_argument("--precision-tversky-beta", type=float, default=0.3)
+    parser.add_argument("--s3-coupling-ramp-updates", type=int, default=2000)
+    parser.add_argument("--s3-attention-loss-weight", type=float, default=0.05)
+    parser.add_argument("--s3-hard-bg-loss-weight", type=float, default=0.01)
+    parser.add_argument("--s3-fullres-alignment-loss-weight", type=float, default=0.01)
+    parser.add_argument("--s3-attention-margin", type=float, default=0.05)
+    parser.add_argument("--s3-hard-background-fraction", type=float, default=0.01)
+    parser.add_argument("--s3-fullres-sample-cap", type=int, default=4096)
     parser.add_argument("--require-positive-crop", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("--min-positive-voxels", type=int, default=1)
     parser.add_argument("--max-positive-crop-attempts", type=int, default=64)
@@ -2000,6 +2737,12 @@ def main() -> int:
         raise ValueError("--warmup-updates must be >= 0")
     if args.clip_grad_norm < 0:
         raise ValueError("--clip-grad-norm must be >= 0")
+    if args.target_global_update is not None and args.target_global_update < 1:
+        raise ValueError("--target-global-update must be >= 1 when set")
+    if args.init_checkpoint is not None and args.resume_checkpoint is not None:
+        raise ValueError("--init-checkpoint and --resume-checkpoint are mutually exclusive")
+    if args.dual_branch_variant is not None and args.s3_attention_variant is not None:
+        raise ValueError("--dual-branch-variant and --s3-attention-variant are mutually exclusive")
     if args.checkpoint_every_updates < 0:
         raise ValueError("--checkpoint-every-updates must be >= 0")
     if args.latest_checkpoint_every_updates is not None and args.latest_checkpoint_every_updates < 0:
@@ -2008,6 +2751,35 @@ def main() -> int:
         raise ValueError("--empty-target-loss-weight must be >= 0")
     if args.bce_boundary_radius < 0:
         raise ValueError("--bce-boundary-radius must be >= 0")
+    for argument_name in (
+        "proposal_branch_weight",
+        "proposal_recall_weight",
+        "proposal_tversky_alpha",
+        "proposal_tversky_beta",
+        "precision_tversky_alpha",
+        "precision_tversky_beta",
+    ):
+        if float(getattr(args, argument_name)) < 0:
+            raise ValueError(f"--{argument_name.replace('_', '-')} must be >= 0")
+    if args.final_precision_weight is not None and args.final_precision_weight < 0:
+        raise ValueError("--final-precision-weight must be >= 0")
+    if args.proposal_tversky_alpha + args.proposal_tversky_beta <= 0:
+        raise ValueError("Proposal Tversky alpha and beta cannot both be zero")
+    if args.precision_tversky_alpha + args.precision_tversky_beta <= 0:
+        raise ValueError("Precision Tversky alpha and beta cannot both be zero")
+    if args.s3_coupling_ramp_updates < 0:
+        raise ValueError("--s3-coupling-ramp-updates must be >= 0")
+    for argument_name in (
+        "s3_attention_loss_weight",
+        "s3_hard_bg_loss_weight",
+        "s3_fullres_alignment_loss_weight",
+        "s3_attention_margin",
+        "s3_hard_background_fraction",
+    ):
+        if float(getattr(args, argument_name)) < 0:
+            raise ValueError(f"--{argument_name.replace('_', '-')} must be >= 0")
+    if args.s3_fullres_sample_cap < 1:
+        raise ValueError("--s3-fullres-sample-cap must be >= 1")
     if args.min_positive_voxels < 1:
         raise ValueError("--min-positive-voxels must be >= 1")
     if args.max_positive_crop_attempts < 1:
@@ -2031,6 +2803,14 @@ def main() -> int:
     prepare_runtime_dirs(args.run_dir)
     if args.embeddings is None:
         args.embeddings = args.exp_dir / "config" / "rex_text_embeddings.npz"
+
+    wait_for_run_control_pause(
+        run_dir=args.run_dir,
+        mode=args.mode,
+        target_global_update=args.target_global_update,
+        epochs=args.epochs,
+        steps_per_epoch=args.steps_per_epoch,
+    )
 
     distributed, rank, world_size, local_rank = setup_distributed(args)
     main_process = is_main_process(rank)
@@ -2060,6 +2840,9 @@ def main() -> int:
                 "negative_prompt_pool_size": len(negative_pool),
                 "embedding_bank": str(args.embeddings),
                 "sample_schedule_path": str(args.sample_schedule) if args.sample_schedule else None,
+                "init_checkpoint": str(args.init_checkpoint) if args.init_checkpoint else None,
+                "resume_checkpoint": str(args.resume_checkpoint) if args.resume_checkpoint else None,
+                "target_global_update": args.target_global_update,
             }
         )
         write_json(args.run_dir / "run_manifest.json", manifest)

@@ -114,17 +114,129 @@ def load_preprocessed_targets(
     return crop_target(target_fzyx, bbox_list)
 
 
+def load_cached_preprocessed_targets(entry: dict, cache_root: Path) -> np.ndarray:
+    from voxtell_preprocessed_cache import cache_case_paths
+
+    paths = cache_case_paths(cache_root, entry["name"])
+    if not paths["complete"].is_file():
+        raise FileNotFoundError(f"Incomplete cached case: {paths['root']}")
+    if not paths["targets"].is_file():
+        raise FileNotFoundError(f"Cached case has no targets: {paths['targets']}")
+    with np.load(paths["targets"], allow_pickle=False) as data:
+        targets = data["targets"]
+    if targets.ndim != 4:
+        raise ValueError(f"{entry['name']}: cached targets must be FZYX, got {targets.shape}")
+    return np.asarray(targets, dtype=np.uint8)
+
+
+def positive_crop_options_from_cached_metadata(
+    entry: dict,
+    cache_root: Path,
+    patch_size: tuple[int, int, int],
+) -> tuple[dict | None, Counter]:
+    from voxtell_preprocessed_cache import cache_case_paths
+
+    paths = cache_case_paths(cache_root, entry["name"])
+    if not paths["complete"].is_file():
+        raise FileNotFoundError(f"Incomplete cached case: {paths['root']}")
+    if not paths["metadata"].is_file():
+        raise FileNotFoundError(f"Cached case has no metadata: {paths['metadata']}")
+    metadata = json.loads(paths["metadata"].read_text())
+    prompts = sorted_prompts(entry)
+    stats: Counter = Counter()
+    shape = metadata.get("resampled_shape_zyx")
+    positive_candidates = metadata.get("resampled_target_positive_point_candidates")
+    target_voxels = metadata.get("resampled_target_voxels") or metadata.get("source_target_voxels")
+    if not isinstance(shape, list) or len(shape) != 3:
+        raise ValueError(f"{entry['name']}: cached metadata has invalid resampled_shape_zyx")
+    if not isinstance(positive_candidates, list) or len(positive_candidates) < len(prompts):
+        raise ValueError(f"{entry['name']}: cached metadata lacks positive-point candidates")
+    if not isinstance(target_voxels, list) or len(target_voxels) < len(prompts):
+        raise ValueError(f"{entry['name']}: cached metadata lacks target voxel counts")
+
+    spatial_shape = tuple(int(dim) for dim in shape)
+    representative_points: dict[int, list[int]] = {}
+    nonempty: list[int] = []
+    for index in range(len(prompts)):
+        candidates = positive_candidates[index]
+        if int(target_voxels[index]) <= 0 or not candidates:
+            continue
+        nonempty.append(index)
+        representative_points[index] = [int(value) for value in candidates[0]]
+
+    compatible_pairs: list[dict] = []
+    for left, right in combinations(nonempty, 2):
+        points = np.asarray(
+            [representative_points[left], representative_points[right]],
+            dtype=np.int64,
+        )
+        if starts_containing_points(points, spatial_shape, patch_size, rng=None) is not None:
+            compatible_pairs.append(
+                {
+                    "indices": [int(left), int(right)],
+                    "points": [
+                        [int(value) for value in representative_points[left]],
+                        [int(value) for value in representative_points[right]],
+                    ],
+                }
+            )
+    if len(prompts) >= 2:
+        if compatible_pairs:
+            stats["eligible_multi_finding_cases"] += 1
+            stats["compatible_positive_pairs"] += len(compatible_pairs)
+            return (
+                {
+                    "positive_pairs": compatible_pairs,
+                    "single_positive_indices": nonempty,
+                    "single_positive_points": {
+                        str(index): [int(value) for value in representative_points[index]]
+                        for index in nonempty
+                    },
+                    "spatial_shape": [int(dim) for dim in spatial_shape],
+                },
+                stats,
+            )
+        stats["ineligible_multi_finding_cases"] += 1
+        return None, stats
+    if nonempty:
+        stats["eligible_one_finding_cases"] += 1
+        return (
+            {
+                "positive_pairs": [],
+                "single_positive_indices": nonempty,
+                "single_positive_points": {
+                    str(index): [int(value) for value in representative_points[index]]
+                    for index in nonempty
+                },
+                "spatial_shape": [int(dim) for dim in spatial_shape],
+            },
+            stats,
+        )
+    stats["ineligible_one_finding_cases"] += 1
+    return None, stats
+
+
 def build_positive_crop_options(
     entries: list[dict],
     ct_root: Path,
     seg_dir: Path,
     patch_size: tuple[int, int, int],
     num_workers: int,
+    preprocessed_cache_dir: Path | None = None,
 ) -> tuple[dict[str, dict], Counter]:
     options_by_case: dict[str, dict] = {}
     stats: Counter = Counter()
 
-    jobs = [(entry, str(ct_root), str(seg_dir), patch_size) for entry in entries]
+    jobs = [
+        (
+            entry,
+            str(ct_root),
+            str(seg_dir),
+            patch_size,
+            str(preprocessed_cache_dir) if preprocessed_cache_dir is not None else None,
+        )
+        for entry in entries
+    ]
     if num_workers <= 1:
         iterator = map(positive_crop_options_for_entry, jobs)
     else:
@@ -146,11 +258,19 @@ def build_positive_crop_options(
 
 
 def positive_crop_options_for_entry(
-    job: tuple[dict, str, str, tuple[int, int, int]],
+    job: tuple[dict, str, str, tuple[int, int, int], str | None],
 ) -> tuple[str, dict | None, dict]:
-    entry, ct_root, seg_dir, patch_size = job
+    entry, ct_root, seg_dir, patch_size, preprocessed_cache_dir = job
     prompts = sorted_prompts(entry)
     stats: Counter = Counter()
+    if preprocessed_cache_dir is not None:
+        options, cached_stats = positive_crop_options_from_cached_metadata(
+            entry,
+            Path(preprocessed_cache_dir),
+            patch_size,
+        )
+        return entry["name"], options, dict(cached_stats)
+
     targets = load_preprocessed_targets(entry, Path(ct_root), Path(seg_dir))
     if targets.shape[0] < len(prompts):
         raise ValueError(
@@ -389,6 +509,12 @@ def main() -> int:
     parser.add_argument("--patch-size", nargs=3, type=int, default=list(DEFAULT_PATCH_SIZE))
     parser.add_argument("--foreground-oversample-prob", type=float, default=0.85)
     parser.add_argument("--require-positive-crop", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument(
+        "--preprocessed-cache-dir",
+        type=Path,
+        default=None,
+        help="Optional VoxTell preprocessed cache for positive-crop geometry.",
+    )
     parser.add_argument("--num-workers", type=int, default=1)
     parser.add_argument("--max-train-cases", type=int, default=None)
     args = parser.parse_args()
@@ -415,6 +541,7 @@ def main() -> int:
             args.seg_dir,
             patch_size,
             args.num_workers,
+            args.preprocessed_cache_dir,
         )
         train_entries = [entry for entry in train_entries if entry["name"] in positive_crop_options]
         if not train_entries:
@@ -462,6 +589,9 @@ def main() -> int:
         "require_positive_crop": bool(args.require_positive_crop),
         "positive_crop_compatibility": {
             "space": "VoxTell training FZYX after CT reorientation and crop_to_nonzero",
+            "preprocessed_cache_dir": (
+                str(args.preprocessed_cache_dir) if args.preprocessed_cache_dir is not None else None
+            ),
             "eligible_source_split_size": len(train_entries),
             "stats": dict(positive_crop_stats),
         },
