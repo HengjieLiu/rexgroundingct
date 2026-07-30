@@ -52,6 +52,22 @@ Out of scope:
 Describe the exact implementation or experiment plan. Include training,
 inference, evaluation, or data movement commands when applicable.
 
+## Evaluation Execution Contract
+
+- Milestone checkpoints:
+- Evaluation sets and fixed dataset hashes:
+- Resource policy: synchronous milestone barrier or dedicated-GPU sidecar:
+- Barrier scope: per arm or global across compared arms:
+- Resume state: model, optimizer, scaler, LR horizon, update/schedule cursor,
+  and RNG streams:
+- Locking, idempotency, and retry behavior:
+
+When training and validation need the same GPUs, use a synchronous milestone
+barrier by default: save immutable full state, stop training to release memory,
+run validation, wait for every required summary, and resume. A concurrent
+sidecar is appropriate only when dedicated GPU headroom is verified and the
+extra I/O and compute will not perturb the training comparison.
+
 ## Smoke Gate
 
 Describe the smallest useful check that must pass before expensive work starts.

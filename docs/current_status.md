@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-07-27
+updated: 2026-07-28
 status: active
 ---
 
@@ -42,6 +42,22 @@ edit.
   memory, exact source geometry, and 87 of 117 labels observed. Four val200
   workers and an automatic report/visualization finalizer are launched but
   gated until two consecutive checks show at least 24,000 MiB free per GPU.
+- `011_voxtell_v123_e4d4_ct_normalization_ablation` completed the e4/d4
+  normalization comparison in run group
+  `exp011_ct_norm_e4d4_20260728T085103Z`. The paired e5/d4 rerun is active in
+  `exp011_ct_norm_e5d4_20260728T225333Z`: native z-score, clipped z-score, and
+  fixed linear HU all initialize from public VoxTell v1.1 and use the same
+  v123 schedule. Only GPUs 0-2 are exposed. A host-side state machine stops all
+  trainers at epochs `5/20/40/60/80/100`, completes the concurrent three-arm
+  val20 and canonical report barrier, then resumes from full
+  optimizer/scaler/RNG/sample-cursor state. Final val200 follows epoch-100
+  val20.
+- The standard CPU-only training-dynamics suite is active for Exp008, Exp009,
+  and Exp011. Canonical figures live under each experiment's
+  `reports/training_dynamics/` directory, with the shared gallery at
+  `/mnt/shengdata1/hengjie/experiments/rexgroundingct/comparisons/training_dynamics/README.md`.
+  The Exp011 refresher watches completed report barriers and excludes
+  in-progress segment updates.
 - Submission packaging is now documented at `docs/submission.md` but should not
   be used for final submission until a candidate checkpoint and test prediction
   set exist.
@@ -62,9 +78,17 @@ edit.
 - Future VoxTell experiments must explicitly classify preprocessing as
   unchanged, cached-equivalent, or intentionally changed. Standard cache IDs and
   required fields are tracked in `docs/voxtell/preprocessing_variants.md`.
+- Training-loss comparisons use optimizer update as the x-axis and merge
+  segmented metric files by `global_update`. Compare absolute loss only within
+  experiments that share an objective; use the gallery convention documented
+  in `docs/voxtell/training_dynamics.md`.
 - The shared native VoxTell cache `crop_zscore_native_v1` is complete under
   `/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/` with
   3,192 train/val cases, 8,068 targets, and 0 empty targets.
+- Fixed CT NIfTIs are treated as already-materialized HU. Do not apply DICOM
+  slope/intercept again. The validation-wide evidence and experiment 011
+  interpretation are recorded in
+  `docs/voxtell/ct_hu_normalization_analysis.md`.
 - Experiment 002 current fine-tuning runs use fixed LR with no learning-rate
   decay; poly LR remains selectable as a later controlled option.
 - Treat `experiments/` as a repo-local index. Heavy runtime outputs live under
@@ -102,8 +126,12 @@ edit.
   This does not invalidate exp004, but future native-control continuations
   should use a cached-equivalent native preprocessing cache when runtime
   comparison is not the scientific question.
-- CT-specific HU normalization remains a later controlled ablation, not part of
-  the first fine-tuning baseline.
+- Experiment 011 is the controlled CT-normalization ablation. Its two new
+  caches preserve native geometry and target hashes relative to
+  `crop_zscore_native_v1`. The completed e4/d4 group remains available through
+  `runs/latest_e4d4`; `runs/latest_e5d4` and `runs/latest` point to the active
+  e5/d4 group. Cache, schedule, sample, one-update, and segmented-resume gates
+  passed before e5/d4 training began.
 - Experiment 006 resolved the native preprocessing throughput bottleneck with
   cached-equivalent preprocessing and improved fixed val200 performance over
   the previous exp004 native continuation. Treat `v123_cached_e5_d4` epoch 100
@@ -157,3 +185,6 @@ edit.
   the label/target-overlap tables, then run the selected thoracic ROI subset
   at 1.5 mm on the fixed first 20 validation cases before generating a
   train/validation anatomy cache.
+- Monitor experiment 011 e5/d4 milestone barriers through epoch 100, keep the
+  training-dynamics refresher on completed reports only, then sync repo-local
+  metrics and manifests after final val200 provenance is ready.

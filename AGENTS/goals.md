@@ -19,7 +19,8 @@ status: active
 ## Open Decisions To Fill Later
 
 - Final training schedule and validation cadence for experiment 002.
-- Whether to add CT-specific HU normalization as a controlled ablation.
+- Whether experiment 011 supports clipped z-score, fixed linear HU, or a later
+  nonlinear/multi-window HU adapter as the preferred CT normalization path.
 - Whether to reorganize scripts into smaller packages after the experiment
   workflow stabilizes.
 - Which candidate model and checkpoint should enter the canonical submission

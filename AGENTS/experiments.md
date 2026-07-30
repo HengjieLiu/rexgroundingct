@@ -30,6 +30,9 @@ status: active
   comparing revised half- and quarter-scale attention variants.
 - `010_voxtell_public_anatomy_prior_fusion`: public anatomy-prior fusion and
   TotalSegmentator val200 anatomy-audit experiment line.
+- `011_voxtell_v123_e4d4_ct_normalization_ablation`: three-arm public-VoxTell
+  v123 e4/d4 ablation comparing native z-score, clipped z-score, and fixed
+  linear HU preprocessing.
 
 Do not rename experiment IDs casually. Runtime paths, configs, manifests, and
 reports depend on them.
@@ -46,6 +49,17 @@ For VoxTell/ReXGroundingCT work, record normalization scope, resampling,
 patch/window policy, cache ownership, orientation/export checks, and expected
 data-pipeline bottlenecks. Use `docs/voxtell/preprocessing_variants.md` for the
 standard cache IDs and required fields.
+
+## Milestone Evaluation
+
+Every long-running training spec must declare whether checkpoint evaluation is
+a synchronous barrier or a concurrent sidecar. When training and evaluation
+share GPUs, default to the established barrier workflow: save immutable full
+state, stop trainers, evaluate all compared arms, wait for every required
+summary, then resume. Record model, optimizer, scaler, LR horizon, update and
+sample-schedule cursors, and Python/NumPy/PyTorch RNG streams in the resume
+contract. Use a sidecar only with verified dedicated headroom and an explicit
+non-interference rationale.
 
 ## Canonical Files
 

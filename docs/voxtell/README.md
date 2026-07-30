@@ -1,6 +1,6 @@
 ---
 created: 2026-07-22
-updated: 2026-07-22
+updated: 2026-07-28
 status: active
 ---
 
@@ -15,8 +15,14 @@ status: active
 - `preprocessing_variants.md`: standard preprocessing/cache variants and the
   required contract for future spacing, normalization, and cache experiments.
 - `normalization.md`: normalization findings and planned ablations.
+- `ct_hu_normalization_analysis.md`: validation-wide HU audit, z-score outlier
+  analysis, target-intensity distributions, InstanceNorm caveat, and the
+  experiment 011 normalization interpretation.
 - `ddp_and_effective_batch_size.md`: DDP, gradient accumulation, global batch
   size, and comparison rules for VoxTell fine-tuning.
+- `training_dynamics.md`: canonical per-experiment loss plots, segmented-metric
+  merging, cross-experiment gallery organization, and live Exp011 refresh
+  rules.
 - `asymmetric_proposal_refinement.md`: dual-branch high-recall proposal,
   soft-guided refinement, asymmetric losses, fusion alternatives, literature,
   and the experiment 008 design.

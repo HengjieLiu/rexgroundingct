@@ -121,3 +121,8 @@ per optimizer update improve accuracy or throughput. Report both:
 For segmented DDP runs, pause training at evaluation checkpoints, run validation
 with all GPUs, then resume from the full optimizer/scaler checkpoint. This gives
 clean val200 signals without concurrent eval competing with the DDP trainer.
+If the model has dropout or other stochastic layers, an exact DDP resume also
+requires one Python/NumPy/PyTorch CPU and CUDA RNG snapshot per rank. A
+rank-zero-only RNG snapshot is not sufficient for exact multi-rank
+continuation. Single-GPU segmented runs can store one complete RNG bundle, as
+implemented for experiment 011.
