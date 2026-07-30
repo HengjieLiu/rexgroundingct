@@ -29,3 +29,12 @@ was stopped and the launch plan was revised to remove `1/1`.
 Logs, predictions, checkpoints, and raw evaluator outputs stay under the
 runtime directory on `/mnt/shengdata1`. Only small curated summaries and
 provenance files belong in the repo.
+
+## Training Dynamics
+
+Canonical total-loss and S3 objective-component figures are generated under
+`/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/reports/training_dynamics/`.
+The shared gallery is
+`/mnt/shengdata1/hengjie/experiments/rexgroundingct/comparisons/training_dynamics/README.md`.
+Compare absolute losses within Exp009 only; the base-v123 panel isolates the
+component shared by its baseline and S3 variants.

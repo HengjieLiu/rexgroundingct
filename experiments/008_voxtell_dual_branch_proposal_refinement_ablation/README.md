@@ -32,6 +32,21 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 - Metrics summary: `metrics_summary.json`
 - Sync manifest: `sync_manifest.json`
 
+## Training Dynamics
+
+Canonical runtime loss and objective-component figures are generated under:
+
+```text
+/mnt/shengdata1/hengjie/experiments/rexgroundingct/
+  008_voxtell_dual_branch_proposal_refinement_ablation/
+  reports/training_dynamics/
+```
+
+The cross-experiment gallery is
+`/mnt/shengdata1/hengjie/experiments/rexgroundingct/comparisons/training_dynamics/README.md`.
+Absolute loss values are compared within Exp008 only because its dual-branch
+objective differs from Exp009 and Exp011.
+
 ## Ownership Rule
 
 - Configs are canonical in the repo.
