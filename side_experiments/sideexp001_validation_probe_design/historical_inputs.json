@@ -1,0 +1,116 @@
+{
+  "analysis_seed": 20260729,
+  "budgets": [
+    20,
+    30,
+    40,
+    50,
+    60,
+    70,
+    80,
+    100,
+    120
+  ],
+  "candidate_draws_per_strategy": 1000,
+  "census_cutoffs": [
+    4,
+    7,
+    11,
+    17
+  ],
+  "legacy_val20_json": "configs/evaluation/rexgroundingct_val20_seed20260723.json",
+  "metadata_json": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "public_leaderboard_snapshot": "challenge_info/snapshots/2026-07-22T001343Z/raw/firestore.googleapis.com/rexgrounding-challenge/leaderboard.json",
+  "source_groups": [
+    {
+      "arms": [
+        "v123_cached_e7_d6",
+        "v123_cached_e7_d4",
+        "v123_cached_e6_d4",
+        "v123_cached_e5_d4"
+      ],
+      "checkpoints": [
+        100
+      ],
+      "experiment": "006",
+      "has_legacy_val20": true,
+      "role": "design",
+      "root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/runs/exp006_cached_native_lr_20260725T050001Z"
+    },
+    {
+      "arms": [
+        "ddp_bs4"
+      ],
+      "checkpoints": [
+        25,
+        50,
+        75,
+        100
+      ],
+      "experiment": "007",
+      "has_legacy_val20": false,
+      "role": "design",
+      "root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z"
+    },
+    {
+      "arms": [
+        "v1_sharedfusion_softguide",
+        "v1_dualfusion_softguide",
+        "v2_dualfusion_precision",
+        "v3_dualfusion_softguide_joint"
+      ],
+      "checkpoints": [
+        80,
+        100
+      ],
+      "experiment": "008",
+      "has_legacy_val20": true,
+      "role": "design",
+      "root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z"
+    },
+    {
+      "arms": [
+        "baseline_cont100",
+        "s3v1_fixedrho_suppress_half_quarter",
+        "s3v2_balanced_feature_half_quarter",
+        "s3v3_logit_residual_half_quarter"
+      ],
+      "checkpoints": [
+        100
+      ],
+      "experiment": "009",
+      "has_legacy_val20": true,
+      "role": "holdout",
+      "root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z"
+    },
+    {
+      "arms": [
+        "v123_e4d4_zscore",
+        "v123_e4d4_clip1024_zscore",
+        "v123_e4d4_clip1024_linear"
+      ],
+      "checkpoints": [
+        100
+      ],
+      "experiment": "011e4",
+      "has_legacy_val20": true,
+      "role": "holdout",
+      "root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation/runs/exp011_ct_norm_e4d4_20260728T085103Z"
+    },
+    {
+      "arms": [
+        "v123_e5d4_zscore",
+        "v123_e5d4_clip1024_zscore",
+        "v123_e5d4_clip1024_linear"
+      ],
+      "checkpoints": [
+        100
+      ],
+      "experiment": "011e5",
+      "has_legacy_val20": true,
+      "role": "holdout",
+      "root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation/runs/exp011_ct_norm_e5d4_20260728T225333Z"
+    }
+  ],
+  "val200_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json"
+}
