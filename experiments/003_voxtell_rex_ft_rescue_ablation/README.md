@@ -16,6 +16,10 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 - `metrics_summary.json`: synced metrics and provenance summary.
 - `sync_manifest.json`: hashes, paths, and sync provenance.
 - `report.md`: small copied runtime report when available.
+- `category_threshold_sweep_summary.json`: machine-readable epoch-100 val200
+  ensemble threshold analysis by official ReX category.
+- `category_threshold_sweep_report.md`: full per-category threshold table and
+  validation-only category-oracle interpretation.
 - `runtime`: ignored symlink to heavyweight runtime outputs.
 
 ## Status

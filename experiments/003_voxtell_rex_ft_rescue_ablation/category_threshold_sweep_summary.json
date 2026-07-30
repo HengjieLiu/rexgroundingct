@@ -1,0 +1,2037 @@
+{
+  "analysis": "epoch100_val200_four_model_probability_ensemble_by_category",
+  "case_count": 200,
+  "categories": {
+    "1a": {
+      "best": {
+        "hit_rate": 0.3333333333333333,
+        "mean_global_dice_per_finding": 0.09166211017290908,
+        "threshold": 0.45,
+        "threshold_label": "thr045",
+        "total_findings": 3,
+        "total_hits": 1
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": 0.0,
+        "mean_global_dice_per_finding": 0.007065543950565967,
+        "total_hits": 0
+      },
+      "label": "Bronchial wall thickening",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.3333333333333333,
+        "mean_global_dice_per_finding": 0.08459656622234311,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 3,
+        "total_hits": 1
+      },
+      "support": 3,
+      "thresholds": [
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.06122153250072737,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 3,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.0722778439217746,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 3,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.08073844960678733,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 3,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.08459656622234311,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 3,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.08793685971793597,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 3,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.09166211017290908,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 3,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.07885299179185105,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 3,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.08138403174764895,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 3,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.08368813056112161,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 3,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.08601993219608169,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 3,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.08695255997976016,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 3,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.0866520983308799,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 3,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.3333333333333333,
+          "mean_global_dice_per_finding": 0.0904202316795219,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 3,
+          "total_hits": 1
+        }
+      ]
+    },
+    "1b": {
+      "best": {
+        "hit_rate": 0.36363636363636365,
+        "mean_global_dice_per_finding": 0.13496658220451693,
+        "threshold": 0.3,
+        "threshold_label": "thr030",
+        "total_findings": 11,
+        "total_hits": 4
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": 0.09090909090909094,
+        "mean_global_dice_per_finding": 0.0001718742788869021,
+        "total_hits": 1
+      },
+      "label": "Bronchiectasis",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.2727272727272727,
+        "mean_global_dice_per_finding": 0.13479470792563003,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 11,
+        "total_hits": 3
+      },
+      "support": 11,
+      "thresholds": [
+        {
+          "hit_rate": 0.2727272727272727,
+          "mean_global_dice_per_finding": 0.12444021797829703,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 11,
+          "total_hits": 3
+        },
+        {
+          "hit_rate": 0.2727272727272727,
+          "mean_global_dice_per_finding": 0.1325339866780996,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 11,
+          "total_hits": 3
+        },
+        {
+          "hit_rate": 0.36363636363636365,
+          "mean_global_dice_per_finding": 0.13496658220451693,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 11,
+          "total_hits": 4
+        },
+        {
+          "hit_rate": 0.2727272727272727,
+          "mean_global_dice_per_finding": 0.13479470792563003,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 11,
+          "total_hits": 3
+        },
+        {
+          "hit_rate": 0.2727272727272727,
+          "mean_global_dice_per_finding": 0.13263559693366528,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 11,
+          "total_hits": 3
+        },
+        {
+          "hit_rate": 0.2727272727272727,
+          "mean_global_dice_per_finding": 0.1275028716073093,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 11,
+          "total_hits": 3
+        },
+        {
+          "hit_rate": 0.2727272727272727,
+          "mean_global_dice_per_finding": 0.11684158267331489,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 11,
+          "total_hits": 3
+        },
+        {
+          "hit_rate": 0.2727272727272727,
+          "mean_global_dice_per_finding": 0.11137629883563828,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 11,
+          "total_hits": 3
+        },
+        {
+          "hit_rate": 0.2727272727272727,
+          "mean_global_dice_per_finding": 0.10686873881376245,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 11,
+          "total_hits": 3
+        },
+        {
+          "hit_rate": 0.2727272727272727,
+          "mean_global_dice_per_finding": 0.10189556078777211,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 11,
+          "total_hits": 3
+        },
+        {
+          "hit_rate": 0.18181818181818182,
+          "mean_global_dice_per_finding": 0.09505313599302445,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 11,
+          "total_hits": 2
+        },
+        {
+          "hit_rate": 0.18181818181818182,
+          "mean_global_dice_per_finding": 0.0787266814732842,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 11,
+          "total_hits": 2
+        },
+        {
+          "hit_rate": 0.18181818181818182,
+          "mean_global_dice_per_finding": 0.06793163096222923,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 11,
+          "total_hits": 2
+        }
+      ]
+    },
+    "1c": {
+      "best": {
+        "hit_rate": 0.4117647058823529,
+        "mean_global_dice_per_finding": 0.12124916346934199,
+        "threshold": 0.45,
+        "threshold_label": "thr045",
+        "total_findings": 17,
+        "total_hits": 7
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": 0.0,
+        "mean_global_dice_per_finding": 0.0019882781682882267,
+        "total_hits": 0
+      },
+      "label": "Emphysema",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.4117647058823529,
+        "mean_global_dice_per_finding": 0.11926088530105376,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 17,
+        "total_hits": 7
+      },
+      "support": 17,
+      "thresholds": [
+        {
+          "hit_rate": 0.29411764705882354,
+          "mean_global_dice_per_finding": 0.10982231529114947,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 17,
+          "total_hits": 5
+        },
+        {
+          "hit_rate": 0.4117647058823529,
+          "mean_global_dice_per_finding": 0.11421087592014668,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 17,
+          "total_hits": 7
+        },
+        {
+          "hit_rate": 0.4117647058823529,
+          "mean_global_dice_per_finding": 0.11755284597872134,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 17,
+          "total_hits": 7
+        },
+        {
+          "hit_rate": 0.4117647058823529,
+          "mean_global_dice_per_finding": 0.11926088530105376,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 17,
+          "total_hits": 7
+        },
+        {
+          "hit_rate": 0.4117647058823529,
+          "mean_global_dice_per_finding": 0.12098379655393324,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 17,
+          "total_hits": 7
+        },
+        {
+          "hit_rate": 0.4117647058823529,
+          "mean_global_dice_per_finding": 0.12124916346934199,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 17,
+          "total_hits": 7
+        },
+        {
+          "hit_rate": 0.35294117647058826,
+          "mean_global_dice_per_finding": 0.09173129774965884,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 17,
+          "total_hits": 6
+        },
+        {
+          "hit_rate": 0.35294117647058826,
+          "mean_global_dice_per_finding": 0.08892556742934406,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 17,
+          "total_hits": 6
+        },
+        {
+          "hit_rate": 0.29411764705882354,
+          "mean_global_dice_per_finding": 0.08724153271460044,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 17,
+          "total_hits": 5
+        },
+        {
+          "hit_rate": 0.23529411764705882,
+          "mean_global_dice_per_finding": 0.08489177029917473,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 17,
+          "total_hits": 4
+        },
+        {
+          "hit_rate": 0.23529411764705882,
+          "mean_global_dice_per_finding": 0.08078853341640899,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 17,
+          "total_hits": 4
+        },
+        {
+          "hit_rate": 0.11764705882352941,
+          "mean_global_dice_per_finding": 0.05443431941952332,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 17,
+          "total_hits": 2
+        },
+        {
+          "hit_rate": 0.11764705882352941,
+          "mean_global_dice_per_finding": 0.04129879078071678,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 17,
+          "total_hits": 2
+        }
+      ]
+    },
+    "1d": {
+      "best": {
+        "hit_rate": 0.16666666666666666,
+        "mean_global_dice_per_finding": 0.13595670919000566,
+        "threshold": 0.1,
+        "threshold_label": "thr010",
+        "total_findings": 6,
+        "total_hits": 1
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": 0.0,
+        "mean_global_dice_per_finding": 0.004522217551964247,
+        "total_hits": 0
+      },
+      "label": "Septal thickening / reticulation",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.16666666666666666,
+        "mean_global_dice_per_finding": 0.1314344916380414,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 6,
+        "total_hits": 1
+      },
+      "support": 6,
+      "thresholds": [
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.13595670919000566,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 6,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.13583213524784402,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 6,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.13341870795029367,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 6,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.1314344916380414,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 6,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.12853836734009358,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 6,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.12384332078070748,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 6,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.11190267742191058,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 6,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.11061997171628929,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 6,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.10941439830439166,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 6,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.10797391887011111,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 6,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.10619015698561513,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 6,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.09968668140737987,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 6,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.16666666666666666,
+          "mean_global_dice_per_finding": 0.07461970391474483,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 6,
+          "total_hits": 1
+        }
+      ]
+    },
+    "1e": {
+      "best": {
+        "hit_rate": 0.6363636363636364,
+        "mean_global_dice_per_finding": 0.18357304394108798,
+        "threshold": 0.3,
+        "threshold_label": "thr030",
+        "total_findings": 11,
+        "total_hits": 7
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": 0.0,
+        "mean_global_dice_per_finding": 5.807357431231175e-05,
+        "total_hits": 0
+      },
+      "label": "Micronodules / tree-in-bud",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.6363636363636364,
+        "mean_global_dice_per_finding": 0.18351497036677566,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 11,
+        "total_hits": 7
+      },
+      "support": 11,
+      "thresholds": [
+        {
+          "hit_rate": 0.6363636363636364,
+          "mean_global_dice_per_finding": 0.17839888684436375,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 11,
+          "total_hits": 7
+        },
+        {
+          "hit_rate": 0.6363636363636364,
+          "mean_global_dice_per_finding": 0.18151278186995745,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 11,
+          "total_hits": 7
+        },
+        {
+          "hit_rate": 0.6363636363636364,
+          "mean_global_dice_per_finding": 0.18357304394108798,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 11,
+          "total_hits": 7
+        },
+        {
+          "hit_rate": 0.6363636363636364,
+          "mean_global_dice_per_finding": 0.18351497036677566,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 11,
+          "total_hits": 7
+        },
+        {
+          "hit_rate": 0.6363636363636364,
+          "mean_global_dice_per_finding": 0.1820348115346796,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 11,
+          "total_hits": 7
+        },
+        {
+          "hit_rate": 0.6363636363636364,
+          "mean_global_dice_per_finding": 0.17894330989801407,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 11,
+          "total_hits": 7
+        },
+        {
+          "hit_rate": 0.5454545454545454,
+          "mean_global_dice_per_finding": 0.14506905853260388,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 11,
+          "total_hits": 6
+        },
+        {
+          "hit_rate": 0.36363636363636365,
+          "mean_global_dice_per_finding": 0.13236565073619058,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 11,
+          "total_hits": 4
+        },
+        {
+          "hit_rate": 0.36363636363636365,
+          "mean_global_dice_per_finding": 0.13285594608639928,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 11,
+          "total_hits": 4
+        },
+        {
+          "hit_rate": 0.36363636363636365,
+          "mean_global_dice_per_finding": 0.13317743120712688,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 11,
+          "total_hits": 4
+        },
+        {
+          "hit_rate": 0.36363636363636365,
+          "mean_global_dice_per_finding": 0.13327587730189658,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 11,
+          "total_hits": 4
+        },
+        {
+          "hit_rate": 0.36363636363636365,
+          "mean_global_dice_per_finding": 0.1329367370352335,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 11,
+          "total_hits": 4
+        },
+        {
+          "hit_rate": 0.36363636363636365,
+          "mean_global_dice_per_finding": 0.13391792795872187,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 11,
+          "total_hits": 4
+        }
+      ]
+    },
+    "1f": {
+      "best": {
+        "hit_rate": 0.25,
+        "mean_global_dice_per_finding": 0.15175395278405515,
+        "threshold": 0.8,
+        "threshold_label": "thr080",
+        "total_findings": 4,
+        "total_hits": 1
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": 0.0,
+        "mean_global_dice_per_finding": 0.01694966250939073,
+        "total_hits": 0
+      },
+      "label": "Other diffuse lung/airway/pleural abnormality",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.25,
+        "mean_global_dice_per_finding": 0.13480429027466442,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 4,
+        "total_hits": 1
+      },
+      "support": 4,
+      "thresholds": [
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.13530378683904826,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 4,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.13595055803221112,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 4,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.13533313326010807,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 4,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.13480429027466442,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 4,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.13449994835160914,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 4,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.13498308345700447,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 4,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.1397126938256203,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 4,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.1459585858681971,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 4,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.1449143106183118,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 4,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.1449346387523205,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 4,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.14364655179553465,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 4,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.15175395278405515,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 4,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.25,
+          "mean_global_dice_per_finding": 0.15053763506763768,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 4,
+          "total_hits": 1
+        }
+      ]
+    },
+    "2a": {
+      "best": {
+        "hit_rate": 0.7101449275362319,
+        "mean_global_dice_per_finding": 0.26828481341804594,
+        "threshold": 0.3,
+        "threshold_label": "thr030",
+        "total_findings": 69,
+        "total_hits": 49
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": 0.0,
+        "mean_global_dice_per_finding": 0.0004978096207432503,
+        "total_hits": 0
+      },
+      "label": "Linear opacity, scarring, fibrosis",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.7101449275362319,
+        "mean_global_dice_per_finding": 0.2677870037973027,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 69,
+        "total_hits": 49
+      },
+      "support": 69,
+      "thresholds": [
+        {
+          "hit_rate": 0.7246376811594203,
+          "mean_global_dice_per_finding": 0.26396928809106757,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 69,
+          "total_hits": 50
+        },
+        {
+          "hit_rate": 0.7101449275362319,
+          "mean_global_dice_per_finding": 0.2675315824658504,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 69,
+          "total_hits": 49
+        },
+        {
+          "hit_rate": 0.7101449275362319,
+          "mean_global_dice_per_finding": 0.26828481341804594,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 69,
+          "total_hits": 49
+        },
+        {
+          "hit_rate": 0.7101449275362319,
+          "mean_global_dice_per_finding": 0.2677870037973027,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 69,
+          "total_hits": 49
+        },
+        {
+          "hit_rate": 0.6956521739130435,
+          "mean_global_dice_per_finding": 0.2666894600845215,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 69,
+          "total_hits": 48
+        },
+        {
+          "hit_rate": 0.6956521739130435,
+          "mean_global_dice_per_finding": 0.26494920365839486,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 69,
+          "total_hits": 48
+        },
+        {
+          "hit_rate": 0.6521739130434783,
+          "mean_global_dice_per_finding": 0.24885423453845162,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 69,
+          "total_hits": 45
+        },
+        {
+          "hit_rate": 0.6521739130434783,
+          "mean_global_dice_per_finding": 0.2438871596016492,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 69,
+          "total_hits": 45
+        },
+        {
+          "hit_rate": 0.6521739130434783,
+          "mean_global_dice_per_finding": 0.2426850371691272,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 69,
+          "total_hits": 45
+        },
+        {
+          "hit_rate": 0.6231884057971014,
+          "mean_global_dice_per_finding": 0.2415830787257046,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 69,
+          "total_hits": 43
+        },
+        {
+          "hit_rate": 0.5942028985507246,
+          "mean_global_dice_per_finding": 0.23989125573159087,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 69,
+          "total_hits": 41
+        },
+        {
+          "hit_rate": 0.5942028985507246,
+          "mean_global_dice_per_finding": 0.23466870773324267,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 69,
+          "total_hits": 41
+        },
+        {
+          "hit_rate": 0.5797101449275363,
+          "mean_global_dice_per_finding": 0.22895486224792172,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 69,
+          "total_hits": 40
+        }
+      ]
+    },
+    "2b": {
+      "best": {
+        "hit_rate": 0.7346938775510204,
+        "mean_global_dice_per_finding": 0.3301767465658935,
+        "threshold": 0.3,
+        "threshold_label": "thr030",
+        "total_findings": 49,
+        "total_hits": 36
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": 0.0,
+        "mean_global_dice_per_finding": 0.00048290064473494043,
+        "total_hits": 0
+      },
+      "label": "Atelectasis / consolidation",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.7346938775510204,
+        "mean_global_dice_per_finding": 0.3296938459211586,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 49,
+        "total_hits": 36
+      },
+      "support": 49,
+      "thresholds": [
+        {
+          "hit_rate": 0.7142857142857143,
+          "mean_global_dice_per_finding": 0.32656557069804154,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 49,
+          "total_hits": 35
+        },
+        {
+          "hit_rate": 0.7142857142857143,
+          "mean_global_dice_per_finding": 0.3300999244083878,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 49,
+          "total_hits": 35
+        },
+        {
+          "hit_rate": 0.7346938775510204,
+          "mean_global_dice_per_finding": 0.3301767465658935,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 49,
+          "total_hits": 36
+        },
+        {
+          "hit_rate": 0.7346938775510204,
+          "mean_global_dice_per_finding": 0.3296938459211586,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 49,
+          "total_hits": 36
+        },
+        {
+          "hit_rate": 0.7346938775510204,
+          "mean_global_dice_per_finding": 0.32851567281139893,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 49,
+          "total_hits": 36
+        },
+        {
+          "hit_rate": 0.7346938775510204,
+          "mean_global_dice_per_finding": 0.3264869515043062,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 49,
+          "total_hits": 36
+        },
+        {
+          "hit_rate": 0.7142857142857143,
+          "mean_global_dice_per_finding": 0.3189660689354838,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 49,
+          "total_hits": 35
+        },
+        {
+          "hit_rate": 0.7142857142857143,
+          "mean_global_dice_per_finding": 0.316491642218522,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 49,
+          "total_hits": 35
+        },
+        {
+          "hit_rate": 0.7142857142857143,
+          "mean_global_dice_per_finding": 0.3141518057153345,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 49,
+          "total_hits": 35
+        },
+        {
+          "hit_rate": 0.7142857142857143,
+          "mean_global_dice_per_finding": 0.3117296067156206,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 49,
+          "total_hits": 35
+        },
+        {
+          "hit_rate": 0.7142857142857143,
+          "mean_global_dice_per_finding": 0.3083789174254522,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 49,
+          "total_hits": 35
+        },
+        {
+          "hit_rate": 0.6938775510204082,
+          "mean_global_dice_per_finding": 0.2953582360148992,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 49,
+          "total_hits": 34
+        },
+        {
+          "hit_rate": 0.6938775510204082,
+          "mean_global_dice_per_finding": 0.27155158096064114,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 49,
+          "total_hits": 34
+        }
+      ]
+    },
+    "2c": {
+      "best": {
+        "hit_rate": 0.7833333333333333,
+        "mean_global_dice_per_finding": 0.37846189547098136,
+        "threshold": 0.2,
+        "threshold_label": "thr020",
+        "total_findings": 60,
+        "total_hits": 47
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": 0.0,
+        "mean_global_dice_per_finding": 0.001924148553057281,
+        "total_hits": 0
+      },
+      "label": "Ground-glass opacity",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.7833333333333333,
+        "mean_global_dice_per_finding": 0.3765377469179241,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 60,
+        "total_hits": 47
+      },
+      "support": 60,
+      "thresholds": [
+        {
+          "hit_rate": 0.8,
+          "mean_global_dice_per_finding": 0.3753775331058179,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 60,
+          "total_hits": 48
+        },
+        {
+          "hit_rate": 0.7833333333333333,
+          "mean_global_dice_per_finding": 0.37846189547098136,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 60,
+          "total_hits": 47
+        },
+        {
+          "hit_rate": 0.7833333333333333,
+          "mean_global_dice_per_finding": 0.37810871269062346,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 60,
+          "total_hits": 47
+        },
+        {
+          "hit_rate": 0.7833333333333333,
+          "mean_global_dice_per_finding": 0.3765377469179241,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 60,
+          "total_hits": 47
+        },
+        {
+          "hit_rate": 0.7833333333333333,
+          "mean_global_dice_per_finding": 0.37372107333649335,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 60,
+          "total_hits": 47
+        },
+        {
+          "hit_rate": 0.7833333333333333,
+          "mean_global_dice_per_finding": 0.36803540332911727,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 60,
+          "total_hits": 47
+        },
+        {
+          "hit_rate": 0.7666666666666667,
+          "mean_global_dice_per_finding": 0.35173215790172474,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 60,
+          "total_hits": 46
+        },
+        {
+          "hit_rate": 0.7666666666666667,
+          "mean_global_dice_per_finding": 0.34865782998078443,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 60,
+          "total_hits": 46
+        },
+        {
+          "hit_rate": 0.7666666666666667,
+          "mean_global_dice_per_finding": 0.3444904332110417,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 60,
+          "total_hits": 46
+        },
+        {
+          "hit_rate": 0.7666666666666667,
+          "mean_global_dice_per_finding": 0.3396736930839572,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 60,
+          "total_hits": 46
+        },
+        {
+          "hit_rate": 0.7666666666666667,
+          "mean_global_dice_per_finding": 0.3340657746756005,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 60,
+          "total_hits": 46
+        },
+        {
+          "hit_rate": 0.7333333333333333,
+          "mean_global_dice_per_finding": 0.31728204738473703,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 60,
+          "total_hits": 44
+        },
+        {
+          "hit_rate": 0.7,
+          "mean_global_dice_per_finding": 0.2868995000668646,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 60,
+          "total_hits": 42
+        }
+      ]
+    },
+    "2d": {
+      "best": {
+        "hit_rate": 0.7651515151515151,
+        "mean_global_dice_per_finding": 0.3034380792148048,
+        "threshold": 0.5,
+        "threshold_label": "thr050",
+        "total_findings": 132,
+        "total_hits": 101
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": 0.0,
+        "mean_global_dice_per_finding": 0.011513961010337415,
+        "total_hits": 0
+      },
+      "label": "Pulmonary nodules / masses",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.7651515151515151,
+        "mean_global_dice_per_finding": 0.2919241182044674,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 132,
+        "total_hits": 101
+      },
+      "support": 132,
+      "thresholds": [
+        {
+          "hit_rate": 0.7348484848484849,
+          "mean_global_dice_per_finding": 0.2829060136320336,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 132,
+          "total_hits": 97
+        },
+        {
+          "hit_rate": 0.7424242424242424,
+          "mean_global_dice_per_finding": 0.2855838177313698,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 132,
+          "total_hits": 98
+        },
+        {
+          "hit_rate": 0.7651515151515151,
+          "mean_global_dice_per_finding": 0.2906105008376964,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 132,
+          "total_hits": 101
+        },
+        {
+          "hit_rate": 0.7651515151515151,
+          "mean_global_dice_per_finding": 0.2919241182044674,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 132,
+          "total_hits": 101
+        },
+        {
+          "hit_rate": 0.7575757575757576,
+          "mean_global_dice_per_finding": 0.2934409780576729,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 132,
+          "total_hits": 100
+        },
+        {
+          "hit_rate": 0.7575757575757576,
+          "mean_global_dice_per_finding": 0.2957750265524048,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 132,
+          "total_hits": 100
+        },
+        {
+          "hit_rate": 0.7651515151515151,
+          "mean_global_dice_per_finding": 0.3034380792148048,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 132,
+          "total_hits": 101
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.29079949926714643,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 132,
+          "total_hits": 96
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.2914227810891396,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 132,
+          "total_hits": 96
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.2924122291135984,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 132,
+          "total_hits": 96
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.2932473594543722,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 132,
+          "total_hits": 96
+        },
+        {
+          "hit_rate": 0.6893939393939394,
+          "mean_global_dice_per_finding": 0.288006002407421,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 132,
+          "total_hits": 91
+        },
+        {
+          "hit_rate": 0.6893939393939394,
+          "mean_global_dice_per_finding": 0.2889207289161436,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 132,
+          "total_hits": 91
+        }
+      ]
+    },
+    "2e": {
+      "best": {
+        "hit_rate": 0.7272727272727273,
+        "mean_global_dice_per_finding": 0.45025473810375183,
+        "threshold": 0.2,
+        "threshold_label": "thr020",
+        "total_findings": 11,
+        "total_hits": 8
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": 0.0,
+        "mean_global_dice_per_finding": 0.0014820613493014,
+        "total_hits": 0
+      },
+      "label": "Pleural effusion / thickening",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.7272727272727273,
+        "mean_global_dice_per_finding": 0.44877267675445043,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 11,
+        "total_hits": 8
+      },
+      "support": 11,
+      "thresholds": [
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.4431475548007556,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 11,
+          "total_hits": 8
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.45025473810375183,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 11,
+          "total_hits": 8
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.4501198998175392,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 11,
+          "total_hits": 8
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.44877267675445043,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 11,
+          "total_hits": 8
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.44677311340426495,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 11,
+          "total_hits": 8
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.44386031005056653,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 11,
+          "total_hits": 8
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.4399388341609743,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 11,
+          "total_hits": 8
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.4361186155983838,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 11,
+          "total_hits": 8
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.4315506985034446,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 11,
+          "total_hits": 8
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.4260576610937992,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 11,
+          "total_hits": 8
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.4188929583382611,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 11,
+          "total_hits": 8
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.396388008739768,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 11,
+          "total_hits": 8
+        },
+        {
+          "hit_rate": 0.7272727272727273,
+          "mean_global_dice_per_finding": 0.3351927842866067,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 11,
+          "total_hits": 8
+        }
+      ]
+    },
+    "2f": {
+      "best": null,
+      "delta_from_global_best_threshold": null,
+      "label": "Honeycombing",
+      "reference_at_global_best_threshold": null,
+      "support": 0,
+      "thresholds": []
+    },
+    "2g": {
+      "best": {
+        "hit_rate": 1.0,
+        "mean_global_dice_per_finding": 0.1923471083573328,
+        "threshold": 0.1,
+        "threshold_label": "thr010",
+        "total_findings": 1,
+        "total_hits": 1
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": 1.0,
+        "mean_global_dice_per_finding": 0.10469226043151378,
+        "total_hits": 1
+      },
+      "label": "Pneumothorax",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.0,
+        "mean_global_dice_per_finding": 0.08765484792581901,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 1,
+        "total_hits": 0
+      },
+      "support": 1,
+      "thresholds": [
+        {
+          "hit_rate": 1.0,
+          "mean_global_dice_per_finding": 0.1923471083573328,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 1,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 1.0,
+          "mean_global_dice_per_finding": 0.12880171621888636,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 1,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.0,
+          "mean_global_dice_per_finding": 0.09820087571031541,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 1,
+          "total_hits": 0
+        },
+        {
+          "hit_rate": 0.0,
+          "mean_global_dice_per_finding": 0.08765484792581901,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 1,
+          "total_hits": 0
+        },
+        {
+          "hit_rate": 0.0,
+          "mean_global_dice_per_finding": 0.07853728275067313,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 1,
+          "total_hits": 0
+        },
+        {
+          "hit_rate": 0.0,
+          "mean_global_dice_per_finding": 0.07029616928017841,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 1,
+          "total_hits": 0
+        },
+        {
+          "hit_rate": 0.0,
+          "mean_global_dice_per_finding": 0.06359306948572581,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 1,
+          "total_hits": 0
+        },
+        {
+          "hit_rate": 0.0,
+          "mean_global_dice_per_finding": 0.058011753547991346,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 1,
+          "total_hits": 0
+        },
+        {
+          "hit_rate": 0.0,
+          "mean_global_dice_per_finding": 0.05261988756154045,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 1,
+          "total_hits": 0
+        },
+        {
+          "hit_rate": 0.0,
+          "mean_global_dice_per_finding": 0.04738511014134277,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 1,
+          "total_hits": 0
+        },
+        {
+          "hit_rate": 0.0,
+          "mean_global_dice_per_finding": 0.04207995296912344,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 1,
+          "total_hits": 0
+        },
+        {
+          "hit_rate": 0.0,
+          "mean_global_dice_per_finding": 0.031011846419625788,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 1,
+          "total_hits": 0
+        },
+        {
+          "hit_rate": 0.0,
+          "mean_global_dice_per_finding": 0.016619656654139423,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 1,
+          "total_hits": 0
+        }
+      ]
+    },
+    "2h": {
+      "best": {
+        "hit_rate": 0.14285714285714285,
+        "mean_global_dice_per_finding": 0.07061295193191057,
+        "threshold": 0.9,
+        "threshold_label": "thr090",
+        "total_findings": 7,
+        "total_hits": 1
+      },
+      "delta_from_global_best_threshold": {
+        "hit_rate": -0.14285714285714285,
+        "mean_global_dice_per_finding": 0.015804552839002083,
+        "total_hits": -1
+      },
+      "label": "Other focal lung/airway/pleural finding",
+      "reference_at_global_best_threshold": {
+        "hit_rate": 0.2857142857142857,
+        "mean_global_dice_per_finding": 0.05480839909290849,
+        "threshold": 0.35,
+        "threshold_label": "thr035",
+        "total_findings": 7,
+        "total_hits": 2
+      },
+      "support": 7,
+      "thresholds": [
+        {
+          "hit_rate": 0.2857142857142857,
+          "mean_global_dice_per_finding": 0.046987027627528655,
+          "threshold": 0.1,
+          "threshold_label": "thr010",
+          "total_findings": 7,
+          "total_hits": 2
+        },
+        {
+          "hit_rate": 0.2857142857142857,
+          "mean_global_dice_per_finding": 0.051137645442185,
+          "threshold": 0.2,
+          "threshold_label": "thr020",
+          "total_findings": 7,
+          "total_hits": 2
+        },
+        {
+          "hit_rate": 0.2857142857142857,
+          "mean_global_dice_per_finding": 0.053605056909495595,
+          "threshold": 0.3,
+          "threshold_label": "thr030",
+          "total_findings": 7,
+          "total_hits": 2
+        },
+        {
+          "hit_rate": 0.2857142857142857,
+          "mean_global_dice_per_finding": 0.05480839909290849,
+          "threshold": 0.35,
+          "threshold_label": "thr035",
+          "total_findings": 7,
+          "total_hits": 2
+        },
+        {
+          "hit_rate": 0.2857142857142857,
+          "mean_global_dice_per_finding": 0.05587085050040974,
+          "threshold": 0.4,
+          "threshold_label": "thr040",
+          "total_findings": 7,
+          "total_hits": 2
+        },
+        {
+          "hit_rate": 0.14285714285714285,
+          "mean_global_dice_per_finding": 0.05716776800985158,
+          "threshold": 0.45,
+          "threshold_label": "thr045",
+          "total_findings": 7,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.14285714285714285,
+          "mean_global_dice_per_finding": 0.05862575814836426,
+          "threshold": 0.5,
+          "threshold_label": "thr050",
+          "total_findings": 7,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.14285714285714285,
+          "mean_global_dice_per_finding": 0.05953119974538679,
+          "threshold": 0.55,
+          "threshold_label": "thr055",
+          "total_findings": 7,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.14285714285714285,
+          "mean_global_dice_per_finding": 0.06046902291864747,
+          "threshold": 0.6,
+          "threshold_label": "thr060",
+          "total_findings": 7,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.14285714285714285,
+          "mean_global_dice_per_finding": 0.061427754814014156,
+          "threshold": 0.65,
+          "threshold_label": "thr065",
+          "total_findings": 7,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.14285714285714285,
+          "mean_global_dice_per_finding": 0.06265550066691622,
+          "threshold": 0.7,
+          "threshold_label": "thr070",
+          "total_findings": 7,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.14285714285714285,
+          "mean_global_dice_per_finding": 0.06574167667496263,
+          "threshold": 0.8,
+          "threshold_label": "thr080",
+          "total_findings": 7,
+          "total_hits": 1
+        },
+        {
+          "hit_rate": 0.14285714285714285,
+          "mean_global_dice_per_finding": 0.07061295193191057,
+          "threshold": 0.9,
+          "threshold_label": "thr090",
+          "total_findings": 7,
+          "total_hits": 1
+        }
+      ]
+    }
+  },
+  "category_counts": {
+    "1a": 3,
+    "1b": 11,
+    "1c": 17,
+    "1d": 6,
+    "1e": 11,
+    "1f": 4,
+    "2a": 69,
+    "2b": 49,
+    "2c": 60,
+    "2d": 132,
+    "2e": 11,
+    "2f": 0,
+    "2g": 1,
+    "2h": 7
+  },
+  "dataset_json": "/home/hengjie/code_sync/rexgroundingct/configs/evaluation/rexgroundingct_val200_seed20260723.json",
+  "ensemble_root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200",
+  "experiment_id": "003_voxtell_rex_ft_rescue_ablation",
+  "finding_count": 381,
+  "global_best": {
+    "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr035/eval/val_quick_global_eval.json",
+    "hit_rate": 0.6902887139107612,
+    "mean_global_dice_per_finding": 0.2841911247690794,
+    "threshold": 0.35,
+    "threshold_label": "thr035",
+    "total_cases": 200,
+    "total_findings": 381,
+    "total_hits": 263
+  },
+  "overall_threshold_sweep": [
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr010/eval/val_quick_global_eval.json",
+      "hit_rate": 0.6797900262467191,
+      "mean_global_dice_per_finding": 0.27878359198378155,
+      "threshold": 0.1,
+      "threshold_label": "thr010",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 259
+    },
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr020/eval/val_quick_global_eval.json",
+      "hit_rate": 0.6824146981627297,
+      "mean_global_dice_per_finding": 0.28202269928730234,
+      "threshold": 0.2,
+      "threshold_label": "thr020",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 260
+    },
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr030/eval/val_quick_global_eval.json",
+      "hit_rate": 0.6929133858267716,
+      "mean_global_dice_per_finding": 0.2841169846468753,
+      "threshold": 0.3,
+      "threshold_label": "thr030",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 264
+    },
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr035/eval/val_quick_global_eval.json",
+      "hit_rate": 0.6902887139107612,
+      "mean_global_dice_per_finding": 0.2841911247690794,
+      "threshold": 0.35,
+      "threshold_label": "thr035",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 263
+    },
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr040/eval/val_quick_global_eval.json",
+      "hit_rate": 0.6850393700787402,
+      "mean_global_dice_per_finding": 0.2838099509508212,
+      "threshold": 0.4,
+      "threshold_label": "thr040",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 261
+    },
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr045/eval/val_quick_global_eval.json",
+      "hit_rate": 0.6824146981627297,
+      "mean_global_dice_per_finding": 0.2828001042028306,
+      "threshold": 0.45,
+      "threshold_label": "thr045",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 260
+    },
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr050/eval/val_quick_global_eval.json",
+      "hit_rate": 0.6666666666666666,
+      "mean_global_dice_per_finding": 0.27605934638835533,
+      "threshold": 0.5,
+      "threshold_label": "thr050",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 254
+    },
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr055/eval/val_quick_global_eval.json",
+      "hit_rate": 0.6482939632545932,
+      "mean_global_dice_per_finding": 0.26928594610835205,
+      "threshold": 0.55,
+      "threshold_label": "thr055",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 247
+    },
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr060/eval/val_quick_global_eval.json",
+      "hit_rate": 0.6456692913385826,
+      "mean_global_dice_per_finding": 0.2679952374979344,
+      "threshold": 0.6,
+      "threshold_label": "thr060",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 246
+    },
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr065/eval/val_quick_global_eval.json",
+      "hit_rate": 0.6377952755905512,
+      "mean_global_dice_per_finding": 0.26667043970312526,
+      "threshold": 0.65,
+      "threshold_label": "thr065",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 243
+    },
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr070/eval/val_quick_global_eval.json",
+      "hit_rate": 0.6299212598425197,
+      "mean_global_dice_per_finding": 0.26472903299358713,
+      "threshold": 0.7,
+      "threshold_label": "thr070",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 240
+    },
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr080/eval/val_quick_global_eval.json",
+      "hit_rate": 0.6036745406824147,
+      "mean_global_dice_per_finding": 0.2553507991253757,
+      "threshold": 0.8,
+      "threshold_label": "thr080",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 230
+    },
+    {
+      "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/probavg4_thr090/eval/val_quick_global_eval.json",
+      "hit_rate": 0.5958005249343832,
+      "mean_global_dice_per_finding": 0.24382415795446527,
+      "threshold": 0.9,
+      "threshold_label": "thr090",
+      "total_cases": 200,
+      "total_findings": 381,
+      "total_hits": 227
+    }
+  ],
+  "per_category_oracle": {
+    "comparison_threshold": 0.35,
+    "delta_from_global_best_threshold": {
+      "hit_rate": 0.002624671916010457,
+      "mean_global_dice_per_finding": 0.005452462754764409,
+      "total_hits": 1
+    },
+    "description": "Validation-only post-hoc aggregate using each category's Dice-selected threshold on the same val200 findings.",
+    "hit_rate": 0.6929133858267716,
+    "mean_global_dice_per_finding": 0.2896435875238438,
+    "total_findings": 381,
+    "total_hits": 264
+  },
+  "schema_version": 1,
+  "selection_rule": {
+    "first_tiebreaker": "higher category hit rate",
+    "global_hit_threshold": 0.1,
+    "primary": "maximum category mean global Dice per finding",
+    "second_tiebreaker": "lower threshold"
+  },
+  "threshold_index_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/ensembles/epoch100_val200/threshold_sweep_summary.json",
+  "thresholds": [
+    0.1,
+    0.2,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.8,
+    0.9
+  ],
+  "validation": {
+    "category_counts_sum_to_finding_count": true,
+    "maximum_absolute_deltas": {
+      "saved_summary_dice_delta": 5.551115123125783e-17,
+      "saved_summary_hit_rate_delta": 0.0,
+      "threshold_index_dice_delta": 5.551115123125783e-17,
+      "threshold_index_hit_rate_delta": 0.0
+    },
+    "per_threshold": [
+      {
+        "saved_summary_dice_delta": 5.551115123125783e-17,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.1,
+        "threshold_index_dice_delta": 5.551115123125783e-17,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr010"
+      },
+      {
+        "saved_summary_dice_delta": 0.0,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.2,
+        "threshold_index_dice_delta": 0.0,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr020"
+      },
+      {
+        "saved_summary_dice_delta": 0.0,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.3,
+        "threshold_index_dice_delta": 0.0,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr030"
+      },
+      {
+        "saved_summary_dice_delta": 0.0,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.35,
+        "threshold_index_dice_delta": 0.0,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr035"
+      },
+      {
+        "saved_summary_dice_delta": 0.0,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.4,
+        "threshold_index_dice_delta": 0.0,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr040"
+      },
+      {
+        "saved_summary_dice_delta": 0.0,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.45,
+        "threshold_index_dice_delta": 0.0,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr045"
+      },
+      {
+        "saved_summary_dice_delta": 0.0,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.5,
+        "threshold_index_dice_delta": 0.0,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr050"
+      },
+      {
+        "saved_summary_dice_delta": 0.0,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.55,
+        "threshold_index_dice_delta": 0.0,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr055"
+      },
+      {
+        "saved_summary_dice_delta": 0.0,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.6,
+        "threshold_index_dice_delta": 0.0,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr060"
+      },
+      {
+        "saved_summary_dice_delta": 0.0,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.65,
+        "threshold_index_dice_delta": 0.0,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr065"
+      },
+      {
+        "saved_summary_dice_delta": 0.0,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.7,
+        "threshold_index_dice_delta": 0.0,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr070"
+      },
+      {
+        "saved_summary_dice_delta": 0.0,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.8,
+        "threshold_index_dice_delta": 0.0,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr080"
+      },
+      {
+        "saved_summary_dice_delta": 2.7755575615628914e-17,
+        "saved_summary_hit_rate_delta": 0.0,
+        "threshold": 0.9,
+        "threshold_index_dice_delta": 2.7755575615628914e-17,
+        "threshold_index_hit_rate_delta": 0.0,
+        "threshold_label": "thr090"
+      }
+    ],
+    "recomposition_tolerance": 1e-12,
+    "thresholds_checked": 13
+  },
+  "warnings": [
+    "Thresholds were selected and evaluated on the same val200 set; the per-category oracle is optimistic and is not a submission policy.",
+    "Category 2f has no val200 findings, so no category-specific threshold can be estimated.",
+    "Category 2g has one val200 finding; its selected threshold is descriptive and not reliable."
+  ]
+}
