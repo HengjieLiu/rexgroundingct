@@ -1,6 +1,6 @@
 ---
 created: 2026-07-22
-updated: 2026-07-23
+updated: 2026-07-27
 status: active
 ---
 
@@ -14,6 +14,10 @@ future fine-tuning experiments.
 
 For standard cache IDs and preprocessing-variant requirements, see
 `preprocessing_variants.md`.
+
+For the complete 200-case HU audit, target-intensity distributions, primary
+source references, InstanceNorm analysis, and experiment 011 interpretation,
+see `ct_hu_normalization_analysis.md`.
 
 The immediate question was whether VoxTell's z-score normalization is mainly a
 multi-modality choice for CT, MR, and PET, and whether raw HU values might be
@@ -187,13 +191,10 @@ Candidate variants:
    - High risk because of large dynamic range and outliers.
    - Should only be tested with explicit clipping or robust scaling.
 
-Recommended experiment role:
-
-```text
-003_voxtell_text_ft_ct_normalization_ablation
-```
-
-Only create this after Experiment 002 is stable.
+The controlled implementation is experiment
+`011_voxtell_v123_e4d4_ct_normalization_ablation`. It compares the native
+z-score baseline, clipped z-score, and fixed linear HU while holding model,
+schedule, loss, geometry, and optimization fixed.
 
 ## Recommended Decision
 
