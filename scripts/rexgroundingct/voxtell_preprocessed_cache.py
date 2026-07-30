@@ -29,11 +29,87 @@ from train_text_conditioned_voxtell import (
 CACHE_SCHEMA_VERSION = 1
 NATIVE_PREPROCESS_ID = "crop_zscore_native_v1"
 ISO2MM_PREPROCESS_ID = "crop_zscore_2mm_v1"
-SUPPORTED_PREPROCESS_IDS = (NATIVE_PREPROCESS_ID, ISO2MM_PREPROCESS_ID)
+CLIPPED_ZSCORE_NATIVE_PREPROCESS_ID = "crop_clip1024_zscore_native_v1"
+CLIPPED_LINEAR_NATIVE_PREPROCESS_ID = "crop_clip1024_linear_native_v1"
+HU_CLIP_MIN = -1024.0
+HU_CLIP_MAX = 1024.0
+NATIVE_GEOMETRY_PREPROCESS_IDS = (
+    NATIVE_PREPROCESS_ID,
+    CLIPPED_ZSCORE_NATIVE_PREPROCESS_ID,
+    CLIPPED_LINEAR_NATIVE_PREPROCESS_ID,
+)
+SUPPORTED_PREPROCESS_IDS = (*NATIVE_GEOMETRY_PREPROCESS_IDS, ISO2MM_PREPROCESS_ID)
 TARGET_SPACING_2MM_ZYX = (2.0, 2.0, 2.0)
 STANDARD_CACHE_ROOT = Path(
     "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell"
 )
+PREPROCESS_SPECS: dict[str, dict[str, Any]] = {
+    NATIVE_PREPROCESS_ID: {
+        "normalization": "crop_to_nonzero_then_full_cropped_volume_zscore_once",
+        "normalization_parameters": {
+            "scope": "complete_cropped_volume",
+            "clip_hu": None,
+        },
+        "image_padding_value": 0.0,
+        "target_padding_value": 0,
+        "requires_materialized_hu": False,
+    },
+    CLIPPED_ZSCORE_NATIVE_PREPROCESS_ID: {
+        "normalization": (
+            "crop_to_nonzero_then_clip_hu_minus1024_plus1024_then_"
+            "full_cropped_volume_zscore_once"
+        ),
+        "normalization_parameters": {
+            "scope": "complete_cropped_volume",
+            "clip_hu": [HU_CLIP_MIN, HU_CLIP_MAX],
+        },
+        "image_padding_value": 0.0,
+        "target_padding_value": 0,
+        "requires_materialized_hu": True,
+    },
+    CLIPPED_LINEAR_NATIVE_PREPROCESS_ID: {
+        "normalization": (
+            "crop_to_nonzero_then_clip_hu_minus1024_plus1024_divide_by_1024"
+        ),
+        "normalization_parameters": {
+            "scope": "complete_cropped_volume",
+            "clip_hu": [HU_CLIP_MIN, HU_CLIP_MAX],
+            "scale": 1.0 / HU_CLIP_MAX,
+            "offset": 0.0,
+            "output_range": [-1.0, 1.0],
+        },
+        "image_padding_value": -1.0,
+        "target_padding_value": 0,
+        "requires_materialized_hu": True,
+    },
+    ISO2MM_PREPROCESS_ID: {
+        "normalization": (
+            "crop_to_nonzero_then_full_cropped_volume_zscore_once_before_resampling"
+        ),
+        "normalization_parameters": {
+            "scope": "complete_native_cropped_volume_before_resampling",
+            "clip_hu": None,
+        },
+        "image_padding_value": 0.0,
+        "target_padding_value": 0,
+        "requires_materialized_hu": False,
+    },
+}
+
+
+def preprocess_spec(preprocess_id: str) -> dict[str, Any]:
+    try:
+        return PREPROCESS_SPECS[preprocess_id]
+    except KeyError as exc:
+        valid = ", ".join(SUPPORTED_PREPROCESS_IDS)
+        raise ValueError(f"Unsupported preprocess_id {preprocess_id!r}; valid: {valid}") from exc
+
+
+def image_padding_value(metadata: dict[str, Any]) -> float:
+    if "image_padding_value" in metadata:
+        return float(metadata["image_padding_value"])
+    preprocess_id = str(metadata.get("preprocess_id", NATIVE_PREPROCESS_ID))
+    return float(preprocess_spec(preprocess_id)["image_padding_value"])
 
 
 def cache_case_key(name: str) -> str:
@@ -179,7 +255,36 @@ def _image_orientation_metadata(ct_properties: dict[str, Any], name: str) -> dic
     }
 
 
-def _load_native_crop_zscore(
+def _materialized_hu_header(ct_path: Path) -> dict[str, Any]:
+    image = nib.load(str(ct_path))
+    dtype = np.dtype(image.get_data_dtype())
+    slope = float(getattr(image.dataobj, "slope", 1.0) or 1.0)
+    intercept = float(getattr(image.dataobj, "inter", 0.0) or 0.0)
+    passed = bool(dtype == np.dtype(np.int16) and slope == 1.0 and intercept == 0.0)
+    return {
+        "stored_dtype": str(dtype),
+        "effective_nifti_slope": slope,
+        "effective_nifti_intercept": intercept,
+        "materialized_hu_check_passed": passed,
+        "policy": (
+            "Treat loaded fixed-NIfTI values as HU and do not apply DICOM "
+            "slope/intercept again."
+        ),
+    }
+
+
+def _array_statistics(image: np.ndarray) -> dict[str, float]:
+    return {
+        "min": float(np.min(image)),
+        "max": float(np.max(image)),
+        "mean": float(np.mean(image, dtype=np.float64)),
+        "std": float(np.std(image, dtype=np.float64)),
+        "fraction_below_minus1024": float(np.mean(image < HU_CLIP_MIN)),
+        "fraction_above_plus1024": float(np.mean(image > HU_CLIP_MAX)),
+    }
+
+
+def _load_native_crop_raw(
     entry: dict[str, Any],
     ct_root: Path,
     seg_dir: Path,
@@ -191,6 +296,7 @@ def _load_native_crop_zscore(
     if not ct_path.is_file():
         raise FileNotFoundError(f"Missing CT: {ct_path}")
 
+    hu_header = _materialized_hu_header(ct_path)
     reader = NibabelIOWithReorient()
     image, ct_properties = reader.read_images([str(ct_path)])
     image = image.astype(np.float32, copy=True)
@@ -216,7 +322,6 @@ def _load_native_crop_zscore(
         raise FileNotFoundError(f"Missing segmentation: {gt_path}")
 
     image, _, bbox = crop_to_nonzero(image, None)
-    image = ZScoreNormalization(intensityproperties={}).run(image, None)
     image = np.ascontiguousarray(image.astype(np.float32, copy=False))
     bbox_list = [[int(value) for value in axis] for axis in bbox]
     native_shape = tuple(int(value) for value in image.shape[1:])
@@ -240,7 +345,7 @@ def _load_native_crop_zscore(
     nibabel_stuff = ct_properties.get("nibabel_stuff", {})
     metadata: dict[str, Any] = {
         "schema_version": CACHE_SCHEMA_VERSION,
-        "preprocess_id": NATIVE_PREPROCESS_ID,
+        "preprocess_id": None,
         "name": name,
         "split": entry.get("_split"),
         "split_index": entry.get("_index"),
@@ -249,7 +354,10 @@ def _load_native_crop_zscore(
         "has_targets": targets is not None,
         "prompt_count": len(prompts),
         "prompts": prompts,
-        "normalization": "crop_to_nonzero_then_full_cropped_volume_zscore_once",
+        "normalization": None,
+        "normalization_parameters": None,
+        "image_padding_value": None,
+        "target_padding_value": 0,
         "image_resampling": None,
         "mask_resampling": None,
         "original_reoriented_shape_zyx": list(original_reoriented_shape),
@@ -268,12 +376,100 @@ def _load_native_crop_zscore(
             },
         },
         "gt_shape_fxyz": gt_shape_fxyz,
-        "image_nbytes": int(image.nbytes),
+        "ct_intensity_header": hu_header,
+        "raw_cropped_statistics": _array_statistics(image),
+        "raw_cropped_image_sha256": sha256_array(image),
+        "image_nbytes": None,
         "targets_nbytes": int(targets.nbytes) if targets is not None else 0,
-        "image_sha256": sha256_array(image),
+        "image_sha256": None,
         "targets_sha256": sha256_array(targets) if targets is not None else None,
     }
     return image, targets, metadata
+
+
+def _normalize_native_image(image: np.ndarray, preprocess_id: str) -> np.ndarray:
+    if preprocess_id == NATIVE_PREPROCESS_ID:
+        normalized = ZScoreNormalization(intensityproperties={}).run(image.copy(), None)
+    elif preprocess_id == CLIPPED_ZSCORE_NATIVE_PREPROCESS_ID:
+        clipped = np.clip(image, HU_CLIP_MIN, HU_CLIP_MAX).astype(np.float32, copy=False)
+        normalized = ZScoreNormalization(intensityproperties={}).run(clipped, None)
+    elif preprocess_id == CLIPPED_LINEAR_NATIVE_PREPROCESS_ID:
+        normalized = np.clip(image, HU_CLIP_MIN, HU_CLIP_MAX).astype(np.float32, copy=False)
+        normalized = normalized / np.float32(HU_CLIP_MAX)
+    else:
+        valid = ", ".join(NATIVE_GEOMETRY_PREPROCESS_IDS)
+        raise ValueError(f"Not a native preprocessing ID: {preprocess_id!r}; valid: {valid}")
+    return np.ascontiguousarray(normalized.astype(np.float32, copy=False))
+
+
+def _native_variant_from_raw(
+    image: np.ndarray,
+    targets: np.ndarray | None,
+    base_metadata: dict[str, Any],
+    preprocess_id: str,
+) -> tuple[np.ndarray, np.ndarray | None, dict[str, Any]]:
+    spec = preprocess_spec(preprocess_id)
+    if spec["requires_materialized_hu"] and not base_metadata["ct_intensity_header"][
+        "materialized_hu_check_passed"
+    ]:
+        raise RuntimeError(
+            f"{base_metadata['name']}: {preprocess_id} requires int16 fixed-NIfTI values "
+            "with effective slope 1 and intercept 0; observed "
+            f"{base_metadata['ct_intensity_header']}"
+        )
+    normalized = _normalize_native_image(image, preprocess_id)
+    metadata = dict(base_metadata)
+    metadata.update(
+        {
+            "preprocess_id": preprocess_id,
+            "normalization": spec["normalization"],
+            "normalization_parameters": spec["normalization_parameters"],
+            "image_padding_value": float(spec["image_padding_value"]),
+            "target_padding_value": int(spec["target_padding_value"]),
+            "normalized_cropped_statistics": _array_statistics(normalized),
+            "image_nbytes": int(normalized.nbytes),
+            "image_sha256": sha256_array(normalized),
+        }
+    )
+    return normalized, targets, metadata
+
+
+def _load_native_crop_zscore(
+    entry: dict[str, Any],
+    ct_root: Path,
+    seg_dir: Path,
+    allow_missing_targets: bool,
+) -> tuple[np.ndarray, np.ndarray | None, dict[str, Any]]:
+    image, targets, metadata = _load_native_crop_raw(
+        entry,
+        ct_root=ct_root,
+        seg_dir=seg_dir,
+        allow_missing_targets=allow_missing_targets,
+    )
+    return _native_variant_from_raw(image, targets, metadata, NATIVE_PREPROCESS_ID)
+
+
+def preprocess_native_variants(
+    entry: dict[str, Any],
+    preprocess_ids: list[str] | tuple[str, ...],
+    ct_root: Path = CT_ROOT,
+    seg_dir: Path = REX_SEG_DIR,
+    allow_missing_targets: bool = False,
+) -> dict[str, tuple[np.ndarray, np.ndarray | None, dict[str, Any]]]:
+    unique_ids = list(dict.fromkeys(preprocess_ids))
+    invalid = [value for value in unique_ids if value not in NATIVE_GEOMETRY_PREPROCESS_IDS]
+    if invalid:
+        raise ValueError(f"preprocess_native_variants received non-native IDs: {invalid}")
+    image, targets, metadata = _load_native_crop_raw(
+        entry,
+        ct_root=ct_root,
+        seg_dir=seg_dir,
+        allow_missing_targets=allow_missing_targets,
+    )
+    return {
+        preprocess_id: _native_variant_from_raw(image, targets, metadata, preprocess_id)
+        for preprocess_id in unique_ids
+    }
 
 
 def _preprocess_case_to_2mm(
@@ -309,7 +505,16 @@ def _preprocess_case_to_2mm(
     metadata.update(
         {
             "preprocess_id": ISO2MM_PREPROCESS_ID,
-            "normalization": "crop_to_nonzero_then_full_cropped_volume_zscore_once_before_resampling",
+            "normalization": PREPROCESS_SPECS[ISO2MM_PREPROCESS_ID]["normalization"],
+            "normalization_parameters": PREPROCESS_SPECS[ISO2MM_PREPROCESS_ID][
+                "normalization_parameters"
+            ],
+            "image_padding_value": PREPROCESS_SPECS[ISO2MM_PREPROCESS_ID][
+                "image_padding_value"
+            ],
+            "target_padding_value": PREPROCESS_SPECS[ISO2MM_PREPROCESS_ID][
+                "target_padding_value"
+            ],
             "image_resampling": {
                 "source_spacing_zyx_mm": list(native_spacing),
                 "target_spacing_zyx_mm": list(TARGET_SPACING_2MM_ZYX),
@@ -341,12 +546,40 @@ def preprocess_case(
     seg_dir: Path = REX_SEG_DIR,
     allow_missing_targets: bool = False,
 ) -> tuple[np.ndarray, np.ndarray | None, dict[str, Any]]:
-    if preprocess_id == NATIVE_PREPROCESS_ID:
-        return _load_native_crop_zscore(entry, ct_root, seg_dir, allow_missing_targets)
+    if preprocess_id in NATIVE_GEOMETRY_PREPROCESS_IDS:
+        return preprocess_native_variants(
+            entry,
+            [preprocess_id],
+            ct_root=ct_root,
+            seg_dir=seg_dir,
+            allow_missing_targets=allow_missing_targets,
+        )[preprocess_id]
     if preprocess_id == ISO2MM_PREPROCESS_ID:
         return _preprocess_case_to_2mm(entry, ct_root, seg_dir, allow_missing_targets)
     valid = ", ".join(SUPPORTED_PREPROCESS_IDS)
     raise ValueError(f"Unsupported preprocess_id {preprocess_id!r}; valid: {valid}")
+
+
+def _write_preprocessed_case(
+    cache_root: Path,
+    entry: dict[str, Any],
+    image: np.ndarray,
+    targets: np.ndarray | None,
+    metadata: dict[str, Any],
+) -> dict[str, Any]:
+    paths = cache_case_paths(cache_root, entry["name"])
+    paths["root"].mkdir(parents=True, exist_ok=True)
+    _atomic_save_npy(paths["image"], image)
+    if targets is not None:
+        _atomic_save_npz(paths["targets"], targets=targets)
+    elif paths["targets"].exists():
+        paths["targets"].unlink()
+    _atomic_write_json(paths["metadata"], metadata)
+    complete_tmp = paths["complete"].with_name(f".complete.tmp.{os.getpid()}")
+    complete_hash = metadata["targets_sha256"] or metadata["image_sha256"]
+    complete_tmp.write_text(complete_hash + "\n")
+    os.replace(complete_tmp, paths["complete"])
+    return metadata
 
 
 def write_cached_case(
@@ -361,7 +594,6 @@ def write_cached_case(
     paths = cache_case_paths(cache_root, entry["name"])
     if paths["complete"].is_file() and not overwrite:
         return json.loads(paths["metadata"].read_text())
-    paths["root"].mkdir(parents=True, exist_ok=True)
     image, targets, metadata = preprocess_case(
         entry,
         preprocess_id=preprocess_id,
@@ -369,17 +601,47 @@ def write_cached_case(
         seg_dir=seg_dir,
         allow_missing_targets=allow_missing_targets,
     )
-    _atomic_save_npy(paths["image"], image)
-    if targets is not None:
-        _atomic_save_npz(paths["targets"], targets=targets)
-    elif paths["targets"].exists():
-        paths["targets"].unlink()
-    _atomic_write_json(paths["metadata"], metadata)
-    complete_tmp = paths["complete"].with_name(f".complete.tmp.{os.getpid()}")
-    complete_hash = metadata["targets_sha256"] or metadata["image_sha256"]
-    complete_tmp.write_text(complete_hash + "\n")
-    os.replace(complete_tmp, paths["complete"])
-    return metadata
+    return _write_preprocessed_case(cache_root, entry, image, targets, metadata)
+
+
+def write_cached_native_variants(
+    cache_roots: dict[str, Path],
+    entry: dict[str, Any],
+    ct_root: Path = CT_ROOT,
+    seg_dir: Path = REX_SEG_DIR,
+    overwrite: bool = False,
+    allow_missing_targets: bool = False,
+) -> dict[str, dict[str, Any]]:
+    records: dict[str, dict[str, Any]] = {}
+    missing_ids: list[str] = []
+    for preprocess_id, cache_root in cache_roots.items():
+        if preprocess_id not in NATIVE_GEOMETRY_PREPROCESS_IDS:
+            raise ValueError(f"Multi-output cache writing only supports native IDs: {preprocess_id}")
+        paths = cache_case_paths(cache_root, entry["name"])
+        if paths["complete"].is_file() and not overwrite:
+            records[preprocess_id] = json.loads(paths["metadata"].read_text())
+        else:
+            missing_ids.append(preprocess_id)
+    if not missing_ids:
+        return records
+
+    variants = preprocess_native_variants(
+        entry,
+        missing_ids,
+        ct_root=ct_root,
+        seg_dir=seg_dir,
+        allow_missing_targets=allow_missing_targets,
+    )
+    for preprocess_id in missing_ids:
+        image, targets, metadata = variants[preprocess_id]
+        records[preprocess_id] = _write_preprocessed_case(
+            cache_roots[preprocess_id],
+            entry,
+            image,
+            targets,
+            metadata,
+        )
+    return records
 
 
 def load_cached_case(

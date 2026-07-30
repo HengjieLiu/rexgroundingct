@@ -106,6 +106,7 @@ class CaseData:
     prompts: list[str]
     bbox: list[list[int]]
     orientation: dict[str, Any]
+    image_padding_value: float = 0.0
 
 
 @dataclass
@@ -153,6 +154,52 @@ def seed_everything(seed: int) -> None:
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
+
+
+def capture_rng_state() -> dict[str, Any]:
+    numpy_state = np.random.get_state()
+    return {
+        "python": random.getstate(),
+        "numpy": {
+            "bit_generator": numpy_state[0],
+            "state": torch.from_numpy(numpy_state[1].copy()),
+            "position": int(numpy_state[2]),
+            "has_gauss": int(numpy_state[3]),
+            "cached_gaussian": float(numpy_state[4]),
+        },
+        "torch_cpu": torch.get_rng_state(),
+        "torch_cuda": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else [],
+    }
+
+
+def restore_rng_state(state: dict[str, Any] | None) -> bool:
+    if not state:
+        return False
+    random.setstate(state["python"])
+    numpy_state = state["numpy"]
+    numpy_values = numpy_state["state"]
+    if torch.is_tensor(numpy_values):
+        numpy_values = numpy_values.cpu().numpy()
+    np.random.set_state(
+        (
+            str(numpy_state["bit_generator"]),
+            np.asarray(numpy_values, dtype=np.uint32),
+            int(numpy_state["position"]),
+            int(numpy_state["has_gauss"]),
+            float(numpy_state["cached_gaussian"]),
+        )
+    )
+    torch.set_rng_state(state["torch_cpu"].cpu())
+    cuda_states = state.get("torch_cuda", [])
+    if torch.cuda.is_available() and cuda_states:
+        visible_devices = torch.cuda.device_count()
+        if len(cuda_states) != visible_devices:
+            raise ValueError(
+                "Resume checkpoint CUDA RNG state count does not match visible devices: "
+                f"checkpoint={len(cuda_states)} visible={visible_devices}"
+            )
+        torch.cuda.set_rng_state_all([value.cpu() for value in cuda_states])
+    return True
 
 
 def serializable_ornt(ornt: np.ndarray) -> list[list[int | float]]:
@@ -312,7 +359,7 @@ class RexVoxTellPatchSampler:
             return cached
 
         if self.preprocessed_cache_dir is not None:
-            from voxtell_preprocessed_cache import load_cached_case
+            from voxtell_preprocessed_cache import image_padding_value, load_cached_case
 
             image, targets, metadata = load_cached_case(
                 self.preprocessed_cache_dir,
@@ -331,6 +378,7 @@ class RexVoxTellPatchSampler:
                 prompts=prompts,
                 bbox=metadata["crop_bbox_zyx"],
                 orientation=metadata["orientation"],
+                image_padding_value=image_padding_value(metadata),
             )
             self.cache.put(name, case)
             return case
@@ -370,6 +418,7 @@ class RexVoxTellPatchSampler:
             prompts=prompts,
             bbox=bbox_list,
             orientation=orientation,
+            image_padding_value=0.0,
         )
         self.cache.put(name, case)
         return case
@@ -575,8 +624,17 @@ class RexVoxTellPatchSampler:
         stats["positive_crop_attempts"] += self.max_positive_crop_attempts
         return None
 
-    def extract_patch(self, array: np.ndarray, starts: list[int]) -> np.ndarray:
-        output = np.zeros((array.shape[0], *self.patch_size), dtype=array.dtype)
+    def extract_patch(
+        self,
+        array: np.ndarray,
+        starts: list[int],
+        fill_value: float | int = 0,
+    ) -> np.ndarray:
+        output = np.full(
+            (array.shape[0], *self.patch_size),
+            fill_value=fill_value,
+            dtype=array.dtype,
+        )
         crop_slices = []
         insert_slices = []
         for axis, (start, patch) in enumerate(zip(starts, self.patch_size)):
@@ -762,8 +820,14 @@ class RexVoxTellPatchSampler:
             selected_targets.append(case.targets[slot.target_index])
 
         target_full = np.stack(selected_targets, axis=0).astype(np.float32, copy=False)
-        image_patch = self.extract_patch(case.image, starts).astype(np.float32, copy=False)
-        target_patch = (self.extract_patch(target_full, starts) > 0).astype(np.float32, copy=False)
+        image_patch = self.extract_patch(
+            case.image,
+            starts,
+            fill_value=case.image_padding_value,
+        ).astype(np.float32, copy=False)
+        target_patch = (
+            self.extract_patch(target_full, starts, fill_value=0) > 0
+        ).astype(np.float32, copy=False)
 
         stats["scheduled_samples" if event.get("event_index") is not None else "unscheduled_samples"] += 1
         positive_nonempty = 0
@@ -1588,6 +1652,9 @@ def preprocessing_config(args: argparse.Namespace) -> dict[str, Any]:
                 "manifest_sha256": sha256_file(manifest_path),
                 "preprocess_id": manifest.get("preprocess_id", "unknown"),
                 "normalization": manifest.get("normalization", "unknown"),
+                "normalization_parameters": manifest.get("normalization_parameters"),
+                "image_padding_value": manifest.get("image_padding_value", 0.0),
+                "target_padding_value": manifest.get("target_padding_value", 0),
                 "cases": manifest.get("cases"),
                 "targets": manifest.get("targets"),
                 "empty_targets": manifest.get("empty_targets"),
@@ -1638,6 +1705,14 @@ def save_checkpoint(
             "network_weights": model.state_dict(),
             "optimizer": optimizer.state_dict(),
             "grad_scaler": scaler.state_dict(),
+            "rng_state": capture_rng_state(),
+            "rng_state_scope": (
+                "rank0_only"
+                if dist.is_available()
+                and dist.is_initialized()
+                and dist.get_world_size() > 1
+                else "single_process"
+            ),
             "experiment": args.experiment_id,
             "patch_size": list(parse_patch_size(args.patch_size)),
             "normalization": preprocessing["normalization"],
@@ -1686,6 +1761,14 @@ def load_checkpoint_for_training(
         for key, value in list(state.items()):
             if torch.is_tensor(value):
                 state[key] = value.to(device)
+    distributed_resume = (
+        dist.is_available() and dist.is_initialized() and dist.get_world_size() > 1
+    )
+    checkpoint["rng_state_restored"] = (
+        False
+        if distributed_resume
+        else restore_rng_state(checkpoint.get("rng_state"))
+    )
     return checkpoint
 
 
@@ -1723,6 +1806,10 @@ def write_training_report(path: Path, metrics: dict[str, Any]) -> None:
         f"- Epochs: `{metrics['epochs']}`",
         f"- Steps per epoch: `{metrics['steps_per_epoch']}` optimizer updates",
         f"- Total optimizer updates: `{metrics['total_updates']}`",
+        f"- Segment start/target updates: "
+        f"`{metrics.get('start_global_update')} -> {metrics.get('target_global_update')}`",
+        f"- Resume checkpoint: `{metrics.get('resume_checkpoint')}`",
+        f"- Resume RNG state restored: `{metrics.get('resume_rng_state_restored')}`",
         f"- Batch size per update: `{metrics['batch_size']}` case-patches",
         f"- Gradient accumulation: `{metrics['grad_accum']}`",
         f"- LR schedule: `{metrics['lr_schedule']}`",
@@ -2552,6 +2639,11 @@ def run_train(
             "resume_checkpoint": str(args.resume_checkpoint) if args.resume_checkpoint else None,
             "resume_checkpoint_update": (
                 int(resumed_checkpoint.get("global_update", 0))
+                if resumed_checkpoint is not None
+                else None
+            ),
+            "resume_rng_state_restored": (
+                bool(resumed_checkpoint.get("rng_state_restored"))
                 if resumed_checkpoint is not None
                 else None
             ),

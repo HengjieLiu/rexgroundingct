@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import os
 import shutil
 from collections import Counter
 from concurrent.futures import ProcessPoolExecutor
@@ -21,63 +23,113 @@ from common import (
     load_split_entries,
     sha256_file,
     utc_now_iso,
-    write_json,
 )
 from voxtell_preprocessed_cache import (
     CACHE_SCHEMA_VERSION,
+    CLIPPED_LINEAR_NATIVE_PREPROCESS_ID,
+    CLIPPED_ZSCORE_NATIVE_PREPROCESS_ID,
+    NATIVE_GEOMETRY_PREPROCESS_IDS,
+    PREPROCESS_SPECS,
     STANDARD_CACHE_ROOT,
     SUPPORTED_PREPROCESS_IDS,
     cache_case_paths,
     preprocess_case,
+    preprocess_native_variants,
+    write_cached_native_variants,
     write_cached_case,
 )
+
+
+def _atomic_write_json(path: Path, data: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.tmp.{os.getpid()}")
+    temporary.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+    os.replace(temporary, path)
+
+
+def _atomic_write_text(path: Path, value: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.tmp.{os.getpid()}")
+    temporary.write_text(value)
+    os.replace(temporary, path)
 
 
 def _split_allows_missing_targets(entry: dict[str, Any]) -> bool:
     return entry.get("_split") == "test"
 
 
-def _estimate_one(job: tuple[dict, str, str, str]) -> dict[str, Any]:
-    entry, preprocess_id, ct_root, seg_dir = job
-    image, targets, metadata = preprocess_case(
-        entry,
-        preprocess_id=preprocess_id,
-        ct_root=Path(ct_root),
-        seg_dir=Path(seg_dir),
-        allow_missing_targets=_split_allows_missing_targets(entry),
-    )
-    target_bytes = int(targets.nbytes) if targets is not None else 0
+def _estimate_one(job: tuple[dict, tuple[str, ...], str, str]) -> dict[str, dict[str, Any]]:
+    entry, preprocess_ids, ct_root, seg_dir = job
+    if len(preprocess_ids) > 1:
+        if any(value not in NATIVE_GEOMETRY_PREPROCESS_IDS for value in preprocess_ids):
+            raise ValueError("Multi-output estimation only supports native-geometry caches")
+        variants = preprocess_native_variants(
+            entry,
+            preprocess_ids,
+            ct_root=Path(ct_root),
+            seg_dir=Path(seg_dir),
+            allow_missing_targets=_split_allows_missing_targets(entry),
+        )
+    else:
+        preprocess_id = preprocess_ids[0]
+        variants = {
+            preprocess_id: preprocess_case(
+                entry,
+                preprocess_id=preprocess_id,
+                ct_root=Path(ct_root),
+                seg_dir=Path(seg_dir),
+                allow_missing_targets=_split_allows_missing_targets(entry),
+            )
+        }
+    records: dict[str, dict[str, Any]] = {}
+    for preprocess_id, (image, targets, metadata) in variants.items():
+        target_bytes = int(targets.nbytes) if targets is not None else 0
+        records[preprocess_id] = {
+            "name": entry["name"],
+            "split": entry.get("_split"),
+            "image_bytes": int(image.nbytes),
+            "target_bytes": target_bytes,
+            "total_bytes": int(image.nbytes) + target_bytes,
+            "shape_zyx": metadata["resampled_shape_zyx"],
+            "has_targets": targets is not None,
+        }
+    return records
+
+
+def _build_one(
+    job: tuple[dict, dict[str, str], tuple[str, ...], str, str, bool],
+) -> dict[str, dict[str, Any]]:
+    entry, cache_roots, preprocess_ids, ct_root, seg_dir, overwrite = job
+    if len(preprocess_ids) > 1:
+        return write_cached_native_variants(
+            {key: Path(value) for key, value in cache_roots.items()},
+            entry,
+            ct_root=Path(ct_root),
+            seg_dir=Path(seg_dir),
+            overwrite=overwrite,
+            allow_missing_targets=_split_allows_missing_targets(entry),
+        )
+    preprocess_id = preprocess_ids[0]
     return {
-        "name": entry["name"],
-        "split": entry.get("_split"),
-        "image_bytes": int(image.nbytes),
-        "target_bytes": target_bytes,
-        "total_bytes": int(image.nbytes) + target_bytes,
-        "shape_zyx": metadata["resampled_shape_zyx"],
-        "has_targets": targets is not None,
+        preprocess_id: write_cached_case(
+            Path(cache_roots[preprocess_id]),
+            entry,
+            preprocess_id=preprocess_id,
+            ct_root=Path(ct_root),
+            seg_dir=Path(seg_dir),
+            overwrite=overwrite,
+            allow_missing_targets=_split_allows_missing_targets(entry),
+        )
     }
-
-
-def _build_one(job: tuple[dict, str, str, str, str, bool]) -> dict[str, Any]:
-    entry, cache_root, preprocess_id, ct_root, seg_dir, overwrite = job
-    return write_cached_case(
-        Path(cache_root),
-        entry,
-        preprocess_id=preprocess_id,
-        ct_root=Path(ct_root),
-        seg_dir=Path(seg_dir),
-        overwrite=overwrite,
-        allow_missing_targets=_split_allows_missing_targets(entry),
-    )
 
 
 def _estimate_storage(
     entries: list[dict[str, Any]],
-    preprocess_id: str,
+    preprocess_ids: tuple[str, ...],
     ct_root: Path,
     seg_dir: Path,
     sample_cases: int,
-) -> dict[str, Any]:
+) -> dict[str, dict[str, Any]]:
     if sample_cases >= len(entries):
         sample = entries
     elif sample_cases == 1:
@@ -88,35 +140,48 @@ def _estimate_storage(
             for index in range(sample_cases)
         }
         sample = [entries[index] for index in sorted(indices)]
-    records = [
-        _estimate_one((entry, preprocess_id, str(ct_root), str(seg_dir)))
+    records_by_case = [
+        _estimate_one((entry, preprocess_ids, str(ct_root), str(seg_dir)))
         for entry in tqdm(sample, desc="Estimating cache storage")
     ]
-    if not records:
-        return {
-            "sample_cases": 0,
-            "mean_case_bytes": 0,
-            "estimated_total_bytes": 0,
-            "sample_records": [],
+    estimates: dict[str, dict[str, Any]] = {}
+    for preprocess_id in preprocess_ids:
+        records = [record[preprocess_id] for record in records_by_case]
+        if not records:
+            estimates[preprocess_id] = {
+                "sample_cases": 0,
+                "mean_case_bytes": 0,
+                "estimated_total_bytes": 0,
+                "sample_records": [],
+            }
+            continue
+        mean_bytes = sum(record["total_bytes"] for record in records) / float(len(records))
+        estimates[preprocess_id] = {
+            "sample_cases": len(records),
+            "mean_case_bytes": int(round(mean_bytes)),
+            "estimated_total_bytes": int(round(mean_bytes * len(entries))),
+            "sample_records": records,
         }
-    mean_bytes = sum(record["total_bytes"] for record in records) / float(len(records))
-    return {
-        "sample_cases": len(records),
-        "mean_case_bytes": int(round(mean_bytes)),
-        "estimated_total_bytes": int(round(mean_bytes * len(entries))),
-        "sample_records": records,
-    }
+    return estimates
 
 
-def _check_storage(cache_root: Path, estimate: dict[str, Any], free_buffer: float) -> dict[str, Any]:
-    probe_path = cache_root if cache_root.exists() else cache_root.parent
+def _check_storage(
+    cache_roots: dict[str, Path],
+    estimates: dict[str, dict[str, Any]],
+    free_buffer: float,
+) -> dict[str, Any]:
+    first_root = next(iter(cache_roots.values()))
+    probe_path = first_root if first_root.exists() else first_root.parent
     probe_path.mkdir(parents=True, exist_ok=True)
     usage = shutil.disk_usage(probe_path)
-    estimated = int(estimate["estimated_total_bytes"])
+    estimated = sum(int(value["estimated_total_bytes"]) for value in estimates.values())
     required = int(round(estimated * (1.0 + free_buffer)))
     result = {
         "path": str(probe_path),
         "free_bytes": int(usage.free),
+        "estimated_bytes_by_preprocess_id": {
+            key: int(value["estimated_total_bytes"]) for key, value in estimates.items()
+        },
         "estimated_total_bytes": estimated,
         "required_free_bytes_with_buffer": required,
         "free_buffer_fraction": float(free_buffer),
@@ -131,9 +196,9 @@ def _check_storage(cache_root: Path, estimate: dict[str, Any], free_buffer: floa
 
 
 def _run_build_jobs(
-    jobs: list[tuple[dict, str, str, str, str, bool]],
+    jobs: list[tuple[dict, dict[str, str], tuple[str, ...], str, str, bool]],
     num_workers: int,
-) -> list[dict[str, Any]]:
+) -> list[dict[str, dict[str, Any]]]:
     if num_workers == 1:
         return [
             record
@@ -180,6 +245,32 @@ def _summarize_records(records: list[dict[str, Any]]) -> dict[str, Any]:
         fallback_targets += len(mask_resampling.get("fallback_target_indices") or [])
     if not records:
         shape_min = [0, 0, 0]
+    case_content_index = [
+        {
+            "name": record["name"],
+            "split": record.get("split"),
+            "image_sha256": record.get("image_sha256"),
+            "targets_sha256": record.get("targets_sha256"),
+            "resampled_shape_zyx": record.get("resampled_shape_zyx"),
+        }
+        for record in records
+    ]
+    target_index = [
+        {
+            "name": record["name"],
+            "targets_sha256": record.get("targets_sha256"),
+        }
+        for record in records
+    ]
+
+    def index_sha256(value: list[dict[str, Any]]) -> str:
+        payload = json.dumps(
+            value,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+        return hashlib.sha256(payload).hexdigest()
+
     return {
         "case_stats": dict(stats),
         "resampled_shape_zyx_min": shape_min,
@@ -189,7 +280,109 @@ def _summarize_records(records: list[dict[str, Any]]) -> dict[str, Any]:
         "foreground_fallback_targets": fallback_targets,
         "image_bytes_uncompressed": image_bytes,
         "target_bytes_uncompressed": target_bytes,
+        "case_content_index_sha256": index_sha256(case_content_index),
+        "target_index_sha256": index_sha256(target_index),
     }
+
+
+def _load_reference_records(
+    entries: list[dict[str, Any]],
+    reference_cache_root: Path,
+) -> list[dict[str, Any]]:
+    records = []
+    for entry in tqdm(entries, desc="Loading reference cache metadata"):
+        paths = cache_case_paths(reference_cache_root, entry["name"])
+        if not paths["complete"].is_file() or not paths["metadata"].is_file():
+            raise FileNotFoundError(
+                f"Missing reference cache metadata for {entry['name']}: {paths['root']}"
+            )
+        records.append(json.loads(paths["metadata"].read_text()))
+    return records
+
+
+def _cross_cache_audit(
+    entries: list[dict[str, Any]],
+    records_by_id: dict[str, list[dict[str, Any]]],
+    reference_cache_root: Path | None,
+) -> dict[str, Any]:
+    comparison_records = dict(records_by_id)
+    reference_label = None
+    if reference_cache_root is not None:
+        reference_label = reference_cache_root.name
+        comparison_records[f"reference:{reference_label}"] = _load_reference_records(
+            entries,
+            reference_cache_root,
+        )
+
+    fields = (
+        "targets_sha256",
+        "crop_bbox_zyx",
+        "original_reoriented_shape_zyx",
+        "native_cropped_shape_zyx",
+        "resampled_shape_zyx",
+        "orientation",
+    )
+    mismatches: list[dict[str, Any]] = []
+    labels = list(comparison_records)
+    baseline_label = labels[0]
+    baseline_records = comparison_records[baseline_label]
+    for index, entry in enumerate(entries):
+        baseline = baseline_records[index]
+        for label in labels[1:]:
+            candidate = comparison_records[label][index]
+            for field in fields:
+                if candidate.get(field) != baseline.get(field):
+                    mismatches.append(
+                        {
+                            "name": entry["name"],
+                            "field": field,
+                            "baseline": baseline_label,
+                            "candidate": label,
+                        }
+                    )
+                    break
+    hu_header_failures = [
+        record["name"]
+        for records in records_by_id.values()
+        for record in records
+        if not record.get("ct_intensity_header", {}).get("materialized_hu_check_passed", False)
+    ]
+    normalization_failures: list[dict[str, Any]] = []
+    for preprocess_id, records in records_by_id.items():
+        for record in records:
+            stats = record.get("normalized_cropped_statistics") or {}
+            if preprocess_id == CLIPPED_ZSCORE_NATIVE_PREPROCESS_ID:
+                if abs(float(stats.get("mean", 1.0))) > 5e-5 or abs(
+                    float(stats.get("std", 0.0)) - 1.0
+                ) > 5e-5:
+                    normalization_failures.append(
+                        {"name": record["name"], "preprocess_id": preprocess_id, "stats": stats}
+                    )
+            elif preprocess_id == CLIPPED_LINEAR_NATIVE_PREPROCESS_ID:
+                if float(stats.get("min", -2.0)) < -1.000001 or float(
+                    stats.get("max", 2.0)
+                ) > 1.000001:
+                    normalization_failures.append(
+                        {"name": record["name"], "preprocess_id": preprocess_id, "stats": stats}
+                    )
+    audit = {
+        "compared_preprocess_ids": labels,
+        "reference_cache_root": (
+            str(reference_cache_root) if reference_cache_root is not None else None
+        ),
+        "reference_label": reference_label,
+        "cases_compared": len(entries),
+        "fields_compared": list(fields),
+        "geometry_or_target_mismatches": len(mismatches),
+        "geometry_or_target_mismatch_examples": mismatches[:20],
+        "materialized_hu_header_failures": len(hu_header_failures),
+        "materialized_hu_header_failure_examples": hu_header_failures[:20],
+        "normalization_failures": len(normalization_failures),
+        "normalization_failure_examples": normalization_failures[:20],
+    }
+    if mismatches or hu_header_failures or normalization_failures:
+        raise RuntimeError(f"Cross-cache audit failed: {json.dumps(audit, sort_keys=True)}")
+    return audit
 
 
 def main() -> int:
@@ -197,9 +390,22 @@ def main() -> int:
     parser.add_argument("--metadata", type=Path, default=REX_METADATA)
     parser.add_argument("--ct-root", type=Path, default=CT_ROOT)
     parser.add_argument("--seg-dir", type=Path, default=REX_SEG_DIR)
-    parser.add_argument("--preprocess-id", choices=SUPPORTED_PREPROCESS_IDS, required=True)
+    parser.add_argument(
+        "--preprocess-id",
+        choices=SUPPORTED_PREPROCESS_IDS,
+        action="append",
+        required=True,
+        help="Repeat for a one-pass multi-output native cache build.",
+    )
+    parser.add_argument(
+        "--standard-cache-root",
+        type=Path,
+        default=STANDARD_CACHE_ROOT,
+        help="Parent directory used when --cache-root is not supplied.",
+    )
     parser.add_argument("--cache-root", type=Path, default=None)
     parser.add_argument("--manifest-json", type=Path, default=None)
+    parser.add_argument("--reference-cache-root", type=Path, default=None)
     parser.add_argument("--splits", nargs="+", default=["train", "val"])
     parser.add_argument("--num-workers", type=int, default=4)
     parser.add_argument("--overwrite", action="store_true")
@@ -217,7 +423,20 @@ def main() -> int:
     if args.storage_buffer_fraction < 0:
         raise ValueError("--storage-buffer-fraction must be >= 0")
 
-    cache_root = args.cache_root or (STANDARD_CACHE_ROOT / args.preprocess_id)
+    preprocess_ids = tuple(dict.fromkeys(args.preprocess_id))
+    if len(preprocess_ids) > 1:
+        if args.cache_root is not None or args.manifest_json is not None:
+            raise ValueError("--cache-root/--manifest-json require exactly one --preprocess-id")
+        if any(value not in NATIVE_GEOMETRY_PREPROCESS_IDS for value in preprocess_ids):
+            raise ValueError("Multi-output builds only support native-geometry preprocessing IDs")
+    cache_roots = {
+        preprocess_id: (
+            args.cache_root
+            if args.cache_root is not None
+            else args.standard_cache_root / preprocess_id
+        )
+        for preprocess_id in preprocess_ids
+    }
     entries = load_split_entries(args.metadata, args.splits)
     if args.case_name:
         selected = set(args.case_name)
@@ -230,10 +449,12 @@ def main() -> int:
     if not entries:
         raise ValueError("No entries selected for cache generation")
 
-    cache_root.mkdir(parents=True, exist_ok=True)
-    storage_estimate = _estimate_storage(
+    for cache_root in cache_roots.values():
+        cache_root.mkdir(parents=True, exist_ok=True)
+        (cache_root / ".complete").unlink(missing_ok=True)
+    storage_estimates = _estimate_storage(
         entries=entries,
-        preprocess_id=args.preprocess_id,
+        preprocess_ids=preprocess_ids,
         ct_root=args.ct_root,
         seg_dir=args.seg_dir,
         sample_cases=args.estimate_cases,
@@ -241,68 +462,104 @@ def main() -> int:
     storage_check = None
     if not args.skip_storage_check:
         storage_check = _check_storage(
-            cache_root,
-            storage_estimate,
+            cache_roots,
+            storage_estimates,
             free_buffer=args.storage_buffer_fraction,
         )
 
     jobs = [
         (
             entry,
-            str(cache_root),
-            args.preprocess_id,
+            {key: str(value) for key, value in cache_roots.items()},
+            preprocess_ids,
             str(args.ct_root),
             str(args.seg_dir),
             args.overwrite,
         )
         for entry in entries
     ]
-    records = _run_build_jobs(jobs, args.num_workers)
-    summary = _summarize_records(records)
-    if summary["empty_targets"]:
-        raise RuntimeError(f"Cache audit failed: {summary['empty_targets']} targets are empty")
-
-    manifest_path = args.manifest_json or (cache_root / "manifest.json")
-    manifest = {
-        "schema_version": CACHE_SCHEMA_VERSION,
-        "created_at_utc": utc_now_iso(),
-        "command": command_string(),
-        "metadata": str(args.metadata),
-        "metadata_sha256": sha256_file(args.metadata),
-        "ct_root": str(args.ct_root),
-        "seg_dir": str(args.seg_dir),
-        "cache_root": str(cache_root),
-        "preprocess_id": args.preprocess_id,
-        "splits": args.splits,
-        "cases": len(records),
-        "complete_case_markers": sum(
-            cache_case_paths(cache_root, entry["name"])["complete"].is_file()
-            for entry in entries
-        ),
-        "normalization": "crop_to_nonzero_then_full_cropped_volume_zscore_once",
-        "storage_estimate": storage_estimate,
-        "storage_check": storage_check,
-        **summary,
+    records_by_case = _run_build_jobs(jobs, args.num_workers)
+    records_by_id = {
+        preprocess_id: [record[preprocess_id] for record in records_by_case]
+        for preprocess_id in preprocess_ids
     }
-    if args.preprocess_id == "crop_zscore_2mm_v1":
-        manifest.update(
-            {
-                "target_spacing_zyx_mm": [2.0, 2.0, 2.0],
-                "image_interpolation": "trilinear_align_corners_false_no_antialias",
-                "mask_interpolation": "nearest_exact_with_foreground_center_splat_fallback",
-            }
+    summaries = {
+        preprocess_id: _summarize_records(records)
+        for preprocess_id, records in records_by_id.items()
+    }
+    for preprocess_id, summary in summaries.items():
+        if summary["empty_targets"]:
+            raise RuntimeError(
+                f"{preprocess_id} cache audit failed: "
+                f"{summary['empty_targets']} targets are empty"
+            )
+
+    cross_cache_audit = _cross_cache_audit(
+        entries,
+        records_by_id,
+        reference_cache_root=args.reference_cache_root,
+    )
+    manifests: dict[str, dict[str, Any]] = {}
+    for preprocess_id in preprocess_ids:
+        cache_root = cache_roots[preprocess_id]
+        manifest_path = (
+            args.manifest_json
+            if args.manifest_json is not None
+            else cache_root / "manifest.json"
         )
-    else:
-        manifest.update(
-            {
-                "target_spacing_zyx_mm": None,
-                "image_interpolation": None,
-                "mask_interpolation": None,
-            }
+        spec = PREPROCESS_SPECS[preprocess_id]
+        manifest = {
+            "schema_version": CACHE_SCHEMA_VERSION,
+            "created_at_utc": utc_now_iso(),
+            "command": command_string(),
+            "script_path": str(Path(__file__).resolve()),
+            "script_sha256": sha256_file(Path(__file__).resolve()),
+            "metadata": str(args.metadata),
+            "metadata_sha256": sha256_file(args.metadata),
+            "ct_root": str(args.ct_root),
+            "seg_dir": str(args.seg_dir),
+            "cache_root": str(cache_root),
+            "preprocess_id": preprocess_id,
+            "splits": args.splits,
+            "cases": len(records_by_id[preprocess_id]),
+            "complete_case_markers": sum(
+                cache_case_paths(cache_root, entry["name"])["complete"].is_file()
+                for entry in entries
+            ),
+            "normalization": spec["normalization"],
+            "normalization_parameters": spec["normalization_parameters"],
+            "image_padding_value": spec["image_padding_value"],
+            "target_padding_value": spec["target_padding_value"],
+            "storage_estimate": storage_estimates[preprocess_id],
+            "combined_storage_check": storage_check,
+            "cross_cache_audit": cross_cache_audit,
+            **summaries[preprocess_id],
+        }
+        if preprocess_id == "crop_zscore_2mm_v1":
+            manifest.update(
+                {
+                    "target_spacing_zyx_mm": [2.0, 2.0, 2.0],
+                    "image_interpolation": "trilinear_align_corners_false_no_antialias",
+                    "mask_interpolation": (
+                        "nearest_exact_with_foreground_center_splat_fallback"
+                    ),
+                }
+            )
+        else:
+            manifest.update(
+                {
+                    "target_spacing_zyx_mm": None,
+                    "image_interpolation": None,
+                    "mask_interpolation": None,
+                }
+            )
+        _atomic_write_json(manifest_path, manifest)
+        _atomic_write_text(
+            cache_root / ".complete",
+            sha256_file(manifest_path) + "\n",
         )
-    write_json(manifest_path, manifest)
-    (cache_root / ".complete").write_text(sha256_file(manifest_path) + "\n")
-    print(json.dumps(manifest, indent=2, sort_keys=True))
+        manifests[preprocess_id] = manifest
+    print(json.dumps(manifests, indent=2, sort_keys=True))
     return 0
 
 

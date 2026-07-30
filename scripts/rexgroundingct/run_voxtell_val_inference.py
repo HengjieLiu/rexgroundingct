@@ -17,6 +17,7 @@ import nibabel as nib
 import numpy as np
 import torch
 from acvl_utils.cropping_and_padding.bounding_boxes import insert_crop_into_image
+from acvl_utils.cropping_and_padding.padding import pad_nd_image
 from nibabel.orientations import apply_orientation, io_orientation, ornt_transform
 from nnunetv2.imageio.nibabel_reader_writer import NibabelIOWithReorient
 from tqdm import tqdm
@@ -315,11 +316,21 @@ def predict_preprocessed_crop_probabilities(
     predictor: VoxTellPredictor,
     image_czyx: np.ndarray,
     prompts: list[str],
+    padding_value: float = 0.0,
 ) -> np.ndarray:
     """Run VoxTell on an already cropped and normalized cached image."""
     text_embeddings = predictor.embed_text_prompts(prompts)
     data_tensor = torch.from_numpy(np.ascontiguousarray(image_czyx, dtype=np.float32))
-    logits = predictor.predict_sliding_window_return_logits(data_tensor, text_embeddings).to("cpu")
+    padded, slicer_revert_padding = pad_nd_image(
+        data_tensor,
+        predictor.patch_size,
+        "constant",
+        {"value": float(padding_value)},
+        True,
+        None,
+    )
+    logits = predictor.predict_sliding_window_return_logits(padded, text_embeddings).to("cpu")
+    logits = logits[(slice(None), *slicer_revert_padding[1:])]
     with torch.no_grad():
         probabilities = torch.sigmoid(logits.float()).numpy().astype(np.float32, copy=False)
     if not np.isfinite(probabilities).all():
@@ -331,17 +342,29 @@ def predict_preprocessed_crop_branch_probabilities(
     predictor: DualBranchVoxTellPredictor,
     image_czyx: np.ndarray,
     prompts: list[str],
+    padding_value: float = 0.0,
 ) -> dict[str, np.ndarray]:
     """Run one dual model pass and return proposal and final probabilities."""
     text_embeddings = predictor.embed_text_prompts(prompts)
     data_tensor = torch.from_numpy(np.ascontiguousarray(image_czyx, dtype=np.float32))
-    logits = predictor.predict_sliding_window_return_branch_logits(
+    padded, slicer_revert_padding = pad_nd_image(
         data_tensor,
+        predictor.patch_size,
+        "constant",
+        {"value": float(padding_value)},
+        True,
+        None,
+    )
+    logits = predictor.predict_sliding_window_return_branch_logits(
+        padded,
         text_embeddings,
     )
     probabilities: dict[str, np.ndarray] = {}
     with torch.no_grad():
         for branch, branch_logits in logits.items():
+            branch_logits = branch_logits[
+                (slice(None), *slicer_revert_padding[1:])
+            ]
             value = (
                 torch.sigmoid(branch_logits.float())
                 .cpu()
@@ -440,18 +463,24 @@ def run_case(
     proposal_probability_prediction = None
     cache_metadata = None
     if preprocessed_cache_dir is not None:
-        from voxtell_preprocessed_cache import load_cached_case
+        from voxtell_preprocessed_cache import (
+            NATIVE_GEOMETRY_PREPROCESS_IDS,
+            image_padding_value,
+            load_cached_case,
+        )
 
         image, _targets, cache_metadata = load_cached_case(
             preprocessed_cache_dir,
             name,
             require_targets=False,
         )
-        if cache_metadata.get("preprocess_id") != "crop_zscore_native_v1":
+        if cache_metadata.get("preprocess_id") not in NATIVE_GEOMETRY_PREPROCESS_IDS:
             raise ValueError(
                 f"{name}: --preprocessed-cache-dir for this wrapper requires "
-                f"crop_zscore_native_v1, got {cache_metadata.get('preprocess_id')!r}"
+                "a native-geometry cache, got "
+                f"{cache_metadata.get('preprocess_id')!r}"
             )
+        cache_padding_value = image_padding_value(cache_metadata)
         if proposal_output_root is not None:
             if not isinstance(predictor, DualBranchVoxTellPredictor):
                 raise ValueError(
@@ -461,6 +490,7 @@ def run_case(
                 predictor,
                 image,
                 prompts,
+                padding_value=cache_padding_value,
             )
             probability_prediction = restore_cached_native_crop(
                 crop_probabilities["final"],
@@ -475,6 +505,7 @@ def run_case(
                 predictor,
                 image,
                 prompts,
+                padding_value=cache_padding_value,
             )
             probability_prediction = restore_cached_native_crop(
                 crop_probability,
@@ -613,6 +644,9 @@ def run_case(
         result["preprocessed_cache"] = {
             "cache_root": str(preprocessed_cache_dir),
             "preprocess_id": cache_metadata.get("preprocess_id"),
+            "normalization": cache_metadata.get("normalization"),
+            "image_padding_value": cache_metadata.get("image_padding_value"),
+            "target_padding_value": cache_metadata.get("target_padding_value"),
             "image_sha256": cache_metadata.get("image_sha256"),
             "targets_sha256": cache_metadata.get("targets_sha256"),
         }
