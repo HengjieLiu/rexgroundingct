@@ -42,3 +42,4 @@ small summaries easy to inspect while large outputs remain on `/mnt/shengdata1`.
 | `008_voxtell_dual_branch_proposal_refinement_ablation` | `evaluation_complete` | `experiments/008_voxtell_dual_branch_proposal_refinement_ablation/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation` |
 | `009_voxtell_s3_attention_coupling_ablation` | `evaluation_complete` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation` |
 | `010_voxtell_public_anatomy_prior_fusion` | `evaluation_complete` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/010_voxtell_public_anatomy_prior_fusion` |
+| `011_voxtell_v123_e4d4_ct_normalization_ablation` | `active` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation` |

@@ -136,6 +136,19 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
         ),
         "readiness_json": Path("reports/val200_progress.json"),
     },
+    "011_voxtell_v123_e4d4_ct_normalization_ablation": {
+        "title": "VoxTell v123 CT normalization and encoder-LR ablation",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "011_voxtell_v123_e4d4_ct_normalization_ablation.json"
+        ),
+        "primary_report": Path("reports/ct_normalization_ablation_report.md"),
+        "primary_eval_json": Path(
+            "runs/latest_e4d4/v123_e4d4_zscore/"
+            "eval_epoch100_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("config/train_val_ct_readiness.json"),
+    },
 }
 
 

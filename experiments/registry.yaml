@@ -141,3 +141,17 @@ experiments:
     mean_global_dice_per_finding: null
     hit_rate: null
     overall_instance_f1: null
+  - id: "011_voxtell_v123_e4d4_ct_normalization_ablation"
+    title: "VoxTell v123 CT normalization and encoder-LR ablation"
+    status: "active"
+    canonical_config: "configs/experiments/011_voxtell_v123_e4d4_ct_normalization_ablation.json"
+    execution_spec: "experiments/011_voxtell_v123_e4d4_ct_normalization_ablation/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation/config/011_voxtell_v123_e4d4_ct_normalization_ablation.json"
+    runtime_config_matches_canonical: true
+    repo_report: null
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation/reports/ct_normalization_ablation_report.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null
