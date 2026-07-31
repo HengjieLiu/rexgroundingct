@@ -1,0 +1,5876 @@
+{
+  "analysis": "sideexp002_fixed_val200_baselines_by_category",
+  "categories": {
+    "1a": {
+      "available": true,
+      "label": "Bronchial wall thickening",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.1299683915446681,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.1299683915446681,
+          "minimum": 0.09234450176816804,
+          "spread": 0.037623889776500066
+        },
+        "hit_rate": {
+          "maximum": 0.3333333333333333,
+          "minimum": 0.3333333333333333,
+          "spread": 0.0
+        },
+        "hits": {
+          "maximum": 1,
+          "minimum": 1,
+          "spread": 0
+        },
+        "worst": {
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.09234450176816804,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.1299683915446681,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.1298543224365648,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.1255664112772337,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.12461390527482245,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.1240158315420435,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.12299072203750627,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.11822665463133365,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.11507067607976872,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.11132833462138726,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.10959853757813431,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.10797755115331327,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.10543516512894735,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.10370286784491145,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.10073094518837071,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.09958755578909916,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.0995326264817762,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.09589646075464152,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.09351567833907266,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.09243867559382889,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.09234450176816804,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 20
+        }
+      ],
+      "support": 3
+    },
+    "1b": {
+      "available": true,
+      "label": "Bronchiectasis",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.17672219278589602,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.17672219278589602,
+          "minimum": 0.11506537644723186,
+          "spread": 0.061656816338664155
+        },
+        "hit_rate": {
+          "maximum": 0.36363636363636365,
+          "minimum": 0.2727272727272727,
+          "spread": 0.09090909090909094
+        },
+        "hits": {
+          "maximum": 4,
+          "minimum": 3,
+          "spread": 1
+        },
+        "worst": {
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.11506537644723186,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.17672219278589602,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.17279998910411812,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.17140180033551836,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.16931187491651858,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.1676377731871649,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.16349007450125377,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.16237582644446721,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.16171923035991867,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.16125534275646644,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.1609343924268143,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.15819246957109537,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.1571513459677362,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.1528790576365482,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.14319776549016058,
+          "findings": 11,
+          "hit_rate": 0.2727272727272727,
+          "hits": 3,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.14133300749318747,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.1368164757424237,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.13647630887584075,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.12147182962693032,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.11957232248443123,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.11506537644723186,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 20
+        }
+      ],
+      "support": 11
+    },
+    "1c": {
+      "available": true,
+      "label": "Emphysema",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.18376639230675668,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.18376639230675668,
+          "minimum": 0.1133731567491212,
+          "spread": 0.07039323555763548
+        },
+        "hit_rate": {
+          "maximum": 0.47058823529411764,
+          "minimum": 0.35294117647058826,
+          "spread": 0.11764705882352938
+        },
+        "hits": {
+          "maximum": 8,
+          "minimum": 6,
+          "spread": 2
+        },
+        "worst": {
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.1133731567491212,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.18376639230675668,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.18354863780240277,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.18260095708037938,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.1810323085059297,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.1796579333400009,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.17942621717637605,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.1780868839054834,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.1779980794830051,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.17590890307130935,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.17488965654288835,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.17451955362994193,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.17397062965013124,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.17325369399045418,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.16717874975061073,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.16289512999322361,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.15410726540576142,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.1522798668973974,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.14942937571777395,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.12258404009644482,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.1133731567491212,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8,
+          "rank": 20
+        }
+      ],
+      "support": 17
+    },
+    "1d": {
+      "available": true,
+      "label": "Septal thickening / reticulation",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.12902259896584048,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.12902259896584048,
+          "minimum": 0.10013897728025627,
+          "spread": 0.028883621685584213
+        },
+        "hit_rate": {
+          "maximum": 0.16666666666666666,
+          "minimum": 0.16666666666666666,
+          "spread": 0.0
+        },
+        "hits": {
+          "maximum": 1,
+          "minimum": 1,
+          "spread": 0
+        },
+        "worst": {
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.10013897728025627,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.12902259896584048,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.1272347131960598,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.12660810508082065,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.12632064018403574,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.12536018377104044,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.12462484569777767,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.12388103060518407,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.12132632440237684,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.121078906378699,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.12021504823302769,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.11968074260044519,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.1192516522884954,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.11831563045371153,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.11685280929723489,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.11670780206261593,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.11191195196311877,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.1080284764550315,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.1057126286965283,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.10245700459310032,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.10013897728025627,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 20
+        }
+      ],
+      "support": 6
+    },
+    "1e": {
+      "available": true,
+      "label": "Micronodules / tree-in-bud",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.1968189224669209,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.1968189224669209,
+          "minimum": 0.15346273439261163,
+          "spread": 0.04335618807430927
+        },
+        "hit_rate": {
+          "maximum": 0.7272727272727273,
+          "minimum": 0.45454545454545453,
+          "spread": 0.27272727272727276
+        },
+        "hits": {
+          "maximum": 8,
+          "minimum": 5,
+          "spread": 3
+        },
+        "worst": {
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.15346273439261163,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.1968189224669209,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.19561855209243176,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.1942711223714439,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.19181829363907174,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.1914776344261622,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.18680323528048112,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.18676046302177463,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.18617650222196128,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.18474705567471306,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.18324843950006856,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.1827391885590649,
+          "findings": 11,
+          "hit_rate": 0.45454545454545453,
+          "hits": 5,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.17937154817019677,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.17866245256853533,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.17824937536372876,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.1781667841270624,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.17570642099238973,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.17140535568460305,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.1709454866666381,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.15910382638424928,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.15346273439261163,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 20
+        }
+      ],
+      "support": 11
+    },
+    "1f": {
+      "available": true,
+      "label": "Other diffuse lung/airway/pleural abnormality",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.2323220757934535,
+          "findings": 4,
+          "hit_rate": 0.5,
+          "hits": 2,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.2323220757934535,
+          "minimum": 0.15748031542210655,
+          "spread": 0.07484176037134693
+        },
+        "hit_rate": {
+          "maximum": 0.5,
+          "minimum": 0.25,
+          "spread": 0.25
+        },
+        "hits": {
+          "maximum": 2,
+          "minimum": 1,
+          "spread": 1
+        },
+        "worst": {
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.15748031542210655,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.2323220757934535,
+          "findings": 4,
+          "hit_rate": 0.5,
+          "hits": 2,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.23219363098196724,
+          "findings": 4,
+          "hit_rate": 0.5,
+          "hits": 2,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.21988523969805687,
+          "findings": 4,
+          "hit_rate": 0.5,
+          "hits": 2,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.2117108105180765,
+          "findings": 4,
+          "hit_rate": 0.5,
+          "hits": 2,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.16577181245264982,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.1635637209868783,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.16348768823803045,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.1632200891092973,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.1628264212379878,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.16251830210663917,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.16126543251363576,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.16118935880867497,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.16111951622305376,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.16064848545156274,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.16048161381596543,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.1591614910823168,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.1589979540824093,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.15878877450058815,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.15821812632287965,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.15748031542210655,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 20
+        }
+      ],
+      "support": 4
+    },
+    "2a": {
+      "available": true,
+      "label": "Linear opacity, scarring, fibrosis",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.34445083452898706,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.34445083452898706,
+          "minimum": 0.3162929228878863,
+          "spread": 0.028157911641100764
+        },
+        "hit_rate": {
+          "maximum": 0.8695652173913043,
+          "minimum": 0.782608695652174,
+          "spread": 0.08695652173913038
+        },
+        "hits": {
+          "maximum": 60,
+          "minimum": 54,
+          "spread": 6
+        },
+        "worst": {
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.3162929228878863,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.34445083452898706,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.3418434937005528,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.3405199216031458,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.3402884084216108,
+          "findings": 69,
+          "hit_rate": 0.8695652173913043,
+          "hits": 60,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.3396988742420922,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.33933006730568144,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.3383082810719271,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.3381252722991963,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.33782965962983874,
+          "findings": 69,
+          "hit_rate": 0.8405797101449275,
+          "hits": 58,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.337088260571952,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.33584394449928473,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.3357882600115458,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.3331368256954339,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.33197828160746395,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.3295884131730257,
+          "findings": 69,
+          "hit_rate": 0.8695652173913043,
+          "hits": 60,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.32754600144875967,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.3223706329472322,
+          "findings": 69,
+          "hit_rate": 0.782608695652174,
+          "hits": 54,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.3201710730589181,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.31955406654184937,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.3162929228878863,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 20
+        }
+      ],
+      "support": 69
+    },
+    "2b": {
+      "available": true,
+      "label": "Atelectasis / consolidation",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.36476819292546836,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.36476819292546836,
+          "minimum": 0.34297588110079813,
+          "spread": 0.02179231182467023
+        },
+        "hit_rate": {
+          "maximum": 0.7755102040816326,
+          "minimum": 0.6938775510204082,
+          "spread": 0.08163265306122447
+        },
+        "hits": {
+          "maximum": 38,
+          "minimum": 34,
+          "spread": 4
+        },
+        "worst": {
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.34297588110079813,
+          "findings": 49,
+          "hit_rate": 0.6938775510204082,
+          "hits": 34,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.36476819292546836,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.362407405267732,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.36132556993547127,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.3577958487667861,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.3568488136037182,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.35658819689139476,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.35643290081406315,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.356259529520362,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.3560223547327057,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.35584495289804247,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.3545461570144588,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.35425625112354386,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.35373986634067384,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.35331348680374736,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.3523527293879068,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.3512510869746187,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.35007060977066207,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.3497919792340268,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.34444992952687564,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.34297588110079813,
+          "findings": 49,
+          "hit_rate": 0.6938775510204082,
+          "hits": 34,
+          "rank": 20
+        }
+      ],
+      "support": 49
+    },
+    "2c": {
+      "available": true,
+      "label": "Ground-glass opacity",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.40227569587680784,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.40227569587680784,
+          "minimum": 0.37456127465465483,
+          "spread": 0.027714421222153007
+        },
+        "hit_rate": {
+          "maximum": 0.8333333333333334,
+          "minimum": 0.8166666666666667,
+          "spread": 0.01666666666666672
+        },
+        "hits": {
+          "maximum": 50,
+          "minimum": 49,
+          "spread": 1
+        },
+        "worst": {
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.37456127465465483,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.40227569587680784,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.40120531684970206,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.39830594214943704,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.3980914722999786,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.39357030102107815,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.3928773617206997,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.3908260594251755,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.39025969820934653,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.3901112497846005,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.38856168126724405,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.3880864571421183,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.38779522035925024,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.3839732861424355,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.3829677020321845,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.38208459912031323,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.3812970162262275,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.3798853377515987,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.37943231384664583,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.3745653964428632,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.37456127465465483,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 20
+        }
+      ],
+      "support": 60
+    },
+    "2d": {
+      "available": true,
+      "label": "Pulmonary nodules / masses",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.3784168508923966,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.3784168508923966,
+          "minimum": 0.35069627286419447,
+          "spread": 0.027720578028202103
+        },
+        "hit_rate": {
+          "maximum": 0.8636363636363636,
+          "minimum": 0.8181818181818182,
+          "spread": 0.045454545454545414
+        },
+        "hits": {
+          "maximum": 114,
+          "minimum": 108,
+          "spread": 6
+        },
+        "worst": {
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.35069627286419447,
+          "findings": 132,
+          "hit_rate": 0.8409090909090909,
+          "hits": 111,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.3784168508923966,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.37654720956423815,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.3741191362181534,
+          "findings": 132,
+          "hit_rate": 0.8257575757575758,
+          "hits": 109,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.3735781036076791,
+          "findings": 132,
+          "hit_rate": 0.8636363636363636,
+          "hits": 114,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.37146063672909424,
+          "findings": 132,
+          "hit_rate": 0.8409090909090909,
+          "hits": 111,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.37103267925513894,
+          "findings": 132,
+          "hit_rate": 0.8484848484848485,
+          "hits": 112,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.36958921293748087,
+          "findings": 132,
+          "hit_rate": 0.8409090909090909,
+          "hits": 111,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.36807431552142844,
+          "findings": 132,
+          "hit_rate": 0.8257575757575758,
+          "hits": 109,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.3672055176285505,
+          "findings": 132,
+          "hit_rate": 0.8333333333333334,
+          "hits": 110,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.3634345172680593,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.36333817423986375,
+          "findings": 132,
+          "hit_rate": 0.8484848484848485,
+          "hits": 112,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.36203721509649217,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.36127401832959705,
+          "findings": 132,
+          "hit_rate": 0.8636363636363636,
+          "hits": 114,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.36105602908841483,
+          "findings": 132,
+          "hit_rate": 0.8333333333333334,
+          "hits": 110,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.3608906778152721,
+          "findings": 132,
+          "hit_rate": 0.8333333333333334,
+          "hits": 110,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.36016567296449403,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.3591478062111516,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.35776399982125107,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.3574044899029051,
+          "findings": 132,
+          "hit_rate": 0.8181818181818182,
+          "hits": 108,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.35069627286419447,
+          "findings": 132,
+          "hit_rate": 0.8409090909090909,
+          "hits": 111,
+          "rank": 20
+        }
+      ],
+      "support": 132
+    },
+    "2e": {
+      "available": true,
+      "label": "Pleural effusion / thickening",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.4788049504584863,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.4788049504584863,
+          "minimum": 0.38582330666065373,
+          "spread": 0.09298164379783258
+        },
+        "hit_rate": {
+          "maximum": 0.8181818181818182,
+          "minimum": 0.7272727272727273,
+          "spread": 0.09090909090909094
+        },
+        "hits": {
+          "maximum": 9,
+          "minimum": 8,
+          "spread": 1
+        },
+        "worst": {
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.38582330666065373,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.4788049504584863,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.4757384503393132,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.4731922420746736,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.468322084073532,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.4655041897300349,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.4641250127637635,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.4592749634857439,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.453748613409094,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.450042716711934,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.449102189549572,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.44814251347546635,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.4477489095385476,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.44288622264886934,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.4421788186972892,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.4368595932539211,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.4129362928969141,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.4095065803431423,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.4081491017879696,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.40615595849677355,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.38582330666065373,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 20
+        }
+      ],
+      "support": 11
+    },
+    "2f": {
+      "available": false,
+      "label": "Honeycombing",
+      "observed_range": null,
+      "ranked_models": [],
+      "support": 0
+    },
+    "2g": {
+      "available": true,
+      "label": "Pneumothorax",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.08923427500336265,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.08923427500336265,
+          "minimum": 0.020408101647086334,
+          "spread": 0.0688261733562763
+        },
+        "hit_rate": {
+          "maximum": 0.0,
+          "minimum": 0.0,
+          "spread": 0.0
+        },
+        "hits": {
+          "maximum": 0,
+          "minimum": 0,
+          "spread": 0
+        },
+        "worst": {
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.020408101647086334,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.08923427500336265,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.07642827761172662,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.07208343672142546,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.07080781990753825,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.06917049318347974,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.06875383218339894,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.06640563974686783,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.0662650895008515,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.0659246364092186,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.06496310825938895,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.06266198088546482,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.05937802655410001,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.05800769018457024,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.05603652455591472,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.052435360469902464,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.05073132853836179,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.0475570736236173,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.04649047644706759,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.0454880542003416,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.020408101647086334,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 20
+        }
+      ],
+      "support": 1
+    },
+    "2h": {
+      "available": true,
+      "label": "Other focal lung/airway/pleural finding",
+      "observed_range": {
+        "best": {
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.24310237338025104,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 1
+        },
+        "dice": {
+          "maximum": 0.24310237338025104,
+          "minimum": 0.03439108441544491,
+          "spread": 0.20871128896480612
+        },
+        "hit_rate": {
+          "maximum": 0.5714285714285714,
+          "minimum": 0.14285714285714285,
+          "spread": 0.42857142857142855
+        },
+        "hits": {
+          "maximum": 4,
+          "minimum": 1,
+          "spread": 3
+        },
+        "worst": {
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.03439108441544491,
+          "findings": 7,
+          "hit_rate": 0.14285714285714285,
+          "hits": 1,
+          "rank": 20
+        }
+      },
+      "ranked_models": [
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v1_e100",
+          "dice": 0.24310237338025104,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 1
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_baseline_e100",
+          "dice": 0.23328613894668204,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 2
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e100",
+          "dice": 0.22966281246628353,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 3
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v2_e100",
+          "dice": 0.2221275774845038,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 4
+        },
+        {
+          "available": true,
+          "candidate_id": "exp009_s3v3_e100",
+          "dice": 0.20898267428836623,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 5
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e100",
+          "dice": 0.20032504795891962,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 6
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e050",
+          "dice": 0.19261361135207575,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3,
+          "rank": 7
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e5d4_e100",
+          "dice": 0.18119598567989623,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3,
+          "rank": 8
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e075",
+          "dice": 0.1798536592841031,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3,
+          "rank": 9
+        },
+        {
+          "available": true,
+          "candidate_id": "exp007_ddp_e100",
+          "dice": 0.17212136811078782,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 10
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e100",
+          "dice": 0.16592699691420004,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 11
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_dual_e080",
+          "dice": 0.16430176809217115,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 12
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_joint_e080",
+          "dice": 0.15712345594182514,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3,
+          "rank": 13
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_precision_e080",
+          "dice": 0.15257113383671514,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3,
+          "rank": 14
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e100",
+          "dice": 0.15075872218674752,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 15
+        },
+        {
+          "available": true,
+          "candidate_id": "exp008_shared_e080",
+          "dice": 0.14538044915957318,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3,
+          "rank": 16
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_linear_hu_e100",
+          "dice": 0.04025607446304914,
+          "findings": 7,
+          "hit_rate": 0.2857142857142857,
+          "hits": 2,
+          "rank": 17
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_native_zscore_e100",
+          "dice": 0.03545959115916729,
+          "findings": 7,
+          "hit_rate": 0.14285714285714285,
+          "hits": 1,
+          "rank": 18
+        },
+        {
+          "available": true,
+          "candidate_id": "exp011_clip_zscore_e100",
+          "dice": 0.03531685455984628,
+          "findings": 7,
+          "hit_rate": 0.14285714285714285,
+          "hits": 1,
+          "rank": 19
+        },
+        {
+          "available": true,
+          "candidate_id": "exp006_e6d4_e100",
+          "dice": 0.03439108441544491,
+          "findings": 7,
+          "hit_rate": 0.14285714285714285,
+          "hits": 1,
+          "rank": 20
+        }
+      ],
+      "support": 7
+    }
+  },
+  "category_counts": {
+    "1a": 3,
+    "1b": 11,
+    "1c": 17,
+    "1d": 6,
+    "1e": 11,
+    "1f": 4,
+    "2a": 69,
+    "2b": 49,
+    "2c": 60,
+    "2d": 132,
+    "2e": 11,
+    "2f": 0,
+    "2g": 1,
+    "2h": 7
+  },
+  "counts": {
+    "cases_per_model": 200,
+    "findings_per_model": 381,
+    "models": 20,
+    "official_categories": 14,
+    "represented_categories": 13
+  },
+  "definitions": {
+    "dice_aggregation": "unweighted mean across findings",
+    "hit_threshold": 0.1,
+    "mask_threshold": 0.5,
+    "range": "observed minimum, maximum, and spread across the 20 models; not a confidence interval",
+    "ranking": "full-precision Dice descending, hits descending, candidate ID ascending"
+  },
+  "models": [
+    {
+      "architecture": "standard",
+      "candidate_id": "exp009_baseline_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.11507067607976872,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 8
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.1571513459677362,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 12
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.1779980794830051,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 8
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.12536018377104044,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 5
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.17866245256853533,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 13
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16118935880867497,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 12
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3405199216031458,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 3
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3568488136037182,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 5
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.3908260594251755,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 7
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3784168508923966,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 1
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.44814251347546635,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 11
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.07208343672142546,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 3
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.23328613894668204,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 2
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "dde9f3ef77b32f3859e4c3f684a55d71baed4e36950ce4e4af02fd23fc022a3d",
+      "experiment_name": "009_voxtell_s3_attention_coupling_ablation",
+      "experiment_number": 9,
+      "model_id": "baseline_cont100",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.33983926010313587,
+        "findings": 381,
+        "hit_rate": 0.7559055118110236,
+        "hits": 288,
+        "rank": 1
+      },
+      "validation": {
+        "category_dice_recomposed": 0.33983926010313587,
+        "category_hits_recomposed": 288,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "s3_attention",
+      "candidate_id": "exp009_s3v2_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.12461390527482245,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 4
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.16171923035991867,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 8
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.1780868839054834,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 7
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.12632064018403574,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 4
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.18617650222196128,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 8
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.21988523969805687,
+          "findings": 4,
+          "hit_rate": 0.5,
+          "hits": 2,
+          "rank": 3
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.34445083452898706,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 1
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.36132556993547127,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38,
+          "rank": 3
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.3880864571421183,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 11
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.36203721509649217,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 12
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4788049504584863,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 1
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.05603652455591472,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 14
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.2221275774845038,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 4
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "67f479054b2a4e81c4c9b0d2acfd1bed94878f003ea308e69eb06200824ca056",
+      "experiment_name": "009_voxtell_s3_attention_coupling_ablation",
+      "experiment_number": 9,
+      "model_id": "s3v2_balanced_feature_half_quarter",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.3367180602443776,
+        "findings": 381,
+        "hit_rate": 0.7664041994750657,
+        "hits": 292,
+        "rank": 2
+      },
+      "validation": {
+        "category_dice_recomposed": 0.3367180602443776,
+        "category_hits_recomposed": 292,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_shared_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.1240158315420435,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 5
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.16237582644446721,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 7
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.1796579333400009,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 5
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.1080284764550315,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 17
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.19181829363907174,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 4
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16126543251363576,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 11
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.337088260571952,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 10
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.34297588110079813,
+          "findings": 49,
+          "hit_rate": 0.6938775510204082,
+          "hits": 34,
+          "rank": 20
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.39357030102107815,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 5
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.37654720956423815,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 2
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4655041897300349,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 5
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.0659246364092186,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 9
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.15075872218674752,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 15
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "34ef0eb159c61818f3e905819e221786edfdcd772afa5321a6256c7d5e03382c",
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "model_id": "v1_sharedfusion_softguide",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.33658986857481515,
+        "findings": 381,
+        "hit_rate": 0.7532808398950132,
+        "hits": 287,
+        "rank": 3
+      },
+      "validation": {
+        "category_dice_recomposed": 0.33658986857481515,
+        "category_hits_recomposed": 287,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_dual_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.1298543224365648,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 2
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.17672219278589602,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 1
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.17942621717637605,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 6
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.11670780206261593,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 15
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.18474705567471306,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 9
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.1589979540824093,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 17
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3357882600115458,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 12
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3512510869746187,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36,
+          "rank": 16
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.38856168126724405,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 10
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.37146063672909424,
+          "findings": 132,
+          "hit_rate": 0.8409090909090909,
+          "hits": 111,
+          "rank": 5
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4641250127637635,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 6
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.0475570736236173,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 17
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.20032504795891962,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 6
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_dualfusion_softguide/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "ef741d90b38234e7baf477fd002ab6be9c5e5f534f8c17b718abafe2812ca249",
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "model_id": "v1_dualfusion_softguide",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.33604885747413554,
+        "findings": 381,
+        "hit_rate": 0.7506561679790026,
+        "hits": 286,
+        "rank": 4
+      },
+      "validation": {
+        "category_dice_recomposed": 0.3360488574741355,
+        "category_hits_recomposed": 286,
+        "global_dice_delta": -5.551115123125783e-17,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "s3_attention",
+      "candidate_id": "exp009_s3v1_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.11822665463133365,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 7
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.1528790576365482,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 13
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.17397062965013124,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 12
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.12660810508082065,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 3
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.1781667841270624,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 15
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.15878877450058815,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 18
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3331368256954339,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 13
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.362407405267732,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 2
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.38779522035925024,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 12
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3672055176285505,
+          "findings": 132,
+          "hit_rate": 0.8333333333333334,
+          "hits": 110,
+          "rank": 9
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.449102189549572,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 10
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.05073132853836179,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 16
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.24310237338025104,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 1
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v1_fixedrho_suppress_half_quarter/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "ba5634190cf14da69a4d5f45ba19e825ff237d5596961c7756428ad0dd0e85d2",
+      "experiment_name": "009_voxtell_s3_attention_coupling_ablation",
+      "experiment_number": 9,
+      "model_id": "s3v1_fixedrho_suppress_half_quarter",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.33470946473151214,
+        "findings": 381,
+        "hit_rate": 0.7480314960629921,
+        "hits": 285,
+        "rank": 5
+      },
+      "validation": {
+        "category_dice_recomposed": 0.33470946473151214,
+        "category_hits_recomposed": 285,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_joint_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.1299683915446681,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.16931187491651858,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.17590890307130935,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 9
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.12132632440237684,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 8
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.1942711223714439,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 3
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.1591614910823168,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 16
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.33197828160746395,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 14
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.35007060977066207,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36,
+          "rank": 17
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.3798853377515987,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 17
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3735781036076791,
+          "findings": 132,
+          "hit_rate": 0.8636363636363636,
+          "hits": 114,
+          "rank": 4
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4421788186972892,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 14
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.07080781990753825,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 4
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.22966281246628353,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 3
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v3_dualfusion_softguide_joint/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "a0d3cf68851806797ed6b20e7cdb84d73241d8396158ff4853df5f84b07fa019",
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "model_id": "v3_dualfusion_softguide_joint",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.33452015530600027,
+        "findings": 381,
+        "hit_rate": 0.7559055118110236,
+        "hits": 288,
+        "rank": 6
+      },
+      "validation": {
+        "category_dice_recomposed": 0.33452015530600027,
+        "category_hits_recomposed": 288,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_precision_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.1255664112772337,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 3
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.16125534275646644,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 9
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.17488965654288835,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 10
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.11831563045371153,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 13
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.1914776344261622,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 5
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.15748031542210655,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 20
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3381252722991963,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 8
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.34444992952687564,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36,
+          "rank": 19
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.37943231384664583,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 18
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.37103267925513894,
+          "findings": 132,
+          "hit_rate": 0.8484848484848485,
+          "hits": 112,
+          "rank": 6
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4757384503393132,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 2
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.06640563974686783,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 7
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.16592699691420004,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 11
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v2_dualfusion_precision/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "c8edad1d1256c0366b1fdbedc6ffb1684edf4fb2446274db97fdfc86e76ed66d",
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "model_id": "v2_dualfusion_precision",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.33328520101915393,
+        "findings": 381,
+        "hit_rate": 0.7532808398950132,
+        "hits": 287,
+        "rank": 7
+      },
+      "validation": {
+        "category_dice_recomposed": 0.333285201019154,
+        "category_hits_recomposed": 287,
+        "global_dice_delta": 5.551115123125783e-17,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp007_ddp_e050",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.11132833462138726,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 9
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.17140180033551836,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 3
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.1133731567491212,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8,
+          "rank": 20
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.121078906378699,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 9
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.19561855209243176,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 2
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.23219363098196724,
+          "findings": 4,
+          "hit_rate": 0.5,
+          "hits": 2,
+          "rank": 2
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.33782965962983874,
+          "findings": 69,
+          "hit_rate": 0.8405797101449275,
+          "hits": 58,
+          "rank": 9
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.35373986634067384,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 13
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.37456127465465483,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 20
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3741191362181534,
+          "findings": 132,
+          "hit_rate": 0.8257575757575758,
+          "hits": 109,
+          "rank": 3
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.468322084073532,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 4
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.020408101647086334,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 20
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.19261361135207575,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3,
+          "rank": 7
+        }
+      },
+      "epoch": 50,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/eval_epoch050_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "1e71f12e5d41f6dd3715565a3a4144a35bcc6ea0ed203a14db1c2e671977d89d",
+      "experiment_name": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "experiment_number": 7,
+      "model_id": "ddp_bs4",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.3332675833035555,
+        "findings": 381,
+        "hit_rate": 0.7559055118110236,
+        "hits": 288,
+        "rank": 8
+      },
+      "validation": {
+        "category_dice_recomposed": 0.3332675833035555,
+        "category_hits_recomposed": 288,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_shared_e080",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.10370286784491145,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 13
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.14319776549016058,
+          "findings": 11,
+          "hit_rate": 0.2727272727272727,
+          "hits": 3,
+          "rank": 14
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.18354863780240277,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 2
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.11191195196311877,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 16
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.18676046302177463,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 7
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16251830210663917,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 10
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.33584394449928473,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 11
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3523527293879068,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36,
+          "rank": 15
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.40120531684970206,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 2
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3608906778152721,
+          "findings": 132,
+          "hit_rate": 0.8333333333333334,
+          "hits": 110,
+          "rank": 15
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4731922420746736,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 3
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.04649047644706759,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 18
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.14538044915957318,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3,
+          "rank": 16
+        }
+      },
+      "epoch": 80,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/eval_epoch080_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "ec103783c29068d75d1cba4192460c6966e59b86c05d3cc4314ff034741ad707",
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "model_id": "v1_sharedfusion_softguide",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.3328089069723196,
+        "findings": 381,
+        "hit_rate": 0.7427821522309711,
+        "hits": 283,
+        "rank": 9
+      },
+      "validation": {
+        "category_dice_recomposed": 0.3328089069723196,
+        "category_hits_recomposed": 283,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "s3_attention",
+      "candidate_id": "exp009_s3v3_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.12299072203750627,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 6
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.17279998910411812,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 2
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.18260095708037938,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8,
+          "rank": 3
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.12902259896584048,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.17140535568460305,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 17
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.1628264212379878,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 9
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3396988742420922,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 5
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.35658819689139476,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38,
+          "rank": 6
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.39025969820934653,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 8
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.35776399982125107,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 18
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.453748613409094,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 8
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.052435360469902464,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 15
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.20898267428836623,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 5
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v3_logit_residual_half_quarter/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "95c2ed99cf25c81bc8bfff99170acbe816f5d1bd09f9c4b95f564ad5582cd85a",
+      "experiment_name": "009_voxtell_s3_attention_coupling_ablation",
+      "experiment_number": 9,
+      "model_id": "s3v3_logit_residual_half_quarter",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.3326611841869791,
+        "findings": 381,
+        "hit_rate": 0.7611548556430446,
+        "hits": 290,
+        "rank": 10
+      },
+      "validation": {
+        "category_dice_recomposed": 0.3326611841869791,
+        "category_hits_recomposed": 290,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp007_ddp_e075",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.10073094518837071,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 14
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.1609343924268143,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 10
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.17325369399045418,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 13
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.1272347131960598,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 2
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.15910382638424928,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 19
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.2117108105180765,
+          "findings": 4,
+          "hit_rate": 0.5,
+          "hits": 2,
+          "rank": 4
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3295884131730257,
+          "findings": 69,
+          "hit_rate": 0.8695652173913043,
+          "hits": 60,
+          "rank": 15
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.35584495289804247,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38,
+          "rank": 10
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.3812970162262275,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 16
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.36958921293748087,
+          "findings": 132,
+          "hit_rate": 0.8409090909090909,
+          "hits": 111,
+          "rank": 7
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.44288622264886934,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 13
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.06917049318347974,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 5
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.1798536592841031,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3,
+          "rank": 9
+        }
+      },
+      "epoch": 75,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/eval_epoch075_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "e694f52a30e81e1bac2c5764b53e17065a8ed755b63c93ef7ebfb8fec93494ba",
+      "experiment_name": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "experiment_number": 7,
+      "model_id": "ddp_bs4",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.3318101637825379,
+        "findings": 381,
+        "hit_rate": 0.7611548556430446,
+        "hits": 290,
+        "rank": 11
+      },
+      "validation": {
+        "category_dice_recomposed": 0.3318101637825379,
+        "category_hits_recomposed": 290,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp007_ddp_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.09589646075464152,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 17
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.14133300749318747,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 15
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.14942937571777395,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 18
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.11685280929723489,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 14
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.17937154817019677,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 12
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.2323220757934535,
+          "findings": 4,
+          "hit_rate": 0.5,
+          "hits": 2,
+          "rank": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3402884084216108,
+          "findings": 69,
+          "hit_rate": 0.8695652173913043,
+          "hits": 60,
+          "rank": 4
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3545461570144588,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 11
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.3745653964428632,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 19
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.36807431552142844,
+          "findings": 132,
+          "hit_rate": 0.8257575757575758,
+          "hits": 109,
+          "rank": 8
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4477489095385476,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 12
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.06496310825938895,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 10
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.17212136811078782,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 10
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "52a639fc13acef4742ce8432f69b79f99e3de3ddd2926838cf3077a0a060c35b",
+      "experiment_name": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "experiment_number": 7,
+      "model_id": "ddp_bs4",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.3309543045692373,
+        "findings": 381,
+        "hit_rate": 0.7585301837270341,
+        "hits": 289,
+        "rank": 12
+      },
+      "validation": {
+        "category_dice_recomposed": 0.3309543045692373,
+        "category_hits_recomposed": 289,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_joint_e080",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.10797755115331327,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 11
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.16349007450125377,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 6
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.18376639230675668,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 1
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.1192516522884954,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 12
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.15346273439261163,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 20
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16577181245264982,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 5
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3383082810719271,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 7
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.356259529520362,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 8
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.3901112497846005,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 9
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.36016567296449403,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 16
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4368595932539211,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 15
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.06266198088546482,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 11
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.15712345594182514,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3,
+          "rank": 13
+        }
+      },
+      "epoch": 80,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v3_dualfusion_softguide_joint/eval_epoch080_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "2d9e5dc812f3ce9bd341ab8a4bdeac73a57006b2a0e091cf9d867c86a82e16ab",
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "model_id": "v3_dualfusion_softguide_joint",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.33078622897944937,
+        "findings": 381,
+        "hit_rate": 0.7559055118110236,
+        "hits": 288,
+        "rank": 13
+      },
+      "validation": {
+        "category_dice_recomposed": 0.33078622897944937,
+        "category_hits_recomposed": 288,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_precision_e080",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.10543516512894735,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 12
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.15819246957109537,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 11
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.17451955362994193,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 11
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.12462484569777767,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 6
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.1709454866666381,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 18
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.1632200891092973,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 8
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.33933006730568144,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 6
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3497919792340268,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36,
+          "rank": 18
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.3980914722999786,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 4
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3574044899029051,
+          "findings": 132,
+          "hit_rate": 0.8181818181818182,
+          "hits": 108,
+          "rank": 19
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.450042716711934,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 9
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.05937802655410001,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 12
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.15257113383671514,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3,
+          "rank": 14
+        }
+      },
+      "epoch": 80,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v2_dualfusion_precision/eval_epoch080_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "9d3b70252fa5cd61e685ce86c25556ee9464d8a77a5faee776b2aee12777978b",
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "model_id": "v2_dualfusion_precision",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.33070496938403854,
+        "findings": 381,
+        "hit_rate": 0.7427821522309711,
+        "hits": 283,
+        "rank": 14
+      },
+      "validation": {
+        "category_dice_recomposed": 0.33070496938403854,
+        "category_hits_recomposed": 283,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_dual_e080",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.10959853757813431,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 10
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.1676377731871649,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 5
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.1810323085059297,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 4
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.12021504823302769,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 10
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.17570642099238973,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 16
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.1635637209868783,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 6
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3418434937005528,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57,
+          "rank": 2
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.35331348680374736,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 14
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.39830594214943704,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 3
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.35069627286419447,
+          "findings": 132,
+          "hit_rate": 0.8409090909090909,
+          "hits": 111,
+          "rank": 20
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4592749634857439,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9,
+          "rank": 7
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.0454880542003416,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 19
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.16430176809217115,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4,
+          "rank": 12
+        }
+      },
+      "epoch": 80,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_dualfusion_softguide/eval_epoch080_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "4e97cd9584c2e58786b7db1c608707e35f5bad63071476736c55d70bf45c3799",
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "model_id": "v1_dualfusion_softguide",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.3304360306078907,
+        "findings": 381,
+        "hit_rate": 0.7559055118110236,
+        "hits": 288,
+        "rank": 15
+      },
+      "validation": {
+        "category_dice_recomposed": 0.33043603060789073,
+        "category_hits_recomposed": 288,
+        "global_dice_delta": 5.551115123125783e-17,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp011_native_zscore_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.09234450176816804,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 20
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.11506537644723186,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 20
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.16289512999322361,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8,
+          "rank": 15
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.12388103060518407,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 7
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.1827391885590649,
+          "findings": 11,
+          "hit_rate": 0.45454545454545453,
+          "hits": 5,
+          "rank": 11
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16111951622305376,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 13
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3201710730589181,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 18
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3577958487667861,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 4
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.40227569587680784,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 1
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.36333817423986375,
+          "findings": 132,
+          "hit_rate": 0.8484848484848485,
+          "hits": 112,
+          "rank": 11
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4095065803431423,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 17
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.05800769018457024,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 13
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.03545959115916729,
+          "findings": 7,
+          "hit_rate": 0.14285714285714285,
+          "hits": 1,
+          "rank": 18
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation/runs/exp011_ct_norm_e5d4_20260728T225333Z/v123_e5d4_zscore/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "b15afec8bece31868ee0bed3f162014b03ee14da0574058900dc8b22a4fc391f",
+      "experiment_name": "011_voxtell_v123_e4d4_ct_normalization_ablation",
+      "experiment_number": 11,
+      "model_id": "v123_e5d4_zscore",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.32609355321197786,
+        "findings": 381,
+        "hit_rate": 0.7454068241469817,
+        "hits": 284,
+        "rank": 16
+      },
+      "validation": {
+        "category_dice_recomposed": 0.32609355321197786,
+        "category_hits_recomposed": 284,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp011_clip_zscore_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.09243867559382889,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 19
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.1368164757424237,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 16
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.16717874975061073,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8,
+          "rank": 14
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.11968074260044519,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 11
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.18324843950006856,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 10
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.15821812632287965,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 19
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3223706329472322,
+          "findings": 69,
+          "hit_rate": 0.782608695652174,
+          "hits": 54,
+          "rank": 17
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.35425625112354386,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 12
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.3928773617206997,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 6
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3634345172680593,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 10
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4081491017879696,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 18
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.08923427500336265,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 1
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.03531685455984628,
+          "findings": 7,
+          "hit_rate": 0.14285714285714285,
+          "hits": 1,
+          "rank": 19
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation/runs/exp011_ct_norm_e5d4_20260728T225333Z/v123_e5d4_clip1024_zscore/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "5a8a4f6eec61df0d3b1ee6f64ad5cca955665b6fa9c1a3e71764e5923438e10c",
+      "experiment_name": "011_voxtell_v123_e4d4_ct_normalization_ablation",
+      "experiment_number": 11,
+      "model_id": "v123_e5d4_clip1024_zscore",
+      "normalization": "clip [-1024,1024] HU then full-crop z-score",
+      "overall": {
+        "dice": 0.32536810010165856,
+        "findings": 381,
+        "hit_rate": 0.7480314960629921,
+        "hits": 285,
+        "rank": 17
+      },
+      "validation": {
+        "category_dice_recomposed": 0.32536810010165856,
+        "category_hits_recomposed": 285,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp006_e5d4_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.09958755578909916,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 15
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.11957232248443123,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 19
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.1522798668973974,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8,
+          "rank": 17
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.10013897728025627,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 20
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.18680323528048112,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 6
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16048161381596543,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 15
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.31955406654184937,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 19
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3560223547327057,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38,
+          "rank": 9
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.38208459912031323,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 15
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.36127401832959705,
+          "findings": 132,
+          "hit_rate": 0.8636363636363636,
+          "hits": 114,
+          "rank": 13
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4129362928969141,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 16
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.07642827761172662,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 2
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.18119598567989623,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3,
+          "rank": 8
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/runs/exp006_cached_native_lr_20260725T050001Z/v123_cached_e5_d4/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "a0282d36cc8246a2a996908d5af94e6b3e1bb0fe3542d52bf2bc1e3c0778e93b",
+      "experiment_name": "006_voxtell_cached_native_v123_lr_ablation",
+      "experiment_number": 6,
+      "model_id": "v123_cached_e5_d4",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.32413407768565705,
+        "findings": 381,
+        "hit_rate": 0.7611548556430446,
+        "hits": 290,
+        "rank": 18
+      },
+      "validation": {
+        "category_dice_recomposed": 0.32413407768565705,
+        "category_hits_recomposed": 290,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp006_e6d4_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.09351567833907266,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 18
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.12147182962693032,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 18
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.12258404009644482,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6,
+          "rank": 19
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.1057126286965283,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 18
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.17824937536372876,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6,
+          "rank": 14
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16348768823803045,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 7
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.32754600144875967,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 16
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.36476819292546836,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38,
+          "rank": 1
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.3839732861424355,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49,
+          "rank": 13
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.36105602908841483,
+          "findings": 132,
+          "hit_rate": 0.8333333333333334,
+          "hits": 110,
+          "rank": 14
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.40615595849677355,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 19
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.06875383218339894,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 6
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.03439108441544491,
+          "findings": 7,
+          "hit_rate": 0.14285714285714285,
+          "hits": 1,
+          "rank": 20
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/runs/exp006_cached_native_lr_20260725T050001Z/v123_cached_e6_d4/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "0db404a00a4a4b5f7feab661c72099b38d0335a69217612411bfd98c2b6e78b2",
+      "experiment_name": "006_voxtell_cached_native_v123_lr_ablation",
+      "experiment_number": 6,
+      "model_id": "v123_cached_e6_d4",
+      "normalization": "native full-crop z-score",
+      "overall": {
+        "dice": 0.3225694252618651,
+        "findings": 381,
+        "hit_rate": 0.7375328083989501,
+        "hits": 281,
+        "rank": 19
+      },
+      "validation": {
+        "category_dice_recomposed": 0.3225694252618651,
+        "category_hits_recomposed": 281,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp011_linear_hu_e100",
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.0995326264817762,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1,
+          "rank": 16
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.13647630887584075,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4,
+          "rank": 17
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.15410726540576142,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7,
+          "rank": 16
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.10245700459310032,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1,
+          "rank": 19
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.1968189224669209,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7,
+          "rank": 1
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16064848545156274,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1,
+          "rank": 14
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3162929228878863,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56,
+          "rank": 20
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.35643290081406315,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37,
+          "rank": 7
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.3829677020321845,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50,
+          "rank": 14
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3591478062111516,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113,
+          "rank": 17
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.38582330666065373,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8,
+          "rank": 20
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null,
+          "rank": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.0662650895008515,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0,
+          "rank": 8
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.04025607446304914,
+          "findings": 7,
+          "hit_rate": 0.2857142857142857,
+          "hits": 2,
+          "rank": 17
+        }
+      },
+      "epoch": 100,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation/runs/exp011_ct_norm_e5d4_20260728T225333Z/v123_e5d4_clip1024_linear/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "evaluation_sha256": "865ec9183ab8d62711972976f2a975a164b73455e6c1c3454f0c628b9ad5d9fd",
+      "experiment_name": "011_voxtell_v123_e4d4_ct_normalization_ablation",
+      "experiment_number": 11,
+      "model_id": "v123_e5d4_clip1024_linear",
+      "normalization": "clip [-1024,1024] HU then divide by 1024",
+      "overall": {
+        "dice": 0.3204963654867302,
+        "findings": 381,
+        "hit_rate": 0.7532808398950132,
+        "hits": 287,
+        "rank": 20
+      },
+      "validation": {
+        "category_dice_recomposed": 0.3204963654867302,
+        "category_hits_recomposed": 287,
+        "global_dice_delta": 0.0,
+        "global_hits_delta": 0
+      }
+    }
+  ],
+  "overall_observed_range": {
+    "best": {
+      "candidate_id": "exp009_baseline_e100",
+      "dice": 0.33983926010313587,
+      "findings": 381,
+      "hit_rate": 0.7559055118110236,
+      "hits": 288,
+      "rank": 1
+    },
+    "dice": {
+      "maximum": 0.33983926010313587,
+      "minimum": 0.3204963654867302,
+      "spread": 0.019342894616405648
+    },
+    "hit_rate": {
+      "maximum": 0.7664041994750657,
+      "minimum": 0.7375328083989501,
+      "spread": 0.028871391076115582
+    },
+    "hits": {
+      "maximum": 292,
+      "minimum": 281,
+      "spread": 11
+    },
+    "worst": {
+      "candidate_id": "exp011_linear_hu_e100",
+      "dice": 0.3204963654867302,
+      "findings": 381,
+      "hit_rate": 0.7532808398950132,
+      "hits": 287,
+      "rank": 20
+    }
+  },
+  "overall_ranking": [
+    {
+      "candidate_id": "exp009_baseline_e100",
+      "dice": 0.33983926010313587,
+      "findings": 381,
+      "hit_rate": 0.7559055118110236,
+      "hits": 288,
+      "rank": 1
+    },
+    {
+      "candidate_id": "exp009_s3v2_e100",
+      "dice": 0.3367180602443776,
+      "findings": 381,
+      "hit_rate": 0.7664041994750657,
+      "hits": 292,
+      "rank": 2
+    },
+    {
+      "candidate_id": "exp008_shared_e100",
+      "dice": 0.33658986857481515,
+      "findings": 381,
+      "hit_rate": 0.7532808398950132,
+      "hits": 287,
+      "rank": 3
+    },
+    {
+      "candidate_id": "exp008_dual_e100",
+      "dice": 0.33604885747413554,
+      "findings": 381,
+      "hit_rate": 0.7506561679790026,
+      "hits": 286,
+      "rank": 4
+    },
+    {
+      "candidate_id": "exp009_s3v1_e100",
+      "dice": 0.33470946473151214,
+      "findings": 381,
+      "hit_rate": 0.7480314960629921,
+      "hits": 285,
+      "rank": 5
+    },
+    {
+      "candidate_id": "exp008_joint_e100",
+      "dice": 0.33452015530600027,
+      "findings": 381,
+      "hit_rate": 0.7559055118110236,
+      "hits": 288,
+      "rank": 6
+    },
+    {
+      "candidate_id": "exp008_precision_e100",
+      "dice": 0.33328520101915393,
+      "findings": 381,
+      "hit_rate": 0.7532808398950132,
+      "hits": 287,
+      "rank": 7
+    },
+    {
+      "candidate_id": "exp007_ddp_e050",
+      "dice": 0.3332675833035555,
+      "findings": 381,
+      "hit_rate": 0.7559055118110236,
+      "hits": 288,
+      "rank": 8
+    },
+    {
+      "candidate_id": "exp008_shared_e080",
+      "dice": 0.3328089069723196,
+      "findings": 381,
+      "hit_rate": 0.7427821522309711,
+      "hits": 283,
+      "rank": 9
+    },
+    {
+      "candidate_id": "exp009_s3v3_e100",
+      "dice": 0.3326611841869791,
+      "findings": 381,
+      "hit_rate": 0.7611548556430446,
+      "hits": 290,
+      "rank": 10
+    },
+    {
+      "candidate_id": "exp007_ddp_e075",
+      "dice": 0.3318101637825379,
+      "findings": 381,
+      "hit_rate": 0.7611548556430446,
+      "hits": 290,
+      "rank": 11
+    },
+    {
+      "candidate_id": "exp007_ddp_e100",
+      "dice": 0.3309543045692373,
+      "findings": 381,
+      "hit_rate": 0.7585301837270341,
+      "hits": 289,
+      "rank": 12
+    },
+    {
+      "candidate_id": "exp008_joint_e080",
+      "dice": 0.33078622897944937,
+      "findings": 381,
+      "hit_rate": 0.7559055118110236,
+      "hits": 288,
+      "rank": 13
+    },
+    {
+      "candidate_id": "exp008_precision_e080",
+      "dice": 0.33070496938403854,
+      "findings": 381,
+      "hit_rate": 0.7427821522309711,
+      "hits": 283,
+      "rank": 14
+    },
+    {
+      "candidate_id": "exp008_dual_e080",
+      "dice": 0.3304360306078907,
+      "findings": 381,
+      "hit_rate": 0.7559055118110236,
+      "hits": 288,
+      "rank": 15
+    },
+    {
+      "candidate_id": "exp011_native_zscore_e100",
+      "dice": 0.32609355321197786,
+      "findings": 381,
+      "hit_rate": 0.7454068241469817,
+      "hits": 284,
+      "rank": 16
+    },
+    {
+      "candidate_id": "exp011_clip_zscore_e100",
+      "dice": 0.32536810010165856,
+      "findings": 381,
+      "hit_rate": 0.7480314960629921,
+      "hits": 285,
+      "rank": 17
+    },
+    {
+      "candidate_id": "exp006_e5d4_e100",
+      "dice": 0.32413407768565705,
+      "findings": 381,
+      "hit_rate": 0.7611548556430446,
+      "hits": 290,
+      "rank": 18
+    },
+    {
+      "candidate_id": "exp006_e6d4_e100",
+      "dice": 0.3225694252618651,
+      "findings": 381,
+      "hit_rate": 0.7375328083989501,
+      "hits": 281,
+      "rank": 19
+    },
+    {
+      "candidate_id": "exp011_linear_hu_e100",
+      "dice": 0.3204963654867302,
+      "findings": 381,
+      "hit_rate": 0.7532808398950132,
+      "hits": 287,
+      "rank": 20
+    }
+  ],
+  "schema_version": 1,
+  "sources": {
+    "candidate_manifest": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp002_multimodel_ensemble_selection/candidate_manifest.json",
+    "candidate_manifest_sha256": "1e5c08ebe7c4a393be8ba9319a6fbb845865a346cb6e7bcdb1be4e082f7f622f",
+    "dataset_json": "/home/hengjie/code_sync/rexgroundingct/configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "dataset_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897"
+  },
+  "validation": {
+    "all_model_category_recompositions_passed": true,
+    "candidate_count_is_20": true,
+    "category_counts_sum_to_381": true
+  },
+  "warnings": [
+    "Category 2f has no val200 findings; all model metrics and ranks are unavailable.",
+    "Rare-category rankings are descriptive and unstable, especially category 2g with one finding.",
+    "These validation-set rankings and observed ranges do not establish test-set generalization."
+  ]
+}

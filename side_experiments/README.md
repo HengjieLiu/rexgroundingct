@@ -25,3 +25,6 @@ heavyweight runtime outputs remain outside Git.
 - `sideexp001_validation_probe_design`: investigates whether a category-aware
   validation probe can predict full `val200` category behavior more reliably
   than the legacy random `val20`.
+- `sideexp002_multimodel_ensemble_selection`: records the val200 model roster
+  and hard-mask complementarity evidence, exports reusable pre-sigmoid logits,
+  and performs cross-validated multi-model ensemble selection.

@@ -1,0 +1,94 @@
+{
+  "experiment": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+  "status": "active",
+  "objective": "test whether DDP global batch 4 improves the cached-native v123 e5/d4 recipe compared with exp006 single-GPU batch1",
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "segmentations": "/data/hengjie/datasets/rexgroundingct/segmentations",
+  "ct_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct",
+  "experiment_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+  "initialization": {
+    "source": "public VoxTell v1.1",
+    "load_policy": "load public model weights directly; do not initialize from exp006 or other fine-tuned checkpoints",
+    "optimizer_resume": "resume only between exp007 DDP segments"
+  },
+  "preprocessing": {
+    "classification": "cached-equivalent to VoxTell native baseline",
+    "cache_id": "crop_zscore_native_v1",
+    "cache_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1",
+    "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+    "cases": 3192,
+    "targets": 8068,
+    "empty_targets": 0,
+    "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+    "scientific_difference_from_exp006_e5_d4": "none intended"
+  },
+  "schedule": {
+    "seed": 20260723,
+    "events": 40000,
+    "updates_per_epoch": 100,
+    "epochs": 100,
+    "global_batch_size": 4,
+    "local_batch_size": 1,
+    "world_size": 4,
+    "gradient_accumulation": 1,
+    "source_prefix_experiment": "003_voxtell_rex_ft_rescue_ablation",
+    "source_prefix_variant": "v123_opt_poscrop_emptyloss",
+    "source_prefix_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/config/train_schedule_v123_opt_poscrop_emptyloss_seed20260723_100ep_100steps_gb1.jsonl",
+    "source_prefix_sha256": "f246927486c69e00a872990dbc6e7e8566f49f3b41dbb1bb05c5ce5a033f4776",
+    "event_consumption_rule": "event_index = update * 4 + rank",
+    "prompt_policy": "multi-finding 2 positive + 1 negative; one-finding 1 positive + 2 negatives; every selected positive nonempty in its sampled patch"
+  },
+  "training": {
+    "model_tensor_shape": [192, 192, 192],
+    "distributed": true,
+    "ddp_world_size": 4,
+    "per_gpu_batch_size": 1,
+    "effective_global_batch_size": 4,
+    "gradient_accumulation": 1,
+    "total_optimizer_updates": 10000,
+    "pause_eval_resume_updates": [2500, 5000, 7500, 10000],
+    "optimizer": "SGD",
+    "nesterov": true,
+    "momentum": 0.99,
+    "weight_decay": 0.00003,
+    "encoder_lr": 0.00001,
+    "decoder_lr": 0.0001,
+    "lr_schedule": "poly",
+    "poly_power": 0.9,
+    "warmup_updates": 100,
+    "gradient_clip_max_norm": 12.0,
+    "augmentation": "none added beyond VoxTell patch sampling"
+  },
+  "loss": {
+    "mode": "v123",
+    "nonempty_target": "Dice + weighted BCE",
+    "empty_target": "weighted BCE only",
+    "empty_target_loss_weight": 0.5,
+    "bce_foreground_weight": 1.0,
+    "bce_boundary_weight": 1.5,
+    "bce_background_weight": 0.5,
+    "bce_boundary_radius": 10,
+    "deep_supervision_weights": [1.0, 0.5, 0.25, 0.125, 0.0625]
+  },
+  "validation": {
+    "val200_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "val200_json_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "val200_epochs": [25, 50, 75, 100],
+    "primary_threshold": 0.5,
+    "save_probability_maps": false,
+    "eval_policy": "training pauses at each segment; val200 inference is sharded over all four GPUs; fixed JSON is passed directly"
+  },
+  "comparison_plan": {
+    "primary_baseline": "exp006 v123_cached_e5_d4 epoch100 val200",
+    "primary_baseline_dice": 0.3241,
+    "primary_baseline_hit_rate": 0.7612,
+    "sample_matched_checkpoint": "exp007 epoch25 val200 versus exp006 epoch100 val200",
+    "update_matched_checkpoint": "exp007 epoch100 val200 versus exp006 epoch100 val200"
+  },
+  "differences_from_exp006_e5_d4": [
+    "Use DDP with world size 4 and effective global batch size 4.",
+    "Use a 40000-event materialized schedule consumed rank-wise across 10000 optimizer updates.",
+    "Pause training at epoch 25/50/75/100 for val200 on all GPUs, then resume optimizer/scaler state between segments.",
+    "No routine val20 sidecar evaluation."
+  ]
+}
