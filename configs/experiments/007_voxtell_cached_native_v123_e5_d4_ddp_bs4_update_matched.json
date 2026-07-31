@@ -11,6 +11,18 @@
     "load_policy": "load public model weights directly; do not initialize from exp006 or other fine-tuned checkpoints",
     "optimizer_resume": "resume only between exp007 DDP segments"
   },
+  "continuation": {
+    "phase": "continue100_from_ddp_epoch100",
+    "status": "planned_for_immediate_launch",
+    "source_run_group": "exp007_full_20260725T231624Z",
+    "source_checkpoint": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/checkpoints/checkpoint_update_010000.pth",
+    "source_checkpoint_expected_global_update": 10000,
+    "load_policy": "load network weights only with --init-checkpoint; reset optimizer, AMP scaler, scheduler, RNG-controlled run state, and update counter",
+    "fresh_optimizer_updates": 10000,
+    "relative_eval_epochs": [25, 50, 75, 100],
+    "absolute_eval_epochs": [125, 150, 175, 200],
+    "schedule_policy": "generate 80000 deterministic DDP events, verify first 40000 match original exp007, then rewrite source events 40000-79999 to a zero-based 40000-event continuation schedule"
+  },
   "preprocessing": {
     "classification": "cached-equivalent to VoxTell native baseline",
     "cache_id": "crop_zscore_native_v1",

@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-07-28
+updated: 2026-07-30
 status: active
 ---
 
@@ -26,6 +26,12 @@ edit.
   recovery evaluation filled the planned val20/val200 summaries, and the
   strongest epoch-100 val200 arm is `v123_cached_e5_d4` with Dice `0.3241`,
   hit rate `0.7612`, and `290 / 381` hits.
+- `007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched` has a phase-2
+  DDP continuation active in detached container
+  `rex007_cont100_from_ddp100_20260730T062051Z`, run group
+  `exp007_cont100_from_ddp100_20260730T062051Z`. It initializes weights only
+  from the original exp007 epoch-100 checkpoint, resets optimizer/scaler/LR
+  schedule/update counter, and trains continuation events `40000..79999`.
 - `008_voxtell_dual_branch_proposal_refinement_ablation` completed all four
   independent proposal/refinement arms in run group
   `exp008_dual_branch_20260726T182647Z`. The epoch-80 pause resumed from full
@@ -137,6 +143,11 @@ edit.
   the previous exp004 native continuation. Treat `v123_cached_e5_d4` epoch 100
   as the current strongest validation candidate, pending submission packaging
   and test-set prediction work.
+- Experiment 007 phase-2 continuation uses DDP world size 4, per-GPU batch 1
+  and effective batch 4, with `1e-5` encoder LR and `1e-4` decoder LR. The
+  planned barriers are relative epochs `25/50/75/100`, labeled as absolute
+  exp007 epochs `125/150/175/200`, each followed by fixed val200 evaluation on
+  all four GPUs before training resumes.
 - Experiment 008 epoch-0 val20 preserved hit rate exactly at `23 / 31`.
   Independent mixed-precision sliding-window runs differed from the stored
   Exp006 Dice by at most `3.2e-5`, despite bitwise same-patch logit identity.
@@ -175,8 +186,9 @@ edit.
 - Add reusable quick commands to `AGENTS/command.md` and workflow reflection or
   upgrade prompts under `AGENTS/workflow_reflect/` when a task pattern should
   be repeated later.
-- Review experiment 006 `v123_cached_e5_d4` epoch 100 as the next candidate
-  checkpoint for packaging and test-set prediction work.
+- Monitor experiment 007 phase-2 continuation through relative epoch 25, confirm
+  the val200 barrier completes, then compare epoch 125 against original exp007
+  epoch 100 and exp006 `v123_cached_e5_d4` epoch 100.
 - Use the completed experiment 008 val200 results to decide whether the next
   challenge candidate should prioritize `v1_sharedfusion_softguide` for Dice
   or `v3_dualfusion_softguide_joint` for hit preservation. Retain the caveat

@@ -69,3 +69,21 @@ event_index = update * 4 + rank
 
 This makes the rank stream deterministic and lets resumed segments continue at
 the correct global update.
+
+## Phase 2 Continuation
+
+The 2026-07-29 continuation uses the completed DDP epoch100 checkpoint as a
+weights-only initialization:
+
+- source checkpoint: original exp007 `checkpoint_update_010000.pth`;
+- optimizer, scaler, scheduler, and update counter are reset;
+- same encoder LR `1e-5`, decoder LR `1e-4`, warmup `100`, poly decay, loss,
+  sampler, preprocessing, and DDP effective batch4 are reused;
+- a continuation schedule uses the second 40,000 events from an 80,000-event
+  deterministic stream, rewritten to zero-based event indices for the training
+  loader;
+- relative epochs `25/50/75/100` correspond to absolute training epochs
+  `125/150/175/200`.
+
+This avoids the LR-zero problem that would occur if the first epoch100 optimizer
+state were resumed literally after its 10,000-update poly schedule had ended.

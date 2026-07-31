@@ -19,7 +19,12 @@ GRAD_ACCUM="${GRAD_ACCUM:-1}"
 SCHEDULE_EVENTS="${SCHEDULE_EVENTS:-40000}"
 SCHEDULE_NUM_WORKERS="${SCHEDULE_NUM_WORKERS:-4}"
 TIMESTAMP="$(date -u +%Y%m%dT%H%M%SZ)"
-RUN_GROUP="${RUN_GROUP:-exp007_ddp_bs4_update_matched_$TIMESTAMP}"
+CONTINUATION_MODE="${CONTINUATION_MODE:-0}"
+DEFAULT_RUN_GROUP="exp007_ddp_bs4_update_matched_$TIMESTAMP"
+if [[ "$CONTINUATION_MODE" == "1" ]]; then
+  DEFAULT_RUN_GROUP="exp007_cont100_from_ddp100_$TIMESTAMP"
+fi
+RUN_GROUP="${RUN_GROUP:-$DEFAULT_RUN_GROUP}"
 GROUP_DIR="${GROUP_DIR:-$EXP_DIR/runs/$RUN_GROUP}"
 RUN_DIR="$GROUP_DIR/ddp_bs4"
 CONFIG_SNAPSHOT="$EXP_DIR/config/${EXP_ID}.json"
@@ -27,8 +32,31 @@ EMBEDDINGS="${EMBEDDINGS:-$EXP_DIR/config/rex_text_embeddings.npz}"
 VAL20_JSON="${VAL20_JSON:-/workspace/configs/evaluation/rexgroundingct_val20_seed${SEED}.json}"
 VAL200_JSON="${VAL200_JSON:-/workspace/configs/evaluation/rexgroundingct_val200_seed${SEED}.json}"
 SOURCE_PREFIX_SCHEDULE="${SOURCE_PREFIX_SCHEDULE:-$EXP003_DIR/config/train_schedule_v123_opt_poscrop_emptyloss_seed${SEED}_100ep_100steps_gb1.jsonl}"
-SCHEDULE="$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_${EPOCHS}ep_${STEPS_PER_EPOCH}steps_gb4.jsonl"
-SCHEDULE_MANIFEST="$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_${EPOCHS}ep_${STEPS_PER_EPOCH}steps_gb4.manifest.json"
+ORIGINAL_DDP_SCHEDULE="${ORIGINAL_DDP_SCHEDULE:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_100ep_${STEPS_PER_EPOCH}steps_gb4.jsonl}"
+ORIGINAL_DDP_SCHEDULE_MANIFEST="${ORIGINAL_DDP_SCHEDULE_MANIFEST:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_100ep_${STEPS_PER_EPOCH}steps_gb4.manifest.json}"
+EXTENDED_SCHEDULE_EVENTS="${EXTENDED_SCHEDULE_EVENTS:-80000}"
+EXTENDED_SCHEDULE="${EXTENDED_SCHEDULE:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_200ep_${STEPS_PER_EPOCH}steps_gb4.jsonl}"
+EXTENDED_SCHEDULE_MANIFEST="${EXTENDED_SCHEDULE_MANIFEST:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_200ep_${STEPS_PER_EPOCH}steps_gb4.manifest.json}"
+SCHEDULE_START_EVENT="${SCHEDULE_START_EVENT:-40000}"
+CONTINUATION_SOURCE_RUN_GROUP="${CONTINUATION_SOURCE_RUN_GROUP:-exp007_full_20260725T231624Z}"
+CONTINUATION_SOURCE_RUN_DIR="${CONTINUATION_SOURCE_RUN_DIR:-$EXP_DIR/runs/$CONTINUATION_SOURCE_RUN_GROUP/ddp_bs4}"
+INIT_CHECKPOINT="${INIT_CHECKPOINT:-$CONTINUATION_SOURCE_RUN_DIR/checkpoints/checkpoint_update_010000.pth}"
+INIT_CHECKPOINT_EXPECTED_UPDATE="${INIT_CHECKPOINT_EXPECTED_UPDATE:-10000}"
+if [[ "$CONTINUATION_MODE" == "1" ]]; then
+  ABSOLUTE_EPOCH_OFFSET="${ABSOLUTE_EPOCH_OFFSET:-100}"
+else
+  ABSOLUTE_EPOCH_OFFSET="${ABSOLUTE_EPOCH_OFFSET:-0}"
+fi
+REPORT_JSON="$EXP_DIR/reports/ddp_bs4_update_matched_summary.json"
+REPORT_MD="$EXP_DIR/reports/ddp_bs4_update_matched_report.md"
+SCHEDULE="$ORIGINAL_DDP_SCHEDULE"
+SCHEDULE_MANIFEST="$ORIGINAL_DDP_SCHEDULE_MANIFEST"
+if [[ "$CONTINUATION_MODE" == "1" ]]; then
+  SCHEDULE="$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_cont100_from_ddp100_${EPOCHS}ep_${STEPS_PER_EPOCH}steps_gb4.jsonl"
+  SCHEDULE_MANIFEST="$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_cont100_from_ddp100_${EPOCHS}ep_${STEPS_PER_EPOCH}steps_gb4.manifest.json"
+  REPORT_JSON="$EXP_DIR/reports/ddp_bs4_continue100_from_epoch100_summary.json"
+  REPORT_MD="$EXP_DIR/reports/ddp_bs4_continue100_from_epoch100_report.md"
+fi
 SOURCE_MODEL_DIR="$EXP_DIR/config/public_voxtell_v1_1_model"
 EXPECTED_PREFIX_SHA="f246927486c69e00a872990dbc6e7e8566f49f3b41dbb1bb05c5ce5a033f4776"
 EXPECTED_CACHE_MANIFEST_SHA="fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3"
@@ -89,9 +117,10 @@ require_sha "$SOURCE_PREFIX_SCHEDULE" "$EXPECTED_PREFIX_SHA" "exp003 v123 prefix
 require_sha "$VAL20_JSON" "$EXPECTED_VAL20_SHA" "val20 JSON"
 require_sha "$VAL200_JSON" "$EXPECTED_VAL200_SHA" "val200 JSON"
 
-schedule_ready=0
-if [[ -f "$SCHEDULE" ]]; then
-  if python - "$SCHEDULE" "$SCHEDULE_EVENTS" <<'PY'
+line_count_matches() {
+  local path="$1" expected="$2"
+  [[ -f "$path" ]] || return 1
+  python - "$path" "$expected" <<'PY'
 import sys
 from pathlib import Path
 
@@ -104,28 +133,31 @@ except OSError:
     raise SystemExit(1)
 raise SystemExit(0 if observed == expected else 1)
 PY
-  then
-    schedule_ready=1
-  else
-    echo "Removing incomplete schedule before regeneration: $SCHEDULE"
-    rm -f "$SCHEDULE" "$SCHEDULE_MANIFEST"
+}
+
+generate_schedule_if_needed() {
+  local schedule="$1" manifest="$2" events="$3" label="$4"
+  if line_count_matches "$schedule" "$events"; then
+    echo "Schedule ready: $label $schedule"
+    return 0
   fi
-fi
-if [[ "$schedule_ready" != "1" ]]; then
+  echo "Generating schedule: $label events=$events path=$schedule"
+  rm -f "$schedule" "$manifest"
   python /workspace/scripts/rexgroundingct/prepare_training_schedule.py \
-    --output-jsonl "$SCHEDULE" \
-    --manifest-json "$SCHEDULE_MANIFEST" \
+    --output-jsonl "$schedule" \
+    --manifest-json "$manifest" \
     --seed "$SEED" \
-    --events "$SCHEDULE_EVENTS" \
+    --events "$events" \
     --patch-size 192 192 192 \
     --foreground-oversample-prob 0.85 \
     --require-positive-crop \
     --preprocessed-cache-dir "$CACHE_ROOT" \
     --num-workers "$SCHEDULE_NUM_WORKERS" \
-    2>&1 | tee "$EXP_DIR/logs/prepare_schedule_$TIMESTAMP.log"
-fi
+    2>&1 | tee "$EXP_DIR/logs/prepare_schedule_${label}_$TIMESTAMP.log"
+}
 
-python - "$SCHEDULE" "$SCHEDULE_MANIFEST" "$SOURCE_PREFIX_SCHEDULE" "$EXPECTED_PREFIX_SHA" "$SCHEDULE_EVENTS" <<'PY'
+verify_original_schedule() {
+  python - "$ORIGINAL_DDP_SCHEDULE" "$ORIGINAL_DDP_SCHEDULE_MANIFEST" "$SOURCE_PREFIX_SCHEDULE" "$EXPECTED_PREFIX_SHA" "$SCHEDULE_EVENTS" <<'PY'
 import datetime as dt
 import hashlib
 import json
@@ -177,6 +209,124 @@ record.update(
 manifest.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
 print(json.dumps(record, indent=2, sort_keys=True))
 PY
+}
+
+prepare_continuation_schedule() {
+  generate_schedule_if_needed "$ORIGINAL_DDP_SCHEDULE" "$ORIGINAL_DDP_SCHEDULE_MANIFEST" "$SCHEDULE_EVENTS" "original_ddp40k"
+  verify_original_schedule
+  generate_schedule_if_needed "$EXTENDED_SCHEDULE" "$EXTENDED_SCHEDULE_MANIFEST" "$EXTENDED_SCHEDULE_EVENTS" "extended_ddp80k"
+  python - \
+    "$ORIGINAL_DDP_SCHEDULE" \
+    "$EXTENDED_SCHEDULE" \
+    "$SCHEDULE" \
+    "$SCHEDULE_MANIFEST" \
+    "$EXTENDED_SCHEDULE_MANIFEST" \
+    "$SCHEDULE_EVENTS" \
+    "$EXTENDED_SCHEDULE_EVENTS" \
+    "$SCHEDULE_START_EVENT" <<'PY'
+import datetime as dt
+import hashlib
+import json
+import sys
+from collections import Counter
+from pathlib import Path
+
+original = Path(sys.argv[1])
+extended = Path(sys.argv[2])
+continuation = Path(sys.argv[3])
+manifest = Path(sys.argv[4])
+extended_manifest = Path(sys.argv[5])
+phase_events = int(sys.argv[6])
+extended_events = int(sys.argv[7])
+start_event = int(sys.argv[8])
+end_event = start_event + phase_events
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+def line_count(path: Path) -> int:
+    with path.open("rb") as handle:
+        return sum(1 for _ in handle)
+
+if line_count(original) != phase_events:
+    raise SystemExit(f"Original schedule line count mismatch: {original}")
+if line_count(extended) != extended_events:
+    raise SystemExit(f"Extended schedule line count mismatch: {extended}")
+if end_event > extended_events:
+    raise SystemExit(
+        f"Continuation range {start_event}:{end_event} exceeds extended events {extended_events}"
+    )
+
+with original.open("rb") as lhs, extended.open("rb") as rhs:
+    for index, original_line in enumerate(lhs):
+        extended_line = rhs.readline()
+        if extended_line != original_line:
+            raise SystemExit(f"Extended schedule prefix differs from original at line {index}")
+
+stats = Counter()
+source_case_names = Counter()
+continuation.parent.mkdir(parents=True, exist_ok=True)
+with extended.open() as src, continuation.open("w") as out:
+    for source_index, line in enumerate(src):
+        if source_index < start_event:
+            continue
+        if source_index >= end_event:
+            break
+        event = json.loads(line)
+        if int(event.get("event_index", -1)) != source_index:
+            raise SystemExit(
+                f"Extended event index mismatch: line={source_index} event={event.get('event_index')}"
+            )
+        continuation_index = source_index - start_event
+        event["source_event_index"] = source_index
+        event["event_index"] = continuation_index
+        stats.update(event.get("stats", {}))
+        source_case_names[str(event.get("case_name"))] += 1
+        out.write(json.dumps(event, sort_keys=True) + "\n")
+
+if line_count(continuation) != phase_events:
+    raise SystemExit(f"Continuation schedule line count mismatch: {continuation}")
+
+record = {
+    "created_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
+    "schedule_schema_version": 2,
+    "purpose": "exp007 continuation events 40000..79999 rewritten to zero-based line order",
+    "source_original_schedule": str(original),
+    "source_original_schedule_sha256": sha256(original),
+    "source_extended_schedule": str(extended),
+    "source_extended_schedule_sha256": sha256(extended),
+    "source_extended_manifest": str(extended_manifest),
+    "source_extended_manifest_sha256": (
+        sha256(extended_manifest) if extended_manifest.is_file() else None
+    ),
+    "output_jsonl": str(continuation),
+    "output_jsonl_sha256": sha256(continuation),
+    "events": phase_events,
+    "extended_events": extended_events,
+    "source_event_start_inclusive": start_event,
+    "source_event_end_exclusive": end_event,
+    "event_index_policy": "source event_index rewritten to 0..39999; original index stored as source_event_index",
+    "ddp_world_size": 4,
+    "effective_global_batch_size": 4,
+    "event_consumption_rule": "event_index = update * 4 + rank",
+    "unique_case_count": len(source_case_names),
+    "stats": dict(stats),
+}
+manifest.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
+print(json.dumps(record, indent=2, sort_keys=True))
+PY
+}
+
+if [[ "$CONTINUATION_MODE" == "1" ]]; then
+  prepare_continuation_schedule
+else
+  generate_schedule_if_needed "$SCHEDULE" "$SCHEDULE_MANIFEST" "$SCHEDULE_EVENTS" "ddp40k"
+  verify_original_schedule
+fi
 
 if [[ ! -f "$EMBEDDINGS" ]]; then
   for candidate in "$EXP006_DIR/config/rex_text_embeddings.npz" "$EXP003_DIR/config/rex_text_embeddings.npz"; do
@@ -229,6 +379,59 @@ payload = {
 output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
 print(json.dumps(payload, indent=2, sort_keys=True))
 PY
+
+if [[ "$CONTINUATION_MODE" == "1" ]]; then
+  mkdir -p "$GROUP_DIR/config"
+  python - "$INIT_CHECKPOINT" "$INIT_CHECKPOINT_EXPECTED_UPDATE" "$GROUP_DIR/config/init_checkpoint_provenance.json" "$CONTINUATION_SOURCE_RUN_DIR" <<'PY'
+import datetime as dt
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+import torch
+
+checkpoint = Path(sys.argv[1])
+expected_update = int(sys.argv[2])
+output = Path(sys.argv[3])
+source_run_dir = Path(sys.argv[4])
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+if not checkpoint.is_file():
+    raise SystemExit(f"Missing continuation init checkpoint: {checkpoint}")
+payload = torch.load(checkpoint, map_location="cpu", weights_only=False)
+observed_update = int(payload.get("global_update", -1))
+if observed_update != expected_update:
+    raise SystemExit(
+        f"Continuation init checkpoint update mismatch: "
+        f"expected={expected_update} observed={observed_update}"
+    )
+record = {
+    "recorded_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
+    "source_run_dir": str(source_run_dir),
+    "checkpoint_path": str(checkpoint),
+    "checkpoint_sha256": sha256(checkpoint),
+    "checkpoint_bytes": checkpoint.stat().st_size,
+    "checkpoint_global_update": observed_update,
+    "checkpoint_epoch": int(payload.get("epoch", -1)),
+    "load_policy": "network weights only via --init-checkpoint; optimizer, scaler, scheduler, and update counter reset",
+    "optimizer_state_present_but_not_loaded": "optimizer" in payload,
+    "grad_scaler_state_present_but_not_loaded": "grad_scaler" in payload,
+    "source_optimizer_config": payload.get("optimizer_config"),
+    "source_loss_config": payload.get("loss_config"),
+    "source_preprocessing_config": payload.get("preprocessing_config"),
+    "source_model_spec": payload.get("model_spec"),
+}
+output.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
+print(json.dumps(record, indent=2, sort_keys=True))
+PY
+fi
 
 if [[ "$RUN_STATIC_ONLY" == "1" ]]; then
   echo "Static checks complete; RUN_STATIC_ONLY=1"
@@ -297,8 +500,11 @@ run_ddp_smoke_segment() {
   mkdir -p "$smoke_dir/logs"
   mapfile -t args < <(common_train_args)
   local resume_args=()
+  local init_args=()
   if [[ -n "$resume_checkpoint" ]]; then
     resume_args=(--resume-checkpoint "$resume_checkpoint")
+  elif [[ "$CONTINUATION_MODE" == "1" ]]; then
+    init_args=(--init-checkpoint "$INIT_CHECKPOINT")
   fi
   CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.run \
     --standalone \
@@ -313,6 +519,7 @@ run_ddp_smoke_segment() {
     --checkpoint-updates "$checkpoint_updates" \
     --latest-checkpoint-every-updates 0 \
     --no-materialize-final-model \
+    "${init_args[@]}" \
     "${resume_args[@]}" \
     >"$log" 2>&1
 }
@@ -440,16 +647,35 @@ summarize_results() {
   local exp006_summary="$EXP006_DIR/runs/latest/v123_cached_e5_d4/eval_epoch100_val200/reports/val_quick_global_eval_summary.json"
   local exp006_training="$EXP006_DIR/runs/latest/v123_cached_e5_d4/reports/training_metrics.json"
   local exp003_summary="$EXP003_DIR/runs/exp003_full_20260723T075256Z/v123_opt_poscrop_emptyloss/full_100ep/eval_epoch100_val200/reports/val_quick_global_eval_summary.json"
+  local source_summary="$CONTINUATION_SOURCE_RUN_DIR/eval_epoch100_val200/reports/val_quick_global_eval_summary.json"
+  local source_training="$CONTINUATION_SOURCE_RUN_DIR/reports/training_metrics.json"
   local reference_args=()
-  [[ -f "$exp006_summary" ]] && reference_args+=(--reference "exp006_v123_cached_e5_d4_epoch100=$exp006_summary")
-  [[ -f "$exp006_training" ]] && reference_args+=(--reference-training "exp006_bs1_e5_d4=$exp006_training")
-  [[ -f "$exp003_summary" ]] && reference_args+=(--reference "exp003_v123_epoch100=$exp003_summary")
-  python /workspace/scripts/rexgroundingct/summarize_007_results.py \
-    --exp-dir "$EXP_DIR" \
-    --group-dir "$GROUP_DIR" \
-    --output-json "$EXP_DIR/reports/ddp_bs4_update_matched_summary.json" \
-    --output-md "$EXP_DIR/reports/ddp_bs4_update_matched_report.md" \
-    "${reference_args[@]}" || true
+  if [[ "$CONTINUATION_MODE" == "1" ]]; then
+    [[ -f "$source_summary" ]] && reference_args+=(--reference "exp007_original_ddp_epoch100=$source_summary")
+    [[ -f "$exp006_summary" ]] && reference_args+=(--reference "exp006_v123_cached_e5_d4_epoch100=$exp006_summary")
+    [[ -f "$exp003_summary" ]] && reference_args+=(--reference "exp003_v123_epoch100=$exp003_summary")
+    [[ -f "$source_training" ]] && reference_args+=(--reference-training "exp007_original_ddp=$source_training")
+    [[ -f "$exp006_training" ]] && reference_args+=(--reference-training "exp006_bs1_e5_d4=$exp006_training")
+    python /workspace/scripts/rexgroundingct/summarize_007_continuation_results.py \
+      --exp-dir "$EXP_DIR" \
+      --group-dir "$GROUP_DIR" \
+      --source-run-dir "$CONTINUATION_SOURCE_RUN_DIR" \
+      --source-checkpoint "$INIT_CHECKPOINT" \
+      --absolute-epoch-offset "$ABSOLUTE_EPOCH_OFFSET" \
+      --output-json "$REPORT_JSON" \
+      --output-md "$REPORT_MD" \
+      "${reference_args[@]}" || true
+  else
+    [[ -f "$exp006_summary" ]] && reference_args+=(--reference "exp006_v123_cached_e5_d4_epoch100=$exp006_summary")
+    [[ -f "$exp006_training" ]] && reference_args+=(--reference-training "exp006_bs1_e5_d4=$exp006_training")
+    [[ -f "$exp003_summary" ]] && reference_args+=(--reference "exp003_v123_epoch100=$exp003_summary")
+    python /workspace/scripts/rexgroundingct/summarize_007_results.py \
+      --exp-dir "$EXP_DIR" \
+      --group-dir "$GROUP_DIR" \
+      --output-json "$REPORT_JSON" \
+      --output-md "$REPORT_MD" \
+      "${reference_args[@]}" || true
+  fi
 }
 
 run_inference_shard() {
@@ -480,6 +706,7 @@ run_inference_shard() {
 
 run_val200_eval() {
   local epoch="$1"
+  local absolute_epoch="$((ABSOLUTE_EPOCH_OFFSET + epoch))"
   local update="$((epoch * STEPS_PER_EPOCH))"
   local checkpoint="$RUN_DIR/checkpoints/checkpoint_update_$(printf '%06d' "$update").pth"
   local model_dir="$RUN_DIR/model_epoch$(printf '%03d' "$epoch")"
@@ -517,7 +744,7 @@ run_val200_eval() {
     fi
     echo "prediction_count=$(prediction_count "$eval_dir") expected=$expected"
     EVAL_LOCK_HELD=1 GLOBAL_ONLY=1 EVAL_DATASET_JSON_OVERRIDE="$VAL200_JSON" \
-      EVAL_LABEL="Experiment 007 DDP bs4 epoch $epoch fixed val200 threshold 0.5" NUM_WORKERS=8 \
+      EVAL_LABEL="Experiment 007 DDP bs4 relative epoch $epoch absolute epoch $absolute_epoch fixed val200 threshold 0.5" NUM_WORKERS=8 \
       bash /workspace/scripts/rexgroundingct/run_rexrank_eval.sh "$eval_dir" val
     echo "done epoch=$epoch val200"
   } >"$eval_log" 2>&1 || {
@@ -534,6 +761,7 @@ run_full_segment() {
   local target_update="$((epoch * STEPS_PER_EPOCH))"
   local checkpoint="$RUN_DIR/checkpoints/checkpoint_update_$(printf '%06d' "$target_update").pth"
   local resume_args=()
+  local init_args=()
   local log="$RUN_DIR/logs/train_segment_to_epoch$(printf '%03d' "$epoch").log"
   mapfile -t args < <(common_train_args)
   if checkpoint_has_update "$checkpoint" "$target_update"; then
@@ -548,6 +776,8 @@ run_full_segment() {
       return 1
     }
     resume_args=(--resume-checkpoint "$prev_checkpoint")
+  elif [[ "$CONTINUATION_MODE" == "1" ]]; then
+    init_args=(--init-checkpoint "$INIT_CHECKPOINT")
   fi
   echo "Starting DDP segment to epoch=$epoch update=$target_update log=$log"
   CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.run \
@@ -563,6 +793,7 @@ run_full_segment() {
     --checkpoint-updates "$CHECKPOINT_UPDATES" \
     --latest-checkpoint-every-updates 500 \
     --no-materialize-final-model \
+    "${init_args[@]}" \
     "${resume_args[@]}" \
     >"$log" 2>&1
   checkpoint_has_update "$checkpoint" "$target_update"

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TIMESTAMP="$(date -u +%Y%m%dT%H%M%SZ)"
+export CONTINUATION_MODE="${CONTINUATION_MODE:-1}"
+export CONTINUATION_SOURCE_RUN_GROUP="${CONTINUATION_SOURCE_RUN_GROUP:-exp007_full_20260725T231624Z}"
+export INIT_CHECKPOINT_EXPECTED_UPDATE="${INIT_CHECKPOINT_EXPECTED_UPDATE:-10000}"
+export ABSOLUTE_EPOCH_OFFSET="${ABSOLUTE_EPOCH_OFFSET:-100}"
+export RUN_GROUP="${RUN_GROUP:-exp007_cont100_from_ddp100_$TIMESTAMP}"
+export CONTAINER_NAME="${CONTAINER_NAME:-rex007_cont100_from_ddp100_$TIMESTAMP}"
+export DETACH="${DETACH:-1}"
+export MASTER_PORT="${MASTER_PORT:-29617}"
+
+bash "$(dirname "$0")/run_007_ddp_bs4_update_matched_docker.sh"

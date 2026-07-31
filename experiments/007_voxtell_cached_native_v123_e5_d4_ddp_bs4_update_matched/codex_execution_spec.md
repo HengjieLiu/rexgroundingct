@@ -166,3 +166,50 @@ After runtime completion:
 - write `/mnt/shengdata1/.../reports/ddp_bs4_update_matched_summary.json`;
 - sync repo-local metrics/report with `sync_experiment_index.py`;
 - update `docs/current_status.md` with the batch-size decision signal.
+
+## Phase 2 Continuation From DDP Epoch100
+
+Request date: 2026-07-29.
+
+Run a second 100-epoch continuation inside exp007 from the completed DDP
+epoch100 checkpoint. This remains exp007 because the method variable is still
+DDP global batch4 for the same cached-native v123 e5/d4 recipe.
+
+Source checkpoint:
+
+```text
+/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/checkpoints/checkpoint_update_010000.pth
+```
+
+Continuation policy:
+
+- load network weights only with `--init-checkpoint`;
+- reset optimizer, AMP scaler, scheduler, and update counter;
+- repeat the same LR values, warmup, and poly decay over a fresh 10,000-update
+  horizon;
+- generate an 80,000-event deterministic DDP schedule, verify the first 40,000
+  events match the original exp007 schedule, and train on events 40,000-79,999
+  rewritten to a zero-based continuation schedule.
+
+Run segments:
+
+```text
+relative epoch 25  -> absolute epoch 125, val200
+relative epoch 50  -> absolute epoch 150, val200
+relative epoch 75  -> absolute epoch 175, val200
+relative epoch 100 -> absolute epoch 200, val200
+```
+
+Launch:
+
+```bash
+IMAGE=rexgroundingct-voxtell:cu126 \
+bash /home/hengjie/code_sync/rexgroundingct/scripts/rexgroundingct/run_007_ddp_bs4_continue100_from_epoch100_docker.sh
+```
+
+Reports:
+
+```text
+/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/reports/ddp_bs4_continue100_from_epoch100_report.md
+/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/reports/ddp_bs4_continue100_from_epoch100_summary.json
+```
