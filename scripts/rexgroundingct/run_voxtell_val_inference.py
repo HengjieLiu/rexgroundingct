@@ -312,6 +312,39 @@ def predict_single_image_probabilities(
     return probabilities_reverted_cropping
 
 
+def predict_single_image_logits(
+    predictor: VoxTellPredictor,
+    data: np.ndarray,
+    prompts: list[str],
+    outside_logit: float = -30.0,
+) -> np.ndarray:
+    """Run the mask-inference path and return full-volume pre-sigmoid logits.
+
+    VoxTell predicts only inside its nonzero crop.  Probability inference fills
+    the rest of the volume with zero probability; the finite logit equivalent
+    used for ensemble export is ``outside_logit``.
+    """
+    text_embeddings = predictor.embed_text_prompts(prompts)
+    data_tensor, bbox, orig_shape = predictor.preprocess(data)
+    logits = (
+        predictor.predict_sliding_window_return_logits(data_tensor, text_embeddings)
+        .to("cpu")
+        .float()
+        .numpy()
+        .astype(np.float32, copy=False)
+    )
+    reverted = np.full(
+        [logits.shape[0], *orig_shape],
+        fill_value=float(outside_logit),
+        dtype=np.float32,
+    )
+    reverted = insert_crop_into_image(reverted, logits, bbox)
+    reverted = np.ascontiguousarray(reverted, dtype=np.float32)
+    if not np.isfinite(reverted).all():
+        raise RuntimeError("Encountered non-finite VoxTell logits")
+    return reverted
+
+
 def predict_preprocessed_crop_probabilities(
     predictor: VoxTellPredictor,
     image_czyx: np.ndarray,
@@ -336,6 +369,34 @@ def predict_preprocessed_crop_probabilities(
     if not np.isfinite(probabilities).all():
         raise RuntimeError("Encountered non-finite cached VoxTell probabilities")
     return np.ascontiguousarray(probabilities)
+
+
+def predict_preprocessed_crop_logits(
+    predictor: VoxTellPredictor,
+    image_czyx: np.ndarray,
+    prompts: list[str],
+    padding_value: float = 0.0,
+) -> np.ndarray:
+    """Run VoxTell on a cached native crop and return final pre-sigmoid logits."""
+    text_embeddings = predictor.embed_text_prompts(prompts)
+    data_tensor = torch.from_numpy(np.ascontiguousarray(image_czyx, dtype=np.float32))
+    padded, slicer_revert_padding = pad_nd_image(
+        data_tensor,
+        predictor.patch_size,
+        "constant",
+        {"value": float(padding_value)},
+        True,
+        None,
+    )
+    logits = predictor.predict_sliding_window_return_logits(
+        padded,
+        text_embeddings,
+    ).to("cpu")
+    logits = logits[(slice(None), *slicer_revert_padding[1:])]
+    value = logits.float().numpy().astype(np.float32, copy=False)
+    if not np.isfinite(value).all():
+        raise RuntimeError("Encountered non-finite cached VoxTell logits")
+    return np.ascontiguousarray(value)
 
 
 def predict_preprocessed_crop_branch_probabilities(
@@ -379,9 +440,48 @@ def predict_preprocessed_crop_branch_probabilities(
     return probabilities
 
 
+def predict_preprocessed_crop_branch_logits(
+    predictor: DualBranchVoxTellPredictor,
+    image_czyx: np.ndarray,
+    prompts: list[str],
+    padding_value: float = 0.0,
+) -> dict[str, np.ndarray]:
+    """Run one cached dual-branch pass and return pre-sigmoid branch logits."""
+    text_embeddings = predictor.embed_text_prompts(prompts)
+    data_tensor = torch.from_numpy(np.ascontiguousarray(image_czyx, dtype=np.float32))
+    padded, slicer_revert_padding = pad_nd_image(
+        data_tensor,
+        predictor.patch_size,
+        "constant",
+        {"value": float(padding_value)},
+        True,
+        None,
+    )
+    logits = predictor.predict_sliding_window_return_branch_logits(
+        padded,
+        text_embeddings,
+    )
+    values: dict[str, np.ndarray] = {}
+    for branch, branch_logits in logits.items():
+        branch_logits = branch_logits[(slice(None), *slicer_revert_padding[1:])]
+        value = (
+            branch_logits.float()
+            .cpu()
+            .numpy()
+            .astype(np.float32, copy=False)
+        )
+        if not np.isfinite(value).all():
+            raise RuntimeError(
+                f"Encountered non-finite cached VoxTell {branch} logits"
+            )
+        values[branch] = np.ascontiguousarray(value)
+    return values
+
+
 def restore_cached_native_crop(
     prediction_crop: np.ndarray,
     metadata: dict,
+    fill_value: float | int = 0,
 ) -> np.ndarray:
     """Insert native cached crop predictions back into reoriented full image space."""
     native_shape = tuple(int(value) for value in metadata["native_cropped_shape_zyx"])
@@ -393,7 +493,11 @@ def restore_cached_native_crop(
             "use the 2 mm inference wrapper for resampled caches."
         )
     orig_shape = tuple(int(value) for value in metadata["original_reoriented_shape_zyx"])
-    restored = np.zeros([prediction_crop.shape[0], *orig_shape], dtype=prediction_crop.dtype)
+    restored = np.full(
+        [prediction_crop.shape[0], *orig_shape],
+        fill_value=fill_value,
+        dtype=prediction_crop.dtype,
+    )
     return np.asarray(
         insert_crop_into_image(restored, prediction_crop, metadata["crop_bbox_zyx"]),
         dtype=prediction_crop.dtype,
