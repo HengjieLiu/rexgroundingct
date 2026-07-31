@@ -87,7 +87,7 @@ experiments:
     overall_instance_f1: null
   - id: "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched"
     title: "VoxTell cached-native v123 e5/d4 DDP batch4 update-matched run"
-    status: "evaluation_complete"
+    status: "phase2_continuation_active"
     canonical_config: "configs/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json"
     execution_spec: "experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/codex_execution_spec.md"
     runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched"
