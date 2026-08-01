@@ -34,7 +34,7 @@ class UnverifiedLogitsError(AtlasInvariantError):
 
 
 class Val120AccessError(AtlasInvariantError):
-    """Raised when the val80-only builder is pointed at the sealed complement."""
+    """Raised when the val80-only builder is pointed at internal replication."""
 
 
 class SupervisionLabel(IntEnum):
@@ -241,12 +241,17 @@ def verify_raw_mask_reconstruction(
         reconstruct_raw_mask(labels)
         positive_ids = np.unique(labels[labels > 0])
         component_count = int(positive_ids.size)
+        paired_ids = np.unique(
+            np.column_stack((canonical_labels[raw], labels[raw])), axis=0
+        )
+        canonical_pair_counts = np.bincount(
+            paired_ids[:, 0].astype(np.int64, copy=False),
+            minlength=canonical_component_count + 1,
+        )
         component_partition_exact = (
             component_count == canonical_component_count
-            and all(
-                np.unique(labels[canonical_labels == component_id]).size == 1
-                for component_id in range(1, canonical_component_count + 1)
-            )
+            and paired_ids.shape[0] == canonical_component_count
+            and np.all(canonical_pair_counts[1:] == 1)
         )
     reconstructed = reconstruct_raw_mask(labels)
     mismatch_count = int(np.count_nonzero(raw != reconstructed))
@@ -274,16 +279,30 @@ def _component_records_from_labels(
 ) -> list[dict[str, Any]]:
     matrix = validate_affine(affine)
     unit_volume = voxel_volume_mm3(matrix)
+    coordinates = np.nonzero(labels)
+    component_ids = labels[coordinates].astype(np.int64, copy=False)
+    counts = np.bincount(component_ids, minlength=component_count + 1)
+    coordinate_sums = np.zeros((component_count + 1, 3), dtype=np.float64)
+    bbox_mins = np.full((component_count + 1, 3), np.iinfo(np.int64).max)
+    bbox_maxs = np.full((component_count + 1, 3), -1, dtype=np.int64)
+    for axis, axis_coordinates in enumerate(coordinates):
+        coordinate_sums[:, axis] = np.bincount(
+            component_ids,
+            weights=axis_coordinates.astype(np.float64, copy=False),
+            minlength=component_count + 1,
+        )
+        np.minimum.at(bbox_mins[:, axis], component_ids, axis_coordinates)
+        np.maximum.at(bbox_maxs[:, axis], component_ids, axis_coordinates)
     records: list[dict[str, Any]] = []
     for component_id in range(1, component_count + 1):
-        indices = np.argwhere(labels == component_id)
-        if indices.size == 0:
+        voxel_count = int(counts[component_id])
+        if voxel_count == 0:
             raise AtlasInvariantError(
                 f"component label {component_id} is unexpectedly empty"
             )
-        bbox_min = indices.min(axis=0)
-        bbox_max_inclusive = indices.max(axis=0)
-        centroid_voxel = indices.mean(axis=0, dtype=np.float64)
+        bbox_min = bbox_mins[component_id]
+        bbox_max_inclusive = bbox_maxs[component_id]
+        centroid_voxel = coordinate_sums[component_id] / voxel_count
         centroid_world = voxel_indices_to_world(centroid_voxel, matrix)
         bbox_corners = np.asarray(
             list(
@@ -297,7 +316,6 @@ def _component_records_from_labels(
             dtype=np.float64,
         )
         world_corners = voxel_indices_to_world(bbox_corners, matrix)
-        voxel_count = int(indices.shape[0])
         records.append(
             {
                 "component_id": component_id,
@@ -613,11 +631,12 @@ def finding_metrics(
     overlapping_positive_ids = overlapping_positive_ids[
         overlapping_positive_ids > 0
     ]
-    detached_ids = [
-        component_id
-        for component_id in range(1, prediction_component_count + 1)
-        if not np.any(positive[prediction_labels == component_id])
-    ]
+    positive_overlap_counts = np.bincount(
+        prediction_labels.ravel(),
+        weights=positive.ravel().astype(np.int8, copy=False),
+        minlength=prediction_component_count + 1,
+    )
+    detached_ids = np.flatnonzero(positive_overlap_counts[1:] == 0) + 1
     off_location_mask = np.logical_or.reduce(
         tuple(partitions[key] for key in _OFF_LOCATION_KEYS)
     )
@@ -627,7 +646,7 @@ def finding_metrics(
         if int(value) > 0
     )
     detached_off_location_count = sum(
-        component_id in off_location_component_ids for component_id in detached_ids
+        int(component_id) in off_location_component_ids for component_id in detached_ids
     )
     predicted_voxels = int(np.count_nonzero(prediction))
     positive_voxels = int(np.count_nonzero(positive))
@@ -678,9 +697,9 @@ def finding_metrics(
             "off_location_fp_component_count"
         ],
         "prediction_component_count": prediction_component_count,
-        "detached_component_count": len(detached_ids),
+        "detached_component_count": int(detached_ids.size),
         "detached_component_fraction": _ratio(
-            len(detached_ids), prediction_component_count
+            int(detached_ids.size), prediction_component_count
         ),
         "detached_off_location_component_count": detached_off_location_count,
         "detached_off_location_component_fraction": _ratio(
@@ -724,11 +743,20 @@ def atlas_component_records(
     _require_same_shape(prediction, **normalized_partitions)
     labels, count = label_components_26(prediction)
     records = _component_records_from_labels(labels, count, affine)
+    flattened_labels = labels.ravel()
+    relation_counts_by_component = {
+        key: np.bincount(
+            flattened_labels[mask.ravel()], minlength=count + 1
+        )
+        for key, mask in normalized_partitions.items()
+    }
+    positive_counts = np.bincount(
+        flattened_labels[positive.ravel()], minlength=count + 1
+    )
     for record in records:
         component_id = int(record["component_id"])
-        component = labels == component_id
         relation_counts = {
-            key: int(np.count_nonzero(component & normalized_partitions[key]))
+            key: int(relation_counts_by_component[key][component_id])
             for key in _PARTITION_KEYS
         }
         off_location_voxels = sum(
@@ -739,12 +767,12 @@ def atlas_component_records(
         )
         record.update(
             {
-                "overlap_known_positive_voxels": int(
-                    np.count_nonzero(component & positive)
-                ),
+                "overlap_known_positive_voxels": int(positive_counts[component_id]),
                 "relation_voxel_counts": relation_counts,
                 "off_location_voxels": off_location_voxels,
-                "detached_from_known_positive": not np.any(component & positive),
+                "detached_from_known_positive": bool(
+                    positive_counts[component_id] == 0
+                ),
                 "fully_certified_negative": certified_voxels
                 == int(record["voxel_count"]),
             }
@@ -1047,7 +1075,7 @@ def _assert_val80_only(value: Any) -> None:
     if normalized not in allowed:
         if "120" in normalized or "confirm" in normalized:
             raise Val120AccessError(
-                "the sealed val120 complement cannot be processed by ASD-000"
+                "the val120 internal-replication complement cannot be processed by ASD-000"
             )
         raise ErrorAtlasError(
             f"error-atlas cohort must be the locked val80 development set, got {value!r}"

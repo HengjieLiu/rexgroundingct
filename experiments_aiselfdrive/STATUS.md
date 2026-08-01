@@ -3,13 +3,13 @@
 
 | Priority | Experiment | Status | Outcome | Current stage | Blocker | Updated |
 | ---: | --- | --- | --- | --- | --- | --- |
-| 1 | asd_000_evidence_lock_error_atlas | blocked | — | — | command exited 2; stderr tail: StageContractError: invalid completion contract for stage lock_local_lineage: evidence_file 'experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/lineage_lock.json' is also a declared output. The active experimentctl verifies every file output SHA-256 from inside that same evidence JSON, which would require an impossible SHA-256 self-reference. The immutable claimed plan and controller are outside this stage's allowed write paths.  (+2) | 2026-07-31T15:46:44.528595Z |
-| 2 | asd_005_train_anatomy_asset_extension | blocked | — | — | Dependency asd_000_evidence_lock_error_atlas must finish with outcome go. | 2026-07-31T00:00:00Z |
-| 3 | asd_010_intrinsic_anatomy_fields | blocked | — | — | Dependency asd_000_evidence_lock_error_atlas must finish with outcome go. (+1) | 2026-07-31T00:00:00Z |
-| 4 | asd_020_factorial_pathology_anatomy_binding | blocked | — | — | Dependency asd_000_evidence_lock_error_atlas must finish with outcome go. | 2026-07-31T00:00:00Z |
-| 5 | asd_030_anatomy_certified_fp_replay | blocked | — | — | The locked baseline lineage, cohorts, prompt ontology, and error atlas must be verified first. (+1) | 2026-07-31T00:00:00Z |
-| 6 | asd_040_censored_label_tri_state | blocked | — | — | The locked lineage, cohorts, prompt ontology, and baseline evidence must be verified first. | 2026-07-31T00:00:00Z |
-| 7 | asd_050_prompt_equivariance_quartet | blocked | — | — | The locked lineage, prompt ontology, cohorts, and laterality error atlas are required. | 2026-07-31T00:00:00Z |
-| 8 | asd_060_persistence_tree_set_verifier | blocked | — | — | The locked lineage, cohorts, and verified val80 logits are required. | 2026-07-31T00:00:00Z |
+| 1 | asd_000_evidence_lock_error_atlas | ready | — | selfcheck_revision_2_implementation | — | 2026-08-01T05:03:27.677790Z |
+| 2 | asd_005_train_anatomy_asset_extension | blocked | — | — | asd_000_evidence_lock_error_atlas: dependency status is ready | 2026-08-01T05:04:42.863884Z |
+| 3 | asd_010_intrinsic_anatomy_fields | blocked | — | — | asd_000_evidence_lock_error_atlas: dependency status is ready (+1) | 2026-08-01T05:04:45.652503Z |
+| 4 | asd_020_factorial_pathology_anatomy_binding | blocked | — | — | asd_000_evidence_lock_error_atlas: dependency status is ready | 2026-08-01T05:04:50.605768Z |
+| 5 | asd_030_anatomy_certified_fp_replay | blocked | — | — | asd_000_evidence_lock_error_atlas: dependency status is ready (+1) | 2026-08-01T05:05:17.131374Z |
+| 6 | asd_040_censored_label_tri_state | blocked | — | — | asd_000_evidence_lock_error_atlas: dependency status is ready | 2026-08-01T05:05:20.369094Z |
+| 7 | asd_050_prompt_equivariance_quartet | blocked | — | — | asd_000_evidence_lock_error_atlas: dependency status is ready | 2026-08-01T05:05:23.530231Z |
+| 8 | asd_060_persistence_tree_set_verifier | blocked | — | — | asd_000_evidence_lock_error_atlas: dependency status is ready | 2026-08-01T05:05:26.945079Z |
 
 Run `python experiments_aiselfdrive/tools/experimentctl.py next --json` to select the next eligible experiment.

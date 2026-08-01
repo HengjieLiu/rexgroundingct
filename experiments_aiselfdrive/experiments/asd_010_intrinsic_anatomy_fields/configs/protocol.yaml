@@ -1,6 +1,16 @@
 schema_version: "1.0"
 experiment_id: asd_010_intrinsic_anatomy_fields
 seed: 20260731
+controller_runtime_contract:
+  required_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+  nested_docker_labels:
+    lease: rexgroundingct.aiselfdrive.lease=REXGROUNDINGCT_AISELFDRIVE_LEASE_ID
+    experiment: rexgroundingct.aiselfdrive.experiment=REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID
+  rule: Consume controller-provided values at execution time, apply both exact labels to every nested docker run, and never hard-code container names or lease values.
+stage_evidence_contract:
+  object_path: metrics.resources
+  required_fields: [gpu_hours, cpu_hours, storage_gib]
+  semantics: gpu_hours and cpu_hours are incremental for the completed stage; storage_gib is the cumulative experiment runtime-tree high-water observed at completion, never a stage delta.
 dependencies:
   asd_000_evidence_lock_error_atlas: go
   asd_005_train_anatomy_asset_extension: go
@@ -8,10 +18,15 @@ parent:
   checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
   sha256: 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf
 inputs:
-  lineage: experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json
+  lineage: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json
+  logit_source_projection: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_logit_source.json
+  logit_resolution_contract:
+    manifest_path_field: manifest_path
+    manifest_sha256_field: manifest_sha256
+    rule: Resolve manifest_path from the verified projection, hash the resolved manifest, require equality with manifest_sha256, and consume only files declared by that manifest.
   anatomy: experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json
   val80: experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
-  val120: experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json
+  val120: experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json
   ontology: experiments_aiselfdrive/shared/manifests/prompt_ontology_v1.json
 fields:
   spacing_mm: [3.0, 3.0, 3.0]
@@ -33,20 +48,93 @@ diagnostic:
   detached_component_reduction_alternative_min: 0.10
 training:
   updates: {T1: 10, T2: 500, T3: 2000, T4: 10000}
-  batch_size: 1
+  update_semantics: cumulative_global_update_barriers
+  batch_size_per_gpu: 1
   gradient_accumulation: 1
-  optimizer: SGD
-  momentum: 0.99
-  nesterov: true
-  weight_decay: 0.00003
-  encoder_lr: 0.00001
-  non_encoder_lr: 0.0001
-  module_lr: 0.0001
-  warmup_updates: 100
-  poly_power: 0.9
+  optimizer:
+    name: SGD
+    momentum: 0.99
+    nesterov: true
+    weight_decay: 0.00003
+    parameter_groups:
+      encoder_lr: 0.00001
+      non_encoder_lr: 0.0001
+      anatomy_module_lr: 0.0001
+  schedule:
+    unit: optimizer_update
+    horizon_updates: 10000
+    warmup_updates: 100
+    warmup: linear_from_zero_to_group_base_lr
+    post_warmup: polynomial_decay_to_zero
+    polynomial_power: 0.9
+    horizon_rule: immutable_cumulative_10000_update_horizon
+    restart_rule: each_arm_resumes_its_own_prior_barrier_full_scheduler_state_without_restart_or_horizon_mutation
+    tier_barriers: [10, 500, 2000, 10000]
+    t4_start_rule: treatment_and_disabled_control_each_resume_their_own_matched_2000_update_t3_full_state
+  precision:
+    autocast: bf16
+    optimizer_state: fp32
+    gradient_clip_max_norm: 12.0
+  matched_arm_contract:
+    schedule_seed: 20260731
+    sample_schedule: immutable_materialized_jsonl_shared_byte_for_byte
+    parent_and_initial_trainable_state: identical_except_declared_control_transform
+    evaluation_barrier: all_arms_checkpoint_before_any_evaluation
+    tier_transition_hashes: [parent_checkpoint_sha256, data_sha256, sample_schedule_sha256, scheduler_contract_sha256, global_update]
+  full_state_checkpoint:
+    atomic_write: temporary_file_fsync_then_rename
+    required_fields:
+      - model_state
+      - optimizer_state
+      - scheduler_state
+      - amp_scaler_state
+      - global_update
+      - sample_schedule_cursor
+      - sampler_state
+      - python_rng_state
+      - numpy_rng_state
+      - torch_cpu_rng_state
+      - torch_cuda_rng_states
+      - arm_id
+      - tier
+      - parent_checkpoint_sha256
+      - protocol_sha256
+      - sample_schedule_sha256
+    resume_test: compare_uninterrupted_10_updates_with_new_process_5_plus_5
+    resume_acceptance: exact_global_update_sample_order_parameters_logits_and_loss_trace
+hardware:
+  docker_image_tag: rexgroundingct-voxtell:cu126
+  docker_local_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
+  docker_preflight_policy: docker_inspect_image_id_must_equal_local_image_id
+  expected_gpu_count: 4
+  expected_gpu_model: NVIDIA RTX 6000 Ada Generation
+  minimum_free_gib_training: 36
+  minimum_free_gib_inference: 32
+  multi_gpu_ddp: false
 evaluation:
   threshold: 0.5
   hit_threshold: 0.1
   bootstrap_draws: 10000
   bootstrap_seed: 20260731
+  val120_role: historically_exposed_internal_heldout_replication_not_independent_confirmation
+promotion:
+  producer: experimentctl promote
+  artifact_id: promotion_record
+  path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_010_intrinsic_anatomy_fields.json
+  required_fields:
+    - schema_version
+    - experiment_id
+    - source
+    - portfolio_sha256
+    - plan_sha256
+    - t3_evidence_sha256
+    - rank
+    - promoted_at
+    - matched_control_required
+    - val120_access_authorized
+  validation: require_source_experimentctl_promote_and_controller_recorded_sha256
+t4_matched_arms:
+  treatment: {id: continuous_anatomy_coupling, checkpoint_output_id: t4_continuous_anatomy_checkpoint, metrics_output_id: t4_continuous_anatomy_metrics}
+  control: {id: disabled_anatomy_coupling, checkpoint_output_id: t4_disabled_anatomy_checkpoint, metrics_output_id: t4_disabled_anatomy_metrics}
+  matched_hash_fields: [parent_checkpoint_sha256, data_sha256, schedule_sha256, update_count]
 runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields

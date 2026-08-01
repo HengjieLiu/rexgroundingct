@@ -3,19 +3,15 @@ experiment_id: asd_040_censored_label_tri_state
 claims:
   - id: censorship_lab_feasible
     type: feasibility
-    statement: >-
-      At least 50 patient-separated cases and 100 evaluator-isolated hidden
-      entity trials can be generated under every censorship rule.
+    statement: At least 50 patient-separated cases and 100 evaluator-isolated hidden-entity trials can be generated under every declared censorship rule.
     verdict: pending
-    gate_refs: [evaluation.gates.eligibility]
+    gate_refs: [evaluation.gates.eligibility, stages.t1_resume_smoke.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: censored_entities_recoverable
     type: mechanistic
-    statement: >-
-      Frozen multimodal evidence recovers at least 30% of hidden entities at
-      80% precision under every rule and beats base confidence.
+    statement: Frozen multimodal evidence recovers at least 30 percent of hidden entities at 80 percent precision under every rule and beats base confidence.
     verdict: pending
     gate_refs: [evaluation.gates.diagnostic_go]
     evidence_refs: []
@@ -23,10 +19,7 @@ claims:
     rationale: null
   - id: tri_state_policy_causes_recovery
     type: causal
-    statement: >-
-      Unknown-ignore or nnPU supervision improves hidden-entity recall over
-      background BCE under a matched schedule without relying on lexical
-      shortcuts.
+    statement: Unknown-ignore or nnPU supervision improves hidden-entity recall over background BCE under a matched schedule without lexical shortcuts.
     verdict: pending
     gate_refs: [evaluation.gates.pilot_go, evaluation.gates.decision_go]
     evidence_refs: []
@@ -34,24 +27,25 @@ claims:
     rationale: null
   - id: tri_state_training_is_noninferior
     type: performance
-    statement: >-
-      The selected policy improves hidden recall under every censorship rule
-      while preserving val80 Dice within 0.001 and known-positive recall within
-      two percentage points.
+    statement: The selected policy improves hidden recall under every rule while preserving val80 Dice within 0.001 and known-positive recall within two points.
     verdict: pending
-    gate_refs: [evaluation.gates.decision_go, evaluation.gates.confirmation_go]
+    gate_refs: [evaluation.gates.decision_go]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: hidden_labels_remain_isolated
     type: safety
-    statement: >-
-      Hidden masks never enter features, sampling, loss, calibration, or
-      pre-T4 model selection, and certified-FP increase remains below 10%.
+    statement: Hidden geometry never enters training features or segmentation loss; only other-fold opaque evaluator targets may fit the cross-fitted diagnostic calibrator, and held-out targets are scoring-only.
     verdict: pending
-    gate_refs:
-      - stages.build_censorship_lab.acceptance_checks
-      - evaluation.gates.pilot_go
+    gate_refs: [lineage.hidden_label_calibration, stages.build_censorship_lab.acceptance_checks, evaluation.gates.pilot_go]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: tri_state_policy_replicates_on_internal_val120
+    type: performance
+    statement: If controller-promoted, val120 is used only as historically exposed internal replication and not independent confirmation.
+    verdict: pending
+    gate_refs: [evaluation.gates.internal_replication_go, stages.confirm_t4.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null

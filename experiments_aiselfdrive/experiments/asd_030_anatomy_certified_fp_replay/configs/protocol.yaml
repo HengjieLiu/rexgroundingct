@@ -1,15 +1,30 @@
 schema_version: "1.0"
 experiment_id: asd_030_anatomy_certified_fp_replay
 seed: 20260731
+controller_runtime_contract:
+  required_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+  nested_docker_labels:
+    lease: rexgroundingct.aiselfdrive.lease=REXGROUNDINGCT_AISELFDRIVE_LEASE_ID
+    experiment: rexgroundingct.aiselfdrive.experiment=REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID
+  rule: Consume controller-provided values at execution time, apply both exact labels to every nested docker run, and never hard-code container names or lease values.
+stage_evidence_contract:
+  object_path: metrics.resources
+  required_fields: [gpu_hours, cpu_hours, storage_gib]
+  semantics: gpu_hours and cpu_hours are incremental for the completed stage; storage_gib is the cumulative experiment runtime-tree high-water observed at completion, never a stage delta.
 runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1
+parent:
+  checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
+  sha256: 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf
 candidate_mining:
-  source: locked_asd_000_baseline
-  split: train
+  source: locked_parent_checkpoint
+  training_split: official_train_only
+  val80_role: frozen_baseline_coverage_diagnostic_only
   threshold: 0.20
   connectivity: 26
   score: mean_top_1_percent_probability
   retained_ranks: [1, 3, 5]
   crop_shape_voxels: [192, 192, 192]
+  intervention_refresh: prohibited
 certificate:
   parser_confidence: high_only
   allowed_region_dilation_mm: 15
@@ -31,15 +46,55 @@ arms:
   - mined_certified
   - mined_uncertified_masked
   - shuffled_prompt_mining
-updates:
-  T2: 500
-  T3: 2000
-  T4: 10000
+training:
+  updates: {T1: 10, T2: 500, T3: 2000, T4: 10000}
+  update_semantics: cumulative_global_update_barriers
+  batch_size_per_gpu: 1
+  gradient_accumulation: 1
+  optimizer:
+    name: SGD
+    momentum: 0.99
+    nesterov: true
+    weight_decay: 0.00003
+    parameter_groups:
+      encoder_lr: 0.00001
+      non_encoder_lr: 0.0001
+  schedule:
+    unit: optimizer_update
+    horizon_updates: 10000
+    warmup_updates: 100
+    warmup: linear_from_zero_to_group_base_lr
+    post_warmup: polynomial_decay_to_zero
+    polynomial_power: 0.9
+    horizon_rule: immutable_cumulative_10000_update_horizon
+    restart_rule: each_arm_resumes_its_own_prior_barrier_full_scheduler_state_without_restart_or_horizon_mutation
+    tier_barriers: [10, 500, 2000, 10000]
+    t4_start_rule: mined_replay_and_disabled_replay_control_each_resume_their_own_matched_2000_update_t3_full_state
+  precision:
+    autocast: bf16
+    optimizer_state: fp32
+    gradient_clip_max_norm: 12.0
+  matched_arm_contract:
+    seed: 20260731
+    sample_schedule: immutable_materialized_jsonl_shared_byte_for_byte
+    initialization: exact_same_parent_and_trainable_parameter_state
+    comparison: mined_certified_minus_count_matched_random_certified
+    evaluation_barrier: all_arms_checkpoint_before_any_val80_evaluation
+    tier_transition_hashes: [parent_checkpoint_sha256, data_sha256, sample_schedule_sha256, scheduler_contract_sha256, global_update]
+    required_t1_t2_arms: [matched_baseline, random_certified, mined_certified, mined_uncertified_masked, shuffled_prompt_mining]
+    maximum_concurrent_arms: 4
+    execution_waves: 2
+  full_state_checkpoint:
+    atomic_write: temporary_file_fsync_then_rename
+    required_fields: [model_state, optimizer_state, scheduler_state, amp_scaler_state_or_explicit_null, global_update, sample_schedule_cursor, sampler_state, python_rng_state, numpy_rng_state, torch_cpu_rng_state, torch_cuda_rng_states, arm_id, tier, parent_checkpoint_sha256, protocol_sha256, replay_manifest_sha256, sample_schedule_sha256]
+    resume_test: compare_uninterrupted_10_updates_with_new_process_5_plus_5
+    resume_acceptance: exact_global_update_sample_order_parameters_logits_and_loss_trace
 cohorts:
   development: val80
-  confirmatory: val120
+  internal_replication: val120
   continuity: val200
   pre_t4_denied: [val120, val200]
+  independent_confirmation: requires_externally_unseen_or_custodied_data
 gates:
   top5_certified_fp_coverage_min: 0.30
   pilot_negative_peak_reduction_min: 0.30
@@ -47,15 +102,33 @@ gates:
   decision_off_location_fp_reduction_min: 0.20
   decision_recall_delta_min: -0.02
   decision_dice_delta_min: 0.005
-  confirm_case_clustered_ci_lower_min_exclusive: 0.0
+  mined_vs_random_off_location_fp_reduction_min_exclusive: 0.0
+  mined_vs_random_dice_delta_min_exclusive: 0.0
+  mined_vs_random_case_clustered_ci_lower_min_exclusive: 0.0
+  replication_case_clustered_ci_lower_min_exclusive: 0.0
 bootstrap:
   draws: 10000
   seed: 20260731
+  cluster_unit: case
 hardware:
   mode: docker
-  image: rexgroundingct-voxtell:cu126
+  image_tag: rexgroundingct-voxtell:cu126
+  local_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
+  preflight_policy: docker_inspect_image_id_must_equal_local_image_id
   expected_gpu_count: 4
+  expected_gpu_model: NVIDIA RTX 6000 Ada Generation
   minimum_free_gib_training: 36
+  minimum_free_gib_inference: 32
   maximum_parallel_single_gpu_arms: 4
   multi_gpu_ddp: false
   slurm: prohibited
+promotion:
+  producer: experimentctl promote
+  artifact_id: promotion_record
+  path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_030_anatomy_certified_fp_replay.json
+  required_fields: [schema_version, experiment_id, source, portfolio_sha256, plan_sha256, t3_evidence_sha256, rank, promoted_at, matched_control_required, val120_access_authorized]
+  validation: require_source_experimentctl_promote_and_controller_recorded_sha256
+t4_matched_arms:
+  treatment: {id: mined_certified_replay, checkpoint_output_id: t4_mined_replay_checkpoint, metrics_output_id: t4_mined_replay_metrics}
+  control: {id: disabled_replay_parent_sampler, checkpoint_output_id: t4_disabled_replay_checkpoint, metrics_output_id: t4_disabled_replay_metrics}
+  matched_hash_fields: [parent_checkpoint_sha256, data_sha256, schedule_sha256, update_count]

@@ -13,6 +13,7 @@
     },
     "artifacts": {
       "type": "array",
+      "minItems": 1,
       "items": {"$ref": "#/$defs/artifact"}
     }
   },
@@ -67,10 +68,52 @@
             {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
           ]
         },
+        "controller_producer": {
+          "oneOf": [
+            {"type": "null"},
+            {"const": "experimentctl promote"}
+          ]
+        },
         "retention": {"enum": ["durable", "ephemeral", "regenerable"]},
         "media_type": {"type": "string", "minLength": 1},
-        "description": {"type": "string", "minLength": 1}
-      }
+        "description": {"type": "string", "minLength": 1},
+        "verification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["method"],
+          "properties": {
+            "method": {
+              "enum": ["file_sha256", "tree_sha256", "manifest_sha256"]
+            },
+            "manifest_path": {"type": "string", "minLength": 1}
+          },
+          "allOf": [
+            {
+              "if": {"properties": {"method": {"const": "manifest_sha256"}}},
+              "then": {"required": ["manifest_path"]}
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "verified"}}, "required": ["status"]},
+          "then": {
+            "properties": {
+              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "size_bytes": {"type": "integer", "minimum": 0}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"id": {"const": "promotion_record"}}, "required": ["id"]},
+          "then": {
+            "required": ["controller_producer"],
+            "properties": {"controller_producer": {"const": "experimentctl promote"}}
+          },
+          "else": {"not": {"required": ["controller_producer"]}}
+        }
+      ]
     }
   }
 }

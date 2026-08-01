@@ -1,12 +1,17 @@
 {
-  "schema_version": "1.0",
-  "experiment_id": "asd_005_train_anatomy_asset_extension",
-  "stage_id": "implement_train_anatomy_pipeline",
-  "status": "blocked",
-  "completed_at": "2026-07-31T00:00:00Z",
-  "summary": "Initialization sentinel; execution is dependency-blocked.",
-  "checks": [],
   "artifacts": [],
+  "checks": [],
+  "completed_at": "2026-08-01T05:04:42.863884Z",
+  "error": null,
+  "experiment_id": "asd_005_train_anatomy_asset_extension",
   "metrics": {},
-  "error": {"code":"dependency_blocked","message":"asd_000_evidence_lock_error_atlas must finish with outcome go."}
+  "plan_revision": 2,
+  "plan_sha256": "098b8f7c55a3875f211bd76c157bad99fb7be2c8cc5d081286d52a1a98a298ad",
+  "schema_version": "1.0",
+  "sentinel": true,
+  "stage_id": "implement_train_anatomy_pipeline",
+  "state_revision": 1,
+  "state_status": "blocked",
+  "status": "blocked",
+  "summary": "Plan revision adopted; no stage has executed in this revision."
 }

@@ -1,4 +1,6 @@
 # Source
 
-Experiment-local evidence hashing, cohort sealing, prompt parsing, geometry,
-and atlas modules are implemented here by the first declared agent stage.
+Experiment-local modules implement direct prediction/GT metric recomputation,
+honest development/internal-replication partitioning, conservative prompt
+parsing, exact physical geometry, tri-state supervision, vectorized component
+statistics, and deterministic clustered-bootstrap atlas output.

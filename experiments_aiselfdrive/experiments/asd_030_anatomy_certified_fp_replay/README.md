@@ -61,11 +61,11 @@ runtime root. No training is launched by the portfolio scaffold.
 - Status: `blocked`
 - Outcome: `pending`
 - Current stage: `none`
-- State revision: `0`
-- Updated: `2026-07-31T00:00:00Z`
+- State revision: `1`
+- Updated: `2026-08-01T05:05:17.131374Z`
 
 Blockers:
 
-- `dependency_unsatisfied`: The locked baseline lineage, cohorts, prompt ontology, and error atlas must be verified first.
-- `dependency_unsatisfied`: The geometry-verified training anatomy manifest is required for certification.
+- `dependency_unsatisfied`: asd_000_evidence_lock_error_atlas: dependency status is ready
+- `dependency_unsatisfied`: asd_005_train_anatomy_asset_extension: dependency status is blocked
 <!-- experimentctl:state:end -->

@@ -1,7 +1,7 @@
 schema_version: "1.0"
 id: asd_060_persistence_tree_set_verifier
 title: Multi-Threshold Persistence-Tree Set Verifier
-plan_revision: 1
+plan_revision: 2
 created_at: "2026-07-31T00:00:00Z"
 updated_at: "2026-07-31T00:00:00Z"
 priority: 8
@@ -46,7 +46,7 @@ evidence_references:
       - val80_manifest
       - val120_manifest
       - val200_manifest
-      - baseline_logits
+      - revision_2_logit_source
     availability: missing
   - source: asd_040_censored_label_tri_state
     artifact_ids:
@@ -54,15 +54,17 @@ evidence_references:
       - diagnostic_report
     availability: missing
 lineage:
-  parent_checkpoint: resolved_from_asd_000_locked_lineage_manifest
-  parent_checkpoint_sha256: resolved_before_execution
-  logits: resolved_from_asd_000_verified_logit_audit
+  parent_checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
+  parent_checkpoint_sha256: 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf
+  logit_source_projection: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_logit_source.json
+  logit_resolution_contract: Resolve and hash manifest_path from the verified projection, require equality with manifest_sha256, and consume only files declared by the resolved manifest.
   preprocessing_class: unchanged
   model_weights_frozen_during_candidate_and_feature_extraction: true
-  prompt_form: locked_by_asd_000
-  threshold_policy: method_variable_only_for_candidate_forest
-  final_evaluation_threshold: locked_by_asd_000
-  postprocessing: locked_by_asd_000_except_declared_set_selection
+  prompt_form: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/prompt_form
+  inference_window: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/inference_window
+  threshold_policy: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/threshold_policy
+  postprocessing: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/postprocessing
+  candidate_threshold_policy: method_variable_only_for_candidate_forest
   comparability_rule: >-
     Baseline, oracle, deterministic controls, independent scorer, and set
     verifier use the identical logit tensor, candidate forest, features, cohort,
@@ -71,15 +73,19 @@ data:
   training_source: official_rexgroundingct_train_only
   development_cohort:
     id: val80
+    manifest: experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
     allowed_stages:
       - build_val80_oracle
       - decision_t3
-  confirmatory_cohort:
+  internal_replication_cohort:
     id: val120
+    manifest: experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json
     access: prohibited_until_t4_promotion
     allowed_stages: [confirm_t4]
+    evidence_role: historically_exposed_internal_replication_not_independent_confirmation
   continuity_cohort:
     id: val200
+    manifest: configs/evaluation/rexgroundingct_val200_seed20260723.json
     access: prohibited_until_t4_promotion
     allowed_stages: [confirm_t4]
   candidate_thresholds:
@@ -158,6 +164,12 @@ method:
       finished/go signal then hash the registry. Do not wait for optional
       experiments or change the registry later.
   set_model:
+    label_sufficiency_gate:
+      certified_negative_nodes_min: 500
+      certified_negative_cases_min: 50
+      known_positive_nodes_min: 500
+      tri_state_policy_case_coverage_fraction_min: 0.90
+      failure_action: Skip T1 through T4 and close inconclusive with exact counts; never relax the gate.
     node_encoder:
       hidden_dimension: 128
       layers: 2
@@ -184,6 +196,8 @@ method:
     optimizer:
       name: adamw
       learning_rate: 0.0001
+      betas: [0.9, 0.999]
+      epsilon: 1.0e-8
       weight_decay: 0.0001
   controls:
     - id: locked_baseline
@@ -208,27 +222,60 @@ method:
       outcome: no_go
       interpretation: candidate_forest_has_insufficient_headroom_or_recall
     oracle_gate_pass_and_asd040_go:
-      learned_stages: eligible
+      learned_stages: eligible_only_if_label_sufficiency_gate_passes
+    oracle_and_asd040_go_but_label_counts_fail:
+      learned_stages: skipped
+      outcome: inconclusive
+      interpretation: safe_policy_exists_but_certified_training_evidence_is_insufficient
     oracle_gate_pass_and_asd040_no_go_or_inconclusive:
       learned_stages: skipped
       outcome: inconclusive
       interpretation: headroom_exists_but_safe_training_labels_are_unavailable
   compute_ladder:
     oracle: T0
+    smoke_t1_updates: 10
     pilot_t2_updates: 500
     decision_t3_updates: 2000
     confirm_t4_updates: 10000
+    update_semantics: cumulative_global_update_barriers
+    scheduler_contract: One immutable 10,000-update cosine horizon; every arm resumes its own prior-barrier full scheduler state without restart, warmup replay, or horizon mutation.
+    t4_matched_start: Set-verifier treatment and identical-feature independent control each resume their own matched 2,000-update T3 full state; a fresh control is prohibited.
     maximum_parallel_single_gpu_arms: 4
 resources:
   hardware_profile: experiments_aiselfdrive/shared/hardware_profile.yaml
   execution_environment: docker_for_gpu_stages
   image: rexgroundingct-voxtell:cu126
+  local_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
   gpu_model: NVIDIA RTX 6000 Ada Generation
   gpu_count_available: 4
   minimum_free_gib_training: 36
   multi_gpu_ddp: false
   slurm: prohibited
   runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1
+stage_execution_contract:
+  resource_limits:
+    cpu_cores_hardware_max: 128
+    gpu_count_hardware_max: 4
+    gpu_count_per_arm_max: 1
+    maximum_concurrent_arms: 4
+    inference_free_memory_gib_min: 32
+    training_free_memory_gib_min: 36
+    multi_gpu_ddp: prohibited
+  evidence:
+    applies_to: every_stage
+    object_path: metrics.resources
+    required_fields: [gpu_hours, cpu_hours, storage_gib]
+    semantics:
+      gpu_hours: incremental_stage_gpu_hours
+      cpu_hours: incremental_stage_cpu_hours
+      storage_gib: cumulative_experiment_runtime_tree_high_water_at_stage_completion
+    validation: All values are finite and nonnegative; storage_gib is measured over the experiment runtime tree and never reported as a stage delta.
+  controller_container_identity:
+    required_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+    required_labels:
+      lease: rexgroundingct.aiselfdrive.lease=REXGROUNDINGCT_AISELFDRIVE_LEASE_ID
+      experiment: rexgroundingct.aiselfdrive.experiment=REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID
+    rule: Every nested docker run consumes controller-provided values and applies both exact labels; container names and lease values are never hard-coded.
 stages:
   - id: implement_persistence_set_pipeline
     kind: implementation
@@ -242,13 +289,17 @@ stages:
       - Use the exact threshold list, canonical IDs, edge/tie rules, Dinkelbach oracle, and antichain constraint.
       - Isolate evaluator GT from learned features and set unknown supervision weight to zero.
       - Freeze optional upstream features exactly once by terminal state, GO outcome, and verified artifact manifest.
+      - Enforce the exact certified-negative, known-positive, case-coverage, full-state resume, and matched independent-control contracts from protocol.yaml.
+      - Resolve manifest_path from the verified ASD-000 revision-2 logit-source projection, hash it, require equality with manifest_sha256, and consume only files declared by that resolved manifest.
       - Implement branch outcomes, sealed-cohort guards, deterministic seed 20260731, and atomic JSON completion records.
+      - Consume controller env REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, and REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL; label every nested container rexgroundingct.aiselfdrive.lease with the lease ID and rexgroundingct.aiselfdrive.experiment with the experiment ID, and never hard-code container names or lease values.
+      - Emit metrics.resources in every stage evidence with incremental gpu_hours, incremental cpu_hours, and cumulative experiment runtime-tree high-water storage_gib.
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/scripts
       - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/src
       - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/tests
       - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/results/implementation_evidence.json
-    inputs: [experiment_plan, protocol_config, dependency_states_and_manifests]
+    inputs: [experiment_plan, protocol_config, locked_lineage_manifest, asd040_state, asd040_artifact_manifest]
     outputs: [set_verifier_source_package, set_verifier_test_suite]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/results/implementation_evidence.json
@@ -283,11 +334,17 @@ stages:
         PYTHONDONTWRITEBYTECODE: "1"
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/validation
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/validate_locked_inputs.json
     inputs:
       - locked_lineage_manifest
-      - logit_source_audit
+      - revision_2_logit_source_projection
       - val80_manifest
-      - optional_upstream_states_and_manifests
+      - asd010_state
+      - asd010_artifact_manifest
+      - asd020_state
+      - asd020_artifact_manifest
+      - asd030_state
+      - asd030_artifact_manifest
     outputs: [input_validation_report, frozen_feature_registry]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/validate_locked_inputs.json
@@ -303,6 +360,7 @@ stages:
     stop_conditions: [checkpoint_hash_drift, cohort_hash_drift, lineage_mismatch, split_leakage]
     acceptance_checks:
       - val80 logits are verified against the locked baseline and complete finding order.
+      - The projection and its resolved manifest_path are both hashed, and the resolved hash equals manifest_sha256 before any logit is opened.
       - Optional feature registry includes only verified finished/go artifacts and is immutable.
   - id: build_val80_oracle
     kind: diagnostic
@@ -323,7 +381,8 @@ stages:
         PYTHONDONTWRITEBYTECODE: "1"
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/oracle
-    inputs: [verified_val80_logits, val80_manifest]
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/build_val80_oracle.json
+    inputs: [revision_2_logit_source_projection, val80_manifest]
     outputs: [val80_persistence_forest, oracle_report]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/build_val80_oracle.json
@@ -358,6 +417,7 @@ stages:
         PYTHONDONTWRITEBYTECODE: "1"
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/branch
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/resolve_tri_state_branch.json
     inputs: [oracle_report, asd040_state, asd040_artifact_manifest]
     outputs: [branch_decision]
     completion:
@@ -395,6 +455,7 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/preflight
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/docker_gpu_preflight.json
     inputs: [branch_decision, locked_parent_checkpoint, frozen_feature_registry]
     outputs: [gpu_preflight_report]
     completion:
@@ -402,8 +463,12 @@ stages:
       required_fields: [branch_sha256, image_digest, gpu_inventory, free_memory_gib, finite_features]
     resources:
       cpu_cores: 8
-      gpu_count: 4
-      minimum_free_gib_per_gpu: 36
+      gpu_count: 1
+      gpu_count_per_arm: 1
+      arm_count: 1
+      maximum_concurrent_arms: 1
+      minimum_free_gib_per_gpu: 32
+      gpu_hours_total_max: 0.25
     timeout_seconds: 3600
     retry:
       max_attempts: 1
@@ -413,7 +478,9 @@ stages:
     stop_conditions: [wrong_inference_device, checkpoint_hash_drift, non_finite]
     acceptance_checks:
       - Stage runs only when branch_decision marks learned stages eligible.
-      - Four expected RTX 6000 Ada GPUs meet free-memory policy.
+      - Docker inspect image ID equals sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f.
+      - Four NVIDIA RTX 6000 Ada Generation GPUs meet free-memory policy.
+      - Parent checkpoint SHA-256 equals 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf.
       - Fixed sample features are finite and deterministic.
   - id: build_training_set_dataset
     kind: data_generation
@@ -432,14 +499,20 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/training_data
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/build_training_set_dataset.json
     inputs: [branch_decision, tri_state_policy_artifact, frozen_feature_registry, locked_parent_checkpoint]
     outputs: [training_forest_manifest, frozen_set_features]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/build_training_set_dataset.json
-      required_fields: [case_count, finding_count, node_count, state_counts, patient_overlap_count, feature_sha256]
+      required_fields: [case_count, finding_count, node_count, state_counts, state_case_counts, policy_case_coverage_fraction, label_sufficiency_gate, patient_overlap_count, feature_sha256]
     resources:
       cpu_cores: 32
       gpu_count: 4
+      gpu_count_per_arm: 1
+      arm_count: 4
+      maximum_concurrent_arms: 4
+      minimum_free_gib_per_gpu: 36
+      gpu_hours_total_max: 8
     timeout_seconds: 64800
     retry:
       max_attempts: 3
@@ -451,10 +524,38 @@ stages:
       - Every node is exactly known_positive, certified_negative, or unknown.
       - Unknown nodes have zero supervised loss weight.
       - Feature schema matches the frozen registry.
+      - Learned work requires at least 500 certified-negative nodes from at least 50 cases, 500 known-positive nodes, and tri-state policy coverage of at least 90 percent of cases.
+      - Insufficient counts skip T1 through T4 and close inconclusive without relaxing thresholds.
+  - id: t1_resume_smoke
+    kind: smoke
+    execution_mode: command
+    needs: [build_training_set_dataset]
+    required: false
+    description: Run ten matched updates for set-context and independent-identical-feature models and prove exact new-process full-state resume.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/scripts/train_verifier.py, --config, experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/configs/protocol.yaml, --tier, T1]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {CUDA_DEVICE_ORDER: PCI_BUS_ID}
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t1
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/t1_resume_smoke.json
+    inputs: [training_forest_manifest, frozen_set_features]
+    outputs: [t1_full_state_checkpoints, t1_resume_report]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/t1_resume_smoke.json
+      required_fields: [arm_updates, uninterrupted_trace_sha256, resumed_trace_sha256, checkpoint_sha256, exact_match]
+    resources: {cpu_cores: 16, gpu_count: 2, gpu_count_per_arm: 1, arm_count: 2, maximum_concurrent_arms: 2, minimum_free_gib_per_gpu: 36, maximum_updates_per_arm: 10, gpu_hours_per_arm_max: 0.25}
+    timeout_seconds: 7200
+    retry: {max_attempts: 2, automatic_full_state_resumes: 1, retryable_classes: [container_start_failure, transient_io]}
+    stop_conditions: [non_finite, missing_resume_state, unknown_weight_violation, sample_schedule_mismatch]
+    acceptance_checks:
+      - Set verifier and independent control use byte-identical features, samples, initialization seed, optimizer, schedule, and decoder; only set context differs.
+      - New-process five-plus-five updates exactly match uninterrupted ten-update global step, samples, parameters, logits, and losses.
+      - Atomic checkpoints contain every protocol-required state field and each arm uses less than 0.25 GPU-hour.
   - id: pilot_t2
     kind: training
     execution_mode: command
-    needs: [build_training_set_dataset]
+    needs: [t1_resume_smoke]
     required: false
     description: Train set verifier and identical-feature independent control for 500 updates.
     command:
@@ -470,7 +571,8 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t2
-    inputs: [training_forest_manifest, frozen_set_features, val80_persistence_forest]
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/pilot_t2.json
+    inputs: [t1_full_state_checkpoints, training_forest_manifest, frozen_set_features, val80_persistence_forest]
     outputs: [t2_checkpoints, t2_metrics]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/pilot_t2.json
@@ -478,7 +580,12 @@ stages:
     resources:
       cpu_cores: 32
       gpu_count: 2
+      gpu_count_per_arm: 1
+      arm_count: 2
+      maximum_concurrent_arms: 2
+      minimum_free_gib_per_gpu: 36
       maximum_updates_per_arm: 500
+      gpu_hours_per_arm_max: 1.25
     timeout_seconds: 28800
     retry:
       max_attempts: 2
@@ -508,15 +615,21 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t3
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/decision_t3.json
     inputs: [t2_checkpoints, val80_persistence_forest, oracle_report]
     outputs: [t3_checkpoints, t3_metrics]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/decision_t3.json
-      required_fields: [arm_updates, all_control_metrics, oracle_gain_recovered, gt_retention, case_clustered_ci, gate_verdict]
+      required_fields: [arm_updates, all_control_metrics, oracle_gain_recovered, gt_retention, case_clustered_ci, gate_verdict, matched_t3_state_hashes, metrics.promotion, metrics.resources]
     resources:
       cpu_cores: 32
       gpu_count: 2
+      gpu_count_per_arm: 1
+      arm_count: 2
+      maximum_concurrent_arms: 2
+      minimum_free_gib_per_gpu: 36
       maximum_updates_per_arm: 2000
+      gpu_hours_per_arm_max: 2.5
     timeout_seconds: 43200
     retry:
       max_attempts: 2
@@ -524,16 +637,18 @@ stages:
       retryable_classes: [container_start_failure, transient_io]
     stop_conditions: [split_leakage, non_finite, missing_resume_state, budget_exhausted]
     acceptance_checks:
+      - Set-verifier treatment and identical-feature independent control each have a distinct verified full-state checkpoint at cumulative global update 2000 with identical parent, data, sample-schedule, and scheduler-contract hashes.
       - Set verifier recovers at least 20% of oracle Dice gain.
       - Set verifier Dice exceeds identical-feature independent scorer Dice.
       - Baseline true-positive voxel retention is at least 0.99.
       - Case-clustered 95% CI for paired Dice improvement has lower bound above zero.
+      - metrics.promotion contains exactly eligible, all_safety_and_noninferiority_gates_pass, paired_val80_dice_delta, val80_off_location_fp_reduction, and measured_gpu_hours with boolean, finite-fraction, and nonnegative-hour types.
   - id: confirm_t4
-    kind: confirmation
+    kind: internal_replication
     execution_mode: command
     needs: [decision_t3]
     required: false
-    description: Confirm a promoted set verifier on sealed val120 and report val200 continuity.
+    description: Replicate controller-promoted set verifier and matched independent-identical-feature control on historically exposed val120 and report val200 continuity.
     command:
       argv:
         - python
@@ -549,25 +664,45 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t4
-    inputs: [t3_checkpoints, val120_manifest, val200_manifest, promotion_authorization]
-    outputs: [t4_checkpoint, t4_metrics]
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/confirm_t4.json
+    inputs: [promotion_record, t3_checkpoints, val120_manifest, val200_manifest]
+    matched_arms:
+      treatment:
+        id: persistence_set_verifier
+        checkpoint_output_id: t4_set_checkpoint
+        metrics_output_id: t4_set_metrics
+      control:
+        id: disabled_set_context_independent_scorer
+        checkpoint_output_id: t4_matched_control_checkpoint
+        metrics_output_id: t4_matched_control_metrics
+      matched_hash_fields: [parent_checkpoint_sha256, data_sha256, schedule_sha256, update_count]
+    outputs: [t4_set_checkpoint, t4_set_metrics, t4_matched_control_checkpoint, t4_matched_control_metrics, t4_metrics]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/confirm_t4.json
-      required_fields: [promotion_sha256, val120_metrics, val200_metrics, case_clustered_ci, output_sha256]
+      required_fields: [promotion_sha256, val120_metrics, val200_metrics, case_clustered_ci, metrics.matched_arms, metrics.resources, output_sha256]
     resources:
       cpu_cores: 32
-      gpu_count: 1
+      gpu_count: 2
+      gpu_count_per_arm: 1
+      arm_count: 2
+      maximum_concurrent_arms: 2
+      minimum_free_gib_per_gpu: 36
       maximum_updates_per_arm: 10000
+      gpu_hours_per_arm_max: 15
     timeout_seconds: 129600
     retry:
       max_attempts: 2
       automatic_full_state_resumes: 1
       retryable_classes: [container_start_failure, transient_io]
-    stop_conditions: [missing_promotion_authorization, split_leakage, non_finite, budget_exhausted]
+    stop_conditions: [missing_or_invalid_controller_promotion_record, matched_control_missing, split_leakage, non_finite, budget_exhausted]
     acceptance_checks:
-      - val120 is inaccessible before verified promotion.
-      - Positive case-clustered paired Dice interval and 99% retention replicate on val120.
+      - Promotion record source equals experimentctl promote; required fields, plan hash, matched-control requirement, val120 authorization, and controller-recorded SHA-256 verify before access.
+      - metrics.matched_arms contains both declared IDs, per-arm checkpoint and metrics hashes, identical parent/data/schedule hashes, and update_count 10000.
+      - Set verifier and independent control both reach exactly 10,000 updates from matched T3 states with identical features, examples, optimizer, schedule, and decoder.
+      - Supported executors refuse val120 before verified promotion, and the cohort is described only as internal replication; this is a software guard, not a secrecy claim.
+      - Positive case-clustered paired Dice interval and 99% retention replicate on val120 only for internal-replication GO.
       - val200 is continuity evidence only.
+      - Independent confirmation remains undecided pending externally unseen or custodied data.
   - id: closeout
     kind: closeout
     execution_mode: agent
@@ -585,9 +720,9 @@ stages:
       - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/claims.yaml
       - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/artifacts/manifest.json
     inputs: [oracle_report, branch_decision, t2_metrics, t3_metrics, t4_metrics]
-    outputs: [final_result, final_summary, final_claims, verified_artifact_manifest]
+    outputs: [final_result, final_summary, final_claims]
     completion:
-      evidence_file: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/results/closeout_evidence.json
+      evidence_file: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/results/result.json
       require_all_executed_stage_artifacts_verified: true
     resources:
       cpu_cores: 8
@@ -629,9 +764,21 @@ evaluation:
       - set_verifier_dice > independent_identical_features_dice
       - baseline_true_positive_voxel_retention >= 0.99
       - paired_case_clustered_ci_lower > 0
-    confirmation_go:
+    label_sufficiency_go:
+      - certified_negative_nodes >= 500
+      - certified_negative_cases >= 50
+      - known_positive_nodes >= 500
+      - tri_state_policy_case_coverage_fraction >= 0.90
+    internal_replication_go:
       - val120_paired_case_clustered_ci_lower > 0
       - val120_baseline_true_positive_voxel_retention >= 0.99
+      - matched_independent_control_completed == true
+promotion_contract:
+  artifact_id: promotion_record
+  path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_060_persistence_tree_set_verifier.json
+  exact_producer: experimentctl promote
+  required_fields: [schema_version, experiment_id, source, portfolio_sha256, plan_sha256, t3_evidence_sha256, rank, promoted_at, matched_control_required, val120_access_authorized]
+  validation: Require matching experiment and plan, source experimentctl promote, matched_control_required true, val120_access_authorized true, and SHA-256 equality with controller event and state.
 paths:
   workspace: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier
   config: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/configs/protocol.yaml
@@ -639,7 +786,10 @@ paths:
   artifact_manifest: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/artifacts/manifest.json
   result: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/results/result.json
 budget:
-  maximum_gpu_hours: 40
+  gpu_hours_max: 48
+  cpu_hours_max: 2000
+  durable_storage_gib_max: 1800
+  maximum_gpu_hours: 48
   maximum_wall_hours: 84
   maximum_external_storage_gib: 1800
   terminate_on_exhaustion: true

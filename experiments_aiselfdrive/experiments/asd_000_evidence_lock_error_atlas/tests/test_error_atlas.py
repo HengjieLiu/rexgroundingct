@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import gzip
 import importlib.util
+import inspect
 import json
 from pathlib import Path
 import struct
@@ -10,6 +11,7 @@ import tempfile
 import unittest
 
 import numpy as np
+from unittest.mock import patch
 
 
 SOURCE_DIR = Path(__file__).resolve().parents[1] / "src"
@@ -22,6 +24,8 @@ assert RUNNER_SPEC is not None and RUNNER_SPEC.loader is not None
 RUNNER = importlib.util.module_from_spec(RUNNER_SPEC)
 sys.modules[RUNNER_SPEC.name] = RUNNER
 RUNNER_SPEC.loader.exec_module(RUNNER)
+
+import error_atlas as ERROR_ATLAS  # noqa: E402
 
 from error_atlas import (  # noqa: E402
     AtlasInvariantError,
@@ -85,6 +89,21 @@ class PhysicalGeometryTests(unittest.TestCase):
         self.assertAlmostEqual(records[0]["volume_mm3"], 48.0)
         np.testing.assert_allclose(
             records[0]["centroid_world_xyz_mm"], [9.0, -4.5, 7.0]
+        )
+
+    def test_component_statistics_do_not_scan_full_volume_per_component(self) -> None:
+        mask = np.zeros((13, 13, 13), dtype=bool)
+        mask[::3, ::3, ::3] = True
+        with patch.object(
+            ERROR_ATLAS.np,
+            "argwhere",
+            side_effect=AssertionError("O(K*N) argwhere scan is forbidden"),
+        ):
+            records = component_records(mask, np.eye(4))
+        self.assertEqual(sum(record["voxel_count"] for record in records), 125)
+        self.assertNotIn(
+            "labels == component_id",
+            inspect.getsource(ERROR_ATLAS.atlas_component_records),
         )
 
     def test_raw_mask_component_reconstruction_is_exact_and_strict(self) -> None:
@@ -462,6 +481,103 @@ class RunnerContractTests(unittest.TestCase):
             self.assertEqual(header.dtype, np.dtype("u1"))
             np.testing.assert_array_equal(RUNNER.read_nifti_data(header), expected)
             np.testing.assert_array_equal(header.affine, np.eye(4))
+
+    def test_laterality_only_never_certifies_outside_lung(self) -> None:
+        lobe_ids = {
+            "left_upper": 10,
+            "left_lower": 11,
+            "right_upper": 12,
+            "right_middle": 13,
+            "right_lower": 14,
+        }
+        laterality = RUNNER._prompt_lobe_certification(
+            RUNNER.parse_prompt("Small right pleural effusion"), lobe_ids
+        )
+        self.assertFalse(laterality["certify_outside_lung"])
+        self.assertEqual(laterality["certified_lobe_ids"], (10, 11))
+
+        cache = RUNNER._AtlasArrayCache({})
+        segmentation = np.zeros((1, 1, 1, 3), dtype=np.uint8)
+        anatomy = np.asarray([[[12, 10, 0]]], dtype=np.uint8)
+        cache.full = lambda case_name, source: (  # type: ignore[method-assign]
+            segmentation if source == "segmentation" else anatomy
+        )
+        counts = cache.full_supervision_counts(
+            "case.nii.gz",
+            0,
+            certified_lobe_ids=laterality["certified_lobe_ids"],
+            all_lobe_ids=tuple(sorted(lobe_ids.values())),
+            certify_outside_lung=laterality["certify_outside_lung"],
+        )
+        self.assertEqual(counts["certified_negative"], 1)
+        self.assertEqual(counts["unknown"], 2)
+
+    def test_unavailable_spatial_totals_are_null_with_observation_counts(self) -> None:
+        class Cache:
+            @staticmethod
+            def bounds(case_name, finding_index):
+                return (slice(0, 1), slice(0, 1), slice(0, 1)), (0, 0, 0)
+
+            @staticmethod
+            def full_supervision_counts(*args, **kwargs):
+                return {
+                    "known_positive": 1,
+                    "certified_negative": 0,
+                    "unknown": 7,
+                    "full_volume_voxels": 8,
+                }
+
+        row = {
+            "case_id": "case_a",
+            "finding_id": "0",
+            "raw_mask_dice": 0.5,
+            "raw_mask_hit": True,
+            "prediction_empty": False,
+            "known_positive_recall": 1.0,
+            "certified_precision": 0.0,
+            "predicted_volume_mm3": 2.0,
+            "prompt_off_location_fp_fraction": 0.0,
+            "detached_off_location_component_fraction": 0.0,
+            "candidate_recall": 1.0,
+            "anatomy_overlap_fraction": 0.0,
+            "prediction_voxels": 2,
+            "known_positive_voxels": 1,
+            "certified_negative_fp_voxels": 0,
+            "unknown_prediction_voxels": 1,
+            "prompt_off_location_fp_voxels": 0,
+            "prediction_component_count": 1,
+            "detached_component_count": 0,
+            "detached_off_location_component_count": 0,
+        }
+        report = {"rows": [row], "component_rows": [], "summary": {}}
+        processed = RUNNER._postprocess_atlas(
+            report,
+            cache=Cache(),
+            supervision={
+                ("case_a", "0"): {
+                    "status": "unavailable",
+                    "parser_group": "unknown",
+                    "parser_reason_codes": ["no_certified_target"],
+                    "certified_lobe_ids": (),
+                    "certify_outside_lung": False,
+                }
+            },
+            all_lobe_ids=(10, 11, 12, 13, 14),
+            bootstrap_seed=7,
+            bootstrap_draws=16,
+        )
+        summary = processed["summary"]
+        self.assertIsNone(summary["metric_totals"]["certified_negative_fp_voxels"])
+        self.assertEqual(
+            summary["metric_total_observation_counts"][
+                "certified_negative_fp_voxels"
+            ],
+            0,
+        )
+        self.assertEqual(summary["metric_totals"]["prediction_voxels"], 2)
+        self.assertEqual(
+            summary["metric_total_observation_counts"]["prediction_voxels"], 1
+        )
 
     def test_metadata_projection_never_materializes_label_metrics(self) -> None:
         metadata = {

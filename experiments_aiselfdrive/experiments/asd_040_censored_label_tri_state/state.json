@@ -1,45 +1,264 @@
 {
-  "schema_version": "1.0",
-  "experiment_id": "asd_040_censored_label_tri_state",
-  "plan_sha256": "f29d1c758feba02133393f500339814094656c128b5d57f54cfb28d9ec7174e6",
-  "plan_revision": 1,
-  "revision": 0,
-  "status": "blocked",
-  "outcome": null,
-  "phase": "initialization",
-  "created_at": "2026-07-31T00:00:00Z",
-  "updated_at": "2026-07-31T00:00:00Z",
-  "current_stage_id": null,
-  "executor": null,
-  "lease": null,
-  "last_event_seq": 1,
+  "artifacts_verified": false,
   "blockers": [
     {
       "code": "dependency_unsatisfied",
-      "dependency_id": "asd_000_evidence_lock_error_atlas",
-      "required_outcomes": ["go"],
-      "message": "The locked lineage, cohorts, prompt ontology, and baseline evidence must be verified first.",
-      "resolution": "Wait for ASD-000 to finish with outcome go."
+      "message": "asd_000_evidence_lock_error_atlas: dependency status is ready",
+      "stage_id": "implement_censorship_pipeline"
     }
   ],
-  "stages": [
-    {"id": "implement_censorship_pipeline", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "validate_locked_inputs", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "build_censorship_lab", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "docker_gpu_preflight", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "extract_frozen_features", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "crossfit_diagnostic", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "pu_pilot_t2", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "decision_t3", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "confirm_t4", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "closeout", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []}
-  ],
   "budget_consumed": {
-    "gpu_hours": 0.0,
     "cpu_hours": 0.0,
+    "gpu_hours": 0.0,
     "storage_gib": 0.0
   },
-  "verified_artifact_ids": ["experiment_plan", "protocol_config"],
-  "artifacts_verified": false,
-  "closeout_passed": false
+  "closeout_passed": false,
+  "created_at": "2026-07-31T00:00:00Z",
+  "current_stage_id": null,
+  "executor": null,
+  "experiment_id": "asd_040_censored_label_tri_state",
+  "last_event_seq": 2,
+  "lease": null,
+  "obligation_projection": {
+    "artifact_ids": [
+      "anatomical_cot",
+      "crossfit_policy",
+      "diagnostic_report",
+      "evaluator_only_hidden_manifest",
+      "experiment_plan",
+      "final_claims",
+      "final_result",
+      "final_summary",
+      "frozen_candidate_features",
+      "gpu_preflight_report",
+      "input_validation_report",
+      "locked_lineage_manifest",
+      "locked_parent_checkpoint",
+      "official_train_metadata",
+      "promotion_record",
+      "protocol_config",
+      "t1_full_state_checkpoints",
+      "t1_resume_report",
+      "t2_checkpoints",
+      "t2_metrics",
+      "t3_checkpoints",
+      "t3_metrics",
+      "t4_disabled_tri_state_checkpoint",
+      "t4_disabled_tri_state_metrics",
+      "t4_metrics",
+      "t4_tri_state_policy_checkpoint",
+      "t4_tri_state_policy_metrics",
+      "training_safe_censorship_manifest",
+      "tri_state_policy_artifact",
+      "tri_state_source_package",
+      "tri_state_test_suite",
+      "val120_manifest",
+      "val200_manifest",
+      "val80_manifest"
+    ],
+    "artifacts_sha256": "001d38a5f847dcdd203c40ee0fceb5d648a7cf26176164da49c3d65deb575518",
+    "claim_ids": [
+      "censored_entities_recoverable",
+      "censorship_lab_feasible",
+      "hidden_labels_remain_isolated",
+      "tri_state_policy_causes_recovery",
+      "tri_state_policy_replicates_on_internal_val120",
+      "tri_state_training_is_noninferior"
+    ],
+    "claim_types": [
+      "causal",
+      "feasibility",
+      "mechanistic",
+      "performance",
+      "safety"
+    ],
+    "claims_sha256": "16253194f021ce431cdd22f836d1d3f4ea07fc83d80ce1a809703f9b2efd89f3",
+    "pinned_at": "2026-08-01T05:05:18.208476Z",
+    "required_artifact_ids": [
+      "anatomical_cot",
+      "crossfit_policy",
+      "diagnostic_report",
+      "evaluator_only_hidden_manifest",
+      "experiment_plan",
+      "final_claims",
+      "final_result",
+      "final_summary",
+      "frozen_candidate_features",
+      "gpu_preflight_report",
+      "input_validation_report",
+      "locked_lineage_manifest",
+      "locked_parent_checkpoint",
+      "official_train_metadata",
+      "protocol_config",
+      "training_safe_censorship_manifest",
+      "tri_state_source_package",
+      "tri_state_test_suite",
+      "val80_manifest"
+    ],
+    "static_artifact_ids": [
+      "experiment_plan",
+      "locked_parent_checkpoint",
+      "protocol_config"
+    ]
+  },
+  "outcome": null,
+  "phase": "implement_censorship_pipeline",
+  "plan_history": [
+    {
+      "archived_artifacts_path": "experiments_aiselfdrive/.runtime/replans/asd_040_censored_label_tri_state/revision_1_f29d1c758feb/artifacts/manifest.json",
+      "archived_claims_path": "experiments_aiselfdrive/.runtime/replans/asd_040_censored_label_tri_state/revision_1_f29d1c758feb/claims.yaml",
+      "archived_plan_path": "experiments_aiselfdrive/.runtime/replans/asd_040_censored_label_tri_state/revision_1_f29d1c758feb/experiment.yaml",
+      "archived_plan_sha256": "f29d1c758feba02133393f500339814094656c128b5d57f54cfb28d9ec7174e6",
+      "archived_plan_size_bytes": 27963,
+      "archived_result_path": "experiments_aiselfdrive/.runtime/replans/asd_040_censored_label_tri_state/revision_1_f29d1c758feb/result.json",
+      "archived_result_sha256": "ae5b430bb02ace5886dcbdad4ffb9d7cfd65b5f3841c74a500d3156c545594b9",
+      "archived_result_size_bytes": 677,
+      "archived_state_path": "experiments_aiselfdrive/.runtime/replans/asd_040_censored_label_tri_state/revision_1_f29d1c758feb/state.json",
+      "archived_state_sha256": "7acbd88c477440f33771c9b8d85bb9dc8215b1e039c3c8dfb12e05f1c1904c80",
+      "archived_state_size_bytes": 2556,
+      "carried_budget_consumed": {
+        "cpu_hours": 0.0,
+        "gpu_hours": 0.0,
+        "storage_gib": 0.0
+      },
+      "current_artifacts_sha256": "1d3285b0105ee5e05865378134f90efabaf083869873c197f802d224353401d2",
+      "current_claims_sha256": "dfcecb58254dcca32377b91501859a90cdbf4220d2e16fae9c35db3db03e898c",
+      "plan_revision": 1,
+      "plan_sha256": "f29d1c758feba02133393f500339814094656c128b5d57f54cfb28d9ec7174e6",
+      "previous_artifacts_sha256": "62c8cd5410b8aafac6f62d2e62b27a3b85e0c6a7b7ed27a415640da6ae563f21",
+      "previous_artifacts_size_bytes": 8352,
+      "previous_budget_consumed": {
+        "cpu_hours": 0.0,
+        "gpu_hours": 0.0,
+        "storage_gib": 0.0
+      },
+      "previous_claims_sha256": "e76ae91230389acefd97679ef14b44e383288f4829a945f2ec57c983cb39430b",
+      "previous_claims_size_bytes": 2012,
+      "previous_plan_source": "git:827f962c3cfee117b6442b74653c752ed36f296c:experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/experiment.yaml",
+      "replanned_at": "2026-08-01T05:05:20.368332Z"
+    }
+  ],
+  "plan_revision": 2,
+  "plan_sha256": "c39f7dacfa924cccc66c764fdf9664c55670acdad49dbec8e68ac4ffffb73bda",
+  "revision": 1,
+  "schema_version": "1.0",
+  "stages": [
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "implement_censorship_pipeline",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "blocked"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "validate_locked_inputs",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "build_censorship_lab",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "docker_gpu_preflight",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "extract_frozen_features",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "crossfit_diagnostic",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "t1_resume_smoke",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "pu_pilot_t2",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "decision_t3",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "confirm_t4",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "closeout",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    }
+  ],
+  "status": "blocked",
+  "updated_at": "2026-08-01T05:05:20.369094Z",
+  "verified_artifact_ids": [
+    "experiment_plan",
+    "locked_parent_checkpoint",
+    "protocol_config"
+  ]
 }

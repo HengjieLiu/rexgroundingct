@@ -35,10 +35,10 @@ runtime root. The scaffold runs no oracle or training.
 - Status: `blocked`
 - Outcome: `pending`
 - Current stage: `none`
-- State revision: `0`
-- Updated: `2026-07-31T00:00:00Z`
+- State revision: `1`
+- Updated: `2026-08-01T05:05:26.945079Z`
 
 Blockers:
 
-- `dependency_unsatisfied`: The locked lineage, cohorts, and verified val80 logits are required.
+- `dependency_unsatisfied`: asd_000_evidence_lock_error_atlas: dependency status is ready
 <!-- experimentctl:state:end -->

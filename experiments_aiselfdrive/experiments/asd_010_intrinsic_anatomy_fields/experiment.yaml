@@ -1,7 +1,7 @@
 schema_version: "1.0"
 id: asd_010_intrinsic_anatomy_fields
 title: Continuous patient-specific thoracic fields with bounded late logit coupling
-plan_revision: 1
+plan_revision: 2
 created_at: "2026-07-31T00:00:00Z"
 updated_at: "2026-07-31T00:00:00Z"
 priority: 3
@@ -39,11 +39,11 @@ non_goals:
   - Append scalar lobe labels as an unconstrained image channel.
   - Add anatomy vectors to the text query or decoder representation.
   - Treat hilar or airway relations as reliable without a train-wide verified source.
-  - Inspect val120 before a promoted T4 confirmatory stage.
+  - Inspect val120 before a controller-promoted T4 internal-replication stage.
 evidence_references:
   - id: locked_foundation
     kind: dependency
-    path: experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json
+    path: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json
     availability: missing
     dependency_experiment_id: asd_000_evidence_lock_error_atlas
     dependency_required_outcome: go
@@ -86,11 +86,11 @@ lineage:
     shape: [6467, 2560]
 data:
   trainval_anatomy_manifest: experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json
-  lineage_manifest: experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json
+  lineage_manifest: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json
   prompt_ontology: experiments_aiselfdrive/shared/manifests/prompt_ontology_v1.json
-  error_atlas_contract: experiments_aiselfdrive/shared/manifests/asd000_error_atlas_contract.json
+  error_atlas_contract: experiments_aiselfdrive/shared/manifests/asd000_error_atlas_contract_revision_2.json
   val80_manifest: experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
-  val120_manifest: experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json
+  val120_manifest: experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json
   val200_manifest: configs/evaluation/rexgroundingct_val200_seed20260723.json
   val120_access:
     before_t4: prohibited
@@ -184,6 +184,9 @@ method:
       - correct_continuous_fields
     schedule_seed: 20260731
     schedule_materialization: One immutable event JSONL shared byte-for-byte by all arms.
+    update_semantics: T1, T2, T3, and T4 are cumulative global-update barriers at 10, 500, 2,000, and 10,000.
+    scheduler_contract: One immutable 10,000-update polynomial horizon; each arm resumes its own prior-barrier full scheduler state without restart, warmup replay, or horizon mutation.
+    t4_matched_start: Correct-field treatment and no-coupling control each resume their own matched 2,000-update T3 full state; a fresh control is prohibited.
     batch_size: 1
     gradient_accumulation: 1
     world_size_per_arm: 1
@@ -199,7 +202,11 @@ method:
     poly_power: 0.9
     warmup_updates: 100
     gradient_clip_max_norm: 12.0
-    checkpoints: full_model_optimizer_scaler_schedule_sampler_and_rng_state
+    checkpoints: >-
+      Atomic full state containing model, optimizer, scheduler, AMP scaler or
+      explicit null, global update, sample cursor, sampler, Python, NumPy, CPU
+      and CUDA RNG states, arm/tier IDs, and parent, protocol, and schedule hashes.
+    resume_acceptance: A new-process 5-plus-5 update run exactly matches uninterrupted 10-update samples, parameters, logits, losses, and global update.
     tiers:
       T1: 10
       T2: 500
@@ -212,10 +219,35 @@ resources:
   gpu_memory_free_gib_min_training: 36
   gpu_memory_free_gib_min_inference: 32
   docker_image: rexgroundingct-voxtell:cu126
+  docker_local_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
   use_multi_gpu_ddp: false
   gpu_preflight_ref: experiments_aiselfdrive/shared/hardware_profile.yaml
   cpu_threads_max: 32
   ram_gib_max: 192
+stage_execution_contract:
+  resource_limits:
+    cpu_cores_hardware_max: 128
+    gpu_count_hardware_max: 4
+    gpu_count_per_arm_max: 1
+    maximum_concurrent_arms: 4
+    inference_free_memory_gib_min: 32
+    training_free_memory_gib_min: 36
+    multi_gpu_ddp: prohibited
+  evidence:
+    applies_to: every_stage
+    object_path: metrics.resources
+    required_fields: [gpu_hours, cpu_hours, storage_gib]
+    semantics:
+      gpu_hours: incremental_stage_gpu_hours
+      cpu_hours: incremental_stage_cpu_hours
+      storage_gib: cumulative_experiment_runtime_tree_high_water_at_stage_completion
+    validation: All values are finite and nonnegative; storage_gib is measured over the experiment runtime tree and never reported as a stage delta.
+  controller_container_identity:
+    required_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+    required_labels:
+      lease: rexgroundingct.aiselfdrive.lease=REXGROUNDINGCT_AISELFDRIVE_LEASE_ID
+      experiment: rexgroundingct.aiselfdrive.experiment=REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID
+    rule: Every nested docker run consumes controller-provided values and applies both exact labels; container names and lease values are never hard-coded.
 stages:
   - id: implement_anatomy_field_pipeline
     kind: implementation
@@ -226,12 +258,24 @@ stages:
     instructions: >-
       Create fields.py, routing.py, coupling.py, a run_stage.py CLI, and focused
       tests. The CLI must expose build_val80_fields, diagnostic, build_trainval_fields,
-      t1, t2, t3, t4, and closeout. The coupling's raw_alpha==0 path must return
+      preflight, t1, t2, t3, t4, and closeout. The coupling's raw_alpha==0 path must return
       the exact input tensor without arithmetic. Field grids must use physical
       affines and fixed 3-mm RAS geometry. Hilar/airway signals are exploratory
       val-only and never enter training. Training must snapshot the shared
       schedule, preserve full resume state, execute tier barriers, and reject
-      val120 access outside t4. Do not modify existing repository code.
+      val120 access outside t4. Resolve the verified ASD-000 logit-source
+      projection's manifest_path, hash that resolved manifest, require equality
+      with manifest_sha256, and consume only files declared by it. Do not
+      modify existing repository code. Consume controller env
+      REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID,
+      REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, and
+      REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL; label every nested container
+      rexgroundingct.aiselfdrive.lease with the lease ID and
+      rexgroundingct.aiselfdrive.experiment with the experiment ID, and never
+      hard-code container names or lease values.
+      Every stage evidence must emit metrics.resources with incremental
+      gpu_hours, incremental cpu_hours, and cumulative experiment runtime-tree
+      high-water storage_gib.
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/src/fields.py
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/src/routing.py
@@ -242,12 +286,8 @@ stages:
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/tests/test_coupling.py
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/tests/test_leakage_and_controls.py
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/implement_anatomy_field_pipeline.json
-    inputs:
-      - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/configs/protocol.yaml
-      - locked lineage, anatomy, cohort, ontology, and atlas manifests
-    outputs:
-      - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/scripts/run_stage.py
-      - experiment-local field, routing, coupling, and test modules
+    inputs: [protocol_config, locked_lineage, trainval_anatomy_manifest, val80_manifest, prompt_ontology, error_atlas_contract]
+    outputs: [anatomy_field_source_package, anatomy_field_test_suite]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/implement_anatomy_field_pipeline.json
       predicate: Modules compile; unit tests pass; exact zero identity and val120 access denial are proven.
@@ -278,11 +318,8 @@ stages:
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/val80_field_cache.json
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields/fields/val80
-    inputs:
-      - locked val80 and trainval anatomy manifests
-    outputs:
-      - external val80 field cache and hashed manifest
-      - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/val80_field_cache.json
+    inputs: [val80_manifest, trainval_anatomy_manifest]
+    outputs: [val80_field_cache, val80_field_cache_report]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/val80_field_cache.json
       predicate: All 80 cases have finite, correctly oriented, invertibly mapped field grids.
@@ -310,10 +347,8 @@ stages:
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/diagnostic.json
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/diagnostic.csv
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/diagnostic_summary.md
-    inputs:
-      - val80 fields, verified baseline logits, prompt ontology, and error-atlas contract
-    outputs:
-      - diagnostic JSON, finding table, and human summary
+    inputs: [val80_field_cache, revision_2_logit_source_projection, prompt_ontology, error_atlas_contract]
+    outputs: [diagnostic, diagnostic_table, diagnostic_summary]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/diagnostic.json
       predicate: Held-out-fold metrics and all causal controls are complete and the diagnostic gate is decided.
@@ -326,6 +361,7 @@ stages:
       - Correct fields do not outperform all swap, inversion, permutation, and random controls.
     acceptance_checks:
       - Folds are case-disjoint and each finding is evaluated exactly once out of fold.
+      - The projection and its resolved manifest_path are both hashed, and the resolved hash equals manifest_sha256 before any logit is opened.
       - Correct-field GT retention is at least 99 percent.
       - Correct fields reduce off-location FP by at least 15 percent or detached off-location components by at least 10 percent.
   - id: build_trainval_field_cache
@@ -341,11 +377,8 @@ stages:
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/trainval_field_cache.json
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields/fields/trainval
-    inputs:
-      - diagnostic GO evidence and trainval anatomy manifest
-    outputs:
-      - external trainval field cache and manifest
-      - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/trainval_field_cache.json
+    inputs: [diagnostic, trainval_anatomy_manifest]
+    outputs: [trainval_field_cache, trainval_field_cache_report]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/trainval_field_cache.json
       predicate: 3,192 field records verify against source anatomy and physical geometry.
@@ -358,10 +391,38 @@ stages:
     acceptance_checks:
       - 3192 of 3192 field records verify.
       - No test or val120 metric data are accessed.
+  - id: docker_gpu_preflight
+    kind: preflight
+    execution_mode: command
+    needs: [build_trainval_field_cache]
+    required: true
+    description: Verify the pinned VoxTell image, four GPUs, parent checkpoint, memory, and one finite identity inference.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/configs/protocol.yaml, --phase, preflight]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/gpu_preflight.json
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields/preflight
+    inputs: [parent_checkpoint, trainval_field_cache]
+    outputs: [gpu_preflight_report]
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/gpu_preflight.json
+      predicate: Pinned image, devices, free memory, checkpoint hash/load, and one-case zero-coupling identity inference all pass.
+    resources: {gpu_count: 1, gpu_count_per_arm: 1, arm_count: 1, maximum_concurrent_arms: 1, gpu_memory_free_gib_min: 32, cpu_threads: 8, docker_image: rexgroundingct-voxtell:cu126, gpu_hours_max: 0.25}
+    timeout_seconds: 3600
+    retry: {class: resource_then_transient, max_attempts: 3, resource_wait_timeout_seconds: 21600}
+    stop_conditions:
+      - Docker image ID, device count/model, free memory, or parent hash differs from the pinned contract.
+      - Parent load or one-case inference is non-finite.
+    acceptance_checks:
+      - Docker inspect image ID equals sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f.
+      - Docker sees exactly four NVIDIA RTX 6000 Ada Generation GPUs and the selected inference GPU has at least 32 GiB free.
+      - Parent checkpoint SHA-256 equals 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf and one-case zero coupling is bitwise identical.
   - id: t1_identity_and_training_smoke
     kind: smoke
     execution_mode: command
-    needs: [build_trainval_field_cache]
+    needs: [docker_gpu_preflight]
     required: true
     description: Prove epoch-zero identity and run ten matched updates on four single-GPU arms.
     command:
@@ -371,15 +432,12 @@ stages:
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t1.json
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields/runs
-    inputs:
-      - parent checkpoint, shared schedule, trainval field cache, and Docker hardware profile
-    outputs:
-      - external four-arm full-state smoke checkpoints and logs
-      - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t1.json
+    inputs: [parent_checkpoint, trainval_field_cache, gpu_preflight_report]
+    outputs: [t1_checkpoints, t1_report]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t1.json
       predicate: Exact identity, finite updates, resume, ownership, memory, and one-case inference checks pass.
-    resources: {gpu_count: 4, gpu_memory_free_gib_min_each: 36, docker_image: rexgroundingct-voxtell:cu126, gpu_hours_per_arm_max: 0.25}
+    resources: {gpu_count: 4, gpu_count_per_arm: 1, arm_count: 4, maximum_concurrent_arms: 4, gpu_memory_free_gib_min_each: 36, cpu_threads: 32, docker_image: rexgroundingct-voxtell:cu126, gpu_hours_per_arm_max: 0.25}
     timeout_seconds: 7200
     retry: {class: training, max_attempts: 2, max_automatic_resumes: 1}
     stop_conditions:
@@ -404,15 +462,12 @@ stages:
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t2.json
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t2_metrics.csv
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields/runs
-    inputs:
-      - passed T1 full-state checkpoints
-    outputs:
-      - immutable 500-update checkpoints and val80 predictions
-      - T2 JSON and metrics table
+    inputs: [t1_checkpoints]
+    outputs: [t2_checkpoints, t2_report, t2_metrics]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t2.json
       predicate: Barrier completes and correct fields satisfy causal, safety, and preliminary performance gates.
-    resources: {gpu_count: 4, gpu_memory_free_gib_min_each: 36, gpu_hours_per_arm_max: 1.25}
+    resources: {gpu_count: 4, gpu_count_per_arm: 1, arm_count: 4, maximum_concurrent_arms: 4, gpu_memory_free_gib_min_each: 36, cpu_threads: 32, gpu_hours_per_arm_max: 1.25}
     timeout_seconds: 28800
     retry: {class: training_and_evaluation, max_attempts: 3, max_automatic_resumes: 1}
     stop_conditions:
@@ -436,29 +491,35 @@ stages:
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t3.json
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t3_metrics.csv
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields/runs
-    inputs:
-      - passed T2 control and correct-field full-state checkpoints
-    outputs:
-      - immutable 2,000-update checkpoints, val80 predictions, and paired metrics
+    inputs: [t2_checkpoints]
+    outputs: [t3_checkpoints, t3_report, t3_metrics]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t3.json
       predicate: Val80 gate, calibrated controls, clustered intervals, and measured compute are complete.
-    resources: {gpu_count: 2, gpu_memory_free_gib_min_each: 36, gpu_hours_per_arm_max: 2.5}
+      required_fields: [matched_t3_state_hashes, metrics.promotion, metrics.resources]
+    resources: {gpu_count: 2, gpu_count_per_arm: 1, arm_count: 2, maximum_concurrent_arms: 2, gpu_memory_free_gib_min_each: 36, cpu_threads: 32, gpu_hours_per_arm_max: 2.5}
     timeout_seconds: 28800
     retry: {class: training_and_evaluation, max_attempts: 3, max_automatic_resumes: 1}
     stop_conditions:
       - T2 gate is not GO.
       - Safety or non-inferiority gates fail.
     acceptance_checks:
+      - Correct-field treatment and no-coupling control each have a distinct verified full-state checkpoint at cumulative global update 2000 with identical parent, data, sample-schedule, and scheduler-contract hashes.
       - Threshold-matched and predicted-volume-matched effects retain the same direction.
       - Explicit-modifier or aggregate Dice gate passes with GT retention and hit safety.
       - Val80 paired finding and case-clustered intervals are recorded without val120 access.
+      - >-
+        t3_report contains metrics.promotion with exactly eligible,
+        all_safety_and_noninferiority_gates_pass, paired_val80_dice_delta,
+        val80_off_location_fp_reduction, and measured_gpu_hours; booleans have
+        boolean type, metric values are finite, FP reduction is a fraction, and
+        GPU hours is nonnegative.
   - id: t4_confirmatory_val120_and_val200
-    kind: confirmatory_training_evaluation
+    kind: internal_replication_training_evaluation
     execution_mode: command
     needs: [t3_2000_update_val80]
     required: false
-    description: Run only if portfolio promotion selects this intervention; train to 10,000 and unseal val120 once.
+    description: Run only after controller promotion; train matched arms to 10,000 and evaluate historically exposed val120 as internal replication plus val200 continuity.
     command:
       argv: [python, experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/configs/protocol.yaml, --phase, t4]
       cwd: /home/hengjie/code_sync/rexgroundingct
@@ -466,24 +527,38 @@ stages:
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t4.json
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t4_metrics.csv
+      - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t4_continuous_anatomy_metrics.json
+      - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t4_disabled_anatomy_metrics.json
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields/runs
-    inputs:
-      - portfolio promotion record, T3 full state, sealed val120, and val200 continuity manifest
-    outputs:
-      - immutable 10,000-update checkpoints and val120/val200 paired reports
+    inputs: [promotion_record, t3_checkpoints, val120_manifest, val200_manifest]
+    matched_arms:
+      treatment:
+        id: continuous_anatomy_coupling
+        checkpoint_output_id: t4_continuous_anatomy_checkpoint
+        metrics_output_id: t4_continuous_anatomy_metrics
+      control:
+        id: disabled_anatomy_coupling
+        checkpoint_output_id: t4_disabled_anatomy_checkpoint
+        metrics_output_id: t4_disabled_anatomy_metrics
+      matched_hash_fields: [parent_checkpoint_sha256, data_sha256, schedule_sha256, update_count]
+    outputs: [t4_continuous_anatomy_checkpoint, t4_continuous_anatomy_metrics, t4_disabled_anatomy_checkpoint, t4_disabled_anatomy_metrics, t4_report, t4_metrics]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t4.json
-      predicate: Promoted matched arms complete and primary val120 case-clustered CI is decided.
-    resources: {gpu_count: 2, gpu_memory_free_gib_min_each: 36, gpu_hours_per_arm_max: 15}
+      required_fields: [metrics.matched_arms, metrics.resources]
+      predicate: Controller-promoted matched arms complete and the internal val120 replication interval is decided without an independent-confirmation claim.
+    resources: {gpu_count: 2, gpu_count_per_arm: 1, arm_count: 2, maximum_concurrent_arms: 2, gpu_memory_free_gib_min_each: 36, cpu_threads: 32, gpu_hours_per_arm_max: 15}
     timeout_seconds: 86400
     retry: {class: training_and_evaluation, max_attempts: 3, max_automatic_resumes: 1}
     stop_conditions:
-      - No valid portfolio promotion record exists.
-      - Val120 was previously unsealed by this experiment.
+      - No promotion record produced by experimentctl promote exists or its controller-recorded hash fails.
+      - Promotion record does not authorize val120 access or require the matched control.
       - Safety or compute budgets fail.
     acceptance_checks:
-      - Primary val120 paired case-clustered 95 percent CI lower bound is above zero for a performance GO.
+      - Promotion record source equals experimentctl promote and all required fields and controller-recorded SHA-256 verify before val120 access.
+      - metrics.matched_arms contains both declared IDs, per-arm checkpoint and metrics hashes, identical parent/data/schedule hashes, and update_count 10000.
+      - Primary val120 paired case-clustered 95 percent CI lower bound is above zero only for an internal-replication GO.
       - Val200 continuity metrics and all subgroup/safety metrics are reported.
+      - Independent confirmation remains undecided pending externally unseen or custodied data.
   - id: closeout_intrinsic_anatomy_fields
     kind: closeout
     execution_mode: command
@@ -499,10 +574,8 @@ stages:
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/summary.md
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/artifacts/manifest.json
       - experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/claims.yaml
-    inputs:
-      - all completed tier evidence, claims, and artifact manifest
-    outputs:
-      - closeout JSON and human summary
+    inputs: [diagnostic, t2_report, t3_report, t4_report]
+    outputs: [closeout_report, human_summary]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/closeout.json
       predicate: Required stages are terminal, claims are decided, and all required artifacts verify.
@@ -516,7 +589,7 @@ stages:
       - T4 absence is valid when no promotion was granted.
 evaluation:
   development_cohort: val80
-  confirmatory_cohort: val120
+  internal_replication_cohort: val120
   continuity_cohort: val200
   thresholds: [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
   primary_metrics:
@@ -546,14 +619,22 @@ evaluation:
     aggregate_dice_noninferiority_margin: -0.001
     hit_rate_delta_min: -0.01
     gt_retention_min: 0.99
-  confirmatory_go:
+  internal_replication_go:
     primary_val120_case_clustered_ci_lower_bound_min_exclusive: 0.0
+promotion_contract:
+  artifact_id: promotion_record
+  path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_010_intrinsic_anatomy_fields.json
+  exact_producer: experimentctl promote
+  required_fields: [schema_version, experiment_id, source, portfolio_sha256, plan_sha256, t3_evidence_sha256, rank, promoted_at, matched_control_required, val120_access_authorized]
+  validation: Require matching experiment ID and plan hash, source experimentctl promote, matched_control_required true, val120_access_authorized true, and the SHA-256 recorded by the controller event and state.
 paths:
   workspace: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields
   runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields
   runtime_symlink_target: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields
   field_cache_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields/fields
 budget:
+  gpu_hours_max: 48
+  cpu_hours_max: 1000
   diagnostic_gpu_hours_max: 0
   t1_gpu_hours_per_arm_max: 0.25
   t2_gpu_hours_per_arm_max: 1.25

@@ -9,8 +9,8 @@
       "ownership": "workspace",
       "status": "verified",
       "required": true,
-      "sha256": "f73e7603278e1281730fddb303e58805ff019cd1edcd270975fe6380446d10a2",
-      "size_bytes": null,
+      "sha256": "c602b3acdceb27f90e004b1a9146b80629b693b9d61fbb161b7cafc1389d0a48",
+      "size_bytes": 42171,
       "producer_stage_id": null,
       "retention": "durable"
     },
@@ -21,14 +21,14 @@
       "ownership": "workspace",
       "status": "verified",
       "required": true,
-      "sha256": "ffa38512ef22b31c68288c6d0bbe252567656cc132b41f5f72dab77ce34f9c25",
-      "size_bytes": null,
+      "sha256": "e61af009c0816a78912e8644d41a04b887d3462cacb430cbc086060b2f714bd9",
+      "size_bytes": 6788,
       "producer_stage_id": null,
       "retention": "durable"
     },
     {
       "id": "locked_lineage_manifest",
-      "path": "experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json",
+      "path": "experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json",
       "role": "input",
       "ownership": "external_read_only",
       "status": "planned",
@@ -39,21 +39,9 @@
       "retention": "durable"
     },
     {
-      "id": "logit_source_audit",
-      "path": "experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/logit_source_audit.json",
-      "role": "input",
-      "ownership": "external_read_only",
-      "status": "planned",
-      "required": true,
-      "sha256": null,
-      "size_bytes": null,
-      "producer_stage_id": null,
-      "retention": "durable"
-    },
-    {
-      "id": "verified_val80_logits",
-      "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_000_evidence_lock_error_atlas/val80_logits",
-      "role": "input",
+      "id": "revision_2_logit_source_projection",
+      "path": "experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_logit_source.json",
+      "role": "manifest",
       "ownership": "external_read_only",
       "status": "planned",
       "required": true,
@@ -76,7 +64,7 @@
     },
     {
       "id": "val120_manifest",
-      "path": "experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json",
+      "path": "experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json",
       "role": "input",
       "ownership": "external_read_only",
       "status": "planned",
@@ -86,6 +74,9 @@
       "producer_stage_id": null,
       "retention": "durable"
     },
+    {"id":"val200_manifest","path":"configs/evaluation/rexgroundingct_val200_seed20260723.json","role":"input","ownership":"external_read_only","status":"present","required":false,"sha256":"7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897","size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"locked_parent_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth","role":"checkpoint","ownership":"external_read_only","status":"verified","required":true,"sha256":"50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf","size_bytes":3131885315,"producer_stage_id":null,"retention":"durable"},
+    {"id":"promotion_record","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_060_persistence_tree_set_verifier.json","role":"input","ownership":"external_read_only","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":null,"controller_producer":"experimentctl promote","retention":"durable"},
     {
       "id": "asd040_state",
       "path": "experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/state.json",
@@ -110,6 +101,12 @@
       "producer_stage_id": null,
       "retention": "durable"
     },
+    {"id":"asd010_state","path":"experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/state.json","role":"input","ownership":"external_read_only","status":"present","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"asd010_artifact_manifest","path":"experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/artifacts/manifest.json","role":"input","ownership":"external_read_only","status":"present","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"asd020_state","path":"experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/state.json","role":"input","ownership":"external_read_only","status":"present","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"asd020_artifact_manifest","path":"experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/artifacts/manifest.json","role":"input","ownership":"external_read_only","status":"present","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"asd030_state","path":"experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/state.json","role":"input","ownership":"external_read_only","status":"present","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"asd030_artifact_manifest","path":"experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/artifacts/manifest.json","role":"input","ownership":"external_read_only","status":"present","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
     {
       "id": "tri_state_policy_artifact",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t3/tri_state_policy.json",
@@ -134,6 +131,7 @@
       "producer_stage_id": "implement_persistence_set_pipeline",
       "retention": "durable"
     },
+    {"id":"set_verifier_test_suite","path":"experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/tests","role":"output","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"implement_persistence_set_pipeline","retention":"durable"},
     {
       "id": "input_validation_report",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/validation/report.json",
@@ -230,6 +228,9 @@
       "producer_stage_id": "build_training_set_dataset",
       "retention": "regenerable"
     },
+    {"id":"t1_full_state_checkpoints","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t1/checkpoints","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"t1_resume_smoke","retention":"durable"},
+    {"id":"t1_resume_report","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t1/resume_report.json","role":"evidence","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"t1_resume_smoke","retention":"durable"},
+    {"id":"t2_checkpoints","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t2/checkpoints","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"pilot_t2","retention":"durable"},
     {
       "id": "t2_metrics",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t2/metrics.json",
@@ -254,6 +255,7 @@
       "producer_stage_id": "decision_t3",
       "retention": "durable"
     },
+    {"id":"t3_checkpoints","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t3/checkpoints","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"decision_t3","retention":"durable"},
     {
       "id": "t4_metrics",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t4/metrics.json",
@@ -266,17 +268,23 @@
       "producer_stage_id": "confirm_t4",
       "retention": "durable"
     },
+    {"id":"t4_set_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t4/set_verifier_checkpoint","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
+    {"id":"t4_set_metrics","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t4/set_verifier_metrics.json","role":"evidence","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
+    {"id":"t4_matched_control_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t4/independent_control_checkpoint","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
+    {"id":"t4_matched_control_metrics","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t4/independent_control_metrics.json","role":"evidence","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
     {
       "id": "final_result",
       "path": "experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/results/result.json",
       "role": "report",
       "ownership": "workspace",
-      "status": "present",
+      "status": "planned",
       "required": true,
-      "sha256": "d631b3be6a2af0a3c791c3ac05f54c61b094641168db5efb0def152b1653debc",
+      "sha256": null,
       "size_bytes": null,
       "producer_stage_id": "closeout",
       "retention": "durable"
-    }
+    },
+    {"id":"final_summary","path":"experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/results/summary.md","role":"report","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"closeout","retention":"durable"},
+    {"id":"final_claims","path":"experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/claims.yaml","role":"report","ownership":"workspace","status":"present","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"closeout","retention":"durable"}
   ]
 }

@@ -1,7 +1,7 @@
 schema_version: "1.0"
 id: asd_020_factorial_pathology_anatomy_binding
 title: Four-cell real-region pathology and anatomy interaction probe with bounded component residual
-plan_revision: 1
+plan_revision: 2
 created_at: "2026-07-31T00:00:00Z"
 updated_at: "2026-07-31T00:00:00Z"
 priority: 4
@@ -41,7 +41,7 @@ non_goals:
 evidence_references:
   - id: locked_foundation
     kind: dependency
-    path: experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json
+    path: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json
     availability: missing
     dependency_experiment_id: asd_000_evidence_lock_error_atlas
     dependency_required_outcome: go
@@ -69,7 +69,15 @@ lineage:
     sha256: a3e93801ba121c0084ec52b7f7dc38cbb617dbec484b6113b4348aa7dec82f3d
     recorded_val200_dice: 0.3367180602443776
   text_encoder:
-    implementation: Frozen VoxTell Qwen embedding pipeline and instruction wrapper.
+    model_id: Qwen/Qwen3-Embedding-4B
+    revision: 5cf2132abc99cad020ac570b19d031efec650f2b
+    implementation: Frozen VoxTell instruction wrapper, tokenizer, and last-token pooling from the pinned runtime snapshot.
+    runtime_snapshot: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/qwen/Qwen3-Embedding-4B-5cf2132abc99cad020ac570b19d031efec650f2b
+    source_policy: Exact revision only; main, latest, unpinned cache, and online fallback are prohibited after materialization.
+    existing_embedding_bank: /mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val/config/rex_text_embeddings.npz
+    existing_embedding_bank_sha256: a7351992fa57e019acb485f6b1f37045e7efcd879118cbac972b1b7ed94d5575
+    generation_script: scripts/rexgroundingct/precompute_text_embeddings.py
+    generation_script_sha256: b8b78acb1825da57451f6c9f1d4c51658360193d17c295cafa8e7c8e0bce6418
     output_dimension: 2560
     trainable: false
   preprocessing:
@@ -91,7 +99,7 @@ data:
     observed_box_tags: 20687
     note: Counts are discovery evidence; strict parsing determines the locked eligible set.
   val80_manifest: experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
-  val120_manifest: experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json
+  val120_manifest: experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json
   val200_manifest: configs/evaluation/rexgroundingct_val200_seed20260723.json
   val120_access:
     before_t4: prohibited
@@ -208,11 +216,20 @@ method:
     initialization: raw_beta equals 0 with an exact base-logit bypass.
     application: Add one bounded residual to voxels belonging to each threshold-0.05 component; leave all other logits unchanged.
     decision: Continuous recalibration only; never hard keep/drop.
+  fit_data_contract:
+    probe_fit_and_selection: Case-separated official train quartets only.
+    residual_fit: Official train components and factorial labels only.
+    val80: Evaluation after a synchronous barrier only; never fitting, calibration, threshold choice, early stopping, or lineage selection.
+    val120: Internal replication only after controller-issued promotion; never fitting or calibration.
+    frozen_parameters: Qwen and both VoxTell parent lineages.
   tier_updates:
     T1: 10
     T2: 500
     T3: 2000
     T4: 10000
+  update_semantics: Tier update counts are cumulative global-update barriers on one immutable 10,000-update scheduler horizon.
+  scheduler_contract: Each interaction or zero-residual arm resumes its own prior-barrier full scheduler state without restart, warmup replay, or horizon mutation.
+  t4_matched_start: Interaction treatment and zero-residual control each resume their own matched 2,000-update T3 full state; a fresh control is prohibited.
   evaluation_barrier: Save immutable scorer/full-state checkpoints, stop fitting, evaluate matched zero and interaction arms, then resume only after gates pass.
 resources:
   execution_class: four_gpu_frozen_feature_export_then_small_probe
@@ -220,11 +237,36 @@ resources:
   gpu_memory_free_gib_min_feature_export: 32
   gpu_memory_free_gib_min_inference: 32
   docker_image: rexgroundingct-voxtell:cu126
+  docker_local_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
   gpu_preflight_ref: experiments_aiselfdrive/shared/hardware_profile.yaml
   qwen_and_voxtell_frozen: true
   use_multi_gpu_ddp: false
   cpu_threads_max: 32
   ram_gib_max: 192
+stage_execution_contract:
+  resource_limits:
+    cpu_cores_hardware_max: 128
+    gpu_count_hardware_max: 4
+    gpu_count_per_arm_max: 1
+    maximum_concurrent_arms: 4
+    inference_free_memory_gib_min: 32
+    training_free_memory_gib_min: 36
+    multi_gpu_ddp: prohibited
+  evidence:
+    applies_to: every_stage
+    object_path: metrics.resources
+    required_fields: [gpu_hours, cpu_hours, storage_gib]
+    semantics:
+      gpu_hours: incremental_stage_gpu_hours
+      cpu_hours: incremental_stage_cpu_hours
+      storage_gib: cumulative_experiment_runtime_tree_high_water_at_stage_completion
+    validation: All values are finite and nonnegative; storage_gib is measured over the experiment runtime tree and never reported as a stage delta.
+  controller_container_identity:
+    required_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+    required_labels:
+      lease: rexgroundingct.aiselfdrive.lease=REXGROUNDINGCT_AISELFDRIVE_LEASE_ID
+      experiment: rexgroundingct.aiselfdrive.experiment=REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID
+    rule: Every nested docker run consumes controller-provided values and applies both exact labels; container names and lease values are never hard-coded.
 stages:
   - id: implement_factorial_binding_pipeline
     kind: implementation
@@ -235,13 +277,23 @@ stages:
     instructions: >-
       Create cot_boxes.py, quartets.py, binding_model.py, component_residual.py,
       a run_stage.py CLI, and focused tests. run_stage.py must expose corpus,
-      features, probe, t1, t2, t3, t4, and closeout. Parse train COT only;
+      qwen_snapshot, preflight, features, probe, t1, t2, t3, t4, and closeout. Parse train COT only;
       lists, nulls, malformed tags, ambiguous labels, and unmatched boxes are
       excluded and counted. Keep Qwen and both VoxTell lineages frozen and prove
       their weights unchanged. Use atomic external feature shards and case-level
       splits. The text-only control must receive identical anchor text across
       all four randomly ordered cells. The residual beta==0 path must return
-      base logits exactly. Reject val120 outside t4. Modify no existing code.
+      base logits exactly. Fit probes and residuals on official train only;
+      val80 is evaluation-only. Reject val120 outside controller-authorized t4.
+      Consume controller env REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID,
+      REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, and
+      REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL; label every nested container
+      rexgroundingct.aiselfdrive.lease with the lease ID and
+      rexgroundingct.aiselfdrive.experiment with the experiment ID, and never
+      hard-code container names or lease values. Modify no existing code.
+      Every stage evidence must emit metrics.resources with incremental
+      gpu_hours, incremental cpu_hours, and cumulative experiment runtime-tree
+      high-water storage_gib.
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/src/cot_boxes.py
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/src/quartets.py
@@ -254,10 +306,8 @@ stages:
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/tests/test_component_residual.py
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/tests/test_shortcuts_and_leakage.py
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/implement_factorial_binding_pipeline.json
-    inputs:
-      - protocol, locked foundation manifests, anatomical COT, released train masks, and frozen checkpoints
-    outputs:
-      - experiment-local implementation, CLI, and unit tests
+    inputs: [protocol_config, locked_lineage, anatomical_cot, standard_checkpoint, s3_checkpoint]
+    outputs: [factorial_source_package, factorial_test_suite]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/implement_factorial_binding_pipeline.json
       predicate: Modules compile and all strict parsing, shortcut, identity, frozen-weight, and leakage tests pass.
@@ -285,11 +335,8 @@ stages:
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/corpus_audit.json
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/corpus_exclusions.csv
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/corpus
-    inputs:
-      - train split of anatomical COT, released train masks, metadata, and locked prompt ontology
-    outputs:
-      - immutable external quartet manifest and span table
-      - corpus audit and exclusions table
+    inputs: [anatomical_cot, official_metadata, locked_lineage]
+    outputs: [quartet_corpus, corpus_audit, corpus_exclusions]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/corpus_audit.json
       predicate: At least 1,000 complete balanced quartets pass all box, matching, split, and shortcut checks.
@@ -303,10 +350,67 @@ stages:
       - Only COT train records are present.
       - Every quartet has exactly one cell of each factorial type and random label position.
       - No case appears in both fit and held-out sets.
+  - id: materialize_qwen_snapshot
+    kind: provenance_lock
+    execution_mode: command
+    needs: [lock_train_factorial_corpus]
+    required: true
+    description: Materialize the exact official Qwen revision once, then freeze a null-safe sorted-tree hash manifest for offline use.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, qwen_snapshot]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/qwen_snapshot.json
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/qwen
+    inputs: [protocol_config, locked_embedding_bank]
+    outputs: [qwen_snapshot, qwen_snapshot_manifest, qwen_snapshot_report]
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/qwen_snapshot.json
+      predicate: The exact revision is complete, its sorted-tree manifest verifies, and seeded locked-bank embeddings reproduce.
+    resources: {gpu_count: 0, cpu_threads: 8, ram_gib_max: 64}
+    timeout_seconds: 21600
+    retry: {class: network_then_hash_validation, max_attempts: 3, backoff_seconds: [60, 300]}
+    stop_conditions:
+      - Resolved revision differs from 5cf2132abc99cad020ac570b19d031efec650f2b.
+      - Any file changes between two consecutive tree-hash passes.
+      - Seeded embedding-bank reproduction has cosine similarity below 0.99999.
+    acceptance_checks:
+      - Snapshot metadata names Qwen/Qwen3-Embedding-4B at exact revision 5cf2132abc99cad020ac570b19d031efec650f2b.
+      - The manifest lists every file path, size, SHA-256, aggregate tree digest, and materialization timestamp.
+      - Feature stages set offline mode and load only the manifest-verified snapshot path.
+  - id: docker_gpu_preflight
+    kind: preflight
+    execution_mode: command
+    needs: [materialize_qwen_snapshot]
+    required: true
+    description: Verify the pinned VoxTell image, four GPUs, free memory, both parents, frozen Qwen snapshot, and one finite feature inference.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, preflight]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {PYTHONDONTWRITEBYTECODE: "1", HF_HUB_OFFLINE: "1", TRANSFORMERS_OFFLINE: "1"}
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/gpu_preflight.json
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/preflight
+    inputs: [standard_checkpoint, s3_checkpoint, qwen_snapshot_manifest, quartet_corpus]
+    outputs: [gpu_preflight_report]
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/gpu_preflight.json
+      predicate: Image, devices, memory, checkpoint and snapshot hashes, and finite one-case features pass with offline loading.
+    resources: {gpu_count: 1, gpu_count_per_arm: 1, arm_count: 1, maximum_concurrent_arms: 1, gpu_memory_free_gib_min: 32, cpu_threads: 8, docker_image: rexgroundingct-voxtell:cu126, gpu_hours_max: 0.25}
+    timeout_seconds: 3600
+    retry: {class: resource_then_transient, max_attempts: 3, resource_wait_timeout_seconds: 21600}
+    stop_conditions:
+      - Image ID, device identity, parent hash, or Qwen tree digest differs from the locked contracts.
+      - Any model attempts network access or produces non-finite features.
+    acceptance_checks:
+      - Docker inspect image ID equals sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f.
+      - Docker sees exactly four NVIDIA RTX 6000 Ada Generation GPUs and the selected GPU has at least 32 GiB free.
+      - Both parent hashes and the Qwen snapshot tree verify before one finite standard and S3 feature inference.
   - id: export_frozen_text_and_region_features
     kind: feature_extraction
     execution_mode: command
-    needs: [lock_train_factorial_corpus]
+    needs: [docker_gpu_preflight]
     required: true
     description: Export standard, S3, and three-span frozen features in four deterministic shards.
     command:
@@ -316,15 +420,12 @@ stages:
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/feature_export.json
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/features
-    inputs:
-      - locked quartet corpus, standard and S3 checkpoints, Qwen pipeline, and CT cache
-    outputs:
-      - atomic external feature shards and manifest
-      - feature export audit
+    inputs: [quartet_corpus, standard_checkpoint, s3_checkpoint, qwen_snapshot_manifest]
+    outputs: [frozen_features, frozen_feature_manifest, feature_export_audit]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/feature_export.json
       predicate: Every quartet has finite standard, S3, and span features and all frozen hashes remain unchanged.
-    resources: {gpu_count: 4, gpu_memory_free_gib_min_each: 32, docker_image: rexgroundingct-voxtell:cu126, gpu_hours_total_max: 24}
+    resources: {gpu_count: 4, gpu_count_per_arm: 1, arm_count: 4, maximum_concurrent_arms: 4, gpu_memory_free_gib_min_each: 32, cpu_threads: 32, docker_image: rexgroundingct-voxtell:cu126, gpu_hours_total_max: 24}
     timeout_seconds: 43200
     retry: {class: evaluation, max_attempts: 3, preserve_verified_cases: true}
     stop_conditions:
@@ -350,14 +451,12 @@ stages:
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/probe_metrics.csv
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/probe_summary.md
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/probes
-    inputs:
-      - frozen feature manifest and locked fit/held-out quartets
-    outputs:
-      - immutable probe checkpoints and complete ablation results
+    inputs: [frozen_feature_manifest, quartet_corpus]
+    outputs: [probe_checkpoints, probe_report, probe_metrics, probe_summary]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/probe.json
       predicate: Shortcut, accuracy, margin, ablation, seed, and lineage-selection gates are decided.
-    resources: {gpu_count: 2, gpu_memory_free_gib_min_each: 8, gpu_hours_total_max: 4}
+    resources: {gpu_count: 2, gpu_count_per_arm: 1, arm_count: 2, maximum_concurrent_arms: 2, gpu_memory_free_gib_min_each: 36, cpu_threads: 16, gpu_hours_total_max: 4}
     timeout_seconds: 14400
     retry: {class: transient, max_attempts: 3, backoff_seconds: [60, 300]}
     stop_conditions:
@@ -373,7 +472,7 @@ stages:
     execution_mode: command
     needs: [train_and_gate_factorial_probes]
     required: true
-    description: Materialize the winning scorer and prove exact zero residual on one val80 case plus ten fit updates.
+    description: Materialize the winning scorer, prove exact zero residual on one val80 inference case, and run ten train-only fit updates with exact resume.
     command:
       argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, t1]
       cwd: /home/hengjie/code_sync/rexgroundingct
@@ -381,14 +480,12 @@ stages:
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t1.json
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/runs
-    inputs:
-      - selected frozen lineage, winning probe, val80 manifest, and base logits
-    outputs:
-      - exact-identity evidence and external smoke state
+    inputs: [probe_checkpoints, quartet_corpus, val80_manifest, standard_checkpoint, s3_checkpoint]
+    outputs: [t1_checkpoint, t1_report]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t1.json
       predicate: Zero residual is bitwise identical and ten finite scorer updates resume exactly.
-    resources: {gpu_count: 1, gpu_memory_free_gib_min: 32, gpu_hours_max: 0.25}
+    resources: {gpu_count: 1, gpu_count_per_arm: 1, arm_count: 2, maximum_concurrent_arms: 1, gpu_memory_free_gib_min: 36, cpu_threads: 16, gpu_hours_max: 0.25}
     timeout_seconds: 7200
     retry: {class: training, max_attempts: 2, max_automatic_resumes: 1}
     stop_conditions:
@@ -398,7 +495,8 @@ stages:
     acceptance_checks:
       - raw_beta zero returns the exact base tensor.
       - Frozen Qwen and VoxTell hashes remain unchanged.
-      - Ten updates, checkpoint, resume, and one-case inference are finite.
+      - New-process five-plus-five updates exactly match uninterrupted ten-update samples, parameters, logits, losses, and global update.
+      - All ten fitting updates use official train quartets; val80 is inference-only.
   - id: t2_500_update_val80
     kind: training_evaluation
     execution_mode: command
@@ -413,14 +511,12 @@ stages:
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t2.json
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t2_metrics.csv
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/runs
-    inputs:
-      - passed T1 state and locked val80
-    outputs:
-      - immutable scorer checkpoints, val80 recalibrated predictions, and metrics
+    inputs: [t1_checkpoint, val80_manifest]
+    outputs: [t2_checkpoints, t2_report, t2_metrics]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t2.json
       predicate: Off-location FP, explicit-modifier Dice, GT retention, aggregate, and causal substitutions are decided.
-    resources: {gpu_count: 2, gpu_memory_free_gib_min_each: 32, gpu_hours_per_arm_max: 1.25}
+    resources: {gpu_count: 2, gpu_count_per_arm: 1, arm_count: 2, maximum_concurrent_arms: 2, gpu_memory_free_gib_min_each: 36, cpu_threads: 32, gpu_hours_per_arm_max: 1.25}
     timeout_seconds: 21600
     retry: {class: training_and_evaluation, max_attempts: 3, max_automatic_resumes: 1}
     stop_conditions:
@@ -436,7 +532,7 @@ stages:
     execution_mode: command
     needs: [t2_500_update_val80]
     required: true
-    description: Continue matched zero and interaction arms to 2,000 updates and issue the promotion record.
+    description: Continue matched zero and interaction arms to 2,000 train-only updates and produce standardized T3 evidence for controller ranking.
     command:
       argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, t3]
       cwd: /home/hengjie/code_sync/rexgroundingct
@@ -445,29 +541,30 @@ stages:
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t3.json
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t3_metrics.csv
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/runs
-    inputs:
-      - passed T2 full state
-    outputs:
-      - immutable 2,000-update scorers and complete val80 paired evidence
+    inputs: [t2_checkpoints]
+    outputs: [t3_checkpoints, t3_report, t3_metrics]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t3.json
       predicate: Safety, calibrated, causal, subgroup, clustered, and compute evidence is complete.
-    resources: {gpu_count: 2, gpu_memory_free_gib_min_each: 32, gpu_hours_per_arm_max: 2.5}
+      required_fields: [matched_t3_state_hashes, metrics.promotion, metrics.resources]
+    resources: {gpu_count: 2, gpu_count_per_arm: 1, arm_count: 2, maximum_concurrent_arms: 2, gpu_memory_free_gib_min_each: 36, cpu_threads: 32, gpu_hours_per_arm_max: 2.5}
     timeout_seconds: 28800
     retry: {class: training_and_evaluation, max_attempts: 3, max_automatic_resumes: 1}
     stop_conditions:
       - T2 is not GO.
       - Safety or causal ordering fails.
     acceptance_checks:
+      - Interaction treatment and zero-residual control each have a distinct verified full-state checkpoint at cumulative global update 2000 with identical parent, data, sample-schedule, and scheduler-contract hashes.
       - Threshold-matched and predicted-volume-matched gains retain direction.
       - Off-location FP, explicit-modifier Dice, GT retention, and aggregate gates pass.
       - Finding and case-clustered intervals and all prompt-group effects are reported.
+      - metrics.promotion contains exactly eligible, all_safety_and_noninferiority_gates_pass, paired_val80_dice_delta, val80_off_location_fp_reduction, and measured_gpu_hours with boolean, finite-fraction, and nonnegative-hour types.
   - id: t4_confirmatory_binding
-    kind: confirmatory_training_evaluation
+    kind: internal_replication_training_evaluation
     execution_mode: command
     needs: [t3_2000_update_val80]
     required: false
-    description: If portfolio-promoted, fit to 10,000 updates and evaluate untouched val120 then val200.
+    description: If controller-promoted, fit both matched arms to 10,000 train-only updates and evaluate historically exposed val120 as internal replication, then val200 continuity.
     command:
       argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, t4]
       cwd: /home/hengjie/code_sync/rexgroundingct
@@ -475,23 +572,37 @@ stages:
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t4.json
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t4_metrics.csv
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t4_factorial_residual_metrics.json
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t4_disabled_residual_metrics.json
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/runs
-    inputs:
-      - portfolio promotion record, T3 full state, sealed val120, and val200
-    outputs:
-      - immutable 10,000-update scorer and val120/val200 reports
+    inputs: [promotion_record, t3_checkpoints, val120_manifest, val200_manifest]
+    matched_arms:
+      treatment:
+        id: factorial_interaction_residual
+        checkpoint_output_id: t4_factorial_residual_checkpoint
+        metrics_output_id: t4_factorial_residual_metrics
+      control:
+        id: disabled_factorial_residual
+        checkpoint_output_id: t4_disabled_residual_checkpoint
+        metrics_output_id: t4_disabled_residual_metrics
+      matched_hash_fields: [parent_checkpoint_sha256, data_sha256, schedule_sha256, update_count]
+    outputs: [t4_factorial_residual_checkpoint, t4_factorial_residual_metrics, t4_disabled_residual_checkpoint, t4_disabled_residual_metrics, t4_report, t4_metrics]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t4.json
-      predicate: Promoted confirmatory evaluation and primary case-clustered interval are complete.
-    resources: {gpu_count: 2, gpu_memory_free_gib_min_each: 32, gpu_hours_per_arm_max: 15}
+      required_fields: [metrics.matched_arms, metrics.resources]
+      predicate: Promoted internal-replication evaluation and primary case-clustered interval are complete without an independent-confirmation claim.
+    resources: {gpu_count: 2, gpu_count_per_arm: 1, arm_count: 2, maximum_concurrent_arms: 2, gpu_memory_free_gib_min_each: 36, cpu_threads: 32, gpu_hours_per_arm_max: 15}
     timeout_seconds: 86400
     retry: {class: training_and_evaluation, max_attempts: 3, max_automatic_resumes: 1}
     stop_conditions:
-      - No valid portfolio promotion exists.
-      - Val120 was opened previously.
+      - No valid controller-issued promotion record exists or its recorded SHA-256 fails.
+      - Promotion does not authorize val120 and require the matched zero-residual arm.
     acceptance_checks:
-      - Primary val120 case-clustered 95 percent CI lower bound is above zero for performance GO.
+      - Promotion record source equals experimentctl promote and required fields, plan hash, and controller-recorded SHA-256 verify.
+      - metrics.matched_arms contains both declared IDs, per-arm checkpoint and metrics hashes, identical parent/data/schedule hashes, and update_count 10000.
+      - Primary val120 case-clustered 95 percent CI lower bound is above zero only for internal-replication GO.
       - Val200 continuity and causal substitution results are complete.
+      - Independent confirmation remains undecided pending externally unseen or custodied data.
   - id: closeout_factorial_binding
     kind: closeout
     execution_mode: command
@@ -507,10 +618,8 @@ stages:
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/summary.md
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/artifacts/manifest.json
       - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/claims.yaml
-    inputs:
-      - required stage evidence, claims, and artifacts
-    outputs:
-      - closeout JSON and human summary
+    inputs: [probe_report, t2_report, t3_report, t4_report]
+    outputs: [closeout_report, human_summary]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/closeout.json
       predicate: Required stages are terminal, claims are decided, and artifacts verify.
@@ -525,7 +634,7 @@ stages:
 evaluation:
   probe_cohort: case_separated_train_heldout_20_percent
   development_cohort: val80
-  confirmatory_cohort: val120
+  internal_replication_cohort: val120
   continuity_cohort: val200
   probe_go:
     four_way_top1_min: 0.65
@@ -539,7 +648,7 @@ evaluation:
     explicit_modifier_dice_delta_min: 0.01
     gt_retention_min: 0.99
     aggregate_dice_noninferiority_margin: -0.001
-  confirmatory_go:
+  internal_replication_go:
     val120_case_clustered_ci_lower_bound_min_exclusive: 0.0
   metrics:
     - four_way_top1
@@ -552,11 +661,20 @@ evaluation:
     - hit_and_empty_mask_rate
     - threshold_and_volume_matched_effects
   uncertainty: {bootstrap_draws: 10000, seed: 20260731, cluster_unit: case}
+promotion_contract:
+  artifact_id: promotion_record
+  path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_020_factorial_pathology_anatomy_binding.json
+  exact_producer: experimentctl promote
+  required_fields: [schema_version, experiment_id, source, portfolio_sha256, plan_sha256, t3_evidence_sha256, rank, promoted_at, matched_control_required, val120_access_authorized]
+  validation: Require matching experiment and plan, source experimentctl promote, matched_control_required true, val120_access_authorized true, and controller event/state SHA-256 equality.
+gate_ids: [method.fit_data_contract]
 paths:
   workspace: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding
   runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding
   runtime_symlink_target: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding
 budget:
+  gpu_hours_max: 72
+  cpu_hours_max: 1000
   feature_export_gpu_hours_max: 24
   probe_gpu_hours_max: 4
   t1_gpu_hours_max: 0.25

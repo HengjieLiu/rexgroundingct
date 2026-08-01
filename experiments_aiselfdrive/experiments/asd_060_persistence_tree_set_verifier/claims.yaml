@@ -3,19 +3,15 @@ experiment_id: asd_060_persistence_tree_set_verifier
 claims:
   - id: persistence_forest_oracle_is_feasible
     type: feasibility
-    statement: >-
-      Deterministic sixteen-threshold forests and an exact maximum-Dice
-      antichain oracle can be constructed for every locked val80 finding.
+    statement: Deterministic sixteen-threshold forests, exact antichain oracle, and exact-resume learned controls can be constructed under the declared contracts.
     verdict: pending
-    gate_refs: [stages.build_val80_oracle.acceptance_checks]
+    gate_refs: [stages.build_val80_oracle.acceptance_checks, stages.t1_resume_smoke.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: persistence_candidates_have_headroom
     type: mechanistic
-    statement: >-
-      The exact forest oracle improves locked val80 Dice by at least 0.07 and
-      candidates overlap at least 85% of released GT components.
+    statement: The exact val80 forest oracle gains at least 0.07 Dice and candidates overlap at least 85 percent of released GT components.
     verdict: pending
     gate_refs: [evaluation.gates.oracle_go]
     evidence_refs: []
@@ -23,9 +19,7 @@ claims:
     rationale: null
   - id: set_context_beats_independent_scoring
     type: causal
-    statement: >-
-      With identical node features and antichain decoding, set-context scoring
-      produces higher val80 Dice than independent node scoring.
+    statement: With byte-identical node features and schedule, set context beats the independent scorer using the same antichain decoder.
     verdict: pending
     gate_refs: [evaluation.gates.learned_go]
     evidence_refs: []
@@ -33,25 +27,25 @@ claims:
     rationale: null
   - id: learned_verifier_recovers_oracle_gain
     type: performance
-    statement: >-
-      The learned verifier recovers at least 20% of oracle Dice gain, retains
-      at least 99% of baseline true-positive voxels, and has a positive
-      case-clustered paired Dice interval.
+    statement: The learned verifier recovers at least 20 percent of oracle gain, retains at least 99 percent of baseline true-positive voxels, and has a positive paired interval.
     verdict: pending
-    gate_refs: [evaluation.gates.learned_go, evaluation.gates.confirmation_go]
+    gate_refs: [evaluation.gates.learned_go]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: verifier_uses_safe_labels
     type: safety
-    statement: >-
-      Learned work runs only with a verified ASD-040 GO policy, unknown nodes
-      have zero supervised weight, and evaluator GT never enters learned
-      features.
+    statement: Learned work requires verified ASD-040 policy and minimum certified evidence; unknown nodes have zero weight and evaluator GT never enters learned features.
     verdict: pending
-    gate_refs:
-      - stages.resolve_tri_state_branch.acceptance_checks
-      - stages.build_training_set_dataset.acceptance_checks
+    gate_refs: [evaluation.gates.label_sufficiency_go, stages.build_training_set_dataset.acceptance_checks]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: verifier_replicates_on_internal_val120
+    type: performance
+    statement: If controller-promoted, both set verifier and matched independent control run on val120 as internal replication, not independent confirmation.
+    verdict: pending
+    gate_refs: [evaluation.gates.internal_replication_go, stages.confirm_t4.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null

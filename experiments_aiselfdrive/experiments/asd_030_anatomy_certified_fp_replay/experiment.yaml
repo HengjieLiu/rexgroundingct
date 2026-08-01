@@ -1,7 +1,7 @@
 schema_version: "1.0"
 id: asd_030_anatomy_certified_fp_replay
 title: Anatomy-Certified Baseline False-Positive Replay
-plan_revision: 1
+plan_revision: 2
 created_at: "2026-07-31T00:00:00Z"
 updated_at: "2026-07-31T00:00:00Z"
 priority: 5
@@ -54,16 +54,16 @@ evidence_references:
     availability: missing
 lineage:
   parent_experiment: 009_voxtell_s3_attention_coupling_ablation
-  parent_checkpoint: resolved_from_asd_000_locked_lineage_manifest
-  parent_checkpoint_sha256: resolved_before_execution
+  parent_checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
+  parent_checkpoint_sha256: 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf
   optimizer_restore: false
   initialization: weights_only_for_all_training_arms
   preprocessing_class: cached-equivalent
   normalization: locked_parent_per_volume_zscore
-  inference_window: locked_by_asd_000
-  prompt_form: locked_by_asd_000
-  threshold_policy: locked_by_asd_000
-  postprocessing: locked_by_asd_000
+  inference_window: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/inference_window
+  prompt_form: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/prompt_form
+  threshold_policy: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/threshold_policy
+  postprocessing: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/postprocessing
   comparability_rule: >-
     Every arm uses the same initialization, materialized sample schedule,
     update count, prompt, inference, threshold, and post-processing.
@@ -71,19 +71,20 @@ data:
   training_source: official_rexgroundingct_train_only
   development_cohort:
     id: val80
-    manifest: resolved_from_asd_000
+    manifest: experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
     allowed_stages:
       - coverage_gate
       - pilot_t2
       - decision_t3
-  confirmatory_cohort:
+  internal_replication_cohort:
     id: val120
-    manifest: resolved_from_asd_000
+    manifest: experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json
     access: prohibited_until_t4_promotion
     allowed_stages: [confirm_t4]
+    evidence_role: historically_exposed_internal_replication_not_independent_confirmation
   continuity_cohort:
     id: val200
-    manifest: resolved_from_asd_000
+    manifest: configs/evaluation/rexgroundingct_val200_seed20260723.json
     access: prohibited_until_t4_promotion
     allowed_stages: [confirm_t4]
   case_separation:
@@ -114,7 +115,7 @@ method:
     score: mean_top_1_percent_probability
     ranks_to_record: [1, 3, 5]
     crop_shape_voxels: [192, 192, 192]
-    source_model: immutable_asd_000_baseline
+    source_model: lineage.parent_checkpoint with lineage.parent_checkpoint_sha256
     one_mining_pass_only: true
   certification:
     parser: frozen_high_confidence_asd_000_prompt_ontology
@@ -156,9 +157,13 @@ method:
       sampler: shuffled_prompt_candidates
       negative_supervision: only_independently_certified_voxels
   compute_ladder:
+    smoke_t1_updates: 10
     pilot_t2_updates: 500
     decision_t3_updates: 2000
     confirm_t4_updates: 10000
+    update_semantics: cumulative_global_update_barriers
+    scheduler_contract: One immutable 10,000-update polynomial horizon; every arm resumes its own prior-barrier full scheduler state without restart, warmup replay, or horizon mutation.
+    t4_matched_start: Mined-certified treatment and matched-baseline disabled-replay control each resume their own matched 2,000-update T3 full state; a fresh control is prohibited.
     parallelism: maximum_four_single_gpu_arms
     evaluation_barrier: true
   controls:
@@ -170,6 +175,7 @@ resources:
   hardware_profile: experiments_aiselfdrive/shared/hardware_profile.yaml
   execution_environment: docker
   training_image: rexgroundingct-voxtell:cu126
+  training_local_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
   gpu_model: NVIDIA RTX 6000 Ada Generation
   gpu_count_available: 4
   gpu_memory_gib_each: 47.38
@@ -178,6 +184,30 @@ resources:
   multi_gpu_ddp: false
   slurm: prohibited
   runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1
+stage_execution_contract:
+  resource_limits:
+    cpu_cores_hardware_max: 128
+    gpu_count_hardware_max: 4
+    gpu_count_per_arm_max: 1
+    maximum_concurrent_arms: 4
+    inference_free_memory_gib_min: 32
+    training_free_memory_gib_min: 36
+    multi_gpu_ddp: prohibited
+  evidence:
+    applies_to: every_stage
+    object_path: metrics.resources
+    required_fields: [gpu_hours, cpu_hours, storage_gib]
+    semantics:
+      gpu_hours: incremental_stage_gpu_hours
+      cpu_hours: incremental_stage_cpu_hours
+      storage_gib: cumulative_experiment_runtime_tree_high_water_at_stage_completion
+    validation: All values are finite and nonnegative; storage_gib is measured over the experiment runtime tree and never reported as a stage delta.
+  controller_container_identity:
+    required_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+    required_labels:
+      lease: rexgroundingct.aiselfdrive.lease=REXGROUNDINGCT_AISELFDRIVE_LEASE_ID
+      experiment: rexgroundingct.aiselfdrive.experiment=REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID
+    rule: Every nested docker run consumes controller-provided values and applies both exact labels; container names and lease values are never hard-coded.
 stages:
   - id: implement_replay_pipeline
     kind: implementation
@@ -192,15 +222,14 @@ stages:
       - Make tri-state precedence explicit and ensure unknown voxels have zero negative loss.
       - Write completion markers atomically as JSON containing plan hash, command, input hashes, output hashes, counts, and timestamps.
       - Make all scripts deterministic under seed 20260731 and reject val120 or val200 unless stage is confirm_t4 with promotion evidence.
+      - Consume controller env REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, and REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL; label every nested container rexgroundingct.aiselfdrive.lease with the lease ID and rexgroundingct.aiselfdrive.experiment with the experiment ID, and never hard-code container names or lease values.
+      - Emit metrics.resources in every stage evidence with incremental gpu_hours, incremental cpu_hours, and cumulative experiment runtime-tree high-water storage_gib.
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/scripts
       - experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/src
       - experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/tests
       - experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/results/implementation_evidence.json
-    inputs:
-      - experiment_plan
-      - protocol_config
-      - dependency_manifests
+    inputs: [experiment_plan, protocol_config, dependency_asd000_manifest, dependency_asd005_manifest]
     outputs:
       - replay_source_package
       - replay_test_suite
@@ -239,6 +268,7 @@ stages:
         PYTHONDONTWRITEBYTECODE: "1"
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/validation
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/validate_locked_inputs.json
     inputs:
       - locked_lineage_manifest
       - val80_manifest
@@ -283,6 +313,7 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/preflight
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/docker_gpu_preflight.json
     inputs: [locked_parent_checkpoint, input_validation_report]
     outputs: [gpu_preflight_report]
     completion:
@@ -290,8 +321,12 @@ stages:
       required_fields: [image_digest, gpu_inventory, free_memory_gib, checkpoint_sha256, finite_inference]
     resources:
       cpu_cores: 8
-      gpu_count: 4
-      minimum_free_gib_per_gpu: 36
+      gpu_count: 1
+      gpu_count_per_arm: 1
+      arm_count: 1
+      maximum_concurrent_arms: 1
+      minimum_free_gib_per_gpu: 32
+      gpu_hours_total_max: 0.25
     timeout_seconds: 3600
     retry:
       max_attempts: 1
@@ -303,9 +338,10 @@ stages:
       - checkpoint_hash_drift
       - non_finite
     acceptance_checks:
-      - Docker reports exactly four RTX 6000 Ada devices.
+      - Docker inspect image ID equals sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f.
+      - Docker reports exactly four NVIDIA RTX 6000 Ada Generation devices.
       - Each device has at least 36 GiB free.
-      - Parent checkpoint loads and one-case inference is finite.
+      - Parent checkpoint SHA-256 equals 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf and one-case inference is finite.
   - id: mine_baseline_candidates
     kind: data_generation
     execution_mode: command
@@ -325,6 +361,7 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/mining
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/mine_baseline_candidates.json
     inputs: [locked_parent_checkpoint, official_train_manifest]
     outputs: [baseline_candidate_table]
     completion:
@@ -333,7 +370,12 @@ stages:
     resources:
       cpu_cores: 32
       gpu_count: 4
+      gpu_count_per_arm: 1
+      arm_count: 4
+      maximum_concurrent_arms: 4
+      minimum_free_gib_per_gpu: 32
       maximum_parallel_single_gpu_workers: 4
+      gpu_hours_total_max: 8
     timeout_seconds: 43200
     retry:
       max_attempts: 3
@@ -364,6 +406,7 @@ stages:
         PYTHONDONTWRITEBYTECODE: "1"
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/replay
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/certify_freeze_replay.json
     inputs:
       - baseline_candidate_table
       - train_anatomy_manifest
@@ -408,8 +451,9 @@ stages:
         PYTHONDONTWRITEBYTECODE: "1"
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/coverage
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/coverage_gate.json
     inputs: [baseline_error_atlas, val80_manifest, immutable_replay_manifest]
-    outputs: [coverage_gate_report]
+    outputs: [coverage_gate_report, val80_mining_evidence]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/coverage_gate.json
       required_fields: [eligible_findings, certified_top5_coverage, gate_verdict, report_sha256]
@@ -427,13 +471,50 @@ stages:
     acceptance_checks:
       - Primary denominator is locked val80 prompt-off-location FP volume.
       - GO requires certified top-five coverage greater than or equal to 0.30.
+      - val80_mining_evidence records every frozen-parent candidate ID, certificate reason, covered error-atlas component, numerator, denominator, and hashes; no val80 row enters the replay manifest.
       - A lower value deterministically skips training stages and closes no_go.
-  - id: pilot_t2
-    kind: training
+  - id: t1_resume_smoke
+    kind: smoke
     execution_mode: command
     needs: [coverage_gate]
     required: false
-    description: Run matched 500-update arms after a passing coverage gate.
+    description: Run ten train-only updates for all five preregistered replay/control arms in two deterministic waves and prove full-state new-process resume equivalence.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/scripts/run_training.py, --config, experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/configs/protocol.yaml, --tier, T1]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {CUDA_DEVICE_ORDER: PCI_BUS_ID}
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t1
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/t1_resume_smoke.json
+    inputs: [immutable_replay_manifest, locked_parent_checkpoint]
+    outputs: [t1_full_state_checkpoints, t1_resume_report]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/t1_resume_smoke.json
+      required_fields: [arm_updates, per_arm_checkpoint_sha256, uninterrupted_trace_sha256, resumed_trace_sha256, exact_match, execution_waves, metrics.resources]
+    resources:
+      cpu_cores: 16
+      gpu_count: 4
+      gpu_count_per_arm: 1
+      arm_count: 5
+      maximum_concurrent_arms: 4
+      execution_waves: 2
+      minimum_free_gib_per_gpu: 36
+      maximum_updates_per_arm: 10
+      gpu_hours_per_arm_max: 0.25
+    timeout_seconds: 7200
+    retry: {max_attempts: 2, automatic_full_state_resumes: 1, retryable_classes: [transient_io, container_start_failure]}
+    stop_conditions: [non_finite, missing_resume_state, sample_schedule_mismatch, parent_hash_drift]
+    acceptance_checks:
+      - matched_baseline, random_certified, mined_certified, mined_uncertified_masked, and shuffled_prompt_mining all run, start from the exact pinned parent, and use byte-identical train-only sample schedules.
+      - A deterministic materialized wave assignment runs no more than four arms concurrently and records exactly two waves without changing any arm's samples or update order.
+      - New-process five-plus-five updates exactly match uninterrupted ten-update global step, sample order, parameters, logits, and loss trace.
+      - Atomic checkpoints contain every field required by configs/protocol.yaml and each arm uses less than 0.25 GPU-hour.
+  - id: pilot_t2
+    kind: training
+    execution_mode: command
+    needs: [t1_resume_smoke]
+    required: false
+    description: Continue all five preregistered replay/control arms to the cumulative 500-update barrier in two deterministic waves after a passing coverage gate.
     command:
       argv:
         - python
@@ -447,15 +528,22 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t2
-    inputs: [immutable_replay_manifest, locked_parent_checkpoint, val80_manifest]
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/pilot_t2.json
+    inputs: [t1_full_state_checkpoints, immutable_replay_manifest, locked_parent_checkpoint, val80_manifest]
     outputs: [t2_checkpoints, t2_metrics]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/pilot_t2.json
-      required_fields: [arm_updates, checkpoint_sha256, metrics_sha256, gate_verdict]
+      required_fields: [arm_updates, per_arm_checkpoint_sha256, per_arm_metrics_sha256, control_verdicts, gate_verdict, execution_waves, metrics.resources]
     resources:
       cpu_cores: 32
       gpu_count: 4
+      gpu_count_per_arm: 1
+      arm_count: 5
+      maximum_concurrent_arms: 4
+      execution_waves: 2
+      minimum_free_gib_per_gpu: 36
       maximum_updates_per_arm: 500
+      gpu_hours_per_arm_max: 1.25
     timeout_seconds: 28800
     retry:
       max_attempts: 2
@@ -467,15 +555,19 @@ stages:
       - missing_resume_state
       - budget_exhausted
     acceptance_checks:
-      - Every compared arm reaches exactly 500 optimizer updates on the same schedule.
+      - matched_baseline, random_certified, mined_certified, mined_uncertified_masked, and shuffled_prompt_mining each resume their own T1 state and reach exactly 500 cumulative optimizer updates on the same immutable schedule.
+      - A deterministic materialized wave assignment runs no more than four arms concurrently and records exactly two waves without changing any arm's samples or update order.
       - Mined-certified peak probability mass falls at least 30%.
       - Mean positive GT probability remains within 5% relative of matched baseline.
+      - mined_uncertified_masked has zero negative-loss weight on compatible or unknown voxels and its complete safety metrics are reported against matched_baseline.
+      - shuffled_prompt_mining reports the same registered metrics and cannot be omitted because of an unfavorable result.
+      - Count-matched random-certified and mined-certified arms both remain eligible for the preregistered T3 pairwise comparison when their safety gates pass.
   - id: decision_t3
     kind: training
     execution_mode: command
     needs: [pilot_t2]
     required: false
-    description: Continue the matched baseline and passing replay arm to 2,000 updates and evaluate val80.
+    description: Continue matched baseline, random-certified, and mined-certified arms to 2,000 updates and run the preregistered pairwise causal comparison on val80.
     command:
       argv:
         - python
@@ -489,15 +581,21 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t3
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/decision_t3.json
     inputs: [t2_checkpoints, immutable_replay_manifest, val80_manifest]
-    outputs: [t3_checkpoints, t3_metrics]
+    outputs: [t3_checkpoints, t3_metrics, t3_pairwise_report]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/decision_t3.json
-      required_fields: [arm_updates, paired_metrics, bootstrap_seed, gate_verdict, output_sha256]
+      required_fields: [arm_updates, paired_metrics, pairwise_mined_minus_random, bootstrap_seed, gate_verdict, matched_t3_state_hashes, metrics.promotion, metrics.resources, output_sha256]
     resources:
       cpu_cores: 32
       gpu_count: 2
+      gpu_count_per_arm: 1
+      arm_count: 3
+      maximum_concurrent_arms: 2
+      minimum_free_gib_per_gpu: 36
       maximum_updates_per_arm: 2000
+      gpu_hours_per_arm_max: 2.5
     timeout_seconds: 43200
     retry:
       max_attempts: 2
@@ -508,16 +606,20 @@ stages:
       - missing_resume_state
       - budget_exhausted
     acceptance_checks:
+      - Mined-certified treatment and matched-baseline disabled-replay control each have a distinct verified full-state checkpoint at cumulative global update 2000 with identical parent, data, sample-schedule, and scheduler-contract hashes.
       - Prompt-off-location FP volume reduction is at least 20%.
       - Recall loss is no more than 0.02 absolute.
       - Paired mean Dice improvement is at least 0.005.
       - Threshold-matched and predicted-volume-matched effects have the same sign.
+      - Mined-certified has strictly greater off-location FP reduction and paired Dice than count-matched random-certified under identical parent, sample schedule, optimizer, and update count.
+      - The case-clustered 95 percent CI lower bound for the primary mined-minus-random paired effect is above zero.
+      - metrics.promotion contains exactly eligible, all_safety_and_noninferiority_gates_pass, paired_val80_dice_delta, val80_off_location_fp_reduction, and measured_gpu_hours with boolean, finite-fraction, and nonnegative-hour types.
   - id: confirm_t4
-    kind: confirmation
+    kind: internal_replication
     execution_mode: command
     needs: [decision_t3]
     required: false
-    description: Run 10,000-update matched confirmation only after portfolio promotion.
+    description: Run 10,000-update matched internal replication only after controller-issued promotion.
     command:
       argv:
         - python
@@ -533,29 +635,48 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t4
-    inputs: [t3_checkpoints, val120_manifest, val200_manifest, promotion_authorization]
-    outputs: [t4_checkpoints, t4_metrics]
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/confirm_t4.json
+    inputs: [promotion_record, t3_checkpoints, val120_manifest, val200_manifest]
+    matched_arms:
+      treatment:
+        id: mined_certified_replay
+        checkpoint_output_id: t4_mined_replay_checkpoint
+        metrics_output_id: t4_mined_replay_metrics
+      control:
+        id: disabled_replay_parent_sampler
+        checkpoint_output_id: t4_disabled_replay_checkpoint
+        metrics_output_id: t4_disabled_replay_metrics
+      matched_hash_fields: [parent_checkpoint_sha256, data_sha256, schedule_sha256, update_count]
+    outputs: [t4_mined_replay_checkpoint, t4_mined_replay_metrics, t4_disabled_replay_checkpoint, t4_disabled_replay_metrics, t4_metrics]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/completion/confirm_t4.json
-      required_fields: [promotion_sha256, val120_metrics, val200_metrics, case_clustered_ci, output_sha256]
+      required_fields: [promotion_sha256, val120_metrics, val200_metrics, case_clustered_ci, metrics.matched_arms, metrics.resources, output_sha256]
     resources:
       cpu_cores: 32
       gpu_count: 2
+      gpu_count_per_arm: 1
+      arm_count: 2
+      maximum_concurrent_arms: 2
+      minimum_free_gib_per_gpu: 36
       maximum_updates_per_arm: 10000
+      gpu_hours_per_arm_max: 15
     timeout_seconds: 129600
     retry:
       max_attempts: 2
       automatic_full_state_resumes: 1
       retryable_classes: [transient_io, container_start_failure]
     stop_conditions:
-      - missing_promotion_authorization
+      - missing_or_invalid_controller_promotion_record
       - split_leakage
       - non_finite
       - budget_exhausted
     acceptance_checks:
-      - val120 was inaccessible before verified promotion.
-      - Case-clustered 95% CI for the primary paired improvement is above zero.
+      - Promotion record source equals experimentctl promote; required fields, plan hash, matched-control requirement, val120 authorization, and controller-recorded SHA-256 verify before access.
+      - metrics.matched_arms contains both declared IDs, per-arm checkpoint and metrics hashes, identical parent/data/schedule hashes, and update_count 10000.
+      - Supported executors refuse val120 before verified promotion, and the cohort is described only as historically exposed internal replication; this is a software guard, not a secrecy claim.
+      - Case-clustered 95% CI for the primary paired improvement is above zero only for internal-replication GO.
       - val200 is reported only as continuity evidence.
+      - Independent confirmation remains undecided pending externally unseen or custodied data.
   - id: closeout
     kind: closeout
     execution_mode: agent
@@ -577,9 +698,9 @@ stages:
       - t2_metrics
       - t3_metrics
       - t4_metrics
-    outputs: [final_result, final_summary, final_claims, verified_artifact_manifest]
+    outputs: [final_result, final_summary, final_claims]
     completion:
-      evidence_file: experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/results/closeout_evidence.json
+      evidence_file: experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/results/result.json
       require_all_executed_stage_artifacts_verified: true
     resources:
       cpu_cores: 8
@@ -624,8 +745,18 @@ evaluation:
       - prompt_off_location_fp_volume_reduction >= 0.20
       - recall_delta >= -0.02
       - paired_dice_delta >= 0.005
-    confirmation_go:
+    pairwise_causal_go:
+      - mined_minus_random_off_location_fp_reduction > 0
+      - mined_minus_random_paired_dice_delta > 0
+      - mined_minus_random_case_clustered_ci_lower > 0
+    internal_replication_go:
       - val120_case_clustered_ci_lower > 0
+promotion_contract:
+  artifact_id: promotion_record
+  path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_030_anatomy_certified_fp_replay.json
+  exact_producer: experimentctl promote
+  required_fields: [schema_version, experiment_id, source, portfolio_sha256, plan_sha256, t3_evidence_sha256, rank, promoted_at, matched_control_required, val120_access_authorized]
+  validation: Require matching experiment and plan, source experimentctl promote, matched_control_required true, val120_access_authorized true, and SHA-256 equality with controller event and state.
 paths:
   workspace: experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay
   config: experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/configs/protocol.yaml
@@ -633,7 +764,10 @@ paths:
   artifact_manifest: experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/artifacts/manifest.json
   result: experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/results/result.json
 budget:
-  maximum_gpu_hours: 48
+  gpu_hours_max: 54
+  cpu_hours_max: 2000
+  durable_storage_gib_max: 1500
+  maximum_gpu_hours: 54
   maximum_wall_hours: 72
   maximum_external_storage_gib: 1500
   terminate_on_exhaustion: true

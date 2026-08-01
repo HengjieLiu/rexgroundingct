@@ -1,35 +1,267 @@
 {
-  "schema_version": "1.0",
-  "experiment_id": "asd_010_intrinsic_anatomy_fields",
-  "plan_sha256": "f955c804150f0a317262d0fcb13023672ca84fcc734428146a5c5c649d1c34a7",
-  "plan_revision": 1,
-  "revision": 0,
-  "last_event_seq": 1,
-  "phase": "initialization",
-  "status": "blocked",
-  "outcome": null,
+  "artifacts_verified": false,
+  "blockers": [
+    {
+      "code": "dependency_unsatisfied",
+      "message": "asd_000_evidence_lock_error_atlas: dependency status is ready",
+      "stage_id": "implement_anatomy_field_pipeline"
+    },
+    {
+      "code": "dependency_unsatisfied",
+      "message": "asd_005_train_anatomy_asset_extension: dependency status is blocked",
+      "stage_id": "implement_anatomy_field_pipeline"
+    }
+  ],
+  "budget_consumed": {
+    "cpu_hours": 0.0,
+    "gpu_hours": 0.0,
+    "storage_gib": 0.0
+  },
+  "closeout_passed": false,
   "created_at": "2026-07-31T00:00:00Z",
-  "updated_at": "2026-07-31T00:00:00Z",
   "current_stage_id": null,
   "executor": null,
+  "experiment_id": "asd_010_intrinsic_anatomy_fields",
+  "last_event_seq": 2,
   "lease": null,
-  "blockers": [
-    "Dependency asd_000_evidence_lock_error_atlas must finish with outcome go.",
-    "Dependency asd_005_train_anatomy_asset_extension must finish with outcome go."
+  "obligation_projection": {
+    "artifact_ids": [
+      "anatomy_field_source_package",
+      "anatomy_field_test_suite",
+      "closeout_report",
+      "diagnostic",
+      "diagnostic_summary",
+      "diagnostic_table",
+      "error_atlas_contract",
+      "gpu_preflight_report",
+      "human_summary",
+      "locked_lineage",
+      "parent_checkpoint",
+      "promotion_record",
+      "prompt_ontology",
+      "protocol_config",
+      "revision_2_logit_source_projection",
+      "t1_checkpoints",
+      "t1_report",
+      "t2_checkpoints",
+      "t2_metrics",
+      "t2_report",
+      "t3_checkpoints",
+      "t3_metrics",
+      "t3_report",
+      "t4_continuous_anatomy_checkpoint",
+      "t4_continuous_anatomy_metrics",
+      "t4_disabled_anatomy_checkpoint",
+      "t4_disabled_anatomy_metrics",
+      "t4_metrics",
+      "t4_report",
+      "trainval_anatomy_manifest",
+      "trainval_field_cache",
+      "trainval_field_cache_report",
+      "val120_manifest",
+      "val200_manifest",
+      "val80_field_cache",
+      "val80_field_cache_report",
+      "val80_manifest"
+    ],
+    "artifacts_sha256": "432fa9a0b6f3b54afc2d3360082421cb83ab69b130e6f307b87a6c21107cc82c",
+    "claim_ids": [
+      "bounded_fields_improve_val80",
+      "bounded_fields_replicate_on_internal_val120",
+      "continuous_field_pipeline_feasible",
+      "continuous_fields_have_safe_spatial_signal",
+      "correct_fields_causally_beat_corruptions",
+      "zero_coupling_is_exact_identity"
+    ],
+    "claim_types": [
+      "causal",
+      "feasibility",
+      "mechanistic",
+      "performance",
+      "safety"
+    ],
+    "claims_sha256": "581bfc0f6283e74c268e127f73905a792e860784f7878d4a229e3de23be5942b",
+    "pinned_at": "2026-08-01T05:04:43.532214Z",
+    "required_artifact_ids": [
+      "anatomy_field_source_package",
+      "anatomy_field_test_suite",
+      "closeout_report",
+      "diagnostic",
+      "diagnostic_summary",
+      "diagnostic_table",
+      "error_atlas_contract",
+      "gpu_preflight_report",
+      "human_summary",
+      "locked_lineage",
+      "parent_checkpoint",
+      "prompt_ontology",
+      "protocol_config",
+      "revision_2_logit_source_projection",
+      "t1_checkpoints",
+      "t1_report",
+      "t2_checkpoints",
+      "t2_metrics",
+      "t2_report",
+      "t3_checkpoints",
+      "t3_metrics",
+      "t3_report",
+      "trainval_anatomy_manifest",
+      "trainval_field_cache",
+      "trainval_field_cache_report",
+      "val80_field_cache",
+      "val80_field_cache_report",
+      "val80_manifest"
+    ],
+    "static_artifact_ids": [
+      "parent_checkpoint"
+    ]
+  },
+  "outcome": null,
+  "phase": "implement_anatomy_field_pipeline",
+  "plan_history": [
+    {
+      "archived_artifacts_path": "experiments_aiselfdrive/.runtime/replans/asd_010_intrinsic_anatomy_fields/revision_1_f955c804150f/artifacts/manifest.json",
+      "archived_claims_path": "experiments_aiselfdrive/.runtime/replans/asd_010_intrinsic_anatomy_fields/revision_1_f955c804150f/claims.yaml",
+      "archived_plan_path": "experiments_aiselfdrive/.runtime/replans/asd_010_intrinsic_anatomy_fields/revision_1_f955c804150f/experiment.yaml",
+      "archived_plan_sha256": "f955c804150f0a317262d0fcb13023672ca84fcc734428146a5c5c649d1c34a7",
+      "archived_plan_size_bytes": 31252,
+      "archived_result_path": "experiments_aiselfdrive/.runtime/replans/asd_010_intrinsic_anatomy_fields/revision_1_f955c804150f/result.json",
+      "archived_result_sha256": "9d2ea51f605d8a9904d1bedb440ca87dd59a17c260d3223eb08bddead47814f8",
+      "archived_result_size_bytes": 434,
+      "archived_state_path": "experiments_aiselfdrive/.runtime/replans/asd_010_intrinsic_anatomy_fields/revision_1_f955c804150f/state.json",
+      "archived_state_sha256": "380e4b9471f290743842608cd719a4d8201494da30002968b58a2663c167a7b3",
+      "archived_state_size_bytes": 2190,
+      "carried_budget_consumed": {
+        "cpu_hours": 0.0,
+        "gpu_hours": 0.0,
+        "storage_gib": 0.0
+      },
+      "current_artifacts_sha256": "d448cfe8a7636882e5ef72c15e211406c7f6b1c5de1e148cf03f1c09b89f074d",
+      "current_claims_sha256": "df5de245328aa6e65598b18c41be7e5d928f3741a4c4ba2939519420f5fa4e7b",
+      "plan_revision": 1,
+      "plan_sha256": "f955c804150f0a317262d0fcb13023672ca84fcc734428146a5c5c649d1c34a7",
+      "previous_artifacts_sha256": "3e2a598fb5b884f5cd48e32cd638c75caa6efd7d6ec931946e03d467abf4a508",
+      "previous_artifacts_size_bytes": 3027,
+      "previous_budget_consumed": {
+        "cpu_hours": 0.0,
+        "gpu_hours": 0.0,
+        "storage_gib": 0.0
+      },
+      "previous_claims_sha256": "1ca60b7ebbc4c81ba8c76ee192f0e7eee813d87b5a27407ab664146860ed276b",
+      "previous_claims_size_bytes": 1544,
+      "previous_plan_source": "git:827f962c3cfee117b6442b74653c752ed36f296c:experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/experiment.yaml",
+      "replanned_at": "2026-08-01T05:04:45.651735Z"
+    }
   ],
+  "plan_revision": 2,
+  "plan_sha256": "0d291aae36af4ef9656aedea136da2eccb8e3e3a6409379e440fc049fc658c50",
+  "revision": 1,
+  "schema_version": "1.0",
   "stages": [
-    {"id":"implement_anatomy_field_pipeline","status":"blocked","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
-    {"id":"build_val80_field_cache","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
-    {"id":"run_retention_constrained_diagnostic","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
-    {"id":"build_trainval_field_cache","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
-    {"id":"t1_identity_and_training_smoke","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
-    {"id":"t2_500_update_val80","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
-    {"id":"t3_2000_update_val80","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
-    {"id":"t4_confirmatory_val120_and_val200","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
-    {"id":"closeout_intrinsic_anatomy_fields","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]}
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "implement_anatomy_field_pipeline",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "blocked"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "build_val80_field_cache",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "run_retention_constrained_diagnostic",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "build_trainval_field_cache",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "docker_gpu_preflight",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "t1_identity_and_training_smoke",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "t2_500_update_val80",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "t3_2000_update_val80",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "t4_confirmatory_val120_and_val200",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "closeout_intrinsic_anatomy_fields",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    }
   ],
-  "budget_consumed": {"gpu_hours": 0.0, "cpu_hours": 0.0, "storage_gib": 0.0},
-  "verified_artifact_ids": ["parent_checkpoint"],
-  "artifacts_verified": false,
-  "closeout_passed": false
+  "status": "blocked",
+  "updated_at": "2026-08-01T05:04:45.652503Z",
+  "verified_artifact_ids": [
+    "parent_checkpoint"
+  ]
 }

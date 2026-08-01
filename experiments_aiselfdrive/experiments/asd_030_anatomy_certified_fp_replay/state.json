@@ -1,52 +1,277 @@
 {
-  "schema_version": "1.0",
-  "experiment_id": "asd_030_anatomy_certified_fp_replay",
-  "plan_sha256": "292dc0cb0652a84b82d721efb3c1ca508dd591f5f0b0c1dc5002b204b2e50d04",
-  "plan_revision": 1,
-  "revision": 0,
-  "status": "blocked",
-  "outcome": null,
-  "phase": "initialization",
-  "created_at": "2026-07-31T00:00:00Z",
-  "updated_at": "2026-07-31T00:00:00Z",
-  "current_stage_id": null,
-  "executor": null,
-  "lease": null,
-  "last_event_seq": 1,
+  "artifacts_verified": false,
   "blockers": [
     {
       "code": "dependency_unsatisfied",
-      "dependency_id": "asd_000_evidence_lock_error_atlas",
-      "required_outcomes": ["go"],
-      "message": "The locked baseline lineage, cohorts, prompt ontology, and error atlas must be verified first.",
-      "resolution": "Wait for ASD-000 to finish with outcome go."
+      "message": "asd_000_evidence_lock_error_atlas: dependency status is ready",
+      "stage_id": "implement_replay_pipeline"
     },
     {
       "code": "dependency_unsatisfied",
-      "dependency_id": "asd_005_train_anatomy_asset_extension",
-      "required_outcomes": ["go"],
-      "message": "The geometry-verified training anatomy manifest is required for certification.",
-      "resolution": "Wait for ASD-005 to finish with outcome go."
+      "message": "asd_005_train_anatomy_asset_extension: dependency status is blocked",
+      "stage_id": "implement_replay_pipeline"
     }
   ],
-  "stages": [
-    {"id": "implement_replay_pipeline", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "validate_locked_inputs", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "docker_gpu_preflight", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "mine_baseline_candidates", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "certify_freeze_replay", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "coverage_gate", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "pilot_t2", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "decision_t3", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "confirm_t4", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []},
-    {"id": "closeout", "status": "pending", "attempts": 0, "started_at": null, "completed_at": null, "last_error": null, "evidence_refs": []}
-  ],
   "budget_consumed": {
-    "gpu_hours": 0.0,
     "cpu_hours": 0.0,
+    "gpu_hours": 0.0,
     "storage_gib": 0.0
   },
-  "verified_artifact_ids": ["experiment_plan", "protocol_config"],
-  "artifacts_verified": false,
-  "closeout_passed": false
+  "closeout_passed": false,
+  "created_at": "2026-07-31T00:00:00Z",
+  "current_stage_id": null,
+  "executor": null,
+  "experiment_id": "asd_030_anatomy_certified_fp_replay",
+  "last_event_seq": 2,
+  "lease": null,
+  "obligation_projection": {
+    "artifact_ids": [
+      "baseline_candidate_table",
+      "baseline_error_atlas",
+      "certification_audit",
+      "coverage_gate_report",
+      "dependency_asd000_manifest",
+      "dependency_asd005_manifest",
+      "experiment_plan",
+      "final_claims",
+      "final_result",
+      "final_summary",
+      "gpu_preflight_report",
+      "immutable_replay_manifest",
+      "input_validation_report",
+      "locked_lineage_manifest",
+      "locked_parent_checkpoint",
+      "official_train_manifest",
+      "promotion_record",
+      "prompt_ontology",
+      "protocol_config",
+      "replay_source_package",
+      "replay_test_suite",
+      "t1_full_state_checkpoints",
+      "t1_resume_report",
+      "t2_checkpoints",
+      "t2_metrics",
+      "t3_checkpoints",
+      "t3_metrics",
+      "t3_pairwise_report",
+      "t4_disabled_replay_checkpoint",
+      "t4_disabled_replay_metrics",
+      "t4_metrics",
+      "t4_mined_replay_checkpoint",
+      "t4_mined_replay_metrics",
+      "train_anatomy_manifest",
+      "val120_manifest",
+      "val200_manifest",
+      "val80_manifest",
+      "val80_mining_evidence"
+    ],
+    "artifacts_sha256": "49842e72047c9c778f8f1ec67f3b5f2819537d2f2d582fe221c979ba20260c62",
+    "claim_ids": [
+      "certified_candidates_cover_error",
+      "mined_beats_random_certificate",
+      "replay_improves_grounding",
+      "replay_pipeline_feasible",
+      "replay_replicates_on_internal_val120",
+      "unknown_regions_are_safe"
+    ],
+    "claim_types": [
+      "causal",
+      "feasibility",
+      "mechanistic",
+      "performance",
+      "safety"
+    ],
+    "claims_sha256": "a3d6fa703dc7c42f66f941cc1cd9a18617a3978abf6f5e619373b221c7cb6303",
+    "pinned_at": "2026-08-01T05:05:15.008007Z",
+    "required_artifact_ids": [
+      "baseline_candidate_table",
+      "baseline_error_atlas",
+      "certification_audit",
+      "coverage_gate_report",
+      "dependency_asd000_manifest",
+      "dependency_asd005_manifest",
+      "experiment_plan",
+      "final_claims",
+      "final_result",
+      "final_summary",
+      "gpu_preflight_report",
+      "immutable_replay_manifest",
+      "input_validation_report",
+      "locked_lineage_manifest",
+      "locked_parent_checkpoint",
+      "official_train_manifest",
+      "prompt_ontology",
+      "protocol_config",
+      "replay_source_package",
+      "replay_test_suite",
+      "train_anatomy_manifest",
+      "val80_manifest",
+      "val80_mining_evidence"
+    ],
+    "static_artifact_ids": [
+      "experiment_plan",
+      "locked_parent_checkpoint",
+      "protocol_config"
+    ]
+  },
+  "outcome": null,
+  "phase": "implement_replay_pipeline",
+  "plan_history": [
+    {
+      "archived_artifacts_path": "experiments_aiselfdrive/.runtime/replans/asd_030_anatomy_certified_fp_replay/revision_1_292dc0cb0652/artifacts/manifest.json",
+      "archived_claims_path": "experiments_aiselfdrive/.runtime/replans/asd_030_anatomy_certified_fp_replay/revision_1_292dc0cb0652/claims.yaml",
+      "archived_plan_path": "experiments_aiselfdrive/.runtime/replans/asd_030_anatomy_certified_fp_replay/revision_1_292dc0cb0652/experiment.yaml",
+      "archived_plan_sha256": "292dc0cb0652a84b82d721efb3c1ca508dd591f5f0b0c1dc5002b204b2e50d04",
+      "archived_plan_size_bytes": 27795,
+      "archived_result_path": "experiments_aiselfdrive/.runtime/replans/asd_030_anatomy_certified_fp_replay/revision_1_292dc0cb0652/result.json",
+      "archived_result_sha256": "4096446f8e61b5fd1a45af366433a1de39ffd5b2bc4fcd98ec2ba5726952dc0b",
+      "archived_result_size_bytes": 708,
+      "archived_state_path": "experiments_aiselfdrive/.runtime/replans/asd_030_anatomy_certified_fp_replay/revision_1_292dc0cb0652/state.json",
+      "archived_state_sha256": "c20054a6859414e0db9c7ac0ee4a876fbd4030eb7dba6935a9e29d3b6cce0a6f",
+      "archived_state_size_bytes": 2868,
+      "carried_budget_consumed": {
+        "cpu_hours": 0.0,
+        "gpu_hours": 0.0,
+        "storage_gib": 0.0
+      },
+      "current_artifacts_sha256": "9f68155cf149aabacc0a851f1a91f974afacaa1fa43aafc29fc8ba40fea95958",
+      "current_claims_sha256": "ea20f416c6698b7dc2bdad3edf8b13a6078d79aa36a0870148b93a1c3a2e7fbf",
+      "plan_revision": 1,
+      "plan_sha256": "292dc0cb0652a84b82d721efb3c1ca508dd591f5f0b0c1dc5002b204b2e50d04",
+      "previous_artifacts_sha256": "15cbfbc8fc6a071c6523a26b047625757b5e0480b5dc454b2217d8507eaccba4",
+      "previous_artifacts_size_bytes": 7728,
+      "previous_budget_consumed": {
+        "cpu_hours": 0.0,
+        "gpu_hours": 0.0,
+        "storage_gib": 0.0
+      },
+      "previous_claims_sha256": "4952c78d5758d4629dca68a7d4cb90b1dc048bb5d5dbc0112b210cf5b9f1c7a7",
+      "previous_claims_size_bytes": 2061,
+      "previous_plan_source": "git:827f962c3cfee117b6442b74653c752ed36f296c:experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/experiment.yaml",
+      "replanned_at": "2026-08-01T05:05:17.130606Z"
+    }
+  ],
+  "plan_revision": 2,
+  "plan_sha256": "e1512b842fbe51685a0991455d3ecb652ef53c88ccd040bed401151cb66a2739",
+  "revision": 1,
+  "schema_version": "1.0",
+  "stages": [
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "implement_replay_pipeline",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "blocked"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "validate_locked_inputs",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "docker_gpu_preflight",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "mine_baseline_candidates",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "certify_freeze_replay",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "coverage_gate",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "t1_resume_smoke",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "pilot_t2",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "decision_t3",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "confirm_t4",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    },
+    {
+      "attempts": 0,
+      "completed_at": null,
+      "evidence_refs": [],
+      "id": "closeout",
+      "last_error": null,
+      "retry_not_before": null,
+      "started_at": null,
+      "status": "pending"
+    }
+  ],
+  "status": "blocked",
+  "updated_at": "2026-08-01T05:05:17.131374Z",
+  "verified_artifact_ids": [
+    "experiment_plan",
+    "locked_parent_checkpoint",
+    "protocol_config"
+  ]
 }

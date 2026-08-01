@@ -1,7 +1,26 @@
 schema_version: "1.0"
 experiment_id: asd_060_persistence_tree_set_verifier
 seed: 20260731
+controller_runtime_contract:
+  required_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+  nested_docker_labels:
+    lease: rexgroundingct.aiselfdrive.lease=REXGROUNDINGCT_AISELFDRIVE_LEASE_ID
+    experiment: rexgroundingct.aiselfdrive.experiment=REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID
+  rule: Consume controller-provided values at execution time, apply both exact labels to every nested docker run, and never hard-code container names or lease values.
+stage_evidence_contract:
+  object_path: metrics.resources
+  required_fields: [gpu_hours, cpu_hours, storage_gib]
+  semantics: gpu_hours and cpu_hours are incremental for the completed stage; storage_gib is the cumulative experiment runtime-tree high-water observed at completion, never a stage delta.
 runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1
+parent:
+  checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
+  sha256: 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf
+inputs:
+  logit_source_projection: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_logit_source.json
+  logit_resolution_contract:
+    manifest_path_field: manifest_path
+    manifest_sha256_field: manifest_sha256
+    rule: Resolve manifest_path from the verified projection, hash the resolved manifest, require equality with manifest_sha256, and consume only files declared by that manifest.
 thresholds: [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80]
 connectivity: 26
 forest:
@@ -17,50 +36,98 @@ states:
   precedence: [known_positive, certified_negative, unknown]
   unknown_supervision_weight: 0.0
   require_asd040_go_for_learning: true
+  learned_branch_minimums:
+    certified_negative_nodes: 500
+    certified_negative_cases: 50
+    known_positive_nodes: 500
+    policy_coverage_cases_fraction: 0.90
+  insufficient_label_policy: skip_learned_stages_and_close_inconclusive_with_counts
 set_model:
   node_hidden_dimension: 128
   set_attention_blocks: 2
   attention_heads: 4
   dropout: 0.10
   utility_hidden_dimension: 64
-  optimizer: adamw
-  learning_rate: 0.0001
-  weight_decay: 0.0001
   structured_loss_weight: 1.0
   known_positive_union_dice_weight: 0.20
   certified_negative_penalty_weight: 0.20
-controls:
-  - locked_baseline
-  - oracle
-  - top1
-  - topk
-  - persistence_only
-  - independent_identical_features
-  - shuffled_set_context
-  - set_verifier
-updates:
-  T2: 500
-  T3: 2000
-  T4: 10000
+controls: [locked_baseline, oracle, top1, topk, persistence_only, independent_identical_features, shuffled_set_context, set_verifier]
+training:
+  updates: {T1: 10, T2: 500, T3: 2000, T4: 10000}
+  update_semantics: cumulative_global_update_barriers
+  batch_forests: 16
+  gradient_accumulation: 1
+  optimizer:
+    name: AdamW
+    learning_rate: 0.0001
+    betas: [0.9, 0.999]
+    epsilon: 1.0e-8
+    weight_decay: 0.0001
+  schedule:
+    unit: optimizer_update
+    horizon_updates: 10000
+    warmup_updates: 50
+    warmup: linear_from_zero_to_base_lr
+    post_warmup: cosine_decay_to_zero
+    horizon_rule: immutable_cumulative_10000_update_horizon
+    restart_rule: each_arm_resumes_its_own_prior_barrier_full_scheduler_state_without_restart_or_horizon_mutation
+    tier_barriers: [10, 500, 2000, 10000]
+    t4_start_rule: set_verifier_and_independent_control_each_resume_their_own_matched_2000_update_t3_full_state
+  precision: {autocast: false, optimizer_state: fp32, gradient_clip_max_norm: 5.0}
+  matched_control_contract:
+    treatment: set_verifier
+    control: independent_identical_features
+    node_features: byte_identical
+    train_sample_schedule: byte_identical
+    optimizer_and_schedule: identical
+    initialization_seed: 20260731
+    decoder: exact_same_antichain_decoder
+    only_difference: set_context_interactions_enabled
+    t4_required: true
+    tier_transition_hashes: [parent_checkpoint_sha256, data_sha256, sample_schedule_sha256, scheduler_contract_sha256, global_update]
+  full_state_checkpoint:
+    atomic_write: temporary_file_fsync_then_rename
+    required_fields: [model_state, optimizer_state, scheduler_state, amp_scaler_state_or_explicit_null, global_update, sample_schedule_cursor, sampler_state, python_rng_state, numpy_rng_state, torch_cpu_rng_state, torch_cuda_rng_states, arm_id, tier, parent_checkpoint_sha256, protocol_sha256, training_forest_manifest_sha256, feature_registry_sha256, sample_schedule_sha256]
+    resume_test: compare_uninterrupted_10_updates_with_new_process_5_plus_5
+    resume_acceptance: exact_global_update_sample_order_parameters_logits_and_loss_trace
 cohorts:
   development: val80
-  confirmatory: val120
+  internal_replication: val120
   continuity: val200
   pre_t4_denied: [val120, val200]
+  independent_confirmation: requires_externally_unseen_or_custodied_data
 gates:
   oracle_dice_gain_min: 0.07
   gt_component_recall_min: 0.85
   oracle_gain_fraction_recovered_min: 0.20
   baseline_true_positive_voxel_retention_min: 0.99
   paired_case_clustered_ci_lower_min_exclusive: 0.0
+  certified_negative_nodes_min: 500
+  certified_negative_cases_min: 50
+  known_positive_nodes_min: 500
 bootstrap:
   draws: 10000
   seed: 20260731
+  cluster_unit: case
 hardware:
   mode: docker
-  image: rexgroundingct-voxtell:cu126
+  image_tag: rexgroundingct-voxtell:cu126
+  local_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
+  preflight_policy: docker_inspect_image_id_must_equal_local_image_id
   expected_gpu_count: 4
+  expected_gpu_model: NVIDIA RTX 6000 Ada Generation
   minimum_free_gib_training: 36
+  minimum_free_gib_inference: 32
   maximum_parallel_single_gpu_arms: 4
   multi_gpu_ddp: false
   slurm: prohibited
+promotion:
+  producer: experimentctl promote
+  artifact_id: promotion_record
+  path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_060_persistence_tree_set_verifier.json
+  required_fields: [schema_version, experiment_id, source, portfolio_sha256, plan_sha256, t3_evidence_sha256, rank, promoted_at, matched_control_required, val120_access_authorized]
+  validation: require_source_experimentctl_promote_and_controller_recorded_sha256
+t4_matched_arms:
+  treatment: {id: persistence_set_verifier, checkpoint_output_id: t4_set_checkpoint, metrics_output_id: t4_set_metrics}
+  control: {id: disabled_set_context_independent_scorer, checkpoint_output_id: t4_matched_control_checkpoint, metrics_output_id: t4_matched_control_metrics}
+  matched_hash_fields: [parent_checkpoint_sha256, data_sha256, schedule_sha256, update_count]

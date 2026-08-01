@@ -1,7 +1,7 @@
 schema_version: "1.0"
 id: asd_050_prompt_equivariance_quartet
 title: Prompt-Aware Left/Right Equivariance Quartet
-plan_revision: 1
+plan_revision: 2
 created_at: "2026-07-31T00:00:00Z"
 updated_at: "2026-07-31T00:00:00Z"
 priority: 7
@@ -50,16 +50,16 @@ evidence_references:
       - baseline_error_atlas
     availability: missing
 lineage:
-  parent_checkpoint: resolved_from_asd_000_locked_lineage_manifest
-  parent_checkpoint_sha256: resolved_before_execution
+  parent_checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
+  parent_checkpoint_sha256: 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf
   optimizer_restore: false
   initialization: weights_only_for_every_arm
   preprocessing_class: cached-equivalent
   normalization: locked_parent_per_volume_zscore
-  prompt_form: original_locked_prompt_with_declared_swap_only
-  inference_window: locked_by_asd_000
-  threshold_policy: locked_by_asd_000
-  postprocessing: locked_by_asd_000
+  prompt_form: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/prompt_form
+  inference_window: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/inference_window
+  threshold_policy: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/threshold_policy
+  postprocessing: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/postprocessing
   comparability_rule: >-
     All arms use identical initialization, materialized examples, update
     counts, optimizer settings, evaluation thresholds, and post-processing.
@@ -129,13 +129,17 @@ data:
       elsewhere: unknown
   development_cohort:
     id: val80
+    manifest: experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
     allowed_stages: [baseline_quartet_audit, pilot_t2, decision_t3]
-  confirmatory_cohort:
+  internal_replication_cohort:
     id: val120
+    manifest: experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json
     access: prohibited_until_t4_promotion
     allowed_stages: [confirm_t4]
+    evidence_role: historically_exposed_internal_replication_not_independent_confirmation
   continuity_cohort:
     id: val200
+    manifest: configs/evaluation/rexgroundingct_val200_seed20260723.json
     access: prohibited_until_t4_promotion
     allowed_stages: [confirm_t4]
   leakage_controls:
@@ -180,20 +184,49 @@ method:
     checkpoint_initialization_reset_each_wave: true
     evaluation_after_all_waves: true
   compute_ladder:
+    smoke_t1_updates: 10
     pilot_t2_updates: 500
     decision_t3_updates: 2000
     confirm_t4_updates: 10000
+    update_semantics: cumulative_global_update_barriers
+    scheduler_contract: One immutable 10,000-update polynomial horizon; every arm resumes its own prior-barrier full scheduler state without restart, warmup replay, or horizon mutation.
+    t4_matched_start: Full-quartet treatment and no-flip control each resume their own matched 2,000-update T3 full state; a fresh control is prohibited.
     maximum_parallel_single_gpu_arms: 4
     multi_gpu_ddp: false
 resources:
   hardware_profile: experiments_aiselfdrive/shared/hardware_profile.yaml
   execution_environment: docker
   image: rexgroundingct-voxtell:cu126
+  local_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
   gpu_model: NVIDIA RTX 6000 Ada Generation
   gpu_count_available: 4
   minimum_free_gib_training: 36
   slurm: prohibited
   runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1
+stage_execution_contract:
+  resource_limits:
+    cpu_cores_hardware_max: 128
+    gpu_count_hardware_max: 4
+    gpu_count_per_arm_max: 1
+    maximum_concurrent_arms: 4
+    inference_free_memory_gib_min: 32
+    training_free_memory_gib_min: 36
+    multi_gpu_ddp: prohibited
+  evidence:
+    applies_to: every_stage
+    object_path: metrics.resources
+    required_fields: [gpu_hours, cpu_hours, storage_gib]
+    semantics:
+      gpu_hours: incremental_stage_gpu_hours
+      cpu_hours: incremental_stage_cpu_hours
+      storage_gib: cumulative_experiment_runtime_tree_high_water_at_stage_completion
+    validation: All values are finite and nonnegative; storage_gib is measured over the experiment runtime tree and never reported as a stage delta.
+  controller_container_identity:
+    required_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+    required_labels:
+      lease: rexgroundingct.aiselfdrive.lease=REXGROUNDINGCT_AISELFDRIVE_LEASE_ID
+      experiment: rexgroundingct.aiselfdrive.experiment=REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID
+    rule: Every nested docker run consumes controller-provided values and applies both exact labels; container names and lease values are never hard-coded.
 stages:
   - id: implement_quartet_pipeline
     kind: implementation
@@ -205,15 +238,17 @@ stages:
       - Read this plan, configs/protocol.yaml, ASD-000 manifests, and applicable README files.
       - Implement only inside this experiment's scripts, src, and tests directories.
       - Identify left/right from physical orientation and canonicalize to RAS; never assume a source array axis.
-      - Implement placeholder-based byte-round-trip prompt swaps and reject every declared exclusion.
+      - Implement sentinel-based byte-round-trip prompt swaps and reject every declared exclusion.
       - Apply counterfactual loss only on the certified known mask and explicitly mask all other voxels unknown.
       - Add pre-T4 cohort guards, deterministic seed 20260731, and atomic JSON completion records.
+      - Consume controller env REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, and REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL; label every nested container rexgroundingct.aiselfdrive.lease with the lease ID and rexgroundingct.aiselfdrive.experiment with the experiment ID, and never hard-code container names or lease values.
+      - Emit metrics.resources in every stage evidence with incremental gpu_hours, incremental cpu_hours, and cumulative experiment runtime-tree high-water storage_gib.
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/scripts
       - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/src
       - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/tests
       - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/results/implementation_evidence.json
-    inputs: [experiment_plan, protocol_config, dependency_asd000_manifest]
+    inputs: [experiment_plan, protocol_config, locked_lineage_manifest]
     outputs: [quartet_source_package, quartet_test_suite]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/results/implementation_evidence.json
@@ -248,6 +283,7 @@ stages:
         PYTHONDONTWRITEBYTECODE: "1"
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/quartets
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/validate_and_build_quartets.json
     inputs: [locked_lineage_manifest, val80_manifest, prompt_ontology]
     outputs: [quartet_manifest, quartet_qc_report]
     completion:
@@ -283,6 +319,7 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/preflight
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/docker_gpu_preflight.json
     inputs: [locked_parent_checkpoint, quartet_manifest]
     outputs: [gpu_preflight_report]
     completion:
@@ -290,8 +327,12 @@ stages:
       required_fields: [image_digest, gpu_inventory, free_memory_gib, checkpoint_sha256, identity_metrics, finite_quartet]
     resources:
       cpu_cores: 8
-      gpu_count: 4
-      minimum_free_gib_per_gpu: 36
+      gpu_count: 1
+      gpu_count_per_arm: 1
+      arm_count: 1
+      maximum_concurrent_arms: 1
+      minimum_free_gib_per_gpu: 32
+      gpu_hours_total_max: 0.25
     timeout_seconds: 3600
     retry:
       max_attempts: 1
@@ -300,7 +341,9 @@ stages:
       retryable_classes: [resource_unavailable]
     stop_conditions: [wrong_inference_device, checkpoint_hash_drift, identity_control_failure, non_finite]
     acceptance_checks:
-      - Four expected RTX 6000 Ada GPUs are available in Docker.
+      - Docker inspect image ID equals sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f.
+      - Four NVIDIA RTX 6000 Ada Generation GPUs are available in Docker with at least 36 GiB free each.
+      - Parent checkpoint SHA-256 equals 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf.
       - Epoch-zero no-flip inference matches the locked baseline within 1e-6 logits and exact hit count.
       - A fixed factual/counterfactual quartet produces finite outputs.
   - id: baseline_quartet_audit
@@ -324,6 +367,7 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/baseline_audit
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/baseline_quartet_audit.json
     inputs: [quartet_manifest, locked_parent_checkpoint, val80_manifest]
     outputs: [baseline_quartet_report]
     completion:
@@ -332,6 +376,11 @@ stages:
     resources:
       cpu_cores: 16
       gpu_count: 4
+      gpu_count_per_arm: 1
+      arm_count: 4
+      maximum_concurrent_arms: 4
+      minimum_free_gib_per_gpu: 32
+      gpu_hours_total_max: 4
     timeout_seconds: 14400
     retry:
       max_attempts: 3
@@ -341,10 +390,36 @@ stages:
     acceptance_checks:
       - Both factual and both counterfactual known-mask scores are recorded per quartet.
       - Off-target FP uses prompt-specified laterality, not GT-positive lobe statistics.
+  - id: t1_resume_smoke
+    kind: smoke
+    execution_mode: command
+    needs: [baseline_quartet_audit]
+    required: true
+    description: Run ten train-only updates for no-flip, factual-joint, full-quartet, and sham arms and prove exact new-process resume.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/scripts/run_training.py, --config, experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/configs/protocol.yaml, --tier, T1]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {CUDA_DEVICE_ORDER: PCI_BUS_ID}
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t1
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/t1_resume_smoke.json
+    inputs: [quartet_manifest, locked_parent_checkpoint]
+    outputs: [t1_full_state_checkpoints, t1_resume_report]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/t1_resume_smoke.json
+      required_fields: [arm_updates, uninterrupted_trace_sha256, resumed_trace_sha256, checkpoint_sha256, exact_match]
+    resources: {cpu_cores: 16, gpu_count: 4, gpu_count_per_arm: 1, arm_count: 4, maximum_concurrent_arms: 4, minimum_free_gib_per_gpu: 36, maximum_updates_per_arm: 10, gpu_hours_per_arm_max: 0.25}
+    timeout_seconds: 7200
+    retry: {max_attempts: 2, automatic_full_state_resumes: 1, retryable_classes: [container_start_failure, transient_io]}
+    stop_conditions: [orientation_mismatch, non_finite, missing_resume_state, sample_schedule_mismatch]
+    acceptance_checks:
+      - All arms start from the exact pinned parent and use byte-identical train-only sample schedules.
+      - New-process five-plus-five updates exactly match uninterrupted ten-update global step, sample order, parameters, logits, and loss trace.
+      - Atomic checkpoints contain every protocol-required state field and each arm uses less than 0.25 GPU-hour.
   - id: pilot_t2
     kind: training
     execution_mode: command
-    needs: [baseline_quartet_audit]
+    needs: [t1_resume_smoke]
     required: true
     description: Run six 500-update arms in two matched waves and evaluate all arms after the barrier.
     command:
@@ -360,7 +435,8 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t2
-    inputs: [quartet_manifest, locked_parent_checkpoint, val80_manifest]
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/pilot_t2.json
+    inputs: [t1_full_state_checkpoints, quartet_manifest, locked_parent_checkpoint, val80_manifest]
     outputs: [t2_checkpoints, t2_metrics]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/pilot_t2.json
@@ -368,7 +444,12 @@ stages:
     resources:
       cpu_cores: 32
       gpu_count: 4
+      gpu_count_per_arm: 1
+      arm_count: 6
+      maximum_concurrent_arms: 4
+      minimum_free_gib_per_gpu: 36
       maximum_updates_per_arm: 500
+      gpu_hours_per_arm_max: 1.25
       execution_waves: 2
     timeout_seconds: 43200
     retry:
@@ -400,15 +481,21 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t3
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/decision_t3.json
     inputs: [t2_checkpoints, quartet_manifest, val80_manifest]
     outputs: [t3_checkpoints, t3_metrics]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/decision_t3.json
-      required_fields: [arm_updates, off_target_fp, laterality_compliance, paired_dice, gate_verdict, output_sha256]
+      required_fields: [arm_updates, off_target_fp, laterality_compliance, paired_dice, gate_verdict, matched_t3_state_hashes, metrics.promotion, metrics.resources, output_sha256]
     resources:
       cpu_cores: 32
       gpu_count: 3
+      gpu_count_per_arm: 1
+      arm_count: 3
+      maximum_concurrent_arms: 3
+      minimum_free_gib_per_gpu: 36
       maximum_updates_per_arm: 2000
+      gpu_hours_per_arm_max: 2.5
     timeout_seconds: 43200
     retry:
       max_attempts: 2
@@ -416,16 +503,18 @@ stages:
       retryable_classes: [container_start_failure, transient_io]
     stop_conditions: [orientation_mismatch, split_leakage, non_finite, budget_exhausted]
     acceptance_checks:
+      - Full-quartet treatment and no-flip control each have a distinct verified full-state checkpoint at cumulative global update 2000 with identical parent, data, sample-schedule, and scheduler-contract hashes.
       - Full quartet reduces laterality off-target FP at least 15%.
       - Laterality compliance improves at least 0.10 absolute.
       - Aggregate paired Dice delta is at least -0.001.
       - Full quartet outperforms factual-joint on the primary alignment metric.
+      - metrics.promotion contains exactly eligible, all_safety_and_noninferiority_gates_pass, paired_val80_dice_delta, val80_off_location_fp_reduction, and measured_gpu_hours with boolean, finite-fraction, and nonnegative-hour types.
   - id: confirm_t4
-    kind: confirmation
+    kind: internal_replication
     execution_mode: command
     needs: [decision_t3]
     required: false
-    description: Confirm a promoted full-quartet intervention on sealed val120 and continuity val200.
+    description: Replicate a controller-promoted full-quartet intervention and its matched no-flip control on historically exposed val120, then report val200 continuity.
     command:
       argv:
         - python
@@ -441,25 +530,44 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t4
-    inputs: [t3_checkpoints, val120_manifest, val200_manifest, promotion_authorization]
-    outputs: [t4_checkpoints, t4_metrics]
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/confirm_t4.json
+    inputs: [promotion_record, t3_checkpoints, val120_manifest, val200_manifest]
+    matched_arms:
+      treatment:
+        id: full_prompt_equivariance_quartet
+        checkpoint_output_id: t4_full_quartet_checkpoint
+        metrics_output_id: t4_full_quartet_metrics
+      control:
+        id: disabled_quartet_no_flip
+        checkpoint_output_id: t4_disabled_quartet_checkpoint
+        metrics_output_id: t4_disabled_quartet_metrics
+      matched_hash_fields: [parent_checkpoint_sha256, data_sha256, schedule_sha256, update_count]
+    outputs: [t4_full_quartet_checkpoint, t4_full_quartet_metrics, t4_disabled_quartet_checkpoint, t4_disabled_quartet_metrics, t4_metrics]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/confirm_t4.json
-      required_fields: [promotion_sha256, val120_metrics, val200_metrics, case_clustered_ci, output_sha256]
+      required_fields: [promotion_sha256, val120_metrics, val200_metrics, case_clustered_ci, metrics.matched_arms, metrics.resources, output_sha256]
     resources:
       cpu_cores: 32
       gpu_count: 2
+      gpu_count_per_arm: 1
+      arm_count: 2
+      maximum_concurrent_arms: 2
+      minimum_free_gib_per_gpu: 36
       maximum_updates_per_arm: 10000
+      gpu_hours_per_arm_max: 15
     timeout_seconds: 129600
     retry:
       max_attempts: 2
       automatic_full_state_resumes: 1
       retryable_classes: [container_start_failure, transient_io]
-    stop_conditions: [missing_promotion_authorization, split_leakage, non_finite, budget_exhausted]
+    stop_conditions: [missing_or_invalid_controller_promotion_record, split_leakage, non_finite, budget_exhausted]
     acceptance_checks:
-      - val120 is inaccessible before verified promotion.
-      - Val120 laterality benefit has a positive case-clustered 95% CI.
+      - Promotion record source equals experimentctl promote; required fields, plan hash, matched-control requirement, val120 authorization, and controller-recorded SHA-256 verify before access.
+      - metrics.matched_arms contains both declared IDs, per-arm checkpoint and metrics hashes, identical parent/data/schedule hashes, and update_count 10000.
+      - Supported executors refuse val120 before verified promotion, and the cohort is described only as internal replication; this is a software guard, not a secrecy claim.
+      - Val120 laterality benefit has a positive case-clustered 95% CI only for internal-replication GO.
       - Aggregate val120 Dice remains non-inferior within 0.001.
+      - Independent confirmation remains undecided pending externally unseen or custodied data.
   - id: closeout
     kind: closeout
     execution_mode: agent
@@ -477,9 +585,9 @@ stages:
       - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/claims.yaml
       - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/artifacts/manifest.json
     inputs: [quartet_qc_report, baseline_quartet_report, t2_metrics, t3_metrics, t4_metrics]
-    outputs: [final_result, final_summary, final_claims, verified_artifact_manifest]
+    outputs: [final_result, final_summary, final_claims]
     completion:
-      evidence_file: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/results/closeout_evidence.json
+      evidence_file: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/results/result.json
       require_all_executed_stage_artifacts_verified: true
     resources:
       cpu_cores: 8
@@ -518,9 +626,15 @@ evaluation:
       - laterality_compliance_delta >= 0.10
       - aggregate_paired_dice_delta >= -0.001
       - full_quartet_alignment_metric > factual_joint_alignment_metric
-    confirmation_go:
+    internal_replication_go:
       - val120_laterality_case_clustered_ci_lower > 0
       - val120_paired_dice_delta >= -0.001
+promotion_contract:
+  artifact_id: promotion_record
+  path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_050_prompt_equivariance_quartet.json
+  exact_producer: experimentctl promote
+  required_fields: [schema_version, experiment_id, source, portfolio_sha256, plan_sha256, t3_evidence_sha256, rank, promoted_at, matched_control_required, val120_access_authorized]
+  validation: Require matching experiment and plan, source experimentctl promote, matched_control_required true, val120_access_authorized true, and SHA-256 equality with controller event and state.
 paths:
   workspace: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet
   config: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/configs/protocol.yaml
@@ -528,6 +642,9 @@ paths:
   artifact_manifest: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/artifacts/manifest.json
   result: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/results/result.json
 budget:
+  gpu_hours_max: 54
+  cpu_hours_max: 2000
+  durable_storage_gib_max: 1400
   maximum_gpu_hours: 54
   maximum_wall_hours: 84
   maximum_external_storage_gib: 1400

@@ -39,7 +39,7 @@ Claim and execute one stage at a time only after `next --json` returns
 python experiments_aiselfdrive/tools/experimentctl.py claim \
   --id asd_000_evidence_lock_error_atlas --agent-id <stable-agent-id>
 python experiments_aiselfdrive/tools/experimentctl.py run-stage \
-  --id asd_000_evidence_lock_error_atlas
+  --id asd_000_evidence_lock_error_atlas --agent-id <stable-agent-id>
 ```
 
 For an `execution_mode: agent` stage, `run-stage` prints a structured work
@@ -55,7 +55,8 @@ Then record evidence:
 
 ```bash
 python experiments_aiselfdrive/tools/experimentctl.py complete-stage \
-  --id asd_000_evidence_lock_error_atlas --evidence <evidence-json>
+  --id asd_000_evidence_lock_error_atlas --agent-id <stable-agent-id> \
+  --evidence <evidence-json>
 ```
 
 Do not start a second experiment automatically. `experimentctl next` enforces
@@ -80,11 +81,15 @@ declared by the experiment plan and artifact manifest.
 
 ## Canonical files
 
-- `portfolio.yaml`: immutable inventory, dependency, selection, and resource
-  policy.
+- `portfolio.yaml`: revisioned inventory, dependency, selection, and resource
+  policy. Each intentional registry revision names its predecessor and is
+  sealed by the control-plane lock manifest.
 - `EXECUTOR_PROMPT.md`: guarded poll-and-run work order for a separate agent.
 - `schemas/`: JSON Schemas for every machine-readable contract.
-- `experiments/<id>/experiment.yaml`: canonical immutable scientific plan.
+- `experiments/<id>/experiment.yaml`: canonical scientific plan for the
+  active revision. A plan may change only through the audited `replan`
+  transition; prior hashes and their source revision remain in the event
+  ledger.
 - `experiments/<id>/state.json`: canonical mutable execution state.
 - `experiments/<id>/claims.yaml`: predeclared scientific claims.
 - `experiments/<id>/events.jsonl`: append-only transition ledger.
@@ -93,6 +98,35 @@ declared by the experiment plan and artifact manifest.
 
 Human-readable experiment READMEs are generated or checked against the same
 machine-readable plans. Status is never duplicated in `portfolio.yaml`.
+Claims and artifact obligations are projected into `state.json` at each plan
+revision so a closeout cannot silently delete or weaken them.
+
+## Audited revisions and promotion
+
+Never repair a plan by manually rewriting `state.json` or truncating
+`events.jsonl`. Adopt an intentional revision through the controller, naming a
+recoverable predecessor:
+
+```bash
+python experiments_aiselfdrive/tools/experimentctl.py replan \
+  --id <experiment-id> --agent-id <stable-agent-id> \
+  --reason <specific-repair-reason> \
+  --previous-plan-source git:<commit>:<repo-relative-plan-path> \
+  --adopt-current
+```
+
+Once every coordinated revision is adopted, `lock-control-plane --agent-id
+<stable-agent-id>` seals the registry, schemas, templates, hardware profile,
+plans, protocols, and immutable claim/artifact obligations. Validation rejects
+source drift after that point.
+
+Candidate experiments stop at the portfolio T3 barrier. When every candidate
+is terminal or has reached that barrier, `promote --agent-id
+<stable-agent-id>` ranks eligible interventions under `portfolio.yaml`, writes
+hash-verified decisions, authorizes no more than two T4 stages, and routes all
+other candidates to closeout. A T4 command cannot start without its matching
+controller event and promotion record. Every selected T4 runs its declared
+treatment and disabled-module control as distinct, hash-matched arms.
 
 ## State semantics
 
@@ -121,8 +155,15 @@ instructions in the report are prohibited.
 
 ## Scientific guardrails
 
-- Official training data only; val80 is development and val120 is held out
-  until T4 confirmation.
+- Official training data only; val80 is development. The supported executor
+  denies the protected val120 artifact IDs until a controller-authorized T4;
+  this is a control-plane guarantee, not an adversarial operating-system
+  sandbox. A documented historical metric exposure means val120 is an
+  internal held-out replication cohort, not untouched independent
+  confirmation.
+- Any claim of independent performance confirmation requires a newly
+  acquired or externally custodied cohort that has not been inspected by this
+  portfolio or its authors.
 - Unknown or anatomically compatible unlabeled regions are never treated as
   global negatives.
 - Counterexamples require factual, anatomy-certified supervision and lexical

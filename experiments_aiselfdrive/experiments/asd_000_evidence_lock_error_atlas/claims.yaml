@@ -3,25 +3,77 @@ experiment_id: asd_000_evidence_lock_error_atlas
 claims:
   - id: canonical_lineage_reproducible
     type: feasibility
-    statement: The local Exp009 baseline is reproducible at the locked val200 operating point.
+    statement: >-
+      The local Exp009 baseline can be reproduced at the locked val200
+      operating point directly from stored prediction masks and released GT,
+      and the bounded val80-logit fallback has storage capacity above the
+      exact full-layout float16 requirement.
     verdict: pending
-    gate_refs: [baseline_dice_absolute_error_le_0.000005, baseline_hits_equal_288_of_381]
+    gate_refs:
+      - baseline_dice_recomputed_from_prediction_and_gt_within_0_000005
+      - baseline_hits_recomputed_from_prediction_and_gt_equal_288_of_381
+      - local_logit_storage_capacity_covers_locked_full_layout_float16
+      - locked_val80_layout_is_derived_from_80_prediction_headers
+      - explicit_embedding_bank_covers_all_locked_prompts_without_qwen_fallback
+      - candidate_checkpoint_matches_locked_baseline
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: spatial_error_taxonomy_measurable
     type: mechanistic
-    statement: Explicit-location prompts permit deterministic measurement of prompt-off-location false-positive voxels and detached components on val80.
+    statement: >-
+      Explicit-location prompts permit deterministic measurement of
+      prompt-off-location false-positive voxels and detached components on
+      val80 using verified logits and conservative anatomy certification.
     verdict: pending
-    gate_refs: [prompt_parser_safety_checks_pass, val80_error_atlas_complete]
+    gate_refs:
+      - prompt_parser_safety_checks_pass
+      - val80_error_atlas_complete
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: noninterventional_scope_boundary_enforced
+    type: causal
+    statement: >-
+      ASD-000 is noninterventional and supports no claim that anatomy guidance,
+      counterexamples, or any other intervention caused a performance change.
+    verdict: pending
+    gate_refs:
+      - noninterventional_scope_enforced
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: baseline_continuity_without_independent_confirmation
+    type: performance
+    statement: >-
+      Direct recomputation supports continuity of the historical Exp009
+      baseline only; it is not independent performance confirmation, and
+      val120 cannot supply such confirmation because it was historically
+      exposed.
+    verdict: pending
+    gate_refs:
+      - baseline_dice_recomputed_from_prediction_and_gt_within_0_000005
+      - baseline_hits_recomputed_from_prediction_and_gt_equal_288_of_381
+      - independent_confirmation_not_claimed_without_external_custodied_data
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: tri_state_policy_preserved
     type: safety
-    statement: The atlas and downstream manifests distinguish known-positive, certified-negative, and unknown regions without global negative conversion.
+    statement: >-
+      The atlas and downstream manifests distinguish known-positive,
+      certified-negative, and unknown regions without global negative
+      conversion or laterality-only outside-lung over-certification; any local
+      fallback is offline, source-read-only, and write-scoped to the exact
+      ASD-000 runtime after a durable-storage probe.
     verdict: pending
-    gate_refs: [prompt_parser_safety_checks_pass, geometry_and_orientation_checks_pass]
+    gate_refs:
+      - val80_val120_disjoint_exhaustive_and_roles_honest
+      - geometry_and_orientation_checks_pass
+      - unavailable_spatial_metrics_are_null_with_observation_counts
+      - accepted_logit_source_without_exact_bank_proof_forces_local_export
+      - local_docker_runtime_write_scope_and_offline_contract_pass
+      - external_runtime_atomic_probe_passes_before_local_gpu_inference
     evidence_refs: []
     decided_at: null
     rationale: null

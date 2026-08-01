@@ -9,8 +9,8 @@
       "ownership": "workspace",
       "status": "verified",
       "required": true,
-      "sha256": "292dc0cb0652a84b82d721efb3c1ca508dd591f5f0b0c1dc5002b204b2e50d04",
-      "size_bytes": null,
+      "sha256": "e1512b842fbe51685a0991455d3ecb652ef53c88ccd040bed401151cb66a2739",
+      "size_bytes": 39878,
       "producer_stage_id": null,
       "retention": "durable"
     },
@@ -21,8 +21,8 @@
       "ownership": "workspace",
       "status": "verified",
       "required": true,
-      "sha256": "40875ce3f6f8108b9756fce337f471f4811d2602ffda857e8e1eb20d2afe1a88",
-      "size_bytes": null,
+      "sha256": "a90a3a7010d315c0740833bb7851638202b6db3e736136983b9c52e647f5f42d",
+      "size_bytes": 6457,
       "producer_stage_id": null,
       "retention": "durable"
     },
@@ -50,6 +50,16 @@
       "producer_stage_id": null,
       "retention": "durable"
     },
+    {"id":"locked_lineage_manifest","path":"experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json","role":"input","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"val80_manifest","path":"experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json","role":"input","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"val120_manifest","path":"experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json","role":"input","ownership":"workspace","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"val200_manifest","path":"configs/evaluation/rexgroundingct_val200_seed20260723.json","role":"input","ownership":"external_read_only","status":"present","required":false,"sha256":"7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897","size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"train_anatomy_manifest","path":"experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json","role":"input","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"locked_parent_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth","role":"checkpoint","ownership":"external_read_only","status":"verified","required":true,"sha256":"50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf","size_bytes":3131885315,"producer_stage_id":null,"retention":"durable"},
+    {"id":"official_train_manifest","path":"experiments_aiselfdrive/shared/manifests/trainval_ct_source_v1.json","role":"input","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"prompt_ontology","path":"experiments_aiselfdrive/shared/manifests/prompt_ontology_v1.json","role":"input","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"baseline_error_atlas","path":"experiments_aiselfdrive/shared/manifests/asd000_error_atlas_contract_revision_2.json","role":"input","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"promotion_record","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_030_anatomy_certified_fp_replay.json","role":"input","ownership":"external_read_only","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":null,"controller_producer":"experimentctl promote","retention":"durable"},
     {
       "id": "replay_source_package",
       "path": "experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/src",
@@ -62,6 +72,7 @@
       "producer_stage_id": "implement_replay_pipeline",
       "retention": "durable"
     },
+    {"id":"replay_test_suite","path":"experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/tests","role":"output","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"implement_replay_pipeline","retention":"durable"},
     {
       "id": "input_validation_report",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/validation/report.json",
@@ -134,6 +145,9 @@
       "producer_stage_id": "coverage_gate",
       "retention": "durable"
     },
+    {"id":"val80_mining_evidence","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/coverage/val80_mining_evidence.json","role":"evidence","ownership":"external_runtime","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"coverage_gate","retention":"durable"},
+    {"id":"t1_full_state_checkpoints","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t1/checkpoints","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"t1_resume_smoke","retention":"durable"},
+    {"id":"t1_resume_report","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t1/resume_report.json","role":"evidence","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"t1_resume_smoke","retention":"durable"},
     {
       "id": "t2_checkpoints",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t2/checkpoints",
@@ -182,18 +196,11 @@
       "producer_stage_id": "decision_t3",
       "retention": "durable"
     },
-    {
-      "id": "t4_checkpoints",
-      "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t4/checkpoints",
-      "role": "checkpoint",
-      "ownership": "external_runtime",
-      "status": "planned",
-      "required": false,
-      "sha256": null,
-      "size_bytes": null,
-      "producer_stage_id": "confirm_t4",
-      "retention": "durable"
-    },
+    {"id":"t3_pairwise_report","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t3/pairwise_mined_minus_random.json","role":"report","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"decision_t3","retention":"durable"},
+    {"id":"t4_mined_replay_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t4/mined_certified_replay/checkpoint","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
+    {"id":"t4_mined_replay_metrics","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t4/mined_certified_replay/metrics.json","role":"evidence","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
+    {"id":"t4_disabled_replay_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t4/disabled_replay_parent_sampler/checkpoint","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
+    {"id":"t4_disabled_replay_metrics","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t4/disabled_replay_parent_sampler/metrics.json","role":"evidence","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
     {
       "id": "t4_metrics",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1/t4/metrics.json",
@@ -211,12 +218,14 @@
       "path": "experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/results/result.json",
       "role": "report",
       "ownership": "workspace",
-      "status": "present",
+      "status": "planned",
       "required": true,
-      "sha256": "4096446f8e61b5fd1a45af366433a1de39ffd5b2bc4fcd98ec2ba5726952dc0b",
+      "sha256": null,
       "size_bytes": null,
       "producer_stage_id": "closeout",
       "retention": "durable"
-    }
+    },
+    {"id":"final_summary","path":"experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/results/summary.md","role":"report","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"closeout","retention":"durable"},
+    {"id":"final_claims","path":"experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/claims.yaml","role":"report","ownership":"workspace","status":"present","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"closeout","retention":"durable"}
   ]
 }

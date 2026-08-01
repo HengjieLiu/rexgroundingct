@@ -6,7 +6,14 @@ gpu_access:
   direct_host_visibility_required: false
   runtime_flag: --gpus
   training_image: rexgroundingct-voxtell:cu126
+  training_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
   anatomy_image: rexgroundingct-totalsegmentator:2.16.0-cu126
+  anatomy_image_id: sha256:047cfe9e32a9001de0f55d04bffdb1ad81bf59b8f9f7de049103cf5d15d0acb7
+  anatomy_weights_root: /mnt/shengdata1/hengjie/models/totalsegmentator/2.16.0
+  anatomy_weights_tree_sha256: 2e4612f23850ef126664ee4672ddeda6340afed54f350d7955a4930a2cdfaa9e
+  anatomy_weights_tree_algorithm: experimentctl_canonical_tree_sha256_v1
+  anatomy_weights_file_count: 105
+  anatomy_weights_regular_file_bytes: 2345112197
   scheduler: none
 gpus:
   count: 4
@@ -31,6 +38,8 @@ storage:
 preflight:
   required_checks:
     - docker_image_present
+    - docker_image_id_matches
+    - anatomy_weights_tree_matches
     - torch_cuda_available
     - exactly_four_expected_gpus
     - per_device_free_memory
@@ -57,5 +66,13 @@ compute_tiers:
     description: 2000 updates plus val80
     gpu_hours_per_arm_range: [2.0, 2.5]
   T4:
-    description: 10000 updates plus val120 and val200
+    description: 10000 updates plus historically exposed internal val120 replication and val200 continuity reporting
     gpu_hours_per_arm_range: [11, 15]
+auxiliary_compute_classes:
+  bounded_inference_export:
+    description: Optional single-GPU inference-only export when a verified cached artifact is unavailable
+    training_prohibited: true
+    gpu_optional: true
+    gpu_count_max: 1
+    gpu_hours_total_max: 2
+    minimum_free_gib: 32

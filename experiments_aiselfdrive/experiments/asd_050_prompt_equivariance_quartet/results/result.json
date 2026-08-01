@@ -1,23 +1,17 @@
 {
-  "schema_version": "1.0",
-  "experiment_id": "asd_050_prompt_equivariance_quartet",
-  "stage_id": "portfolio_scaffold",
-  "status": "blocked",
-  "completed_at": "2026-07-31T00:00:00Z",
-  "summary": "Execution is blocked until ASD-000 finishes with outcome go.",
-  "checks": [
-    {
-      "id": "plan_authored",
-      "status": "passed",
-      "detail": "The exact LR quartet experiment package was authored without running training."
-    },
-    {
-      "id": "dependency",
-      "status": "blocked",
-      "detail": "The locked lineage, cohorts, prompt ontology, and error atlas are not yet verified."
-    }
-  ],
   "artifacts": [],
+  "checks": [],
+  "completed_at": "2026-08-01T05:05:23.530231Z",
+  "error": null,
+  "experiment_id": "asd_050_prompt_equivariance_quartet",
   "metrics": {},
-  "error": null
+  "plan_revision": 2,
+  "plan_sha256": "a4cd78075666346b89ba73dfebfea8f87ea21899ff9ec27499a7c52362213fe4",
+  "schema_version": "1.0",
+  "sentinel": true,
+  "stage_id": "implement_quartet_pipeline",
+  "state_revision": 1,
+  "state_status": "blocked",
+  "status": "blocked",
+  "summary": "Plan revision adopted; no stage has executed in this revision."
 }

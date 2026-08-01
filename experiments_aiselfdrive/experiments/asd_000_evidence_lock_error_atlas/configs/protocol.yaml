@@ -1,5 +1,6 @@
 schema_version: "1.0"
 experiment_id: asd_000_evidence_lock_error_atlas
+plan_revision: 2
 seed: 20260731
 baseline:
   checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
@@ -12,6 +13,9 @@ baseline:
   expected_findings: 381
   threshold: 0.5
   hit_threshold: 0.1
+  metric_source: stored_prediction_masks_plus_released_ground_truth
+  ground_truth_semantics: union_of_all_positive_instance_labels_gt_zero
+  geometry_contract: exact_shape_affine_qform_sform_and_axis_equality
 s3_comparator:
   checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100/fold_0/checkpoint_final.pth
   checkpoint_sha256: a3e93801ba121c0084ec52b7f7dc38cbb617dbec484b6113b4348aa7dec82f3d
@@ -23,7 +27,47 @@ embedding_bank:
   expected_labels: 6467
   expected_shape: [6467, 2560]
   expected_dtype: float16
+  lookup_normalization: python_str_lower
+  missing_prompt_policy: fail_before_inference_no_qwen_fallback
+  expected_val80_prompt_occurrences: 195
+  expected_val200_prompt_occurrences: 381
+  expected_val80_exact_case_covered_occurrences: 7
+  expected_val200_exact_case_covered_occurrences: 14
   sha256: a7351992fa57e019acb485f6b1f37045e7efcd879118cbac972b1b7ed94d5575
+evaluation_contract:
+  prompt_form:
+    source: locked_cohort_case_findings
+    json_field: test[].findings
+    finding_order: numeric_string_index_ascending
+    text_form: original_finding_text_verbatim
+    embedding_contract: frozen_precomputed_2560d_bank
+    lookup_normalization: python_str_lower
+    missing_prompt_policy: fail_before_inference_no_qwen_fallback
+  inference_window:
+    preprocessing_cache_id: crop_zscore_native_v1
+    preprocessing_cache_root: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1
+    preprocessing_cache_manifest: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json
+    preprocessing_cache_manifest_sha256: fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3
+    normalization: orientation_fix_crop_to_nonzero_full_cropped_volume_zscore_once
+    spatial_resolution: native
+    patch_size_xyz: [192, 192, 192]
+    sliding_window_batch_size: 1
+    predictor_method: predict_sliding_window_return_logits
+    restoration: cached_native_crop_to_original_full_geometry
+    model_plans: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/plans.json
+    model_plans_sha256: d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc
+  threshold_policy:
+    probability_threshold: 0.5
+    logit_threshold: 0.0
+    comparison: greater_than_or_equal
+    hit_dice_threshold: 0.1
+    threshold_selection: locked_not_retuned
+  postprocessing:
+    method: raw_thresholded_mask
+    connected_component_filter: none
+    anatomy_filter: none
+    automatic_zoom: none
+    volume_filter: none
 cohorts:
   val200:
     path: configs/evaluation/rexgroundingct_val200_seed20260723.json
@@ -35,7 +79,8 @@ cohorts:
     sha256: 61048d78be0d72ff28619ebfff3efac8501dc0a6154deaa38881e26bca054faf
     cases: 80
     findings: 195
-  val120_output: experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json
+  val120_output: experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json
+  val120_role: historically_exposed_internal_held_out_replication_not_independent
 data:
   segmentation_root: /data/hengjie/datasets/rexgroundingct/segmentations
   ct_root: /mnt/shengdata1/hengjie/datasets/rexgroundingct/ct/dataset
@@ -65,8 +110,65 @@ anatomy:
     right_lower: 14
 logits:
   source_audit: side_experiments/sideexp002_multimodel_ensemble_selection/outputs/logit_export_audit.json
+  source_audit_sha256: c1fe1bcfee3665195236c2c708f87744519621fc2c9ce7daeca5591c1ca01819
+  candidate_manifest: side_experiments/sideexp002_multimodel_ensemble_selection/candidate_manifest.json
   candidate_id: exp009_baseline_e100
-  unavailable_policy: record_unavailable_and_omit_export_and_threshold_curves
+  sideexp_runtime_root: /mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp002_multimodel_ensemble_selection
+  unavailable_policy: run_bounded_local_val80_docker_export_or_fail_closed
+  voxtell_submodule:
+    root: external/VoxTell
+    expected_head: ab284be17c002c106075227ca655f4da3269427f
+    require_clean: true
+  dependency_hashes:
+    side_experiments/sideexp002_multimodel_ensemble_selection/export_logits.py: 5f13db5cecddb1537cafcadb3ba15e893a9fe0478b4ad493ffd18a9e85c4c87a
+    side_experiments/sideexp002_multimodel_ensemble_selection/analyze_candidates.py: f1165f00f370862474252ce9e2d919470b2d243acf2333055bb04795ed134e69
+    side_experiments/sideexp002_multimodel_ensemble_selection/storage_validation.py: 9bac6b7c310997daed4415255c859edb5321726f9c12977c5c8d4d0ae126b035
+    side_experiments/sideexp002_multimodel_ensemble_selection/candidate_manifest.json: 1e5c08ebe7c4a393be8ba9319a6fbb845865a346cb6e7bcdb1be4e082f7f622f
+    scripts/rexgroundingct/run_voxtell_val_inference.py: 886843ae56216092a732de44b61f975f748d344f0be6bc7a2d5b1f4d16475216
+    scripts/rexgroundingct/common.py: 19104c82fdfc035aea392dacbe61468b5a5eff98727d3d685ab903b51d850d8a
+    scripts/rexgroundingct/voxtell_preprocessed_cache.py: 986bcb5140ceb599662b00a8934307f9360aecf3e5d68fdfc33805c6ac1f49e3
+    scripts/rexgroundingct/voxtell_s3_attention.py: bac708b6d8617d612892a3c056a970fb86c918dcfff264e5632871f22554304a
+    scripts/rexgroundingct/voxtell_dual_branch.py: 73a93e62122b548a0ff8e0fdd4de499c2402dccb734ac8ed83d7c383ddd792f3
+    scripts/rexgroundingct/train_text_conditioned_voxtell.py: 7989e663bee075f985c07bd9ea623249f9059a5567ed5ced7047c9ff97e54767
+    scripts/rexgroundingct/poll_ct_subset.py: d8cc5ddeeecf54ccf9978d6330187cb3fa0f25ce1860835fcfb81ff87da0ca93
+    external/VoxTell/voxtell/inference/predictor.py: a3de480f5a58146d9d15f26c4ac4e91d24a1e39bbb3cf5d3ec6a9ecba84f3f58
+    external/VoxTell/voxtell/utils/embedding_bank.py: de1a9ed6f3e11ea67055175c366a6661c53f0397618e666ab66e66c7f9209aac
+    external/VoxTell/voxtell/model/voxtell_model.py: 6c1b057e7d8750f4d4c5349fbebf8d785f40e6c1f49d971c0379c24282d72b64
+    external/VoxTell/voxtell/utils/text_embedding.py: 02d74132c14297a72b59ec73499d7a7ecbbf037cfeb88ec89d695aedf6699125
+  local_export:
+    resource_class: bounded_inference_export
+    adapter: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/export_val80_logits.py
+    docker_image: rexgroundingct-voxtell:cu126
+    docker_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
+    expected_cuda_device_count: 4
+    expected_cuda_device_name: NVIDIA RTX 6000 Ada Generation
+    gpu: 0
+    min_free_memory_gib: 32
+    max_gpu_hours: 2
+    max_durable_storage_gib: 64
+    disk_preflight_free_gib_min: 64
+    full_layout_float16_uncompressed_bytes: 37666291712
+    full_layout_float16_uncompressed_gib: 35.0794677734375
+    minimum_case_float16_bytes: 103809024
+    maximum_case_float16_bytes: 1274019840
+    storage_headroom_bytes: 31053185024
+    storage_headroom_gib: 28.9205322265625
+    storage_capacity_multiple: 1.8244290481642198
+    storage_basis: sum_product_locked_prediction_header_shape_fxyz_times_float16_itemsize
+    storage_cap_rationale: 64_GiB_bounds_the_export_with_28_92_GiB_headroom_over_exact_uncompressed_layout
+    source_parent_mount: /mnt/shengdata1:/mnt/shengdata1:ro
+    runtime_overlay_mount: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_000_evidence_lock_error_atlas:/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_000_evidence_lock_error_atlas:rw
+    network_mode: none
+    offline_environment: {HF_HUB_OFFLINE: "1", TRANSFORMERS_OFFLINE: "1"}
+    runtime_probe_contract: atomic_replace_file_fsync_directory_fsync_read_delete_v1
+    runtime_probe_ordering: completed_before_cuda_and_predictor_initialization
+    host_launch_attestation: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_000_evidence_lock_error_atlas/val80_logits_revision_2/host_launch_attestation.json
+    cached_export_policy: require_host_launch_attestation_bound_to_manifest_sha256_or_reexport
+    child_failure_policy: bounded_stderr_tail_preserves_hash_geometry_lineage_resource_or_timeout_class
+    embedding_mode: explicit_local_bank_with_precomputed_autoload_disabled
+    accepted_source_embedding_proof_policy: require_exact_bank_path_hash_shape_normalization_and_val80_val200_coverage_or_use_local_export
+    checkpoint_binding_policy: candidate_checkpoint_path_and_sha256_equal_protocol_baseline
+    output_manifest: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_000_evidence_lock_error_atlas/val80_logits_revision_2/export_manifest.json
 atlas:
   thresholds: [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
   connectivity: 26
@@ -75,11 +177,12 @@ atlas:
   supervision_labels: [known_positive, certified_negative, unknown]
   expected_cases: 80
   expected_findings: 195
-  availability_policy: verified_logits_only_otherwise_omit_threshold_curves
+  availability_policy: verified_complete_val80_logits_required_with_threshold_curves
   prompt_certification:
     certifiable_groups: [exact_lobe, laterality_only]
     exact_lobe_target: whole_lobe_safe_superset
     laterality_target: whole_side_lung
     unsupported_groups: unknown_without_certified_negative_regions
     certified_negative_overlap_policy: subtract_released_known_positive
+    laterality_only_outside_lung_policy: unknown_never_certified_negative
 runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_000_evidence_lock_error_atlas

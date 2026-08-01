@@ -1,12 +1,17 @@
 {
-  "schema_version": "1.0",
-  "experiment_id": "asd_000_evidence_lock_error_atlas",
-  "stage_id": "implement_evidence_lock_pipeline",
-  "status": "blocked",
-  "completed_at": "2026-07-31T00:00:00Z",
-  "summary": "Initialization sentinel only; no experiment stage has executed.",
-  "checks": [],
   "artifacts": [],
+  "checks": [],
+  "completed_at": "2026-08-01T05:03:27.677790Z",
+  "error": null,
+  "experiment_id": "asd_000_evidence_lock_error_atlas",
   "metrics": {},
-  "error": {"code":"not_run","message":"The experiment is ready for an executor to claim."}
+  "plan_revision": 2,
+  "plan_sha256": "20c7a09f4495bc483f4f8522f4027679315bd26a2d6aac624d3637bbeae4f8b5",
+  "schema_version": "1.0",
+  "sentinel": true,
+  "stage_id": "selfcheck_revision_2_implementation",
+  "state_revision": 12,
+  "state_status": "ready",
+  "status": "ready",
+  "summary": "Plan revision adopted; no stage has executed in this revision."
 }

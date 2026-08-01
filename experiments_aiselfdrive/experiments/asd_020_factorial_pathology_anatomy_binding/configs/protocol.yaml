@@ -1,6 +1,16 @@
 schema_version: "1.0"
 experiment_id: asd_020_factorial_pathology_anatomy_binding
 seed: 20260731
+controller_runtime_contract:
+  required_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+  nested_docker_labels:
+    lease: rexgroundingct.aiselfdrive.lease=REXGROUNDINGCT_AISELFDRIVE_LEASE_ID
+    experiment: rexgroundingct.aiselfdrive.experiment=REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID
+  rule: Consume controller-provided values at execution time, apply both exact labels to every nested docker run, and never hard-code container names or lease values.
+stage_evidence_contract:
+  object_path: metrics.resources
+  required_fields: [gpu_hours, cpu_hours, storage_gib]
+  semantics: gpu_hours and cpu_hours are incremental for the completed stage; storage_gib is the cumulative experiment runtime-tree high-water observed at completion, never a stage delta.
 dependency:
   asd_000_evidence_lock_error_atlas: go
 inputs:
@@ -8,7 +18,7 @@ inputs:
   cot_sha256: 1ce44b798f3e86ae8744435d6efc1bc52f23591723763e80b233038bfe172c1e
   cot_split: train
   val80: experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
-  val120: experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json
+  val120: experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json
 lineages:
   standard:
     checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
@@ -16,6 +26,34 @@ lineages:
   s3:
     checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100/fold_0/checkpoint_final.pth
     sha256: a3e93801ba121c0084ec52b7f7dc38cbb617dbec484b6113b4348aa7dec82f3d
+text_encoder:
+  model_id: Qwen/Qwen3-Embedding-4B
+  revision: 5cf2132abc99cad020ac570b19d031efec650f2b
+  source_policy: exact_huggingface_revision_only
+  runtime_snapshot: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/qwen/Qwen3-Embedding-4B-5cf2132abc99cad020ac570b19d031efec650f2b
+  materialization_policy: snapshot_download_exact_revision_then_offline_only
+  forbidden_references: [main, latest, unpinned_cache, online_fallback]
+  tree_manifest: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/qwen/snapshot_manifest.json
+  pipeline:
+    model_frozen: true
+    instruction_wrapper: voxtell.utils.text_embedding.wrap_with_instruction
+    pooling: voxtell.utils.text_embedding.last_token_pool
+    tokenizer: AutoTokenizer_from_same_snapshot
+    model: AutoModel_from_same_snapshot
+    output_dimension: 2560
+    output_dtype: float16
+    normalize_embeddings: true
+    batch_size: 8
+    max_length: tokenizer_default_with_longest_padding
+  provenance:
+    existing_embedding_bank: /mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val/config/rex_text_embeddings.npz
+    existing_embedding_bank_sha256: a7351992fa57e019acb485f6b1f37045e7efcd879118cbac972b1b7ed94d5575
+    existing_embedding_bank_shape: [6467, 2560]
+    embedding_generation_script: scripts/rexgroundingct/precompute_text_embeddings.py
+    embedding_generation_script_sha256: b8b78acb1825da57451f6c9f1d4c51658360193d17c295cafa8e7c8e0bce6418
+    voxtell_predictor: external/VoxTell/voxtell/inference/predictor.py
+    voxtell_predictor_sha256: a3de480f5a58146d9d15f26c4ac4e91d24a1e39bbb3cf5d3ec6a9ecba84f3f58
+    acceptance: reproduce_locked_bank_rows_for_32_seeded_prompts_with_cosine_at_least_0_99999
 corpus:
   minimum_quartets: 1000
   maximum_quartets: 50000
@@ -27,15 +65,78 @@ corpus:
   volume_decile_tolerance: 1
   confidence_decile_tolerance: 1
   crop_voxel_relative_tolerance: 0.25
-scorer:
-  projection_dim: 128
-  interaction_hidden_dim: 256
-  dropout: 0.1
-  learning_rate: 0.0003
-  weight_decay: 0.01
+  fitting_split: official_train_only
+  validation_policy: val80_never_used_for_fit_calibration_threshold_or_early_stopping
+probe_training:
+  optimizer:
+    name: AdamW
+    learning_rate: 0.0003
+    betas: [0.9, 0.999]
+    epsilon: 1.0e-8
+    weight_decay: 0.01
+  schedule:
+    maximum_updates: 5000
+    warmup_updates: 100
+    warmup: linear_from_zero_to_base_lr
+    post_warmup: cosine_decay_to_zero
+    early_stopping: prohibited
   batch_quartets: 32
+  gradient_accumulation: 1
+  gradient_clip_max_norm: 5.0
   seeds: [20260731, 20260732, 20260733]
-  beta_max: 2.0
+  selection_data: case_heldout_twenty_percent_of_official_train_only
+residual_training:
+  fitted_parameters: interaction_scorer_and_bounded_beta_only
+  frozen_parameters: qwen_and_selected_voxtell_parent
+  update_semantics: cumulative_global_update_barriers
+  optimizer:
+    name: AdamW
+    learning_rate: 0.0001
+    betas: [0.9, 0.999]
+    epsilon: 1.0e-8
+    weight_decay: 0.0001
+  schedule:
+    unit: optimizer_update
+    updates: {T1: 10, T2: 500, T3: 2000, T4: 10000}
+    horizon_updates: 10000
+    warmup_updates: 100
+    warmup: linear_from_zero_to_base_lr
+    post_warmup: polynomial_decay_to_zero
+    polynomial_power: 0.9
+    horizon_rule: immutable_cumulative_10000_update_horizon
+    restart_rule: each_arm_resumes_its_own_prior_barrier_full_scheduler_state_without_restart_or_horizon_mutation
+    tier_barriers: [10, 500, 2000, 10000]
+    t4_start_rule: interaction_residual_and_zero_residual_control_each_resume_their_own_matched_2000_update_t3_full_state
+  batch_components: 32
+  gradient_accumulation: 1
+  precision: fp32
+  fit_data: official_train_only_factorial_corpus
+  val80_role: evaluation_only_after_barrier
+  forbidden_uses_of_val80: [fit, calibration, threshold_selection, early_stopping, lineage_selection]
+  matched_zero_control: same_train_examples_order_optimizer_schedule_seed_with_beta_forced_zero
+  tier_transition_hashes: [parent_checkpoint_sha256, data_sha256, sample_schedule_sha256, scheduler_contract_sha256, global_update]
+  full_state_checkpoint:
+    atomic_write: temporary_file_fsync_then_rename
+    required_fields:
+      - model_state
+      - optimizer_state
+      - scheduler_state
+      - amp_scaler_state_or_explicit_null
+      - global_update
+      - sample_schedule_cursor
+      - sampler_state
+      - python_rng_state
+      - numpy_rng_state
+      - torch_cpu_rng_state
+      - torch_cuda_rng_states
+      - arm_id
+      - tier
+      - parent_checkpoint_sha256
+      - qwen_snapshot_tree_sha256
+      - protocol_sha256
+      - sample_schedule_sha256
+    resume_test: compare_uninterrupted_10_updates_with_new_process_5_plus_5
+    resume_acceptance: exact_global_update_sample_order_parameters_logits_and_loss_trace
 gates:
   text_only_top1_max: 0.30
   four_way_top1_min: 0.65
@@ -44,11 +145,31 @@ gates:
   explicit_modifier_dice_delta_min: 0.01
   gt_retention_min: 0.99
   aggregate_dice_delta_min: -0.001
-tiers: {T1: 10, T2: 500, T3: 2000, T4: 10000}
+hardware:
+  docker_image_tag: rexgroundingct-voxtell:cu126
+  docker_local_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
+  docker_preflight_policy: docker_inspect_image_id_must_equal_local_image_id
+  expected_gpu_count: 4
+  expected_gpu_model: NVIDIA RTX 6000 Ada Generation
+  minimum_free_gib_training: 36
+  minimum_free_gib_feature_export: 32
+  minimum_free_gib_inference: 32
+  multi_gpu_ddp: false
 evaluation:
   threshold: 0.5
   candidate_threshold: 0.05
   connectivity: 26
   bootstrap_draws: 10000
   bootstrap_seed: 20260731
+  val120_role: historically_exposed_internal_heldout_replication_not_independent_confirmation
+promotion:
+  producer: experimentctl promote
+  artifact_id: promotion_record
+  path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_020_factorial_pathology_anatomy_binding.json
+  required_fields: [schema_version, experiment_id, source, portfolio_sha256, plan_sha256, t3_evidence_sha256, rank, promoted_at, matched_control_required, val120_access_authorized]
+  validation: require_source_experimentctl_promote_and_controller_recorded_sha256
+t4_matched_arms:
+  treatment: {id: factorial_interaction_residual, checkpoint_output_id: t4_factorial_residual_checkpoint, metrics_output_id: t4_factorial_residual_metrics}
+  control: {id: disabled_factorial_residual, checkpoint_output_id: t4_disabled_residual_checkpoint, metrics_output_id: t4_disabled_residual_metrics}
+  matched_hash_fields: [parent_checkpoint_sha256, data_sha256, schedule_sha256, update_count]
 runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding

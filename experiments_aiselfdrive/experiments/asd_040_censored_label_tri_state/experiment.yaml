@@ -1,14 +1,15 @@
 schema_version: "1.0"
 id: asd_040_censored_label_tri_state
 title: Synthetic Censorship and Tri-State Positive-Unlabeled Training
-plan_revision: 1
+plan_revision: 2
 created_at: "2026-07-31T00:00:00Z"
 updated_at: "2026-07-31T00:00:00Z"
 priority: 6
 idea: >-
-  Simulate realistic annotation censorship by hiding one recorded entity at a
-  time, use the hidden entity only for evaluation, and compare background BCE,
-  unknown-ignore, and non-negative positive-unlabeled objectives.
+  Simulate annotation censorship by hiding one connected released-mask entity
+  at a time, isolate its geometry in an evaluator, use only other-fold opaque
+  overlap targets for cross-fitted diagnostic calibration, and compare
+  background BCE, unknown-ignore, and non-negative PU objectives.
 problem: >-
   ReXGroundingCT records at most a few representative instances. Standard
   background losses and component labels can punish plausible unannotated
@@ -55,21 +56,33 @@ evidence_references:
       - prompt_ontology
     availability: missing
 lineage:
-  parent_checkpoint: resolved_from_asd_000_locked_lineage_manifest
-  parent_checkpoint_sha256: resolved_before_execution
+  parent_checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
+  parent_checkpoint_sha256: 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf
   optimizer_restore: false
   initialization: weights_only_for_matched_segmentation_arms
   preprocessing_class: cached-equivalent
   normalization: locked_parent_per_volume_zscore
-  prompt_form: locked_by_asd_000
-  inference_window: locked_by_asd_000
-  threshold_policy: locked_by_asd_000
-  postprocessing: locked_by_asd_000
+  prompt_form: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/prompt_form
+  inference_window: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/inference_window
+  threshold_policy: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/threshold_policy
+  postprocessing: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json#/evaluation_contract/postprocessing
   comparability_rule: >-
     Candidate features and segmentation arms share frozen lineage, materialized
     schedules, cohort manifests, and evaluation policy.
+  hidden_label_calibration: >-
+    Hidden geometry stays in the isolated evaluator. For each outer fold, only
+    opaque candidate-overlap targets from the other four folds may fit the
+    diagnostic calibrator and its 80%-precision threshold. Held-out-fold targets
+    are scoring-only. No hidden geometry, size, or location crosses the boundary,
+    and the aggregate out-of-fold policy freezes before segmentation training.
 data:
   censorship_source: official_rexgroundingct_train_only
+  entity_extraction:
+    source: Released finding mask in native CT geometry.
+    rule: 26-connected components of voxels greater than zero; discard components smaller than 8 voxels and record every discard.
+    canonical_order: Descending voxel count, then ascending physical RAS centroid z, y, x, then component voxel-index digest.
+    identity: SHA-256 of case name, finding index, and component voxel-index digest.
+    geometry_gate: CT-matching shape, finite affine, and matching axis codes are mandatory.
   eligibility:
     minimum_recorded_entities_per_finding: 2
     minimum_cases: 50
@@ -83,8 +96,9 @@ data:
       hidden_entity: largest_physical_distance_from_lung_or_body_centroid
       tie_break: ascending_entity_label
     report_order:
-      hidden_entity: largest_nonzero_entity_label
-      interpretation: upstream_annotation_order_proxy
+      hidden_entity: last_canonical_entity
+      interpretation: annotation_order_proxy_only
+      caveat: Entity-level clinical report order is unavailable and must never be claimed.
     seeded_random:
       hidden_entity: deterministic_uniform_choice
       seed: 20260731
@@ -92,17 +106,21 @@ data:
     folds: 5
     unit: patient
     assignment: sha256_patient_id_mod_5
-    inner_calibration: leave_one_training_fold_out
+    inner_calibration: Other-fold opaque overlap targets only; same-fold fitting and held-out threshold tuning are prohibited.
   development_cohort:
     id: val80
+    manifest: experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
     access: after_crossfit_policy_frozen
     allowed_stages: [decision_t3]
-  confirmatory_cohort:
+  internal_replication_cohort:
     id: val120
+    manifest: experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json
     access: prohibited_until_t4_promotion
     allowed_stages: [confirm_t4]
+    evidence_role: historically_exposed_internal_replication_not_independent_confirmation
   continuity_cohort:
     id: val200
+    manifest: configs/evaluation/rexgroundingct_val200_seed20260723.json
     access: prohibited_until_t4_promotion
     allowed_stages: [confirm_t4]
   supervision_states:
@@ -116,19 +134,20 @@ data:
       The deliberately hidden entity, all unlabeled compatible tissue, and all
       candidates not meeting the padding certificate.
     evaluation_hidden_positive: >-
-      Hidden entity mask stored in an evaluator-only artifact and never exposed
-      to feature, sampler, loss, or threshold-selection processes.
+      Hidden mask geometry is evaluator-only. The evaluator may emit opaque
+      other-fold overlap targets for diagnostic calibration; held-out targets
+      are scoring-only. Geometry never enters features, sampling, or loss.
   label_precedence: [known_positive, certified_negative, unknown]
   leakage_controls:
     - Hidden masks are serialized to an evaluator-only directory with a separate manifest.
-    - Training manifests contain trial IDs and unknown flags but no hidden coordinates, boxes, volumes, or hashes.
+    - Training manifests contain opaque trial IDs and unknown flags but no hidden coordinates, boxes, volumes, or geometry-derived hashes.
     - Feature extraction runs with the evaluator-only mount absent.
     - val120 and val200 paths are rejected before confirm_t4.
 method:
   candidate_generation:
     thresholds: [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80]
     connectivity: 26
-    parent_model: immutable_asd_000_baseline
+    parent_model: lineage.parent_checkpoint with lineage.parent_checkpoint_sha256
   frozen_features:
     - base_probability_max
     - base_probability_mean_top_1_percent
@@ -150,6 +169,7 @@ method:
     weight_decay: 0.0001
     maximum_epochs: 100
     calibration: per_fold_threshold_for_precision_at_least_0.80
+    calibration_target_contract: Other-fold evaluator overlap targets only; held-out fold labels are used once for scoring.
   policies:
     - id: background_bce
       unknown_action: negative
@@ -171,21 +191,50 @@ method:
     - text_only_shortcut_classifier
   compute_ladder:
     diagnostic: five_fold_frozen_feature_crossfit
+    smoke_t1_updates: 10
     pilot_t2_updates: 500
     decision_t3_updates: 2000
     confirm_t4_updates: 10000
+    update_semantics: cumulative_global_update_barriers
+    scheduler_contract: One immutable 10,000-update polynomial horizon; every arm resumes its own prior-barrier full scheduler state without restart, warmup replay, or horizon mutation.
+    t4_matched_start: Selected-policy treatment and disabled-parent-loss control each resume their own matched 2,000-update T3 full state; a fresh control is prohibited.
     maximum_parallel_single_gpu_arms: 4
     evaluation_barrier: true
 resources:
   hardware_profile: experiments_aiselfdrive/shared/hardware_profile.yaml
   execution_environment: docker
   image: rexgroundingct-voxtell:cu126
+  local_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
   gpu_model: NVIDIA RTX 6000 Ada Generation
   gpu_count_available: 4
   minimum_free_gib_training: 36
   multi_gpu_ddp: false
   slurm: prohibited
   runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1
+stage_execution_contract:
+  resource_limits:
+    cpu_cores_hardware_max: 128
+    gpu_count_hardware_max: 4
+    gpu_count_per_arm_max: 1
+    maximum_concurrent_arms: 4
+    inference_free_memory_gib_min: 32
+    training_free_memory_gib_min: 36
+    multi_gpu_ddp: prohibited
+  evidence:
+    applies_to: every_stage
+    object_path: metrics.resources
+    required_fields: [gpu_hours, cpu_hours, storage_gib]
+    semantics:
+      gpu_hours: incremental_stage_gpu_hours
+      cpu_hours: incremental_stage_cpu_hours
+      storage_gib: cumulative_experiment_runtime_tree_high_water_at_stage_completion
+    validation: All values are finite and nonnegative; storage_gib is measured over the experiment runtime tree and never reported as a stage delta.
+  controller_container_identity:
+    required_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+    required_labels:
+      lease: rexgroundingct.aiselfdrive.lease=REXGROUNDINGCT_AISELFDRIVE_LEASE_ID
+      experiment: rexgroundingct.aiselfdrive.experiment=REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID
+    rule: Every nested docker run consumes controller-provided values and applies both exact labels; container names and lease values are never hard-coded.
 stages:
   - id: implement_censorship_pipeline
     kind: implementation
@@ -198,14 +247,18 @@ stages:
       - Implement only inside this experiment's scripts, src, and tests directories.
       - Create separate training and evaluator-only manifests; training artifacts must contain no hidden geometry, volume, or mask hash.
       - Implement all four deterministic censorship rules and patient-hash fold assignment exactly.
+      - Implement native-geometry 26-connected entity extraction, canonical ordering, minimum eight-voxel filtering, and explicit annotation-order-proxy naming exactly as declared.
+      - Keep hidden geometry evaluator-only; expose only other-fold opaque overlap targets to the isolated diagnostic calibrator and never to segmentation training.
       - Make unknown-ignore and nnPU losses explicit; background_bce is a labeled unsafe control and cannot be selected.
       - Add a pre-T4 cohort guard and atomic JSON completion records.
+      - Consume controller env REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, and REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL; label every nested container rexgroundingct.aiselfdrive.lease with the lease ID and rexgroundingct.aiselfdrive.experiment with the experiment ID, and never hard-code container names or lease values.
+      - Emit metrics.resources in every stage evidence with incremental gpu_hours, incremental cpu_hours, and cumulative experiment runtime-tree high-water storage_gib.
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/scripts
       - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/src
       - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/tests
       - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/results/implementation_evidence.json
-    inputs: [experiment_plan, protocol_config, dependency_asd000_manifest]
+    inputs: [experiment_plan, protocol_config, locked_lineage_manifest]
     outputs: [tri_state_source_package, tri_state_test_suite]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/results/implementation_evidence.json
@@ -240,6 +293,7 @@ stages:
         PYTHONDONTWRITEBYTECODE: "1"
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/validation
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/validate_locked_inputs.json
     inputs: [locked_lineage_manifest, official_train_metadata, anatomical_cot]
     outputs: [input_validation_report]
     completion:
@@ -275,6 +329,7 @@ stages:
         PYTHONDONTWRITEBYTECODE: "1"
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/censorship
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/build_censorship_lab.json
     inputs: [official_train_metadata, input_validation_report]
     outputs: [training_safe_censorship_manifest, evaluator_only_hidden_manifest]
     completion:
@@ -292,6 +347,8 @@ stages:
     acceptance_checks:
       - Every trial has exactly one hidden recorded entity.
       - Training-safe manifest contains no hidden mask geometry or derived size.
+      - Entity IDs, 26-connectivity, eight-voxel filtering, canonical order, discarded-component counts, and geometry validation reproduce byte-for-byte.
+      - The report-order condition is labeled annotation-order proxy and makes no clinical report-order claim.
       - Every rule and fold meets preregistered minimum counts.
   - id: docker_gpu_preflight
     kind: preflight
@@ -310,6 +367,7 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/preflight
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/docker_gpu_preflight.json
     inputs: [locked_parent_checkpoint, training_safe_censorship_manifest]
     outputs: [gpu_preflight_report]
     completion:
@@ -317,8 +375,12 @@ stages:
       required_fields: [image_digest, gpu_inventory, free_memory_gib, finite_inference, hidden_mount_absent]
     resources:
       cpu_cores: 8
-      gpu_count: 4
-      minimum_free_gib_per_gpu: 36
+      gpu_count: 1
+      gpu_count_per_arm: 1
+      arm_count: 1
+      maximum_concurrent_arms: 1
+      minimum_free_gib_per_gpu: 32
+      gpu_hours_total_max: 0.25
     timeout_seconds: 3600
     retry:
       max_attempts: 1
@@ -327,8 +389,9 @@ stages:
       retryable_classes: [resource_unavailable]
     stop_conditions: [wrong_inference_device, checkpoint_hash_drift, hidden_label_exposure, non_finite]
     acceptance_checks:
-      - Four RTX 6000 Ada GPUs are visible in Docker with required free memory.
-      - Parent checkpoint loads and one-case inference is finite.
+      - Docker inspect image ID equals sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f.
+      - Four NVIDIA RTX 6000 Ada Generation GPUs are visible in Docker with required free memory.
+      - Parent checkpoint SHA-256 equals 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf and one-case inference is finite.
       - Feature process cannot resolve the evaluator-only hidden manifest.
   - id: extract_frozen_features
     kind: data_generation
@@ -349,6 +412,7 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/features
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/extract_frozen_features.json
     inputs: [locked_parent_checkpoint, training_safe_censorship_manifest]
     outputs: [frozen_candidate_features]
     completion:
@@ -357,6 +421,11 @@ stages:
     resources:
       cpu_cores: 32
       gpu_count: 4
+      gpu_count_per_arm: 1
+      arm_count: 4
+      maximum_concurrent_arms: 4
+      minimum_free_gib_per_gpu: 32
+      gpu_hours_total_max: 8
     timeout_seconds: 43200
     retry:
       max_attempts: 3
@@ -384,6 +453,7 @@ stages:
         PYTHONDONTWRITEBYTECODE: "1"
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/crossfit
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/crossfit_diagnostic.json
     inputs: [frozen_candidate_features, evaluator_only_hidden_manifest]
     outputs: [crossfit_policy, diagnostic_report]
     completion:
@@ -402,11 +472,39 @@ stages:
       - Every censorship rule reaches precision at least 0.80 and recall at least 0.30.
       - Every rule outperforms base-confidence recall at the same precision.
       - Full features exceed text-only recall at 80% precision by at least 0.10.
+      - For every outer fold, calibration uses only other-fold opaque overlap targets; held-out targets are evaluated once and never tune thresholds.
+      - Logs prove that hidden geometry, size, location, and mask hashes never cross the evaluator boundary.
       - A failed diagnostic skips training and closes no_go.
+  - id: t1_resume_smoke
+    kind: smoke
+    execution_mode: command
+    needs: [crossfit_diagnostic]
+    required: false
+    description: Run ten train-only matched updates for background BCE, unknown-ignore, and nnPU and prove exact new-process full-state resume.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/scripts/run_training.py, --config, experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/configs/protocol.yaml, --tier, T1]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {CUDA_DEVICE_ORDER: PCI_BUS_ID}
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t1
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/t1_resume_smoke.json
+    inputs: [crossfit_policy, training_safe_censorship_manifest, locked_parent_checkpoint]
+    outputs: [t1_full_state_checkpoints, t1_resume_report]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/t1_resume_smoke.json
+      required_fields: [arm_updates, uninterrupted_trace_sha256, resumed_trace_sha256, checkpoint_sha256, exact_match]
+    resources: {cpu_cores: 16, gpu_count: 3, gpu_count_per_arm: 1, arm_count: 3, maximum_concurrent_arms: 3, minimum_free_gib_per_gpu: 36, maximum_updates_per_arm: 10, gpu_hours_per_arm_max: 0.25}
+    timeout_seconds: 7200
+    retry: {max_attempts: 2, automatic_full_state_resumes: 1, retryable_classes: [container_start_failure, transient_io]}
+    stop_conditions: [hidden_label_exposure, non_finite, missing_resume_state, sample_schedule_mismatch]
+    acceptance_checks:
+      - All arms start from the exact parent and use a byte-identical train-only sample schedule.
+      - New-process five-plus-five updates exactly match uninterrupted ten-update global step, samples, parameters, logits, and losses.
+      - Atomic checkpoints contain every protocol-required state field and each arm uses less than 0.25 GPU-hour.
   - id: pu_pilot_t2
     kind: training
     execution_mode: command
-    needs: [crossfit_diagnostic]
+    needs: [t1_resume_smoke]
     required: false
     description: Compare background BCE, unknown-ignore, nnPU, and gated pseudo-positive policies for 500 updates.
     command:
@@ -422,7 +520,8 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t2
-    inputs: [crossfit_policy, training_safe_censorship_manifest, locked_parent_checkpoint]
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/pu_pilot_t2.json
+    inputs: [t1_full_state_checkpoints, crossfit_policy, training_safe_censorship_manifest, locked_parent_checkpoint]
     outputs: [t2_checkpoints, t2_metrics]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/pu_pilot_t2.json
@@ -430,7 +529,12 @@ stages:
     resources:
       cpu_cores: 32
       gpu_count: 4
+      gpu_count_per_arm: 1
+      arm_count: 4
+      maximum_concurrent_arms: 4
+      minimum_free_gib_per_gpu: 36
       maximum_updates_per_arm: 500
+      gpu_hours_per_arm_max: 1.25
     timeout_seconds: 28800
     retry:
       max_attempts: 2
@@ -460,15 +564,21 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t3
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/decision_t3.json
     inputs: [t2_checkpoints, crossfit_policy, val80_manifest]
     outputs: [t3_checkpoints, t3_metrics, tri_state_policy_artifact]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/decision_t3.json
-      required_fields: [arm_updates, synthetic_metrics, val80_metrics, gate_verdict, policy_sha256]
+      required_fields: [arm_updates, synthetic_metrics, val80_metrics, gate_verdict, matched_t3_state_hashes, metrics.promotion, metrics.resources, policy_sha256]
     resources:
       cpu_cores: 32
       gpu_count: 2
+      gpu_count_per_arm: 1
+      arm_count: 2
+      maximum_concurrent_arms: 2
+      minimum_free_gib_per_gpu: 36
       maximum_updates_per_arm: 2000
+      gpu_hours_per_arm_max: 2.5
     timeout_seconds: 43200
     retry:
       max_attempts: 2
@@ -476,16 +586,18 @@ stages:
       retryable_classes: [container_start_failure, transient_io]
     stop_conditions: [hidden_label_exposure, split_leakage, non_finite, budget_exhausted]
     acceptance_checks:
+      - Selected-policy treatment and disabled-parent-loss control each have a distinct verified full-state checkpoint at cumulative global update 2000 with identical parent, data, sample-schedule, and scheduler-contract hashes.
       - Hidden recall improves at least 0.05 absolute under every rule.
       - Relative certified-FP increase remains below 0.10.
       - Known-positive recall delta is at least -0.02.
       - Aggregate val80 Dice delta is at least -0.001.
+      - metrics.promotion contains exactly eligible, all_safety_and_noninferiority_gates_pass, paired_val80_dice_delta, val80_off_location_fp_reduction, and measured_gpu_hours with boolean, finite-fraction, and nonnegative-hour types.
   - id: confirm_t4
-    kind: confirmation
+    kind: internal_replication
     execution_mode: command
     needs: [decision_t3]
     required: false
-    description: Confirm the selected policy on val120 and report val200 only after promotion.
+    description: Replicate the selected policy on historically exposed val120 and report val200 continuity only after controller promotion.
     command:
       argv:
         - python
@@ -501,25 +613,44 @@ stages:
         CUDA_DEVICE_ORDER: PCI_BUS_ID
     allowed_write_paths:
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t4
-    inputs: [tri_state_policy_artifact, val120_manifest, val200_manifest, promotion_authorization]
-    outputs: [t4_checkpoints, t4_metrics]
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/confirm_t4.json
+    inputs: [promotion_record, t3_checkpoints, tri_state_policy_artifact, val120_manifest, val200_manifest]
+    matched_arms:
+      treatment:
+        id: selected_tri_state_policy
+        checkpoint_output_id: t4_tri_state_policy_checkpoint
+        metrics_output_id: t4_tri_state_policy_metrics
+      control:
+        id: disabled_tri_state_parent_loss
+        checkpoint_output_id: t4_disabled_tri_state_checkpoint
+        metrics_output_id: t4_disabled_tri_state_metrics
+      matched_hash_fields: [parent_checkpoint_sha256, data_sha256, schedule_sha256, update_count]
+    outputs: [t4_tri_state_policy_checkpoint, t4_tri_state_policy_metrics, t4_disabled_tri_state_checkpoint, t4_disabled_tri_state_metrics, t4_metrics]
     completion:
       marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/confirm_t4.json
-      required_fields: [promotion_sha256, val120_metrics, val200_metrics, case_clustered_ci, output_sha256]
+      required_fields: [promotion_sha256, val120_metrics, val200_metrics, case_clustered_ci, metrics.matched_arms, metrics.resources, output_sha256]
     resources:
       cpu_cores: 32
       gpu_count: 2
+      gpu_count_per_arm: 1
+      arm_count: 2
+      maximum_concurrent_arms: 2
+      minimum_free_gib_per_gpu: 36
       maximum_updates_per_arm: 10000
+      gpu_hours_per_arm_max: 15
     timeout_seconds: 129600
     retry:
       max_attempts: 2
       automatic_full_state_resumes: 1
       retryable_classes: [container_start_failure, transient_io]
-    stop_conditions: [missing_promotion_authorization, split_leakage, non_finite, budget_exhausted]
+    stop_conditions: [missing_or_invalid_controller_promotion_record, split_leakage, non_finite, budget_exhausted]
     acceptance_checks:
-      - val120 is inaccessible before verified promotion.
-      - Primary val120 safety and non-inferiority gates pass.
+      - Promotion record source equals experimentctl promote; required fields, plan hash, matched-control requirement, val120 authorization, and controller-recorded SHA-256 verify before access.
+      - metrics.matched_arms contains both declared IDs, per-arm checkpoint and metrics hashes, identical parent/data/schedule hashes, and update_count 10000.
+      - Supported executors refuse val120 before verified promotion, and the cohort is described only as internal replication; this is a software guard, not a secrecy claim.
+      - Primary val120 safety and non-inferiority gates pass for internal replication.
       - val200 is continuity evidence only.
+      - Independent confirmation remains undecided pending externally unseen or custodied data.
   - id: closeout
     kind: closeout
     execution_mode: agent
@@ -537,9 +668,9 @@ stages:
       - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/claims.yaml
       - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/artifacts/manifest.json
     inputs: [diagnostic_report, t2_metrics, t3_metrics, t4_metrics]
-    outputs: [final_result, final_summary, final_claims, verified_artifact_manifest]
+    outputs: [final_result, final_summary, final_claims]
     completion:
-      evidence_file: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/results/closeout_evidence.json
+      evidence_file: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/results/result.json
       require_all_executed_stage_artifacts_verified: true
     resources:
       cpu_cores: 8
@@ -588,8 +719,15 @@ evaluation:
       - certified_fp_relative_delta < 0.10
       - known_positive_recall_delta >= -0.02
       - val80_paired_dice_delta >= -0.001
-    confirmation_go:
+    internal_replication_go:
       - val120_case_clustered_safety_ci_lower >= -0.001
+promotion_contract:
+  artifact_id: promotion_record
+  path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_040_censored_label_tri_state.json
+  exact_producer: experimentctl promote
+  required_fields: [schema_version, experiment_id, source, portfolio_sha256, plan_sha256, t3_evidence_sha256, rank, promoted_at, matched_control_required, val120_access_authorized]
+  validation: Require matching experiment and plan, source experimentctl promote, matched_control_required true, val120_access_authorized true, and SHA-256 equality with controller event and state.
+gate_ids: [lineage.hidden_label_calibration]
 paths:
   workspace: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state
   config: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/configs/protocol.yaml
@@ -597,7 +735,10 @@ paths:
   artifact_manifest: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/artifacts/manifest.json
   result: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/results/result.json
 budget:
-  maximum_gpu_hours: 48
+  gpu_hours_max: 50
+  cpu_hours_max: 2000
+  durable_storage_gib_max: 1200
+  maximum_gpu_hours: 50
   maximum_wall_hours: 72
   maximum_external_storage_gib: 1200
   terminate_on_exhaustion: true

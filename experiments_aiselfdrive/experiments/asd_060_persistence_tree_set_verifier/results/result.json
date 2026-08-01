@@ -1,23 +1,17 @@
 {
-  "schema_version": "1.0",
-  "experiment_id": "asd_060_persistence_tree_set_verifier",
-  "stage_id": "portfolio_scaffold",
-  "status": "blocked",
-  "completed_at": "2026-07-31T00:00:00Z",
-  "summary": "Execution is blocked until ASD-000 is go; learned stages later wait for terminal ASD-040 evidence.",
-  "checks": [
-    {
-      "id": "plan_authored",
-      "status": "passed",
-      "detail": "The oracle-first persistence-tree package was authored without computing an oracle or training a selector."
-    },
-    {
-      "id": "dependencies",
-      "status": "blocked",
-      "detail": "Locked logits are not yet available. ASD-040 evidence is a later learned-stage gate and does not block the CPU oracle."
-    }
-  ],
   "artifacts": [],
+  "checks": [],
+  "completed_at": "2026-08-01T05:05:26.945079Z",
+  "error": null,
+  "experiment_id": "asd_060_persistence_tree_set_verifier",
   "metrics": {},
-  "error": null
+  "plan_revision": 2,
+  "plan_sha256": "c602b3acdceb27f90e004b1a9146b80629b693b9d61fbb161b7cafc1389d0a48",
+  "schema_version": "1.0",
+  "sentinel": true,
+  "stage_id": "implement_persistence_set_pipeline",
+  "state_revision": 1,
+  "state_status": "blocked",
+  "status": "blocked",
+  "summary": "Plan revision adopted; no stage has executed in this revision."
 }

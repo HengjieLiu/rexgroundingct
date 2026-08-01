@@ -1,12 +1,17 @@
 {
-  "schema_version": "1.0",
-  "experiment_id": "asd_020_factorial_pathology_anatomy_binding",
-  "stage_id": "implement_factorial_binding_pipeline",
-  "status": "blocked",
-  "completed_at": "2026-07-31T00:00:00Z",
-  "summary": "Initialization sentinel; execution is dependency-blocked.",
-  "checks": [],
   "artifacts": [],
+  "checks": [],
+  "completed_at": "2026-08-01T05:04:50.605768Z",
+  "error": null,
+  "experiment_id": "asd_020_factorial_pathology_anatomy_binding",
   "metrics": {},
-  "error": {"code":"dependency_blocked","message":"asd_000_evidence_lock_error_atlas must finish with outcome go."}
+  "plan_revision": 2,
+  "plan_sha256": "2a1aeb930380dd9fef6111d2649bb75eed464c429b16bc3e23fe9106c05615e4",
+  "schema_version": "1.0",
+  "sentinel": true,
+  "stage_id": "implement_factorial_binding_pipeline",
+  "state_revision": 1,
+  "state_status": "blocked",
+  "status": "blocked",
+  "summary": "Plan revision adopted; no stage has executed in this revision."
 }

@@ -95,9 +95,136 @@
       "type": "array",
       "uniqueItems": true,
       "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+    },
+    "obligation_projection": {
+      "$ref": "#/$defs/obligation_projection"
+    },
+    "plan_history": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/plan_history_entry"}
     }
   },
   "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "obligation_projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claims_sha256",
+        "artifacts_sha256",
+        "claim_ids",
+        "claim_types",
+        "artifact_ids",
+        "required_artifact_ids",
+        "static_artifact_ids",
+        "pinned_at"
+      ],
+      "properties": {
+        "claims_sha256": {"$ref": "#/$defs/sha256"},
+        "artifacts_sha256": {"$ref": "#/$defs/sha256"},
+        "claim_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+        },
+        "claim_types": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": ["feasibility", "mechanistic", "causal", "performance", "safety"]
+          }
+        },
+        "artifact_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+        },
+        "required_artifact_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+        },
+        "static_artifact_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+        },
+        "pinned_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "plan_history_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_revision",
+        "plan_sha256",
+        "previous_plan_source",
+        "archived_plan_path",
+        "archived_plan_sha256",
+        "archived_plan_size_bytes",
+        "archived_state_path",
+        "archived_state_sha256",
+        "archived_state_size_bytes",
+        "archived_result_path",
+        "archived_result_sha256",
+        "archived_result_size_bytes",
+        "archived_claims_path",
+        "archived_artifacts_path",
+        "previous_claims_sha256",
+        "previous_claims_size_bytes",
+        "previous_artifacts_sha256",
+        "previous_artifacts_size_bytes",
+        "current_claims_sha256",
+        "current_artifacts_sha256",
+        "previous_budget_consumed",
+        "carried_budget_consumed",
+        "replanned_at"
+      ],
+      "properties": {
+        "plan_revision": {"type": "integer", "minimum": 1},
+        "plan_sha256": {"$ref": "#/$defs/sha256"},
+        "previous_plan_source": {"type": "string", "minLength": 1},
+        "archived_plan_path": {"type": "string", "minLength": 1},
+        "archived_plan_sha256": {"$ref": "#/$defs/sha256"},
+        "archived_plan_size_bytes": {"type": "integer", "minimum": 0},
+        "archived_state_path": {"type": "string", "minLength": 1},
+        "archived_state_sha256": {"$ref": "#/$defs/sha256"},
+        "archived_state_size_bytes": {"type": "integer", "minimum": 0},
+        "archived_result_path": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string", "minLength": 1}
+          ]
+        },
+        "archived_result_sha256": {
+          "oneOf": [{"type": "null"}, {"$ref": "#/$defs/sha256"}]
+        },
+        "archived_result_size_bytes": {
+          "oneOf": [{"type": "null"}, {"type": "integer", "minimum": 0}]
+        },
+        "archived_claims_path": {"type": "string", "minLength": 1},
+        "archived_artifacts_path": {"type": "string", "minLength": 1},
+        "previous_claims_sha256": {"$ref": "#/$defs/sha256"},
+        "previous_claims_size_bytes": {"type": "integer", "minimum": 0},
+        "previous_artifacts_sha256": {"$ref": "#/$defs/sha256"},
+        "previous_artifacts_size_bytes": {"type": "integer", "minimum": 0},
+        "current_claims_sha256": {"$ref": "#/$defs/sha256"},
+        "current_artifacts_sha256": {"$ref": "#/$defs/sha256"},
+        "previous_budget_consumed": {"$ref": "#/$defs/resource_totals"},
+        "carried_budget_consumed": {"$ref": "#/$defs/resource_totals"},
+        "replanned_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "resource_totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gpu_hours", "cpu_hours", "storage_gib"],
+      "properties": {
+        "gpu_hours": {"type": "number", "minimum": 0},
+        "cpu_hours": {"type": "number", "minimum": 0},
+        "storage_gib": {"type": "number", "minimum": 0}
+      }
+    },
     "executor": {
       "type": "object",
       "additionalProperties": true,
@@ -105,6 +232,8 @@
         "agent_id",
         "lease_id",
         "lease_path",
+        "container_label_key",
+        "container_label_value",
         "claimed_at",
         "heartbeat_at"
       ],
@@ -112,6 +241,8 @@
         "agent_id": {"type": "string", "minLength": 1},
         "lease_id": {"type": "string", "minLength": 1},
         "lease_path": {"type": "string", "minLength": 1},
+        "container_label_key": {"const": "rexgroundingct.aiselfdrive.lease"},
+        "container_label_value": {"type": "string", "minLength": 1},
         "claimed_at": {"type": "string", "format": "date-time"},
         "heartbeat_at": {"type": "string", "format": "date-time"}
       }
@@ -162,8 +293,19 @@
         "last_error": {
           "oneOf": [{"type": "null"}, {"type": "object", "additionalProperties": true}]
         },
+        "retry_not_before": {
+          "oneOf": [{"type": "null"}, {"type": "string", "format": "date-time"}]
+        },
+        "resource_wait_started_at": {
+          "oneOf": [{"type": "null"}, {"type": "string", "format": "date-time"}]
+        },
         "evidence_refs": {
           "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "failure_evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
           "items": {"type": "string", "minLength": 1}
         }
       }

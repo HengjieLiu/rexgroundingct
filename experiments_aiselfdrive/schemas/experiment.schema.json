@@ -224,6 +224,28 @@
           ]
         },
         "resources": {"type": "object", "additionalProperties": true},
+        "matched_arms": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["treatment", "control", "matched_hash_fields"],
+          "properties": {
+            "treatment": {"$ref": "#/$defs/arm_contract"},
+            "control": {"$ref": "#/$defs/arm_contract"},
+            "matched_hash_fields": {
+              "type": "array",
+              "uniqueItems": true,
+              "allOf": [
+                {"contains": {"const": "parent_checkpoint_sha256"}},
+                {"contains": {"const": "data_sha256"}},
+                {"contains": {"const": "schedule_sha256"}},
+                {"contains": {"const": "update_count"}}
+              ],
+              "items": {
+                "enum": ["parent_checkpoint_sha256", "data_sha256", "schedule_sha256", "update_count"]
+              }
+            }
+          }
+        },
         "timeout_seconds": {"type": "integer", "minimum": 1},
         "retry": {"type": "object", "additionalProperties": true},
         "stop_conditions": {
@@ -253,6 +275,16 @@
           }
         }
       ]
+    },
+    "arm_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "checkpoint_output_id", "metrics_output_id"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "checkpoint_output_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "metrics_output_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+      }
     }
   }
 }

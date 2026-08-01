@@ -23,7 +23,14 @@
       "pattern": "^asd_[0-9]{3}_[a-z0-9_]+$"
     },
     "stage_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
-    "status": {"enum": ["passed", "failed", "blocked"]},
+    "attempt": {"type": "integer", "minimum": 1},
+    "plan_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "plan_revision": {"type": "integer", "minimum": 1},
+    "state_revision": {"type": "integer", "minimum": 0},
+    "state_status": {"enum": ["draft", "ready", "blocked", "claimed", "running", "retry_wait", "stopping", "finished"]},
+    "sentinel": {"type": "boolean"},
+    "lease_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["ready", "passed", "failed", "blocked"]},
     "completed_at": {"type": "string", "format": "date-time"},
     "summary": {"type": "string", "minLength": 1},
     "checks": {

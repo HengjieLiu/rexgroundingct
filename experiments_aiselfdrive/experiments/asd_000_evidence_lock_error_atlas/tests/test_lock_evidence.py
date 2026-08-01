@@ -24,6 +24,7 @@ from lock_evidence import (  # noqa: E402
     hash_tree_manifest,
     iter_files_sorted,
     load_protocol,
+    recompute_stored_mask_metrics,
     sha256_file,
     verify_evaluation_summary,
 )
@@ -222,11 +223,15 @@ class ProtocolAndLineageTests(unittest.TestCase):
         cohort = self.root / "continuity.json"
         cohort_payload = {
             "test": [
-                {"name": "case_b", "findings": ["one"], "seg_path": "unused"},
                 {
-                    "name": "case_a",
+                    "name": "case_b.npy",
+                    "findings": ["one"],
+                    "seg_path": "case_b.npy",
+                },
+                {
+                    "name": "case_a.npy",
                     "findings": ["two", "three"],
-                    "seg_path": "unused",
+                    "seg_path": "case_a.npy",
                 },
             ]
         }
@@ -239,8 +244,26 @@ class ProtocolAndLineageTests(unittest.TestCase):
 
         predictions = self.root / "predictions"
         predictions.mkdir()
-        (predictions / "case_b.nii.gz").write_bytes(b"prediction b")
-        (predictions / "case_a.nii.gz").write_bytes(b"prediction a")
+        segmentations = self.root / "segmentations"
+        segmentations.mkdir()
+        prediction_arrays = {
+            "case_b.npy": np.asarray([[[[1]], [[0]]]], dtype=np.uint8),
+            "case_a.npy": np.asarray(
+                [[[[1]], [[0]]], [[[0]], [[0]]]], dtype=np.uint8
+            ),
+        }
+        ground_truth_arrays = {
+            "case_b.npy": np.asarray([[[[1]], [[0]]]], dtype=np.uint8),
+            "case_a.npy": np.asarray(
+                [[[[0]], [[1]]], [[[0]], [[0]]]], dtype=np.uint8
+            ),
+        }
+        for name, array in prediction_arrays.items():
+            np.save(predictions / name, array, allow_pickle=False)
+        for name, array in ground_truth_arrays.items():
+            np.save(segmentations / name, array, allow_pickle=False)
+        mismatch_dice = 1e-6 / (2 + 1e-6)
+        expected_baseline_dice = (1.0 + mismatch_dice + 1.0) / 3
 
         def write_summary(path: Path, dice: float, hits: int) -> None:
             payload = {
@@ -256,7 +279,7 @@ class ProtocolAndLineageTests(unittest.TestCase):
             path.write_text(json.dumps(payload), encoding="utf-8")
 
         summary = self.root / "baseline_summary.json"
-        write_summary(summary, 0.4, 2)
+        write_summary(summary, expected_baseline_dice, 2)
         comparator_summary = self.root / "comparator_summary.json"
         write_summary(comparator_summary, 0.5, 3)
 
@@ -275,7 +298,7 @@ class ProtocolAndLineageTests(unittest.TestCase):
                 "checkpoint_sha256": sha256_file(checkpoint),
                 "predictions": predictions.name,
                 "summary": summary.name,
-                "expected_dice": 0.4,
+                "expected_dice": expected_baseline_dice,
                 "dice_tolerance": 0.000001,
                 "expected_hits": 2,
                 "expected_findings": 3,
@@ -307,6 +330,7 @@ class ProtocolAndLineageTests(unittest.TestCase):
                 # must neither open nor derive metrics from it.
                 "val120_output": "sealed/not-readable.json",
             },
+            "data": {"segmentation_root": segmentations.name},
         }
         source_report = {
             "path": report.name,
@@ -345,11 +369,29 @@ class ProtocolAndLineageTests(unittest.TestCase):
             protocol,
             repo_root=self.root,
             source_report=source_report,
+            mask_array_loader=lambda path: np.load(path, allow_pickle=False),
+            mask_geometry_verifier=lambda prediction, ground_truth: {
+                "verified": True,
+                "shape_fxyz": list(np.load(prediction).shape),
+                "affine_sha256": "0" * 64,
+                "axis_codes": ["R", "A", "S"],
+                "qform_code": 0,
+                "sform_code": 1,
+            },
         )
         second = build_lineage_evidence(
             protocol,
             repo_root=self.root,
             source_report=source_report,
+            mask_array_loader=lambda path: np.load(path, allow_pickle=False),
+            mask_geometry_verifier=lambda prediction, ground_truth: {
+                "verified": True,
+                "shape_fxyz": list(np.load(prediction).shape),
+                "affine_sha256": "0" * 64,
+                "axis_codes": ["R", "A", "S"],
+                "qform_code": 0,
+                "sform_code": 1,
+            },
         )
 
         self.assertEqual(first, second)
@@ -358,6 +400,11 @@ class ProtocolAndLineageTests(unittest.TestCase):
         self.assertEqual(first["cohorts"]["val200"]["cases"], 2)
         self.assertEqual(first["baseline"]["predictions"]["file_count"], 2)
         self.assertEqual(first["baseline"]["evaluation_summary"]["metrics"]["hits"], 2)
+        self.assertEqual(first["baseline"]["metric_recomputation"]["hits"], 2)
+        self.assertEqual(first["baseline"]["metric_recomputation"]["findings"], 3)
+        self.assertTrue(
+            first["checks"]["baseline_metrics_recomputed_from_predictions_and_gt"]
+        )
         self.assertEqual(first["embedding_bank"]["shape"], [2, 3])
         self.assertEqual(
             first["source_report"]["evidence_availability"],
@@ -373,6 +420,50 @@ class ProtocolAndLineageTests(unittest.TestCase):
                 protocol,
                 repo_root=self.root,
                 source_report=source_report,
+                mask_array_loader=lambda path: np.load(path, allow_pickle=False),
+                mask_geometry_verifier=lambda prediction, ground_truth: {
+                    "verified": True
+                },
+            )
+
+    def test_build_lineage_rejects_stale_summary_when_masks_disagree(self) -> None:
+        protocol, source_report = self._write_synthetic_lineage()
+        np.save(
+            self.root / "predictions" / "case_b.npy",
+            np.zeros((1, 2, 1, 1), dtype=np.uint8),
+            allow_pickle=False,
+        )
+        with self.assertRaisesRegex(EvidenceLockError, "recomputed Dice mismatch"):
+            build_lineage_evidence(
+                protocol,
+                repo_root=self.root,
+                source_report=source_report,
+                mask_array_loader=lambda path: np.load(path, allow_pickle=False),
+                mask_geometry_verifier=lambda prediction, ground_truth: {
+                    "verified": True
+                },
+            )
+
+    def test_mask_metric_recomputation_rejects_nonbinary_predictions(self) -> None:
+        protocol, _ = self._write_synthetic_lineage()
+        np.save(
+            self.root / "predictions" / "case_b.npy",
+            np.asarray([[[[2]], [[0]]]], dtype=np.uint8),
+            allow_pickle=False,
+        )
+        with self.assertRaisesRegex(EvidenceLockError, "not a binary threshold mask"):
+            recompute_stored_mask_metrics(
+                self.root / protocol["cohorts"]["val200"]["path"],
+                self.root / protocol["baseline"]["predictions"],
+                self.root / protocol["data"]["segmentation_root"],
+                prediction_threshold=0.5,
+                hit_threshold=0.1,
+                expected_cases=2,
+                expected_findings=3,
+                array_loader=lambda path: np.load(path, allow_pickle=False),
+                geometry_verifier=lambda prediction, ground_truth: {
+                    "verified": True
+                },
             )
 
 

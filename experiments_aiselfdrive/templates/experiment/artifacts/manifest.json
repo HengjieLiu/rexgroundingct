@@ -1,5 +1,20 @@
 {
   "schema_version": "1.0",
   "experiment_id": "__EXPERIMENT_ID__",
-  "artifacts": []
+  "artifacts": [
+    {
+      "id": "implementation_evidence",
+      "path": "experiments_aiselfdrive/experiments/__EXPERIMENT_ID__/results/result.json",
+      "role": "evidence",
+      "ownership": "workspace",
+      "status": "planned",
+      "required": true,
+      "sha256": null,
+      "size_bytes": null,
+      "producer_stage_id": "implement",
+      "retention": "durable",
+      "media_type": "application/json",
+      "verification": {"method": "file_sha256"}
+    }
+  ]
 }

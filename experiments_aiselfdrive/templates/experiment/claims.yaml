@@ -1,12 +1,48 @@
 schema_version: "1.0"
 experiment_id: __EXPERIMENT_ID__
 claims:
-  - id: primary
+  - id: feasibility_primary
     type: feasibility
-    statement: __CLAIM__
+    statement: __FEASIBILITY_CLAIM__
     verdict: pending
     gate_refs:
-      - __GATE_REF__
+      - __FEASIBILITY_GATE_REF__
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: mechanistic_primary
+    type: mechanistic
+    statement: __MECHANISTIC_CLAIM__
+    verdict: pending
+    gate_refs:
+      - __MECHANISTIC_GATE_REF__
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: causal_primary
+    type: causal
+    statement: __CAUSAL_CLAIM__
+    verdict: pending
+    gate_refs:
+      - __CAUSAL_GATE_REF__
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: performance_primary
+    type: performance
+    statement: __PERFORMANCE_CLAIM__
+    verdict: pending
+    gate_refs:
+      - __PERFORMANCE_GATE_REF__
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: safety_primary
+    type: safety
+    statement: __SAFETY_CLAIM__
+    verdict: pending
+    gate_refs:
+      - __SAFETY_GATE_REF__
     evidence_refs: []
     decided_at: null
     rationale: null

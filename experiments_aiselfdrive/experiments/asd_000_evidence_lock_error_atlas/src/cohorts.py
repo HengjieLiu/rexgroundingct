@@ -1,9 +1,10 @@
-"""Deterministic development-cohort validation and holdout sealing.
+"""Deterministic development and internal-replication cohort validation.
 
-The confirmatory cohort is derived only as an ordered list of case identities.
-This module deliberately has no API that accepts a val120 label, prediction, or
-metric path.  The only full case records copied to an output are the already
-accepted val80 development records.
+The val120 complement is historically exposed and therefore is not an
+independent, blinded, or untouched confirmation cohort.  It is still emitted
+as an identity-only manifest because ASD-000 has no scientific reason to load
+its labels, predictions, or metrics.  The only full case records copied to an
+output are the accepted val80 development records.
 """
 
 from __future__ import annotations
@@ -60,7 +61,7 @@ class CohortPartition:
 
     parent_case_names: tuple[str, ...]
     development_case_names: tuple[str, ...]
-    confirmatory_case_names: tuple[str, ...]
+    internal_replication_case_names: tuple[str, ...]
 
     @property
     def parent_count(self) -> int:
@@ -71,17 +72,19 @@ class CohortPartition:
         return len(self.development_case_names)
 
     @property
-    def confirmatory_count(self) -> int:
-        return len(self.confirmatory_case_names)
+    def internal_replication_count(self) -> int:
+        return len(self.internal_replication_case_names)
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "parent_case_names": list(self.parent_case_names),
             "development_case_names": list(self.development_case_names),
-            "confirmatory_case_names": list(self.confirmatory_case_names),
+            "internal_replication_case_names": list(
+                self.internal_replication_case_names
+            ),
             "parent_count": self.parent_count,
             "development_count": self.development_count,
-            "confirmatory_count": self.confirmatory_count,
+            "internal_replication_count": self.internal_replication_count,
             "disjoint": True,
             "exhaustive": True,
         }
@@ -252,7 +255,8 @@ def load_case_names_only(
     """Read only direct case ``name`` fields from an evaluator manifest.
 
     Non-name values are lexically skipped, rather than deserialized.  This is
-    the narrow reader used to derive the confirmatory complement from val200.
+    the narrow reader used to derive the internal-replication complement from
+    val200.
     """
 
     source = Path(path)
@@ -354,21 +358,29 @@ def validate_partition(
             + ", ".join(outside_parent)
         )
 
-    confirmatory = tuple(name for name in parent if name not in development_set)
-    if expected_val120_cases is not None and len(confirmatory) != expected_val120_cases:
+    internal_replication = tuple(
+        name for name in parent if name not in development_set
+    )
+    if (
+        expected_val120_cases is not None
+        and len(internal_replication) != expected_val120_cases
+    ):
         raise CohortError(
-            f"val120 complement count is {len(confirmatory)}, "
+            f"val120 complement count is {len(internal_replication)}, "
             f"expected {expected_val120_cases}"
         )
-    confirmatory_set = set(confirmatory)
-    if development_set & confirmatory_set:
+    internal_replication_set = set(internal_replication)
+    if development_set & internal_replication_set:
         raise CohortError("val80 and val120 overlap")
-    if development_set | confirmatory_set != parent_set:
+    if development_set | internal_replication_set != parent_set:
         raise CohortError("val80 and val120 do not exhaust val200")
-    if tuple(name for name in parent if name in confirmatory_set) != confirmatory:
+    if (
+        tuple(name for name in parent if name in internal_replication_set)
+        != internal_replication
+    ):
         raise CohortError("val120 does not preserve val200 order")
 
-    return CohortPartition(parent, development, confirmatory)
+    return CohortPartition(parent, development, internal_replication)
 
 
 def derive_case_complement(
@@ -388,7 +400,7 @@ def derive_case_complement(
         expected_val80_cases=expected_val80_cases,
         expected_val120_cases=expected_val120_cases,
     )
-    return list(partition.confirmatory_case_names)
+    return list(partition.internal_replication_case_names)
 
 
 def _load_development_records(
@@ -482,7 +494,7 @@ def assert_identity_only_manifest(payload: Mapping[str, Any]) -> None:
             for key, nested in value.items():
                 if str(key).casefold() in _FORBIDDEN_HOLDOUT_KEYS:
                     raise CohortError(
-                        f"sealed val120 manifest contains forbidden key {key!r}"
+                        f"identity-only val120 manifest contains forbidden key {key!r}"
                     )
                 stack.append(nested)
         elif isinstance(value, list):
@@ -505,7 +517,7 @@ def seal_cohorts(
     split_key: str = "test",
     producer_stage: str = PRODUCER_STAGE,
 ) -> dict[str, Any]:
-    """Validate val80 and atomically write development and sealed manifests."""
+    """Write val80 development and honest identity-only val120 manifests."""
 
     val200_source = Path(val200_path)
     val80_source = Path(val80_path)
@@ -576,14 +588,21 @@ def seal_cohorts(
             "cases": val80_records,
         }
     )
-    confirmatory_manifest = _with_payload_hash(
+    internal_replication_manifest = _with_payload_hash(
         {
             "schema_version": "1.0",
-            "manifest_type": "sealed_confirmatory_cohort",
+            "manifest_type": "internal_replication_cohort",
             "cohort_id": "val120",
-            "role": "confirmatory_sealed",
-            "sealed": True,
-            "access_policy": "identities_only_until_declared_t4_stage",
+            "role": "historically_exposed_internal_held_out_replication",
+            "independence_status": "not_independent_and_not_blinded",
+            "allowed_claim": "internal_replication_only",
+            "forbidden_claims": [
+                "untouched_confirmation",
+                "independent_confirmation",
+                "external_confirmation",
+            ],
+            "identity_only": True,
+            "access_policy": "asd000_reads_identities_only",
             "derivation": "ordered_case_name_complement_of_val80_within_val200",
             "producer_stage": producer_stage,
             "producer_stage_id": producer_stage,
@@ -593,14 +612,14 @@ def seal_cohorts(
                 "sha256": val80_sha256,
                 "case_count": partition.development_count,
             },
-            "case_count": partition.confirmatory_count,
-            "case_names": list(partition.confirmatory_case_names),
+            "case_count": partition.internal_replication_count,
+            "case_names": list(partition.internal_replication_case_names),
         }
     )
-    assert_identity_only_manifest(confirmatory_manifest)
+    assert_identity_only_manifest(internal_replication_manifest)
 
     atomic_write_json(val80_output, development_manifest)
-    atomic_write_json(val120_output, confirmatory_manifest)
+    atomic_write_json(val120_output, internal_replication_manifest)
     val80_output_sha256 = sha256_file(val80_output)
     val120_output_sha256 = sha256_file(val120_output)
 
@@ -616,8 +635,10 @@ def seal_cohorts(
         "val120": {
             "path": str(val120_output),
             "sha256": val120_output_sha256,
-            "case_count": partition.confirmatory_count,
+            "case_count": partition.internal_replication_count,
             "identity_only": True,
+            "role": "historically_exposed_internal_held_out_replication",
+            "independence_status": "not_independent_and_not_blinded",
         },
     }
 
@@ -634,7 +655,7 @@ def seal_val120_complement(
     expected_val120_cases: int | None = None,
     producer_stage: str = PRODUCER_STAGE,
 ) -> dict[str, Any]:
-    """Atomically seal a names-only complement when identities are preloaded."""
+    """Write an honest names-only internal-replication complement."""
 
     partition = validate_partition(
         val200_case_names,
@@ -644,11 +665,18 @@ def seal_val120_complement(
     payload = _with_payload_hash(
         {
             "schema_version": "1.0",
-            "manifest_type": "sealed_confirmatory_cohort",
+            "manifest_type": "internal_replication_cohort",
             "cohort_id": "val120",
-            "role": "confirmatory_sealed",
-            "sealed": True,
-            "access_policy": "identities_only_until_declared_t4_stage",
+            "role": "historically_exposed_internal_held_out_replication",
+            "independence_status": "not_independent_and_not_blinded",
+            "allowed_claim": "internal_replication_only",
+            "forbidden_claims": [
+                "untouched_confirmation",
+                "independent_confirmation",
+                "external_confirmation",
+            ],
+            "identity_only": True,
+            "access_policy": "asd000_reads_identities_only",
             "derivation": "ordered_case_name_complement_of_val80_within_val200",
             "producer_stage": producer_stage,
             "producer_stage_id": producer_stage,
@@ -662,8 +690,8 @@ def seal_val120_complement(
                 "sha256": val80_sha256,
                 "case_count": partition.development_count,
             },
-            "case_count": partition.confirmatory_count,
-            "case_names": list(partition.confirmatory_case_names),
+            "case_count": partition.internal_replication_count,
+            "case_names": list(partition.internal_replication_case_names),
         }
     )
     assert_identity_only_manifest(payload)

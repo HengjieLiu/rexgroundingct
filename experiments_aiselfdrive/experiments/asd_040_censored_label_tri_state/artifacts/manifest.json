@@ -9,8 +9,8 @@
       "ownership": "workspace",
       "status": "verified",
       "required": true,
-      "sha256": "f29d1c758feba02133393f500339814094656c128b5d57f54cfb28d9ec7174e6",
-      "size_bytes": null,
+      "sha256": "c39f7dacfa924cccc66c764fdf9664c55670acdad49dbec8e68ac4ffffb73bda",
+      "size_bytes": 40236,
       "producer_stage_id": null,
       "retention": "durable"
     },
@@ -21,14 +21,14 @@
       "ownership": "workspace",
       "status": "verified",
       "required": true,
-      "sha256": "4e863c30b897b4742911b5f0454aa9cfe793fabad310f7814e6445237a752805",
-      "size_bytes": null,
+      "sha256": "38e12cc6a74d79c2bb9a3b655fdcff35635d6453012350e56c617d8eadf96235",
+      "size_bytes": 7787,
       "producer_stage_id": null,
       "retention": "durable"
     },
     {
       "id": "locked_lineage_manifest",
-      "path": "experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json",
+      "path": "experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json",
       "role": "input",
       "ownership": "external_read_only",
       "status": "planned",
@@ -52,7 +52,7 @@
     },
     {
       "id": "val120_manifest",
-      "path": "experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json",
+      "path": "experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json",
       "role": "input",
       "ownership": "external_read_only",
       "status": "planned",
@@ -86,6 +86,9 @@
       "producer_stage_id": null,
       "retention": "durable"
     },
+    {"id":"val200_manifest","path":"configs/evaluation/rexgroundingct_val200_seed20260723.json","role":"input","ownership":"external_read_only","status":"present","required":false,"sha256":"7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897","size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"locked_parent_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth","role":"checkpoint","ownership":"external_read_only","status":"verified","required":true,"sha256":"50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf","size_bytes":3131885315,"producer_stage_id":null,"retention":"durable"},
+    {"id":"promotion_record","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_040_censored_label_tri_state.json","role":"input","ownership":"external_read_only","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":null,"controller_producer":"experimentctl promote","retention":"durable"},
     {
       "id": "tri_state_source_package",
       "path": "experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/src",
@@ -98,6 +101,7 @@
       "producer_stage_id": "implement_censorship_pipeline",
       "retention": "durable"
     },
+    {"id":"tri_state_test_suite","path":"experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/tests","role":"output","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"implement_censorship_pipeline","retention":"durable"},
     {
       "id": "input_validation_report",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/validation/report.json",
@@ -182,6 +186,9 @@
       "producer_stage_id": "crossfit_diagnostic",
       "retention": "durable"
     },
+    {"id":"t1_full_state_checkpoints","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t1/checkpoints","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"t1_resume_smoke","retention":"durable"},
+    {"id":"t1_resume_report","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t1/resume_report.json","role":"evidence","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"t1_resume_smoke","retention":"durable"},
+    {"id":"t2_checkpoints","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t2/checkpoints","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"pu_pilot_t2","retention":"durable"},
     {
       "id": "t2_metrics",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t2/metrics.json",
@@ -206,6 +213,7 @@
       "producer_stage_id": "decision_t3",
       "retention": "durable"
     },
+    {"id":"t3_checkpoints","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t3/checkpoints","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"decision_t3","retention":"durable"},
     {
       "id": "tri_state_policy_artifact",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t3/tri_state_policy.json",
@@ -230,17 +238,23 @@
       "producer_stage_id": "confirm_t4",
       "retention": "durable"
     },
+    {"id":"t4_tri_state_policy_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t4/selected_tri_state_policy/checkpoint","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
+    {"id":"t4_tri_state_policy_metrics","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t4/selected_tri_state_policy/metrics.json","role":"evidence","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
+    {"id":"t4_disabled_tri_state_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t4/disabled_tri_state_parent_loss/checkpoint","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
+    {"id":"t4_disabled_tri_state_metrics","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t4/disabled_tri_state_parent_loss/metrics.json","role":"evidence","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
     {
       "id": "final_result",
       "path": "experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/results/result.json",
       "role": "report",
       "ownership": "workspace",
-      "status": "present",
+      "status": "planned",
       "required": true,
-      "sha256": "ae5b430bb02ace5886dcbdad4ffb9d7cfd65b5f3841c74a500d3156c545594b9",
+      "sha256": null,
       "size_bytes": null,
       "producer_stage_id": "closeout",
       "retention": "durable"
-    }
+    },
+    {"id":"final_summary","path":"experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/results/summary.md","role":"report","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"closeout","retention":"durable"},
+    {"id":"final_claims","path":"experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/claims.yaml","role":"report","ownership":"workspace","status":"present","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"closeout","retention":"durable"}
   ]
 }

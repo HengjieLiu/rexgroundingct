@@ -1,0 +1,207 @@
+{
+  "created_at": "2026-08-01T05:06:12.713899Z",
+  "created_by": "codex-repair-20260731",
+  "obligations": [
+    {
+      "experiment_id": "asd_000_evidence_lock_error_atlas",
+      "projection_sha256": "cce943e50e1abcae426c169f3ed9f13d59027a2abea6962b7b46848560989cc5"
+    },
+    {
+      "experiment_id": "asd_005_train_anatomy_asset_extension",
+      "projection_sha256": "3052668d6279d83f90c02bc6f6e0e007233fcada83164df3a637a762a7104342"
+    },
+    {
+      "experiment_id": "asd_010_intrinsic_anatomy_fields",
+      "projection_sha256": "b6d975eef9436942ea699c7788630f49dbe06a43e0e1d8b8588f7e0d848d4ba8"
+    },
+    {
+      "experiment_id": "asd_020_factorial_pathology_anatomy_binding",
+      "projection_sha256": "e9f2b14e9b7005f64174502be4954ea0c4acb0f12cc3eff275dfcac55a8e4b63"
+    },
+    {
+      "experiment_id": "asd_030_anatomy_certified_fp_replay",
+      "projection_sha256": "8b62aac84800ed17ee2b5d961abc2f625711fcf17c74e3c6b6dbdbfe9c978fb7"
+    },
+    {
+      "experiment_id": "asd_040_censored_label_tri_state",
+      "projection_sha256": "ce7b8f66a9ba28927670e3f28c59cf7381697a2cbb6c33670cb15e404e0dd14d"
+    },
+    {
+      "experiment_id": "asd_050_prompt_equivariance_quartet",
+      "projection_sha256": "012f0a03a5624659e6d29af56015cc5e36d96d2f217872653b639bfe2403091b"
+    },
+    {
+      "experiment_id": "asd_060_persistence_tree_set_verifier",
+      "projection_sha256": "c54e022ec170cf42132c4a165cf2bb608f7edd244fdafed198e906b4556d9941"
+    }
+  ],
+  "registry_revision": 2,
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml",
+      "sha256": "812d86e417fcdceb862ca485d93da68e066503d6473808cdb1d13be4eb0e3bb3",
+      "size_bytes": 12135
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/experiment.yaml",
+      "sha256": "20c7a09f4495bc483f4f8522f4027679315bd26a2d6aac624d3637bbeae4f8b5",
+      "size_bytes": 35254
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/configs/protocol.yaml",
+      "sha256": "c85f2b836877fac11b2307fcba8940374816b29c55426550aa5ad5d944f53ae7",
+      "size_bytes": 2892
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/experiment.yaml",
+      "sha256": "098b8f7c55a3875f211bd76c157bad99fb7be2c8cc5d081286d52a1a98a298ad",
+      "size_bytes": 24311
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/configs/protocol.yaml",
+      "sha256": "5b0dc84aead96b1c1baef96c8d68f3582011019b32d98391a594193120f5e54d",
+      "size_bytes": 6321
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/experiment.yaml",
+      "sha256": "0d291aae36af4ef9656aedea136da2eccb8e3e3a6409379e440fc049fc658c50",
+      "size_bytes": 38803
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml",
+      "sha256": "ad754eee876b1fcdfe670ad296dcb0557204137871b64cd5f4a16929672f2dfe",
+      "size_bytes": 8707
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/experiment.yaml",
+      "sha256": "2a1aeb930380dd9fef6111d2649bb75eed464c429b16bc3e23fe9106c05615e4",
+      "size_bytes": 44296
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/configs/protocol.yaml",
+      "sha256": "a90a3a7010d315c0740833bb7851638202b6db3e736136983b9c52e647f5f42d",
+      "size_bytes": 6457
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/experiment.yaml",
+      "sha256": "e1512b842fbe51685a0991455d3ecb652ef53c88ccd040bed401151cb66a2739",
+      "size_bytes": 39878
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/configs/protocol.yaml",
+      "sha256": "38e12cc6a74d79c2bb9a3b655fdcff35635d6453012350e56c617d8eadf96235",
+      "size_bytes": 7787
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/experiment.yaml",
+      "sha256": "c39f7dacfa924cccc66c764fdf9664c55670acdad49dbec8e68ac4ffffb73bda",
+      "size_bytes": 40236
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/configs/protocol.yaml",
+      "sha256": "ad01d8ad312feb3eb45d676c9bd3bd59d23486fe626cf43590954af4672e9ff5",
+      "size_bytes": 5832
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/experiment.yaml",
+      "sha256": "a4cd78075666346b89ba73dfebfea8f87ea21899ff9ec27499a7c52362213fe4",
+      "size_bytes": 34075
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/configs/protocol.yaml",
+      "sha256": "e61af009c0816a78912e8644d41a04b887d3462cacb430cbc086060b2f714bd9",
+      "size_bytes": 6788
+    },
+    {
+      "path": "experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/experiment.yaml",
+      "sha256": "c602b3acdceb27f90e004b1a9146b80629b693b9d61fbb161b7cafc1389d0a48",
+      "size_bytes": 42171
+    },
+    {
+      "path": "experiments_aiselfdrive/portfolio.yaml",
+      "sha256": "f19540dbd14e3f254a457c0bd24683ad189bc7ffff1812fd87b3391fd6d9fa05",
+      "size_bytes": 9597
+    },
+    {
+      "path": "experiments_aiselfdrive/schemas/artifact_manifest.schema.json",
+      "sha256": "160e362a5b0e642a051ba7cc9a808661641842d33f5a8295f0594bdf287cd14e",
+      "size_bytes": 3554
+    },
+    {
+      "path": "experiments_aiselfdrive/schemas/claims.schema.json",
+      "sha256": "6e3705d86f39271ce374b1ee32a5a3c1bcf794d94e54a0ea7e1ed9863fa52bbb",
+      "size_bytes": 2271
+    },
+    {
+      "path": "experiments_aiselfdrive/schemas/event.schema.json",
+      "sha256": "ce2b5104767b730b069c462dbff5fdf3a5a8996d6fd2dbd4f66d5fbb9429ba39",
+      "size_bytes": 1130
+    },
+    {
+      "path": "experiments_aiselfdrive/schemas/experiment.schema.json",
+      "sha256": "8e27da9b9e4c4aa0defabeb94e075d71e7ae1f202825a3df86490f84b88a4759",
+      "size_bytes": 8708
+    },
+    {
+      "path": "experiments_aiselfdrive/schemas/portfolio.schema.json",
+      "sha256": "0a8cd487ae6ee65f4f71d92ef62101065b3c1ac72124d0a226975353e81dcfda",
+      "size_bytes": 7155
+    },
+    {
+      "path": "experiments_aiselfdrive/schemas/promotion.schema.json",
+      "sha256": "84830ba0fe373949f8986a4aefe857f6a0c33b53e1a3f62866cad63a001c901b",
+      "size_bytes": 3454
+    },
+    {
+      "path": "experiments_aiselfdrive/schemas/result.schema.json",
+      "sha256": "56864f98aac10f67a1dc5ef51d3d9482b278678ae4ee3e59ea03c24dc670bf1b",
+      "size_bytes": 3577
+    },
+    {
+      "path": "experiments_aiselfdrive/schemas/state.schema.json",
+      "sha256": "3e79913704e490fe2983db7412548778593e1da5190f4b7a386bde05fe1f6f0a",
+      "size_bytes": 9651
+    },
+    {
+      "path": "experiments_aiselfdrive/shared/hardware_profile.yaml",
+      "sha256": "e50b784b1a34ee2c9f98bd5349a99bc218bfe5898da7b4a049d9fc8297dde2b4",
+      "size_bytes": 2644
+    },
+    {
+      "path": "experiments_aiselfdrive/shared/manifests/planning_sources.yaml",
+      "sha256": "337f47103666c8df492a3a79fc27cf4dedab249ca39cc04c651e231db2d70de9",
+      "size_bytes": 5246
+    },
+    {
+      "path": "experiments_aiselfdrive/templates/experiment/artifacts/manifest.json",
+      "sha256": "deb7cea97d2ddbbb41c9daf62c3f5dc757676c344812659633bff8b1f8ddc974",
+      "size_bytes": 549
+    },
+    {
+      "path": "experiments_aiselfdrive/templates/experiment/claims.yaml",
+      "sha256": "a8c08173fe266765d9f2d95ce2edc28f427e657842f72d5c53fa91a4d24ea21f",
+      "size_bytes": 1118
+    },
+    {
+      "path": "experiments_aiselfdrive/templates/experiment/experiment.yaml",
+      "sha256": "9cd898becb70aa12d6e30b159db14d48dd13cef7f1ae6abb1acf8f21d3348575",
+      "size_bytes": 1455
+    },
+    {
+      "path": "experiments_aiselfdrive/templates/experiment/results/result.json",
+      "sha256": "8db424b69312724745c47f31ec6a9ae76705fdf480a8802255ab9e8176b56196",
+      "size_bytes": 297
+    },
+    {
+      "path": "experiments_aiselfdrive/templates/experiment/state.json",
+      "sha256": "0a13042dd2f8fab0afd842b632e061c71be3e2003a859d7b53f9fba5a8614e27",
+      "size_bytes": 605
+    },
+    {
+      "path": "experiments_aiselfdrive/tools/experimentctl.py",
+      "sha256": "b0d6dd74cf83a7657ae7b661ce298e776ab46d7178c7ba261bfcf1364d911c41",
+      "size_bytes": 322777
+    }
+  ]
+}

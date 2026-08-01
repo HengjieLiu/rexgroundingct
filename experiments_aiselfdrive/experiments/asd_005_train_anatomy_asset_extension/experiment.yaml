@@ -1,7 +1,7 @@
 schema_version: "1.0"
 id: asd_005_train_anatomy_asset_extension
 title: Four-GPU fast 3-mm TotalSegmentator asset for all released train and validation CTs
-plan_revision: 1
+plan_revision: 2
 created_at: "2026-07-31T00:00:00Z"
 updated_at: "2026-07-31T00:00:00Z"
 priority: 2
@@ -40,7 +40,7 @@ non_goals:
 evidence_references:
   - id: asd000_lineage
     kind: dependency
-    path: experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json
+    path: experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json
     availability: missing
     dependency_experiment_id: asd_000_evidence_lock_error_atlas
     dependency_required_outcome: go
@@ -64,7 +64,13 @@ lineage:
     save_lowres: false
     output_geometry: source_ct_shape_and_affine
     docker_image: rexgroundingct-totalsegmentator:2.16.0-cu126
+    docker_local_image_id: sha256:047cfe9e32a9001de0f55d04bffdb1ad81bf59b8f9f7de049103cf5d15d0acb7
+    image_preflight: Docker inspect ID must equal docker_local_image_id; the tag alone is insufficient.
     weights_root: /mnt/shengdata1/hengjie/models/totalsegmentator/2.16.0
+    weights_tree_sha256: 2e4612f23850ef126664ee4672ddeda6340afed54f350d7955a4930a2cdfaa9e
+    weights_tree_file_count: 105
+    weights_tree_size_bytes: 2345112197
+    weights_tree_hash_algorithm: experimentctl canonical tree_sha256 over sorted relative paths, file content digests, and regular-file byte sizes.
     results_root: /mnt/shengdata1/hengjie/models/totalsegmentator/2.16.0/nnunet/results
   feasibility_observation:
     source_manifest_sha256: 3ae692653f9b104f8d0f0d9c82f71bd56276c5d1b5717b3cf9275abf7d4fa599
@@ -86,11 +92,10 @@ data:
     train_plus_val: 3192
     val: 200
   case_path_rule: >-
-    Resolve each metadata name into CT-RATE
     Resolve the split, patient identifier, scan identifier, and filename using
     the canonical CT-RATE nested fixed-layout rule implemented by the locked
-    source-manifest builder.
-    and reject duplicates, missing files, or incomplete downloads.
+    source-manifest builder; reject duplicates, missing files, or incomplete
+    downloads.
   locked_manifest_output: experiments_aiselfdrive/shared/manifests/trainval_ct_source_v1.json
   anatomy_manifest_output: experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json
   supervision_policy:
@@ -173,10 +178,35 @@ resources:
   gpu_memory_free_gib_min: 32
   use_multi_gpu_ddp: false
   docker_image: rexgroundingct-totalsegmentator:2.16.0-cu126
+  docker_local_image_id: sha256:047cfe9e32a9001de0f55d04bffdb1ad81bf59b8f9f7de049103cf5d15d0acb7
   docker_user_policy: host_uid_and_gid_required
   gpu_preflight_ref: experiments_aiselfdrive/shared/hardware_profile.yaml
   cpu_threads_max: 32
   ram_gib_max: 128
+stage_execution_contract:
+  resource_limits:
+    cpu_cores_hardware_max: 128
+    gpu_count_hardware_max: 4
+    gpu_count_per_arm_max: 1
+    maximum_concurrent_arms: 4
+    inference_free_memory_gib_min: 32
+    training_free_memory_gib_min: 36
+    multi_gpu_ddp: prohibited
+  evidence:
+    applies_to: every_stage
+    object_path: metrics.resources
+    required_fields: [gpu_hours, cpu_hours, storage_gib]
+    semantics:
+      gpu_hours: incremental_stage_gpu_hours
+      cpu_hours: incremental_stage_cpu_hours
+      storage_gib: cumulative_experiment_runtime_tree_high_water_at_stage_completion
+    validation: All values are finite and nonnegative; storage_gib is measured over the experiment runtime tree and never reported as a stage delta.
+  controller_container_identity:
+    required_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+    required_labels:
+      lease: rexgroundingct.aiselfdrive.lease=REXGROUNDINGCT_AISELFDRIVE_LEASE_ID
+      experiment: rexgroundingct.aiselfdrive.experiment=REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID
+    rule: Every nested docker run consumes controller-provided values and applies both exact labels; container names and lease values are never hard-coded.
 stages:
   - id: implement_train_anatomy_pipeline
     kind: implementation
@@ -192,7 +222,17 @@ stages:
       subprocesses as argv arrays; pass host uid/gid; mount repo, /data, and
       /mnt/shengdata1; allocate a distinct TOTALSEG_HOME_DIR per worker; resume
       only from valid completion.json markers; enforce deterministic SHA-based
-      shards and the 24-GPU-hour/eight-hour budgets. Never process test cases.
+      shards and the 24-GPU-hour/eight-hour budgets. Preflight must recompute the
+      pinned weight-tree digest and require the exact local Docker image ID.
+      Consume controller env REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID,
+      REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, and
+      REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL; label every nested container
+      rexgroundingct.aiselfdrive.lease with the lease ID and
+      rexgroundingct.aiselfdrive.experiment with the experiment ID, and never
+      hard-code container names or lease values. Never process test cases.
+      Every stage evidence must emit metrics.resources with incremental
+      gpu_hours, incremental cpu_hours, and cumulative experiment runtime-tree
+      high-water storage_gib.
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/src/build_manifest.py
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/src/validate_cache.py
@@ -200,13 +240,8 @@ stages:
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/tests/test_build_manifest.py
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/tests/test_validate_cache.py
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/implement_train_anatomy_pipeline.json
-    inputs:
-      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/configs/protocol.yaml
-      - existing TotalSegmentator val200 implementation and manifest as read-only reference
-    outputs:
-      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/scripts/run_stage.py
-      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/tests/test_build_manifest.py
-      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/tests/test_validate_cache.py
+    inputs: [protocol_config, fast_val200_reference]
+    outputs: [pipeline_cli, pipeline_tests]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/implement_train_anatomy_pipeline.json
       predicate: Modules compile and all local tests pass without Docker or data mutation.
@@ -243,12 +278,8 @@ stages:
     allowed_write_paths:
       - experiments_aiselfdrive/shared/manifests/trainval_ct_source_v1.json
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/source_manifest_lock.json
-    inputs:
-      - released metadata and CT root declared in data
-      - asd000 local lineage manifest
-    outputs:
-      - experiments_aiselfdrive/shared/manifests/trainval_ct_source_v1.json
-      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/source_manifest_lock.json
+    inputs: [metadata, asd000_lineage]
+    outputs: [source_manifest, source_manifest_lock]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/source_manifest_lock.json
       predicate: Exactly 3,192 unique, complete train/validation CTs resolve and the manifest is hashed.
@@ -287,18 +318,18 @@ stages:
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/smoke.json
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_005_train_anatomy_asset_extension/smoke
-    inputs:
-      - locked train/validation source manifest
-      - pinned Docker image and TotalSegmentator weights
-    outputs:
-      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/smoke.json
-      - external runtime one-case smoke output
+    inputs: [source_manifest, totalsegmentator_weights]
+    outputs: [smoke_report, smoke_output]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/smoke.json
       predicate: Docker sees four expected GPUs and one case completes with valid source geometry.
     resources:
       gpu_count: 1
+      gpu_count_per_arm: 1
+      arm_count: 1
+      maximum_concurrent_arms: 1
       gpu_memory_free_gib_min: 32
+      cpu_threads: 8
       docker_image: rexgroundingct-totalsegmentator:2.16.0-cu126
       gpu_hours_max: 0.25
     timeout_seconds: 3600
@@ -310,7 +341,8 @@ stages:
       - Docker reports a non-RTX-6000-Ada device set or fewer than four devices.
       - Geometry, orientation, finite-affine, label-range, or lung-coverage checks fail.
     acceptance_checks:
-      - Image and weights are present.
+      - Docker inspect image ID equals sha256:047cfe9e32a9001de0f55d04bffdb1ad81bf59b8f9f7de049103cf5d15d0acb7.
+      - Weight tree has 105 files, 2345112197 regular-file bytes, and controller-canonical digest 2e4612f23850ef126664ee4672ddeda6340afed54f350d7955a4930a2cdfaa9e.
       - torch.cuda sees exactly four expected GPUs.
       - Output shape, affine, axis codes, and physical extent match source.
   - id: generate_four_shards
@@ -334,19 +366,19 @@ stages:
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/generation.json
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_005_train_anatomy_asset_extension/anatomy_fast_3mm_trainval_v1
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_005_train_anatomy_asset_extension/worker_state
-    inputs:
-      - locked train/validation source manifest
-      - passed smoke evidence
-    outputs:
-      - external runtime per-case anatomy cache
-      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/generation.json
+    inputs: [source_manifest, smoke_report]
+    outputs: [anatomy_cache, generation_report]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/generation.json
       predicate: All four workers terminate and 3,192 valid completion markers are present.
     resources:
       gpu_count: 4
+      gpu_count_per_arm: 1
+      arm_count: 4
+      maximum_concurrent_arms: 4
       gpu_memory_free_gib_min_each: 32
-      gpu_hours_max: 24
+      cpu_threads: 32
+      gpu_hours_max: 23.75
       wall_hours_max: 8
       docker_image: rexgroundingct-totalsegmentator:2.16.0-cu126
     timeout_seconds: 28800
@@ -355,7 +387,7 @@ stages:
       max_attempts: 3
       backoff_seconds: [60, 300]
     stop_conditions:
-      - Aggregate GPU time reaches 24 hours before completion.
+      - Generation-stage aggregate GPU time reaches 23.75 hours, reserving the remaining 0.25 hour of the experiment budget for the mandatory GPU preflight.
       - Wall time reaches eight hours before completion.
       - Any non-retryable geometry, orientation, hash, label, or lung failure occurs.
     acceptance_checks:
@@ -384,14 +416,8 @@ stages:
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/cache_validation.json
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/qc_cases.csv
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/qc_summary.md
-    inputs:
-      - locked source manifest
-      - complete external anatomy cache
-    outputs:
-      - experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json
-      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/cache_validation.json
-      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/qc_cases.csv
-      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/qc_summary.md
+    inputs: [source_manifest, anatomy_cache]
+    outputs: [anatomy_manifest, cache_validation_report, qc_cases, qc_summary]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/cache_validation.json
       predicate: All cases verify, zero failures remain, and all fixed/random/outlier QC records pass.
@@ -433,11 +459,8 @@ stages:
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/summary.md
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/artifacts/manifest.json
       - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/claims.yaml
-    inputs:
-      - source lock, generation, validation, QC, claims, and artifact evidence
-    outputs:
-      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/closeout.json
-      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/summary.md
+    inputs: [source_manifest_lock, generation_report, cache_validation_report, qc_summary]
+    outputs: [closeout_report, human_summary]
     completion:
       evidence_file: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/closeout.json
       predicate: All required artifacts and claims are decided and outcome is go or invalid.
@@ -475,6 +498,7 @@ evaluation:
     - source_or_output_hash_drift
     - split_contamination
     - budget_exhausted_before_completion
+gate_ids: [method.validation, budget]
 paths:
   workspace: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension
   runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_005_train_anatomy_asset_extension
@@ -483,6 +507,7 @@ paths:
   shared_manifest: experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json
 budget:
   gpu_hours_max: 24
+  cpu_hours_max: 256
   wall_hours_max: 8
   durable_storage_gib_max: 25
   parallel_workers: 4

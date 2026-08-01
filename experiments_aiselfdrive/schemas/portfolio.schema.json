@@ -22,6 +22,15 @@
     "schema_version": {"const": "1.0"},
     "workspace_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]+$"},
     "created_at": {"type": "string", "format": "date-time"},
+    "registry_revision": {"type": "integer", "minimum": 1},
+    "previous_registry_sha256": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/sha256"}
+      ]
+    },
+    "control_plane_lock_ref": {"type": "string", "minLength": 1},
+    "shared_training_contract_ref": {"type": "string", "minLength": 1},
     "source_report": {
       "type": "object",
       "additionalProperties": false,
@@ -88,6 +97,23 @@
       "items": {"$ref": "#/$defs/experiment_entry"}
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "required": ["registry_revision"],
+        "properties": {"registry_revision": {"minimum": 2}}
+      },
+      "then": {
+        "required": [
+          "previous_registry_sha256",
+          "control_plane_lock_ref"
+        ],
+        "properties": {
+          "previous_registry_sha256": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    }
+  ],
   "$defs": {
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "evidence_availability": {
@@ -129,6 +155,63 @@
         "depends_on": {
           "type": "array",
           "items": {"$ref": "#/$defs/dependency"}
+        },
+        "promotion": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["candidate"],
+          "properties": {
+            "candidate": {"type": "boolean"},
+            "t3_stage_id": {
+              "oneOf": [
+                {"type": "null"},
+                {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+              ]
+            },
+            "t4_stage_id": {
+              "oneOf": [
+                {"type": "null"},
+                {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+              ]
+            },
+            "matched_control_stage_id": {
+              "oneOf": [
+                {"type": "null"},
+                {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+              ]
+            },
+            "treatment_arm_id": {
+              "oneOf": [
+                {"type": "null"},
+                {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+              ]
+            },
+            "matched_control_arm_id": {
+              "oneOf": [
+                {"type": "null"},
+                {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+              ]
+            },
+            "metric_keys": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "eligible": {"type": "string", "minLength": 1},
+                "safety_pass": {"type": "string", "minLength": 1},
+                "dice_delta": {"type": "string", "minLength": 1},
+                "off_location_fp_reduction": {"type": "string", "minLength": 1},
+                "gpu_hours": {"type": "string", "minLength": 1}
+              }
+            }
+          },
+          "allOf": [
+            {
+              "if": {"properties": {"candidate": {"const": true}}, "required": ["candidate"]},
+              "then": {
+                "required": ["t3_stage_id", "t4_stage_id", "treatment_arm_id", "matched_control_arm_id"]
+              }
+            }
+          ]
         }
       }
     }

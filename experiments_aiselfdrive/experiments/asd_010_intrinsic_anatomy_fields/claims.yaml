@@ -1,35 +1,51 @@
 schema_version: "1.0"
 experiment_id: asd_010_intrinsic_anatomy_fields
 claims:
-  - id: continuous_fields_have_safe_spatial_signal
-    type: mechanistic
-    statement: Correct continuous anatomy fields reduce prompt-off-location errors at 99 percent GT retention and outperform causal field corruptions.
+  - id: continuous_field_pipeline_feasible
+    type: feasibility
+    statement: Patient-specific physical fields can be built for all locked cases and consumed by four matched single-GPU arms under the declared memory limit.
     verdict: pending
-    gate_refs: [diagnostic_gt_retention, diagnostic_fp_or_component_reduction, correct_beats_all_causal_controls]
+    gate_refs: [stages.build_trainval_field_cache.acceptance_checks, stages.docker_gpu_preflight.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null
-  - id: zero_coupling_is_exact_identity
-    type: safety
-    statement: Zero-scale anatomy coupling returns parent logits exactly and cannot cause the ACA-style foreground collapse.
+  - id: continuous_fields_have_safe_spatial_signal
+    type: mechanistic
+    statement: Correct continuous fields reduce prompt-off-location errors at 99 percent GT retention.
     verdict: pending
-    gate_refs: [epoch_zero_bitwise_identity, finite_t1_smoke]
+    gate_refs: [evaluation.diagnostic_go]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: correct_fields_causally_beat_corruptions
+    type: causal
+    statement: Correct fields outperform zero, swap, inversion, lobe permutation, and randomized-field controls under matched calibration and evaluation.
+    verdict: pending
+    gate_refs: [evaluation.diagnostic_go, stages.t2_500_update_val80.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: bounded_fields_improve_val80
     type: performance
-    statement: Bounded correct-field coupling improves explicit-modifier or aggregate Dice on val80 without violating aggregate, hit, or GT-retention safety.
+    statement: Bounded coupling improves explicit-modifier or aggregate Dice on val80 without violating aggregate, hit, or retention safety.
     verdict: pending
-    gate_refs: [t3_dice_gate, t3_aggregate_noninferiority, t3_hit_noninferiority, t3_gt_retention]
+    gate_refs: [evaluation.training_go, stages.t3_2000_update_val80.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null
-  - id: bounded_fields_confirm_on_val120
-    type: performance
-    statement: If promoted, the primary paired val120 case-clustered confidence interval is above zero.
+  - id: zero_coupling_is_exact_identity
+    type: safety
+    statement: Zero-scale coupling returns parent logits exactly, full-state resume is exact, and pre-promotion val120 access is denied.
     verdict: pending
-    gate_refs: [t4_promotion_record, val120_primary_ci_positive]
+    gate_refs: [stages.t1_identity_and_training_smoke.acceptance_checks, data.val120_access]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: bounded_fields_replicate_on_internal_val120
+    type: performance
+    statement: If controller-promoted, the paired val120 interval is positive as internal held-out replication evidence, not independent confirmation.
+    verdict: pending
+    gate_refs: [evaluation.internal_replication_go, stages.t4_confirmatory_val120_and_val200.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null

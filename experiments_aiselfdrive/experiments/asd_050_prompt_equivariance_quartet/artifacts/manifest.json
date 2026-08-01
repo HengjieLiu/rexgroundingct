@@ -9,8 +9,8 @@
       "ownership": "workspace",
       "status": "verified",
       "required": true,
-      "sha256": "0e991042356e78fc082a9f9cd34e6428b0225a3367c7ae09267322d6a98d87ff",
-      "size_bytes": null,
+      "sha256": "a4cd78075666346b89ba73dfebfea8f87ea21899ff9ec27499a7c52362213fe4",
+      "size_bytes": 34075,
       "producer_stage_id": null,
       "retention": "durable"
     },
@@ -21,14 +21,14 @@
       "ownership": "workspace",
       "status": "verified",
       "required": true,
-      "sha256": "41263ca965a728c9530b33424b08860f8dc87a423837535acdcfdf81f4e017d0",
-      "size_bytes": null,
+      "sha256": "ad01d8ad312feb3eb45d676c9bd3bd59d23486fe626cf43590954af4672e9ff5",
+      "size_bytes": 5832,
       "producer_stage_id": null,
       "retention": "durable"
     },
     {
       "id": "locked_lineage_manifest",
-      "path": "experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json",
+      "path": "experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json",
       "role": "input",
       "ownership": "external_read_only",
       "status": "planned",
@@ -64,7 +64,7 @@
     },
     {
       "id": "val120_manifest",
-      "path": "experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json",
+      "path": "experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json",
       "role": "input",
       "ownership": "external_read_only",
       "status": "planned",
@@ -74,6 +74,9 @@
       "producer_stage_id": null,
       "retention": "durable"
     },
+    {"id":"val200_manifest","path":"configs/evaluation/rexgroundingct_val200_seed20260723.json","role":"input","ownership":"external_read_only","status":"present","required":false,"sha256":"7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897","size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"locked_parent_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth","role":"checkpoint","ownership":"external_read_only","status":"verified","required":true,"sha256":"50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf","size_bytes":3131885315,"producer_stage_id":null,"retention":"durable"},
+    {"id":"promotion_record","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_050_prompt_equivariance_quartet.json","role":"input","ownership":"external_read_only","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":null,"controller_producer":"experimentctl promote","retention":"durable"},
     {
       "id": "quartet_source_package",
       "path": "experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/src",
@@ -86,6 +89,7 @@
       "producer_stage_id": "implement_quartet_pipeline",
       "retention": "durable"
     },
+    {"id":"quartet_test_suite","path":"experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/tests","role":"output","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"implement_quartet_pipeline","retention":"durable"},
     {
       "id": "quartet_manifest",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/quartets/manifest.json",
@@ -134,6 +138,8 @@
       "producer_stage_id": "baseline_quartet_audit",
       "retention": "durable"
     },
+    {"id":"t1_full_state_checkpoints","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t1/checkpoints","role":"checkpoint","ownership":"external_runtime","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"t1_resume_smoke","retention":"durable"},
+    {"id":"t1_resume_report","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t1/resume_report.json","role":"evidence","ownership":"external_runtime","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"t1_resume_smoke","retention":"durable"},
     {
       "id": "t2_checkpoints",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t2/checkpoints",
@@ -170,6 +176,7 @@
       "producer_stage_id": "decision_t3",
       "retention": "durable"
     },
+    {"id":"t3_checkpoints","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t3/checkpoints","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"decision_t3","retention":"durable"},
     {
       "id": "t4_metrics",
       "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t4/metrics.json",
@@ -182,17 +189,23 @@
       "producer_stage_id": "confirm_t4",
       "retention": "durable"
     },
+    {"id":"t4_full_quartet_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t4/full_prompt_equivariance_quartet/checkpoint","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
+    {"id":"t4_full_quartet_metrics","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t4/full_prompt_equivariance_quartet/metrics.json","role":"evidence","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
+    {"id":"t4_disabled_quartet_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t4/disabled_quartet_no_flip/checkpoint","role":"checkpoint","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
+    {"id":"t4_disabled_quartet_metrics","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t4/disabled_quartet_no_flip/metrics.json","role":"evidence","ownership":"external_runtime","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"confirm_t4","retention":"durable"},
     {
       "id": "final_result",
       "path": "experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/results/result.json",
       "role": "report",
       "ownership": "workspace",
-      "status": "present",
+      "status": "planned",
       "required": true,
-      "sha256": "bd01c02b49b1b76ed1e64144611b1f636ebe8968f96c76e28cc1184a7055e1b4",
+      "sha256": null,
       "size_bytes": null,
       "producer_stage_id": "closeout",
       "retention": "durable"
-    }
+    },
+    {"id":"final_summary","path":"experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/results/summary.md","role":"report","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"closeout","retention":"durable"},
+    {"id":"final_claims","path":"experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/claims.yaml","role":"report","ownership":"workspace","status":"present","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"closeout","retention":"durable"}
   ]
 }

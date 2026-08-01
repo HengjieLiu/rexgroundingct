@@ -1,7 +1,6 @@
 ---
 created: 2026-07-31
 updated: 2026-07-31
-status: blocked
 experiment_id: asd_020_factorial_pathology_anatomy_binding
 ---
 
@@ -34,10 +33,10 @@ addition, a generic attention loss, or a hard component classifier.
 - Status: `blocked`
 - Outcome: `pending`
 - Current stage: `none`
-- State revision: `0`
-- Updated: `2026-07-31T00:00:00Z`
+- State revision: `1`
+- Updated: `2026-08-01T05:04:50.605768Z`
 
 Blockers:
 
-- Dependency asd_000_evidence_lock_error_atlas must finish with outcome go.
+- `dependency_unsatisfied`: asd_000_evidence_lock_error_atlas: dependency status is ready
 <!-- experimentctl:state:end -->

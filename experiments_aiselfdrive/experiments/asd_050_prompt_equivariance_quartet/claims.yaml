@@ -3,20 +3,15 @@ experiment_id: asd_050_prompt_equivariance_quartet
 claims:
   - id: exact_quartets_are_feasible
     type: feasibility
-    statement: >-
-      Eligible unilateral findings can be transformed into byte-round-trip
-      prompt swaps and voxel-round-trip LR reflections with zero orientation
-      or known-mask leakage errors.
+    statement: Eligible unilateral findings can be transformed into byte-round-trip prompt swaps and voxel-round-trip LR reflections with zero orientation or mask-leakage error.
     verdict: pending
-    gate_refs: [stages.validate_and_build_quartets.acceptance_checks]
+    gate_refs: [stages.validate_and_build_quartets.acceptance_checks, stages.t1_resume_smoke.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: quartet_ordering_learned
     type: mechanistic
-    statement: >-
-      Both factual conditions exceed their paired counterfactual known-mask
-      scores by at least 0.05 in at least 80% of eligible quartets.
+    statement: Both factual conditions exceed their paired counterfactual known-mask scores by at least 0.05 in at least 80 percent of quartets.
     verdict: pending
     gate_refs: [evaluation.gates.pilot_go]
     evidence_refs: []
@@ -24,9 +19,7 @@ claims:
     rationale: null
   - id: coordination_beats_factual_augmentation
     type: causal
-    statement: >-
-      Full quartet supervision outperforms factual joint flip-plus-text
-      augmentation under identical initialization and schedule.
+    statement: Full quartet supervision beats factual joint image-and-text augmentation under identical initialization, examples, optimizer, and schedule.
     verdict: pending
     gate_refs: [evaluation.gates.decision_go]
     evidence_refs: []
@@ -34,25 +27,25 @@ claims:
     rationale: null
   - id: laterality_grounding_improves
     type: performance
-    statement: >-
-      Full quartet training reduces laterality off-target FP by at least 15%,
-      improves laterality compliance by at least 10 percentage points, and
-      preserves aggregate Dice within 0.001.
+    statement: Full quartet training reduces laterality off-target FP by at least 15 percent, improves compliance by ten points, and preserves aggregate Dice within 0.001.
     verdict: pending
-    gate_refs: [evaluation.gates.decision_go, evaluation.gates.confirmation_go]
+    gate_refs: [evaluation.gates.decision_go]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: counterfactual_supervision_is_local_and_safe
     type: safety
-    statement: >-
-      Counterfactual negative gradients are zero outside the known source mask,
-      excluded mappings never enter training, and factual empty rate does not
-      increase.
+    statement: Counterfactual negative gradients are zero outside known masks, exclusions never train, factual empty rate does not increase, and val120 stays sealed before promotion.
     verdict: pending
-    gate_refs:
-      - stages.implement_quartet_pipeline.acceptance_checks
-      - evaluation.gates.pilot_go
+    gate_refs: [stages.implement_quartet_pipeline.acceptance_checks, evaluation.gates.pilot_go, evaluation.gates.internal_replication_go]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: quartet_effect_replicates_on_internal_val120
+    type: performance
+    statement: If controller-promoted, val120 provides internal held-out replication evidence and not independent confirmation.
+    verdict: pending
+    gate_refs: [evaluation.gates.internal_replication_go, stages.confirm_t4.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null

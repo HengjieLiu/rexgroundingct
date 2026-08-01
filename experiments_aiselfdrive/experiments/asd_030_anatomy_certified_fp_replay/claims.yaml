@@ -3,61 +3,49 @@ experiment_id: asd_030_anatomy_certified_fp_replay
 claims:
   - id: replay_pipeline_feasible
     type: feasibility
-    statement: >-
-      A deterministic immutable replay manifest can be constructed from the
-      locked baseline while preserving tri-state supervision and cohort
-      separation.
+    statement: A deterministic immutable replay manifest can be built from the locked parent while preserving tri-state supervision and cohort separation.
     verdict: pending
-    gate_refs:
-      - stages.certify_freeze_replay.acceptance_checks
+    gate_refs: [stages.certify_freeze_replay.acceptance_checks, stages.t1_resume_smoke.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: certified_candidates_cover_error
     type: mechanistic
-    statement: >-
-      Anatomy-certified top-five baseline candidates explain at least 30% of
-      val80 prompt-off-location false-positive volume.
+    statement: Frozen-parent certified top-five candidates explain at least 30 percent of val80 prompt-off-location false-positive volume.
     verdict: pending
-    gate_refs:
-      - evaluation.gates.coverage_go
+    gate_refs: [evaluation.gates.coverage_go]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: mined_beats_random_certificate
     type: causal
-    statement: >-
-      Model-mined certified replay outperforms count-matched random certified
-      replay under identical initialization, schedule, and evaluation.
+    statement: Mined-certified replay beats count-matched random-certified replay on off-location FP and Dice under identical parent, samples, optimizer, and schedule.
     verdict: pending
-    gate_refs:
-      - evaluation.gates.decision_go
+    gate_refs: [evaluation.gates.pairwise_causal_go]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: replay_improves_grounding
     type: performance
-    statement: >-
-      The selected replay arm reduces prompt-off-location FP by at least 20%,
-      improves paired Dice by at least 0.005, and loses no more than two
-      percentage points of recall on val80.
+    statement: The mined-certified arm reduces val80 off-location FP by at least 20 percent, improves Dice by at least 0.005, and loses at most two recall points.
     verdict: pending
-    gate_refs:
-      - evaluation.gates.decision_go
-      - evaluation.gates.confirmation_go
+    gate_refs: [evaluation.gates.decision_go]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: unknown_regions_are_safe
     type: safety
-    statement: >-
-      Known-positive precedence has zero violations, unknown voxels receive
-      zero negative loss, and positive GT probability is preserved within 5%
-      during the pilot.
+    statement: Known-positive precedence has zero violations, unknown voxels receive zero negative loss, positive GT probability is preserved within five percent, and the supported executor rejects val120 artifact access before controller promotion without claiming operating-system secrecy.
     verdict: pending
-    gate_refs:
-      - evaluation.gates.pilot_go
-      - stages.certify_freeze_replay.acceptance_checks
+    gate_refs: [evaluation.gates.pilot_go, stages.certify_freeze_replay.acceptance_checks, evaluation.gates.internal_replication_go]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: replay_replicates_on_internal_val120
+    type: performance
+    statement: If controller-promoted, a positive val120 interval is internal held-out replication evidence and does not constitute independent confirmation.
+    verdict: pending
+    gate_refs: [evaluation.gates.internal_replication_go, stages.confirm_t4.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null

@@ -90,15 +90,17 @@ class PartitionTests(unittest.TestCase):
             expected_val80_cases=2,
             expected_val120_cases=2,
         )
-        self.assertEqual(partition.confirmatory_case_names, ("c1", "c4"))
+        self.assertEqual(
+            partition.internal_replication_case_names, ("c1", "c4")
+        )
         self.assertEqual(
             set(partition.development_case_names)
-            | set(partition.confirmatory_case_names),
+            | set(partition.internal_replication_case_names),
             set(parent),
         )
         self.assertFalse(
             set(partition.development_case_names)
-            & set(partition.confirmatory_case_names)
+            & set(partition.internal_replication_case_names)
         )
 
     def test_rejects_development_case_outside_parent(self) -> None:
@@ -156,7 +158,9 @@ class CohortSealingTests(unittest.TestCase):
     def test_seals_identity_only_complement_and_full_development_records(self) -> None:
         result = self._seal()
         development = json.loads(self.val80_output.read_text(encoding="utf-8"))
-        confirmatory = json.loads(self.val120_output.read_text(encoding="utf-8"))
+        internal_replication = json.loads(
+            self.val120_output.read_text(encoding="utf-8")
+        )
 
         self.assertEqual(
             development["case_names"],
@@ -165,14 +169,23 @@ class CohortSealingTests(unittest.TestCase):
         self.assertEqual([case["name"] for case in development["cases"]], development["case_names"])
         self.assertEqual(development["finding_count"], 3)
         self.assertEqual(
-            confirmatory["case_names"],
+            internal_replication["case_names"],
             ["case-a.nii.gz", "case-e.nii.gz", "case-d.nii.gz"],
         )
-        self.assertEqual(confirmatory["case_count"], 3)
+        self.assertEqual(internal_replication["case_count"], 3)
+        self.assertEqual(
+            internal_replication["role"],
+            "historically_exposed_internal_held_out_replication",
+        )
+        self.assertEqual(
+            internal_replication["independence_status"],
+            "not_independent_and_not_blinded",
+        )
+        self.assertNotIn("sealed", internal_replication)
         self.assertTrue(result["val120"]["identity_only"])
-        cohorts.assert_identity_only_manifest(confirmatory)
+        cohorts.assert_identity_only_manifest(internal_replication)
 
-        serialized = json.dumps(confirmatory, sort_keys=True).casefold()
+        serialized = json.dumps(internal_replication, sort_keys=True).casefold()
         for forbidden in (
             '"findings"',
             '"categories"',

@@ -1,7 +1,6 @@
 ---
 created: 2026-07-31
 updated: 2026-07-31
-status: blocked
 experiment_id: asd_010_intrinsic_anatomy_fields
 ---
 
@@ -35,11 +34,11 @@ The experiment is blocked on GO outcomes from
 - Status: `blocked`
 - Outcome: `pending`
 - Current stage: `none`
-- State revision: `0`
-- Updated: `2026-07-31T00:00:00Z`
+- State revision: `1`
+- Updated: `2026-08-01T05:04:45.652503Z`
 
 Blockers:
 
-- Dependency asd_000_evidence_lock_error_atlas must finish with outcome go.
-- Dependency asd_005_train_anatomy_asset_extension must finish with outcome go.
+- `dependency_unsatisfied`: asd_000_evidence_lock_error_atlas: dependency status is ready
+- `dependency_unsatisfied`: asd_005_train_anatomy_asset_extension: dependency status is blocked
 <!-- experimentctl:state:end -->

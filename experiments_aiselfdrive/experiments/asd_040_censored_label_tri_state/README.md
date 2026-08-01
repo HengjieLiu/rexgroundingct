@@ -23,7 +23,7 @@ with outcome `go`.
 - `certified_negative` is restricted to deterministic synthetic/body-padding
   controls; it is not inferred from missing finding annotations.
 - val80 may be used for development after the cross-fitted policy is frozen.
-- val120 and val200 are inaccessible before authorized T4 confirmation.
+- The supported executor rejects declared val120 and val200 access before controller-authorized T4; this is a control-plane guard, not an operating-system secrecy boundary. Val120 is internal replication, not independent confirmation.
 
 Four censorship rules are evaluated separately: volume priority, centrality
 priority, annotation/report-order proxy, and seeded random. The main diagnostic
@@ -42,10 +42,10 @@ runtime root. The scaffold runs no training.
 - Status: `blocked`
 - Outcome: `pending`
 - Current stage: `none`
-- State revision: `0`
-- Updated: `2026-07-31T00:00:00Z`
+- State revision: `1`
+- Updated: `2026-08-01T05:05:20.369094Z`
 
 Blockers:
 
-- `dependency_unsatisfied`: The locked lineage, cohorts, prompt ontology, and baseline evidence must be verified first.
+- `dependency_unsatisfied`: asd_000_evidence_lock_error_atlas: dependency status is ready
 <!-- experimentctl:state:end -->

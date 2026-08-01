@@ -16,7 +16,7 @@ import math
 import os
 import re
 import tempfile
-from collections.abc import Iterable, Iterator, Mapping, Sequence
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
@@ -453,6 +453,223 @@ def verify_evaluation_summary(
     }
 
 
+def recompute_stored_mask_metrics(
+    cohort_path: str | Path,
+    prediction_root: str | Path,
+    ground_truth_root: str | Path,
+    *,
+    prediction_threshold: float,
+    hit_threshold: float,
+    expected_cases: int,
+    expected_findings: int,
+    array_loader: Callable[[Path], Any],
+    geometry_verifier: Callable[[Path, Path], Mapping[str, Any]],
+    dice_epsilon: float = 1e-6,
+) -> dict[str, Any]:
+    """Recompute finding Dice and hits from stored masks and released GT.
+
+    The stored prediction files are the scientific source for this check.  A
+    separately written evaluator summary is deliberately not accepted as a
+    substitute.  ``array_loader`` keeps the format-specific NIfTI reader in
+    the command runner while allowing this calculation to be tested with
+    small NumPy fixtures.
+    """
+
+    try:
+        import numpy as np
+    except ImportError as exc:  # pragma: no cover - repository dependency
+        raise EvidenceLockError("NumPy is required to recompute mask metrics") from exc
+
+    if not callable(array_loader):
+        raise TypeError("array_loader must be callable")
+    if not callable(geometry_verifier):
+        raise TypeError("geometry_verifier must be callable")
+    threshold = _finite_number(prediction_threshold, label="prediction_threshold")
+    hit_cutoff = _finite_number(hit_threshold, label="hit_threshold")
+    epsilon = _finite_number(dice_epsilon, label="dice_epsilon")
+    if not 0.0 <= threshold <= 1.0:
+        raise ValueError("prediction_threshold must be in [0, 1]")
+    if not 0.0 <= hit_cutoff <= 1.0:
+        raise ValueError("hit_threshold must be in [0, 1]")
+    if epsilon <= 0.0:
+        raise ValueError("dice_epsilon must be positive")
+    case_limit = _positive_int(expected_cases, label="expected_cases")
+    finding_limit = _positive_int(expected_findings, label="expected_findings")
+
+    cohort_file = _require_regular_file(cohort_path, label="metric cohort")
+    entries = _find_cohort_entries(_load_json(cohort_file, label="metric cohort"))
+    if len(entries) != case_limit:
+        raise EvidenceLockError(
+            f"metric cohort case-count mismatch: expected {case_limit}, got {len(entries)}"
+        )
+    prediction_directory = Path(prediction_root)
+    ground_truth_directory = Path(ground_truth_root)
+    for directory, label in (
+        (prediction_directory, "prediction root"),
+        (ground_truth_directory, "ground-truth root"),
+    ):
+        if not directory.is_dir():
+            raise EvidenceLockError(f"{label} is not a directory: {directory}")
+
+    case_records: list[dict[str, Any]] = []
+    finding_dice: list[float] = []
+    hits = 0
+    seen_names: set[str] = set()
+    for case_index, entry in enumerate(entries):
+        case_name = entry.get("name")
+        segmentation_name = entry.get("seg_path")
+        findings = entry.get("findings")
+        if (
+            not isinstance(case_name, str)
+            or not case_name
+            or Path(case_name).name != case_name
+        ):
+            raise EvidenceLockError(
+                f"metric cohort entry {case_index} has an unsafe case name"
+            )
+        if case_name in seen_names:
+            raise EvidenceLockError(f"metric cohort repeats case {case_name!r}")
+        seen_names.add(case_name)
+        if (
+            not isinstance(segmentation_name, str)
+            or not segmentation_name
+            or Path(segmentation_name).name != segmentation_name
+        ):
+            raise EvidenceLockError(
+                f"metric cohort entry {case_name!r} has an unsafe seg_path"
+            )
+        if isinstance(findings, Mapping):
+            finding_keys = sorted(findings, key=lambda value: int(value))
+            if finding_keys != [str(index) for index in range(len(findings))]:
+                raise EvidenceLockError(
+                    f"metric cohort findings are not contiguous for {case_name}"
+                )
+            finding_count = len(findings)
+        elif isinstance(findings, list):
+            finding_count = len(findings)
+        else:
+            raise EvidenceLockError(
+                f"metric cohort entry {case_name!r} has malformed findings"
+            )
+        if finding_count <= 0:
+            raise EvidenceLockError(f"metric cohort case has no findings: {case_name}")
+
+        prediction_path = prediction_directory / case_name
+        ground_truth_path = ground_truth_directory / segmentation_name
+        prediction_lock = hash_file(prediction_path)
+        ground_truth_lock = hash_file(ground_truth_path)
+        try:
+            geometry = dict(geometry_verifier(prediction_path, ground_truth_path))
+        except Exception as exc:  # noqa: BLE001 - normalize verifier failures
+            raise EvidenceLockError(
+                f"prediction/GT geometry verification failed for {case_name}: {exc}"
+            ) from exc
+        if geometry.get("verified") is not True:
+            raise EvidenceLockError(
+                f"prediction/GT geometry was not verified for {case_name}"
+            )
+        prediction_stat = _stable_stat(prediction_path)
+        ground_truth_stat = _stable_stat(ground_truth_path)
+        try:
+            prediction = np.asarray(array_loader(prediction_path))
+            ground_truth = np.asarray(array_loader(ground_truth_path))
+        except Exception as exc:  # noqa: BLE001 - normalize loader failures
+            raise EvidenceLockError(
+                f"failed to load masks for {case_name}: {exc}"
+            ) from exc
+        if prediction_stat != _stable_stat(prediction_path):
+            raise EvidenceLockError(
+                f"prediction changed during metric recomputation: {prediction_path}"
+            )
+        if ground_truth_stat != _stable_stat(ground_truth_path):
+            raise EvidenceLockError(
+                f"ground truth changed during metric recomputation: {ground_truth_path}"
+            )
+        if prediction.shape != ground_truth.shape:
+            raise EvidenceLockError(
+                f"prediction/GT shape mismatch for {case_name}: "
+                f"{prediction.shape} != {ground_truth.shape}"
+            )
+        if prediction.ndim != 4 or prediction.shape[0] != finding_count:
+            raise EvidenceLockError(
+                f"stored masks for {case_name} must have shape (F,X,Y,Z) with "
+                f"F={finding_count}, got {prediction.shape}"
+            )
+        if not np.issubdtype(prediction.dtype, np.number) or not np.issubdtype(
+            ground_truth.dtype, np.number
+        ):
+            raise EvidenceLockError(f"stored masks are non-numeric for {case_name}")
+        if not np.all(np.isfinite(prediction)) or not np.all(np.isfinite(ground_truth)):
+            raise EvidenceLockError(f"stored masks contain non-finite values for {case_name}")
+        prediction_values = np.unique(prediction)
+        if not np.all(np.isin(prediction_values, np.asarray([0, 1]))):
+            raise EvidenceLockError(
+                f"stored prediction is not a binary threshold mask for {case_name}"
+            )
+
+        case_dice: list[float] = []
+        for finding_index in range(finding_count):
+            predicted = prediction[finding_index] > threshold
+            positive = ground_truth[finding_index] > 0
+            intersection = int(np.count_nonzero(predicted & positive))
+            denominator = int(np.count_nonzero(predicted)) + int(
+                np.count_nonzero(positive)
+            )
+            dice = float((2 * intersection + epsilon) / (denominator + epsilon))
+            case_dice.append(dice)
+            finding_dice.append(dice)
+            hits += int(dice >= hit_cutoff)
+        case_records.append(
+            {
+                "case_index": case_index,
+                "case_name": case_name,
+                "segmentation_name": segmentation_name,
+                "finding_count": finding_count,
+                "finding_dice": case_dice,
+                "prediction_sha256": prediction_lock["sha256"],
+                "prediction_size_bytes": prediction_lock["size_bytes"],
+                "ground_truth_sha256": ground_truth_lock["sha256"],
+                "ground_truth_size_bytes": ground_truth_lock["size_bytes"],
+                "geometry": geometry,
+            }
+        )
+        del prediction, ground_truth
+
+    if len(finding_dice) != finding_limit:
+        raise EvidenceLockError(
+            f"recomputed finding-count mismatch: expected {finding_limit}, "
+            f"got {len(finding_dice)}"
+        )
+    canonical_records = json.dumps(
+        case_records,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    ).encode("utf-8")
+    mean_dice = float(math.fsum(finding_dice) / len(finding_dice))
+    return {
+        "metric_source": "stored_prediction_masks_plus_released_ground_truth",
+        "dice_contract": "(2*intersection+1e-6)/(predicted+positive+1e-6)",
+        "prediction_contract": "stored_binary_mask_greater_than_threshold",
+        "ground_truth_contract": "union_of_all_positive_instance_labels_gt_zero",
+        "geometry_contract": (
+            "exact_shape_affine_spacing_qform_sform_and_orientation_equality"
+        ),
+        "prediction_threshold": threshold,
+        "hit_threshold": hit_cutoff,
+        "dice_epsilon": epsilon,
+        "cases": len(case_records),
+        "findings": len(finding_dice),
+        "hits": hits,
+        "hit_rate": float(hits / len(finding_dice)),
+        "dice_per_finding": mean_dice,
+        "case_records_sha256": hashlib.sha256(canonical_records).hexdigest(),
+        "case_records": case_records,
+        "verified": True,
+    }
+
+
 def verify_cohort_json(
     path: str | Path,
     *,
@@ -598,6 +815,9 @@ def build_lineage_evidence(
     protocol: Mapping[str, Any],
     repo_root: str | Path = Path("."),
     source_report: Mapping[str, Any] | None = None,
+    *,
+    mask_array_loader: Callable[[Path], Any] | None = None,
+    mask_geometry_verifier: Callable[[Path, Path], Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Verify all protocol-declared local lineage inputs and return JSON data.
 
@@ -705,6 +925,72 @@ def build_lineage_evidence(
         )
     predictions["verified"] = True
 
+    if mask_array_loader is None:
+        raise EvidenceLockError(
+            "mask_array_loader is required; evaluator-summary verification alone "
+            "is not a baseline reproduction"
+        )
+    if mask_geometry_verifier is None:
+        raise EvidenceLockError(
+            "mask_geometry_verifier is required; array shape alone does not lock "
+            "prediction/GT physical geometry"
+        )
+    data_spec = _required_mapping(protocol, "data", "protocol")
+    segmentation_root = _resolve_declared_path(
+        root,
+        _required_string(data_spec, "segmentation_root", "protocol.data"),
+    )
+    recomputed = recompute_stored_mask_metrics(
+        val200_path,
+        predictions_path,
+        segmentation_root,
+        prediction_threshold=_required(
+            baseline_spec, "threshold", "protocol.baseline"
+        ),
+        hit_threshold=_required(
+            baseline_spec, "hit_threshold", "protocol.baseline"
+        ),
+        expected_cases=_required(val200_spec, "cases", "protocol.cohorts.val200"),
+        expected_findings=_required(
+            baseline_spec, "expected_findings", "protocol.baseline"
+        ),
+        array_loader=mask_array_loader,
+        geometry_verifier=mask_geometry_verifier,
+    )
+    expected_dice = _finite_number(
+        _required(baseline_spec, "expected_dice", "protocol.baseline"),
+        label="protocol.baseline.expected_dice",
+    )
+    dice_tolerance = _finite_number(
+        _required(baseline_spec, "dice_tolerance", "protocol.baseline"),
+        label="protocol.baseline.dice_tolerance",
+    )
+    recomputed_error = abs(recomputed["dice_per_finding"] - expected_dice)
+    if recomputed_error > dice_tolerance:
+        raise EvidenceLockError(
+            "recomputed Dice mismatch from stored predictions and GT: expected "
+            f"{expected_dice} ± {dice_tolerance}, got "
+            f"{recomputed['dice_per_finding']} (absolute error {recomputed_error})"
+        )
+    if recomputed["hits"] != int(baseline_spec["expected_hits"]):
+        raise EvidenceLockError(
+            "recomputed hit-count mismatch from stored predictions and GT: "
+            f"expected {baseline_spec['expected_hits']}, got {recomputed['hits']}"
+        )
+    summary_metrics = summary["metrics"]
+    if (
+        abs(recomputed["dice_per_finding"] - summary_metrics["dice_per_finding"])
+        > dice_tolerance
+        or recomputed["hits"] != summary_metrics["hits"]
+        or recomputed["findings"] != summary_metrics["findings"]
+    ):
+        raise EvidenceLockError(
+            "stored evaluator summary does not agree with independently "
+            "recomputed prediction/GT metrics"
+        )
+    recomputed["dice_absolute_error"] = recomputed_error
+    recomputed["agrees_with_stored_summary"] = True
+
     embedding_spec = _required_mapping(protocol, "embedding_bank", "protocol")
     embedding_path = _resolve_declared_path(
         root, _required_string(embedding_spec, "path", "protocol.embedding_bank")
@@ -792,7 +1078,9 @@ def build_lineage_evidence(
         "val200_hash_and_counts_match": True,
         "baseline_checkpoint_hash_matches": True,
         "baseline_prediction_tree_locked": True,
-        "baseline_metrics_match": True,
+        "baseline_summary_matches_declared_values": True,
+        "baseline_metrics_recomputed_from_predictions_and_gt": True,
+        "baseline_recomputation_matches_stored_summary": True,
         "embedding_bank_hash_and_shape_match": True,
     }
     if comparator is not None:
@@ -807,6 +1095,7 @@ def build_lineage_evidence(
             "checkpoint": checkpoint,
             "predictions": predictions,
             "evaluation_summary": summary,
+            "metric_recomputation": recomputed,
         },
         "embedding_bank": embedding_bank,
         "checks": checks,

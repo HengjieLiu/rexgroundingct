@@ -1,6 +1,16 @@
 schema_version: "1.0"
 experiment_id: asd_005_train_anatomy_asset_extension
 seed: 20260731
+controller_runtime_contract:
+  required_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+  nested_docker_labels:
+    lease: rexgroundingct.aiselfdrive.lease=REXGROUNDINGCT_AISELFDRIVE_LEASE_ID
+    experiment: rexgroundingct.aiselfdrive.experiment=REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID
+  rule: Consume controller-provided values at execution time, apply both exact labels to every nested docker run, and never hard-code container names or lease values.
+stage_evidence_contract:
+  object_path: metrics.resources
+  required_fields: [gpu_hours, cpu_hours, storage_gib]
+  semantics: gpu_hours and cpu_hours are incremental for the completed stage; storage_gib is the cumulative experiment runtime-tree high-water observed at completion, never a stage delta.
 dependency:
   experiment_id: asd_000_evidence_lock_error_atlas
   required_outcome: go
@@ -17,8 +27,17 @@ model:
   fast: true
   spacing_mm: 3.0
   output_geometry: source
-  docker_image: rexgroundingct-totalsegmentator:2.16.0-cu126
+  docker_image_tag: rexgroundingct-totalsegmentator:2.16.0-cu126
+  docker_local_image_id: sha256:047cfe9e32a9001de0f55d04bffdb1ad81bf59b8f9f7de049103cf5d15d0acb7
+  docker_preflight_policy: docker_inspect_image_id_must_equal_local_image_id
   weights_root: /mnt/shengdata1/hengjie/models/totalsegmentator/2.16.0
+  weights_tree_hash:
+    algorithm: experimentctl_canonical_tree_sha256
+    working_directory: /mnt/shengdata1/hengjie/models/totalsegmentator/2.16.0
+    sha256: 2e4612f23850ef126664ee4672ddeda6340afed54f350d7955a4930a2cdfaa9e
+    file_count: 105
+    tree_size_bytes: 2345112197
+    preflight_policy: recompute_and_require_exact_match
 execution:
   shard_count: 4
   shard_function: sha256_case_name_first_16_hex_modulo_4

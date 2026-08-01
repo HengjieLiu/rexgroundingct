@@ -1,43 +1,48 @@
 schema_version: "1.0"
 id: asd_000_evidence_lock_error_atlas
-title: Evidence lock, cohort seal, prompt ontology, and spatial error atlas
-plan_revision: 1
+title: Evidence lock, honest cohort roles, verified logits, and spatial error atlas
+plan_revision: 2
 created_at: "2026-07-31T00:00:00Z"
-updated_at: "2026-07-31T00:00:00Z"
+updated_at: "2026-07-31T23:30:00Z"
 priority: 1
 idea: >-
-  Establish one locally reproducible Exp009 evaluation lineage and quantify
-  prompt-specific spatial errors before any new model or training signal is
-  allowed to consume validation evidence.
+  Establish one locally reproducible Exp009 evaluation lineage by recomputing
+  Dice and hits from stored prediction masks plus released ground truth, then
+  quantify prompt-specific spatial errors before new training consumes them.
 problem: >-
   The historical report mixes unavailable remote artifacts and incomparable
-  lineages. Local work needs immutable checkpoint, data, prompt, evaluator,
-  threshold, preprocessing, post-processing, cohort, and geometry contracts.
+  lineages. Revision 1 also mistook evaluator-summary verification for metric
+  reproduction and treated an already exposed val120 complement as an
+  untouched confirmatory cohort. Both errors must be corrected explicitly.
 novelty_vs_report: >-
-  This experiment does not propose a model. It closes the report's unresolved
-  canonical-evaluation, saved-logit, prompt-location-FP, partial-label, and
-  orientation gaps with machine-verifiable local provenance.
+  This is a provenance and diagnostic experiment, not a model. It locks local
+  2560-dimensional evidence, recomputes the canonical baseline independently
+  of its summary JSON, requires verified val80 logits, freezes a conservative
+  tri-state anatomy taxonomy, and separates internal replication from truly
+  independent confirmation.
 hypotheses:
   primary: >-
-    The local Exp009 baseline can be reproduced exactly enough to support
-    paired val80 diagnostics, and explicit spatial prompts expose measurable
-    off-location false-positive structure under a conservative tri-state
-    labeling policy.
+    The stored Exp009 masks reproduce the recorded val200 Dice and exact hit
+    count when evaluated directly against released GT, and explicit spatial
+    prompts expose measurable off-location false-positive structure on val80.
   null: >-
-    The local lineage cannot reproduce its recorded baseline or the available
-    anatomy and prompt evidence cannot support a stable spatial error taxonomy.
+    Direct prediction/GT recomputation does not match the recorded baseline,
+    verified val80 logits cannot be established, or prompt/anatomy evidence is
+    too ambiguous to support a safe spatial taxonomy.
 goals:
-  - Lock all locally executable evidence with SHA-256 hashes and availability labels.
-  - Reproduce the Exp009 standard baseline on fixed val200.
-  - Adopt the accepted category-aware val80 and seal its val120 complement.
+  - Lock all locally executable evidence with stable SHA-256 provenance.
+  - Recompute Exp009 standard Dice and hits from stored prediction and GT arrays.
+  - Fix val80 as development data and val120 as historically exposed internal replication only.
+  - Require a complete, geometry-verified val80 baseline-logit manifest for GO and downstream use.
   - Freeze a conservative prompt-location ontology and tri-state supervision policy.
-  - Produce a val80 error atlas and machine-readable downstream manifests.
+  - Produce a deterministic val80 error atlas and machine-readable downstream contracts.
 non_goals:
   - Train, fine-tune, or select a new segmentation model.
-  - Treat the report's remote checkpoints, Slurm jobs, H100/H200 runs, or 2048-dimensional text claims as local provenance.
-  - Inspect val120 predictions, labels, metrics, or error examples before a declared T4 stage.
+  - Treat report summaries or evaluator summaries as substitutes for prediction/GT recomputation.
+  - Describe val120 as untouched, blinded, independently confirmatory, or external.
+  - Make an independent performance-confirmation claim without new externally unseen, custodied data.
   - Convert anatomically compatible unlabeled tissue into negative supervision.
-  - Rewrite, normalize, or otherwise modify the technical report.
+  - Modify the technical report or any historical evidence artifact.
 evidence_references:
   - id: source_report
     kind: report
@@ -49,13 +54,38 @@ evidence_references:
     kind: result
     path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/reports/s3_attention_coupling_summary.json
     availability: verified_local
-    use: Recorded local baseline and S3-v2 metrics and runtime evidence.
+    use: Historical comparison after direct mask-metric recomputation, never the reproduction source.
   - id: val80_accepted_manifest
     kind: cohort
     path: side_experiments/sideexp001_validation_probe_design/outputs/rexgroundingct_val80_sideexp001_validation_probe_design.manifest.json
     availability: verified_local
     sha256: e69b321fcb0da014ca9b2ed92565996b75dfed3fe04e34b4ff40dda374c77997
-    use: Accepted development cohort provenance.
+    use: Accepted development-cohort provenance.
+  - id: semi_medref
+    kind: literature
+    url: https://arxiv.org/abs/2605.15720
+    availability: historical_only
+    use: Motivation for semi-supervised medical referring segmentation; not local evidence.
+  - id: counterfactual_segmentation_reasoning
+    kind: literature
+    url: https://arxiv.org/abs/2506.21546
+    availability: historical_only
+    use: Motivation for counterfactual grounding diagnostics; not local evidence.
+  - id: compositional_hard_negatives
+    kind: literature
+    url: https://arxiv.org/abs/2306.08832
+    availability: historical_only
+    use: Motivation for fine-grained compositional hard negatives; not local evidence.
+  - id: positive_unlabeled_incomplete_annotation
+    kind: literature
+    url: https://arxiv.org/abs/2302.08050
+    availability: historical_only
+    use: Motivation for partial-label-safe learning; not local evidence.
+  - id: sugarcrepe
+    kind: literature
+    url: https://arxiv.org/abs/2306.14610
+    availability: historical_only
+    use: Motivation for compositional text-image alignment controls; not local evidence.
 lineage:
   canonical_baseline:
     experiment: 009_voxtell_s3_attention_coupling_ablation
@@ -72,6 +102,7 @@ lineage:
     evaluation_summary:
       path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/eval_epoch100_val200/reports/val_quick_global_eval_summary.json
       availability: verified_local
+      role: historical_cross_check_only
       expected_dice_per_finding: 0.3398392601031359
       expected_hits: 288
       expected_findings: 381
@@ -86,6 +117,7 @@ lineage:
     evaluation_summary:
       path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/eval_epoch100_val200/reports/val_quick_global_eval_summary.json
       availability: verified_local
+      role: historical_mechanistic_context_only
       expected_dice_per_finding: 0.3367180602443776
       expected_hits: 292
       expected_findings: 381
@@ -96,6 +128,11 @@ lineage:
     shape: [6467, 2560]
     dtype: float16
     sha256: a7351992fa57e019acb485f6b1f37045e7efcd879118cbac972b1b7ed94d5575
+    source_text_form: original_finding_text_verbatim
+    lookup_normalization: python_str_lower
+    exact_case_coverage: {val80: 7, val200: 14}
+    normalized_coverage: {val80: 195, val200: 381}
+    missing_prompt_policy: fail_before_inference_no_qwen_fallback
   historical_remote_lineage:
     root: /common/lidxxlab/chushu/RexGroundingCT
     availability: historical_only
@@ -115,7 +152,7 @@ data:
     sha256: 7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897
     cases: 200
     findings: 381
-    role: continuity_parent
+    role: released_continuity_parent_and_historical_internal_evaluation
   val80:
     path: side_experiments/sideexp001_validation_probe_design/outputs/rexgroundingct_val80_sideexp001_validation_probe_design.json
     sha256: 61048d78be0d72ff28619ebfff3efac8501dc0a6154deaa38881e26bca054faf
@@ -123,11 +160,19 @@ data:
     findings: 195
     role: development
   val120:
-    output_path: experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json
-    derivation: Exact case-name complement of val80 within val200, preserving val200 order.
+    output_path: experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json
+    derivation: Exact case-name complement of val80 within released val200, preserving val200 order.
     expected_cases: 120
-    role: confirmatory_sealed
-    access_before_t4: prohibited
+    role: historically_exposed_internal_held_out_replication
+    independence_status: not_independent_and_not_blinded
+    allowed_claim: internal_replication_only
+    forbidden_claims: [untouched_confirmation, independent_confirmation, external_confirmation]
+  independent_confirmation:
+    availability: missing
+    requirement: >-
+      New labels and outcomes must be externally unseen by all development and
+      repair sessions and released under a recorded custodian/access log.
+    required_for: independent_performance_confirmation
   anatomy_fast_val200:
     root: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_total_fast_3mm_v2_16_0
     manifest: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_total_fast_3mm_v2_16_0/manifest.json
@@ -152,6 +197,9 @@ data:
 method:
   protocol_config: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml
   reproduction:
+    source: stored_prediction_masks_plus_released_ground_truth
+    summary_role: historical_cross_check_only
+    dice_formula: (2*intersection+1e-6)/(predicted_positive+gt_positive+1e-6)
     dice_tolerance_absolute: 0.000005
     expected_dice: 0.3398392601031359
     expected_hits: 288
@@ -161,393 +209,371 @@ method:
     prompt_form: original_finding_text
     preprocessing: unchanged_exp009_native_192_per_volume_zscore
     postprocessing: raw_thresholded_mask_without_new_filter
+    downstream_contract_pointers:
+      prompt_form: "#/evaluation_contract/prompt_form"
+      inference_window: "#/evaluation_contract/inference_window"
+      threshold_policy: "#/evaluation_contract/threshold_policy"
+      postprocessing: "#/evaluation_contract/postprocessing"
+      contract_sha256: "#/evaluation_contract/contract_sha256"
   prompt_ontology:
     parser_version: asd_prompt_ontology_v1
-    groups:
-      - exact_lobe
-      - laterality_only
-      - apical_or_basal
-      - central_or_peripheral
-      - subpleural
-      - hilar
-      - peribronchial
-      - bilateral_or_multifocal
-      - diffuse
-      - unknown
+    groups: [exact_lobe, laterality_only, apical_or_basal, central_or_peripheral, subpleural, hilar, peribronchial, bilateral_or_multifocal, diffuse, unknown]
     confidence_policy: >-
-      Emit a certified spatial target only for unambiguous literal matches;
-      ambiguity, negation, conflicting spans, and broad/diffuse language route
-      to unknown without a restrictive target.
+      Emit a certified target only for unambiguous literal matches; ambiguity,
+      negation, conflicting spans, and broad language route to unknown.
+  logit_policy:
+    required_for_go: true
+    scope: val80_only
+    accepted_source_order: [accepted_sideexp002_export, local_docker_export]
+    validation: [complete_case_and_finding_counts, exact_geometry, finite_values, array_hashes, exact_threshold_mask_equivalence, exact_embedding_bank_provenance, complete_lowercase_prompt_coverage, candidate_checkpoint_binding, offline_no_network, runtime_durability_probe]
+    absence_policy: block_with_named_missing_artifact
+    full_layout_float16_uncompressed_bytes: 37666291712
+    full_layout_float16_uncompressed_gib: 35.0794677734375
+    minimum_case_float16_bytes: 103809024
+    maximum_case_float16_bytes: 1274019840
+    derivation: sum_product_locked_prediction_header_shape_fxyz_times_float16_itemsize
+    array_count: 80
+    finding_channel_count: 195
+    durable_storage_gib_max: 64
+    disk_preflight_free_gib_min: 64
+    storage_headroom_gib: 28.9205322265625
+    storage_capacity_multiple: 1.8244290481642198
+    storage_cap_rationale: 64_GiB_bounds_the_export_with_28_92_GiB_headroom_over_exact_uncompressed_layout
+    embedding_bank: exact_locked_6467_by_2560_float16_bank
+    original_text_form: preserved_verbatim
+    lookup_normalization: python_str_lower
+    prompt_coverage: {val80: 195_of_195, val200: 381_of_381}
+    missing_prompt_policy: fail_before_inference_no_qwen_fallback
+    accepted_source_policy: missing_bank_or_checkpoint_proof_forces_local_export
+    local_network: none
+    local_source_mount: read_only
+    local_runtime_overlay: exact_asd000_root_read_write
+    runtime_probe: atomic_write_file_fsync_replace_directory_fsync_read_delete
+    runtime_probe_ordering: completed_before_cuda_and_predictor_initialization
+    cached_local_export: require_host_launch_attestation_bound_to_manifest_sha256_or_reexport
+    child_failure_classification: bounded_stderr_tail_preserves_scientific_and_operational_class
+    controller_environment: [REXGROUNDINGCT_AISELFDRIVE_EXPERIMENT_ID, REXGROUNDINGCT_AISELFDRIVE_LEASE_ID, REXGROUNDINGCT_AISELFDRIVE_DOCKER_LABEL]
+    timeout_cleanup: cidfile_exact_label_inspect_then_stop_owned_container
   error_atlas:
     cohort: val80
     thresholds: [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
     primary_threshold: 0.5
     component_connectivity: 26
     physical_units: millimeters
-    reports:
-      - dice_and_hit
-      - empty_mask_rate
-      - precision_recall_and_predicted_volume
-      - prompt_off_location_fp_voxels_and_components
-      - ipsilateral_nontarget_contralateral_and_outside_lung_fp
-      - anatomy_compliance
-      - detached_component_counts
-      - candidate_recall
-      - threshold_curves_when_verified_logits_exist
-    uncertainty:
-      bootstrap_draws: 10000
-      bootstrap_seed: 20260731
-      cluster_unit: case
-  logit_policy:
-    sideexp002_audit: side_experiments/sideexp002_multimodel_ensemble_selection/outputs/logit_export_audit.json
-    observed_candidate_status: exp009_baseline_e100_not_started_on_2026_07_31
-    reuse_requires:
-      - immutable candidate manifest hash
-      - complete 200-case geometry
-      - finite values
-      - verified array hashes
-      - same-pass threshold-mask equivalence
-    fallback: >-
-      Export baseline val80 logits through the local Docker inference path only
-      after GPU preflight, bounded to two GPU-hours. Lack of logits is recorded
-      explicitly and cannot be disguised as a threshold sweep.
+    bootstrap_draws: 10000
+    bootstrap_seed: 20260731
+    cluster_unit: case
 resources:
-  execution_class: CPU_first_with_optional_single_gpu_logit_export
+  resource_class: bounded_inference_export
+  execution_class: CPU_first_with_mandatory_single_gpu_logit_export_if_needed
   cpu_threads_max: 32
   ram_gib_max: 128
   gpu_count_max: 1
   docker_image: rexgroundingct-voxtell:cu126
+  docker_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
+  expected_cuda_device_count: 4
+  expected_cuda_device_name: NVIDIA RTX 6000 Ada Generation
   gpu_preflight_ref: experiments_aiselfdrive/shared/hardware_profile.yaml
   gpu_hours_max: 2
+  durable_storage_gib_max: 64
+  disk_preflight_free_gib_min: 64
   training: prohibited
 stages:
-  - id: implement_evidence_lock_pipeline
-    kind: implementation
-    execution_mode: agent
+  - id: selfcheck_revision_2_implementation
+    kind: implementation_selfcheck
+    execution_mode: command
     needs: []
     required: true
-    description: Implement the bounded evidence, cohort, parser, geometry, and atlas tooling.
-    instructions: >-
-      Implement lock_evidence.py, cohorts.py, prompt_ontology.py, error_atlas.py,
-      one run_stage.py CLI, and focused unit tests. Read protocol.yaml as the
-      only experiment configuration. Use atomic JSON/CSV writes, SHA-256
-      streaming, deterministic sorted traversal, physical affine coordinates,
-      and no writes outside the listed files and declared runtime/shared
-      outputs. The parser must default to unknown and the atlas must never call
-      compatible unlabeled voxels negative. The CLI must expose phases lineage,
-      cohorts, logits, atlas, and closeout. It must reject val120 metric access.
+    description: Compile revision-2 modules and run all experiment-local synthetic tests without agent edits.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml, --phase, selfcheck]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
     allowed_write_paths:
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/src/lock_evidence.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/src/cohorts.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/src/prompt_ontology.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/src/error_atlas.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests/test_lock_evidence.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests/test_cohorts.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests/test_prompt_ontology.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests/test_error_atlas.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/implement_evidence_lock_pipeline.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_selfcheck_report.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_selfcheck_evidence.json
     inputs:
       - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml
       - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/experiment.yaml
-    outputs:
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/src
       - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests/test_lock_evidence.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests/test_cohorts.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests/test_prompt_ontology.py
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests/test_error_atlas.py
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/export_val80_logits.py
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests
+    outputs:
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_selfcheck_report.json
     completion:
-      evidence_file: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/implement_evidence_lock_pipeline.json
-      predicate: All declared modules compile and all experiment-local tests pass.
-    resources:
-      gpu_count: 0
-      cpu_threads: 8
+      evidence_file: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_selfcheck_evidence.json
+      predicate: Every revision-2 source compiles and every experiment-local synthetic test passes.
+    resources: {gpu_count: 0, cpu_threads: 8}
     timeout_seconds: 7200
-    retry:
-      class: non_retryable_agent_implementation
-      max_attempts: 1
+    retry: {class: deterministic_selfcheck, max_attempts: 1}
     stop_conditions:
-      - Any requested write falls outside allowed_write_paths.
-      - A test requires reading val120 masks, predictions, or metrics.
+      - Any source fails compilation.
+      - Any experiment-local test fails.
     acceptance_checks:
-      - PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests -p test_*.py
-      - python -m py_compile experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/src/*.py experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/*.py
+      - revision_2_modules_compile_without_bytecode_writes
+      - all_experiment_local_tests_pass
+      - baseline_recomputation_tests_prove_summary_independence
   - id: lock_local_lineage
     kind: evidence
     execution_mode: command
-    needs: [implement_evidence_lock_pipeline]
+    needs: [selfcheck_revision_2_implementation]
     required: true
-    description: Hash local inputs and reproduce the canonical Exp009 baseline.
+    description: Hash local inputs and independently recompute canonical Exp009 mask metrics.
     command:
-      argv:
-        - python
-        - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py
-        - --config
-        - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml
-        - --phase
-        - lineage
+      argv: [python, experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml, --phase, lineage]
       cwd: /home/hengjie/code_sync/rexgroundingct
-      env:
-        PYTHONDONTWRITEBYTECODE: "1"
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
     allowed_write_paths:
-      - experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/lineage_lock.json
-      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_000_evidence_lock_error_atlas
+      - experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_lineage_lock.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_lineage_evidence.json
     inputs:
-      - canonical baseline checkpoint and stored val200 predictions declared in lineage
+      - canonical baseline checkpoint, stored val200 predictions, and released GT declared in lineage
       - fixed val200 manifest
       - local 6467-by-2560 embedding bank
     outputs:
-      - experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/lineage_lock.json
+      - experiments_aiselfdrive/shared/manifests/asd000_local_lineage_revision_2.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_lineage_lock.json
     completion:
-      evidence_file: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/lineage_lock.json
-      predicate: All required hashes are present and baseline metrics match the declared tolerance and counts.
-    resources:
-      gpu_count: 0
-      cpu_threads: 16
-    timeout_seconds: 14400
-    retry:
-      class: transient
-      max_attempts: 3
-      backoff_seconds: [60, 300]
+      evidence_file: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_lineage_evidence.json
+      predicate: Hashes pass and direct prediction/GT Dice and hits match the declared values and stored summary.
+    resources: {gpu_count: 0, cpu_threads: 16, ram_gib_max: 128}
+    timeout_seconds: 21600
+    retry: {class: transient_io, max_attempts: 2, backoff_seconds: [60]}
     stop_conditions:
-      - Any source hash drifts between reads.
-      - Dice differs by more than 0.000005 or hit count is not 288 of 381.
-      - Checkpoint, prompt, preprocessing, threshold, or post-processing identity is ambiguous.
+      - Any source hash or stat drifts during a read.
+      - Recomputed Dice differs by more than 0.000005 or hits are not exactly 288 of 381.
+      - Stored summary disagrees with direct mask recomputation.
     acceptance_checks:
-      - Report and val200 SHA-256 values match the plan.
-      - Checkpoint and embedding-bank hashes are non-null 64-character lowercase SHA-256 strings.
-      - Reproduced Dice is within tolerance and hit count is exact.
+      - report_val200_checkpoint_embedding_and_prediction_hashes_lock
+      - baseline_dice_recomputed_from_prediction_and_gt_within_0_000005
+      - baseline_hits_recomputed_from_prediction_and_gt_equal_288_of_381
+      - stored_summary_matches_but_is_not_the_reproduction_source
+      - evaluation_contract_hash_and_standard_json_pointers_lock
   - id: lock_cohorts_and_prompt_ontology
     kind: evidence
     execution_mode: command
     needs: [lock_local_lineage]
     required: true
-    description: Validate val80, seal the val120 complement, verify anatomy geometry, and freeze the parser.
+    description: Lock val80 development, record honest val120 internal-replication semantics, verify geometry, and freeze the parser.
     command:
-      argv:
-        - python
-        - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py
-        - --config
-        - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml
-        - --phase
-        - cohorts
+      argv: [python, experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml, --phase, cohorts]
       cwd: /home/hengjie/code_sync/rexgroundingct
-      env:
-        PYTHONDONTWRITEBYTECODE: "1"
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
     allowed_write_paths:
       - experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
-      - experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json
+      - experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json
       - experiments_aiselfdrive/shared/manifests/prompt_ontology_v1.json
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/cohort_and_parser_lock.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_cohort_and_parser_lock.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_cohort_evidence.json
     inputs:
-      - accepted val80 manifest and JSON declared in data
-      - fixed val200 manifest
+      - accepted val80 source and released val200 declared in data
       - completed val200 anatomy manifests
+      - recorded val120 exposure incident in immutable state/event history
     outputs:
       - experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
-      - experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json
+      - experiments_aiselfdrive/shared/manifests/val120_internal_replication_seed20260731.json
       - experiments_aiselfdrive/shared/manifests/prompt_ontology_v1.json
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/cohort_and_parser_lock.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_cohort_and_parser_lock.json
     completion:
-      evidence_file: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/cohort_and_parser_lock.json
-      predicate: val80 and val120 are disjoint, exhaustive over val200, correctly counted, hashed, and parser tests pass.
-    resources:
-      gpu_count: 0
-      cpu_threads: 16
+      evidence_file: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_cohort_evidence.json
+      predicate: Cohorts are disjoint/exhaustive and their roles, geometry, hashes, and parser safety checks pass.
+    resources: {gpu_count: 0, cpu_threads: 16}
     timeout_seconds: 7200
-    retry:
-      class: transient
-      max_attempts: 3
-      backoff_seconds: [60, 300]
+    retry: {class: transient_io, max_attempts: 2, backoff_seconds: [60]}
     stop_conditions:
       - Cohorts overlap or do not reconstruct val200 exactly.
-      - Any anatomy mask fails source-affine or left-right orientation checks.
-      - Parser emits a restrictive target for ambiguous, negated, bilateral, multifocal, diffuse, or conflicting text.
+      - Any anatomy geometry or left-right orientation check fails.
+      - Any output describes val120 as untouched or independently confirmatory.
+      - Parser restricts ambiguous, negated, bilateral, multifocal, diffuse, or conflicting text.
     acceptance_checks:
-      - val80 has 80 cases and 195 findings with the accepted source hash.
-      - val120 has exactly 120 cases and no val80 case name.
-      - No val120 label, prediction, or metric is read.
-      - Parser lexical fixtures and RAS left-right fixtures pass.
-  - id: audit_or_export_val80_logits
+      - val80_has_80_cases_and_195_findings
+      - val120_has_120_cases_and_is_labeled_historically_exposed_internal_replication
+      - independent_confirmation_requires_new_externally_unseen_custodied_data
+      - geometry_orientation_and_parser_fixtures_pass
+  - id: verify_or_export_val80_logits
     kind: evidence
     execution_mode: command
     needs: [lock_cohorts_and_prompt_ontology]
-    required: false
-    description: Reuse only verified baseline logits or export val80 logits under a strict two-GPU-hour cap.
+    required: true
+    description: Verify an accepted val80 logit source or produce and verify a bounded local Docker export.
     command:
-      argv:
-        - python
-        - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py
-        - --config
-        - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml
-        - --phase
-        - logits
+      argv: [python, experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml, --phase, logits]
       cwd: /home/hengjie/code_sync/rexgroundingct
-      env:
-        PYTHONDONTWRITEBYTECODE: "1"
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
     allowed_write_paths:
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/logit_source_audit.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_logit_source.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_logit_evidence.json
       - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_000_evidence_lock_error_atlas
     inputs:
-      - sideexp002 logit audit and immutable candidate manifest
-      - canonical baseline checkpoint
-      - locked val80 manifest
+      - sideexp002 immutable audit and candidate manifest, read-only
+      - canonical baseline checkpoint, locked val80/val200 manifests, and exact 6467-by-2560 embedding bank
+      - Docker image rexgroundingct-voxtell:cu126
     outputs:
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/logit_source_audit.json
-      - external runtime val80 baseline logits and manifest when export is necessary
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_logit_source.json
     completion:
-      evidence_file: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/logit_source_audit.json
-      predicate: Source is either verified with exact geometry and mask equivalence or explicitly unavailable with no fabricated curves.
+      evidence_file: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_logit_evidence.json
+      predicate: Exactly 80 cases and 195 findings have finite, hashed, geometry-matched logits with exact threshold-mask equivalence.
     resources:
-      gpu_count: 1
+      resource_class: bounded_inference_export
+      gpu_count: 0
+      gpu_optional: true
+      gpu_count_max: 1
       gpu_memory_free_gib_min: 32
       docker_image: rexgroundingct-voxtell:cu126
+      docker_image_id: sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f
+      expected_cuda_device_count: 4
+      expected_cuda_device_name: NVIDIA RTX 6000 Ada Generation
       gpu_hours_max: 2
+      durable_storage_gib_max: 64
+      disk_preflight_free_gib_min: 64
+      training: prohibited
     timeout_seconds: 10800
-    retry:
-      class: resource_then_evaluation
-      max_attempts: 3
-      resource_wait_timeout_seconds: 21600
+    retry: {class: resource_then_evaluation, max_attempts: 3, resource_wait_timeout_seconds: 21600}
     stop_conditions:
-      - Docker GPU preflight fails beyond the resource-wait window.
-      - Export exceeds two GPU-hours.
-      - Geometry, finite-value, hash, or threshold-mask-equivalence validation fails.
+      - Docker GPU preflight fails beyond the wait window.
+      - Local export exceeds two GPU-hours or 64 GiB durable storage.
+      - External runtime atomic write/fsync/read/delete probe fails before inference.
+      - Any locked val80 or val200 prompt is absent after python str.lower lookup in the explicit bank.
+      - Candidate checkpoint path/hash differs from the protocol baseline.
+      - Docker network is not none, a source mount is writable, or any write mount exceeds the exact ASD-000 runtime.
+      - Any geometry, finite-value, hash, count, or threshold-mask-equivalence check fails.
+      - A sideexp002 candidate is used without accepted export and reproduction manifests.
     acceptance_checks:
-      - No unaccepted sideexp002 export is treated as verified.
-      - Export, if run, uses val80 only and writes externally.
-      - Missing logits are represented as unavailable and threshold curves are omitted.
+      - val80_logit_manifest_is_verified_complete
+      - val80_logits_have_80_cases_195_findings_and_exact_geometry
+      - every_logit_array_is_finite_and_hash_verified
+      - threshold_0_5_masks_exactly_equal_locked_baseline_masks
+      - local_logit_storage_capacity_covers_locked_full_layout_float16
+      - locked_val80_layout_is_derived_from_80_prediction_headers
+      - explicit_embedding_bank_covers_all_locked_prompts_without_qwen_fallback
+      - candidate_checkpoint_matches_locked_baseline
+      - accepted_logit_source_without_exact_bank_proof_forces_local_export
+      - local_docker_runtime_write_scope_and_offline_contract_pass
+      - external_runtime_atomic_probe_passes_before_local_gpu_inference
   - id: build_val80_error_atlas
     kind: analysis
     execution_mode: command
-    needs: [lock_cohorts_and_prompt_ontology]
+    needs: [lock_cohorts_and_prompt_ontology, verify_or_export_val80_logits]
     required: true
-    description: Compute the fixed spatial error taxonomy and paired uncertainty on val80.
+    description: Compute the fixed spatial error taxonomy and full threshold curves on val80.
     command:
-      argv:
-        - python
-        - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py
-        - --config
-        - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml
-        - --phase
-        - atlas
+      argv: [python, experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml, --phase, atlas]
       cwd: /home/hengjie/code_sync/rexgroundingct
-      env:
-        PYTHONDONTWRITEBYTECODE: "1"
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
     allowed_write_paths:
-      - experiments_aiselfdrive/shared/manifests/asd000_error_atlas_contract.json
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/error_atlas.json
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/error_atlas.csv
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/error_atlas_summary.md
+      - experiments_aiselfdrive/shared/manifests/asd000_error_atlas_contract_revision_2.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_error_atlas.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_error_atlas.csv
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_error_atlas_summary.md
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_atlas_evidence.json
     inputs:
-      - locked lineage manifest
-      - locked val80 manifest
-      - locked prompt ontology
-      - verified val200 anatomy cache
-      - verified val80 logits when available
+      - revision-2 locked lineage, val80, ontology, and verified val80 logits
+      - verified val200 anatomy cache, reading label arrays for val80 only
     outputs:
-      - experiments_aiselfdrive/shared/manifests/asd000_error_atlas_contract.json
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/error_atlas.json
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/error_atlas.csv
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/error_atlas_summary.md
+      - experiments_aiselfdrive/shared/manifests/asd000_error_atlas_contract_revision_2.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_error_atlas.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_error_atlas.csv
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_error_atlas_summary.md
     completion:
-      evidence_file: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/error_atlas.json
-      predicate: Every val80 finding is accounted for and every declared available metric has deterministic counts and clustered intervals.
-    resources:
-      gpu_count: 0
-      cpu_threads: 32
-      ram_gib_max: 128
+      evidence_file: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_atlas_evidence.json
+      predicate: Every val80 finding and threshold is accounted for with deterministic counts and clustered intervals.
+    resources: {gpu_count: 0, cpu_threads: 32, ram_gib_max: 128}
     timeout_seconds: 21600
-    retry:
-      class: evaluation
-      max_attempts: 3
-      preserve_verified_cases: true
+    retry: {class: evaluation, max_attempts: 3, preserve_verified_cases: true}
     stop_conditions:
-      - Val120 data are opened.
       - Physical-coordinate or component reconstruction checks fail.
       - Unknown supervision is collapsed into negative.
+      - Verified logit identity or threshold-mask equivalence drifts.
     acceptance_checks:
-      - Atlas contains 80 cases and 195 findings.
-      - Baseline raw-mask reconstruction is exact.
-      - Prompt-location FP is separated into ipsilateral non-target, contralateral, and outside-lung regions.
-      - Bootstrap uses 10000 case-clustered draws with seed 20260731.
+      - atlas_contains_80_cases_and_195_findings
+      - baseline_raw_mask_reconstruction_is_exact
+      - verified_threshold_curves_cover_0_05_through_0_95
+      - unavailable_spatial_metrics_are_null_with_observation_counts
+      - bootstrap_uses_10000_case_clustered_draws_seed_20260731
   - id: closeout_evidence_lock
     kind: closeout
     execution_mode: command
-    needs:
-      - lock_local_lineage
-      - lock_cohorts_and_prompt_ontology
-      - build_val80_error_atlas
+    needs: [selfcheck_revision_2_implementation, lock_local_lineage, lock_cohorts_and_prompt_ontology, verify_or_export_val80_logits, build_val80_error_atlas]
     required: true
-    description: Verify artifacts, decide claims, and emit a GO or invalid foundation outcome.
+    description: Verify revision-2 artifacts, decide all five claim types, and emit GO only when every validity gate passes; invalid evidence fails closed with a named structured blocker.
     command:
-      argv:
-        - python
-        - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py
-        - --config
-        - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml
-        - --phase
-        - closeout
+      argv: [python, experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/configs/protocol.yaml, --phase, closeout]
       cwd: /home/hengjie/code_sync/rexgroundingct
-      env:
-        PYTHONDONTWRITEBYTECODE: "1"
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
     allowed_write_paths:
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/closeout.json
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/summary.md
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_closeout.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_summary.md
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_closeout_evidence.json
       - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/artifacts/manifest.json
       - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/claims.yaml
     inputs:
-      - all required stage evidence
-      - artifact manifest
-      - predeclared claims
+      - all required revision-2 stage evidence
+      - artifact manifest and predeclared claims
     outputs:
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/closeout.json
-      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/summary.md
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_closeout.json
+      - experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_summary.md
     completion:
-      evidence_file: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/closeout.json
-      predicate: Required artifacts verify, claims are decided, and outcome is go or invalid.
-    resources:
-      gpu_count: 0
-      cpu_threads: 4
+      evidence_file: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/results/revision_2_closeout_evidence.json
+      predicate: Required artifacts verify, all claim types are decided, and outcome is go; any invalid or missing evidence produces structured failed evidence instead of a false terminal result.
+    resources: {gpu_count: 0, cpu_threads: 4}
     timeout_seconds: 3600
-    retry:
-      class: non_retryable_closeout
-      max_attempts: 1
+    retry: {class: non_retryable_closeout, max_attempts: 1}
     stop_conditions:
-      - Any required artifact lacks a hash or count.
-      - A claim is decided without a gate-linked evidence reference.
+      - Any required artifact lacks a verified hash or count.
+      - A claim is decided without gate-linked evidence.
+      - Any text represents val120 as independent confirmation.
+      - Any foundational invalidity is recorded as a named non-retryable blocker for explicit controller adjudication.
     acceptance_checks:
-      - All required stages are passed.
-      - Required artifacts are verified.
-      - Outcome is go only if every primary lineage, geometry, cohort, parser, and atlas gate passes.
+      - every_required_revision_2_stage_passed
+      - every_required_revision_2_artifact_hash_verified
+      - all_five_claim_types_decided
+      - go_requires_direct_baseline_recomputation_and_verified_val80_logits
+gate_ids:
+  - baseline_dice_recomputed_from_prediction_and_gt_within_0_000005
+  - baseline_hits_recomputed_from_prediction_and_gt_equal_288_of_381
+  - prompt_parser_safety_checks_pass
+  - val80_error_atlas_complete
+  - noninterventional_scope_enforced
+  - independent_confirmation_not_claimed_without_external_custodied_data
+  - val80_val120_disjoint_exhaustive_and_roles_honest
+  - geometry_and_orientation_checks_pass
+  - unavailable_spatial_metrics_are_null_with_observation_counts
+  - local_logit_storage_capacity_covers_locked_full_layout_float16
+  - locked_val80_layout_is_derived_from_80_prediction_headers
+  - explicit_embedding_bank_covers_all_locked_prompts_without_qwen_fallback
+  - candidate_checkpoint_matches_locked_baseline
+  - accepted_logit_source_without_exact_bank_proof_forces_local_export
+  - local_docker_runtime_write_scope_and_offline_contract_pass
+  - external_runtime_atomic_probe_passes_before_local_gpu_inference
 evaluation:
   development_cohort: val80
-  confirmatory_cohort: val120
+  internal_replication_cohort: val120
+  internal_replication_status: historically_exposed_not_independent
   continuity_cohort: val200
-  val120_access_stage: none
-  primary_metrics:
-    - baseline_dice_reproduction
-    - baseline_hit_reproduction
-    - prompt_off_location_fp_fraction
-    - detached_off_location_component_fraction
-  uncertainty:
-    bootstrap_draws: 10000
-    seed: 20260731
-    cluster_unit: case
+  independent_confirmation_cohort: new_externally_unseen_custodied_data_required
+  primary_metrics: [baseline_dice_recomputation, baseline_hit_recomputation, prompt_off_location_fp_fraction, detached_off_location_component_fraction]
+  uncertainty: {bootstrap_draws: 10000, seed: 20260731, cluster_unit: case}
   go_gates:
-    - baseline_dice_absolute_error_le_0.000005
-    - baseline_hits_equal_288_of_381
+    - baseline_dice_recomputed_from_prediction_and_gt_within_0_000005
+    - baseline_hits_recomputed_from_prediction_and_gt_equal_288_of_381
     - all_lineage_hashes_locked
-    - val80_val120_disjoint_exhaustive_and_counted
+    - val80_val120_disjoint_exhaustive_and_roles_honest
     - geometry_and_orientation_checks_pass
     - prompt_parser_safety_checks_pass
+    - val80_logits_verified_complete
     - val80_error_atlas_complete
-  invalid_gates:
-    - lineage_hash_drift
-    - baseline_reproduction_failure
-    - cohort_leakage
-    - geometry_or_orientation_mismatch
+    - noninterventional_scope_enforced
+    - independent_confirmation_not_claimed_without_external_custodied_data
+    - local_logit_storage_capacity_covers_locked_full_layout_float16
+    - locked_val80_layout_is_derived_from_80_prediction_headers
+    - explicit_embedding_bank_covers_all_locked_prompts_without_qwen_fallback
+    - candidate_checkpoint_matches_locked_baseline
+    - accepted_logit_source_without_exact_bank_proof_forces_local_export
+    - local_docker_runtime_write_scope_and_offline_contract_pass
+    - external_runtime_atomic_probe_passes_before_local_gpu_inference
+  invalid_gates: [lineage_hash_drift, baseline_recomputation_failure, cohort_role_misrepresentation, geometry_or_orientation_mismatch, unknown_converted_to_negative]
 paths:
   workspace: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas
   runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_000_evidence_lock_error_atlas
@@ -557,7 +583,7 @@ paths:
 budget:
   cpu_wall_hours_max: 48
   gpu_hours_max: 2
-  durable_storage_gib_max: 25
+  durable_storage_gib_max: 64
   logit_export_scope: val80_baseline_only
 retention:
   plans_and_small_results: durable
@@ -568,6 +594,7 @@ prohibited_directions:
   - modify_source_report
   - use_historical_remote_paths_as_inputs
   - use_slurm
-  - inspect_val120_metrics_before_t4
+  - describe_val120_as_untouched_or_independent_confirmation
+  - independent_performance_claim_without_new_external_custody
   - global_empty_labels_for_unknown_regions
-  - claim_threshold_curves_without_verified_logits
+  - proceed_without_verified_val80_logits

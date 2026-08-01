@@ -3,25 +3,41 @@ experiment_id: asd_005_train_anatomy_asset_extension
 claims:
   - id: trainval_fast_anatomy_feasible
     type: feasibility
-    statement: Fast 3-mm TotalSegmentator can produce a verified anatomy asset for all 3,192 train/validation CTs within the declared hardware budget.
+    statement: Fast 3-mm TotalSegmentator can produce a verified anatomy asset for all 3,192 train and validation CTs within the declared hardware budget.
     verdict: pending
-    gate_refs: [completed_cases_equal_3192, unresolved_failures_equal_0, aggregate_gpu_hours_le_24, wall_hours_le_8]
+    gate_refs: [evaluation.go_gates]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: anatomy_asset_has_expected_mechanism
+    type: mechanistic
+    statement: The generated five-lobe anatomy is nonempty, label-valid, and physically registered to each source CT rather than merely file-complete.
+    verdict: pending
+    gate_refs: [method.validation, stages.validate_and_publish_anatomy_manifest.acceptance_checks]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: deterministic_generation_causes_reproducible_asset
+    type: causal
+    statement: Fixed image, weights, sharding, and atomic completion rules reproduce identical hashes on the smoke case and fixed QC sample.
+    verdict: pending
+    gate_refs: [stages.docker_preflight_and_one_case_smoke.acceptance_checks, stages.validate_and_publish_anatomy_manifest.acceptance_checks]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: anatomy_asset_meets_operational_target
+    type: performance
+    statement: The complete cache remains within 24 aggregate GPU-hours, eight wall-clock hours, and 25 GiB durable storage.
+    verdict: pending
+    gate_refs: [evaluation.go_gates, budget]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: source_geometry_preserved
     type: safety
-    statement: Every anatomy output preserves the corresponding CT shape, affine, axis codes, and physical extent.
+    statement: Every anatomy output preserves source shape, affine, axis codes, and physical extent, and no test case is processed.
     verdict: pending
-    gate_refs: [geometry_failures_equal_0, orientation_failures_equal_0]
-    evidence_refs: []
-    decided_at: null
-    rationale: null
-  - id: cache_is_downstream_ready
-    type: feasibility
-    statement: The unified manifest is complete, immutable, per-case hashed, and usable without regenerating anatomy.
-    verdict: pending
-    gate_refs: [completed_cases_equal_3192, nonempty_lung_coverage_equal_1]
+    gate_refs: [evaluation.invalid_gates, stages.validate_and_publish_anatomy_manifest.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null

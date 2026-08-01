@@ -28,9 +28,11 @@ stages:
     allowed_write_paths:
       - experiments_aiselfdrive/experiments/__EXPERIMENT_ID__
     inputs: []
-    outputs: []
+    outputs:
+      - experiments_aiselfdrive/experiments/__EXPERIMENT_ID__/results/result.json
     completion:
       evidence_schema: experiments_aiselfdrive/schemas/result.schema.json
+      evidence_file: experiments_aiselfdrive/experiments/__EXPERIMENT_ID__/results/result.json
     resources: {}
     timeout_seconds: 3600
     retry:

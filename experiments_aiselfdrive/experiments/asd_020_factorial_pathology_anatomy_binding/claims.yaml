@@ -1,43 +1,51 @@
 schema_version: "1.0"
 experiment_id: asd_020_factorial_pathology_anatomy_binding
 claims:
+  - id: factorial_binding_pipeline_feasible
+    type: feasibility
+    statement: At least 1,000 train-only matched quartets and reproducible frozen 2560-dimensional span features can be produced under the pinned hardware and Qwen contracts.
+    verdict: pending
+    gate_refs: [stages.lock_train_factorial_corpus.acceptance_checks, stages.docker_gpu_preflight.acceptance_checks, stages.export_frozen_text_and_region_features.acceptance_checks]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
   - id: factorial_binding_signal_exists
     type: mechanistic
-    statement: Frozen visual and split text features identify the joint pathology-anatomy match beyond one-factor and sentence-only controls.
+    statement: Frozen visual and split-text features identify the joint pathology-anatomy match beyond one-factor and sentence-only controls.
     verdict: pending
-    gate_refs: [probe_top1, probe_sentence_advantage, positive_single_swap_margins]
+    gate_refs: [evaluation.probe_go]
     evidence_refs: []
     decided_at: null
     rationale: null
-  - id: factorial_task_has_no_lexical_shortcut
-    type: safety
-    statement: Balanced random ordering and identical anchor text keep text-only held-out accuracy at or below 30 percent.
+  - id: learned_interaction_causes_joint_margin
+    type: causal
+    statement: The interaction model produces positive factual margins over both single-factor swaps and beats the additive no-interaction control on case-heldout train data.
     verdict: pending
-    gate_refs: [text_only_top1_max, case_split_integrity]
-    evidence_refs: []
-    decided_at: null
-    rationale: null
-  - id: zero_residual_is_exact_identity
-    type: safety
-    statement: Zero component residual returns the frozen parent logits exactly and leaves all frozen weights unchanged.
-    verdict: pending
-    gate_refs: [bitwise_zero_identity, frozen_hash_equality]
+    gate_refs: [evaluation.probe_go, stages.train_and_gate_factorial_probes.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null
   - id: interaction_residual_improves_val80
     type: performance
-    statement: The bounded interaction residual reduces off-location FP and improves explicit-modifier Dice without GT-retention or aggregate harm.
+    statement: The train-only-fitted bounded residual reduces val80 off-location FP and improves explicit-modifier Dice without retention or aggregate harm.
     verdict: pending
-    gate_refs: [val80_fp_reduction, val80_explicit_dice, val80_gt_retention, val80_aggregate_noninferiority]
+    gate_refs: [evaluation.performance_go, stages.t3_2000_update_val80.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null
-  - id: interaction_residual_confirms_val120
-    type: performance
-    statement: If promoted, the primary paired val120 case-clustered confidence interval is above zero.
+  - id: factorial_task_and_residual_are_safe
+    type: safety
+    statement: Text-only accuracy remains at or below 30 percent, zero residual is exact identity, frozen hashes do not drift, and val80 never enters fitting or calibration.
     verdict: pending
-    gate_refs: [t4_promotion_record, val120_primary_ci_positive]
+    gate_refs: [evaluation.probe_go, stages.t1_zero_residual_smoke.acceptance_checks, method.fit_data_contract]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: interaction_residual_replicates_on_internal_val120
+    type: performance
+    statement: If controller-promoted, a positive paired val120 interval is internal held-out replication evidence, not independent confirmation.
+    verdict: pending
+    gate_refs: [evaluation.internal_replication_go, stages.t4_confirmatory_binding.acceptance_checks]
     evidence_refs: []
     decided_at: null
     rationale: null

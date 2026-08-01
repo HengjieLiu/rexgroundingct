@@ -1,6 +1,9 @@
 schema_version: "1.0"
 workspace_id: rexgroundingct_aiselfdrive
 created_at: "2026-07-31T00:00:00Z"
+registry_revision: 2
+previous_registry_sha256: 64d8ff0168627d2a50419cb611c78f3a841c3edccb270fa58c237639cd050d34
+control_plane_lock_ref: experiments_aiselfdrive/shared/manifests/control_plane_lock.json
 source_report:
   path: experiments_aiselfdrive/ReXGroundingCT_Technical_Report_2026-07-30.md
   sha256: 2dfc9f545a83868e09fd54ec6432435a914af58e3ce9c041166f78c73f46c923
@@ -52,8 +55,13 @@ retry_defaults:
     - budget_exhausted
 promotion_policy:
   development_cohort: val80
-  confirmatory_cohort: val120
+  internal_replication_cohort: val120
+  internal_replication_evidence_status: historically_exposed_not_independent
   continuity_cohort: val200
+  independent_confirmation_requirement: new_externally_unseen_custodied_cohort
+  all_candidate_t3_terminal_barrier: true
+  record_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions
+  record_schema_ref: experiments_aiselfdrive/schemas/promotion.schema.json
   max_t4_interventions: 2
   ranking:
     - all_safety_and_noninferiority_gates_pass
@@ -61,7 +69,7 @@ promotion_policy:
     - val80_off_location_fp_reduction_descending
     - measured_gpu_hours_ascending
     - experiment_id_ascending
-  combination_requires_independent_t4_go: 2
+  combination_requires_distinct_t4_go_experiments: 2
 experiments:
   - id: asd_000_evidence_lock_error_atlas
     path: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas
@@ -69,6 +77,8 @@ experiments:
     state_path: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/state.json
     priority: 1
     depends_on: []
+    promotion:
+      candidate: false
   - id: asd_005_train_anatomy_asset_extension
     path: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension
     plan_path: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/experiment.yaml
@@ -78,6 +88,8 @@ experiments:
       - id: asd_000_evidence_lock_error_atlas
         type: hard
         satisfying_outcomes: [go]
+    promotion:
+      candidate: false
   - id: asd_010_intrinsic_anatomy_fields
     path: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields
     plan_path: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/experiment.yaml
@@ -90,6 +102,18 @@ experiments:
       - id: asd_005_train_anatomy_asset_extension
         type: hard
         satisfying_outcomes: [go]
+    promotion:
+      candidate: true
+      t3_stage_id: t3_2000_update_val80
+      t4_stage_id: t4_confirmatory_val120_and_val200
+      matched_control_stage_id: t4_confirmatory_val120_and_val200
+      treatment_arm_id: continuous_anatomy_coupling
+      matched_control_arm_id: disabled_anatomy_coupling
+      metric_keys:
+        safety_pass: all_safety_and_noninferiority_gates_pass
+        dice_delta: paired_val80_dice_delta
+        off_location_fp_reduction: val80_off_location_fp_reduction
+        gpu_hours: measured_gpu_hours
   - id: asd_020_factorial_pathology_anatomy_binding
     path: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding
     plan_path: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/experiment.yaml
@@ -99,6 +123,18 @@ experiments:
       - id: asd_000_evidence_lock_error_atlas
         type: hard
         satisfying_outcomes: [go]
+    promotion:
+      candidate: true
+      t3_stage_id: t3_2000_update_val80
+      t4_stage_id: t4_confirmatory_binding
+      matched_control_stage_id: t4_confirmatory_binding
+      treatment_arm_id: factorial_interaction_residual
+      matched_control_arm_id: disabled_factorial_residual
+      metric_keys:
+        safety_pass: all_safety_and_noninferiority_gates_pass
+        dice_delta: paired_val80_dice_delta
+        off_location_fp_reduction: val80_off_location_fp_reduction
+        gpu_hours: measured_gpu_hours
   - id: asd_030_anatomy_certified_fp_replay
     path: experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay
     plan_path: experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/experiment.yaml
@@ -111,6 +147,18 @@ experiments:
       - id: asd_005_train_anatomy_asset_extension
         type: hard
         satisfying_outcomes: [go]
+    promotion:
+      candidate: true
+      t3_stage_id: decision_t3
+      t4_stage_id: confirm_t4
+      matched_control_stage_id: confirm_t4
+      treatment_arm_id: mined_certified_replay
+      matched_control_arm_id: disabled_replay_parent_sampler
+      metric_keys:
+        safety_pass: all_safety_and_noninferiority_gates_pass
+        dice_delta: paired_val80_dice_delta
+        off_location_fp_reduction: val80_off_location_fp_reduction
+        gpu_hours: measured_gpu_hours
   - id: asd_040_censored_label_tri_state
     path: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state
     plan_path: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/experiment.yaml
@@ -120,6 +168,18 @@ experiments:
       - id: asd_000_evidence_lock_error_atlas
         type: hard
         satisfying_outcomes: [go]
+    promotion:
+      candidate: true
+      t3_stage_id: decision_t3
+      t4_stage_id: confirm_t4
+      matched_control_stage_id: confirm_t4
+      treatment_arm_id: selected_tri_state_policy
+      matched_control_arm_id: disabled_tri_state_parent_loss
+      metric_keys:
+        safety_pass: all_safety_and_noninferiority_gates_pass
+        dice_delta: paired_val80_dice_delta
+        off_location_fp_reduction: val80_off_location_fp_reduction
+        gpu_hours: measured_gpu_hours
   - id: asd_050_prompt_equivariance_quartet
     path: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet
     plan_path: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/experiment.yaml
@@ -129,6 +189,18 @@ experiments:
       - id: asd_000_evidence_lock_error_atlas
         type: hard
         satisfying_outcomes: [go]
+    promotion:
+      candidate: true
+      t3_stage_id: decision_t3
+      t4_stage_id: confirm_t4
+      matched_control_stage_id: confirm_t4
+      treatment_arm_id: full_prompt_equivariance_quartet
+      matched_control_arm_id: disabled_quartet_no_flip
+      metric_keys:
+        safety_pass: all_safety_and_noninferiority_gates_pass
+        dice_delta: paired_val80_dice_delta
+        off_location_fp_reduction: val80_off_location_fp_reduction
+        gpu_hours: measured_gpu_hours
   - id: asd_060_persistence_tree_set_verifier
     path: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier
     plan_path: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/experiment.yaml
@@ -141,3 +213,15 @@ experiments:
       - id: asd_040_censored_label_tri_state
         type: evidence
         satisfying_outcomes: [go, no_go, inconclusive]
+    promotion:
+      candidate: true
+      t3_stage_id: decision_t3
+      t4_stage_id: confirm_t4
+      matched_control_stage_id: confirm_t4
+      treatment_arm_id: persistence_set_verifier
+      matched_control_arm_id: disabled_set_context_independent_scorer
+      metric_keys:
+        safety_pass: all_safety_and_noninferiority_gates_pass
+        dice_delta: paired_val80_dice_delta
+        off_location_fp_reduction: val80_off_location_fp_reduction
+        gpu_hours: measured_gpu_hours
