@@ -1,0 +1,264 @@
+{
+  "analysis_id": "collaborator_attention_variants_val200",
+  "baseline_per_category_sha256": "cf9dadd4ac3b3ad869ab889596309ee61ff19afa8dab281249a4012696f3cfec",
+  "categories": [
+    {
+      "code": "1a",
+      "display_label": "Bronchial wall thickening",
+      "displayed_best": "Baseline",
+      "official_label": "Bronchial wall thickening",
+      "reported_deltas": {
+        "all_category": "-0.0131",
+        "strict_2b2c": "-0.0123"
+      },
+      "scores": {
+        "all_category": "0.0936",
+        "baseline": "0.1067",
+        "strict_2b2c": "0.0944"
+      },
+      "support": 3
+    },
+    {
+      "code": "1b",
+      "display_label": "Bronchiectasis",
+      "displayed_best": "Strict",
+      "official_label": "Bronchiectasis",
+      "reported_deltas": {
+        "all_category": "-0.0050",
+        "strict_2b2c": "+0.0301"
+      },
+      "scores": {
+        "all_category": "0.1223",
+        "baseline": "0.1274",
+        "strict_2b2c": "0.1575"
+      },
+      "support": 11
+    },
+    {
+      "code": "1c",
+      "display_label": "Emphysema",
+      "displayed_best": "All-cat",
+      "official_label": "Emphysema",
+      "reported_deltas": {
+        "all_category": "+0.0061",
+        "strict_2b2c": "-0.0291"
+      },
+      "scores": {
+        "all_category": "0.1892",
+        "baseline": "0.1831",
+        "strict_2b2c": "0.1540"
+      },
+      "support": 17
+    },
+    {
+      "code": "1d",
+      "display_label": "Septal thickening",
+      "displayed_best": "All-cat",
+      "official_label": "Septal thickening / reticulation",
+      "reported_deltas": {
+        "all_category": "+0.0095",
+        "strict_2b2c": "+0.0013"
+      },
+      "scores": {
+        "all_category": "0.1350",
+        "baseline": "0.1254",
+        "strict_2b2c": "0.1267"
+      },
+      "support": 6
+    },
+    {
+      "code": "1e",
+      "display_label": "Micronodules/tree-in-bud",
+      "displayed_best": "Strict",
+      "official_label": "Micronodules / tree-in-bud",
+      "reported_deltas": {
+        "all_category": "-0.0090",
+        "strict_2b2c": "+0.0078"
+      },
+      "scores": {
+        "all_category": "0.1943",
+        "baseline": "0.2032",
+        "strict_2b2c": "0.2110"
+      },
+      "support": 11
+    },
+    {
+      "code": "1f",
+      "display_label": "Other diffuse",
+      "displayed_best": "Strict*",
+      "official_label": "Other diffuse lung/airway/pleural abnormality",
+      "reported_deltas": {
+        "all_category": "+0.0372",
+        "strict_2b2c": "+0.0575"
+      },
+      "scores": {
+        "all_category": "0.2199",
+        "baseline": "0.1827",
+        "strict_2b2c": "0.2402"
+      },
+      "support": 4
+    },
+    {
+      "code": "2a",
+      "display_label": "Linear opacity/fibrosis",
+      "displayed_best": "Close",
+      "official_label": "Linear opacity, scarring, fibrosis",
+      "reported_deltas": {
+        "all_category": "+0.0019",
+        "strict_2b2c": "-0.0041"
+      },
+      "scores": {
+        "all_category": "0.3358",
+        "baseline": "0.3340",
+        "strict_2b2c": "0.3299"
+      },
+      "support": 69
+    },
+    {
+      "code": "2b",
+      "display_label": "Atelectasis/consolidation",
+      "displayed_best": "Strict",
+      "official_label": "Atelectasis / consolidation",
+      "reported_deltas": {
+        "all_category": "+0.0160",
+        "strict_2b2c": "+0.0207"
+      },
+      "scores": {
+        "all_category": "0.3578",
+        "baseline": "0.3418",
+        "strict_2b2c": "0.3625"
+      },
+      "support": 49
+    },
+    {
+      "code": "2c",
+      "display_label": "Ground-glass opacity",
+      "displayed_best": "All-cat",
+      "official_label": "Ground-glass opacity",
+      "reported_deltas": {
+        "all_category": "+0.0104",
+        "strict_2b2c": "+0.0020"
+      },
+      "scores": {
+        "all_category": "0.3866",
+        "baseline": "0.3762",
+        "strict_2b2c": "0.3782"
+      },
+      "support": 60
+    },
+    {
+      "code": "2d",
+      "display_label": "Nodules/masses",
+      "displayed_best": "Baseline",
+      "official_label": "Pulmonary nodules / masses",
+      "reported_deltas": {
+        "all_category": "-0.0107",
+        "strict_2b2c": "-0.0130"
+      },
+      "scores": {
+        "all_category": "0.3692",
+        "baseline": "0.3799",
+        "strict_2b2c": "0.3669"
+      },
+      "support": 132
+    },
+    {
+      "code": "2e",
+      "display_label": "Pleural effusion/thickening",
+      "displayed_best": "All-cat",
+      "official_label": "Pleural effusion / thickening",
+      "reported_deltas": {
+        "all_category": "+0.0132",
+        "strict_2b2c": "-0.0085"
+      },
+      "scores": {
+        "all_category": "0.4676",
+        "baseline": "0.4544",
+        "strict_2b2c": "0.4459"
+      },
+      "support": 11
+    },
+    {
+      "code": "2g",
+      "display_label": "Pneumothorax",
+      "displayed_best": "Insufficient sample",
+      "official_label": "Pneumothorax",
+      "reported_deltas": {
+        "all_category": "-0.0126",
+        "strict_2b2c": "+0.0150"
+      },
+      "scores": {
+        "all_category": "0.0908",
+        "baseline": "0.1034",
+        "strict_2b2c": "0.1184"
+      },
+      "support": 1
+    },
+    {
+      "code": "2h",
+      "display_label": "Other focal",
+      "displayed_best": "All-cat",
+      "official_label": "Other focal lung/airway/pleural finding",
+      "reported_deltas": {
+        "all_category": "+0.0059",
+        "strict_2b2c": "-0.0778"
+      },
+      "scores": {
+        "all_category": "0.1850",
+        "baseline": "0.1791",
+        "strict_2b2c": "0.1013"
+      },
+      "support": 7
+    }
+  ],
+  "evaluation_contract": {
+    "cases": 200,
+    "dice_aggregation": "unweighted mean across findings",
+    "findings": 381,
+    "mask_threshold": 0.5,
+    "split": "rexgroundingct_val200_seed20260723"
+  },
+  "paired_training_declaration": {
+    "attention_configuration_is_only_intended_intervention": true,
+    "data_order": "paired",
+    "evaluation": "paired",
+    "initialization": "paired",
+    "schedule_and_settings": "paired",
+    "seed": "paired"
+  },
+  "rounding_contract": {
+    "delta_definition": "attention score minus baseline score",
+    "displayed_decimal_places": 4,
+    "delta_discrepancy_tolerance": "0.0002"
+  },
+  "schema_version": 1,
+  "source": {
+    "description": "Manual transcription of the collaborator-provided category table screenshot",
+    "transcribed_on": "2026-07-31"
+  },
+  "unavailable_categories": [
+    {
+      "code": "2f",
+      "official_label": "Honeycombing",
+      "reason": "No val200 findings",
+      "support": 0
+    }
+  ],
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Baseline",
+      "role": "paired control"
+    },
+    {
+      "id": "all_category",
+      "label": "All-category attention",
+      "role": "paired attention intervention"
+    },
+    {
+      "id": "strict_2b2c",
+      "label": "Strict-2b2c attention",
+      "role": "paired attention intervention"
+    }
+  ]
+}

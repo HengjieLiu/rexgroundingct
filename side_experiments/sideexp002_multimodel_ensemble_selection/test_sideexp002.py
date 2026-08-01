@@ -611,6 +611,7 @@ class All20ThresholdAnalysisTests(unittest.TestCase):
                 root,
                 root,
                 "inventory",
+                4000,
                 "reproduce",
             )
             second = analyze_all20_thresholds.build_summary(
@@ -623,6 +624,7 @@ class All20ThresholdAnalysisTests(unittest.TestCase):
                 root,
                 root,
                 "inventory",
+                4000,
                 "reproduce",
             )
             self.assertEqual(first, second)
@@ -633,6 +635,10 @@ class All20ThresholdAnalysisTests(unittest.TestCase):
             self.assertEqual(
                 first["counts"]["strict_gate_bypassed_models"],
                 7,
+            )
+            self.assertIs(
+                first["validation"]["array_count_is_4000"],
+                True,
             )
             self.assertFalse(first["categories"]["2f"]["available"])
             self.assertEqual(first["categories"]["2g"]["support"], 1)

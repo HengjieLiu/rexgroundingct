@@ -698,6 +698,7 @@ def build_summary(
     runtime_root: Path,
     seg_dir: Path,
     inventory_sha256: str,
+    validated_array_count: int,
     reproduction_command: str,
 ) -> dict[str, Any]:
     if len(rows) != EXPECTED_FINDINGS:
@@ -847,7 +848,7 @@ def build_summary(
             "models": len(roster),
             "cases": EXPECTED_CASES,
             "findings": len(rows),
-            "arrays": EXPECTED_ARRAYS,
+            "arrays": validated_array_count,
             "official_categories": len(CATEGORY_LABELS),
             "represented_categories": len(supported_codes),
             "strict_gate_accepted_models": sum(
@@ -884,7 +885,7 @@ def build_summary(
             "case_count_is_200": len({row["case"] for row in rows})
             == EXPECTED_CASES,
             "finding_count_is_381": len(rows) == EXPECTED_FINDINGS,
-            "array_count_is_4000": EXPECTED_ARRAYS,
+            "array_count_is_4000": validated_array_count == EXPECTED_ARRAYS,
             "category_supports_sum_to_381": sum(supports.values())
             == EXPECTED_FINDINGS,
             "all_threshold_recompositions_passed": all(
@@ -1286,6 +1287,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             args.runtime_root,
             args.seg_dir,
             validation["array_inventory_sha256"],
+            validation["total_arrays"],
             reproduction_command(args),
         )
         atomic_write_json(args.output_json, summary)

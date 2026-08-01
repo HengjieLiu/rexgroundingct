@@ -1,0 +1,2862 @@
+{
+  "analysis": "sideexp002_all20_uniform_probability_threshold_sweep",
+  "candidates": [
+    {
+      "architecture": "standard",
+      "candidate_id": "exp006_e5d4_e100",
+      "checkpoint_sha256": "048e8a70b9119004bd445f065004a8a03ad0d1c5b69c18782ec1251dd71a2c8f",
+      "dtype": "float32",
+      "epoch": 100,
+      "experiment_name": "006_voxtell_cached_native_v123_lr_ablation",
+      "experiment_number": 6,
+      "export_manifest_sha256": "da56c21dde489c566dc9fe21b05308e30f844c44496c40af913facabb8789fd4",
+      "gate_status": "failed",
+      "historical_reproduction_status": "warning",
+      "model_id": "v123_cached_e5_d4",
+      "reproduction_manifest_sha256": "fe369451d1071db912a5e56310512d93e84e9dfe532601bdd3083c7f963dd43a",
+      "same_pass_mask_reproduction_status": "failed",
+      "storage_reproduction_status": "failed",
+      "strict_gate_accepted": false,
+      "warning_reason": "status=failed; storage_reproduction_status=failed; same_pass_mask_reproduction_status=failed; historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp006_e6d4_e100",
+      "checkpoint_sha256": "c347f7e1069f8383c66d1ab3bef4eb4c5bc812bc2cf5a7fdd0f1f0b7f88b5014",
+      "dtype": "float16",
+      "epoch": 100,
+      "experiment_name": "006_voxtell_cached_native_v123_lr_ablation",
+      "experiment_number": 6,
+      "export_manifest_sha256": "b705b2bb54feb6e3f1885c760576ced20d8fa6ae8b3475d4e449cdaedca2e981",
+      "gate_status": "failed",
+      "historical_reproduction_status": "passed",
+      "model_id": "v123_cached_e6_d4",
+      "reproduction_manifest_sha256": "10cb5e960a3688c7bf01d9077d9d09fd71590915ec9c3433ce92e75caa2915aa",
+      "same_pass_mask_reproduction_status": "failed",
+      "storage_reproduction_status": "failed",
+      "strict_gate_accepted": false,
+      "warning_reason": "status=failed; storage_reproduction_status=failed; same_pass_mask_reproduction_status=failed",
+      "weight": 0.05
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp007_ddp_e050",
+      "checkpoint_sha256": "24e8ab9301175851192bf9c45dcab971a67faca5a6b1b9f38450aece743dae94",
+      "dtype": "float32",
+      "epoch": 50,
+      "experiment_name": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "experiment_number": 7,
+      "export_manifest_sha256": "33038a97d19878f2949a601c09b5f48aa5631a968f7e87381ccb6862569c4eae",
+      "gate_status": "failed",
+      "historical_reproduction_status": "warning",
+      "model_id": "ddp_bs4",
+      "reproduction_manifest_sha256": "f3c447eb0bcf57206eb514c07e47cff8259d1c069e300b814aee07db93afd9af",
+      "same_pass_mask_reproduction_status": "failed",
+      "storage_reproduction_status": "failed",
+      "strict_gate_accepted": false,
+      "warning_reason": "status=failed; storage_reproduction_status=failed; same_pass_mask_reproduction_status=failed; historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp007_ddp_e075",
+      "checkpoint_sha256": "7f0b6a5f06733cdfb4ecb097b8a8f6fdb506d60800f35a846967ee76ffe638f3",
+      "dtype": "float16",
+      "epoch": 75,
+      "experiment_name": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "experiment_number": 7,
+      "export_manifest_sha256": "dc4b9d596a450f6a84ff833ef8731cbf9eece7fd3178a19c574f60b966c01292",
+      "gate_status": "failed",
+      "historical_reproduction_status": "passed",
+      "model_id": "ddp_bs4",
+      "reproduction_manifest_sha256": "29b84217e4b65c199c27c4c0e217efcc04975252ed49779fdcb030c4d8247453",
+      "same_pass_mask_reproduction_status": "failed",
+      "storage_reproduction_status": "failed",
+      "strict_gate_accepted": false,
+      "warning_reason": "status=failed; storage_reproduction_status=failed; same_pass_mask_reproduction_status=failed",
+      "weight": 0.05
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp007_ddp_e100",
+      "checkpoint_sha256": "c8fdd470bcb3961041db3dc5ba68d06256da12fded81140538b4bc6b1c388b3d",
+      "dtype": "float32",
+      "epoch": 100,
+      "experiment_name": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "experiment_number": 7,
+      "export_manifest_sha256": "2dbfabc10ce157bbfd7acd95c8aff36e8f79aecb0c4e749dc9e65597ea042dd2",
+      "gate_status": "failed",
+      "historical_reproduction_status": "warning",
+      "model_id": "ddp_bs4",
+      "reproduction_manifest_sha256": "59576f4093fe3b8769b49cd7416953d4b8c6f2bc7ca19ac871624b3defeaf761",
+      "same_pass_mask_reproduction_status": "failed",
+      "storage_reproduction_status": "failed",
+      "strict_gate_accepted": false,
+      "warning_reason": "status=failed; storage_reproduction_status=failed; same_pass_mask_reproduction_status=failed; historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_dual_e080",
+      "checkpoint_sha256": "e8f6846c2e1b464046cac4228f109deccb324eac49373162e240b196b2006020",
+      "dtype": "float16",
+      "epoch": 80,
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "export_manifest_sha256": "92c6e01fc91a3245f9012c1227756df9b8a42fb8a93746e3c4275f2d44fc4028",
+      "gate_status": "failed",
+      "historical_reproduction_status": "passed",
+      "model_id": "v1_dualfusion_softguide",
+      "reproduction_manifest_sha256": "6a7dabde8b79aefb49971a5c3f2d56d7b6beb210f7cecb7e7d075c7c985341d6",
+      "same_pass_mask_reproduction_status": "failed",
+      "storage_reproduction_status": "failed",
+      "strict_gate_accepted": false,
+      "warning_reason": "status=failed; storage_reproduction_status=failed; same_pass_mask_reproduction_status=failed",
+      "weight": 0.05
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_dual_e100",
+      "checkpoint_sha256": "9ba13980560f3b6086b2529989db1029cb6866c9316f4f050e4632b9f615a654",
+      "dtype": "float16",
+      "epoch": 100,
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "export_manifest_sha256": "7876544300533d57c087f195c39ff30da8bd701f438dbb906d946931ad71c94c",
+      "gate_status": "passed",
+      "historical_reproduction_status": "warning",
+      "model_id": "v1_dualfusion_softguide",
+      "reproduction_manifest_sha256": "69bc8598a5b9ae36253b10fed4c708a3aad105d86cfc4d1ec981410ae7d2920b",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_joint_e080",
+      "checkpoint_sha256": "628113fa4ee6c3d79c73e7599f1e41639fcb860277caf203c2c2b49c49afcdeb",
+      "dtype": "float32",
+      "epoch": 80,
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "export_manifest_sha256": "5caa9937fb1f6895579f1aacd97f79ebcf4bb2a07dbcd4de81f777c8bcd7ee31",
+      "gate_status": "failed",
+      "historical_reproduction_status": "warning",
+      "model_id": "v3_dualfusion_softguide_joint",
+      "reproduction_manifest_sha256": "04b4aba5998f5c59d259c4de6e9e50054d89d1b972f040671aac8b99f75711e4",
+      "same_pass_mask_reproduction_status": "failed",
+      "storage_reproduction_status": "failed",
+      "strict_gate_accepted": false,
+      "warning_reason": "status=failed; storage_reproduction_status=failed; same_pass_mask_reproduction_status=failed; historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_joint_e100",
+      "checkpoint_sha256": "f98374db047ca885c1b698121664425c8b049b8e5a44d3673f114cb5a9b6dd0b",
+      "dtype": "float16",
+      "epoch": 100,
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "export_manifest_sha256": "8b0a48e6ea23f1fcb28a6c105656578505cdc3e10e10863e3f5cea92c411fcca",
+      "gate_status": "passed",
+      "historical_reproduction_status": "passed",
+      "model_id": "v3_dualfusion_softguide_joint",
+      "reproduction_manifest_sha256": "e901a52f7091d3469ef1b5be06830782bd635a37d8b650328782973f12eceaee",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "-",
+      "weight": 0.05
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_precision_e080",
+      "checkpoint_sha256": "633ee2293ee6f766bf144d003d05ade0607ad927a265881ff08c5a857c1e73a0",
+      "dtype": "float16",
+      "epoch": 80,
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "export_manifest_sha256": "b50a02656b138906f4e27bc5d2e015cc3a94666aaef55393f33f303fbf209035",
+      "gate_status": "passed",
+      "historical_reproduction_status": "warning",
+      "model_id": "v2_dualfusion_precision",
+      "reproduction_manifest_sha256": "db45759da8f80a4c76ad9d0d85e9cbbc20e53fa5750eb057fbc81fdc4b0df307",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_precision_e100",
+      "checkpoint_sha256": "e67e2bc2840fb46af7e3eb4567c5c840d7db177bc24fbf5dae475018b27052b6",
+      "dtype": "float16",
+      "epoch": 100,
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "export_manifest_sha256": "5069fb26948b10f7c4d8932695b3cfe08c5f1b85f0f2a195b1b7251f1fb0b328",
+      "gate_status": "passed",
+      "historical_reproduction_status": "warning",
+      "model_id": "v2_dualfusion_precision",
+      "reproduction_manifest_sha256": "dbc4b902f0351a6248a089937d7cd4d39c30fe7d98bc63dc98580f388d263f02",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_shared_e080",
+      "checkpoint_sha256": "ed0cdd0a0c8b409a8c99abe608d3ea65e21a30e6e42c70308ce25029b9de369f",
+      "dtype": "float16",
+      "epoch": 80,
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "export_manifest_sha256": "c6a8b30fee81bc2360b8e5e6108d8658980fd7d2c86c216705d11845376f0d1a",
+      "gate_status": "passed",
+      "historical_reproduction_status": "passed",
+      "model_id": "v1_sharedfusion_softguide",
+      "reproduction_manifest_sha256": "ba29f2215a88315ff542089fe9a881b33e83ae4e347ea799dadca2b905c0643c",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "-",
+      "weight": 0.05
+    },
+    {
+      "architecture": "dual_branch",
+      "candidate_id": "exp008_shared_e100",
+      "checkpoint_sha256": "61bcec41fc90d38bb7a1665f0e9da5da6727661114ea368efcb9d8fe41305779",
+      "dtype": "float16",
+      "epoch": 100,
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "export_manifest_sha256": "7f2d222a04f729d75ca0005831e11095293eff3442029828cde2e3888d05cadf",
+      "gate_status": "passed",
+      "historical_reproduction_status": "warning",
+      "model_id": "v1_sharedfusion_softguide",
+      "reproduction_manifest_sha256": "2ddd58456a9c3f1c542aefed3943c49e468a016f7bb434e22881a8a0eaf5ffb9",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp009_baseline_e100",
+      "checkpoint_sha256": "50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf",
+      "dtype": "float16",
+      "epoch": 100,
+      "experiment_name": "009_voxtell_s3_attention_coupling_ablation",
+      "experiment_number": 9,
+      "export_manifest_sha256": "e14806107f3bba9b4c69a2a7bb502a86a27315c85edea389212d3c7696564d8f",
+      "gate_status": "passed",
+      "historical_reproduction_status": "warning",
+      "model_id": "baseline_cont100",
+      "reproduction_manifest_sha256": "cf5f3158d471ac1158a8e890427a883bca246f7081c3db3d6f504e512a299871",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    },
+    {
+      "architecture": "s3_attention",
+      "candidate_id": "exp009_s3v1_e100",
+      "checkpoint_sha256": "263f27d38b750d11d5453da684087b9985109d70410985bb9d450fefdfe1ede0",
+      "dtype": "float16",
+      "epoch": 100,
+      "experiment_name": "009_voxtell_s3_attention_coupling_ablation",
+      "experiment_number": 9,
+      "export_manifest_sha256": "d9f413bf1922850e2f2c0740987e345abc0ea67990d1ce1da91bfe6ad3d26fa3",
+      "gate_status": "passed",
+      "historical_reproduction_status": "warning",
+      "model_id": "s3v1_fixedrho_suppress_half_quarter",
+      "reproduction_manifest_sha256": "6cd1e71c7ea099e49378913f5b5f9c70248194b819f34fac88dc7258600fcbe0",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    },
+    {
+      "architecture": "s3_attention",
+      "candidate_id": "exp009_s3v2_e100",
+      "checkpoint_sha256": "a3e93801ba121c0084ec52b7f7dc38cbb617dbec484b6113b4348aa7dec82f3d",
+      "dtype": "float16",
+      "epoch": 100,
+      "experiment_name": "009_voxtell_s3_attention_coupling_ablation",
+      "experiment_number": 9,
+      "export_manifest_sha256": "a6ab3f613d4136d5776640f04b90b755b6deef6ef190951746085b01661dcfc4",
+      "gate_status": "passed",
+      "historical_reproduction_status": "warning",
+      "model_id": "s3v2_balanced_feature_half_quarter",
+      "reproduction_manifest_sha256": "4e92d8b020437fe9ec65baf763aa187911af77bcf7ec4c27b9695b4b4adcbcbe",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    },
+    {
+      "architecture": "s3_attention",
+      "candidate_id": "exp009_s3v3_e100",
+      "checkpoint_sha256": "a0167aaa349ab0c5e407cb524943eec36696756a55dc364a351d8bd4171366a8",
+      "dtype": "float16",
+      "epoch": 100,
+      "experiment_name": "009_voxtell_s3_attention_coupling_ablation",
+      "experiment_number": 9,
+      "export_manifest_sha256": "679c74ccddf7517cd34d520eaefdff853b93b19976e6820cd20dd5e156254684",
+      "gate_status": "passed",
+      "historical_reproduction_status": "warning",
+      "model_id": "s3v3_logit_residual_half_quarter",
+      "reproduction_manifest_sha256": "cb1b66af2eccdf405059fd6dd271785f941f839c572d4512b07d0e5bfbc0ce01",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp011_clip_zscore_e100",
+      "checkpoint_sha256": "3d546fe33566195caf6775588e50d6f68e0c0fa0a1f43b6a156938cc196782c6",
+      "dtype": "float16",
+      "epoch": 100,
+      "experiment_name": "011_voxtell_v123_e4d4_ct_normalization_ablation",
+      "experiment_number": 11,
+      "export_manifest_sha256": "2242806ee69658404638553e1c86dd8a3f954a7a518f8ad9130f47e2bd10bd4c",
+      "gate_status": "passed",
+      "historical_reproduction_status": "passed",
+      "model_id": "v123_e5d4_clip1024_zscore",
+      "reproduction_manifest_sha256": "933d357704d8ec06d7a995489c149c2ebbc01c8ff3ceee13b83386df7d45cc8f",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "-",
+      "weight": 0.05
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp011_linear_hu_e100",
+      "checkpoint_sha256": "202b3586decd9940b5317305d42cb68891e0bbba91d6a79acf9b8d4856c5ab7d",
+      "dtype": "float16",
+      "epoch": 100,
+      "experiment_name": "011_voxtell_v123_e4d4_ct_normalization_ablation",
+      "experiment_number": 11,
+      "export_manifest_sha256": "a0f1f5481901963293f8a5f5b0e5320937cdc3b0d58e4e641dc65523fcced9bd",
+      "gate_status": "passed",
+      "historical_reproduction_status": "passed",
+      "model_id": "v123_e5d4_clip1024_linear",
+      "reproduction_manifest_sha256": "bb3f67b91e9ff709e558c68f2a268cdc4d0b8d2ccb59c2a53dd5e9ff1f493641",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "-",
+      "weight": 0.05
+    },
+    {
+      "architecture": "standard",
+      "candidate_id": "exp011_native_zscore_e100",
+      "checkpoint_sha256": "1ec0e8d28f441fdf47674e5883de8c2f3a92eee41d1ecb009d30b9f5280b6943",
+      "dtype": "float16",
+      "epoch": 100,
+      "experiment_name": "011_voxtell_v123_e4d4_ct_normalization_ablation",
+      "experiment_number": 11,
+      "export_manifest_sha256": "7926ae9a8ae98d069736afe65ee288391a05d162d884f81c0d0522ff4152e6ce",
+      "gate_status": "passed",
+      "historical_reproduction_status": "warning",
+      "model_id": "v123_e5d4_zscore",
+      "reproduction_manifest_sha256": "25a596f07c703ce53a4ead4601e01d9e94e53f44c43dab94a2cb1b1b6e005b01",
+      "same_pass_mask_reproduction_status": "passed",
+      "storage_reproduction_status": "passed",
+      "strict_gate_accepted": true,
+      "warning_reason": "historical_reproduction_status=warning; historical_reproduction_mismatch",
+      "weight": 0.05
+    }
+  ],
+  "categories": {
+    "1a": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.13947569524328007,
+        "findings": 3,
+        "hit_rate": 0.3333333333333333,
+        "hits": 1,
+        "threshold": 0.8
+      },
+      "dice_gain": 0.017154363094495015,
+      "global_threshold_metrics": {
+        "dice": 0.12232133214878506,
+        "findings": 3,
+        "hit_rate": 0.3333333333333333,
+        "hits": 1,
+        "threshold": 0.55
+      },
+      "hit_gain": 0,
+      "label": "Bronchial wall thickening",
+      "support": 3
+    },
+    "1b": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.17967565531154076,
+        "findings": 11,
+        "hit_rate": 0.36363636363636365,
+        "hits": 4,
+        "threshold": 0.65
+      },
+      "dice_gain": 0.003911497830874522,
+      "global_threshold_metrics": {
+        "dice": 0.17576415748066623,
+        "findings": 11,
+        "hit_rate": 0.36363636363636365,
+        "hits": 4,
+        "threshold": 0.55
+      },
+      "hit_gain": 0,
+      "label": "Bronchiectasis",
+      "support": 11
+    },
+    "1c": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.19748130071922623,
+        "findings": 17,
+        "hit_rate": 0.47058823529411764,
+        "hits": 8,
+        "threshold": 0.6
+      },
+      "dice_gain": 0.0023908369547808728,
+      "global_threshold_metrics": {
+        "dice": 0.19509046376444536,
+        "findings": 17,
+        "hit_rate": 0.47058823529411764,
+        "hits": 8,
+        "threshold": 0.55
+      },
+      "hit_gain": 0,
+      "label": "Emphysema",
+      "support": 17
+    },
+    "1d": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.13198844283626868,
+        "findings": 6,
+        "hit_rate": 0.16666666666666666,
+        "hits": 1,
+        "threshold": 0.2
+      },
+      "dice_gain": 0.014893008116472192,
+      "global_threshold_metrics": {
+        "dice": 0.11709543471979648,
+        "findings": 6,
+        "hit_rate": 0.16666666666666666,
+        "hits": 1,
+        "threshold": 0.55
+      },
+      "hit_gain": 0,
+      "label": "Septal thickening / reticulation",
+      "support": 6
+    },
+    "1e": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.21517949139153716,
+        "findings": 11,
+        "hit_rate": 0.6363636363636364,
+        "hits": 7,
+        "threshold": 0.75
+      },
+      "dice_gain": 0.01657366281057443,
+      "global_threshold_metrics": {
+        "dice": 0.19860582858096273,
+        "findings": 11,
+        "hit_rate": 0.6363636363636364,
+        "hits": 7,
+        "threshold": 0.55
+      },
+      "hit_gain": 0,
+      "label": "Micronodules / tree-in-bud",
+      "support": 11
+    },
+    "1f": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.20836256036567893,
+        "findings": 4,
+        "hit_rate": 0.5,
+        "hits": 2,
+        "threshold": 0.1
+      },
+      "dice_gain": 0.043728413590469445,
+      "global_threshold_metrics": {
+        "dice": 0.1646341467752095,
+        "findings": 4,
+        "hit_rate": 0.25,
+        "hits": 1,
+        "threshold": 0.55
+      },
+      "hit_gain": 1,
+      "label": "Other diffuse lung/airway/pleural abnormality",
+      "support": 4
+    },
+    "2a": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.35310403585245764,
+        "findings": 69,
+        "hit_rate": 0.8405797101449275,
+        "hits": 58,
+        "threshold": 0.65
+      },
+      "dice_gain": 0.0020223545618392458,
+      "global_threshold_metrics": {
+        "dice": 0.3510816812906184,
+        "findings": 69,
+        "hit_rate": 0.8405797101449275,
+        "hits": 58,
+        "threshold": 0.55
+      },
+      "hit_gain": 0,
+      "label": "Linear opacity, scarring, fibrosis",
+      "support": 69
+    },
+    "2b": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.3700474727770103,
+        "findings": 49,
+        "hit_rate": 0.7755102040816326,
+        "hits": 38,
+        "threshold": 0.3
+      },
+      "dice_gain": 0.008527133284392419,
+      "global_threshold_metrics": {
+        "dice": 0.36152033949261786,
+        "findings": 49,
+        "hit_rate": 0.7346938775510204,
+        "hits": 36,
+        "threshold": 0.55
+      },
+      "hit_gain": 2,
+      "label": "Atelectasis / consolidation",
+      "support": 49
+    },
+    "2c": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.4056674127948105,
+        "findings": 60,
+        "hit_rate": 0.8333333333333334,
+        "hits": 50,
+        "threshold": 0.4
+      },
+      "dice_gain": 0.00795941887859486,
+      "global_threshold_metrics": {
+        "dice": 0.39770799391621564,
+        "findings": 60,
+        "hit_rate": 0.8333333333333334,
+        "hits": 50,
+        "threshold": 0.55
+      },
+      "hit_gain": 0,
+      "label": "Ground-glass opacity",
+      "support": 60
+    },
+    "2d": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.38815858458495184,
+        "findings": 132,
+        "hit_rate": 0.8257575757575758,
+        "hits": 109,
+        "threshold": 0.9
+      },
+      "dice_gain": 0.008186989012886337,
+      "global_threshold_metrics": {
+        "dice": 0.3799715955720655,
+        "findings": 132,
+        "hit_rate": 0.8484848484848485,
+        "hits": 112,
+        "threshold": 0.55
+      },
+      "hit_gain": -3,
+      "label": "Pulmonary nodules / masses",
+      "support": 132
+    },
+    "2e": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.5003034976794726,
+        "findings": 11,
+        "hit_rate": 0.8181818181818182,
+        "hits": 9,
+        "threshold": 0.2
+      },
+      "dice_gain": 0.071515523314999,
+      "global_threshold_metrics": {
+        "dice": 0.4287879743644736,
+        "findings": 11,
+        "hit_rate": 0.7272727272727273,
+        "hits": 8,
+        "threshold": 0.55
+      },
+      "hit_gain": 1,
+      "label": "Pleural effusion / thickening",
+      "support": 11
+    },
+    "2f": {
+      "available": false,
+      "best_threshold_metrics": null,
+      "dice_gain": null,
+      "global_threshold_metrics": null,
+      "hit_gain": null,
+      "label": "Honeycombing",
+      "support": 0
+    },
+    "2g": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.16851550074573032,
+        "findings": 1,
+        "hit_rate": 1.0,
+        "hits": 1,
+        "threshold": 0.1
+      },
+      "dice_gain": 0.12687181534261888,
+      "global_threshold_metrics": {
+        "dice": 0.04164368540311145,
+        "findings": 1,
+        "hit_rate": 0.0,
+        "hits": 0,
+        "threshold": 0.55
+      },
+      "hit_gain": 1,
+      "label": "Pneumothorax",
+      "support": 1
+    },
+    "2h": {
+      "available": true,
+      "best_threshold_metrics": {
+        "dice": 0.22096777285570204,
+        "findings": 7,
+        "hit_rate": 0.5714285714285714,
+        "hits": 4,
+        "threshold": 0.45
+      },
+      "dice_gain": 0.005589204749777921,
+      "global_threshold_metrics": {
+        "dice": 0.21537856810592412,
+        "findings": 7,
+        "hit_rate": 0.5714285714285714,
+        "hits": 4,
+        "threshold": 0.55
+      },
+      "hit_gain": 0,
+      "label": "Other focal lung/airway/pleural finding",
+      "support": 7
+    }
+  },
+  "category_oracle": {
+    "categories": {
+      "1a": {
+        "available": true,
+        "dice": 0.13947569524328007,
+        "findings": 3,
+        "hit_rate": 0.3333333333333333,
+        "hits": 1,
+        "threshold": 0.8
+      },
+      "1b": {
+        "available": true,
+        "dice": 0.17967565531154076,
+        "findings": 11,
+        "hit_rate": 0.36363636363636365,
+        "hits": 4,
+        "threshold": 0.65
+      },
+      "1c": {
+        "available": true,
+        "dice": 0.19748130071922623,
+        "findings": 17,
+        "hit_rate": 0.47058823529411764,
+        "hits": 8,
+        "threshold": 0.6
+      },
+      "1d": {
+        "available": true,
+        "dice": 0.13198844283626868,
+        "findings": 6,
+        "hit_rate": 0.16666666666666666,
+        "hits": 1,
+        "threshold": 0.2
+      },
+      "1e": {
+        "available": true,
+        "dice": 0.21517949139153716,
+        "findings": 11,
+        "hit_rate": 0.6363636363636364,
+        "hits": 7,
+        "threshold": 0.75
+      },
+      "1f": {
+        "available": true,
+        "dice": 0.20836256036567893,
+        "findings": 4,
+        "hit_rate": 0.5,
+        "hits": 2,
+        "threshold": 0.1
+      },
+      "2a": {
+        "available": true,
+        "dice": 0.35310403585245764,
+        "findings": 69,
+        "hit_rate": 0.8405797101449275,
+        "hits": 58,
+        "threshold": 0.65
+      },
+      "2b": {
+        "available": true,
+        "dice": 0.3700474727770103,
+        "findings": 49,
+        "hit_rate": 0.7755102040816326,
+        "hits": 38,
+        "threshold": 0.3
+      },
+      "2c": {
+        "available": true,
+        "dice": 0.4056674127948105,
+        "findings": 60,
+        "hit_rate": 0.8333333333333334,
+        "hits": 50,
+        "threshold": 0.4
+      },
+      "2d": {
+        "available": true,
+        "dice": 0.38815858458495184,
+        "findings": 132,
+        "hit_rate": 0.8257575757575758,
+        "hits": 109,
+        "threshold": 0.9
+      },
+      "2e": {
+        "available": true,
+        "dice": 0.5003034976794726,
+        "findings": 11,
+        "hit_rate": 0.8181818181818182,
+        "hits": 9,
+        "threshold": 0.2
+      },
+      "2f": {
+        "available": false,
+        "dice": null,
+        "findings": 0,
+        "hit_rate": null,
+        "hits": null,
+        "threshold": null
+      },
+      "2g": {
+        "available": true,
+        "dice": 0.16851550074573032,
+        "findings": 1,
+        "hit_rate": 1.0,
+        "hits": 1,
+        "threshold": 0.1
+      },
+      "2h": {
+        "available": true,
+        "dice": 0.22096777285570204,
+        "findings": 7,
+        "hit_rate": 0.5714285714285714,
+        "hits": 4,
+        "threshold": 0.45
+      }
+    },
+    "dice": 0.3544265293127981,
+    "dice_gain_over_global": 0.009580058978494232,
+    "findings": 381,
+    "hit_gain_over_global": 2,
+    "hit_rate": 0.7664041994750657,
+    "hits": 292,
+    "validation": {
+      "category_dice_recomposed": 0.35442652931279806,
+      "category_hit_rate_recomposed": 0.7664041994750657,
+      "category_hits_recomposed": 292
+    }
+  },
+  "category_support": {
+    "1a": {
+      "available": true,
+      "label": "Bronchial wall thickening",
+      "support": 3
+    },
+    "1b": {
+      "available": true,
+      "label": "Bronchiectasis",
+      "support": 11
+    },
+    "1c": {
+      "available": true,
+      "label": "Emphysema",
+      "support": 17
+    },
+    "1d": {
+      "available": true,
+      "label": "Septal thickening / reticulation",
+      "support": 6
+    },
+    "1e": {
+      "available": true,
+      "label": "Micronodules / tree-in-bud",
+      "support": 11
+    },
+    "1f": {
+      "available": true,
+      "label": "Other diffuse lung/airway/pleural abnormality",
+      "support": 4
+    },
+    "2a": {
+      "available": true,
+      "label": "Linear opacity, scarring, fibrosis",
+      "support": 69
+    },
+    "2b": {
+      "available": true,
+      "label": "Atelectasis / consolidation",
+      "support": 49
+    },
+    "2c": {
+      "available": true,
+      "label": "Ground-glass opacity",
+      "support": 60
+    },
+    "2d": {
+      "available": true,
+      "label": "Pulmonary nodules / masses",
+      "support": 132
+    },
+    "2e": {
+      "available": true,
+      "label": "Pleural effusion / thickening",
+      "support": 11
+    },
+    "2f": {
+      "available": false,
+      "label": "Honeycombing",
+      "support": 0
+    },
+    "2g": {
+      "available": true,
+      "label": "Pneumothorax",
+      "support": 1
+    },
+    "2h": {
+      "available": true,
+      "label": "Other focal lung/airway/pleural finding",
+      "support": 7
+    }
+  },
+  "counts": {
+    "arrays": 4000,
+    "cases": 200,
+    "findings": 381,
+    "models": 20,
+    "official_categories": 14,
+    "represented_categories": 13,
+    "strict_gate_accepted_models": 13,
+    "strict_gate_bypassed_models": 7
+  },
+  "definitions": {
+    "acceptance_override": "strict gate status is diagnostic and does not exclude a model",
+    "averaging": "uniform mean of the 20 per-model sigmoid probabilities",
+    "category_selection": "maximum full-precision category Dice, then category hits, then lower threshold",
+    "dice_aggregation": "unweighted mean across findings",
+    "global_selection": "maximum full-precision overall Dice, then hits, then lower threshold",
+    "hit_threshold": 0.1,
+    "model_weight": 0.05,
+    "threshold_comparison": "ensemble probability >= threshold",
+    "threshold_grid": [
+      0.1,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.9
+    ]
+  },
+  "deterministic_result_sha256": "feaae2eb15497574981cb98ce805e2d4bad27cdde213929d9942542f103fb8a4",
+  "global_best": {
+    "categories": {
+      "1a": {
+        "available": true,
+        "dice": 0.12232133214878506,
+        "findings": 3,
+        "hit_rate": 0.3333333333333333,
+        "hits": 1
+      },
+      "1b": {
+        "available": true,
+        "dice": 0.17576415748066623,
+        "findings": 11,
+        "hit_rate": 0.36363636363636365,
+        "hits": 4
+      },
+      "1c": {
+        "available": true,
+        "dice": 0.19509046376444536,
+        "findings": 17,
+        "hit_rate": 0.47058823529411764,
+        "hits": 8
+      },
+      "1d": {
+        "available": true,
+        "dice": 0.11709543471979648,
+        "findings": 6,
+        "hit_rate": 0.16666666666666666,
+        "hits": 1
+      },
+      "1e": {
+        "available": true,
+        "dice": 0.19860582858096273,
+        "findings": 11,
+        "hit_rate": 0.6363636363636364,
+        "hits": 7
+      },
+      "1f": {
+        "available": true,
+        "dice": 0.1646341467752095,
+        "findings": 4,
+        "hit_rate": 0.25,
+        "hits": 1
+      },
+      "2a": {
+        "available": true,
+        "dice": 0.3510816812906184,
+        "findings": 69,
+        "hit_rate": 0.8405797101449275,
+        "hits": 58
+      },
+      "2b": {
+        "available": true,
+        "dice": 0.36152033949261786,
+        "findings": 49,
+        "hit_rate": 0.7346938775510204,
+        "hits": 36
+      },
+      "2c": {
+        "available": true,
+        "dice": 0.39770799391621564,
+        "findings": 60,
+        "hit_rate": 0.8333333333333334,
+        "hits": 50
+      },
+      "2d": {
+        "available": true,
+        "dice": 0.3799715955720655,
+        "findings": 132,
+        "hit_rate": 0.8484848484848485,
+        "hits": 112
+      },
+      "2e": {
+        "available": true,
+        "dice": 0.4287879743644736,
+        "findings": 11,
+        "hit_rate": 0.7272727272727273,
+        "hits": 8
+      },
+      "2f": {
+        "available": false,
+        "dice": null,
+        "findings": 0,
+        "hit_rate": null,
+        "hits": null
+      },
+      "2g": {
+        "available": true,
+        "dice": 0.04164368540311145,
+        "findings": 1,
+        "hit_rate": 0.0,
+        "hits": 0
+      },
+      "2h": {
+        "available": true,
+        "dice": 0.21537856810592412,
+        "findings": 7,
+        "hit_rate": 0.5714285714285714,
+        "hits": 4
+      }
+    },
+    "dice": 0.3448464703343039,
+    "findings": 381,
+    "hit_rate": 0.7611548556430446,
+    "hits": 290,
+    "macro_category_dice": 0.2422771693549917,
+    "minimum_category_dice": 0.04164368540311145,
+    "threshold": 0.55,
+    "validation": {
+      "category_dice_recomposed": 0.3448464703343039,
+      "category_hit_rate_recomposed": 0.7611548556430446,
+      "category_hits_recomposed": 290
+    }
+  },
+  "recipe": {
+    "candidate_count": 20,
+    "candidate_ids": [
+      "exp006_e5d4_e100",
+      "exp006_e6d4_e100",
+      "exp007_ddp_e050",
+      "exp007_ddp_e075",
+      "exp007_ddp_e100",
+      "exp008_dual_e080",
+      "exp008_dual_e100",
+      "exp008_joint_e080",
+      "exp008_joint_e100",
+      "exp008_precision_e080",
+      "exp008_precision_e100",
+      "exp008_shared_e080",
+      "exp008_shared_e100",
+      "exp009_baseline_e100",
+      "exp009_s3v1_e100",
+      "exp009_s3v2_e100",
+      "exp009_s3v3_e100",
+      "exp011_clip_zscore_e100",
+      "exp011_linear_hu_e100",
+      "exp011_native_zscore_e100"
+    ],
+    "domain": "probability",
+    "name": "all20_uniform_probability",
+    "recipe_hash": "8ee57211f8656d0f8e51e61bce5281a515fbd12f0c9d5617d71cf3473514094e",
+    "weights": {
+      "exp006_e5d4_e100": 0.05,
+      "exp006_e6d4_e100": 0.05,
+      "exp007_ddp_e050": 0.05,
+      "exp007_ddp_e075": 0.05,
+      "exp007_ddp_e100": 0.05,
+      "exp008_dual_e080": 0.05,
+      "exp008_dual_e100": 0.05,
+      "exp008_joint_e080": 0.05,
+      "exp008_joint_e100": 0.05,
+      "exp008_precision_e080": 0.05,
+      "exp008_precision_e100": 0.05,
+      "exp008_shared_e080": 0.05,
+      "exp008_shared_e100": 0.05,
+      "exp009_baseline_e100": 0.05,
+      "exp009_s3v1_e100": 0.05,
+      "exp009_s3v2_e100": 0.05,
+      "exp009_s3v3_e100": 0.05,
+      "exp011_clip_zscore_e100": 0.05,
+      "exp011_linear_hu_e100": 0.05,
+      "exp011_native_zscore_e100": 0.05
+    }
+  },
+  "reproduction_command": "PYTHONDONTWRITEBYTECODE=1 python side_experiments/sideexp002_multimodel_ensemble_selection/analyze_all20_thresholds.py --manifest /workspace/side_experiments/sideexp002_multimodel_ensemble_selection/candidate_manifest.json --dataset-json /workspace/configs/evaluation/rexgroundingct_val200_seed20260723.json --runtime-root /mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp002_multimodel_ensemble_selection --seg-dir /data/hengjie/datasets/rexgroundingct/segmentations --output-json /workspace/side_experiments/sideexp002_multimodel_ensemble_selection/outputs/all20_uniform_probability_threshold_summary.json --output-markdown /workspace/side_experiments/sideexp002_multimodel_ensemble_selection/outputs/all20_uniform_probability_threshold_report.md --chunk-elements 4194304 --allow-unaccepted",
+  "schema_version": 1,
+  "single_threshold_robustness": {
+    "categories_selecting_global_threshold": [],
+    "category_count_selecting_global_threshold": 0,
+    "global_threshold": 0.55,
+    "maximum_category_dice_loss": 0.12687181534261888,
+    "maximum_loss_category": "2g",
+    "mean_category_dice_loss": 0.025332632426367317,
+    "represented_categories": 13
+  },
+  "sources": {
+    "array_inventory_sha256": "786e230f797fce22712225b249a2fe00e4b710c3bc2ba82007474ebacc8240d3",
+    "candidate_manifest": "/workspace/side_experiments/sideexp002_multimodel_ensemble_selection/candidate_manifest.json",
+    "candidate_manifest_sha256": "1e5c08ebe7c4a393be8ba9319a6fbb845865a346cb6e7bcdb1be4e082f7f622f",
+    "dataset_json": "/workspace/configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "dataset_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "runtime_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp002_multimodel_ensemble_selection",
+    "segmentation_dir": "/data/hengjie/datasets/rexgroundingct/segmentations"
+  },
+  "threshold_sweep": [
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.06906746909761574,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.10076162840105143,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.1497823640483163,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.12958277950422611,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.14400605056235669,
+          "findings": 11,
+          "hit_rate": 0.45454545454545453,
+          "hits": 5
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.20836256036567893,
+          "findings": 4,
+          "hit_rate": 0.5,
+          "hits": 2
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3076830410787533,
+          "findings": 69,
+          "hit_rate": 0.7971014492753623,
+          "hits": 55
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3577211070476176,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.3840761923890605,
+          "findings": 60,
+          "hit_rate": 0.8,
+          "hits": 48
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.33172846800657896,
+          "findings": 132,
+          "hit_rate": 0.8484848484848485,
+          "hits": 112
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.49554370396314534,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.16851550074573032,
+          "findings": 1,
+          "hit_rate": 1.0,
+          "hits": 1
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.15119207963784295,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4
+        }
+      },
+      "categories_selecting_threshold": 2,
+      "dice": 0.31319141255901395,
+      "findings": 381,
+      "hit_rate": 0.7480314960629921,
+      "hits": 285,
+      "macro_category_dice": 0.23061714960369034,
+      "maximum_category_regret": 0.07891402691048932,
+      "mean_category_regret": 0.03699265217766868,
+      "minimum_category_dice": 0.06906746909761574,
+      "threshold": 0.1,
+      "validation": {
+        "category_dice_recomposed": 0.31319141255901395,
+        "category_hit_rate_recomposed": 0.7480314960629921,
+        "category_hits_recomposed": 285
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.08621768071444214,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.1302469467479212,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.16512121454514944,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.13198844283626868,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.16280874740632958,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.17371474202419832,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.327538776323714,
+          "findings": 69,
+          "hit_rate": 0.8115942028985508,
+          "hits": 56
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3677399592233585,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.39826659608520004,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3545580950779221,
+          "findings": 132,
+          "hit_rate": 0.8636363636363636,
+          "hits": 114
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.5003034976794726,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.11337354608000537,
+          "findings": 1,
+          "hit_rate": 1.0,
+          "hits": 1
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.1875158074950924,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4
+        }
+      },
+      "categories_selecting_threshold": 2,
+      "dice": 0.3307678123541219,
+      "findings": 381,
+      "hit_rate": 0.7611548556430446,
+      "hits": 290,
+      "macro_category_dice": 0.2384149270953134,
+      "maximum_category_regret": 0.055141954665724954,
+      "mean_category_regret": 0.029194874686045594,
+      "minimum_category_dice": 0.08621768071444214,
+      "threshold": 0.2,
+      "validation": {
+        "category_dice_recomposed": 0.3307678123541219,
+        "category_hit_rate_recomposed": 0.7611548556430446,
+        "category_hits_recomposed": 290
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.09288930971749852,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.14126762333643914,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.17078427838808935,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.1315436104879035,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.16865911795936042,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16219530654226968,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.33401793962404924,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3696798495344408,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.40164301208433933,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3627355151932129,
+          "findings": 132,
+          "hit_rate": 0.8636363636363636,
+          "hits": 114
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.49458510915358117,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.09741279752401867,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.198728713105398,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4
+        }
+      },
+      "categories_selecting_threshold": 0,
+      "dice": 0.3362189157135511,
+      "findings": 381,
+      "hit_rate": 0.7637795275590551,
+      "hits": 291,
+      "macro_category_dice": 0.24047247558850773,
+      "maximum_category_regret": 0.07110270322171165,
+      "mean_category_regret": 0.027137326192851256,
+      "minimum_category_dice": 0.09288930971749852,
+      "threshold": 0.25,
+      "validation": {
+        "category_dice_recomposed": 0.3362189157135511,
+        "category_hit_rate_recomposed": 0.7637795275590551,
+        "category_hits_recomposed": 291
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.09847067761441168,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.15066211241835895,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.1754962840541368,
+          "findings": 17,
+          "hit_rate": 0.35294117647058826,
+          "hits": 6
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.13042619961624374,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.17388705259849854,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.1612903229224306,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3385133671917626,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3700474727770103,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.4040035091492549,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3683338222588902,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.48497103973481737,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.08470592674522284,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.20609540403978252,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4
+        }
+      },
+      "categories_selecting_threshold": 1,
+      "dice": 0.33986532007316744,
+      "findings": 381,
+      "hit_rate": 0.7611548556430446,
+      "hits": 290,
+      "macro_category_dice": 0.24206947624006314,
+      "maximum_category_regret": 0.08380957400050748,
+      "mean_category_regret": 0.02554032554129584,
+      "minimum_category_dice": 0.08470592674522284,
+      "threshold": 0.3,
+      "validation": {
+        "category_dice_recomposed": 0.33986532007316744,
+        "category_hit_rate_recomposed": 0.7611548556430446,
+        "category_hits_recomposed": 290
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.1035088421620059,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.15757670977229774,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.17980459190116574,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.1289389755293548,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.17938340718230059,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.1622418882623374,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.34214200289776825,
+          "findings": 69,
+          "hit_rate": 0.8405797101449275,
+          "hits": 58
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3695790968468925,
+          "findings": 49,
+          "hit_rate": 0.7755102040816326,
+          "hits": 38
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.4052842543254329,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.36994533204871755,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4709057087568382,
+          "findings": 11,
+          "hit_rate": 0.8181818181818182,
+          "hits": 9
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.07402504660255765,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.21342943745275003,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4
+        }
+      },
+      "categories_selecting_threshold": 0,
+      "dice": 0.3414996698740928,
+      "findings": 381,
+      "hit_rate": 0.7664041994750657,
+      "hits": 292,
+      "macro_category_dice": 0.24282809951849377,
+      "maximum_category_regret": 0.09449045414317267,
+      "mean_category_regret": 0.024781702262865215,
+      "minimum_category_dice": 0.07402504660255765,
+      "threshold": 0.35,
+      "validation": {
+        "category_dice_recomposed": 0.3414996698740928,
+        "category_hit_rate_recomposed": 0.7664041994750657,
+        "category_hits_recomposed": 292
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.10838281552968554,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.163323108802505,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.18383569561534288,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.12640158759169323,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.1847463264986717,
+          "findings": 11,
+          "hit_rate": 0.5454545454545454,
+          "hits": 6
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.1627043094408117,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3455755901045059,
+          "findings": 69,
+          "hit_rate": 0.855072463768116,
+          "hits": 59
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.36836564284239487,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.4056674127948105,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.372634929930712,
+          "findings": 132,
+          "hit_rate": 0.8560606060606061,
+          "hits": 113
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4540409861232051,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.06482098429628234,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.22025394355883485,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4
+        }
+      },
+      "categories_selecting_threshold": 1,
+      "dice": 0.34307580838653673,
+      "findings": 381,
+      "hit_rate": 0.7637795275590551,
+      "hits": 291,
+      "macro_category_dice": 0.2431348717791889,
+      "maximum_category_regret": 0.10369451644944798,
+      "mean_category_regret": 0.024474930002170107,
+      "minimum_category_dice": 0.06482098429628234,
+      "threshold": 0.4,
+      "validation": {
+        "category_dice_recomposed": 0.34307580838653673,
+        "category_hit_rate_recomposed": 0.7637795275590551,
+        "category_hits_recomposed": 291
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.11294025201143827,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.16839689834703178,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.1877640592703584,
+          "findings": 17,
+          "hit_rate": 0.4117647058823529,
+          "hits": 7
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.1237102763863359,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.18883037864778016,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16317365308693585,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3482692796921621,
+          "findings": 69,
+          "hit_rate": 0.855072463768116,
+          "hits": 59
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.366791410522876,
+          "findings": 49,
+          "hit_rate": 0.7551020408163265,
+          "hits": 37
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.4039972262698252,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.37492786380953685,
+          "findings": 132,
+          "hit_rate": 0.8484848484848485,
+          "hits": 112
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4428307084852621,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.05637353546878022,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.22096777285570204,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4
+        }
+      },
+      "categories_selecting_threshold": 1,
+      "dice": 0.3439979601928193,
+      "findings": 381,
+      "hit_rate": 0.7637795275590551,
+      "hits": 291,
+      "macro_category_dice": 0.24299794729646346,
+      "maximum_category_regret": 0.11214196527695011,
+      "mean_category_regret": 0.02461185448489555,
+      "minimum_category_dice": 0.05637353546878022,
+      "threshold": 0.45,
+      "validation": {
+        "category_dice_recomposed": 0.3439979601928193,
+        "category_hit_rate_recomposed": 0.7637795275590551,
+        "category_hits_recomposed": 291
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.11777756493749188,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.1724980773552013,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.19166013427829656,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.12078756194535284,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.19350555129900474,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.163636364050957,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3499218137270588,
+          "findings": 69,
+          "hit_rate": 0.8405797101449275,
+          "hits": 58
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.36450549292515455,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.40115621483372027,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.37732365090018344,
+          "findings": 132,
+          "hit_rate": 0.8484848484848485,
+          "hits": 112
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.43606553901349376,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.048692774159676794,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.21875045821618652,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4
+        }
+      },
+      "categories_selecting_threshold": 0,
+      "dice": 0.34455381034326565,
+      "findings": 381,
+      "hit_rate": 0.7611548556430446,
+      "hits": 290,
+      "macro_category_dice": 0.24279086135705988,
+      "maximum_category_regret": 0.11982272658605353,
+      "mean_category_regret": 0.024818940424299125,
+      "minimum_category_dice": 0.048692774159676794,
+      "threshold": 0.5,
+      "validation": {
+        "category_dice_recomposed": 0.34455381034326565,
+        "category_hit_rate_recomposed": 0.7611548556430446,
+        "category_hits_recomposed": 290
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.12232133214878506,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.17576415748066623,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.19509046376444536,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.11709543471979648,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.19860582858096273,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.1646341467752095,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3510816812906184,
+          "findings": 69,
+          "hit_rate": 0.8405797101449275,
+          "hits": 58
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.36152033949261786,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.39770799391621564,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3799715955720655,
+          "findings": 132,
+          "hit_rate": 0.8484848484848485,
+          "hits": 112
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4287879743644736,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.04164368540311145,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.21537856810592412,
+          "findings": 7,
+          "hit_rate": 0.5714285714285714,
+          "hits": 4
+        }
+      },
+      "categories_selecting_threshold": 0,
+      "dice": 0.3448464703343039,
+      "findings": 381,
+      "hit_rate": 0.7611548556430446,
+      "hits": 290,
+      "macro_category_dice": 0.2422771693549917,
+      "maximum_category_regret": 0.12687181534261888,
+      "mean_category_regret": 0.025332632426367317,
+      "minimum_category_dice": 0.04164368540311145,
+      "threshold": 0.55,
+      "validation": {
+        "category_dice_recomposed": 0.3448464703343039,
+        "category_hit_rate_recomposed": 0.7611548556430446,
+        "category_hits_recomposed": 290
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.12675733689119298,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.17823775911443013,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.19748130071922623,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.11242876736377055,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.20167543854457107,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16436251965214102,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.35177065671741314,
+          "findings": 69,
+          "hit_rate": 0.8405797101449275,
+          "hits": 58
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3580414339469215,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.39352066154450877,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3812902587434541,
+          "findings": 132,
+          "hit_rate": 0.8409090909090909,
+          "hits": 111
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.4207499990866372,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.03508684819019108,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.20686737171366204,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3
+        }
+      },
+      "categories_selecting_threshold": 1,
+      "dice": 0.3441409182251617,
+      "findings": 381,
+      "hit_rate": 0.7559055118110236,
+      "hits": 288,
+      "macro_category_dice": 0.24063618094062458,
+      "maximum_category_regret": 0.13342865255553923,
+      "mean_category_regret": 0.026973620840734402,
+      "minimum_category_dice": 0.03508684819019108,
+      "threshold": 0.6,
+      "validation": {
+        "category_dice_recomposed": 0.3441409182251617,
+        "category_hit_rate_recomposed": 0.7559055118110236,
+        "category_hits_recomposed": 288
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.1310277280736602,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.17967565531154076,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.19383358846339646,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.10661700664732349,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.20731718412493094,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16201550435764892,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.35310403585245764,
+          "findings": 69,
+          "hit_rate": 0.8405797101449275,
+          "hits": 58
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3538772559645913,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.388324368270178,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.381008020158633,
+          "findings": 132,
+          "hit_rate": 0.8333333333333334,
+          "hits": 110
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.41119905385418176,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.029129463782466218,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.19169235753229602,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3
+        }
+      },
+      "categories_selecting_threshold": 2,
+      "dice": 0.3423196582975165,
+      "findings": 381,
+      "hit_rate": 0.7532808398950132,
+      "hits": 287,
+      "macro_category_dice": 0.2376016324917927,
+      "maximum_category_regret": 0.1393860369632641,
+      "mean_category_regret": 0.03000816928956633,
+      "minimum_category_dice": 0.029129463782466218,
+      "threshold": 0.65,
+      "validation": {
+        "category_dice_recomposed": 0.3423196582975165,
+        "category_hit_rate_recomposed": 0.7532808398950132,
+        "category_hits_recomposed": 287
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.1347560807896789,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.1788108329492901,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.1905774416224915,
+          "findings": 17,
+          "hit_rate": 0.5294117647058824,
+          "hits": 9
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.09876764264947531,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.2126325749843459,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.16118935888304906,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3530087798704664,
+          "findings": 69,
+          "hit_rate": 0.8405797101449275,
+          "hits": 58
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.34865412018648384,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.38169251102139873,
+          "findings": 60,
+          "hit_rate": 0.8333333333333334,
+          "hits": 50
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.38271715103967024,
+          "findings": 132,
+          "hit_rate": 0.8333333333333334,
+          "hits": 110
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.3999337115409805,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.023612487409498634,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.16967093714268433,
+          "findings": 7,
+          "hit_rate": 0.42857142857142855,
+          "hits": 3
+        }
+      },
+      "categories_selecting_threshold": 0,
+      "dice": 0.3403143771698945,
+      "findings": 381,
+      "hit_rate": 0.7559055118110236,
+      "hits": 288,
+      "macro_category_dice": 0.23354027923765489,
+      "maximum_category_regret": 0.14490301333623168,
+      "mean_category_regret": 0.03406952254370412,
+      "minimum_category_dice": 0.023612487409498634,
+      "threshold": 0.7,
+      "validation": {
+        "category_dice_recomposed": 0.3403143771698945,
+        "category_hit_rate_recomposed": 0.7559055118110236,
+        "category_hits_recomposed": 288
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.13756615404621295,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.17454483604329082,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.18798805999059595,
+          "findings": 17,
+          "hit_rate": 0.5294117647058824,
+          "hits": 9
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.08829057716101883,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.21517949139153716,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.15876777305190265,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3526132529666853,
+          "findings": 69,
+          "hit_rate": 0.8405797101449275,
+          "hits": 58
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3416631736724589,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.3729788673273333,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.3836934950417156,
+          "findings": 132,
+          "hit_rate": 0.8409090909090909,
+          "hits": 111
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.3860711049871676,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.018148999075582282,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.13545277142483927,
+          "findings": 7,
+          "hit_rate": 0.2857142857142857,
+          "hits": 2
+        }
+      },
+      "categories_selecting_threshold": 1,
+      "dice": 0.33693296992819455,
+      "findings": 381,
+      "hit_rate": 0.7532808398950132,
+      "hits": 287,
+      "macro_category_dice": 0.2271506581677185,
+      "maximum_category_regret": 0.15036650167014803,
+      "mean_category_regret": 0.04045914361364049,
+      "minimum_category_dice": 0.018148999075582282,
+      "threshold": 0.75,
+      "validation": {
+        "category_dice_recomposed": 0.33693296992819455,
+        "category_hit_rate_recomposed": 0.7532808398950132,
+        "category_hits_recomposed": 287
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.13947569524328007,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.16830868066557106,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.18481287199595298,
+          "findings": 17,
+          "hit_rate": 0.5294117647058824,
+          "hits": 9
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.0744413133897665,
+          "findings": 6,
+          "hit_rate": 0.16666666666666666,
+          "hits": 1
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.214012741249638,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.1582278486728889,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.35110439490725703,
+          "findings": 69,
+          "hit_rate": 0.8405797101449275,
+          "hits": 58
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.3324111362174229,
+          "findings": 49,
+          "hit_rate": 0.7346938775510204,
+          "hits": 36
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.36064658773660313,
+          "findings": 60,
+          "hit_rate": 0.8166666666666667,
+          "hits": 49
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.38607960559924354,
+          "findings": 132,
+          "hit_rate": 0.8409090909090909,
+          "hits": 111
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.3689971859778031,
+          "findings": 11,
+          "hit_rate": 0.7272727272727273,
+          "hits": 8
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.012716433608699484,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.0916955353014836,
+          "findings": 7,
+          "hit_rate": 0.2857142857142857,
+          "hits": 2
+        }
+      },
+      "categories_selecting_threshold": 1,
+      "dice": 0.33247912645350186,
+      "findings": 381,
+      "hit_rate": 0.7532808398950132,
+      "hits": 287,
+      "macro_category_dice": 0.21868692542812387,
+      "maximum_category_regret": 0.15579906713703084,
+      "mean_category_regret": 0.04892287635323514,
+      "minimum_category_dice": 0.012716433608699484,
+      "threshold": 0.8,
+      "validation": {
+        "category_dice_recomposed": 0.33247912645350186,
+        "category_hit_rate_recomposed": 0.7532808398950132,
+        "category_hits_recomposed": 287
+      }
+    },
+    {
+      "categories": {
+        "1a": {
+          "available": true,
+          "dice": 0.11984111263253883,
+          "findings": 3,
+          "hit_rate": 0.3333333333333333,
+          "hits": 1
+        },
+        "1b": {
+          "available": true,
+          "dice": 0.1514383143141462,
+          "findings": 11,
+          "hit_rate": 0.36363636363636365,
+          "hits": 4
+        },
+        "1c": {
+          "available": true,
+          "dice": 0.1653049133348532,
+          "findings": 17,
+          "hit_rate": 0.47058823529411764,
+          "hits": 8
+        },
+        "1d": {
+          "available": true,
+          "dice": 0.016886098242082388,
+          "findings": 6,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "1e": {
+          "available": true,
+          "dice": 0.20018491181266443,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7
+        },
+        "1f": {
+          "available": true,
+          "dice": 0.1545307450425157,
+          "findings": 4,
+          "hit_rate": 0.25,
+          "hits": 1
+        },
+        "2a": {
+          "available": true,
+          "dice": 0.3429463171269478,
+          "findings": 69,
+          "hit_rate": 0.8260869565217391,
+          "hits": 57
+        },
+        "2b": {
+          "available": true,
+          "dice": 0.29388977562572083,
+          "findings": 49,
+          "hit_rate": 0.7142857142857143,
+          "hits": 35
+        },
+        "2c": {
+          "available": true,
+          "dice": 0.31235266522317434,
+          "findings": 60,
+          "hit_rate": 0.7666666666666667,
+          "hits": 46
+        },
+        "2d": {
+          "available": true,
+          "dice": 0.38815858458495184,
+          "findings": 132,
+          "hit_rate": 0.8257575757575758,
+          "hits": 109
+        },
+        "2e": {
+          "available": true,
+          "dice": 0.2999292581885297,
+          "findings": 11,
+          "hit_rate": 0.6363636363636364,
+          "hits": 7
+        },
+        "2f": {
+          "available": false,
+          "dice": null,
+          "findings": 0,
+          "hit_rate": null,
+          "hits": null
+        },
+        "2g": {
+          "available": true,
+          "dice": 0.003002527814093076,
+          "findings": 1,
+          "hit_rate": 0.0,
+          "hits": 0
+        },
+        "2h": {
+          "available": true,
+          "dice": 0.05294129933387328,
+          "findings": 7,
+          "hit_rate": 0.14285714285714285,
+          "hits": 1
+        }
+      },
+      "categories_selecting_threshold": 1,
+      "dice": 0.3135742870101219,
+      "findings": 381,
+      "hit_rate": 0.7244094488188977,
+      "hits": 276,
+      "macro_category_dice": 0.1924158864058532,
+      "maximum_category_regret": 0.20037423949094285,
+      "mean_category_regret": 0.07519391537550581,
+      "minimum_category_dice": 0.003002527814093076,
+      "threshold": 0.9,
+      "validation": {
+        "category_dice_recomposed": 0.3135742870101219,
+        "category_hit_rate_recomposed": 0.7244094488188977,
+        "category_hits_recomposed": 276
+      }
+    }
+  ],
+  "validation": {
+    "all_threshold_recompositions_passed": true,
+    "array_count_is_4000": true,
+    "candidate_count_is_20": true,
+    "case_count_is_200": true,
+    "category_oracle_recomposition_passed": true,
+    "category_supports_sum_to_381": true,
+    "finding_count_is_381": true
+  },
+  "warnings": [
+    "Seven models have failed strict reproduction records and are included by explicit user-approved diagnostic override.",
+    "Category 2f has no val200 findings, so its threshold and metrics are unavailable.",
+    "Rare-category thresholds are descriptive and unstable, especially category 2g with one finding.",
+    "Global and category thresholds are selected post hoc on val200 and do not establish test-set generalization."
+  ]
+}

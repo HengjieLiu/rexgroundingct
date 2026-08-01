@@ -1,6 +1,6 @@
 ---
 created: 2026-07-29
-updated: 2026-07-30
+updated: 2026-07-31
 status: active
 side_experiment_id: sideexp002_multimodel_ensemble_selection
 ---
@@ -25,6 +25,10 @@ sync workflow. Test-set inference is out of scope.
   model-selection and hard-mask complementarity records.
 - `summarize_baseline_categories.py`: ranks the 20 fixed val200 baselines
   globally and by official ReX category.
+- `collaborator_attention_manifest.json`: immutable four-decimal transcription
+  of the paired collaborator Baseline, All-category, and Strict-2b2c table.
+- `compare_collaborator_attention_variance.py`: compares the paired attention
+  effects with size-matched category variation from the 20-model baseline pool.
 - `make_folds.py`: builds deterministic category-balanced case folds.
 - `export_logits.py`: exports evaluator-aligned final pre-sigmoid logits.
 - `launch_logit_exports.py`: resumable four-GPU candidate launcher.
@@ -47,9 +51,10 @@ sync workflow. Test-set inference is out of scope.
   Dice/hit rankings and observed ranges.
 - `outputs/baseline_per_category_performance.json`: machine-readable companion
   to the baseline category report.
-
-## Planned Artifacts
-
+- `outputs/collaborator_attention_vs_20model_variance.md`: full category,
+  cross-category, Exp009-method, and trajectory-context comparison.
+- `outputs/collaborator_attention_vs_20model_variance.json`: machine-readable
+  companion to the collaborator attention comparison.
 - `outputs/all20_uniform_probability_threshold_report.md`: full global and
   category threshold sweep for the fixed all-20 ensemble.
 - `outputs/all20_uniform_probability_threshold_summary.json`: machine-readable
@@ -82,6 +87,9 @@ PYTHONDONTWRITEBYTECODE=1 python \
 
 PYTHONDONTWRITEBYTECODE=1 python \
   side_experiments/sideexp002_multimodel_ensemble_selection/summarize_baseline_categories.py
+
+PYTHONDONTWRITEBYTECODE=1 python \
+  side_experiments/sideexp002_multimodel_ensemble_selection/compare_collaborator_attention_variance.py
 ```
 
 Run unit tests:
