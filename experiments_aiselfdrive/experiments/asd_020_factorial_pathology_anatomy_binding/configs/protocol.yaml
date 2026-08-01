@@ -1,0 +1,54 @@
+schema_version: "1.0"
+experiment_id: asd_020_factorial_pathology_anatomy_binding
+seed: 20260731
+dependency:
+  asd_000_evidence_lock_error_atlas: go
+inputs:
+  cot_path: /data/hengjie/datasets/rexgroundingct/anatomical_cot.json
+  cot_sha256: 1ce44b798f3e86ae8744435d6efc1bc52f23591723763e80b233038bfe172c1e
+  cot_split: train
+  val80: experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
+  val120: experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json
+lineages:
+  standard:
+    checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
+    sha256: 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf
+  s3:
+    checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100/fold_0/checkpoint_final.pth
+    sha256: a3e93801ba121c0084ec52b7f7dc38cbb617dbec484b6113b4348aa7dec82f3d
+corpus:
+  minimum_quartets: 1000
+  maximum_quartets: 50000
+  box_expansion_mm: 15
+  lesion_crop_expansion_mm: 10
+  gt_containment_min: 0.80
+  whole_lung_gt_containment_min: 0.95
+  heldout_fraction: 0.20
+  volume_decile_tolerance: 1
+  confidence_decile_tolerance: 1
+  crop_voxel_relative_tolerance: 0.25
+scorer:
+  projection_dim: 128
+  interaction_hidden_dim: 256
+  dropout: 0.1
+  learning_rate: 0.0003
+  weight_decay: 0.01
+  batch_quartets: 32
+  seeds: [20260731, 20260732, 20260733]
+  beta_max: 2.0
+gates:
+  text_only_top1_max: 0.30
+  four_way_top1_min: 0.65
+  sentence_advantage_min: 0.10
+  off_location_fp_reduction_min: 0.15
+  explicit_modifier_dice_delta_min: 0.01
+  gt_retention_min: 0.99
+  aggregate_dice_delta_min: -0.001
+tiers: {T1: 10, T2: 500, T3: 2000, T4: 10000}
+evaluation:
+  threshold: 0.5
+  candidate_threshold: 0.05
+  connectivity: 26
+  bootstrap_draws: 10000
+  bootstrap_seed: 20260731
+runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding

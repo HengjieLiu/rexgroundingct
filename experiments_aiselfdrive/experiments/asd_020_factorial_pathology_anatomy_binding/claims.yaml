@@ -1,0 +1,43 @@
+schema_version: "1.0"
+experiment_id: asd_020_factorial_pathology_anatomy_binding
+claims:
+  - id: factorial_binding_signal_exists
+    type: mechanistic
+    statement: Frozen visual and split text features identify the joint pathology-anatomy match beyond one-factor and sentence-only controls.
+    verdict: pending
+    gate_refs: [probe_top1, probe_sentence_advantage, positive_single_swap_margins]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: factorial_task_has_no_lexical_shortcut
+    type: safety
+    statement: Balanced random ordering and identical anchor text keep text-only held-out accuracy at or below 30 percent.
+    verdict: pending
+    gate_refs: [text_only_top1_max, case_split_integrity]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: zero_residual_is_exact_identity
+    type: safety
+    statement: Zero component residual returns the frozen parent logits exactly and leaves all frozen weights unchanged.
+    verdict: pending
+    gate_refs: [bitwise_zero_identity, frozen_hash_equality]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: interaction_residual_improves_val80
+    type: performance
+    statement: The bounded interaction residual reduces off-location FP and improves explicit-modifier Dice without GT-retention or aggregate harm.
+    verdict: pending
+    gate_refs: [val80_fp_reduction, val80_explicit_dice, val80_gt_retention, val80_aggregate_noninferiority]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: interaction_residual_confirms_val120
+    type: performance
+    statement: If promoted, the primary paired val120 case-clustered confidence interval is above zero.
+    verdict: pending
+    gate_refs: [t4_promotion_record, val120_primary_ci_positive]
+    evidence_refs: []
+    decided_at: null
+    rationale: null

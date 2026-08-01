@@ -1,0 +1,50 @@
+schema_version: "1.0"
+id: __EXPERIMENT_ID__
+title: __TITLE__
+plan_revision: 1
+created_at: "1970-01-01T00:00:00Z"
+priority: 999
+idea: __IDEA__
+problem: __PROBLEM__
+novelty_vs_report: __NOVELTY__
+hypotheses:
+  - id: primary
+    statement: __HYPOTHESIS__
+goals:
+  - __GOAL__
+non_goals: []
+evidence_references: []
+lineage: {}
+data: {}
+method: {}
+resources: {}
+stages:
+  - id: implement
+    kind: implementation
+    execution_mode: agent
+    needs: []
+    required: true
+    instructions: __AGENT_INSTRUCTIONS__
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/__EXPERIMENT_ID__
+    inputs: []
+    outputs: []
+    completion:
+      evidence_schema: experiments_aiselfdrive/schemas/result.schema.json
+    resources: {}
+    timeout_seconds: 3600
+    retry:
+      max_attempts: 1
+    stop_conditions: []
+    acceptance_checks:
+      - __ACCEPTANCE_CHECK__
+evaluation: {}
+paths:
+  experiment_root: experiments_aiselfdrive/experiments/__EXPERIMENT_ID__
+  runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/__EXPERIMENT_ID__
+  allowed_write_paths:
+    - experiments_aiselfdrive/experiments/__EXPERIMENT_ID__
+    - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/__EXPERIMENT_ID__
+budget: {}
+retention: {}
+prohibited_directions: []

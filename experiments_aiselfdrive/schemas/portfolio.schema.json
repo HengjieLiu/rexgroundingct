@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rexgroundingct.local/schemas/portfolio.schema.json",
+  "title": "ReXGroundingCT AI self-drive portfolio",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "created_at",
+    "source_report",
+    "allowed_write_roots",
+    "runtime_root",
+    "hardware_profile_ref",
+    "selection_policy",
+    "lease_policy",
+    "retry_defaults",
+    "promotion_policy",
+    "experiments"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "workspace_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]+$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "source_report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "evidence_availability"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "evidence_availability": {"$ref": "#/$defs/evidence_availability"}
+      }
+    },
+    "allowed_write_roots": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "runtime_root": {"type": "string", "minLength": 1},
+    "hardware_profile_ref": {"type": "string", "minLength": 1},
+    "selection_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ordering",
+        "max_active_training_experiments",
+        "max_parallel_arms_within_experiment",
+        "allow_automatic_second_experiment",
+        "unsatisfied_terminal_dependency_action"
+      ],
+      "properties": {
+        "ordering": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"enum": ["priority_ascending", "id_ascending"]}
+        },
+        "max_active_training_experiments": {"type": "integer", "minimum": 1},
+        "max_parallel_arms_within_experiment": {"type": "integer", "minimum": 1},
+        "allow_automatic_second_experiment": {"type": "boolean"},
+        "unsatisfied_terminal_dependency_action": {
+          "enum": ["finish_cancelled", "block", "ignore"]
+        }
+      }
+    },
+    "lease_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "heartbeat_seconds",
+        "ttl_seconds",
+        "stale_reclaim_requires_liveness_check",
+        "stale_archive_path"
+      ],
+      "properties": {
+        "heartbeat_seconds": {"type": "integer", "minimum": 1},
+        "ttl_seconds": {"type": "integer", "minimum": 2},
+        "stale_reclaim_requires_liveness_check": {"const": true},
+        "stale_archive_path": {"type": "string", "minLength": 1}
+      }
+    },
+    "retry_defaults": {"type": "object", "additionalProperties": true},
+    "promotion_policy": {"type": "object", "additionalProperties": true},
+    "experiments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/experiment_entry"}
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "evidence_availability": {
+      "enum": [
+        "verified_local",
+        "reported_exact",
+        "reported_partial",
+        "historical_only",
+        "missing"
+      ]
+    },
+    "dependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "satisfying_outcomes"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^asd_[0-9]{3}_[a-z0-9_]+$"},
+        "type": {"enum": ["hard", "evidence", "resource"]},
+        "satisfying_outcomes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["go", "no_go", "inconclusive", "failed", "cancelled", "invalid"]
+          }
+        }
+      }
+    },
+    "experiment_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "path", "plan_path", "state_path", "priority", "depends_on"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^asd_[0-9]{3}_[a-z0-9_]+$"},
+        "path": {"type": "string", "minLength": 1},
+        "plan_path": {"type": "string", "minLength": 1},
+        "state_path": {"type": "string", "minLength": 1},
+        "priority": {"type": "integer", "minimum": 0},
+        "depends_on": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/dependency"}
+        }
+      }
+    }
+  }
+}

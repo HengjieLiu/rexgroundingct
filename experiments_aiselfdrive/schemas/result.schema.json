@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rexgroundingct.local/schemas/result.schema.json",
+  "title": "ReXGroundingCT AI self-drive stage result evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "stage_id",
+    "status",
+    "completed_at",
+    "summary",
+    "checks",
+    "artifacts",
+    "metrics",
+    "error"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^asd_[0-9]{3}_[a-z0-9_]+$"
+    },
+    "stage_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "status": {"enum": ["passed", "failed", "blocked"]},
+    "completed_at": {"type": "string", "format": "date-time"},
+    "summary": {"type": "string", "minLength": 1},
+    "checks": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/check"}
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/artifact_evidence"}
+    },
+    "metrics": {"type": "object", "additionalProperties": true},
+    "error": {
+      "oneOf": [{"type": "null"}, {"type": "object", "additionalProperties": true}]
+    },
+    "outcome": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "enum": [
+            "go",
+            "no_go",
+            "inconclusive",
+            "failed",
+            "cancelled",
+            "invalid"
+          ]
+        }
+      ]
+    },
+    "next_stage_id": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+      ]
+    },
+    "skipped_stage_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+    }
+  },
+  "$defs": {
+    "check": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["status"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "status": {"enum": ["passed", "failed", "blocked", "skipped"]},
+        "detail": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string"},
+            {"type": "object", "additionalProperties": true}
+          ]
+        },
+        "details": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string"},
+            {"type": "object", "additionalProperties": true}
+          ]
+        }
+      },
+      "anyOf": [
+        {"required": ["id", "detail"]},
+        {"required": ["name", "details"]}
+      ]
+    },
+    "artifact_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "path", "sha256", "size_bytes"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          ]
+        },
+        "size_bytes": {
+          "oneOf": [{"type": "null"}, {"type": "integer", "minimum": 0}]
+        }
+      }
+    }
+  }
+}

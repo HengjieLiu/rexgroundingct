@@ -1,0 +1,1 @@
+{"actor":"portfolio_scaffold","event_id":"__EVENT_ID__","event_type":"experiment_initialized","experiment_id":"__EXPERIMENT_ID__","hash":"__EVENT_HASH__","payload":{"outcome":null,"plan_sha256":"__PLAN_SHA256__","revision":0,"status":"draft"},"previous_hash":null,"schema_version":"1.0","sequence":1,"timestamp":"1970-01-01T00:00:00Z"}

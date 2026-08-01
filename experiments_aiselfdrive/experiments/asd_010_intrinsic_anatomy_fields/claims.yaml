@@ -1,0 +1,35 @@
+schema_version: "1.0"
+experiment_id: asd_010_intrinsic_anatomy_fields
+claims:
+  - id: continuous_fields_have_safe_spatial_signal
+    type: mechanistic
+    statement: Correct continuous anatomy fields reduce prompt-off-location errors at 99 percent GT retention and outperform causal field corruptions.
+    verdict: pending
+    gate_refs: [diagnostic_gt_retention, diagnostic_fp_or_component_reduction, correct_beats_all_causal_controls]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: zero_coupling_is_exact_identity
+    type: safety
+    statement: Zero-scale anatomy coupling returns parent logits exactly and cannot cause the ACA-style foreground collapse.
+    verdict: pending
+    gate_refs: [epoch_zero_bitwise_identity, finite_t1_smoke]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: bounded_fields_improve_val80
+    type: performance
+    statement: Bounded correct-field coupling improves explicit-modifier or aggregate Dice on val80 without violating aggregate, hit, or GT-retention safety.
+    verdict: pending
+    gate_refs: [t3_dice_gate, t3_aggregate_noninferiority, t3_hit_noninferiority, t3_gt_retention]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: bounded_fields_confirm_on_val120
+    type: performance
+    statement: If promoted, the primary paired val120 case-clustered confidence interval is above zero.
+    verdict: pending
+    gate_refs: [t4_promotion_record, val120_primary_ci_positive]
+    evidence_refs: []
+    decided_at: null
+    rationale: null

@@ -1,0 +1,57 @@
+# Poll for the first eligible experiment
+
+Paste the following as one message into a separate Codex chat window:
+
+```text
+Work in /home/hengjie/code_sync/rexgroundingct.
+
+Monitor /home/hengjie/code_sync/rexgroundingct/experiments_aiselfdrive every
+60 seconds. Do not mistake the technical report alone for a completed plan,
+and do not edit or invent missing plan files while waiting.
+
+The portfolio is runnable only when all of these are true:
+1. experiments_aiselfdrive/portfolio.yaml exists.
+2. experiments_aiselfdrive/tools/experimentctl.py exists.
+3. `python experiments_aiselfdrive/tools/experimentctl.py validate --all`
+   exits successfully.
+4. `python experiments_aiselfdrive/tools/experimentctl.py next --json`
+   returns `"available": true`, id `asd_000_evidence_lock_error_atlas`, and a
+   claimable status such as `ready`.
+
+If `next --json` returns `no_eligible_experiment`, inspect `STATUS.md` and the
+selected experiment state, then report the blocker instead of claiming an
+experiment.
+
+Before acting, obey the repository AGENTS.md instructions: read every Markdown
+file under AGENTS/ and every applicable README.md.
+
+When the runnable-selection conditions pass:
+1. Claim only `asd_000_evidence_lock_error_atlas` using experimentctl and a
+   stable agent ID.
+2. Execute its stages in DAG order, including `execution_mode: agent`
+   implementation stages, exactly within each stage's allowed write paths.
+3. During an agent stage, call `experimentctl.py heartbeat --id
+   asd_000_evidence_lock_error_atlas --agent-id <your-stable-agent-id>` every
+   60 seconds until completion evidence is recorded.
+4. Re-run validation after implementation stages.
+5. Continue until this experiment is `finished`, `blocked`, or otherwise
+   terminal.
+6. Never start asd_005 or another experiment in this session.
+7. Preserve unrelated worktree changes and do not modify the immutable
+   technical report or a claimed experiment plan.
+8. Use only declared local inputs. Treat `/common/...`, H100/H200, and Slurm
+   references as historical.
+9. Put new code/config/state under experiments_aiselfdrive and heavy artifacts
+   only in the declared external runtime directory.
+10. Use Docker for GPU access and enforce the declared GPU-memory preflight.
+11. If blocked or invalid, record the exact blocker and evidence in state; do
+    not guess or silently weaken a gate.
+
+Give me a short update whenever state changes and a final report containing
+status, outcome, completed stages, metrics, artifact paths, and the exact
+blocker or next decision.
+```
+
+The polling agent must not claim an experiment merely because its directory
+exists. A passing global validator and an available `next --json` result are
+the readiness barrier.

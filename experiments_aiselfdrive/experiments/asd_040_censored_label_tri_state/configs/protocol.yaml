@@ -1,0 +1,60 @@
+schema_version: "1.0"
+experiment_id: asd_040_censored_label_tri_state
+seed: 20260731
+runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1
+eligibility:
+  recorded_entities_min: 2
+  cases_min: 50
+  trials_min: 100
+censorship_rules:
+  volume_priority: hide_smallest
+  centrality_priority: hide_most_peripheral
+  report_order: hide_largest_entity_label
+  seeded_random: hide_seeded_uniform
+crossfit:
+  folds: 5
+  unit: patient
+  assignment: sha256_patient_id_mod_5
+states:
+  precedence: [known_positive, certified_negative, unknown]
+  unknown_negative_loss_weight: 0.0
+  certified_negative_domain: verified_zero_padding_synthetic_decoys
+candidate_thresholds: [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80]
+diagnostic_model:
+  hidden_units: 128
+  hidden_layers: 2
+  dropout: 0.10
+  optimizer: adamw
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  maximum_epochs: 100
+policies: [background_bce, unknown_ignore, nnpu, pseudo_positive]
+updates:
+  T2: 500
+  T3: 2000
+  T4: 10000
+cohorts:
+  development: val80
+  confirmatory: val120
+  continuity: val200
+  pre_t4_denied: [val120, val200]
+gates:
+  precision_each_rule_min: 0.80
+  recall_each_rule_min: 0.30
+  full_minus_text_only_recall_min: 0.10
+  pilot_hidden_recall_delta_min_exclusive: 0.0
+  certified_fp_relative_delta_max_exclusive: 0.10
+  decision_hidden_recall_delta_each_rule_min: 0.05
+  known_positive_recall_delta_min: -0.02
+  val80_dice_delta_min: -0.001
+bootstrap:
+  draws: 10000
+  seed: 20260731
+hardware:
+  mode: docker
+  image: rexgroundingct-voxtell:cu126
+  expected_gpu_count: 4
+  minimum_free_gib_training: 36
+  maximum_parallel_single_gpu_arms: 4
+  multi_gpu_ddp: false
+  slurm: prohibited

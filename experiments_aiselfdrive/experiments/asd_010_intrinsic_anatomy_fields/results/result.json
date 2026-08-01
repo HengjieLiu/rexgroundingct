@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "asd_010_intrinsic_anatomy_fields",
+  "stage_id": "implement_anatomy_field_pipeline",
+  "status": "blocked",
+  "completed_at": "2026-07-31T00:00:00Z",
+  "summary": "Initialization sentinel; execution is dependency-blocked.",
+  "checks": [],
+  "artifacts": [],
+  "metrics": {},
+  "error": {"code":"dependency_blocked","message":"asd_000 and asd_005 must both finish with outcome go."}
+}

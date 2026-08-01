@@ -1,0 +1,671 @@
+schema_version: "1.0"
+id: asd_060_persistence_tree_set_verifier
+title: Multi-Threshold Persistence-Tree Set Verifier
+plan_revision: 1
+created_at: "2026-07-31T00:00:00Z"
+updated_at: "2026-07-31T00:00:00Z"
+priority: 8
+idea: >-
+  Build component persistence forests across sixteen thresholds, measure an
+  exact variable-set oracle, and train a context-aware antichain verifier only
+  when oracle headroom and safe tri-state evidence justify it.
+problem: >-
+  The report shows large component-oracle headroom but nearly no gain from
+  independent component classifiers. Findings can contain zero, one, or many
+  components, and partial labels make binary candidate targets unsafe.
+novelty_vs_report: >-
+  Previous selectors scored fixed-threshold components independently. This
+  plan represents threshold evolution explicitly, decodes an antichain set,
+  optimizes union utility, and branches on separately verified tri-state
+  evidence instead of treating every zero-overlap component as negative.
+hypotheses:
+  primary: >-
+    A persistence-tree set verifier will recover at least 20% of an oracle gain
+    of at least 0.07, beat an identical-feature independent scorer, and retain
+    at least 99% of baseline true-positive voxels.
+  null: >-
+    Persistence and set context do not improve component selection after
+    controlling features, candidate forest, lineage, and evaluation.
+goals:
+  - Quantify candidate-set headroom before training a selector.
+  - Distinguish candidate-generation failure from selection failure.
+  - Model variable-cardinality component sets with ancestor exclusion.
+  - Consume only verified upstream GO signals and safe ASD-040 tri-state semantics.
+non_goals:
+  - Train when oracle headroom or candidate recall is inadequate.
+  - Treat zero GT overlap as definite negative without ASD-040 certification.
+  - Deploy an independent binary component selector.
+  - Add new proposal, zoom, or full-resolution inference paths.
+evidence_references:
+  - source: experiments_aiselfdrive/ReXGroundingCT_Technical_Report_2026-07-30.md
+    sections: ["7.3", "8.1", "8.2", "13.3", "13.5", "14", "15"]
+    availability: historical_only
+  - source: asd_000_evidence_lock_error_atlas
+    artifact_ids:
+      - locked_lineage_manifest
+      - val80_manifest
+      - val120_manifest
+      - val200_manifest
+      - baseline_logits
+    availability: missing
+  - source: asd_040_censored_label_tri_state
+    artifact_ids:
+      - tri_state_policy_artifact
+      - diagnostic_report
+    availability: missing
+lineage:
+  parent_checkpoint: resolved_from_asd_000_locked_lineage_manifest
+  parent_checkpoint_sha256: resolved_before_execution
+  logits: resolved_from_asd_000_verified_logit_audit
+  preprocessing_class: unchanged
+  model_weights_frozen_during_candidate_and_feature_extraction: true
+  prompt_form: locked_by_asd_000
+  threshold_policy: method_variable_only_for_candidate_forest
+  final_evaluation_threshold: locked_by_asd_000
+  postprocessing: locked_by_asd_000_except_declared_set_selection
+  comparability_rule: >-
+    Baseline, oracle, deterministic controls, independent scorer, and set
+    verifier use the identical logit tensor, candidate forest, features, cohort,
+    and union reconstruction.
+data:
+  training_source: official_rexgroundingct_train_only
+  development_cohort:
+    id: val80
+    allowed_stages:
+      - build_val80_oracle
+      - decision_t3
+  confirmatory_cohort:
+    id: val120
+    access: prohibited_until_t4_promotion
+    allowed_stages: [confirm_t4]
+  continuity_cohort:
+    id: val200
+    access: prohibited_until_t4_promotion
+    allowed_stages: [confirm_t4]
+  candidate_thresholds:
+    - 0.05
+    - 0.10
+    - 0.15
+    - 0.20
+    - 0.25
+    - 0.30
+    - 0.35
+    - 0.40
+    - 0.45
+    - 0.50
+    - 0.55
+    - 0.60
+    - 0.65
+    - 0.70
+    - 0.75
+    - 0.80
+  connectivity: 26
+  supervision_states:
+    known_positive: released-mask-overlapping candidate evidence
+    certified_negative: accepted only from a verified ASD-040 GO policy
+    unknown: every candidate not known-positive or certified-negative
+    unknown_loss_weight: 0.0
+  leakage_controls:
+    - Oracle GT is available only to oracle/evaluator code and never to learned features.
+    - Training and validation patients are disjoint.
+    - val80 selects method and gates only.
+    - val120 and val200 paths are rejected before confirm_t4.
+method:
+  persistence_forest:
+    node: one_26_connected_component_at_one_threshold
+    edge: >-
+      A child at the next higher threshold links to the lower-threshold
+      component with maximum voxel overlap; ties use smaller parent canonical
+      rank. Zero-overlap nodes start a new root.
+    canonical_node_id: case_finding_threshold_index_component_rank
+    component_rank: descending_voxel_count_then_lexicographic_min_voxel
+    selection_constraint: antichain_no_ancestor_descendant_pair
+    empty_set_allowed: true
+  exact_oracle:
+    objective: maximum_finding_dice_of_selected_union
+    solver: dinkelbach_fractional_tree_dynamic_program
+    convergence_tolerance: 1.0e-9
+    tie_break:
+      - higher_dice
+      - fewer_selected_nodes
+      - lower_total_predicted_volume
+      - lexicographic_node_ids
+    gt_usage: evaluator_only
+  candidate_recall:
+    definition: >-
+      Micro fraction of released GT connected components with at least one
+      voxel overlap from any candidate node at any threshold.
+  feature_registry:
+    mandatory:
+      - threshold_and_persistence_length
+      - component_probability_statistics
+      - physical_volume_surface_and_centroid
+      - parent_child_probability_and_geometry_deltas
+      - native_resolution_local_image_evidence
+      - frozen_prompt_component_compatibility
+    optional_upstream:
+      - experiment_id: asd_010_intrinsic_anatomy_fields
+        include_if: finished_go_and_verified_manifest_at_validate_locked_inputs
+        feature: intrinsic_anatomy_energy
+      - experiment_id: asd_020_factorial_pathology_anatomy_binding
+        include_if: finished_go_and_verified_manifest_at_validate_locked_inputs
+        feature: pathology_anatomy_binding_score
+      - experiment_id: asd_030_anatomy_certified_fp_replay
+        include_if: finished_go_and_verified_manifest_at_validate_locked_inputs
+        feature: anatomy_certification_and_replay_score
+    freeze_rule: >-
+      Check once during validate_locked_inputs; include every and only verified
+      finished/go signal then hash the registry. Do not wait for optional
+      experiments or change the registry later.
+  set_model:
+    node_encoder:
+      hidden_dimension: 128
+      layers: 2
+      activation: relu
+    context_encoder:
+      architecture: set_transformer
+      self_attention_blocks: 2
+      heads: 4
+      hidden_dimension: 128
+      dropout: 0.10
+    node_utility_head:
+      hidden_dimension: 64
+      output: scalar
+    decoder: exact_maximum_utility_antichain_tree_dp_with_empty_option
+    training_targets:
+      known_positive: positive_utility
+      certified_negative: negative_utility
+      unknown: zero_supervision_weight
+    loss:
+      structured_antichain_cross_entropy_weight: 1.0
+      soft_known_positive_union_dice_weight: 0.20
+      certified_negative_union_penalty_weight: 0.20
+      unknown_weight: 0.0
+    optimizer:
+      name: adamw
+      learning_rate: 0.0001
+      weight_decay: 0.0001
+  controls:
+    - id: locked_baseline
+      rule: locked_threshold_and_postprocessing
+    - id: oracle
+      rule: exact_gt_antichain
+    - id: top1
+      rule: highest_probability_branch
+    - id: topk
+      rule: k_selected_on_training_fold_from_1_2_3_5
+    - id: persistence_only
+      rule: longest_branch_then_probability
+    - id: independent_identical_features
+      rule: same_node_encoder_without_set_context_then_same_antichain_decoder
+    - id: shuffled_set_context
+      rule: context_nodes_permuted_across_findings_within_category
+    - id: set_verifier
+      rule: declared_context_model_and_antichain_decoder
+  decision_branches:
+    oracle_gate_fail:
+      learned_stages: skipped
+      outcome: no_go
+      interpretation: candidate_forest_has_insufficient_headroom_or_recall
+    oracle_gate_pass_and_asd040_go:
+      learned_stages: eligible
+    oracle_gate_pass_and_asd040_no_go_or_inconclusive:
+      learned_stages: skipped
+      outcome: inconclusive
+      interpretation: headroom_exists_but_safe_training_labels_are_unavailable
+  compute_ladder:
+    oracle: T0
+    pilot_t2_updates: 500
+    decision_t3_updates: 2000
+    confirm_t4_updates: 10000
+    maximum_parallel_single_gpu_arms: 4
+resources:
+  hardware_profile: experiments_aiselfdrive/shared/hardware_profile.yaml
+  execution_environment: docker_for_gpu_stages
+  image: rexgroundingct-voxtell:cu126
+  gpu_model: NVIDIA RTX 6000 Ada Generation
+  gpu_count_available: 4
+  minimum_free_gib_training: 36
+  multi_gpu_ddp: false
+  slurm: prohibited
+  runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1
+stages:
+  - id: implement_persistence_set_pipeline
+    kind: implementation
+    execution_mode: agent
+    needs: []
+    required: true
+    description: Implement deterministic forests, exact oracle/decoder, tri-state set training, controls, and tests.
+    instructions:
+      - Read this plan, configs/protocol.yaml, dependency states/manifests, and applicable README files.
+      - Implement only inside this experiment's scripts, src, and tests directories.
+      - Use the exact threshold list, canonical IDs, edge/tie rules, Dinkelbach oracle, and antichain constraint.
+      - Isolate evaluator GT from learned features and set unknown supervision weight to zero.
+      - Freeze optional upstream features exactly once by terminal state, GO outcome, and verified artifact manifest.
+      - Implement branch outcomes, sealed-cohort guards, deterministic seed 20260731, and atomic JSON completion records.
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/scripts
+      - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/src
+      - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/tests
+      - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/results/implementation_evidence.json
+    inputs: [experiment_plan, protocol_config, dependency_states_and_manifests]
+    outputs: [set_verifier_source_package, set_verifier_test_suite]
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/results/implementation_evidence.json
+      require_git_diff_within_allowed_paths: true
+    resources:
+      cpu_cores: 8
+      gpu_count: 0
+    timeout_seconds: 18000
+    retry:
+      max_attempts: 1
+      backoff_seconds: []
+      retryable_classes: []
+    stop_conditions: [write_scope_violation, unresolved_dependency_interface]
+    acceptance_checks:
+      - Synthetic forests prove canonical edges, antichain decoding, and exact oracle optimality.
+      - Unknown nodes have zero supervised gradient.
+      - No existing repository source outside this experiment is modified.
+  - id: validate_locked_inputs
+    kind: validation
+    execution_mode: command
+    needs: [implement_persistence_set_pipeline]
+    required: true
+    description: Validate ASD-000 lineage/logits and cohorts, then freeze optional features without waiting for ASD-040.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/scripts/validate_inputs.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/configs/protocol.yaml
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        PYTHONDONTWRITEBYTECODE: "1"
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/validation
+    inputs:
+      - locked_lineage_manifest
+      - logit_source_audit
+      - val80_manifest
+      - optional_upstream_states_and_manifests
+    outputs: [input_validation_report, frozen_feature_registry]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/validate_locked_inputs.json
+      required_fields: [lineage_sha256, logit_sha256, cohort_sha256, feature_registry_sha256, test_summary]
+    resources:
+      cpu_cores: 16
+      gpu_count: 0
+    timeout_seconds: 7200
+    retry:
+      max_attempts: 1
+      backoff_seconds: []
+      retryable_classes: []
+    stop_conditions: [checkpoint_hash_drift, cohort_hash_drift, lineage_mismatch, split_leakage]
+    acceptance_checks:
+      - val80 logits are verified against the locked baseline and complete finding order.
+      - Optional feature registry includes only verified finished/go artifacts and is immutable.
+  - id: build_val80_oracle
+    kind: diagnostic
+    execution_mode: command
+    needs: [validate_locked_inputs]
+    required: true
+    description: Build val80 persistence forests and compute exact antichain oracle headroom and recall.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/scripts/build_oracle.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/configs/protocol.yaml
+        - --cohort
+        - val80
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        PYTHONDONTWRITEBYTECODE: "1"
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/oracle
+    inputs: [verified_val80_logits, val80_manifest]
+    outputs: [val80_persistence_forest, oracle_report]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/build_val80_oracle.json
+      required_fields: [thresholds, node_count, forest_sha256, baseline_dice, oracle_dice, oracle_gain, gt_component_recall, gate_verdict]
+    resources:
+      cpu_cores: 64
+      gpu_count: 0
+    timeout_seconds: 21600
+    retry:
+      max_attempts: 3
+      backoff_seconds: [60, 300]
+      retryable_classes: [transient_io]
+    stop_conditions: [metric_definition_mismatch, oracle_optimality_failure, cohort_hash_drift]
+    acceptance_checks:
+      - Thresholds equal 0.05 through 0.80 in 0.05 increments exactly.
+      - Brute force matches the Dinkelbach tree oracle on every small test forest.
+      - Learned stages require oracle Dice gain at least 0.07 and GT component recall at least 0.85.
+  - id: resolve_tri_state_branch
+    kind: gate
+    execution_mode: command
+    needs: [build_val80_oracle]
+    required: true
+    description: After the oracle, wait for terminal ASD-040 evidence and apply the deterministic learned-work branch.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/scripts/resolve_branch.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/configs/protocol.yaml
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        PYTHONDONTWRITEBYTECODE: "1"
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/branch
+    inputs: [oracle_report, asd040_state, asd040_artifact_manifest]
+    outputs: [branch_decision]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/resolve_tri_state_branch.json
+      required_fields: [oracle_gate, asd040_outcome, policy_sha256, learned_stages_eligible, terminal_outcome_if_skipped]
+    resources:
+      cpu_cores: 4
+      gpu_count: 0
+    timeout_seconds: 1800
+    retry:
+      max_attempts: 1
+      resource_wait_attempts: 360
+      resource_wait_seconds: 60
+      backoff_seconds: []
+      retryable_classes: [evidence_dependency_not_terminal]
+    stop_conditions: [evidence_hash_mismatch, invalid_dependency_outcome]
+    acceptance_checks:
+      - Oracle gate failure selects no_go and skips all learned stages.
+      - Oracle pass plus ASD-040 go requires a verified tri-state policy.
+      - Oracle pass plus ASD-040 no_go/inconclusive selects inconclusive and skips learned stages.
+  - id: docker_gpu_preflight
+    kind: preflight
+    execution_mode: command
+    needs: [resolve_tri_state_branch]
+    required: false
+    description: For the learned branch only, verify Docker GPUs and frozen baseline feature extraction.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/scripts/gpu_preflight.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/configs/protocol.yaml
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/preflight
+    inputs: [branch_decision, locked_parent_checkpoint, frozen_feature_registry]
+    outputs: [gpu_preflight_report]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/docker_gpu_preflight.json
+      required_fields: [branch_sha256, image_digest, gpu_inventory, free_memory_gib, finite_features]
+    resources:
+      cpu_cores: 8
+      gpu_count: 4
+      minimum_free_gib_per_gpu: 36
+    timeout_seconds: 3600
+    retry:
+      max_attempts: 1
+      resource_wait_attempts: 360
+      resource_wait_seconds: 60
+      retryable_classes: [resource_unavailable]
+    stop_conditions: [wrong_inference_device, checkpoint_hash_drift, non_finite]
+    acceptance_checks:
+      - Stage runs only when branch_decision marks learned stages eligible.
+      - Four expected RTX 6000 Ada GPUs meet free-memory policy.
+      - Fixed sample features are finite and deterministic.
+  - id: build_training_set_dataset
+    kind: data_generation
+    execution_mode: command
+    needs: [docker_gpu_preflight]
+    required: false
+    description: Build patient-separated train forests and frozen node features using the verified tri-state policy.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/scripts/build_training_data.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/configs/protocol.yaml
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/training_data
+    inputs: [branch_decision, tri_state_policy_artifact, frozen_feature_registry, locked_parent_checkpoint]
+    outputs: [training_forest_manifest, frozen_set_features]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/build_training_set_dataset.json
+      required_fields: [case_count, finding_count, node_count, state_counts, patient_overlap_count, feature_sha256]
+    resources:
+      cpu_cores: 32
+      gpu_count: 4
+    timeout_seconds: 64800
+    retry:
+      max_attempts: 3
+      backoff_seconds: [60, 300]
+      retryable_classes: [container_start_failure, transient_io]
+    stop_conditions: [split_leakage, tri_state_policy_mismatch, unknown_weight_violation, non_finite, budget_exhausted]
+    acceptance_checks:
+      - Patient overlap with val80 is zero.
+      - Every node is exactly known_positive, certified_negative, or unknown.
+      - Unknown nodes have zero supervised loss weight.
+      - Feature schema matches the frozen registry.
+  - id: pilot_t2
+    kind: training
+    execution_mode: command
+    needs: [build_training_set_dataset]
+    required: false
+    description: Train set verifier and identical-feature independent control for 500 updates.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/scripts/train_verifier.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/configs/protocol.yaml
+        - --tier
+        - T2
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t2
+    inputs: [training_forest_manifest, frozen_set_features, val80_persistence_forest]
+    outputs: [t2_checkpoints, t2_metrics]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/pilot_t2.json
+      required_fields: [arm_updates, identity_checks, selected_set_counts, metrics_sha256, gate_verdict]
+    resources:
+      cpu_cores: 32
+      gpu_count: 2
+      maximum_updates_per_arm: 500
+    timeout_seconds: 28800
+    retry:
+      max_attempts: 2
+      automatic_full_state_resumes: 1
+      retryable_classes: [container_start_failure, transient_io]
+    stop_conditions: [non_finite, missing_resume_state, unknown_weight_violation, budget_exhausted]
+    acceptance_checks:
+      - Both models use identical node features, initialization seed, schedule, and exact antichain decoder.
+      - Empty, singleton, and multi-component outputs all occur on the fixed smoke set.
+      - Set verifier does not reduce baseline true-positive retention below 0.99.
+  - id: decision_t3
+    kind: training
+    execution_mode: command
+    needs: [pilot_t2]
+    required: false
+    description: Continue learned and independent controls to 2,000 updates and evaluate all deterministic controls on val80.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/scripts/train_verifier.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/configs/protocol.yaml
+        - --tier
+        - T3
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t3
+    inputs: [t2_checkpoints, val80_persistence_forest, oracle_report]
+    outputs: [t3_checkpoints, t3_metrics]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/decision_t3.json
+      required_fields: [arm_updates, all_control_metrics, oracle_gain_recovered, gt_retention, case_clustered_ci, gate_verdict]
+    resources:
+      cpu_cores: 32
+      gpu_count: 2
+      maximum_updates_per_arm: 2000
+    timeout_seconds: 43200
+    retry:
+      max_attempts: 2
+      automatic_full_state_resumes: 1
+      retryable_classes: [container_start_failure, transient_io]
+    stop_conditions: [split_leakage, non_finite, missing_resume_state, budget_exhausted]
+    acceptance_checks:
+      - Set verifier recovers at least 20% of oracle Dice gain.
+      - Set verifier Dice exceeds identical-feature independent scorer Dice.
+      - Baseline true-positive voxel retention is at least 0.99.
+      - Case-clustered 95% CI for paired Dice improvement has lower bound above zero.
+  - id: confirm_t4
+    kind: confirmation
+    execution_mode: command
+    needs: [decision_t3]
+    required: false
+    description: Confirm a promoted set verifier on sealed val120 and report val200 continuity.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/scripts/train_verifier.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/configs/protocol.yaml
+        - --tier
+        - T4
+        - --require-promotion
+        - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_060_persistence_tree_set_verifier.json
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/t4
+    inputs: [t3_checkpoints, val120_manifest, val200_manifest, promotion_authorization]
+    outputs: [t4_checkpoint, t4_metrics]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1/completion/confirm_t4.json
+      required_fields: [promotion_sha256, val120_metrics, val200_metrics, case_clustered_ci, output_sha256]
+    resources:
+      cpu_cores: 32
+      gpu_count: 1
+      maximum_updates_per_arm: 10000
+    timeout_seconds: 129600
+    retry:
+      max_attempts: 2
+      automatic_full_state_resumes: 1
+      retryable_classes: [container_start_failure, transient_io]
+    stop_conditions: [missing_promotion_authorization, split_leakage, non_finite, budget_exhausted]
+    acceptance_checks:
+      - val120 is inaccessible before verified promotion.
+      - Positive case-clustered paired Dice interval and 99% retention replicate on val120.
+      - val200 is continuity evidence only.
+  - id: closeout
+    kind: closeout
+    execution_mode: agent
+    needs: [resolve_tri_state_branch]
+    required: true
+    description: Close from oracle-only or learned evidence using the preregistered branch and claims.
+    instructions:
+      - Inspect the branch decision and all completion markers.
+      - If oracle failed, close no_go and state candidate generation is limiting for this forest.
+      - If oracle passed but ASD-040 lacked a GO policy, close inconclusive and preserve oracle evidence.
+      - If learned stages ran, apply the exact recovery, independent-control, retention, and CI gates.
+      - Write result.json and summary.md, decide claims, verify artifacts, and request skipped optional stages through experimentctl.
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/results
+      - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/claims.yaml
+      - experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/artifacts/manifest.json
+    inputs: [oracle_report, branch_decision, t2_metrics, t3_metrics, t4_metrics]
+    outputs: [final_result, final_summary, final_claims, verified_artifact_manifest]
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/results/closeout_evidence.json
+      require_all_executed_stage_artifacts_verified: true
+    resources:
+      cpu_cores: 8
+      gpu_count: 0
+    timeout_seconds: 7200
+    retry:
+      max_attempts: 1
+      backoff_seconds: []
+      retryable_classes: []
+    stop_conditions: [evidence_hash_mismatch, branch_policy_mismatch, undecided_required_claim]
+    acceptance_checks:
+      - Outcome follows the declared oracle/ASD-040 branch exactly.
+      - Negative scientific evidence is no_go or inconclusive rather than failed.
+      - Every claim cites verified evidence and no evaluator GT appears in learned features.
+evaluation:
+  bootstrap:
+    seed: 20260731
+    draws: 10000
+    units: [finding, case_cluster]
+  oracle_metrics:
+    - locked_baseline_dice
+    - exact_oracle_dice
+    - oracle_dice_gain
+    - gt_component_recall
+    - gt_voxel_coverage
+  learned_metrics:
+    - paired_dice_delta
+    - oracle_gain_fraction_recovered
+    - baseline_true_positive_voxel_retention
+    - selected_component_count_distribution
+    - detached_fp_reduction
+    - empty_prediction_delta
+  gates:
+    oracle_go:
+      - oracle_dice_gain >= 0.07
+      - gt_component_recall >= 0.85
+    learned_go:
+      - oracle_gain_fraction_recovered >= 0.20
+      - set_verifier_dice > independent_identical_features_dice
+      - baseline_true_positive_voxel_retention >= 0.99
+      - paired_case_clustered_ci_lower > 0
+    confirmation_go:
+      - val120_paired_case_clustered_ci_lower > 0
+      - val120_baseline_true_positive_voxel_retention >= 0.99
+paths:
+  workspace: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier
+  config: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/configs/protocol.yaml
+  runtime: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1
+  artifact_manifest: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/artifacts/manifest.json
+  result: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/results/result.json
+budget:
+  maximum_gpu_hours: 40
+  maximum_wall_hours: 84
+  maximum_external_storage_gib: 1800
+  terminate_on_exhaustion: true
+retention:
+  durable:
+    - frozen_feature_registry
+    - val80_persistence_forest
+    - oracle_report
+    - branch_decision
+    - selected_full_state_checkpoints
+    - metrics_and_closeout
+  regenerable:
+    - training_forest_features
+    - unselected_checkpoints
+  ephemeral:
+    - docker_scratch
+    - partial_exports
+prohibited_directions:
+  - learned_training_before_oracle_gate
+  - learned_training_without_asd040_go_policy
+  - zero_gt_overlap_as_automatic_negative
+  - evaluator_gt_in_learned_features
+  - deployable_independent_binary_selector
+  - single_component_only_output
+  - automatic_zoom
+  - full_resolution_s3
+  - hard_lobe_clipping
+  - generic_presence_head
+  - slurm

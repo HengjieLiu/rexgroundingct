@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rexgroundingct.local/schemas/event.schema.json",
+  "title": "ReXGroundingCT AI self-drive event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "sequence",
+    "event_id",
+    "experiment_id",
+    "timestamp",
+    "event_type",
+    "actor",
+    "previous_hash",
+    "payload",
+    "hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "sequence": {"type": "integer", "minimum": 1},
+    "event_id": {"type": "string", "minLength": 1},
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^asd_[0-9]{3}_[a-z0-9_]+$"
+    },
+    "timestamp": {"type": "string", "format": "date-time"},
+    "event_type": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "actor": {"type": "string", "minLength": 1},
+    "previous_hash": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      ]
+    },
+    "payload": {"type": "object", "additionalProperties": true},
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

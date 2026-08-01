@@ -1,0 +1,61 @@
+schema_version: "1.0"
+experiment_id: asd_030_anatomy_certified_fp_replay
+seed: 20260731
+runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_030_anatomy_certified_fp_replay/run_v1
+candidate_mining:
+  source: locked_asd_000_baseline
+  split: train
+  threshold: 0.20
+  connectivity: 26
+  score: mean_top_1_percent_probability
+  retained_ranks: [1, 3, 5]
+  crop_shape_voxels: [192, 192, 192]
+certificate:
+  parser_confidence: high_only
+  allowed_region_dilation_mm: 15
+  allowed_overlap_voxels_max: 0
+  incompatible_region_fraction_min: 0.90
+  require_geometry_qc: true
+  precedence: [known_positive, certified_negative, unknown]
+  unknown_negative_loss_weight: 0.0
+replay:
+  ratios:
+    known_positive: 1
+    random_certified_negative: 1
+    mined_certified_negative: 1
+  immutable_after_hash: true
+  refresh_from_intervention: false
+arms:
+  - matched_baseline
+  - random_certified
+  - mined_certified
+  - mined_uncertified_masked
+  - shuffled_prompt_mining
+updates:
+  T2: 500
+  T3: 2000
+  T4: 10000
+cohorts:
+  development: val80
+  confirmatory: val120
+  continuity: val200
+  pre_t4_denied: [val120, val200]
+gates:
+  top5_certified_fp_coverage_min: 0.30
+  pilot_negative_peak_reduction_min: 0.30
+  pilot_positive_score_relative_delta_min: -0.05
+  decision_off_location_fp_reduction_min: 0.20
+  decision_recall_delta_min: -0.02
+  decision_dice_delta_min: 0.005
+  confirm_case_clustered_ci_lower_min_exclusive: 0.0
+bootstrap:
+  draws: 10000
+  seed: 20260731
+hardware:
+  mode: docker
+  image: rexgroundingct-voxtell:cu126
+  expected_gpu_count: 4
+  minimum_free_gib_training: 36
+  maximum_parallel_single_gpu_arms: 4
+  multi_gpu_ddp: false
+  slurm: prohibited

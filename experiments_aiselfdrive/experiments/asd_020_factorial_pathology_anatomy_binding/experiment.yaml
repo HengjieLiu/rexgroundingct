@@ -1,0 +1,581 @@
+schema_version: "1.0"
+id: asd_020_factorial_pathology_anatomy_binding
+title: Four-cell real-region pathology and anatomy interaction probe with bounded component residual
+plan_revision: 1
+created_at: "2026-07-31T00:00:00Z"
+updated_at: "2026-07-31T00:00:00Z"
+priority: 4
+idea: >-
+  Train an explicit interaction scorer on balanced real-region quartets that
+  independently corrupt pathology and anatomy compatibility, then use it only
+  as an identity-initialized bounded component-logit residual.
+problem: >-
+  Text is active but spatially broad. Generic attention and independent
+  selectors did not learn whether a visual region jointly matches both the
+  disease description and its anatomical modifier.
+novelty_vs_report: >-
+  Instead of another attention block or prompt adapter, this plan isolates the
+  pathology-by-anatomy conjunction with a 2-by-2 counterexample design,
+  case-separated frozen-feature probes, lexical shortcut controls, and
+  correct/single-swap/double-swap causal margins.
+hypotheses:
+  primary: >-
+    A visual-text interaction scorer reaches at least 65 percent held-out
+    four-way top-1 accuracy, beats sentence-only by at least 10 percentage
+    points, and assigns positive margins over both one-factor swaps.
+  null: >-
+    Region features cannot separate the conjunction beyond lexical,
+    pathology-only, anatomy-only, additive, or shuffled controls.
+goals:
+  - Validate train-only anatomical COT boxes without trusting malformed or unlabeled boxes.
+  - Build balanced, case-separated, matched real-region quartets.
+  - Compare standard and S3 frozen region representations.
+  - Gate any prediction coupling on mechanistic probe success and exact identity.
+  - Measure prompt-off-location FP and Dice effects on val80, with val120 only after promotion.
+non_goals:
+  - Fine-tune Qwen or claim that the text pathway was previously inactive.
+  - Use COT val/test entries or validation labels to fit the probe.
+  - Treat free-text COT boxes as pathology ground truth.
+  - Add anatomy embeddings directly to the decoder query.
+  - Make hard independent keep/drop component decisions.
+evidence_references:
+  - id: locked_foundation
+    kind: dependency
+    path: experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json
+    availability: missing
+    dependency_experiment_id: asd_000_evidence_lock_error_atlas
+    dependency_required_outcome: go
+    use: Canonical checkpoints, cohorts, prompts, evaluator, and error taxonomy.
+  - id: anatomical_cot
+    kind: weak_anatomy_supervision
+    path: /data/hengjie/datasets/rexgroundingct/anatomical_cot.json
+    availability: verified_local
+    sha256: 1ce44b798f3e86ae8744435d6efc1bc52f23591723763e80b233038bfe172c1e
+    use: Noisy train-only lung/lobe box context after strict validation.
+lineage:
+  dependency:
+    experiment_id: asd_000_evidence_lock_error_atlas
+    required_outcome: go
+  standard_parent:
+    experiment: 009_voxtell_s3_attention_coupling_ablation
+    variant: baseline_cont100
+    checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
+    sha256: 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf
+    recorded_val200_dice: 0.3398392601031359
+  s3_parent:
+    experiment: 009_voxtell_s3_attention_coupling_ablation
+    variant: s3v2_balanced_feature_half_quarter
+    checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100/fold_0/checkpoint_final.pth
+    sha256: a3e93801ba121c0084ec52b7f7dc38cbb617dbec484b6113b4348aa7dec82f3d
+    recorded_val200_dice: 0.3367180602443776
+  text_encoder:
+    implementation: Frozen VoxTell Qwen embedding pipeline and instruction wrapper.
+    output_dimension: 2560
+    trainable: false
+  preprocessing:
+    cache_id: crop_zscore_native_v1
+    cache_root: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1
+    manifest_sha256: fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3
+    patch_shape: [192, 192, 192]
+data:
+  metadata: /data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json
+  segmentations: /data/hengjie/datasets/rexgroundingct/segmentations
+  ct_root: /mnt/shengdata1/hengjie/datasets/rexgroundingct/ct/dataset
+  cot:
+    path: /data/hengjie/datasets/rexgroundingct/anatomical_cot.json
+    sha256: 1ce44b798f3e86ae8744435d6efc1bc52f23591723763e80b233038bfe172c1e
+    allowed_split: train
+    observed_train_records: 2992
+    prohibited_splits: [val, test]
+    observed_train_findings: 7687
+    observed_box_tags: 20687
+    note: Counts are discovery evidence; strict parsing determines the locked eligible set.
+  val80_manifest: experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
+  val120_manifest: experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json
+  val200_manifest: configs/evaluation/rexgroundingct_val200_seed20260723.json
+  val120_access:
+    before_t4: prohibited
+    allowed_stage: t4_confirmatory_binding
+  supervision_policy:
+    labels: [known_positive, certified_negative, unknown]
+    known_positive: Released train mask overlap and the factual quartet cell.
+    certified_negative: Factor swaps backed by a real region, incompatible official pathology category or explicit anatomy, and matched sampling.
+    unknown: Malformed, ambiguous, unmatched, same-category-compatible, or incomplete-label regions.
+    forbidden: Use of unvalidated COT prose as a global negative mask.
+method:
+  protocol_config: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml
+  cot_box_validation:
+    tag_pattern: Literal box tag containing exactly six base-10 integers.
+    coordinate_order: [x_min, y_min, z_min, x_max, y_max, z_max]
+    bounds: Half-open voxel bounds with 0 <= minimum < maximum <= source array shape.
+    anatomy_label_rule: >-
+      Assign only the closest recognized lung/lobe phrase in the same numbered
+      step before the box. Reject absent, conflicting, bilateral, segment-only,
+      lesion-only, or multiply plausible labels.
+    recognized_labels:
+      - left_lung
+      - right_lung
+      - left_upper_lobe
+      - left_lower_lobe
+      - right_upper_lobe
+      - right_middle_lobe
+      - right_lower_lobe
+    mask_overlap_validation: >-
+      A box is eligible only when at least 80 percent of released GT voxels for
+      its finding lie inside the box expanded by 15 physical mm, or when the box
+      is explicitly labeled whole lung and at least 95 percent lie inside.
+    malformed_policy: exclude_and_count
+  text_spans:
+    anatomy_span: Exact source substrings consumed by the locked prompt ontology.
+    pathology_span: Original finding after replacing anatomy spans with spaces and normalizing whitespace and punctuation.
+    exclusion: Fewer than three alphabetic pathology tokens, conflicting anatomy, or no explicit eligible anatomy.
+    embeddings:
+      - full_sentence
+      - pathology_span
+      - anatomy_span
+    dimension: 2560
+    dtype: float16
+    encoder_frozen: true
+  region_pooling:
+    source_region: >-
+      Released train lesion bounding box expanded by 10 physical mm, intersected
+      with the validated COT anatomy box expanded by 15 physical mm.
+    standard_features: Mean and max pooled common encoder skip vectors at one-quarter and one-half scales.
+    s3_features: Standard features plus pooled prompt-conditioned S3 gated feature vectors at the same scales.
+    frozen_backbones: true
+    base_confidence: Mean sigmoid probability inside the released lesion mask from the corresponding frozen lineage.
+  quartet_construction:
+    anchor_requirement: Nonempty released train mask, valid anatomy box, valid spans, and all three matched counterexamples.
+    cells:
+      factual: same official pathology category and same explicit anatomy label.
+      anatomy_swap: same pathology category and a different explicit side or lobe.
+      pathology_swap: different official pathology category and the same explicit anatomy label.
+      double_swap: different pathology category and different explicit side or lobe.
+    matching:
+      mask_volume_decile: same decile preferred, adjacent decile allowed.
+      base_confidence_decile: same decile preferred, adjacent decile allowed.
+      crop_voxel_count_relative_tolerance: 0.25
+      source_case: must differ from anchor case for every swapped cell.
+      deterministic_choice: Lowest SHA-256 of seed, anchor case, finding index, cell, and candidate identity.
+    label_order: Seeded permutation per quartet; labels are not position-coded.
+    split:
+      unit: case
+      heldout_fraction: 0.20
+      rule: First 20 percent after sorting cases by SHA-256 of 20260731 colon case_name are held out.
+    minimum_locked_quartets: 1000
+    maximum_locked_quartets: 50000
+  scorer:
+    projections:
+      region_dimension: 128
+      pathology_dimension: 128
+      anatomy_dimension: 128
+    normalized_inputs: true
+    components:
+      pathology_bilinear: dot(region_projection, pathology_projection)
+      anatomy_bilinear: dot(region_projection, anatomy_projection)
+      interaction: Two-layer MLP over elementwise region-pathology, region-anatomy, and their elementwise product; hidden 256, GELU, dropout 0.1.
+    output: one scalar compatibility score per real region
+    loss: Four-way InfoNCE cross-entropy within each quartet plus equal-weight pathology-match and anatomy-match binary auxiliary losses.
+    loss_weights: {info_nce: 1.0, pathology_match: 0.25, anatomy_match: 0.25}
+    temperature: Learned, initialized 0.07, clamped to [0.03, 0.20].
+    optimizer: AdamW
+    learning_rate: 0.0003
+    weight_decay: 0.01
+    batch_quartets: 32
+    seed: 20260731
+  probe_controls:
+    - text_only
+    - whole_sentence_only
+    - pathology_only
+    - anatomy_only
+    - additive_without_interaction
+    - shuffled_anatomy_spans
+    - pathology_swap
+    - anatomy_swap
+    - double_swap
+    - zero_residual_identity
+  lineage_selection:
+    primary: Higher case-heldout four-way top-1 accuracy after all shortcut and margin gates pass.
+    tie_break: Standard parent because it has higher locked aggregate val200 Dice.
+    fit_repetitions: 3
+    seeds: [20260731, 20260732, 20260733]
+    reporting: Mean and worst-seed result; every seed must pass the primary gate.
+  bounded_component_residual:
+    candidates: 26-connected components of sigmoid base probability at threshold 0.05.
+    score_features: Same frozen selected-lineage pooling and frozen text spans used by the probe.
+    formula: z_final equals z_base plus beta times tanh of component compatibility centered on the train-heldout factual/nonfactual midpoint.
+    beta_parameterization: beta = 2.0 * tanh(raw_beta)
+    initialization: raw_beta equals 0 with an exact base-logit bypass.
+    application: Add one bounded residual to voxels belonging to each threshold-0.05 component; leave all other logits unchanged.
+    decision: Continuous recalibration only; never hard keep/drop.
+  tier_updates:
+    T1: 10
+    T2: 500
+    T3: 2000
+    T4: 10000
+  evaluation_barrier: Save immutable scorer/full-state checkpoints, stop fitting, evaluate matched zero and interaction arms, then resume only after gates pass.
+resources:
+  execution_class: four_gpu_frozen_feature_export_then_small_probe
+  gpu_count_max: 4
+  gpu_memory_free_gib_min_feature_export: 32
+  gpu_memory_free_gib_min_inference: 32
+  docker_image: rexgroundingct-voxtell:cu126
+  gpu_preflight_ref: experiments_aiselfdrive/shared/hardware_profile.yaml
+  qwen_and_voxtell_frozen: true
+  use_multi_gpu_ddp: false
+  cpu_threads_max: 32
+  ram_gib_max: 192
+stages:
+  - id: implement_factorial_binding_pipeline
+    kind: implementation
+    execution_mode: agent
+    needs: []
+    required: true
+    description: Implement strict COT parsing, quartet construction, feature export, interaction probes, bounded residual, evaluation, and tests.
+    instructions: >-
+      Create cot_boxes.py, quartets.py, binding_model.py, component_residual.py,
+      a run_stage.py CLI, and focused tests. run_stage.py must expose corpus,
+      features, probe, t1, t2, t3, t4, and closeout. Parse train COT only;
+      lists, nulls, malformed tags, ambiguous labels, and unmatched boxes are
+      excluded and counted. Keep Qwen and both VoxTell lineages frozen and prove
+      their weights unchanged. Use atomic external feature shards and case-level
+      splits. The text-only control must receive identical anchor text across
+      all four randomly ordered cells. The residual beta==0 path must return
+      base logits exactly. Reject val120 outside t4. Modify no existing code.
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/src/cot_boxes.py
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/src/quartets.py
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/src/binding_model.py
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/src/component_residual.py
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/tests/test_cot_boxes.py
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/tests/test_quartets.py
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/tests/test_binding_model.py
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/tests/test_component_residual.py
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/tests/test_shortcuts_and_leakage.py
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/implement_factorial_binding_pipeline.json
+    inputs:
+      - protocol, locked foundation manifests, anatomical COT, released train masks, and frozen checkpoints
+    outputs:
+      - experiment-local implementation, CLI, and unit tests
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/implement_factorial_binding_pipeline.json
+      predicate: Modules compile and all strict parsing, shortcut, identity, frozen-weight, and leakage tests pass.
+    resources: {gpu_count: 0, cpu_threads: 8}
+    timeout_seconds: 10800
+    retry: {class: non_retryable_agent_implementation, max_attempts: 1}
+    stop_conditions:
+      - Any requested write is outside allowed_write_paths.
+      - COT val/test data or val120 labels are opened.
+      - Quartet labels can be inferred from text or cell order alone.
+    acceptance_checks:
+      - PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/tests -p test_*.py
+      - python -m py_compile experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/src/*.py experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/*.py
+  - id: lock_train_factorial_corpus
+    kind: data_preparation
+    execution_mode: command
+    needs: [implement_factorial_binding_pipeline]
+    required: true
+    description: Validate train-only boxes and construct a balanced immutable quartet corpus.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, corpus]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/corpus_audit.json
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/corpus_exclusions.csv
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/corpus
+    inputs:
+      - train split of anatomical COT, released train masks, metadata, and locked prompt ontology
+    outputs:
+      - immutable external quartet manifest and span table
+      - corpus audit and exclusions table
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/corpus_audit.json
+      predicate: At least 1,000 complete balanced quartets pass all box, matching, split, and shortcut checks.
+    resources: {gpu_count: 0, cpu_threads: 32, ram_gib_max: 128}
+    timeout_seconds: 21600
+    retry: {class: transient, max_attempts: 3, backoff_seconds: [60, 300]}
+    stop_conditions:
+      - Fewer than 1000 eligible complete quartets remain.
+      - Case split, source split, mask, or box validation fails.
+    acceptance_checks:
+      - Only COT train records are present.
+      - Every quartet has exactly one cell of each factorial type and random label position.
+      - No case appears in both fit and held-out sets.
+  - id: export_frozen_text_and_region_features
+    kind: feature_extraction
+    execution_mode: command
+    needs: [lock_train_factorial_corpus]
+    required: true
+    description: Export standard, S3, and three-span frozen features in four deterministic shards.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, features]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/feature_export.json
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/features
+    inputs:
+      - locked quartet corpus, standard and S3 checkpoints, Qwen pipeline, and CT cache
+    outputs:
+      - atomic external feature shards and manifest
+      - feature export audit
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/feature_export.json
+      predicate: Every quartet has finite standard, S3, and span features and all frozen hashes remain unchanged.
+    resources: {gpu_count: 4, gpu_memory_free_gib_min_each: 32, docker_image: rexgroundingct-voxtell:cu126, gpu_hours_total_max: 24}
+    timeout_seconds: 43200
+    retry: {class: evaluation, max_attempts: 3, preserve_verified_cases: true}
+    stop_conditions:
+      - Qwen or VoxTell frozen parameters change.
+      - Feature geometry, case identity, dtype, or finite checks fail.
+      - Total export exceeds 24 GPU-hours.
+    acceptance_checks:
+      - Feature count equals four times the locked quartet count for both lineages.
+      - Span embeddings have shape 2560 and use the identical frozen encoder contract.
+      - Standard and S3 parent hashes are unchanged after extraction.
+  - id: train_and_gate_factorial_probes
+    kind: diagnostic
+    execution_mode: command
+    needs: [export_frozen_text_and_region_features]
+    required: true
+    description: Fit three seeds for both lineages and every ablation, then select at most one lineage.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, probe]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/probe.json
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/probe_metrics.csv
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/probe_summary.md
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/probes
+    inputs:
+      - frozen feature manifest and locked fit/held-out quartets
+    outputs:
+      - immutable probe checkpoints and complete ablation results
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/probe.json
+      predicate: Shortcut, accuracy, margin, ablation, seed, and lineage-selection gates are decided.
+    resources: {gpu_count: 2, gpu_memory_free_gib_min_each: 8, gpu_hours_total_max: 4}
+    timeout_seconds: 14400
+    retry: {class: transient, max_attempts: 3, backoff_seconds: [60, 300]}
+    stop_conditions:
+      - Text-only held-out top-1 exceeds 30 percent after one deterministic rebalance.
+      - Any seed is below 65 percent top-1 or below the sentence-only control by 10 percentage points.
+      - Either one-factor margin is nonpositive.
+    acceptance_checks:
+      - Text-only accuracy is at most 0.30 on a balanced randomly ordered task.
+      - Every selected-lineage seed has top-1 at least 0.65 and at least 0.10 advantage over sentence-only.
+      - Factual scores exceed both pathology-swap and anatomy-swap scores with positive case-clustered margins.
+  - id: t1_zero_residual_smoke
+    kind: smoke
+    execution_mode: command
+    needs: [train_and_gate_factorial_probes]
+    required: true
+    description: Materialize the winning scorer and prove exact zero residual on one val80 case plus ten fit updates.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, t1]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t1.json
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/runs
+    inputs:
+      - selected frozen lineage, winning probe, val80 manifest, and base logits
+    outputs:
+      - exact-identity evidence and external smoke state
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t1.json
+      predicate: Zero residual is bitwise identical and ten finite scorer updates resume exactly.
+    resources: {gpu_count: 1, gpu_memory_free_gib_min: 32, gpu_hours_max: 0.25}
+    timeout_seconds: 7200
+    retry: {class: training, max_attempts: 2, max_automatic_resumes: 1}
+    stop_conditions:
+      - Probe gate is not GO.
+      - Zero residual changes any base logit or mask.
+      - Frozen lineage weights change.
+    acceptance_checks:
+      - raw_beta zero returns the exact base tensor.
+      - Frozen Qwen and VoxTell hashes remain unchanged.
+      - Ten updates, checkpoint, resume, and one-case inference are finite.
+  - id: t2_500_update_val80
+    kind: training_evaluation
+    execution_mode: command
+    needs: [t1_zero_residual_smoke]
+    required: true
+    description: Fit matched zero and interaction arms for 500 updates and evaluate val80.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, t2]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t2.json
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t2_metrics.csv
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/runs
+    inputs:
+      - passed T1 state and locked val80
+    outputs:
+      - immutable scorer checkpoints, val80 recalibrated predictions, and metrics
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t2.json
+      predicate: Off-location FP, explicit-modifier Dice, GT retention, aggregate, and causal substitutions are decided.
+    resources: {gpu_count: 2, gpu_memory_free_gib_min_each: 32, gpu_hours_per_arm_max: 1.25}
+    timeout_seconds: 21600
+    retry: {class: training_and_evaluation, max_attempts: 3, max_automatic_resumes: 1}
+    stop_conditions:
+      - Off-location FP reduction is below 15 percent.
+      - GT retention is below 99 percent or aggregate Dice loss exceeds 0.001.
+      - Correct spans do not outperform single and double swaps.
+    acceptance_checks:
+      - Prompt-off-location FP decreases at least 0.15.
+      - Explicit-modifier Dice improves at least 0.01.
+      - GT retention is at least 0.99 and aggregate Dice delta is at least -0.001.
+  - id: t3_2000_update_val80
+    kind: training_evaluation
+    execution_mode: command
+    needs: [t2_500_update_val80]
+    required: true
+    description: Continue matched zero and interaction arms to 2,000 updates and issue the promotion record.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, t3]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t3.json
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t3_metrics.csv
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/runs
+    inputs:
+      - passed T2 full state
+    outputs:
+      - immutable 2,000-update scorers and complete val80 paired evidence
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t3.json
+      predicate: Safety, calibrated, causal, subgroup, clustered, and compute evidence is complete.
+    resources: {gpu_count: 2, gpu_memory_free_gib_min_each: 32, gpu_hours_per_arm_max: 2.5}
+    timeout_seconds: 28800
+    retry: {class: training_and_evaluation, max_attempts: 3, max_automatic_resumes: 1}
+    stop_conditions:
+      - T2 is not GO.
+      - Safety or causal ordering fails.
+    acceptance_checks:
+      - Threshold-matched and predicted-volume-matched gains retain direction.
+      - Off-location FP, explicit-modifier Dice, GT retention, and aggregate gates pass.
+      - Finding and case-clustered intervals and all prompt-group effects are reported.
+  - id: t4_confirmatory_binding
+    kind: confirmatory_training_evaluation
+    execution_mode: command
+    needs: [t3_2000_update_val80]
+    required: false
+    description: If portfolio-promoted, fit to 10,000 updates and evaluate untouched val120 then val200.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, t4]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t4.json
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t4_metrics.csv
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding/runs
+    inputs:
+      - portfolio promotion record, T3 full state, sealed val120, and val200
+    outputs:
+      - immutable 10,000-update scorer and val120/val200 reports
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/t4.json
+      predicate: Promoted confirmatory evaluation and primary case-clustered interval are complete.
+    resources: {gpu_count: 2, gpu_memory_free_gib_min_each: 32, gpu_hours_per_arm_max: 15}
+    timeout_seconds: 86400
+    retry: {class: training_and_evaluation, max_attempts: 3, max_automatic_resumes: 1}
+    stop_conditions:
+      - No valid portfolio promotion exists.
+      - Val120 was opened previously.
+    acceptance_checks:
+      - Primary val120 case-clustered 95 percent CI lower bound is above zero for performance GO.
+      - Val200 continuity and causal substitution results are complete.
+  - id: closeout_factorial_binding
+    kind: closeout
+    execution_mode: command
+    needs: [t3_2000_update_val80]
+    required: true
+    description: Decide all claims and close after T3 or optional promoted T4.
+    command:
+      argv: [python, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/scripts/run_stage.py, --config, experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/configs/protocol.yaml, --phase, closeout]
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env: {PYTHONDONTWRITEBYTECODE: "1"}
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/closeout.json
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/summary.md
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/artifacts/manifest.json
+      - experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/claims.yaml
+    inputs:
+      - required stage evidence, claims, and artifacts
+    outputs:
+      - closeout JSON and human summary
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/results/closeout.json
+      predicate: Required stages are terminal, claims are decided, and artifacts verify.
+    resources: {gpu_count: 0, cpu_threads: 4}
+    timeout_seconds: 3600
+    retry: {class: non_retryable_closeout, max_attempts: 1}
+    stop_conditions:
+      - A verdict lacks gate-linked evidence.
+    acceptance_checks:
+      - A valid negative closes finished/no_go.
+      - Optional T4 is skipped cleanly when not promoted.
+evaluation:
+  probe_cohort: case_separated_train_heldout_20_percent
+  development_cohort: val80
+  confirmatory_cohort: val120
+  continuity_cohort: val200
+  probe_go:
+    four_way_top1_min: 0.65
+    advantage_over_sentence_only_min: 0.10
+    text_only_top1_max: 0.30
+    factual_minus_pathology_swap_margin_min_exclusive: 0.0
+    factual_minus_anatomy_swap_margin_min_exclusive: 0.0
+    every_seed_must_pass: true
+  performance_go:
+    off_location_fp_reduction_min: 0.15
+    explicit_modifier_dice_delta_min: 0.01
+    gt_retention_min: 0.99
+    aggregate_dice_noninferiority_margin: -0.001
+  confirmatory_go:
+    val120_case_clustered_ci_lower_bound_min_exclusive: 0.0
+  metrics:
+    - four_way_top1
+    - pathology_and_anatomy_match_accuracy
+    - single_swap_margins
+    - text_only_and_ablation_accuracy
+    - prompt_off_location_fp
+    - explicit_modifier_and_aggregate_dice
+    - gt_retention
+    - hit_and_empty_mask_rate
+    - threshold_and_volume_matched_effects
+  uncertainty: {bootstrap_draws: 10000, seed: 20260731, cluster_unit: case}
+paths:
+  workspace: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding
+  runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding
+  runtime_symlink_target: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_020_factorial_pathology_anatomy_binding
+budget:
+  feature_export_gpu_hours_max: 24
+  probe_gpu_hours_max: 4
+  t1_gpu_hours_max: 0.25
+  t2_gpu_hours_per_arm_max: 1.25
+  t3_gpu_hours_per_arm_max: 2.5
+  t4_gpu_hours_per_arm_max: 15
+  durable_storage_gib_max: 100
+retention:
+  quartet_manifest: durable
+  frozen_features: regenerable
+  probe_checkpoints: durable_until_closeout
+  promoted_checkpoint: durable
+  small_results: durable
+prohibited_directions:
+  - qwen_lora
+  - direct_query_addition
+  - generic_presence_head
+  - generic_attention_loss
+  - hard_independent_component_selection
+  - use_cot_val_or_test_for_fitting
+  - global_negative_labels_from_cot
+  - inspect_val120_before_t4_promotion

@@ -1,0 +1,63 @@
+schema_version: "1.0"
+experiment_id: asd_030_anatomy_certified_fp_replay
+claims:
+  - id: replay_pipeline_feasible
+    type: feasibility
+    statement: >-
+      A deterministic immutable replay manifest can be constructed from the
+      locked baseline while preserving tri-state supervision and cohort
+      separation.
+    verdict: pending
+    gate_refs:
+      - stages.certify_freeze_replay.acceptance_checks
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: certified_candidates_cover_error
+    type: mechanistic
+    statement: >-
+      Anatomy-certified top-five baseline candidates explain at least 30% of
+      val80 prompt-off-location false-positive volume.
+    verdict: pending
+    gate_refs:
+      - evaluation.gates.coverage_go
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: mined_beats_random_certificate
+    type: causal
+    statement: >-
+      Model-mined certified replay outperforms count-matched random certified
+      replay under identical initialization, schedule, and evaluation.
+    verdict: pending
+    gate_refs:
+      - evaluation.gates.decision_go
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: replay_improves_grounding
+    type: performance
+    statement: >-
+      The selected replay arm reduces prompt-off-location FP by at least 20%,
+      improves paired Dice by at least 0.005, and loses no more than two
+      percentage points of recall on val80.
+    verdict: pending
+    gate_refs:
+      - evaluation.gates.decision_go
+      - evaluation.gates.confirmation_go
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: unknown_regions_are_safe
+    type: safety
+    statement: >-
+      Known-positive precedence has zero violations, unknown voxels receive
+      zero negative loss, and positive GT probability is preserved within 5%
+      during the pilot.
+    verdict: pending
+    gate_refs:
+      - evaluation.gates.pilot_go
+      - stages.certify_freeze_replay.acceptance_checks
+    evidence_refs: []
+    decided_at: null
+    rationale: null

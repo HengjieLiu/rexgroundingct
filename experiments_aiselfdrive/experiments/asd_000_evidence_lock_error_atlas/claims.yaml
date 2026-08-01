@@ -1,0 +1,27 @@
+schema_version: "1.0"
+experiment_id: asd_000_evidence_lock_error_atlas
+claims:
+  - id: canonical_lineage_reproducible
+    type: feasibility
+    statement: The local Exp009 baseline is reproducible at the locked val200 operating point.
+    verdict: pending
+    gate_refs: [baseline_dice_absolute_error_le_0.000005, baseline_hits_equal_288_of_381]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: spatial_error_taxonomy_measurable
+    type: mechanistic
+    statement: Explicit-location prompts permit deterministic measurement of prompt-off-location false-positive voxels and detached components on val80.
+    verdict: pending
+    gate_refs: [prompt_parser_safety_checks_pass, val80_error_atlas_complete]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: tri_state_policy_preserved
+    type: safety
+    statement: The atlas and downstream manifests distinguish known-positive, certified-negative, and unknown regions without global negative conversion.
+    verdict: pending
+    gate_refs: [prompt_parser_safety_checks_pass, geometry_and_orientation_checks_pass]
+    evidence_refs: []
+    decided_at: null
+    rationale: null

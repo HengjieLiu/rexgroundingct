@@ -1,0 +1,33 @@
+# Live control state
+.runtime/
+**/.runtime/
+**/*.lease
+**/*.lock
+**/owner.json
+**/runtime
+
+# Heavy runtime artifacts
+**/checkpoints/
+**/predictions/
+**/logits/
+**/cache/
+**/caches/
+**/*.pth
+**/*.pt
+**/*.ckpt
+**/*.nii
+**/*.nii.gz
+**/*.npy
+**/*.npz
+**/*.mmap
+
+# Attempts and transient output
+**/attempt_[0-9]*/
+**/*.tmp
+**/*.partial
+**/__pycache__/
+**/.pytest_cache/
+**/*.pyc
+
+# Generated local views
+STATUS.local.md

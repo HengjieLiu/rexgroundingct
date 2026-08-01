@@ -1,0 +1,27 @@
+schema_version: "1.0"
+experiment_id: asd_005_train_anatomy_asset_extension
+claims:
+  - id: trainval_fast_anatomy_feasible
+    type: feasibility
+    statement: Fast 3-mm TotalSegmentator can produce a verified anatomy asset for all 3,192 train/validation CTs within the declared hardware budget.
+    verdict: pending
+    gate_refs: [completed_cases_equal_3192, unresolved_failures_equal_0, aggregate_gpu_hours_le_24, wall_hours_le_8]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: source_geometry_preserved
+    type: safety
+    statement: Every anatomy output preserves the corresponding CT shape, affine, axis codes, and physical extent.
+    verdict: pending
+    gate_refs: [geometry_failures_equal_0, orientation_failures_equal_0]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: cache_is_downstream_ready
+    type: feasibility
+    statement: The unified manifest is complete, immutable, per-case hashed, and usable without regenerating anatomy.
+    verdict: pending
+    gate_refs: [completed_cases_equal_3192, nonempty_lung_coverage_equal_1]
+    evidence_refs: []
+    decided_at: null
+    rationale: null

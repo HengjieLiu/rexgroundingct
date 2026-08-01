@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rexgroundingct.local/schemas/artifact_manifest.schema.json",
+  "title": "ReXGroundingCT AI self-drive artifact manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "experiment_id", "artifacts"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^asd_[0-9]{3}_[a-z0-9_]+$"
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/artifact"}
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "path",
+        "role",
+        "ownership",
+        "status",
+        "required",
+        "sha256",
+        "size_bytes",
+        "producer_stage_id",
+        "retention"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "path": {"type": "string", "minLength": 1},
+        "role": {
+          "enum": [
+            "input",
+            "output",
+            "evidence",
+            "checkpoint",
+            "cache",
+            "log",
+            "report",
+            "manifest"
+          ]
+        },
+        "ownership": {
+          "enum": ["workspace", "external_read_only", "external_runtime"]
+        },
+        "status": {"enum": ["planned", "present", "verified", "missing", "invalid"]},
+        "required": {"type": "boolean"},
+        "sha256": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          ]
+        },
+        "size_bytes": {
+          "oneOf": [{"type": "null"}, {"type": "integer", "minimum": 0}]
+        },
+        "producer_stage_id": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+          ]
+        },
+        "retention": {"enum": ["durable", "ephemeral", "regenerable"]},
+        "media_type": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

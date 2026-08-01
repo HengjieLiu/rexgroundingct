@@ -1,0 +1,143 @@
+schema_version: "1.0"
+workspace_id: rexgroundingct_aiselfdrive
+created_at: "2026-07-31T00:00:00Z"
+source_report:
+  path: experiments_aiselfdrive/ReXGroundingCT_Technical_Report_2026-07-30.md
+  sha256: 2dfc9f545a83868e09fd54ec6432435a914af58e3ce9c041166f78c73f46c923
+  evidence_availability: historical_only
+allowed_write_roots:
+  - experiments_aiselfdrive
+  - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive
+runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive
+hardware_profile_ref: experiments_aiselfdrive/shared/hardware_profile.yaml
+selection_policy:
+  ordering:
+    - priority_ascending
+    - id_ascending
+  max_active_training_experiments: 1
+  max_parallel_arms_within_experiment: 4
+  allow_automatic_second_experiment: false
+  unsatisfied_terminal_dependency_action: block
+lease_policy:
+  heartbeat_seconds: 60
+  ttl_seconds: 900
+  stale_reclaim_requires_liveness_check: true
+  stale_archive_path: experiments_aiselfdrive/.runtime/stale_leases
+retry_defaults:
+  transient:
+    max_attempts: 3
+    backoff_seconds: [60, 300]
+  evaluation:
+    max_attempts: 3
+    preserve_verified_cases: true
+  training:
+    max_automatic_resumes: 1
+    require_full_state_checkpoint: true
+  resource_wait:
+    poll_seconds: 60
+    timeout_seconds: 21600
+  non_retryable_classes:
+    - geometry_mismatch
+    - orientation_mismatch
+    - cohort_hash_drift
+    - config_hash_drift
+    - checkpoint_hash_drift
+    - split_leakage
+    - non_finite
+    - identity_control_failure
+    - wrong_inference_device
+    - missing_resume_state
+    - write_scope_violation
+    - lineage_mismatch
+    - budget_exhausted
+promotion_policy:
+  development_cohort: val80
+  confirmatory_cohort: val120
+  continuity_cohort: val200
+  max_t4_interventions: 2
+  ranking:
+    - all_safety_and_noninferiority_gates_pass
+    - paired_val80_dice_delta_descending
+    - val80_off_location_fp_reduction_descending
+    - measured_gpu_hours_ascending
+    - experiment_id_ascending
+  combination_requires_independent_t4_go: 2
+experiments:
+  - id: asd_000_evidence_lock_error_atlas
+    path: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas
+    plan_path: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/experiment.yaml
+    state_path: experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/state.json
+    priority: 1
+    depends_on: []
+  - id: asd_005_train_anatomy_asset_extension
+    path: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension
+    plan_path: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/experiment.yaml
+    state_path: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/state.json
+    priority: 2
+    depends_on:
+      - id: asd_000_evidence_lock_error_atlas
+        type: hard
+        satisfying_outcomes: [go]
+  - id: asd_010_intrinsic_anatomy_fields
+    path: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields
+    plan_path: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/experiment.yaml
+    state_path: experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/state.json
+    priority: 3
+    depends_on:
+      - id: asd_000_evidence_lock_error_atlas
+        type: hard
+        satisfying_outcomes: [go]
+      - id: asd_005_train_anatomy_asset_extension
+        type: hard
+        satisfying_outcomes: [go]
+  - id: asd_020_factorial_pathology_anatomy_binding
+    path: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding
+    plan_path: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/experiment.yaml
+    state_path: experiments_aiselfdrive/experiments/asd_020_factorial_pathology_anatomy_binding/state.json
+    priority: 4
+    depends_on:
+      - id: asd_000_evidence_lock_error_atlas
+        type: hard
+        satisfying_outcomes: [go]
+  - id: asd_030_anatomy_certified_fp_replay
+    path: experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay
+    plan_path: experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/experiment.yaml
+    state_path: experiments_aiselfdrive/experiments/asd_030_anatomy_certified_fp_replay/state.json
+    priority: 5
+    depends_on:
+      - id: asd_000_evidence_lock_error_atlas
+        type: hard
+        satisfying_outcomes: [go]
+      - id: asd_005_train_anatomy_asset_extension
+        type: hard
+        satisfying_outcomes: [go]
+  - id: asd_040_censored_label_tri_state
+    path: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state
+    plan_path: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/experiment.yaml
+    state_path: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/state.json
+    priority: 6
+    depends_on:
+      - id: asd_000_evidence_lock_error_atlas
+        type: hard
+        satisfying_outcomes: [go]
+  - id: asd_050_prompt_equivariance_quartet
+    path: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet
+    plan_path: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/experiment.yaml
+    state_path: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/state.json
+    priority: 7
+    depends_on:
+      - id: asd_000_evidence_lock_error_atlas
+        type: hard
+        satisfying_outcomes: [go]
+  - id: asd_060_persistence_tree_set_verifier
+    path: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier
+    plan_path: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/experiment.yaml
+    state_path: experiments_aiselfdrive/experiments/asd_060_persistence_tree_set_verifier/state.json
+    priority: 8
+    depends_on:
+      - id: asd_000_evidence_lock_error_atlas
+        type: hard
+        satisfying_outcomes: [go]
+      - id: asd_040_censored_label_tri_state
+        type: evidence
+        satisfying_outcomes: [go, no_go, inconclusive]

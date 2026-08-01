@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "asd_030_anatomy_certified_fp_replay",
+  "stage_id": "portfolio_scaffold",
+  "status": "blocked",
+  "completed_at": "2026-07-31T00:00:00Z",
+  "summary": "Execution is blocked until ASD-000 and ASD-005 finish with outcome go.",
+  "checks": [
+    {
+      "id": "plan_authored",
+      "status": "passed",
+      "detail": "The decision-complete experiment package was authored without running training."
+    },
+    {
+      "id": "dependencies",
+      "status": "blocked",
+      "detail": "Locked lineage/error-atlas and training anatomy manifests are not yet available as verified GO dependencies."
+    }
+  ],
+  "artifacts": [],
+  "metrics": {},
+  "error": null
+}

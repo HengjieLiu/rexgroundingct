@@ -1,0 +1,61 @@
+schema_version: "1.0"
+profile_id: rexgroundingct_rtx6000ada_docker
+observed_at: "2026-07-31T00:00:00Z"
+gpu_access:
+  mode: docker
+  direct_host_visibility_required: false
+  runtime_flag: --gpus
+  training_image: rexgroundingct-voxtell:cu126
+  anatomy_image: rexgroundingct-totalsegmentator:2.16.0-cu126
+  scheduler: none
+gpus:
+  count: 4
+  model: NVIDIA RTX 6000 Ada Generation
+  memory_gib_per_device: 47.38
+  minimum_free_gib:
+    training: 36
+    inference: 32
+    anatomy_fast: 32
+  prohibit:
+    - full_resolution_s3
+    - high_resolution_totalsegmentator_parallel
+cpu:
+  logical_count: 128
+  model: AMD EPYC 7713
+ram:
+  total_gib: 503
+storage:
+  repository_free_gib_observed: 241
+  heavy_runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive
+  heavy_runtime_free_tib_observed: 39
+preflight:
+  required_checks:
+    - docker_image_present
+    - torch_cuda_available
+    - exactly_four_expected_gpus
+    - per_device_free_memory
+    - external_runtime_writable
+    - parent_checkpoint_loads
+    - one_case_inference_is_finite
+  failure_action: block
+execution:
+  max_parallel_single_gpu_arms: 4
+  use_multi_gpu_ddp: false
+  evaluation_barrier_after_training: true
+  slurm_prohibited: true
+compute_tiers:
+  T0:
+    description: CPU, cached-logit, parser, or anatomy diagnostic
+    gpu_hours_per_arm_max: 0
+  T1:
+    description: one-to-ten-update smoke plus one-case identity checks
+    gpu_hours_per_arm_max: 0.25
+  T2:
+    description: 500 updates plus val80
+    gpu_hours_per_arm_range: [0.75, 1.25]
+  T3:
+    description: 2000 updates plus val80
+    gpu_hours_per_arm_range: [2.0, 2.5]
+  T4:
+    description: 10000 updates plus val120 and val200
+    gpu_hours_per_arm_range: [11, 15]

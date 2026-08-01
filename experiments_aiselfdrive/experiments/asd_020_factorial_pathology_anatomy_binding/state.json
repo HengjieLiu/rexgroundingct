@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "asd_020_factorial_pathology_anatomy_binding",
+  "plan_sha256": "62fd0c6adc987dd2dc46a21ef663e487e7c623602343801dea62fcc476244e78",
+  "plan_revision": 1,
+  "revision": 0,
+  "last_event_seq": 1,
+  "phase": "initialization",
+  "status": "blocked",
+  "outcome": null,
+  "created_at": "2026-07-31T00:00:00Z",
+  "updated_at": "2026-07-31T00:00:00Z",
+  "current_stage_id": null,
+  "executor": null,
+  "lease": null,
+  "blockers": ["Dependency asd_000_evidence_lock_error_atlas must finish with outcome go."],
+  "stages": [
+    {"id":"implement_factorial_binding_pipeline","status":"blocked","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"lock_train_factorial_corpus","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"export_frozen_text_and_region_features","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"train_and_gate_factorial_probes","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"t1_zero_residual_smoke","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"t2_500_update_val80","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"t3_2000_update_val80","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"t4_confirmatory_binding","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"closeout_factorial_binding","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]}
+  ],
+  "budget_consumed": {"gpu_hours": 0.0, "cpu_hours": 0.0, "storage_gib": 0.0},
+  "verified_artifact_ids": ["anatomical_cot", "standard_checkpoint", "s3_checkpoint"],
+  "artifacts_verified": false,
+  "closeout_passed": false
+}

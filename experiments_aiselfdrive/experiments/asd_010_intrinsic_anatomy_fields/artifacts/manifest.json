@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "asd_010_intrinsic_anatomy_fields",
+  "artifacts": [
+    {"id":"locked_lineage","path":"experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json","role":"input","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"trainval_anatomy_manifest","path":"experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json","role":"input","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"parent_checkpoint","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth","role":"checkpoint","ownership":"external_read_only","status":"verified","required":true,"sha256":"50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf","size_bytes":3131885315,"producer_stage_id":null,"retention":"durable"},
+    {"id":"val80_field_cache","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields/fields/val80","role":"cache","ownership":"external_runtime","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"build_val80_field_cache","retention":"regenerable"},
+    {"id":"diagnostic","path":"experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/diagnostic.json","role":"evidence","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"run_retention_constrained_diagnostic","retention":"durable"},
+    {"id":"trainval_field_cache","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields/fields/trainval","role":"cache","ownership":"external_runtime","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"build_trainval_field_cache","retention":"regenerable"},
+    {"id":"t2_checkpoints","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields/runs/t2","role":"checkpoint","ownership":"external_runtime","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"t2_500_update_val80","retention":"durable"},
+    {"id":"t3_report","path":"experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t3.json","role":"report","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"t3_2000_update_val80","retention":"durable"},
+    {"id":"t4_report","path":"experiments_aiselfdrive/experiments/asd_010_intrinsic_anatomy_fields/results/t4.json","role":"report","ownership":"workspace","status":"planned","required":false,"sha256":null,"size_bytes":null,"producer_stage_id":"t4_confirmatory_val120_and_val200","retention":"durable"}
+  ]
+}

@@ -1,0 +1,66 @@
+schema_version: "1.0"
+experiment_id: asd_060_persistence_tree_set_verifier
+seed: 20260731
+runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_060_persistence_tree_set_verifier/run_v1
+thresholds: [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80]
+connectivity: 26
+forest:
+  edge: maximum_overlap_to_previous_lower_threshold
+  tie_break: smaller_canonical_parent_rank
+  constraint: antichain
+  empty_set_allowed: true
+oracle:
+  solver: dinkelbach_fractional_tree_dynamic_program
+  tolerance: 1.0e-9
+  objective: finding_dice
+states:
+  precedence: [known_positive, certified_negative, unknown]
+  unknown_supervision_weight: 0.0
+  require_asd040_go_for_learning: true
+set_model:
+  node_hidden_dimension: 128
+  set_attention_blocks: 2
+  attention_heads: 4
+  dropout: 0.10
+  utility_hidden_dimension: 64
+  optimizer: adamw
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  structured_loss_weight: 1.0
+  known_positive_union_dice_weight: 0.20
+  certified_negative_penalty_weight: 0.20
+controls:
+  - locked_baseline
+  - oracle
+  - top1
+  - topk
+  - persistence_only
+  - independent_identical_features
+  - shuffled_set_context
+  - set_verifier
+updates:
+  T2: 500
+  T3: 2000
+  T4: 10000
+cohorts:
+  development: val80
+  confirmatory: val120
+  continuity: val200
+  pre_t4_denied: [val120, val200]
+gates:
+  oracle_dice_gain_min: 0.07
+  gt_component_recall_min: 0.85
+  oracle_gain_fraction_recovered_min: 0.20
+  baseline_true_positive_voxel_retention_min: 0.99
+  paired_case_clustered_ci_lower_min_exclusive: 0.0
+bootstrap:
+  draws: 10000
+  seed: 20260731
+hardware:
+  mode: docker
+  image: rexgroundingct-voxtell:cu126
+  expected_gpu_count: 4
+  minimum_free_gib_training: 36
+  maximum_parallel_single_gpu_arms: 4
+  multi_gpu_ddp: false
+  slurm: prohibited

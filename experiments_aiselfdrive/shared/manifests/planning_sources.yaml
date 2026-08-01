@@ -1,0 +1,105 @@
+schema_version: "1.0"
+created_at: "2026-07-31T00:00:00Z"
+purpose: >-
+  Planning-time inventory of verified local inputs. asd_000 must revalidate
+  existence, hashes, shapes, counts, geometry, and lineage before promoting
+  these records into the canonical foundation manifest.
+records:
+  - id: source_report
+    kind: report
+    availability: historical_only
+    path: experiments_aiselfdrive/ReXGroundingCT_Technical_Report_2026-07-30.md
+    sha256: 2dfc9f545a83868e09fd54ec6432435a914af58e3ce9c041166f78c73f46c923
+    executable_dependency: false
+    notes:
+      - Remote /common paths are absent.
+      - H100, H200, and Slurm instructions are not valid locally.
+      - Reported 2048-dimensional text does not match the local 2560-dimensional bank.
+  - id: val200_evaluation_manifest
+    kind: cohort_manifest
+    availability: verified_local
+    path: configs/evaluation/rexgroundingct_val200_seed20260723.json
+    sha256: 7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897
+    expected_cases: 200
+    expected_findings: 381
+  - id: val80_development_manifest
+    kind: cohort_manifest
+    availability: verified_local
+    path: side_experiments/sideexp001_validation_probe_design/outputs/rexgroundingct_val80_sideexp001_validation_probe_design.json
+    sha256: 61048d78be0d72ff28619ebfff3efac8501dc0a6154deaa38881e26bca054faf
+    expected_cases: 80
+    expected_findings: 195
+  - id: val80_design_manifest
+    kind: provenance_manifest
+    availability: verified_local
+    path: side_experiments/sideexp001_validation_probe_design/outputs/rexgroundingct_val80_sideexp001_validation_probe_design.manifest.json
+    sha256: e69b321fcb0da014ca9b2ed92565996b75dfed3fe04e34b4ff40dda374c77997
+  - id: cached_native_preprocessing
+    kind: cache_manifest
+    availability: verified_local
+    path: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json
+    sha256: fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3
+    expected_cases: 3192
+    expected_targets: 8068
+  - id: anatomical_cot
+    kind: annotation
+    availability: verified_local
+    path: /data/hengjie/datasets/rexgroundingct/anatomical_cot.json
+    sha256: 1ce44b798f3e86ae8744435d6efc1bc52f23591723763e80b233038bfe172c1e
+  - id: local_text_embedding_bank
+    kind: text_embeddings
+    availability: verified_local
+    path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/config/rex_text_embeddings.npz
+    sha256: a7351992fa57e019acb485f6b1f37045e7efcd879118cbac972b1b7ed94d5575
+    expected_shape: [6467, 2560]
+    expected_dtype: float16
+  - id: exp009_standard_parent
+    kind: checkpoint
+    availability: verified_local
+    path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
+    sha256: 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf
+    reported_metrics:
+      cohort: val200
+      mean_dice: 0.339839
+      hits: 288
+      findings: 381
+  - id: exp009_s3v2_parent
+    kind: checkpoint
+    availability: verified_local
+    path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100/fold_0/checkpoint_final.pth
+    sha256: a3e93801ba121c0084ec52b7f7dc38cbb617dbec484b6113b4348aa7dec82f3d
+    reported_metrics:
+      cohort: val200
+      mean_dice: 0.3367
+      hits: 292
+      findings: 381
+  - id: exp009_standard_predictions
+    kind: prediction_directory
+    availability: verified_local
+    path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/eval_epoch100_val200/predictions
+    expected_cases: 200
+  - id: anatomy_fast_val200
+    kind: anatomy_cache_manifest
+    availability: verified_local
+    path: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_total_fast_3mm_v2_16_0/manifest.json
+    sha256: 3ae692653f9b104f8d0f0d9c82f71bd56276c5d1b5717b3cf9275abf7d4fa599
+    expected_cases: 200
+  - id: anatomy_thorax_val200
+    kind: anatomy_cache_manifest
+    availability: verified_local
+    path: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_thorax_v1/manifest.json
+    sha256: 77d1a7fbeeb310d35548566cc62ba829363e2eb1c4a3837894cab241c472e16b
+    expected_cases: 200
+    use: validation_secondary_only
+  - id: sideexp002_logits
+    kind: logit_store
+    availability: reported_partial
+    path: /mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp002_multimodel_ensemble_selection
+    acceptance_rule: >-
+      A candidate is usable only when its own export and reproduction
+      manifests pass; directory existence is insufficient.
+  - id: public_voxtell_model
+    kind: pretrained_model
+    availability: verified_local
+    path: /data/hengjie/datasets/rexgroundingct/.hf_home/hub/models--mrokuss--VoxTell/snapshots/0809ac94c5ed594198bf4e85d63245cf222464d7
+    acceptance_rule: resolve exact snapshot directory and hash model files before use

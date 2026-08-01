@@ -1,0 +1,12 @@
+schema_version: "1.0"
+experiment_id: __EXPERIMENT_ID__
+claims:
+  - id: primary
+    type: feasibility
+    statement: __CLAIM__
+    verdict: pending
+    gate_refs:
+      - __GATE_REF__
+    evidence_refs: []
+    decided_at: null
+    rationale: null

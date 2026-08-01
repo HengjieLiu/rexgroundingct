@@ -1,0 +1,559 @@
+schema_version: "1.0"
+id: asd_050_prompt_equivariance_quartet
+title: Prompt-Aware Left/Right Equivariance Quartet
+plan_revision: 1
+created_at: "2026-07-31T00:00:00Z"
+updated_at: "2026-07-31T00:00:00Z"
+priority: 7
+idea: >-
+  Couple exact left/right image reflection with exact prompt rewriting and
+  local counterfactual abstention so the model learns directional
+  text-image alignment rather than generic flip invariance.
+problem: >-
+  The report shows that laterality words strongly move predictions, but the
+  response is coarse and sometimes unsafe. Ordinary image augmentation cannot
+  teach whether prompt, image, and mask changed coherently.
+novelty_vs_report: >-
+  Prior prompt swaps were mechanistic audits and prior shuffled-prompt losses
+  were disabled prototypes. This plan creates a geometry-verified four-condition
+  causal unit with factual segmentation and mask-local counterfactual
+  suppression, never a global empty target.
+hypotheses:
+  primary: >-
+    Quartet training will produce the correct 0.05 factual-counterfactual score
+    ordering in at least 80% of eligible examples and reduce real laterality
+    off-target FP by at least 15% without aggregate Dice loss beyond 0.001.
+  null: >-
+    Coordinated quartet supervision will not outperform factual joint flip plus
+    prompt swap under a matched schedule.
+goals:
+  - Build a deterministic, orientation-safe unilateral prompt rewrite set.
+  - Separate coordinated alignment learning from image-only, prompt-only, and sham effects.
+  - Improve laterality compliance without creating factual empty masks.
+  - Preserve unknown labels outside known counterfactual-negative masks.
+non_goals:
+  - Map right middle lobe to lingula or infer non-equivalent lobar anatomy.
+  - Train on bilateral, diffuse, vague, or mixed-laterality prompts.
+  - Apply global empty supervision to a counterfactual scan.
+  - Claim general superior/inferior equivariance from a left/right experiment.
+evidence_references:
+  - source: experiments_aiselfdrive/ReXGroundingCT_Technical_Report_2026-07-30.md
+    sections: ["5.3", "6.3", "9.6", "13.2", "14"]
+    availability: historical_only
+  - source: asd_000_evidence_lock_error_atlas
+    artifact_ids:
+      - locked_lineage_manifest
+      - val80_manifest
+      - val120_manifest
+      - val200_manifest
+      - prompt_ontology
+      - baseline_error_atlas
+    availability: missing
+lineage:
+  parent_checkpoint: resolved_from_asd_000_locked_lineage_manifest
+  parent_checkpoint_sha256: resolved_before_execution
+  optimizer_restore: false
+  initialization: weights_only_for_every_arm
+  preprocessing_class: cached-equivalent
+  normalization: locked_parent_per_volume_zscore
+  prompt_form: original_locked_prompt_with_declared_swap_only
+  inference_window: locked_by_asd_000
+  threshold_policy: locked_by_asd_000
+  postprocessing: locked_by_asd_000
+  comparability_rule: >-
+    All arms use identical initialization, materialized examples, update
+    counts, optimizer settings, evaluation thresholds, and post-processing.
+data:
+  training_source: official_rexgroundingct_train_only
+  eligibility:
+    parser_confidence: high
+    laterality_count: exactly_one
+    allowed_prompt_targets:
+      - left_lung
+      - right_lung
+      - left_upper_lobe
+      - right_upper_lobe
+      - left_lower_lobe
+      - right_lower_lobe
+    minimum_mask_fraction_on_parsed_side: 0.99
+    maximum_mask_voxels_across_midline: 0
+  exclusions:
+    - bilateral_or_multifocal_language
+    - right_middle_lobe
+    - rml
+    - lingula_or_lingular
+    - diffuse_or_widespread
+    - vague_or_nonlocalizable
+    - multiple_or_conflicting_laterality_mentions
+    - prompt_rewrite_not_round_trip_exact
+    - orientation_or_affine_qc_failure
+    - mask_crosses_midsagittal_plane
+  prompt_swap:
+    strategy: token_boundary_placeholder_substitution
+    pairs:
+      - [left, right]
+      - [Left, Right]
+      - [LEFT, RIGHT]
+      - [LUL, RUL]
+      - [LLL, RLL]
+      - [left_upper_lobe, right_upper_lobe]
+      - [left_lower_lobe, right_lower_lobe]
+    round_trip_requirement: swap_twice_byte_identical
+    other_text_changes_allowed: false
+  reflection:
+    canonical_orientation: RAS
+    axis: physical_left_right_axis
+    operation: reverse_canonical_array_axis_0_while_retaining_canonical_frame
+    center: volume_midplane
+    apply_identically_to: [ct, finding_mask, known_negative_mask]
+    round_trip_tolerance_voxels: 0
+    affine_tolerance: 1.0e-6
+  quartet_states:
+    original_factual:
+      image: original
+      prompt: original
+      target: known_positive_original_mask
+    flipped_factual:
+      image: left_right_flipped
+      prompt: left_right_swapped
+      target: known_positive_flipped_mask
+    original_counterfactual:
+      image: original
+      prompt: left_right_swapped
+      target: certified_negative_original_mask_only
+      elsewhere: unknown
+    flipped_counterfactual:
+      image: left_right_flipped
+      prompt: original
+      target: certified_negative_flipped_mask_only
+      elsewhere: unknown
+  development_cohort:
+    id: val80
+    allowed_stages: [baseline_quartet_audit, pilot_t2, decision_t3]
+  confirmatory_cohort:
+    id: val120
+    access: prohibited_until_t4_promotion
+    allowed_stages: [confirm_t4]
+  continuity_cohort:
+    id: val200
+    access: prohibited_until_t4_promotion
+    allowed_stages: [confirm_t4]
+  leakage_controls:
+    - Training quartet cases are official train only.
+    - val80 is evaluation and model-selection evidence only.
+    - val120 and val200 paths are rejected before confirm_t4.
+method:
+  loss:
+    factual_segmentation_weight_each: 1.0
+    counterfactual_local_bce_weight_each: 0.10
+    factual_counterfactual_margin_weight_each: 0.05
+    margin: 0.05
+    counterfactual_loss_domain: known_source_or_flipped_mask_only
+    unknown_loss_weight: 0.0
+  quartet_pass_definition: >-
+    Both original-factual minus original-counterfactual and flipped-factual
+    minus flipped-counterfactual mean known-mask scores are at least 0.05.
+  arms:
+    - id: no_flip_baseline
+      examples: original_factual_only
+    - id: factual_joint_flip_text
+      examples: [original_factual, flipped_factual]
+    - id: full_quartet
+      examples:
+        - original_factual
+        - flipped_factual
+        - original_counterfactual
+        - flipped_counterfactual
+    - id: image_only_control
+      examples: original_plus_flipped_image_without_prompt_swap
+      eligible_for_selection: false
+    - id: prompt_only_control
+      examples: original_image_with_swapped_prompt_and_original_mask
+      eligible_for_selection: false
+    - id: sham_identity_control
+      examples: original_plus_flip_unflip_roundtrip_with_original_prompt
+      eligible_for_selection: false
+  arm_execution:
+    waves:
+      - [no_flip_baseline, factual_joint_flip_text, full_quartet, sham_identity_control]
+      - [image_only_control, prompt_only_control]
+    checkpoint_initialization_reset_each_wave: true
+    evaluation_after_all_waves: true
+  compute_ladder:
+    pilot_t2_updates: 500
+    decision_t3_updates: 2000
+    confirm_t4_updates: 10000
+    maximum_parallel_single_gpu_arms: 4
+    multi_gpu_ddp: false
+resources:
+  hardware_profile: experiments_aiselfdrive/shared/hardware_profile.yaml
+  execution_environment: docker
+  image: rexgroundingct-voxtell:cu126
+  gpu_model: NVIDIA RTX 6000 Ada Generation
+  gpu_count_available: 4
+  minimum_free_gib_training: 36
+  slurm: prohibited
+  runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1
+stages:
+  - id: implement_quartet_pipeline
+    kind: implementation
+    execution_mode: agent
+    needs: []
+    required: true
+    description: Implement exact prompt swapping, physical LR reflection, quartet losses, controls, metrics, and tests.
+    instructions:
+      - Read this plan, configs/protocol.yaml, ASD-000 manifests, and applicable README files.
+      - Implement only inside this experiment's scripts, src, and tests directories.
+      - Identify left/right from physical orientation and canonicalize to RAS; never assume a source array axis.
+      - Implement placeholder-based byte-round-trip prompt swaps and reject every declared exclusion.
+      - Apply counterfactual loss only on the certified known mask and explicitly mask all other voxels unknown.
+      - Add pre-T4 cohort guards, deterministic seed 20260731, and atomic JSON completion records.
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/scripts
+      - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/src
+      - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/tests
+      - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/results/implementation_evidence.json
+    inputs: [experiment_plan, protocol_config, dependency_asd000_manifest]
+    outputs: [quartet_source_package, quartet_test_suite]
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/results/implementation_evidence.json
+      require_git_diff_within_allowed_paths: true
+    resources:
+      cpu_cores: 8
+      gpu_count: 0
+    timeout_seconds: 14400
+    retry:
+      max_attempts: 1
+      backoff_seconds: []
+      retryable_classes: []
+    stop_conditions: [write_scope_violation, unresolved_dependency_interface]
+    acceptance_checks:
+      - Prompt swapping is byte-exact after a double swap.
+      - CT and mask double reflection are bit-exact and affine QC passes.
+      - Counterfactual gradients are zero outside known masks.
+  - id: validate_and_build_quartets
+    kind: data_generation
+    execution_mode: command
+    needs: [implement_quartet_pipeline]
+    required: true
+    description: Validate lineage/orientation and freeze eligible train and val80 quartet manifests.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/scripts/build_quartets.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/configs/protocol.yaml
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        PYTHONDONTWRITEBYTECODE: "1"
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/quartets
+    inputs: [locked_lineage_manifest, val80_manifest, prompt_ontology]
+    outputs: [quartet_manifest, quartet_qc_report]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/validate_and_build_quartets.json
+      required_fields: [train_count, val80_count, exclusion_counts, orientation_checks, roundtrip_checks, manifest_sha256]
+    resources:
+      cpu_cores: 32
+      gpu_count: 0
+    timeout_seconds: 14400
+    retry:
+      max_attempts: 1
+      backoff_seconds: []
+      retryable_classes: []
+    stop_conditions: [orientation_mismatch, split_leakage, prompt_roundtrip_failure, cohort_hash_drift]
+    acceptance_checks:
+      - Every included prompt has exactly one supported unilateral target.
+      - Every mask is at least 99% on the parsed side and has zero voxels across the midplane.
+      - Every declared exclusion has a recorded reason and no excluded case enters a quartet.
+  - id: docker_gpu_preflight
+    kind: preflight
+    execution_mode: command
+    needs: [validate_and_build_quartets]
+    required: true
+    description: Verify Docker GPUs, parent checkpoint, exact identity inference, and finite quartet inference.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/scripts/gpu_preflight.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/configs/protocol.yaml
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/preflight
+    inputs: [locked_parent_checkpoint, quartet_manifest]
+    outputs: [gpu_preflight_report]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/docker_gpu_preflight.json
+      required_fields: [image_digest, gpu_inventory, free_memory_gib, checkpoint_sha256, identity_metrics, finite_quartet]
+    resources:
+      cpu_cores: 8
+      gpu_count: 4
+      minimum_free_gib_per_gpu: 36
+    timeout_seconds: 3600
+    retry:
+      max_attempts: 1
+      resource_wait_attempts: 360
+      resource_wait_seconds: 60
+      retryable_classes: [resource_unavailable]
+    stop_conditions: [wrong_inference_device, checkpoint_hash_drift, identity_control_failure, non_finite]
+    acceptance_checks:
+      - Four expected RTX 6000 Ada GPUs are available in Docker.
+      - Epoch-zero no-flip inference matches the locked baseline within 1e-6 logits and exact hit count.
+      - A fixed factual/counterfactual quartet produces finite outputs.
+  - id: baseline_quartet_audit
+    kind: diagnostic
+    execution_mode: command
+    needs: [docker_gpu_preflight]
+    required: true
+    description: Record the frozen baseline quartet ordering and factual empty rate on val80.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/scripts/evaluate_quartets.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/configs/protocol.yaml
+        - --checkpoint-source
+        - baseline
+        - --cohort
+        - val80
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/baseline_audit
+    inputs: [quartet_manifest, locked_parent_checkpoint, val80_manifest]
+    outputs: [baseline_quartet_report]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/baseline_quartet_audit.json
+      required_fields: [eligible_quartets, ordering_rate, factual_empty_rate, laterality_compliance, output_sha256]
+    resources:
+      cpu_cores: 16
+      gpu_count: 4
+    timeout_seconds: 14400
+    retry:
+      max_attempts: 3
+      backoff_seconds: [60, 300]
+      retryable_classes: [container_start_failure, transient_io]
+    stop_conditions: [orientation_mismatch, non_finite, split_leakage]
+    acceptance_checks:
+      - Both factual and both counterfactual known-mask scores are recorded per quartet.
+      - Off-target FP uses prompt-specified laterality, not GT-positive lobe statistics.
+  - id: pilot_t2
+    kind: training
+    execution_mode: command
+    needs: [baseline_quartet_audit]
+    required: true
+    description: Run six 500-update arms in two matched waves and evaluate all arms after the barrier.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/scripts/run_training.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/configs/protocol.yaml
+        - --tier
+        - T2
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t2
+    inputs: [quartet_manifest, locked_parent_checkpoint, val80_manifest]
+    outputs: [t2_checkpoints, t2_metrics]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/pilot_t2.json
+      required_fields: [wave_initialization_hashes, arm_updates, quartet_ordering, factual_empty_rates, gate_verdict, output_sha256]
+    resources:
+      cpu_cores: 32
+      gpu_count: 4
+      maximum_updates_per_arm: 500
+      execution_waves: 2
+    timeout_seconds: 43200
+    retry:
+      max_attempts: 2
+      automatic_full_state_resumes: 1
+      retryable_classes: [container_start_failure, transient_io]
+    stop_conditions: [identity_control_failure, non_finite, missing_resume_state, budget_exhausted]
+    acceptance_checks:
+      - Every arm has identical parent weights and exactly 500 optimizer updates.
+      - Full-quartet ordering rate is at least 0.80 with margin 0.05.
+      - Full-quartet factual empty rate does not exceed the no-flip baseline.
+      - Image-only and prompt-only controls are reported but never eligible for selection.
+  - id: decision_t3
+    kind: training
+    execution_mode: command
+    needs: [pilot_t2]
+    required: false
+    description: Continue no-flip baseline, factual-joint, and full-quartet arms to 2,000 updates and evaluate val80.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/scripts/run_training.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/configs/protocol.yaml
+        - --tier
+        - T3
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t3
+    inputs: [t2_checkpoints, quartet_manifest, val80_manifest]
+    outputs: [t3_checkpoints, t3_metrics]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/decision_t3.json
+      required_fields: [arm_updates, off_target_fp, laterality_compliance, paired_dice, gate_verdict, output_sha256]
+    resources:
+      cpu_cores: 32
+      gpu_count: 3
+      maximum_updates_per_arm: 2000
+    timeout_seconds: 43200
+    retry:
+      max_attempts: 2
+      automatic_full_state_resumes: 1
+      retryable_classes: [container_start_failure, transient_io]
+    stop_conditions: [orientation_mismatch, split_leakage, non_finite, budget_exhausted]
+    acceptance_checks:
+      - Full quartet reduces laterality off-target FP at least 15%.
+      - Laterality compliance improves at least 0.10 absolute.
+      - Aggregate paired Dice delta is at least -0.001.
+      - Full quartet outperforms factual-joint on the primary alignment metric.
+  - id: confirm_t4
+    kind: confirmation
+    execution_mode: command
+    needs: [decision_t3]
+    required: false
+    description: Confirm a promoted full-quartet intervention on sealed val120 and continuity val200.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/scripts/run_training.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/configs/protocol.yaml
+        - --tier
+        - T4
+        - --require-promotion
+        - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_050_prompt_equivariance_quartet.json
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/t4
+    inputs: [t3_checkpoints, val120_manifest, val200_manifest, promotion_authorization]
+    outputs: [t4_checkpoints, t4_metrics]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1/completion/confirm_t4.json
+      required_fields: [promotion_sha256, val120_metrics, val200_metrics, case_clustered_ci, output_sha256]
+    resources:
+      cpu_cores: 32
+      gpu_count: 2
+      maximum_updates_per_arm: 10000
+    timeout_seconds: 129600
+    retry:
+      max_attempts: 2
+      automatic_full_state_resumes: 1
+      retryable_classes: [container_start_failure, transient_io]
+    stop_conditions: [missing_promotion_authorization, split_leakage, non_finite, budget_exhausted]
+    acceptance_checks:
+      - val120 is inaccessible before verified promotion.
+      - Val120 laterality benefit has a positive case-clustered 95% CI.
+      - Aggregate val120 Dice remains non-inferior within 0.001.
+  - id: closeout
+    kind: closeout
+    execution_mode: agent
+    needs: [pilot_t2]
+    required: true
+    description: Decide claims and publish exact eligibility, controls, paired metrics, and hashes.
+    instructions:
+      - Inspect every completion marker and apply the deepest eligible gate.
+      - Report exclusion counts and every control, including harmful or shortcut arms.
+      - Keep counterfactual supervision described as local known-mask abstention, never global absence.
+      - Write results/result.json and summary.md, decide claims, and verify artifacts.
+      - Request experimentctl to mark ineligible optional stages skipped and finish with the evidence-supported outcome.
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/results
+      - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/claims.yaml
+      - experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/artifacts/manifest.json
+    inputs: [quartet_qc_report, baseline_quartet_report, t2_metrics, t3_metrics, t4_metrics]
+    outputs: [final_result, final_summary, final_claims, verified_artifact_manifest]
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/results/closeout_evidence.json
+      require_all_executed_stage_artifacts_verified: true
+    resources:
+      cpu_cores: 8
+      gpu_count: 0
+    timeout_seconds: 7200
+    retry:
+      max_attempts: 1
+      backoff_seconds: []
+      retryable_classes: []
+    stop_conditions: [evidence_hash_mismatch, undecided_required_claim, orientation_mismatch]
+    acceptance_checks:
+      - Negative scientific evidence is no_go rather than failed.
+      - All claims cite verified evidence and no excluded prompt contributes a metric.
+      - No live executor lease or owned process remains.
+evaluation:
+  bootstrap:
+    seed: 20260731
+    draws: 10000
+    units: [quartet, finding, case_cluster]
+  synthetic_metrics:
+    - paired_known_mask_score_margins
+    - quartet_ordering_rate
+    - factual_empty_rate
+  real_metrics:
+    - laterality_off_target_fp_volume
+    - laterality_compliance
+    - paired_dice_delta
+    - hit_rate_delta
+    - empty_prediction_delta
+  gates:
+    pilot_go:
+      - quartet_ordering_rate_at_margin_0_05 >= 0.80
+      - factual_empty_rate_delta <= 0
+    decision_go:
+      - laterality_off_target_fp_reduction >= 0.15
+      - laterality_compliance_delta >= 0.10
+      - aggregate_paired_dice_delta >= -0.001
+      - full_quartet_alignment_metric > factual_joint_alignment_metric
+    confirmation_go:
+      - val120_laterality_case_clustered_ci_lower > 0
+      - val120_paired_dice_delta >= -0.001
+paths:
+  workspace: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet
+  config: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/configs/protocol.yaml
+  runtime: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1
+  artifact_manifest: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/artifacts/manifest.json
+  result: experiments_aiselfdrive/experiments/asd_050_prompt_equivariance_quartet/results/result.json
+budget:
+  maximum_gpu_hours: 54
+  maximum_wall_hours: 84
+  maximum_external_storage_gib: 1400
+  terminate_on_exhaustion: true
+retention:
+  durable:
+    - quartet_manifest
+    - quartet_qc
+    - gate_reports
+    - selected_full_state_checkpoints
+    - paired_metrics
+  regenerable:
+    - unselected_checkpoints
+    - temporary_flipped_arrays
+  ephemeral:
+    - docker_scratch
+    - partial_exports
+prohibited_directions:
+  - bilateral_prompt_rewrite
+  - right_middle_lobe_lingula_mapping
+  - global_empty_counterfactual_target
+  - counterfactual_negative_loss_outside_known_mask
+  - superior_inferior_claim_from_lr_only_data
+  - orientation_axis_assumption
+  - qwen_lora_motivated_by_text_ignored
+  - generic_presence_head
+  - hard_lobe_clipping
+  - full_resolution_s3
+  - slurm

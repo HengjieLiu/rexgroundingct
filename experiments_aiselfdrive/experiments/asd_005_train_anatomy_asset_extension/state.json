@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "asd_005_train_anatomy_asset_extension",
+  "plan_sha256": "9a6170741b980641ee8948c8dae5c93a369fc3d72714044aa5f8a3b293dcc803",
+  "plan_revision": 1,
+  "revision": 0,
+  "last_event_seq": 1,
+  "phase": "initialization",
+  "status": "blocked",
+  "outcome": null,
+  "created_at": "2026-07-31T00:00:00Z",
+  "updated_at": "2026-07-31T00:00:00Z",
+  "current_stage_id": null,
+  "executor": null,
+  "lease": null,
+  "blockers": ["Dependency asd_000_evidence_lock_error_atlas must finish with outcome go."],
+  "stages": [
+    {"id":"implement_train_anatomy_pipeline","status":"blocked","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"lock_trainval_source_manifest","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"docker_preflight_and_one_case_smoke","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"generate_four_shards","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"validate_and_publish_anatomy_manifest","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]},
+    {"id":"closeout_anatomy_asset","status":"pending","attempts":0,"started_at":null,"completed_at":null,"last_error":null,"evidence_refs":[]}
+  ],
+  "budget_consumed": {"gpu_hours": 0.0, "cpu_hours": 0.0, "storage_gib": 0.0},
+  "verified_artifact_ids": ["metadata", "fast_val200_reference"],
+  "artifacts_verified": false,
+  "closeout_passed": false
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "asd_000_evidence_lock_error_atlas",
+  "stage_id": "implement_evidence_lock_pipeline",
+  "status": "passed",
+  "completed_at": "2026-07-31T08:51:50Z",
+  "summary": "The bounded evidence-lock, cohort-sealing, conservative prompt parser, physical-geometry error-atlas modules, and phase CLI compile; all 49 focused experiment-local tests pass.",
+  "checks": [
+    {
+      "id": "PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests -p test_*.py",
+      "status": "passed",
+      "detail": "49 tests ran and passed."
+    },
+    {
+      "id": "python -m py_compile experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/src/*.py experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/*.py",
+      "status": "passed",
+      "detail": "All four source modules and the phase CLI compiled successfully."
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "run_stage_cli",
+      "path": "experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/scripts/run_stage.py",
+      "sha256": "cc1d2fef5168af795bde3769a6a50538b036be8150b5ad696ec6948d35c01f15",
+      "size_bytes": 16255
+    },
+    {
+      "id": "lock_evidence_tests",
+      "path": "experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests/test_lock_evidence.py",
+      "sha256": "c4224bfc6c09160b47e0b5e0000a93a715a4d6f72093c4b118afac3b816dfc90",
+      "size_bytes": 14120
+    },
+    {
+      "id": "cohort_tests",
+      "path": "experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests/test_cohorts.py",
+      "sha256": "55d1a1462f94c7e1e665d97e4bb32b2e15803c9499875cccaa27522587471fcd",
+      "size_bytes": 8442
+    },
+    {
+      "id": "prompt_ontology_tests",
+      "path": "experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests/test_prompt_ontology.py",
+      "sha256": "6eddfa421bc6eef7c216f0a7cdd64f2ae136ec04f9459b3e772d7eb2b83c5ba0",
+      "size_bytes": 9420
+    },
+    {
+      "id": "error_atlas_tests",
+      "path": "experiments_aiselfdrive/experiments/asd_000_evidence_lock_error_atlas/tests/test_error_atlas.py",
+      "sha256": "c96809995cafccf227a388c67eba9d620dbaa562ba6be9986cef921d5493676c",
+      "size_bytes": 16934
+    }
+  ],
+  "metrics": {
+    "tests_passed": 49,
+    "source_modules_compiled": 4,
+    "cli_modules_compiled": 1,
+    "gpu_hours": 0.0,
+    "val120_data_accesses": 0
+  },
+  "error": null,
+  "next_stage_id": "lock_local_lineage"
+}

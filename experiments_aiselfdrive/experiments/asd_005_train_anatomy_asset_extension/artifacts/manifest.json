@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "asd_005_train_anatomy_asset_extension",
+  "artifacts": [
+    {"id":"asd000_lineage","path":"experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json","role":"input","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"metadata","path":"/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json","role":"input","ownership":"external_read_only","status":"verified","required":true,"sha256":"3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a","size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"fast_val200_reference","path":"/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_total_fast_3mm_v2_16_0/manifest.json","role":"evidence","ownership":"external_read_only","status":"verified","required":true,"sha256":"3ae692653f9b104f8d0f0d9c82f71bd56276c5d1b5717b3cf9275abf7d4fa599","size_bytes":null,"producer_stage_id":null,"retention":"durable"},
+    {"id":"source_manifest","path":"experiments_aiselfdrive/shared/manifests/trainval_ct_source_v1.json","role":"manifest","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"lock_trainval_source_manifest","retention":"durable"},
+    {"id":"anatomy_cache","path":"/mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_005_train_anatomy_asset_extension/anatomy_fast_3mm_trainval_v1","role":"cache","ownership":"external_runtime","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"generate_four_shards","retention":"durable"},
+    {"id":"anatomy_manifest","path":"experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json","role":"manifest","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"validate_and_publish_anatomy_manifest","retention":"durable"},
+    {"id":"qc_summary","path":"experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/qc_summary.md","role":"report","ownership":"workspace","status":"planned","required":true,"sha256":null,"size_bytes":null,"producer_stage_id":"validate_and_publish_anatomy_manifest","retention":"durable"}
+  ]
+}

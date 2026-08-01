@@ -1,0 +1,62 @@
+schema_version: "1.0"
+experiment_id: asd_050_prompt_equivariance_quartet
+seed: 20260731
+runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_050_prompt_equivariance_quartet/run_v1
+eligibility:
+  parser_confidence: high
+  exact_unilateral_target: true
+  mask_fraction_on_parsed_side_min: 0.99
+  mask_voxels_across_midline_max: 0
+exclusions:
+  - bilateral
+  - multifocal
+  - right_middle_lobe
+  - lingula
+  - diffuse
+  - vague
+  - conflicting_laterality
+  - orientation_failure
+reflection:
+  canonical_orientation: RAS
+  axis: physical_left_right
+  double_flip_voxel_tolerance: 0
+  affine_tolerance: 1.0e-6
+prompt_swap:
+  round_trip_byte_exact: true
+  pairs: [left_right, LUL_RUL, LLL_RLL]
+loss:
+  factual_segmentation_weight_each: 1.0
+  counterfactual_local_bce_weight_each: 0.10
+  margin_weight_each: 0.05
+  score_margin: 0.05
+  unknown_negative_loss_weight: 0.0
+arms:
+  wave_1: [no_flip_baseline, factual_joint_flip_text, full_quartet, sham_identity_control]
+  wave_2: [image_only_control, prompt_only_control]
+updates:
+  T2: 500
+  T3: 2000
+  T4: 10000
+cohorts:
+  development: val80
+  confirmatory: val120
+  continuity: val200
+  pre_t4_denied: [val120, val200]
+gates:
+  quartet_ordering_rate_min: 0.80
+  ordering_margin_min: 0.05
+  factual_empty_rate_delta_max: 0.0
+  off_target_fp_reduction_min: 0.15
+  laterality_compliance_delta_min: 0.10
+  aggregate_dice_delta_min: -0.001
+bootstrap:
+  draws: 10000
+  seed: 20260731
+hardware:
+  mode: docker
+  image: rexgroundingct-voxtell:cu126
+  expected_gpu_count: 4
+  minimum_free_gib_training: 36
+  maximum_parallel_single_gpu_arms: 4
+  multi_gpu_ddp: false
+  slurm: prohibited

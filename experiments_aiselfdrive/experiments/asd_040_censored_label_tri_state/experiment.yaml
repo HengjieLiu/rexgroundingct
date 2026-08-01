@@ -1,0 +1,628 @@
+schema_version: "1.0"
+id: asd_040_censored_label_tri_state
+title: Synthetic Censorship and Tri-State Positive-Unlabeled Training
+plan_revision: 1
+created_at: "2026-07-31T00:00:00Z"
+updated_at: "2026-07-31T00:00:00Z"
+priority: 6
+idea: >-
+  Simulate realistic annotation censorship by hiding one recorded entity at a
+  time, use the hidden entity only for evaluation, and compare background BCE,
+  unknown-ignore, and non-negative positive-unlabeled objectives.
+problem: >-
+  ReXGroundingCT records at most a few representative instances. Standard
+  background losses and component labels can punish plausible unannotated
+  disease, so apparent false-positive suppression may actually erase valid
+  multifocal evidence.
+novelty_vs_report: >-
+  The report identifies partial labels but does not establish a controlled
+  recovery benchmark. This plan creates four patient-separated censorship
+  mechanisms, prevents hidden-label leakage by process boundary, and requires
+  performance under every censorship rule before real training changes.
+hypotheses:
+  primary: >-
+    A cross-fitted tri-state/nnPU policy will recover at least 30% of hidden
+    recorded entities at at least 80% precision under each censorship rule and
+    will improve hidden-entity recall without a 10% certified-FP increase.
+  null: >-
+    Persistence, stability, prompt margin, and image evidence do not improve
+    hidden-entity recovery over baseline confidence when evaluated without
+    hidden-label leakage.
+goals:
+  - Measure recoverability of deliberately censored recorded entities.
+  - Compare unsafe BCE, unknown-ignore, nnPU, and gated pseudo-positive policies.
+  - Freeze a reusable tri-state policy with calibrated uncertainty.
+  - Produce evidence ASD-060 can consume without assuming a positive result.
+non_goals:
+  - Claim that released masks are exhaustive.
+  - Use hidden masks or val120 labels in final training.
+  - Treat same-finding unlabeled tissue as certified background.
+  - Train an independent deployable binary component selector.
+evidence_references:
+  - source: experiments_aiselfdrive/ReXGroundingCT_Technical_Report_2026-07-30.md
+    sections: ["3.3", "7.3", "8.1", "13.3", "13.5", "14"]
+    availability: historical_only
+  - source: /data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json
+    availability: verified_local
+  - source: /data/hengjie/datasets/rexgroundingct/anatomical_cot.json
+    availability: verified_local
+  - source: asd_000_evidence_lock_error_atlas
+    artifact_ids:
+      - locked_lineage_manifest
+      - val80_manifest
+      - val120_manifest
+      - val200_manifest
+      - prompt_ontology
+    availability: missing
+lineage:
+  parent_checkpoint: resolved_from_asd_000_locked_lineage_manifest
+  parent_checkpoint_sha256: resolved_before_execution
+  optimizer_restore: false
+  initialization: weights_only_for_matched_segmentation_arms
+  preprocessing_class: cached-equivalent
+  normalization: locked_parent_per_volume_zscore
+  prompt_form: locked_by_asd_000
+  inference_window: locked_by_asd_000
+  threshold_policy: locked_by_asd_000
+  postprocessing: locked_by_asd_000
+  comparability_rule: >-
+    Candidate features and segmentation arms share frozen lineage, materialized
+    schedules, cohort manifests, and evaluation policy.
+data:
+  censorship_source: official_rexgroundingct_train_only
+  eligibility:
+    minimum_recorded_entities_per_finding: 2
+    minimum_cases: 50
+    minimum_trials: 100
+    patient_key: ct_filename_patient_prefix
+  censorship_rules:
+    volume_priority:
+      hidden_entity: smallest_voxel_count
+      tie_break: ascending_entity_label
+    centrality_priority:
+      hidden_entity: largest_physical_distance_from_lung_or_body_centroid
+      tie_break: ascending_entity_label
+    report_order:
+      hidden_entity: largest_nonzero_entity_label
+      interpretation: upstream_annotation_order_proxy
+    seeded_random:
+      hidden_entity: deterministic_uniform_choice
+      seed: 20260731
+  cross_fitting:
+    folds: 5
+    unit: patient
+    assignment: sha256_patient_id_mod_5
+    inner_calibration: leave_one_training_fold_out
+  development_cohort:
+    id: val80
+    access: after_crossfit_policy_frozen
+    allowed_stages: [decision_t3]
+  confirmatory_cohort:
+    id: val120
+    access: prohibited_until_t4_promotion
+    allowed_stages: [confirm_t4]
+  continuity_cohort:
+    id: val200
+    access: prohibited_until_t4_promotion
+    allowed_stages: [confirm_t4]
+  supervision_states:
+    known_positive: retained released entity voxels after censorship
+    certified_negative: >-
+      Synthetic decoy components placed wholly in verified zero-valued
+      acquisition padding outside the physical patient-body mask, disjoint from
+      every released finding mask; these are safety controls, not inferred
+      disease negatives.
+    unknown: >-
+      The deliberately hidden entity, all unlabeled compatible tissue, and all
+      candidates not meeting the padding certificate.
+    evaluation_hidden_positive: >-
+      Hidden entity mask stored in an evaluator-only artifact and never exposed
+      to feature, sampler, loss, or threshold-selection processes.
+  label_precedence: [known_positive, certified_negative, unknown]
+  leakage_controls:
+    - Hidden masks are serialized to an evaluator-only directory with a separate manifest.
+    - Training manifests contain trial IDs and unknown flags but no hidden coordinates, boxes, volumes, or hashes.
+    - Feature extraction runs with the evaluator-only mount absent.
+    - val120 and val200 paths are rejected before confirm_t4.
+method:
+  candidate_generation:
+    thresholds: [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80]
+    connectivity: 26
+    parent_model: immutable_asd_000_baseline
+  frozen_features:
+    - base_probability_max
+    - base_probability_mean_top_1_percent
+    - threshold_persistence_count
+    - augmentation_stability
+    - paraphrase_stability
+    - correct_minus_counterfactual_prompt_margin
+    - native_resolution_local_evidence
+    - cot_box_compatibility_with_missing_indicator
+    - component_volume_and_surface_geometry
+  diagnostic_model:
+    architecture: mlp
+    hidden_units: 128
+    hidden_layers: 2
+    activation: relu
+    dropout: 0.10
+    optimizer: adamw
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    maximum_epochs: 100
+    calibration: per_fold_threshold_for_precision_at_least_0.80
+  policies:
+    - id: background_bce
+      unknown_action: negative
+      purpose: unsafe_reference_only
+    - id: unknown_ignore
+      unknown_action: zero_loss
+    - id: nnpu
+      unknown_action: non_negative_positive_unlabeled_risk
+      class_prior: estimated_training_fold_only
+    - id: pseudo_positive
+      unknown_action: promote_only_crossfit_score_above_calibrated_threshold
+      enabled_only_after_diagnostic_go: true
+  controls:
+    - base_confidence_only
+    - anatomy_or_cot_compatibility_only
+    - persistence_only
+    - counterfactual_margin_only
+    - shuffled_prompt_features
+    - text_only_shortcut_classifier
+  compute_ladder:
+    diagnostic: five_fold_frozen_feature_crossfit
+    pilot_t2_updates: 500
+    decision_t3_updates: 2000
+    confirm_t4_updates: 10000
+    maximum_parallel_single_gpu_arms: 4
+    evaluation_barrier: true
+resources:
+  hardware_profile: experiments_aiselfdrive/shared/hardware_profile.yaml
+  execution_environment: docker
+  image: rexgroundingct-voxtell:cu126
+  gpu_model: NVIDIA RTX 6000 Ada Generation
+  gpu_count_available: 4
+  minimum_free_gib_training: 36
+  multi_gpu_ddp: false
+  slurm: prohibited
+  runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1
+stages:
+  - id: implement_censorship_pipeline
+    kind: implementation
+    execution_mode: agent
+    needs: []
+    required: true
+    description: Implement isolated censorship, evaluator separation, cross-fitting, PU losses, and tests.
+    instructions:
+      - Read this plan, configs/protocol.yaml, dependency manifests, and applicable README files.
+      - Implement only inside this experiment's scripts, src, and tests directories.
+      - Create separate training and evaluator-only manifests; training artifacts must contain no hidden geometry, volume, or mask hash.
+      - Implement all four deterministic censorship rules and patient-hash fold assignment exactly.
+      - Make unknown-ignore and nnPU losses explicit; background_bce is a labeled unsafe control and cannot be selected.
+      - Add a pre-T4 cohort guard and atomic JSON completion records.
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/scripts
+      - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/src
+      - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/tests
+      - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/results/implementation_evidence.json
+    inputs: [experiment_plan, protocol_config, dependency_asd000_manifest]
+    outputs: [tri_state_source_package, tri_state_test_suite]
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/results/implementation_evidence.json
+      require_git_diff_within_allowed_paths: true
+    resources:
+      cpu_cores: 8
+      gpu_count: 0
+    timeout_seconds: 14400
+    retry:
+      max_attempts: 1
+      backoff_seconds: []
+      retryable_classes: []
+    stop_conditions: [write_scope_violation, unresolved_dependency_interface]
+    acceptance_checks:
+      - Tests prove hidden-label process separation and patient-separated folds.
+      - All four censorship rules are deterministic.
+      - Unknown samples have zero negative loss outside the explicit unsafe control.
+  - id: validate_locked_inputs
+    kind: validation
+    execution_mode: command
+    needs: [implement_censorship_pipeline]
+    required: true
+    description: Validate source hashes, lineage, eligible masks, COT box conventions, and implementation tests.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/scripts/validate_inputs.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/configs/protocol.yaml
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        PYTHONDONTWRITEBYTECODE: "1"
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/validation
+    inputs: [locked_lineage_manifest, official_train_metadata, anatomical_cot]
+    outputs: [input_validation_report]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/validate_locked_inputs.json
+      required_fields: [input_sha256, eligible_case_count, eligible_trial_count, patient_overlap_count, test_summary]
+    resources:
+      cpu_cores: 16
+      gpu_count: 0
+    timeout_seconds: 7200
+    retry:
+      max_attempts: 1
+      backoff_seconds: []
+      retryable_classes: []
+    stop_conditions: [cohort_hash_drift, split_leakage, orientation_mismatch]
+    acceptance_checks:
+      - At least 50 eligible cases and 100 trials exist.
+      - Patient overlap between folds is zero.
+      - COT boxes used as features pass bounds checks or carry an explicit missing flag.
+  - id: build_censorship_lab
+    kind: data_generation
+    execution_mode: command
+    needs: [validate_locked_inputs]
+    required: true
+    description: Materialize training-safe and evaluator-only censorship manifests.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/scripts/build_censorship_lab.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/configs/protocol.yaml
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        PYTHONDONTWRITEBYTECODE: "1"
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/censorship
+    inputs: [official_train_metadata, input_validation_report]
+    outputs: [training_safe_censorship_manifest, evaluator_only_hidden_manifest]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/build_censorship_lab.json
+      required_fields: [rule_counts, fold_counts, training_manifest_sha256, evaluator_manifest_sha256, leakage_scan]
+    resources:
+      cpu_cores: 32
+      gpu_count: 0
+    timeout_seconds: 14400
+    retry:
+      max_attempts: 3
+      backoff_seconds: [60, 300]
+      retryable_classes: [transient_io]
+    stop_conditions: [split_leakage, hidden_label_exposure, cohort_hash_drift]
+    acceptance_checks:
+      - Every trial has exactly one hidden recorded entity.
+      - Training-safe manifest contains no hidden mask geometry or derived size.
+      - Every rule and fold meets preregistered minimum counts.
+  - id: docker_gpu_preflight
+    kind: preflight
+    execution_mode: command
+    needs: [build_censorship_lab]
+    required: true
+    description: Verify Docker GPU hardware, checkpoint loading, and evaluator mount isolation.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/scripts/gpu_preflight.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/configs/protocol.yaml
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/preflight
+    inputs: [locked_parent_checkpoint, training_safe_censorship_manifest]
+    outputs: [gpu_preflight_report]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/docker_gpu_preflight.json
+      required_fields: [image_digest, gpu_inventory, free_memory_gib, finite_inference, hidden_mount_absent]
+    resources:
+      cpu_cores: 8
+      gpu_count: 4
+      minimum_free_gib_per_gpu: 36
+    timeout_seconds: 3600
+    retry:
+      max_attempts: 1
+      resource_wait_attempts: 360
+      resource_wait_seconds: 60
+      retryable_classes: [resource_unavailable]
+    stop_conditions: [wrong_inference_device, checkpoint_hash_drift, hidden_label_exposure, non_finite]
+    acceptance_checks:
+      - Four RTX 6000 Ada GPUs are visible in Docker with required free memory.
+      - Parent checkpoint loads and one-case inference is finite.
+      - Feature process cannot resolve the evaluator-only hidden manifest.
+  - id: extract_frozen_features
+    kind: data_generation
+    execution_mode: command
+    needs: [docker_gpu_preflight]
+    required: true
+    description: Extract frozen candidate features without mounting hidden labels.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/scripts/extract_features.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/configs/protocol.yaml
+        - --manifest
+        - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/censorship/training_safe.json
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/features
+    inputs: [locked_parent_checkpoint, training_safe_censorship_manifest]
+    outputs: [frozen_candidate_features]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/extract_frozen_features.json
+      required_fields: [trial_count, candidate_count, feature_schema_sha256, hidden_mount_absent, output_sha256]
+    resources:
+      cpu_cores: 32
+      gpu_count: 4
+    timeout_seconds: 43200
+    retry:
+      max_attempts: 3
+      backoff_seconds: [60, 300]
+      retryable_classes: [container_start_failure, transient_io]
+    stop_conditions: [hidden_label_exposure, non_finite, budget_exhausted]
+    acceptance_checks:
+      - Feature rows contain no evaluator-only fields.
+      - Fixed sample hashes reproduce on repeat extraction.
+      - All candidates retain explicit tri-state labels available to training.
+  - id: crossfit_diagnostic
+    kind: diagnostic
+    execution_mode: command
+    needs: [extract_frozen_features]
+    required: true
+    description: Run five-fold models and score hidden entities in the isolated evaluator.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/scripts/run_crossfit.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/configs/protocol.yaml
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        PYTHONDONTWRITEBYTECODE: "1"
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/crossfit
+    inputs: [frozen_candidate_features, evaluator_only_hidden_manifest]
+    outputs: [crossfit_policy, diagnostic_report]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/crossfit_diagnostic.json
+      required_fields: [per_rule_precision, per_rule_recall, baseline_comparison, shortcut_controls, gate_verdict, policy_sha256]
+    resources:
+      cpu_cores: 64
+      gpu_count: 0
+    timeout_seconds: 14400
+    retry:
+      max_attempts: 3
+      backoff_seconds: [60, 300]
+      retryable_classes: [transient_io]
+    stop_conditions: [patient_leakage, hidden_label_feature_leakage, metric_definition_mismatch]
+    acceptance_checks:
+      - Every censorship rule reaches precision at least 0.80 and recall at least 0.30.
+      - Every rule outperforms base-confidence recall at the same precision.
+      - Full features exceed text-only recall at 80% precision by at least 0.10.
+      - A failed diagnostic skips training and closes no_go.
+  - id: pu_pilot_t2
+    kind: training
+    execution_mode: command
+    needs: [crossfit_diagnostic]
+    required: false
+    description: Compare background BCE, unknown-ignore, nnPU, and gated pseudo-positive policies for 500 updates.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/scripts/run_training.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/configs/protocol.yaml
+        - --tier
+        - T2
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t2
+    inputs: [crossfit_policy, training_safe_censorship_manifest, locked_parent_checkpoint]
+    outputs: [t2_checkpoints, t2_metrics]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/pu_pilot_t2.json
+      required_fields: [arm_updates, hidden_recall, certified_fp, known_positive_recall, gate_verdict, output_sha256]
+    resources:
+      cpu_cores: 32
+      gpu_count: 4
+      maximum_updates_per_arm: 500
+    timeout_seconds: 28800
+    retry:
+      max_attempts: 2
+      automatic_full_state_resumes: 1
+      retryable_classes: [container_start_failure, transient_io]
+    stop_conditions: [identity_control_failure, hidden_label_exposure, non_finite, missing_resume_state]
+    acceptance_checks:
+      - All arms use identical schedules and exactly 500 optimizer updates.
+      - nnPU or unknown-ignore improves hidden-entity recall over background BCE.
+      - Relative certified-FP increase is less than 0.10.
+  - id: decision_t3
+    kind: training
+    execution_mode: command
+    needs: [pu_pilot_t2]
+    required: false
+    description: Continue matched baseline and the safest passing policy to 2,000 updates, then evaluate val80.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/scripts/run_training.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/configs/protocol.yaml
+        - --tier
+        - T3
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t3
+    inputs: [t2_checkpoints, crossfit_policy, val80_manifest]
+    outputs: [t3_checkpoints, t3_metrics, tri_state_policy_artifact]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/decision_t3.json
+      required_fields: [arm_updates, synthetic_metrics, val80_metrics, gate_verdict, policy_sha256]
+    resources:
+      cpu_cores: 32
+      gpu_count: 2
+      maximum_updates_per_arm: 2000
+    timeout_seconds: 43200
+    retry:
+      max_attempts: 2
+      automatic_full_state_resumes: 1
+      retryable_classes: [container_start_failure, transient_io]
+    stop_conditions: [hidden_label_exposure, split_leakage, non_finite, budget_exhausted]
+    acceptance_checks:
+      - Hidden recall improves at least 0.05 absolute under every rule.
+      - Relative certified-FP increase remains below 0.10.
+      - Known-positive recall delta is at least -0.02.
+      - Aggregate val80 Dice delta is at least -0.001.
+  - id: confirm_t4
+    kind: confirmation
+    execution_mode: command
+    needs: [decision_t3]
+    required: false
+    description: Confirm the selected policy on val120 and report val200 only after promotion.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/scripts/run_training.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/configs/protocol.yaml
+        - --tier
+        - T4
+        - --require-promotion
+        - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/promotions/asd_040_censored_label_tri_state.json
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        CUDA_DEVICE_ORDER: PCI_BUS_ID
+    allowed_write_paths:
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/t4
+    inputs: [tri_state_policy_artifact, val120_manifest, val200_manifest, promotion_authorization]
+    outputs: [t4_checkpoints, t4_metrics]
+    completion:
+      marker: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1/completion/confirm_t4.json
+      required_fields: [promotion_sha256, val120_metrics, val200_metrics, case_clustered_ci, output_sha256]
+    resources:
+      cpu_cores: 32
+      gpu_count: 2
+      maximum_updates_per_arm: 10000
+    timeout_seconds: 129600
+    retry:
+      max_attempts: 2
+      automatic_full_state_resumes: 1
+      retryable_classes: [container_start_failure, transient_io]
+    stop_conditions: [missing_promotion_authorization, split_leakage, non_finite, budget_exhausted]
+    acceptance_checks:
+      - val120 is inaccessible before verified promotion.
+      - Primary val120 safety and non-inferiority gates pass.
+      - val200 is continuity evidence only.
+  - id: closeout
+    kind: closeout
+    execution_mode: agent
+    needs: [crossfit_diagnostic]
+    required: true
+    description: Decide claims and publish a hash-backed tri-state policy or a negative closeout.
+    instructions:
+      - Inspect completion markers and deepest eligible stage.
+      - Keep hidden-mask evidence evaluator-only; summarize only aggregate results.
+      - Apply all per-rule gates without averaging away a failed rule.
+      - Write result.json and summary.md, decide claims, and verify artifact hashes.
+      - If ASD-060 can consume a policy, identify its exact artifact hash and supported semantics.
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/results
+      - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/claims.yaml
+      - experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/artifacts/manifest.json
+    inputs: [diagnostic_report, t2_metrics, t3_metrics, t4_metrics]
+    outputs: [final_result, final_summary, final_claims, verified_artifact_manifest]
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/results/closeout_evidence.json
+      require_all_executed_stage_artifacts_verified: true
+    resources:
+      cpu_cores: 8
+      gpu_count: 0
+    timeout_seconds: 7200
+    retry:
+      max_attempts: 1
+      backoff_seconds: []
+      retryable_classes: []
+    stop_conditions: [evidence_hash_mismatch, undecided_required_claim, hidden_label_exposure]
+    acceptance_checks:
+      - Negative scientific evidence is no_go rather than failed.
+      - Every rule is reported separately and every claim cites evidence.
+      - No hidden mask or derived individual geometry enters workspace results.
+evaluation:
+  bootstrap:
+    seed: 20260731
+    draws: 10000
+    units: [entity, finding, case_cluster]
+  diagnostic_metrics:
+    - hidden_entity_precision
+    - hidden_entity_recall
+    - recall_at_80_percent_precision
+    - base_confidence_delta
+    - text_only_shortcut_delta
+  training_metrics:
+    - hidden_entity_recall_delta
+    - certified_fp_relative_delta
+    - known_positive_recall_delta
+    - paired_dice_delta
+    - empty_prediction_delta
+  gates:
+    eligibility:
+      - eligible_cases >= 50
+      - hidden_trials >= 100
+    diagnostic_go:
+      - each_rule_precision >= 0.80
+      - each_rule_recall >= 0.30
+      - each_rule_recall > matched_base_confidence_recall
+      - full_minus_text_only_recall_at_80_precision >= 0.10
+    pilot_go:
+      - hidden_entity_recall_delta > 0
+      - certified_fp_relative_delta < 0.10
+    decision_go:
+      - each_rule_hidden_recall_delta >= 0.05
+      - certified_fp_relative_delta < 0.10
+      - known_positive_recall_delta >= -0.02
+      - val80_paired_dice_delta >= -0.001
+    confirmation_go:
+      - val120_case_clustered_safety_ci_lower >= -0.001
+paths:
+  workspace: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state
+  config: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/configs/protocol.yaml
+  runtime: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_040_censored_label_tri_state/run_v1
+  artifact_manifest: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/artifacts/manifest.json
+  result: experiments_aiselfdrive/experiments/asd_040_censored_label_tri_state/results/result.json
+budget:
+  maximum_gpu_hours: 48
+  maximum_wall_hours: 72
+  maximum_external_storage_gib: 1200
+  terminate_on_exhaustion: true
+retention:
+  durable:
+    - censorship_manifests
+    - crossfit_policy
+    - diagnostic_and_gate_reports
+    - selected_full_state_checkpoints
+    - tri_state_policy_artifact
+  regenerable:
+    - frozen_candidate_features
+    - unselected_checkpoints
+  ephemeral:
+    - docker_scratch
+    - partial_exports
+prohibited_directions:
+  - global_empty_labels_for_unknown_regions
+  - hidden_mask_features
+  - hidden_mask_sampling
+  - validation_hidden_labels_in_final_training
+  - unsafe_background_bce_as_selected_method
+  - independent_binary_selector_as_deployable_method
+  - generic_presence_head
+  - direct_anatomy_query_addition
+  - hard_lobe_clipping
+  - full_resolution_s3
+  - slurm

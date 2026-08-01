@@ -1,0 +1,85 @@
+schema_version: "1.0"
+experiment_id: asd_000_evidence_lock_error_atlas
+seed: 20260731
+baseline:
+  checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
+  checkpoint_sha256: 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf
+  predictions: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/eval_epoch100_val200/predictions
+  summary: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/eval_epoch100_val200/reports/val_quick_global_eval_summary.json
+  expected_dice: 0.3398392601031359
+  dice_tolerance: 0.000005
+  expected_hits: 288
+  expected_findings: 381
+  threshold: 0.5
+  hit_threshold: 0.1
+s3_comparator:
+  checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100/fold_0/checkpoint_final.pth
+  checkpoint_sha256: a3e93801ba121c0084ec52b7f7dc38cbb617dbec484b6113b4348aa7dec82f3d
+  summary: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/eval_epoch100_val200/reports/val_quick_global_eval_summary.json
+  expected_dice: 0.3367180602443776
+  expected_hits: 292
+embedding_bank:
+  path: /mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val/config/rex_text_embeddings.npz
+  expected_labels: 6467
+  expected_shape: [6467, 2560]
+  expected_dtype: float16
+  sha256: a7351992fa57e019acb485f6b1f37045e7efcd879118cbac972b1b7ed94d5575
+cohorts:
+  val200:
+    path: configs/evaluation/rexgroundingct_val200_seed20260723.json
+    sha256: 7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897
+    cases: 200
+    findings: 381
+  val80:
+    path: side_experiments/sideexp001_validation_probe_design/outputs/rexgroundingct_val80_sideexp001_validation_probe_design.json
+    sha256: 61048d78be0d72ff28619ebfff3efac8501dc0a6154deaa38881e26bca054faf
+    cases: 80
+    findings: 195
+  val120_output: experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json
+data:
+  segmentation_root: /data/hengjie/datasets/rexgroundingct/segmentations
+  ct_root: /mnt/shengdata1/hengjie/datasets/rexgroundingct/ct/dataset
+anatomy:
+  fast_root: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_total_fast_3mm_v2_16_0
+  fast_manifest: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_total_fast_3mm_v2_16_0/manifest.json
+  fast_manifest_sha256: 3ae692653f9b104f8d0f0d9c82f71bd56276c5d1b5717b3cf9275abf7d4fa599
+  fast_per_case:
+    directory: cases
+    output: total_labels.nii.gz
+    metadata: metadata.json
+    completion: .complete
+    contract: [total_labels.nii.gz, metadata.json, statistics.json, run_report.json, inference.log, .complete]
+  highres_root: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_thorax_v1
+  highres_manifest: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_thorax_v1/manifest.json
+  highres_manifest_sha256: 77d1a7fbeeb310d35548566cc62ba829363e2eb1c4a3837894cab241c472e16b
+  geometry_policy:
+    comparison: exact
+    val120_output_access: metadata_and_existence_only_no_label_bytes
+    require_source_output_shape_affine_spacing_axcodes: true
+    require_unambiguous_left_right_axis: true
+  lobe_ids:
+    left_upper: 10
+    left_lower: 11
+    right_upper: 12
+    right_middle: 13
+    right_lower: 14
+logits:
+  source_audit: side_experiments/sideexp002_multimodel_ensemble_selection/outputs/logit_export_audit.json
+  candidate_id: exp009_baseline_e100
+  unavailable_policy: record_unavailable_and_omit_export_and_threshold_curves
+atlas:
+  thresholds: [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
+  connectivity: 26
+  bootstrap_draws: 10000
+  bootstrap_seed: 20260731
+  supervision_labels: [known_positive, certified_negative, unknown]
+  expected_cases: 80
+  expected_findings: 195
+  availability_policy: verified_logits_only_otherwise_omit_threshold_curves
+  prompt_certification:
+    certifiable_groups: [exact_lobe, laterality_only]
+    exact_lobe_target: whole_lobe_safe_superset
+    laterality_target: whole_side_lung
+    unsupported_groups: unknown_without_certified_negative_regions
+    certified_negative_overlap_policy: subtract_released_known_positive
+runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_000_evidence_lock_error_atlas

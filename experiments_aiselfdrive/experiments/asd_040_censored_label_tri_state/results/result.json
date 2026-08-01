@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "asd_040_censored_label_tri_state",
+  "stage_id": "portfolio_scaffold",
+  "status": "blocked",
+  "completed_at": "2026-07-31T00:00:00Z",
+  "summary": "Execution is blocked until ASD-000 finishes with outcome go.",
+  "checks": [
+    {
+      "id": "plan_authored",
+      "status": "passed",
+      "detail": "The censorship and tri-state package was authored without exposing hidden labels or running training."
+    },
+    {
+      "id": "dependency",
+      "status": "blocked",
+      "detail": "The locked baseline lineage and cohort manifests are not yet verified."
+    }
+  ],
+  "artifacts": [],
+  "metrics": {},
+  "error": null
+}

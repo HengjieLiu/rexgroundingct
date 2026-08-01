@@ -1,0 +1,57 @@
+schema_version: "1.0"
+experiment_id: asd_060_persistence_tree_set_verifier
+claims:
+  - id: persistence_forest_oracle_is_feasible
+    type: feasibility
+    statement: >-
+      Deterministic sixteen-threshold forests and an exact maximum-Dice
+      antichain oracle can be constructed for every locked val80 finding.
+    verdict: pending
+    gate_refs: [stages.build_val80_oracle.acceptance_checks]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: persistence_candidates_have_headroom
+    type: mechanistic
+    statement: >-
+      The exact forest oracle improves locked val80 Dice by at least 0.07 and
+      candidates overlap at least 85% of released GT components.
+    verdict: pending
+    gate_refs: [evaluation.gates.oracle_go]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: set_context_beats_independent_scoring
+    type: causal
+    statement: >-
+      With identical node features and antichain decoding, set-context scoring
+      produces higher val80 Dice than independent node scoring.
+    verdict: pending
+    gate_refs: [evaluation.gates.learned_go]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: learned_verifier_recovers_oracle_gain
+    type: performance
+    statement: >-
+      The learned verifier recovers at least 20% of oracle Dice gain, retains
+      at least 99% of baseline true-positive voxels, and has a positive
+      case-clustered paired Dice interval.
+    verdict: pending
+    gate_refs: [evaluation.gates.learned_go, evaluation.gates.confirmation_go]
+    evidence_refs: []
+    decided_at: null
+    rationale: null
+  - id: verifier_uses_safe_labels
+    type: safety
+    statement: >-
+      Learned work runs only with a verified ASD-040 GO policy, unknown nodes
+      have zero supervised weight, and evaluator GT never enters learned
+      features.
+    verdict: pending
+    gate_refs:
+      - stages.resolve_tri_state_branch.acceptance_checks
+      - stages.build_training_set_dataset.acceptance_checks
+    evidence_refs: []
+    decided_at: null
+    rationale: null

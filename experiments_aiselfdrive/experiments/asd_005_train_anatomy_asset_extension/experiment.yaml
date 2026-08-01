@@ -1,0 +1,501 @@
+schema_version: "1.0"
+id: asd_005_train_anatomy_asset_extension
+title: Four-GPU fast 3-mm TotalSegmentator asset for all released train and validation CTs
+plan_revision: 1
+created_at: "2026-07-31T00:00:00Z"
+updated_at: "2026-07-31T00:00:00Z"
+priority: 2
+idea: >-
+  Materialize a geometry-verified, immutable, fast 3-mm thoracic anatomy source
+  for every released training and validation CT so later anatomy experiments
+  do not regenerate masks or silently mix model versions.
+problem: >-
+  The completed local anatomy caches cover val200 only. Anatomy-conditioned
+  training and certified counterexamples require the identical non-lesion
+  anatomy contract on the complete 3,192-case train/validation corpus.
+novelty_vs_report: >-
+  This is a practical evidence asset, not another fusion design. It scales the
+  already validated fast anatomy path while adding deterministic sharding,
+  hashed JSON completion, source-geometry validation, and a unified downstream
+  manifest.
+hypotheses:
+  primary: >-
+    TotalSegmentator 2.16.0 fast 3-mm total segmentation can complete all 3,192
+    train/validation cases within 24 GPU-hours and eight wall-clock hours with
+    zero unresolved failures and exact source geometry.
+  null: >-
+    The cache cannot be completed within the hardware budget or produces any
+    unresolved geometry, orientation, label, or lung-coverage failure.
+goals:
+  - Lock an exact 3,192-case train/validation CT manifest.
+  - Generate fast 3-mm total anatomy with four independent Docker GPU workers.
+  - Validate shape, affine, physical extent, label vocabulary, and lung coverage.
+  - Publish one immutable per-case-path manifest for downstream experiments.
+non_goals:
+  - Generate high-resolution 1.5-mm or native-resolution TotalSegmentator outputs.
+  - Run lesion-predicting TotalSegmentator tasks or use anatomy as pseudo-pathology.
+  - Process the 300 hidden/test CTs.
+  - Modify the existing val200 anatomy caches.
+  - Train or evaluate VoxTell.
+evidence_references:
+  - id: asd000_lineage
+    kind: dependency
+    path: experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json
+    availability: missing
+    dependency_experiment_id: asd_000_evidence_lock_error_atlas
+    dependency_required_outcome: go
+    use: Locks metadata, data roots, geometry conventions, and source lineage.
+  - id: fast_val200_manifest
+    kind: anatomy_cache
+    path: /mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_total_fast_3mm_v2_16_0/manifest.json
+    availability: verified_local
+    sha256: 3ae692653f9b104f8d0f0d9c82f71bd56276c5d1b5717b3cf9275abf7d4fa599
+    use: Runtime, memory, labels, version, and source-geometry feasibility evidence.
+lineage:
+  dependency:
+    experiment_id: asd_000_evidence_lock_error_atlas
+    required_outcome: go
+  anatomy_model:
+    software: TotalSegmentator
+    version: 2.16.0
+    task: total
+    fast: true
+    model_spacing_mm: 3.0
+    save_lowres: false
+    output_geometry: source_ct_shape_and_affine
+    docker_image: rexgroundingct-totalsegmentator:2.16.0-cu126
+    weights_root: /mnt/shengdata1/hengjie/models/totalsegmentator/2.16.0
+    results_root: /mnt/shengdata1/hengjie/models/totalsegmentator/2.16.0/nnunet/results
+  feasibility_observation:
+    source_manifest_sha256: 3ae692653f9b104f8d0f0d9c82f71bd56276c5d1b5717b3cf9275abf7d4fa599
+    observed_cases: 200
+    observed_runtime_seconds_mean: 21.264883545357733
+    observed_runtime_seconds_max: 34.355826480314136
+    observed_peak_delta_mib_max: 8919
+data:
+  metadata:
+    path: /data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json
+    availability: verified_local
+    sha256: 3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a
+  ct_root:
+    path: /mnt/shengdata1/hengjie/datasets/rexgroundingct/ct/dataset
+    availability: verified_local
+  included_splits: [train, val]
+  excluded_splits: [test]
+  expected_cases:
+    train_plus_val: 3192
+    val: 200
+  case_path_rule: >-
+    Resolve each metadata name into CT-RATE
+    Resolve the split, patient identifier, scan identifier, and filename using
+    the canonical CT-RATE nested fixed-layout rule implemented by the locked
+    source-manifest builder.
+    and reject duplicates, missing files, or incomplete downloads.
+  locked_manifest_output: experiments_aiselfdrive/shared/manifests/trainval_ct_source_v1.json
+  anatomy_manifest_output: experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json
+  supervision_policy:
+    output_type: non_lesion_anatomy_only
+    prohibited_use: Anatomy labels are not known-positive or certified-negative pathology by themselves.
+method:
+  protocol_config: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/configs/protocol.yaml
+  sharding:
+    worker_count: 4
+    worker_gpu_map: {"0": 0, "1": 1, "2": 2, "3": 3}
+    assignment: int(first_16_hex_chars_of_sha256_case_name, 16) modulo 4
+    ordering_within_shard: case_name_ascending
+  atomic_case_contract:
+    directory_rule: Under anatomy_fast_3mm_trainval_v1/cases, use the case name with its .nii or .nii.gz suffix removed.
+    required_files:
+      - total_labels.nii.gz
+      - metadata.json
+      - statistics.json
+      - run_report.json
+      - inference.log
+      - completion.json
+    completion_marker: completion.json
+    completion_required_fields:
+      - case_name
+      - source_ct_path
+      - source_ct_sha256
+      - output_sha256
+      - output_size_bytes
+      - output_shape
+      - output_affine
+      - observed_labels
+      - runtime_seconds
+      - gpu_id
+      - software_version
+      - completed_at
+    write_policy: Write into a case-local temporary directory and atomically rename only after every validation passes.
+  validation:
+    source_shape_equal: true
+    source_affine_absolute_tolerance: 0.00001
+    physical_extent_mm_absolute_tolerance: 0.1
+    required_lung_labels:
+      - lung_upper_lobe_left
+      - lung_lower_lobe_left
+      - lung_upper_lobe_right
+      - lung_middle_lobe_right
+      - lung_lower_lobe_right
+    label_range: [0, 117]
+    nonempty_lung_required: true
+    finite_affine_required: true
+    orientation_check: nibabel_axis_codes_must_match_source
+    qc_sample:
+      seed: 20260731
+      random_cases: 20
+      include_all_statistical_outliers: true
+      outlier_rules:
+        - runtime_above_median_plus_5_mad
+        - lung_volume_below_q1_minus_3_iqr
+        - lung_volume_above_q3_plus_3_iqr
+        - observed_label_count_below_10
+  retries:
+    transient_case_attempts_max: 3
+    transient_backoff_seconds: [60, 300]
+    retryable:
+      - docker_start_failure
+      - temporary_io_failure
+      - cuda_allocation_failure_after_worker_restart
+    non_retryable:
+      - geometry_mismatch
+      - orientation_mismatch
+      - source_hash_drift
+      - output_hash_drift
+      - unknown_label
+      - empty_lung
+      - budget_exhausted
+resources:
+  execution_class: four_parallel_single_gpu_anatomy_workers
+  gpu_count: 4
+  gpu_model: NVIDIA RTX 6000 Ada Generation
+  gpu_memory_gib_each: 47.38
+  gpu_memory_free_gib_min: 32
+  use_multi_gpu_ddp: false
+  docker_image: rexgroundingct-totalsegmentator:2.16.0-cu126
+  docker_user_policy: host_uid_and_gid_required
+  gpu_preflight_ref: experiments_aiselfdrive/shared/hardware_profile.yaml
+  cpu_threads_max: 32
+  ram_gib_max: 128
+stages:
+  - id: implement_train_anatomy_pipeline
+    kind: implementation
+    execution_mode: agent
+    needs: []
+    required: true
+    description: Implement deterministic source locking, four-worker launch, atomic case output, and cache validation.
+    instructions: >-
+      Implement build_manifest.py, validate_cache.py, a run_stage.py CLI, and
+      focused tests. Reuse existing repository utilities read-only, but copy no
+      generated files and modify no existing scripts. run_stage.py must expose
+      manifest, smoke, generate, validate, and closeout phases; construct Docker
+      subprocesses as argv arrays; pass host uid/gid; mount repo, /data, and
+      /mnt/shengdata1; allocate a distinct TOTALSEG_HOME_DIR per worker; resume
+      only from valid completion.json markers; enforce deterministic SHA-based
+      shards and the 24-GPU-hour/eight-hour budgets. Never process test cases.
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/src/build_manifest.py
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/src/validate_cache.py
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/scripts/run_stage.py
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/tests/test_build_manifest.py
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/tests/test_validate_cache.py
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/implement_train_anatomy_pipeline.json
+    inputs:
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/configs/protocol.yaml
+      - existing TotalSegmentator val200 implementation and manifest as read-only reference
+    outputs:
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/scripts/run_stage.py
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/tests/test_build_manifest.py
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/tests/test_validate_cache.py
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/implement_train_anatomy_pipeline.json
+      predicate: Modules compile and all local tests pass without Docker or data mutation.
+    resources:
+      gpu_count: 0
+      cpu_threads: 8
+    timeout_seconds: 7200
+    retry:
+      class: non_retryable_agent_implementation
+      max_attempts: 1
+    stop_conditions:
+      - Any requested write is outside allowed_write_paths.
+      - Implementation includes test-split processing or high-resolution tasks.
+    acceptance_checks:
+      - PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/tests -p test_*.py
+      - python -m py_compile experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/src/*.py experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/scripts/*.py
+  - id: lock_trainval_source_manifest
+    kind: evidence
+    execution_mode: command
+    needs: [implement_train_anatomy_pipeline]
+    required: true
+    description: Resolve, count, and hash the exact 3,192 train/validation CT inputs.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/scripts/run_stage.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/configs/protocol.yaml
+        - --phase
+        - manifest
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        PYTHONDONTWRITEBYTECODE: "1"
+    allowed_write_paths:
+      - experiments_aiselfdrive/shared/manifests/trainval_ct_source_v1.json
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/source_manifest_lock.json
+    inputs:
+      - released metadata and CT root declared in data
+      - asd000 local lineage manifest
+    outputs:
+      - experiments_aiselfdrive/shared/manifests/trainval_ct_source_v1.json
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/source_manifest_lock.json
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/source_manifest_lock.json
+      predicate: Exactly 3,192 unique, complete train/validation CTs resolve and the manifest is hashed.
+    resources:
+      gpu_count: 0
+      cpu_threads: 32
+    timeout_seconds: 21600
+    retry:
+      class: transient
+      max_attempts: 3
+      backoff_seconds: [60, 300]
+    stop_conditions:
+      - Any CT is missing, duplicated, incomplete, or outside train/validation.
+      - Metadata or CT hashes drift during locking.
+    acceptance_checks:
+      - Exactly 3192 unique case names and paths exist.
+      - No test case is present.
+      - Four deterministic shards are nonempty, disjoint, and exhaustive.
+  - id: docker_preflight_and_one_case_smoke
+    kind: smoke
+    execution_mode: command
+    needs: [lock_trainval_source_manifest]
+    required: true
+    description: Verify the Docker/GPU contract on the lexicographically first manifest case.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/scripts/run_stage.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/configs/protocol.yaml
+        - --phase
+        - smoke
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        PYTHONDONTWRITEBYTECODE: "1"
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/smoke.json
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_005_train_anatomy_asset_extension/smoke
+    inputs:
+      - locked train/validation source manifest
+      - pinned Docker image and TotalSegmentator weights
+    outputs:
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/smoke.json
+      - external runtime one-case smoke output
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/smoke.json
+      predicate: Docker sees four expected GPUs and one case completes with valid source geometry.
+    resources:
+      gpu_count: 1
+      gpu_memory_free_gib_min: 32
+      docker_image: rexgroundingct-totalsegmentator:2.16.0-cu126
+      gpu_hours_max: 0.25
+    timeout_seconds: 3600
+    retry:
+      class: resource_then_transient
+      max_attempts: 3
+      resource_wait_timeout_seconds: 21600
+    stop_conditions:
+      - Docker reports a non-RTX-6000-Ada device set or fewer than four devices.
+      - Geometry, orientation, finite-affine, label-range, or lung-coverage checks fail.
+    acceptance_checks:
+      - Image and weights are present.
+      - torch.cuda sees exactly four expected GPUs.
+      - Output shape, affine, axis codes, and physical extent match source.
+  - id: generate_four_shards
+    kind: generation
+    execution_mode: command
+    needs: [docker_preflight_and_one_case_smoke]
+    required: true
+    description: Generate all missing train/validation cases with four single-GPU workers and a barrier.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/scripts/run_stage.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/configs/protocol.yaml
+        - --phase
+        - generate
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        PYTHONDONTWRITEBYTECODE: "1"
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/generation.json
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_005_train_anatomy_asset_extension/anatomy_fast_3mm_trainval_v1
+      - /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_005_train_anatomy_asset_extension/worker_state
+    inputs:
+      - locked train/validation source manifest
+      - passed smoke evidence
+    outputs:
+      - external runtime per-case anatomy cache
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/generation.json
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/generation.json
+      predicate: All four workers terminate and 3,192 valid completion markers are present.
+    resources:
+      gpu_count: 4
+      gpu_memory_free_gib_min_each: 32
+      gpu_hours_max: 24
+      wall_hours_max: 8
+      docker_image: rexgroundingct-totalsegmentator:2.16.0-cu126
+    timeout_seconds: 28800
+    retry:
+      class: per_case_transient
+      max_attempts: 3
+      backoff_seconds: [60, 300]
+    stop_conditions:
+      - Aggregate GPU time reaches 24 hours before completion.
+      - Wall time reaches eight hours before completion.
+      - Any non-retryable geometry, orientation, hash, label, or lung failure occurs.
+    acceptance_checks:
+      - Exactly 3192 completion.json markers validate.
+      - No case has more than one authoritative output.
+      - Worker GPU IDs and shard assignments match the locked manifest.
+  - id: validate_and_publish_anatomy_manifest
+    kind: validation
+    execution_mode: command
+    needs: [generate_four_shards]
+    required: true
+    description: Revalidate every case, inspect the fixed QC set and outliers, then publish the shared manifest.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/scripts/run_stage.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/configs/protocol.yaml
+        - --phase
+        - validate
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        PYTHONDONTWRITEBYTECODE: "1"
+    allowed_write_paths:
+      - experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/cache_validation.json
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/qc_cases.csv
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/qc_summary.md
+    inputs:
+      - locked source manifest
+      - complete external anatomy cache
+    outputs:
+      - experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/cache_validation.json
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/qc_cases.csv
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/qc_summary.md
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/cache_validation.json
+      predicate: All cases verify, zero failures remain, and all fixed/random/outlier QC records pass.
+    resources:
+      gpu_count: 0
+      cpu_threads: 32
+      ram_gib_max: 128
+    timeout_seconds: 21600
+    retry:
+      class: evaluation
+      max_attempts: 3
+      preserve_verified_cases: true
+    stop_conditions:
+      - Any marker, source, output, geometry, label, or count mismatch remains.
+      - QC reveals an unexplained left-right or physical-extent anomaly.
+    acceptance_checks:
+      - Shared manifest contains 3192 unique case records.
+      - Every output hash, size, shape, affine, and observed-label list verifies.
+      - Twenty seeded cases and every statistical outlier have explicit QC records.
+  - id: closeout_anatomy_asset
+    kind: closeout
+    execution_mode: command
+    needs: [validate_and_publish_anatomy_manifest]
+    required: true
+    description: Verify the asset and close with GO or invalid.
+    command:
+      argv:
+        - python
+        - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/scripts/run_stage.py
+        - --config
+        - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/configs/protocol.yaml
+        - --phase
+        - closeout
+      cwd: /home/hengjie/code_sync/rexgroundingct
+      env:
+        PYTHONDONTWRITEBYTECODE: "1"
+    allowed_write_paths:
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/closeout.json
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/summary.md
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/artifacts/manifest.json
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/claims.yaml
+    inputs:
+      - source lock, generation, validation, QC, claims, and artifact evidence
+    outputs:
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/closeout.json
+      - experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/summary.md
+    completion:
+      evidence_file: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension/results/closeout.json
+      predicate: All required artifacts and claims are decided and outcome is go or invalid.
+    resources:
+      gpu_count: 0
+      cpu_threads: 4
+    timeout_seconds: 3600
+    retry:
+      class: non_retryable_closeout
+      max_attempts: 1
+    stop_conditions:
+      - Any required artifact is not verified.
+    acceptance_checks:
+      - Outcome is go only for 3192 of 3192 complete and zero unresolved failures.
+evaluation:
+  cohort: train_plus_val_3192
+  primary_metrics:
+    - completed_case_count
+    - unresolved_failure_count
+    - geometry_failure_count
+    - orientation_failure_count
+    - nonempty_lung_coverage_rate
+    - aggregate_gpu_hours
+    - wall_hours
+  go_gates:
+    - completed_cases_equal_3192
+    - unresolved_failures_equal_0
+    - geometry_failures_equal_0
+    - orientation_failures_equal_0
+    - nonempty_lung_coverage_equal_1
+    - aggregate_gpu_hours_le_24
+    - wall_hours_le_8
+  invalid_gates:
+    - geometry_or_orientation_mismatch
+    - source_or_output_hash_drift
+    - split_contamination
+    - budget_exhausted_before_completion
+paths:
+  workspace: experiments_aiselfdrive/experiments/asd_005_train_anatomy_asset_extension
+  runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_005_train_anatomy_asset_extension
+  runtime_symlink_target: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_005_train_anatomy_asset_extension
+  cache_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_005_train_anatomy_asset_extension/anatomy_fast_3mm_trainval_v1
+  shared_manifest: experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json
+budget:
+  gpu_hours_max: 24
+  wall_hours_max: 8
+  durable_storage_gib_max: 25
+  parallel_workers: 4
+retention:
+  shared_manifest: durable
+  per_case_anatomy: durable
+  worker_logs: regenerable
+  temporary_case_directories: ephemeral
+prohibited_directions:
+  - high_resolution_totalsegmentator
+  - lesion_predicting_totalsegmentator_tasks
+  - process_test_split
+  - modify_existing_val200_anatomy_cache
+  - use_slurm
+  - empty_touch_completion_markers
+  - multi_gpu_ddp

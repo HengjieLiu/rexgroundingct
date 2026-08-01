@@ -1,0 +1,258 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rexgroundingct.local/schemas/experiment.schema.json",
+  "title": "ReXGroundingCT AI self-drive experiment plan",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "plan_revision",
+    "created_at",
+    "priority",
+    "idea",
+    "problem",
+    "novelty_vs_report",
+    "hypotheses",
+    "goals",
+    "non_goals",
+    "evidence_references",
+    "lineage",
+    "data",
+    "method",
+    "resources",
+    "stages",
+    "evaluation",
+    "paths",
+    "budget",
+    "retention",
+    "prohibited_directions"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "id": {"$ref": "#/$defs/experiment_id"},
+    "title": {"type": "string", "minLength": 1},
+    "plan_revision": {"type": "integer", "minimum": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "priority": {"type": "integer", "minimum": 0},
+    "idea": {"type": "string", "minLength": 1},
+    "problem": {"type": "string", "minLength": 1},
+    "novelty_vs_report": {"type": "string", "minLength": 1},
+    "hypotheses": {
+      "oneOf": [
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/text_or_object"}
+        },
+        {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": true
+        }
+      ]
+    },
+    "goals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/text_or_object"}
+    },
+    "non_goals": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/text_or_object"}
+    },
+    "evidence_references": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/evidence_reference"}
+    },
+    "lineage": {"type": "object", "additionalProperties": true},
+    "data": {"type": "object", "additionalProperties": true},
+    "method": {"type": "object", "additionalProperties": true},
+    "resources": {"type": "object", "additionalProperties": true},
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/stage"}
+    },
+    "evaluation": {"type": "object", "additionalProperties": true},
+    "paths": {
+      "type": "object",
+      "additionalProperties": true,
+      "minProperties": 2,
+      "properties": {
+        "workspace": {"type": "string", "minLength": 1},
+        "experiment_root": {"type": "string", "minLength": 1},
+        "runtime": {"type": "string", "minLength": 1},
+        "runtime_root": {"type": "string", "minLength": 1},
+        "allowed_write_paths": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "budget": {"type": "object", "additionalProperties": true},
+    "retention": {"type": "object", "additionalProperties": true},
+    "prohibited_directions": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^asd_[0-9]{3}_[a-z0-9_]+$"
+    },
+    "text_or_object": {
+      "oneOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "object", "minProperties": 1, "additionalProperties": true}
+      ]
+    },
+    "evidence_reference": {
+      "oneOf": [
+        {"type": "string", "minLength": 1},
+        {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": true,
+          "properties": {
+            "availability": {
+              "enum": [
+                "verified_local",
+                "reported_exact",
+                "reported_partial",
+                "historical_only",
+                "missing",
+                "dependency"
+              ]
+            },
+            "sha256": {
+              "oneOf": [
+                {"type": "null"},
+                {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "io_item": {
+      "oneOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "object", "minProperties": 1, "additionalProperties": true}
+      ]
+    },
+    "command": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["argv", "cwd", "env"],
+      "properties": {
+        "argv": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        },
+        "cwd": {"type": "string", "minLength": 1},
+        "env": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    },
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "execution_mode",
+        "needs",
+        "required",
+        "allowed_write_paths",
+        "inputs",
+        "outputs",
+        "completion",
+        "resources",
+        "timeout_seconds",
+        "retry",
+        "stop_conditions",
+        "acceptance_checks"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "kind": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1},
+        "execution_mode": {"enum": ["agent", "command"]},
+        "needs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+        },
+        "required": {"type": "boolean"},
+        "instructions": {
+          "oneOf": [
+            {"type": "string", "minLength": 1},
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "string", "minLength": 1}
+            }
+          ]
+        },
+        "command": {"$ref": "#/$defs/command"},
+        "allowed_write_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "inputs": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/io_item"}
+        },
+        "outputs": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/io_item"}
+        },
+        "completion": {
+          "oneOf": [
+            {"type": "string", "minLength": 1},
+            {"type": "object", "minProperties": 1, "additionalProperties": true}
+          ]
+        },
+        "resources": {"type": "object", "additionalProperties": true},
+        "timeout_seconds": {"type": "integer", "minimum": 1},
+        "retry": {"type": "object", "additionalProperties": true},
+        "stop_conditions": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/text_or_object"}
+        },
+        "acceptance_checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/text_or_object"}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"execution_mode": {"const": "agent"}}},
+          "then": {
+            "required": ["instructions"],
+            "properties": {"allowed_write_paths": {"minItems": 1}},
+            "not": {"required": ["command"]}
+          }
+        },
+        {
+          "if": {"properties": {"execution_mode": {"const": "command"}}},
+          "then": {
+            "required": ["command"],
+            "not": {"required": ["instructions"]}
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+schema_version: "1.0"
+experiment_id: asd_010_intrinsic_anatomy_fields
+seed: 20260731
+dependencies:
+  asd_000_evidence_lock_error_atlas: go
+  asd_005_train_anatomy_asset_extension: go
+parent:
+  checkpoint: /mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth
+  sha256: 50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf
+inputs:
+  lineage: experiments_aiselfdrive/shared/manifests/asd000_local_lineage.json
+  anatomy: experiments_aiselfdrive/shared/manifests/trainval_fast3mm_anatomy_v1.json
+  val80: experiments_aiselfdrive/shared/manifests/val80_development_seed20260731.json
+  val120: experiments_aiselfdrive/shared/manifests/val120_complement_seed20260731.sealed.json
+  ontology: experiments_aiselfdrive/shared/manifests/prompt_ontology_v1.json
+fields:
+  spacing_mm: [3.0, 3.0, 3.0]
+  distance_clip_mm: 63
+  lobe_exterior_ramp_mm: 15
+  apical_percentile_min: 0.66
+  basal_percentile_max: 0.34
+  centrality_min: 0.60
+  peripheral_centrality_max: 0.40
+  subpleural_depth_mm_max: 15
+coupling:
+  alpha_max: 2.0
+  alpha_candidates: [0.1, 0.25, 0.5, 1.0, 2.0]
+  exact_zero_bypass: true
+diagnostic:
+  folds: 5
+  gt_retention_min: 0.99
+  off_location_fp_reduction_min: 0.15
+  detached_component_reduction_alternative_min: 0.10
+training:
+  updates: {T1: 10, T2: 500, T3: 2000, T4: 10000}
+  batch_size: 1
+  gradient_accumulation: 1
+  optimizer: SGD
+  momentum: 0.99
+  nesterov: true
+  weight_decay: 0.00003
+  encoder_lr: 0.00001
+  non_encoder_lr: 0.0001
+  module_lr: 0.0001
+  warmup_updates: 100
+  poly_power: 0.9
+evaluation:
+  threshold: 0.5
+  hit_threshold: 0.1
+  bootstrap_draws: 10000
+  bootstrap_seed: 20260731
+runtime_root: /mnt/shengdata1/hengjie/experiments/rexgroundingct/aiselfdrive/asd_010_intrinsic_anatomy_fields

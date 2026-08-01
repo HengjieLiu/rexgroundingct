@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rexgroundingct.local/schemas/claims.schema.json",
+  "title": "ReXGroundingCT AI self-drive scientific claims",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "experiment_id", "claims"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^asd_[0-9]{3}_[a-z0-9_]+$"
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/claim"}
+    }
+  },
+  "$defs": {
+    "claim": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "type",
+        "statement",
+        "verdict",
+        "gate_refs",
+        "evidence_refs",
+        "decided_at",
+        "rationale"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "type": {
+          "enum": ["feasibility", "mechanistic", "causal", "performance", "safety"]
+        },
+        "statement": {"type": "string", "minLength": 1},
+        "verdict": {
+          "enum": [
+            "pending",
+            "supported",
+            "not_supported",
+            "inconclusive",
+            "invalid"
+          ]
+        },
+        "gate_refs": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "decided_at": {
+          "oneOf": [{"type": "null"}, {"type": "string", "format": "date-time"}]
+        },
+        "rationale": {
+          "oneOf": [{"type": "null"}, {"type": "string", "minLength": 1}]
+        }
+      }
+    }
+  }
+}
