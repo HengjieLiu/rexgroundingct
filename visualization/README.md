@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-07-23
+updated: 2026-08-01
 status: active
 ---
 
@@ -9,7 +9,9 @@ status: active
 This folder contains lightweight, repo-tracked visualization notebooks and
 helpers. Heavy generated figures, executed notebooks, and derived tables should
 be written to the experiment runtime tree under `/mnt/shengdata1`, not committed
-to Git.
+to Git. The curated val200 coronal-projection result below is a narrow exception:
+its review gallery is intentionally versioned through Git LFS, while all other
+generated visualization PNGs remain ignored.
 
 ## Current Notebook
 
@@ -21,6 +23,16 @@ to Git.
 
 The notebook uses `rex_val20_coronal_viz.py` to keep orientation handling,
 connected-component measurements, Dice labels, and plotting logic auditable.
+
+## Coronal Projection Development
+
+- `2026-07-31_visualdev_coronal_projection/`: one-row-per-finding whole-volume
+  coronal projection pilot. It compares public VoxTell and three fine-tuned
+  checkpoints, uses bone-resistant CT projections plus binary mask MIPs, and
+  enforces radiology orientation with superior up and patient right on screen
+  left. Its full-val200 mean gallery is organized into official category
+  folders. See the committed [results overview](2026-07-31_visualdev_coronal_projection/results/README.md)
+  for split distributions, four-model comparisons, and category galleries.
 
 ## Inputs
 

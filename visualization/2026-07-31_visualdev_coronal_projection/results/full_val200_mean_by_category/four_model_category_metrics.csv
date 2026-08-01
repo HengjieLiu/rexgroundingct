@@ -1,0 +1,57 @@
+category_order,category,category_label,finding_count,model_order,model_key,method,mean_dice,hit_count,hit_rate
+1,1a,Bronchial wall thickening,3,1,public_v11,Public VoxTell v1.1,0.073088000000,1,0.333333333333
+1,1a,Bronchial wall thickening,3,2,exp009_s3v1_e100,100+100 attention,0.118226666667,1,0.333333333333
+1,1a,Bronchial wall thickening,3,3,noddp_best,100+100 plain best no-DDP,0.115070666667,1,0.333333333333
+1,1a,Bronchial wall thickening,3,4,ddp_best,Best DDP,0.096852333333,1,0.333333333333
+2,1b,Bronchiectasis,11,1,public_v11,Public VoxTell v1.1,0.072314363636,2,0.181818181818
+2,1b,Bronchiectasis,11,2,exp009_s3v1_e100,100+100 attention,0.152879000000,4,0.363636363636
+2,1b,Bronchiectasis,11,3,noddp_best,100+100 plain best no-DDP,0.157151363636,4,0.363636363636
+2,1b,Bronchiectasis,11,4,ddp_best,Best DDP,0.145874727273,4,0.363636363636
+3,1c,"Emphysema (including Centrilobular, Paraseptal, Bullous)",17,1,public_v11,Public VoxTell v1.1,0.063847411765,4,0.235294117647
+3,1c,"Emphysema (including Centrilobular, Paraseptal, Bullous)",17,2,exp009_s3v1_e100,100+100 attention,0.173970529412,7,0.411764705882
+3,1c,"Emphysema (including Centrilobular, Paraseptal, Bullous)",17,3,noddp_best,100+100 plain best no-DDP,0.177998117647,6,0.352941176471
+3,1c,"Emphysema (including Centrilobular, Paraseptal, Bullous)",17,4,ddp_best,Best DDP,0.156913235294,8,0.470588235294
+4,1d,"Septal thickening (including Interlobular, Reticulation)",6,1,public_v11,Public VoxTell v1.1,0.125095666667,1,0.166666666667
+4,1d,"Septal thickening (including Interlobular, Reticulation)",6,2,exp009_s3v1_e100,100+100 attention,0.126608166667,1,0.166666666667
+4,1d,"Septal thickening (including Interlobular, Reticulation)",6,3,noddp_best,100+100 plain best no-DDP,0.125360166667,1,0.166666666667
+4,1d,"Septal thickening (including Interlobular, Reticulation)",6,4,ddp_best,Best DDP,0.116696333333,1,0.166666666667
+5,1e,"Micronodules (including Centrilobular, Tree-in-bud, Perilymphatic)",11,1,public_v11,Public VoxTell v1.1,0.101601090909,3,0.272727272727
+5,1e,"Micronodules (including Centrilobular, Tree-in-bud, Perilymphatic)",11,2,exp009_s3v1_e100,100+100 attention,0.178166636364,7,0.636363636364
+5,1e,"Micronodules (including Centrilobular, Tree-in-bud, Perilymphatic)",11,3,noddp_best,100+100 plain best no-DDP,0.178662636364,6,0.545454545455
+5,1e,"Micronodules (including Centrilobular, Tree-in-bud, Perilymphatic)",11,4,ddp_best,Best DDP,0.194223636364,7,0.636363636364
+6,1f,Other,4,1,public_v11,Public VoxTell v1.1,0.002136750000,0,0.000000000000
+6,1f,Other,4,2,exp009_s3v1_e100,100+100 attention,0.158788750000,1,0.250000000000
+6,1f,Other,4,3,noddp_best,100+100 plain best no-DDP,0.161189250000,1,0.250000000000
+6,1f,Other,4,4,ddp_best,Best DDP,0.212338750000,2,0.500000000000
+7,2a,"Linear (including subsegmental atelectasis, scarring, fibrosis)",69,1,public_v11,Public VoxTell v1.1,0.197081811594,38,0.550724637681
+7,2a,"Linear (including subsegmental atelectasis, scarring, fibrosis)",69,2,exp009_s3v1_e100,100+100 attention,0.333136869565,56,0.811594202899
+7,2a,"Linear (including subsegmental atelectasis, scarring, fibrosis)",69,3,noddp_best,100+100 plain best no-DDP,0.340519898551,57,0.826086956522
+7,2a,"Linear (including subsegmental atelectasis, scarring, fibrosis)",69,4,ddp_best,Best DDP,0.337641130435,59,0.855072463768
+8,2b,"Atelectasis, consolidation",49,1,public_v11,Public VoxTell v1.1,0.297481306122,33,0.673469387755
+8,2b,"Atelectasis, consolidation",49,2,exp009_s3v1_e100,100+100 attention,0.362407367347,37,0.755102040816
+8,2b,"Atelectasis, consolidation",49,3,noddp_best,100+100 plain best no-DDP,0.356848795918,37,0.755102040816
+8,2b,"Atelectasis, consolidation",49,4,ddp_best,Best DDP,0.357690469388,38,0.775510204082
+9,2c,Groundglass opacity,60,1,public_v11,Public VoxTell v1.1,0.309013183333,42,0.700000000000
+9,2c,Groundglass opacity,60,2,exp009_s3v1_e100,100+100 attention,0.387795200000,49,0.816666666667
+9,2c,Groundglass opacity,60,3,noddp_best,100+100 plain best no-DDP,0.390826066667,50,0.833333333333
+9,2c,Groundglass opacity,60,4,ddp_best,Best DDP,0.414803466667,49,0.816666666667
+10,2d,Pulmonary nodules/masses,132,1,public_v11,Public VoxTell v1.1,0.226553431818,70,0.530303030303
+10,2d,Pulmonary nodules/masses,132,2,exp009_s3v1_e100,100+100 attention,0.367205553030,110,0.833333333333
+10,2d,Pulmonary nodules/masses,132,3,noddp_best,100+100 plain best no-DDP,0.378416856061,113,0.856060606061
+10,2d,Pulmonary nodules/masses,132,4,ddp_best,Best DDP,0.394935674242,115,0.871212121212
+11,2e,Pleural effusion or thickening,11,1,public_v11,Public VoxTell v1.1,0.431011545455,8,0.727272727273
+11,2e,Pleural effusion or thickening,11,2,exp009_s3v1_e100,100+100 attention,0.449102181818,8,0.727272727273
+11,2e,Pleural effusion or thickening,11,3,noddp_best,100+100 plain best no-DDP,0.448142363636,8,0.727272727273
+11,2e,Pleural effusion or thickening,11,4,ddp_best,Best DDP,0.412116909091,8,0.727272727273
+12,2f,Honeycombing,0,1,public_v11,Public VoxTell v1.1,,0,
+12,2f,Honeycombing,0,2,exp009_s3v1_e100,100+100 attention,,0,
+12,2f,Honeycombing,0,3,noddp_best,100+100 plain best no-DDP,,0,
+12,2f,Honeycombing,0,4,ddp_best,Best DDP,,0,
+13,2g,Pneumothorax,1,1,public_v11,Public VoxTell v1.1,0.138794000000,1,1.000000000000
+13,2g,Pneumothorax,1,2,exp009_s3v1_e100,100+100 attention,0.050731000000,0,0.000000000000
+13,2g,Pneumothorax,1,3,noddp_best,100+100 plain best no-DDP,0.072083000000,0,0.000000000000
+13,2g,Pneumothorax,1,4,ddp_best,Best DDP,0.048314000000,0,0.000000000000
+14,2h,Other,7,1,public_v11,Public VoxTell v1.1,0.047717285714,1,0.142857142857
+14,2h,Other,7,2,exp009_s3v1_e100,100+100 attention,0.243102428571,4,0.571428571429
+14,2h,Other,7,3,noddp_best,100+100 plain best no-DDP,0.233286285714,4,0.571428571429
+14,2h,Other,7,4,ddp_best,Best DDP,0.165837000000,4,0.571428571429

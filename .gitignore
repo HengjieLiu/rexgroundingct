@@ -28,3 +28,6 @@ visualization/.ipynb_checkpoints/
 visualization/outputs/
 visualization/**/*_executed.ipynb
 visualization/**/*.png
+
+# Curated val200 gallery intentionally committed through Git LFS.
+!visualization/2026-07-31_visualdev_coronal_projection/results/full_val200_mean_by_category/**/*.png

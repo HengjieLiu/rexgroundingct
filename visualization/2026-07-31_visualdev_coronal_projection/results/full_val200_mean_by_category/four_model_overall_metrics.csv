@@ -1,0 +1,5 @@
+model_order,model_key,method,training_description,finding_count,mean_dice,hit_count,hit_rate
+1,public_v11,Public VoxTell v1.1,Original pretrained model; no project epoch,381,0.225228020997,204,0.535433070866
+2,exp009_s3v1_e100,100+100 attention,"Exp009 s3v1_fixedrho_suppress_half_quarter; Exp006 e5d4 epoch 100 + continuation epoch 100 (10,000 updates)",381,0.334709467192,285,0.748031496063
+3,noddp_best,100+100 plain best no-DDP,"Exp009 baseline_cont100; Exp006 e5d4 epoch 100 + plain continuation epoch 100 (10,000 updates)",381,0.339839259843,288,0.755905511811
+4,ddp_best,Best DDP,"Exp007 weights-only DDP continuation relative epoch 50 / absolute epoch 150 (5,000 continuation updates)",381,0.346023475066,296,0.776902887139

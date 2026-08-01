@@ -1,0 +1,66 @@
+{
+  "description": "Representative fixed-val200 pilot for coronal projection visualization development.",
+  "val_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+  "cases": [
+    {
+      "reshuffled_val_index": 4,
+      "case_name": "train_18411_a_2.nii.gz",
+      "reason": "Single finding; largest case-level Dice gain for the best DDP checkpoint over the no-DDP checkpoint."
+    },
+    {
+      "reshuffled_val_index": 126,
+      "case_name": "train_18399_a_2.nii.gz",
+      "reason": "Single finding; strong no-DDP advantage over the best DDP checkpoint."
+    },
+    {
+      "reshuffled_val_index": 193,
+      "case_name": "train_19465_a_1.nii.gz",
+      "reason": "Single finding; consistently strong segmentation across public and fine-tuned checkpoints."
+    },
+    {
+      "reshuffled_val_index": 106,
+      "case_name": "train_13111_a_2.nii.gz",
+      "reason": "Single finding; consistently weak segmentation across all checkpoints."
+    },
+    {
+      "reshuffled_val_index": 1,
+      "case_name": "train_3029_a_1.nii.gz",
+      "reason": "Two findings; no-DDP advantage and part of the earlier val20 visualization set."
+    },
+    {
+      "reshuffled_val_index": 105,
+      "case_name": "train_19032_a_2.nii.gz",
+      "reason": "Two findings across two categories; substantial no-DDP advantage."
+    },
+    {
+      "reshuffled_val_index": 23,
+      "case_name": "train_1957_a_1.nii.gz",
+      "reason": "Four findings; known connected-component outlier whose category-2b figure previously had 171 rows."
+    },
+    {
+      "reshuffled_val_index": 183,
+      "case_name": "train_13013_a_1.nii.gz",
+      "reason": "Four findings across four categories; tests a dense but bounded multi-row figure."
+    },
+    {
+      "reshuffled_val_index": 98,
+      "case_name": "train_2617_b_2.nii.gz",
+      "reason": "Five findings across five categories; maximum row count and broad category coverage."
+    },
+    {
+      "reshuffled_val_index": 156,
+      "case_name": "train_18721_a_2.nii.gz",
+      "reason": "Five findings; strongest best-DDP case-level result among the five-finding cases."
+    },
+    {
+      "reshuffled_val_index": 149,
+      "case_name": "train_19923_a_2.nii.gz",
+      "reason": "Single finding; public checkpoint miss with strong fine-tuned segmentation."
+    },
+    {
+      "reshuffled_val_index": 59,
+      "case_name": "train_2550_a_2.nii.gz",
+      "reason": "Single finding with many GT components and a clear continuation gain."
+    }
+  ]
+}
