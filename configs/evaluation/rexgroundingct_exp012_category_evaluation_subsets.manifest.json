@@ -1,0 +1,100 @@
+{
+  "arms": {
+    "category_1alldiffuse_replay50": {
+      "target": {
+        "all_findings": 119,
+        "cases": 42,
+        "path": "configs/evaluation/rexgroundingct_val42_category_1alldiffuse_target_census.json",
+        "sha256": "84fef03a9e24a42e6d7d7df5bbb95c0ef5dfa876464d96ffc1aca61230f62a94",
+        "target_findings": 52
+      },
+      "target_categories": [
+        "1a",
+        "1b",
+        "1c",
+        "1d",
+        "1e",
+        "1f"
+      ],
+      "union": {
+        "all_findings": 195,
+        "cases": 80,
+        "path": "configs/evaluation/rexgroundingct_val80_category_1alldiffuse_milestone_union.json",
+        "sha256": "61048d78be0d72ff28619ebfff3efac8501dc0a6154deaa38881e26bca054faf",
+        "target_findings": 52,
+        "val80_cases": 80
+      }
+    },
+    "category_2a_replay50": {
+      "target": {
+        "all_findings": 152,
+        "cases": 63,
+        "path": "configs/evaluation/rexgroundingct_val63_category_2a_target_census.json",
+        "sha256": "999e0cb1862f9accac8b0ce882f7030362c242202d206245b3ee7e523d2de3df",
+        "target_findings": 69
+      },
+      "target_categories": [
+        "2a"
+      ],
+      "union": {
+        "all_findings": 265,
+        "cases": 114,
+        "path": "configs/evaluation/rexgroundingct_val114_category_2a_milestone_union.json",
+        "sha256": "f833231c744c7b952305ef130f806d88db43c6c5cd4465165fd782a9bc6adc36",
+        "target_findings": 69,
+        "val80_cases": 80
+      }
+    },
+    "category_2b_replay50": {
+      "target": {
+        "all_findings": 112,
+        "cases": 40,
+        "path": "configs/evaluation/rexgroundingct_val40_category_2b_target_census.json",
+        "sha256": "063b81e425d4da6db6c8dac4532d07faeea69e939c0de443b169c1a83ddf4c87",
+        "target_findings": 49
+      },
+      "target_categories": [
+        "2b"
+      ],
+      "union": {
+        "all_findings": 240,
+        "cases": 98,
+        "path": "configs/evaluation/rexgroundingct_val98_category_2b_milestone_union.json",
+        "sha256": "614511eb960054e23848ca2d6a31789df1e7fb404e7f632ed6d81bb94c115b29",
+        "target_findings": 49,
+        "val80_cases": 80
+      }
+    },
+    "category_2c_replay50": {
+      "target": {
+        "all_findings": 114,
+        "cases": 53,
+        "path": "configs/evaluation/rexgroundingct_val53_category_2c_target_census.json",
+        "sha256": "d9e01f1f20fbc3311400eecd6e90cbe45f9f228b0115962a8a1af59abb6c0b99",
+        "target_findings": 60
+      },
+      "target_categories": [
+        "2c"
+      ],
+      "union": {
+        "all_findings": 250,
+        "cases": 110,
+        "path": "configs/evaluation/rexgroundingct_val110_category_2c_milestone_union.json",
+        "sha256": "ca7e4a2128c3d77e05897063a91058ef2dc03ec097acb2b713312e5a07ce2915",
+        "target_findings": 60,
+        "val80_cases": 80
+      }
+    }
+  },
+  "command": "scripts/rexgroundingct/prepare_012_category_specialists.py --mode evaluation --evaluation-output-dir configs/evaluation",
+  "created_at_utc": "2026-08-01T21:37:52.403977+00:00",
+  "experiment": "012_voxtell_category_specialists_replay50_cont100",
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "metadata_sha256": "3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a",
+  "val200_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+  "val200_json_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+  "val80_cases": 80,
+  "val80_json": "side_experiments/sideexp001_validation_probe_design/outputs/rexgroundingct_val80_sideexp001_validation_probe_design.json",
+  "val80_json_sha256": "61048d78be0d72ff28619ebfff3efac8501dc0a6154deaa38881e26bca054faf",
+  "zero_train_validation_case_overlap": true
+}
