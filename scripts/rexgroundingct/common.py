@@ -149,6 +149,19 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
         ),
         "readiness_json": Path("config/train_val_ct_readiness.json"),
     },
+    "012_voxtell_category_specialists_replay50_cont100": {
+        "title": "VoxTell category-specialist continuation with 50% replay",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "012_voxtell_category_specialists_replay50_cont100.json"
+        ),
+        "primary_report": Path("reports/latest_progress.md"),
+        "primary_eval_json": Path(
+            "runs/latest/category_1alldiffuse_replay50/"
+            "eval_epoch100_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("runs/latest/run_group_manifest.json"),
+    },
 }
 
 

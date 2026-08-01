@@ -33,6 +33,9 @@ status: active
 - `011_voxtell_v123_e4d4_ct_normalization_ablation`: three-arm public-VoxTell
   v123 e4/d4 ablation comparing native z-score, clipped z-score, and fixed
   linear HU preprocessing.
+- `012_voxtell_category_specialists_replay50_cont100`: category-routed
+  specialist continuation from the exp009 baseline with 50% targeted and 50%
+  natural-replay updates per epoch.
 
 Do not rename experiment IDs casually. Runtime paths, configs, manifests, and
 reports depend on them.

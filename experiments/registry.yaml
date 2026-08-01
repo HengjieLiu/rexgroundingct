@@ -155,3 +155,17 @@ experiments:
     mean_global_dice_per_finding: null
     hit_rate: null
     overall_instance_f1: null
+  - id: "012_voxtell_category_specialists_replay50_cont100"
+    title: "VoxTell category-specialist continuation with 50% replay"
+    status: "active"
+    canonical_config: "configs/experiments/012_voxtell_category_specialists_replay50_cont100.json"
+    execution_spec: "experiments/012_voxtell_category_specialists_replay50_cont100/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/config/012_voxtell_category_specialists_replay50_cont100.json"
+    runtime_config_matches_canonical: true
+    repo_report: null
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/reports/latest_progress.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null

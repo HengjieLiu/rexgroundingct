@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-07-30
+updated: 2026-08-01
 status: active
 ---
 
@@ -58,6 +58,13 @@ edit.
   val20 and canonical report barrier, then resumes from full
   optimizer/scaler/RNG/sample-cursor state. Final val200 follows epoch-100
   val20.
+- `012_voxtell_category_specialists_replay50_cont100` is active in detached
+  run group `exp012_category_specialists_20260801T215219Z`. Four single-GPU
+  arms target pooled 1a--1f, 2a, 2b, and 2c with exactly 50 targeted and 50
+  shared natural-replay events per epoch. A synchronous state machine reports
+  complete target censuses at epochs `0/5/20/40/60/80`, retains fixed-val80
+  non-target diagnostics, runs val200 at epoch 100, and stops at
+  `selection_ready` before any earlier winning checkpoint receives val200.
 - The standard CPU-only training-dynamics suite is active for Exp008, Exp009,
   and Exp011. Canonical figures live under each experiment's
   `reports/training_dynamics/` directory, with the shared gallery at
@@ -200,3 +207,6 @@ edit.
 - Monitor experiment 011 e5/d4 milestone barriers through epoch 100, keep the
   training-dynamics refresher on completed reports only, then sync repo-local
   metrics and manifests after final val200 provenance is ready.
+- Monitor experiment 012 through its live milestone report. At
+  `selection_ready`, review the target-only recommendations and explicitly
+  decide whether any selected pre-100 checkpoint should receive val200.
