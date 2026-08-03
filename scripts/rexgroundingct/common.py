@@ -162,6 +162,19 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
         ),
         "readiness_json": Path("runs/latest/run_group_manifest.json"),
     },
+    "013_voxtell_public_category_only_specialists": {
+        "title": "VoxTell public-start category-only specialists",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "013_voxtell_public_category_only_specialists.json"
+        ),
+        "primary_report": Path("reports/latest_progress.md"),
+        "primary_eval_json": Path(
+            "runs/latest/category_1all_diffuse_target100/"
+            "eval_epoch100_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("runs/latest/run_group_manifest.json"),
+    },
 }
 
 

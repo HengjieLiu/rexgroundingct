@@ -169,3 +169,17 @@ experiments:
     mean_global_dice_per_finding: null
     hit_rate: null
     overall_instance_f1: null
+  - id: "013_voxtell_public_category_only_specialists"
+    title: "VoxTell public-start category-only specialists"
+    status: "active"
+    canonical_config: "configs/experiments/013_voxtell_public_category_only_specialists.json"
+    execution_spec: "experiments/013_voxtell_public_category_only_specialists/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/config/013_voxtell_public_category_only_specialists.json"
+    runtime_config_matches_canonical: true
+    repo_report: null
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/reports/latest_progress.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null

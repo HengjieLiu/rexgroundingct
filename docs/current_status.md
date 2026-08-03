@@ -65,6 +65,13 @@ edit.
   complete target censuses at epochs `0/5/20/40/60/80`, retains fixed-val80
   non-target diagnostics, runs val200 at epoch 100, and stops at
   `selection_ready` before any earlier winning checkpoint receives val200.
+- `013_voxtell_public_category_only_specialists` is being prepared as the next
+  public-start category-specialist test. Four single-GPU arms train from the
+  public VoxTell v1.1 checkpoint using 100% targeted category-only events and
+  no replay: 1a--1f, 2a--2h, 2b+2c, and 2d. The planned synchronous barriers
+  evaluate target censuses at epochs `0/20/40/60/80`, run full val200 at epoch
+  100, refresh a live report after every barrier, and stop at
+  `selection_ready`.
 - The standard CPU-only training-dynamics suite is active for Exp008, Exp009,
   and Exp011. Canonical figures live under each experiment's
   `reports/training_dynamics/` directory, with the shared gallery at
@@ -210,3 +217,6 @@ edit.
 - Monitor experiment 012 through its live milestone report. At
   `selection_ready`, review the target-only recommendations and explicitly
   decide whether any selected pre-100 checkpoint should receive val200.
+- Launch and monitor experiment 013 after its schedule, subset, smoke, and
+  dry-run gates pass. Use the target-only curves to decide whether public-start
+  specialization helps before building any routed ensemble.

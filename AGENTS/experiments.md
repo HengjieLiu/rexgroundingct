@@ -36,6 +36,8 @@ status: active
 - `012_voxtell_category_specialists_replay50_cont100`: category-routed
   specialist continuation from the exp009 baseline with 50% targeted and 50%
   natural-replay updates per epoch.
+- `013_voxtell_public_category_only_specialists`: category-only specialists
+  trained from the public VoxTell v1.1 checkpoint with no natural replay.
 
 Do not rename experiment IDs casually. Runtime paths, configs, manifests, and
 reports depend on them.

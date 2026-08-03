@@ -44,3 +44,4 @@ small summaries easy to inspect while large outputs remain on `/mnt/shengdata1`.
 | `010_voxtell_public_anatomy_prior_fusion` | `evaluation_complete` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/010_voxtell_public_anatomy_prior_fusion` |
 | `011_voxtell_v123_e4d4_ct_normalization_ablation` | `active` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation` |
 | `012_voxtell_category_specialists_replay50_cont100` | `active` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100` |
+| `013_voxtell_public_category_only_specialists` | `active` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists` |
