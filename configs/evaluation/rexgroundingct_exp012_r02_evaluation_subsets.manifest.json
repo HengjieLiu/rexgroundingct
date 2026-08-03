@@ -1,0 +1,111 @@
+{
+  "arms": {
+    "category_1alldiffuse_replay00": {
+      "target": {
+        "all_findings": 119,
+        "cases": 42,
+        "path": "configs/evaluation/rexgroundingct_val42_category_1alldiffuse_target_census.json",
+        "sha256": "84fef03a9e24a42e6d7d7df5bbb95c0ef5dfa876464d96ffc1aca61230f62a94",
+        "target_findings": 52
+      },
+      "target_categories": [
+        "1a",
+        "1b",
+        "1c",
+        "1d",
+        "1e",
+        "1f"
+      ],
+      "union": {
+        "all_findings": 195,
+        "cases": 80,
+        "path": "configs/evaluation/rexgroundingct_val80_category_1alldiffuse_milestone_union.json",
+        "sha256": "61048d78be0d72ff28619ebfff3efac8501dc0a6154deaa38881e26bca054faf",
+        "target_findings": 52,
+        "val80_cases": 80
+      }
+    },
+    "category_1alldiffuse_replay10": {
+      "target": {
+        "all_findings": 119,
+        "cases": 42,
+        "path": "configs/evaluation/rexgroundingct_val42_category_1alldiffuse_target_census.json",
+        "sha256": "84fef03a9e24a42e6d7d7df5bbb95c0ef5dfa876464d96ffc1aca61230f62a94",
+        "target_findings": 52
+      },
+      "target_categories": [
+        "1a",
+        "1b",
+        "1c",
+        "1d",
+        "1e",
+        "1f"
+      ],
+      "union": {
+        "all_findings": 195,
+        "cases": 80,
+        "path": "configs/evaluation/rexgroundingct_val80_category_1alldiffuse_milestone_union.json",
+        "sha256": "61048d78be0d72ff28619ebfff3efac8501dc0a6154deaa38881e26bca054faf",
+        "target_findings": 52,
+        "val80_cases": 80
+      }
+    },
+    "category_1alldiffuse_replay25": {
+      "target": {
+        "all_findings": 119,
+        "cases": 42,
+        "path": "configs/evaluation/rexgroundingct_val42_category_1alldiffuse_target_census.json",
+        "sha256": "84fef03a9e24a42e6d7d7df5bbb95c0ef5dfa876464d96ffc1aca61230f62a94",
+        "target_findings": 52
+      },
+      "target_categories": [
+        "1a",
+        "1b",
+        "1c",
+        "1d",
+        "1e",
+        "1f"
+      ],
+      "union": {
+        "all_findings": 195,
+        "cases": 80,
+        "path": "configs/evaluation/rexgroundingct_val80_category_1alldiffuse_milestone_union.json",
+        "sha256": "61048d78be0d72ff28619ebfff3efac8501dc0a6154deaa38881e26bca054faf",
+        "target_findings": 52,
+        "val80_cases": 80
+      }
+    },
+    "category_2d_replay50": {
+      "target": {
+        "all_findings": 237,
+        "cases": 119,
+        "path": "configs/evaluation/rexgroundingct_val119_category_2d_target_census.json",
+        "sha256": "ed1b5b7125fb3f6afa7e1d8368e292045504824a528992f3d246e5903529a8fe",
+        "target_findings": 132
+      },
+      "target_categories": [
+        "2d"
+      ],
+      "union": {
+        "all_findings": 321,
+        "cases": 160,
+        "path": "configs/evaluation/rexgroundingct_val160_category_2d_milestone_union.json",
+        "sha256": "4fbce74eed418a83a4a2f5cc3878dfea8c3d64fc221e81dd718856828d5d030b",
+        "target_findings": 132,
+        "val80_cases": 80
+      }
+    }
+  },
+  "command": "scripts/rexgroundingct/prepare_012_r02_replay_ratio.py --mode evaluation --evaluation-output-dir /tmp/exp012r02-eval.1W0VEA",
+  "created_at_utc": "2026-08-02T07:51:12.670923+00:00",
+  "experiment": "012_voxtell_category_specialists_replay50_cont100",
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "metadata_sha256": "3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a",
+  "profile": "r02_2d_diffuse_replay_ratio",
+  "val200_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+  "val200_json_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+  "val80_cases": 80,
+  "val80_json": "side_experiments/sideexp001_validation_probe_design/outputs/rexgroundingct_val80_sideexp001_validation_probe_design.json",
+  "val80_json_sha256": "61048d78be0d72ff28619ebfff3efac8501dc0a6154deaa38881e26bca054faf",
+  "zero_train_validation_case_overlap": true
+}
