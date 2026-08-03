@@ -1,0 +1,73 @@
+{
+  "arms": {
+    "category_1all_diffuse_target100": {
+      "target": {
+        "all_findings": 119,
+        "cases": 42,
+        "path": "configs/evaluation/rexgroundingct_val42_category_1all_diffuse_target_census.json",
+        "sha256": "84fef03a9e24a42e6d7d7df5bbb95c0ef5dfa876464d96ffc1aca61230f62a94",
+        "target_findings": 52
+      },
+      "target_categories": [
+        "1a",
+        "1b",
+        "1c",
+        "1d",
+        "1e",
+        "1f"
+      ]
+    },
+    "category_2all_focal_target100": {
+      "target": {
+        "all_findings": 376,
+        "cases": 196,
+        "path": "configs/evaluation/rexgroundingct_val196_category_2all_focal_target_census.json",
+        "sha256": "fb646451630f08c32716cd3548b622a7d215987a2bf6201eea01d1fe95ef52fb",
+        "target_findings": 329
+      },
+      "target_categories": [
+        "2a",
+        "2b",
+        "2c",
+        "2d",
+        "2e",
+        "2f",
+        "2g",
+        "2h"
+      ]
+    },
+    "category_2bc_target100": {
+      "target": {
+        "all_findings": 171,
+        "cases": 76,
+        "path": "configs/evaluation/rexgroundingct_val76_category_2bc_target_census.json",
+        "sha256": "b5c7c84cfc383eae46845a3a980d3821e369dda514169f706bf73cdd6180f54f",
+        "target_findings": 109
+      },
+      "target_categories": [
+        "2b",
+        "2c"
+      ]
+    },
+    "category_2d_target100": {
+      "target": {
+        "all_findings": 237,
+        "cases": 119,
+        "path": "configs/evaluation/rexgroundingct_val119_category_2d_target_census.json",
+        "sha256": "ed1b5b7125fb3f6afa7e1d8368e292045504824a528992f3d246e5903529a8fe",
+        "target_findings": 132
+      },
+      "target_categories": [
+        "2d"
+      ]
+    }
+  },
+  "command": "scripts/rexgroundingct/prepare_013_category_only_specialists.py --mode evaluation --evaluation-output-dir configs/evaluation",
+  "created_at_utc": "2026-08-03T06:09:29.587835+00:00",
+  "experiment": "013_voxtell_public_category_only_specialists",
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "metadata_sha256": "3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a",
+  "val200_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+  "val200_json_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+  "zero_train_validation_case_overlap": true
+}
