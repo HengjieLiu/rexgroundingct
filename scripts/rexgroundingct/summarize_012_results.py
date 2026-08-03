@@ -23,6 +23,12 @@ EXPECTED_BASELINES = {
     "category_2b_replay50": {"dice": 0.3568488136037182, "hits": 37, "findings": 49},
     "category_2c_replay50": {"dice": 0.3908260594251755, "hits": 50, "findings": 60},
 }
+EXPECTED_VAL80_TOTAL = {
+    "dice": 0.30867638478509457,
+    "hits": 133,
+    "findings": 195,
+    "cases": 80,
+}
 
 
 def atomic_write_text(path: Path, value: str) -> None:
@@ -89,7 +95,9 @@ def summarize_evaluation(
     eval_json: Path,
     dataset_json: Path,
     target_categories: set[str],
-    val80_names: set[str],
+    val80_finding_keys: set[tuple[str, str]],
+    *,
+    include_val80_metrics: bool = True,
 ) -> dict[str, Any]:
     records, raw_summary = evaluation_records(eval_json, dataset_json)
     by_category: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -97,7 +105,22 @@ def summarize_evaluation(
         by_category[record["category"]].append(record)
     target = [record for record in records if record["category"] in target_categories]
     non_target = [record for record in records if record["category"] not in target_categories]
-    sentinel = [record for record in non_target if record["case_name"] in val80_names]
+    val80_records: list[dict[str, Any]] = []
+    sentinel: list[dict[str, Any]] = []
+    if include_val80_metrics:
+        records_by_key = {
+            (record["case_name"], record["finding_index"]): record for record in records
+        }
+        missing = val80_finding_keys - set(records_by_key)
+        if missing:
+            examples = ", ".join(f"{case}:{index}" for case, index in sorted(missing)[:5])
+            raise ValueError(
+                f"Evaluation is missing {len(missing)} fixed-val80 findings; examples: {examples}"
+            )
+        val80_records = [records_by_key[key] for key in sorted(val80_finding_keys)]
+        sentinel = [
+            record for record in val80_records if record["category"] not in target_categories
+        ]
     return {
         "evaluation_json": str(eval_json),
         "evaluation_json_sha256": sha256_file(eval_json),
@@ -112,7 +135,8 @@ def summarize_evaluation(
         },
         "target": metric_summary(target),
         "non_target": metric_summary(non_target),
-        "sentinel_non_target": metric_summary(sentinel),
+        "val80_total": metric_summary(val80_records) if include_val80_metrics else None,
+        "sentinel_non_target": metric_summary(sentinel) if include_val80_metrics else None,
         "categories": {
             category: metric_summary(category_records)
             for category, category_records in sorted(by_category.items())
@@ -199,7 +223,12 @@ def resolve_dataset(
 
 def build_summary(args: argparse.Namespace) -> dict[str, Any]:
     subset_manifest = read_json(args.subset_manifest)
-    val80_names = {entry["name"] for entry in read_json(args.val80_json)["test"]}
+    val80 = read_json(args.val80_json)["test"]
+    val80_finding_keys = {
+        (entry["name"], str(finding_index))
+        for entry in val80
+        for finding_index in entry.get("findings", {})
+    }
     arms: dict[str, Any] = {}
     complete = True
     for arm, target_tuple in ARM_TARGETS.items():
@@ -223,10 +252,12 @@ def build_summary(args: argparse.Namespace) -> dict[str, Any]:
             if eval_json.is_file():
                 dataset = resolve_dataset(epoch, arm, subset_manifest, args.val200_json)
                 item["evaluation"] = summarize_evaluation(
-                    eval_json, dataset, set(target_tuple), val80_names
+                    eval_json,
+                    dataset,
+                    set(target_tuple),
+                    val80_finding_keys,
+                    include_val80_metrics=scope != "target",
                 )
-                if scope == "target":
-                    item["evaluation"]["sentinel_non_target"] = None
             else:
                 complete = False
             arm_milestones[str(epoch)] = item
@@ -247,7 +278,7 @@ def build_summary(args: argparse.Namespace) -> dict[str, Any]:
     if args.failure:
         status = "failed"
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "experiment": EXPERIMENT_ID,
         "run_group": args.group_dir.name,
         "group_dir": str(args.group_dir),
@@ -280,6 +311,15 @@ def target_cell(item: dict[str, Any]) -> str:
     )
 
 
+def metric_cell(metric: dict[str, Any] | None) -> str:
+    if metric is None:
+        return "pending"
+    return (
+        f"{metric['mean_global_dice_per_finding']:.4f} / "
+        f"{metric['hit_rate']:.3f} ({metric['hits']}/{metric['findings']})"
+    )
+
+
 def render_markdown(summary: dict[str, Any]) -> str:
     lines = [
         "# Exp012 Category-Specialist Progress",
@@ -304,7 +344,29 @@ def render_markdown(summary: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "## Val80 Non-target Sentinel",
+            "## Val80 Total — Cross-arm Comparable",
+            "",
+            "The same fixed 80 cases and 195 findings are used for every arm.",
+            "",
+            "| Arm | e0 | e20 | e40 | e60 | e80 | e100 |",
+            "| --- | --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for arm, arm_data in summary["arms"].items():
+        cells = []
+        for epoch in (0, 20, 40, 60, 80, 100):
+            evaluation = arm_data["milestones"][str(epoch)].get("evaluation")
+            metric = evaluation.get("val80_total") if evaluation else None
+            cells.append(metric_cell(metric))
+        lines.append(f"| `{arm}` | " + " | ".join(cells) + " |")
+
+    lines.extend(
+        [
+            "",
+            "## Val80 Non-target — Within-arm Forgetting",
+            "",
+            "Each arm excludes its own target categories, so denominators differ and rows",
+            "should be compared across epochs within an arm, not across arms.",
             "",
             "| Arm | e0 | e20 | e40 | e60 | e80 | e100 |",
             "| --- | --- | --- | --- | --- | --- | --- |",
@@ -315,11 +377,7 @@ def render_markdown(summary: dict[str, Any]) -> str:
         for epoch in (0, 20, 40, 60, 80, 100):
             evaluation = arm_data["milestones"][str(epoch)].get("evaluation")
             metric = evaluation.get("sentinel_non_target") if evaluation else None
-            cells.append(
-                "pending"
-                if metric is None
-                else f"{metric['mean_global_dice_per_finding']:.4f} / {metric['hit_rate']:.3f}"
-            )
+            cells.append(metric_cell(metric))
         lines.append(f"| `{arm}` | " + " | ".join(cells) + " |")
 
     lines.extend(
@@ -395,6 +453,7 @@ def render_markdown(summary: dict[str, Any]) -> str:
 
 def verify_epoch0(summary: dict[str, Any]) -> None:
     errors = []
+    val80_dice = []
     for arm, expected in EXPECTED_BASELINES.items():
         evaluation = summary["arms"][arm]["milestones"]["0"].get("evaluation")
         target = evaluation.get("target") if evaluation else None
@@ -405,6 +464,27 @@ def verify_epoch0(summary: dict[str, Any]) -> None:
             errors.append(f"{arm}: epoch-0 Dice mismatch")
         if int(target["hits"]) != expected["hits"] or int(target["findings"]) != expected["findings"]:
             errors.append(f"{arm}: epoch-0 hit/findings mismatch")
+        val80_total = evaluation.get("val80_total") if evaluation else None
+        if val80_total is None:
+            errors.append(f"{arm}: missing epoch-0 total-val80 metrics")
+            continue
+        val80_dice.append(float(val80_total["mean_global_dice_per_finding"]))
+        if (
+            int(val80_total["hits"]) != EXPECTED_VAL80_TOTAL["hits"]
+            or int(val80_total["findings"]) != EXPECTED_VAL80_TOTAL["findings"]
+            or int(val80_total["cases"]) != EXPECTED_VAL80_TOTAL["cases"]
+        ):
+            errors.append(f"{arm}: epoch-0 total-val80 completeness mismatch")
+        if (
+            abs(
+                float(val80_total["mean_global_dice_per_finding"])
+                - EXPECTED_VAL80_TOTAL["dice"]
+            )
+            > 1e-4
+        ):
+            errors.append(f"{arm}: epoch-0 total-val80 Dice mismatch")
+    if val80_dice and max(val80_dice) - min(val80_dice) > 1e-4:
+        errors.append("epoch-0 total-val80 Dice differs across arms by more than 1e-4")
     if errors:
         raise ValueError("; ".join(errors))
 

@@ -155,14 +155,144 @@ class Exp012EvaluationTest(unittest.TestCase):
             dataset_path.write_text(json.dumps(dataset))
             eval_path.write_text(json.dumps(evaluation))
             result = summarize_evaluation(
-                eval_path, dataset_path, {"2a"}, {"case_a.nii.gz"}
+                eval_path,
+                dataset_path,
+                {"2a"},
+                {("case_a.nii.gz", "0"), ("case_a.nii.gz", "1")},
             )
         self.assertAlmostEqual(result["target"]["mean_global_dice_per_finding"], 0.8)
         self.assertEqual(result["non_target"]["findings"], 2)
+        self.assertEqual(result["val80_total"]["findings"], 2)
+        self.assertEqual(result["val80_total"]["hits"], 1)
+        self.assertAlmostEqual(result["val80_total"]["mean_global_dice_per_finding"], 0.5)
         self.assertEqual(result["sentinel_non_target"]["findings"], 1)
         self.assertAlmostEqual(
             result["sentinel_non_target"]["mean_global_dice_per_finding"], 0.2
         )
+
+    def test_reporter_val80_uses_exact_finding_identity(self) -> None:
+        dataset = {
+            "test": [
+                {
+                    "name": "case_a.nii.gz",
+                    "findings": {"0": "target", "1": "other"},
+                    "categories": {"0": "2a", "1": "2b"},
+                }
+            ]
+        }
+        evaluation = {
+            "summary": {
+                "total_cases": 1,
+                "total_findings": 2,
+                "total_hits": 1,
+                "mean_global_dice_per_finding": 0.5,
+                "hit_rate": 0.5,
+            },
+            "cases": [
+                {
+                    "file": "case_a.nii.gz",
+                    "findings": {
+                        "finding_0": {"global_dice": 0.8, "global_hit": True},
+                        "finding_1": {"global_dice": 0.2, "global_hit": False},
+                    },
+                }
+            ],
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            dataset_path = Path(tmp) / "dataset.json"
+            eval_path = Path(tmp) / "evaluation.json"
+            dataset_path.write_text(json.dumps(dataset))
+            eval_path.write_text(json.dumps(evaluation))
+            result = summarize_evaluation(
+                eval_path,
+                dataset_path,
+                {"2a"},
+                {("case_a.nii.gz", "1")},
+            )
+        self.assertEqual(result["val80_total"]["findings"], 1)
+        self.assertAlmostEqual(result["val80_total"]["mean_global_dice_per_finding"], 0.2)
+
+    def test_reporter_rejects_missing_val80_finding(self) -> None:
+        dataset = {
+            "test": [
+                {
+                    "name": "case_a.nii.gz",
+                    "findings": {"0": "target"},
+                    "categories": {"0": "2a"},
+                }
+            ]
+        }
+        evaluation = {
+            "summary": {
+                "total_cases": 1,
+                "total_findings": 1,
+                "total_hits": 1,
+                "mean_global_dice_per_finding": 0.8,
+                "hit_rate": 1.0,
+            },
+            "cases": [
+                {
+                    "file": "case_a.nii.gz",
+                    "findings": {
+                        "finding_0": {"global_dice": 0.8, "global_hit": True}
+                    },
+                }
+            ],
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            dataset_path = Path(tmp) / "dataset.json"
+            eval_path = Path(tmp) / "evaluation.json"
+            dataset_path.write_text(json.dumps(dataset))
+            eval_path.write_text(json.dumps(evaluation))
+            with self.assertRaisesRegex(ValueError, "missing 1 fixed-val80 finding"):
+                summarize_evaluation(
+                    eval_path,
+                    dataset_path,
+                    {"2a"},
+                    {("case_a.nii.gz", "0"), ("case_a.nii.gz", "1")},
+                )
+
+    def test_target_only_evaluation_leaves_val80_metrics_pending(self) -> None:
+        dataset = {
+            "test": [
+                {
+                    "name": "case_a.nii.gz",
+                    "findings": {"0": "target"},
+                    "categories": {"0": "2a"},
+                }
+            ]
+        }
+        evaluation = {
+            "summary": {
+                "total_cases": 1,
+                "total_findings": 1,
+                "total_hits": 1,
+                "mean_global_dice_per_finding": 0.8,
+                "hit_rate": 1.0,
+            },
+            "cases": [
+                {
+                    "file": "case_a.nii.gz",
+                    "findings": {
+                        "finding_0": {"global_dice": 0.8, "global_hit": True}
+                    },
+                }
+            ],
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            dataset_path = Path(tmp) / "dataset.json"
+            eval_path = Path(tmp) / "evaluation.json"
+            dataset_path.write_text(json.dumps(dataset))
+            eval_path.write_text(json.dumps(evaluation))
+            result = summarize_evaluation(
+                eval_path,
+                dataset_path,
+                {"2a"},
+                {("not_evaluated.nii.gz", "0")},
+                include_val80_metrics=False,
+            )
+        self.assertIsNone(result["val80_total"])
+        self.assertIsNone(result["sentinel_non_target"])
 
     def test_real_validation_subsets_reproduce_audited_counts(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
