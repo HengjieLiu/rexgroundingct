@@ -10,7 +10,7 @@ import os
 import subprocess
 import sys
 import textwrap
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any
 
@@ -123,6 +123,7 @@ GT_COLOR = np.array([0.188, 0.820, 0.345, 0.58], dtype=np.float32)
 TP_COLOR = np.array([0.188, 0.820, 0.345, 0.58], dtype=np.float32)
 FP_COLOR = np.array([1.000, 0.271, 0.227, 0.62], dtype=np.float32)
 FN_COLOR = np.array([0.039, 0.518, 1.000, 0.62], dtype=np.float32)
+DEPTH_MISMATCH_COLOR = np.array([0.749, 0.353, 0.949, 0.62], dtype=np.float32)
 
 
 @dataclass(frozen=True)
@@ -334,14 +335,42 @@ def rgba_mask(mask: np.ndarray, color: np.ndarray) -> np.ndarray:
     return rgba
 
 
-def projected_error_rgba(gt_projection: np.ndarray, pred_projection: np.ndarray) -> np.ndarray:
-    rgba = np.zeros((*gt_projection.shape, 4), dtype=np.float32)
-    true_positive = gt_projection & pred_projection
-    false_positive = ~gt_projection & pred_projection
-    false_negative = gt_projection & ~pred_projection
+def coronal_projected_error_masks_xz(
+    gt_mask_ras: np.ndarray,
+    pred_mask_ras: np.ndarray,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Project voxelwise error classes along AP, preserving true TP priority."""
+    if gt_mask_ras.ndim != 3 or pred_mask_ras.ndim != 3:
+        raise ValueError(f"Expected two 3D masks, got {gt_mask_ras.shape} and {pred_mask_ras.shape}")
+    if gt_mask_ras.shape != pred_mask_ras.shape:
+        raise ValueError(f"Mask shapes must match, got {gt_mask_ras.shape} and {pred_mask_ras.shape}")
+
+    gt = gt_mask_ras > 0
+    pred = pred_mask_ras > 0
+    true_positive = np.any(gt & pred, axis=1)
+    false_positive = np.any(~gt & pred, axis=1)
+    false_negative = np.any(gt & ~pred, axis=1)
+
+    depth_mismatch = ~true_positive & false_positive & false_negative
+    projected_fp = ~true_positive & false_positive & ~false_negative
+    projected_fn = ~true_positive & ~false_positive & false_negative
+    return true_positive, projected_fp, projected_fn, depth_mismatch
+
+
+def projected_error_rgba(gt_mask_ras: np.ndarray, pred_mask_ras: np.ndarray) -> np.ndarray:
+    true_positive, false_positive, false_negative, depth_mismatch = (
+        coronal_projected_error_masks_xz(gt_mask_ras, pred_mask_ras)
+    )
+    true_positive = radiology_coronal_display(true_positive)
+    false_positive = radiology_coronal_display(false_positive)
+    false_negative = radiology_coronal_display(false_negative)
+    depth_mismatch = radiology_coronal_display(depth_mismatch)
+
+    rgba = np.zeros((*true_positive.shape, 4), dtype=np.float32)
     rgba[true_positive] = TP_COLOR
     rgba[false_positive] = FP_COLOR
     rgba[false_negative] = FN_COLOR
+    rgba[depth_mismatch] = DEPTH_MISMATCH_COLOR
     return rgba
 
 
@@ -444,9 +473,10 @@ def validate_inputs(
     metadata_index: dict[str, dict[str, Any]],
     ct_root: Path,
     seg_dir: Path,
+    model_specs: list[ModelSpec],
 ) -> list[str]:
     errors: list[str] = []
-    for model in MODEL_SPECS:
+    for model in model_specs:
         if not model.pred_dir.is_dir():
             errors.append(f"Missing prediction directory: {model.pred_dir}")
     for entry in entries:
@@ -458,7 +488,7 @@ def validate_inputs(
             errors.append(f"Missing GT: {gt_path}")
         # ct_rate_path validation is performed by load_case_arrays; dry-run keeps
         # its checks lightweight by avoiding NIfTI data loading.
-        for model in MODEL_SPECS:
+        for model in model_specs:
             pred_path = model.pred_dir / name
             if not pred_path.is_file():
                 errors.append(f"Missing {model.key} prediction: {pred_path}")
@@ -477,6 +507,7 @@ def render_case(
     center: float,
     width: float,
     dpi: int,
+    model_specs: list[ModelSpec],
     finding_ids: list[str] | None = None,
     category_code: str | None = None,
 ) -> tuple[Path, list[dict[str, Any]]]:
@@ -503,7 +534,7 @@ def render_case(
     )
     ct_display = radiology_coronal_display(ct_xz)
     row_count = len(finding_ids)
-    column_count = 2 + len(MODEL_SPECS)
+    column_count = 2 + len(model_specs)
     fig_width = 3.25 * column_count + 2.5
     fig_height = max(4.8, 2.75 * row_count + 1.2)
     fig, axes = plt.subplots(
@@ -519,7 +550,7 @@ def render_case(
     titles = [method_title, "GT mask MIP"]
     titles.extend(
         f"{model.column_title}\nval200 Dice {model.overall_dice:.4f} | hit {model.overall_hit_rate:.3f}"
-        for model in MODEL_SPECS
+        for model in model_specs
     )
     for column, title in enumerate(titles):
         axes[0, column].set_title(title, fontsize=8.5, pad=7)
@@ -569,11 +600,10 @@ def render_case(
             "gt_voxels": int(gt_mask.sum()),
         }
         record = dict(base_record)
-        for model_column, model in enumerate(MODEL_SPECS, start=2):
+        for model_column, model in enumerate(model_specs, start=2):
             pred_mask = arrays.predictions_ras[model.key][finding_index] > 0
-            pred_display = radiology_coronal_display(coronal_mask_projection_xz(pred_mask))
             axes[row, model_column].imshow(
-                projected_error_rgba(gt_display, pred_display),
+                projected_error_rgba(gt_mask, pred_mask),
                 origin="upper",
                 aspect=aspect,
             )
@@ -599,8 +629,9 @@ def render_case(
         Patch(facecolor=TP_COLOR, label="projected TP"),
         Patch(facecolor=FP_COLOR, label="projected FP"),
         Patch(facecolor=FN_COLOR, label="projected FN"),
+        Patch(facecolor=DEPTH_MISMATCH_COLOR, label="depth-disjoint FN+FP"),
     ]
-    fig.legend(handles=legend, loc="lower center", ncol=3, fontsize=8, frameon=False)
+    fig.legend(handles=legend, loc="lower center", ncol=4, fontsize=8, frameon=False)
     category_title = f" | {category_label(category_code)}" if category_code else ""
     fig.suptitle(
         (
@@ -641,6 +672,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--metadata-json", type=Path, default=DEFAULT_METADATA_JSON)
     parser.add_argument("--seg-dir", type=Path, default=DEFAULT_SEG_DIR)
     parser.add_argument("--ct-root", type=Path, default=DEFAULT_CT_ROOT)
+    parser.add_argument("--public-pred-dir", type=Path, default=PUBLIC_PRED_DIR)
+    parser.add_argument("--attention-pred-dir", type=Path, default=EXP009_ATTENTION_DIR)
+    parser.add_argument("--noddp-pred-dir", type=Path, default=NODDP_BEST_DIR)
+    parser.add_argument("--ddp-pred-dir", type=Path, default=DDP_BEST_DIR)
     parser.add_argument("--projection-methods", nargs="+", choices=("p75", "mean"))
     parser.add_argument("--percentile", type=float, default=75.0)
     parser.add_argument("--window-center", type=float, default=LUNG_WINDOW_CENTER)
@@ -657,6 +692,15 @@ def parse_args() -> argparse.Namespace:
     return args
 
 
+def model_specs_from_args(args: argparse.Namespace) -> list[ModelSpec]:
+    return [
+        replace(MODEL_SPECS[0], pred_dir=args.public_pred_dir),
+        replace(MODEL_SPECS[1], pred_dir=args.attention_pred_dir),
+        replace(MODEL_SPECS[2], pred_dir=args.noddp_pred_dir),
+        replace(MODEL_SPECS[3], pred_dir=args.ddp_pred_dir),
+    ]
+
+
 def orientation_record(entry: dict[str, Any], arrays: Any) -> dict[str, Any]:
     return {
         "reshuffled_val_index": entry["reshuffled_val_index"],
@@ -667,7 +711,7 @@ def orientation_record(entry: dict[str, Any], arrays: Any) -> dict[str, Any]:
     }
 
 
-def model_manifest_records() -> list[dict[str, Any]]:
+def model_manifest_records(model_specs: list[ModelSpec]) -> list[dict[str, Any]]:
     return [
         {
             "key": model.key,
@@ -681,7 +725,7 @@ def model_manifest_records() -> list[dict[str, Any]]:
             "overall_val200_hit_rate": model.overall_hit_rate,
             "lineage": model.lineage,
         }
-        for model in MODEL_SPECS
+        for model in model_specs
     ]
 
 
@@ -692,6 +736,7 @@ def write_dataframe_artifacts(df: pd.DataFrame, csv_path: Path, markdown_path: P
 
 def main() -> None:
     args = parse_args()
+    model_specs = model_specs_from_args(args)
     pilot_config: dict[str, Any] | None = None
     if args.mode == PILOT_MODE:
         pilot_config, entries = load_pilot_cases(args.pilot_config, args.val_json)
@@ -699,7 +744,7 @@ def main() -> None:
         entries = load_full_val_cases(args.val_json)
 
     metadata_index = load_metadata_index(args.metadata_json)
-    input_errors = validate_inputs(entries, metadata_index, args.ct_root, args.seg_dir)
+    input_errors = validate_inputs(entries, metadata_index, args.ct_root, args.seg_dir, model_specs)
     if input_errors:
         raise FileNotFoundError("\n".join(input_errors))
 
@@ -709,7 +754,7 @@ def main() -> None:
         category_case_index = build_category_case_index(entries, metadata_index, args.output_dir)
         print(
             f"validated {len(entries)} val200 cases, {finding_count} findings, "
-            f"{len(category_case_index)} category figures, and {len(MODEL_SPECS)} prediction sets"
+            f"{len(category_case_index)} category figures, and {len(model_specs)} prediction sets"
         )
         for category_code in OFFICIAL_CATEGORY_CODES:
             records = [record for record in category_case_index if record["category"] == category_code]
@@ -718,7 +763,7 @@ def main() -> None:
                 f"findings={sum(record['finding_count'] for record in records)}"
             )
     else:
-        print(f"validated {len(entries)} pilot cases and {len(MODEL_SPECS)} prediction sets")
+        print(f"validated {len(entries)} pilot cases and {len(model_specs)} prediction sets")
         for entry in entries:
             print(
                 f"val {entry['reshuffled_val_index']:03d} {entry['name']} | "
@@ -733,7 +778,7 @@ def main() -> None:
         for category_code in OFFICIAL_CATEGORY_CODES:
             (args.output_dir / category_directory_name(category_code)).mkdir(parents=True, exist_ok=True)
 
-    prediction_specs = [model.prediction_spec() for model in MODEL_SPECS]
+    prediction_specs = [model.prediction_spec() for model in model_specs]
     all_records: list[dict[str, Any]] = []
     figure_paths: list[Path] = []
     case_orientations: list[dict[str, Any]] = []
@@ -765,6 +810,7 @@ def main() -> None:
                     center=args.window_center,
                     width=args.window_width,
                     dpi=args.dpi,
+                    model_specs=model_specs,
                     finding_ids=finding_ids,
                     category_code=category_record["category"],
                 )
@@ -787,6 +833,7 @@ def main() -> None:
                     center=args.window_center,
                     width=args.window_width,
                     dpi=args.dpi,
+                    model_specs=model_specs,
                 )
                 figure_paths.append(figure_path)
                 if case_records is None:
@@ -874,15 +921,23 @@ def main() -> None:
             "screen_left": "patient right",
             "screen_right": "patient left",
         },
-        "models": model_manifest_records(),
+        "models": model_manifest_records(model_specs),
         "selected_cases": entries,
         "case_orientations": case_orientations,
         "figure_paths": [str(path) for path in figure_paths],
         "figure_paths_host_alias": [str(host_path_alias(path)) for path in figure_paths],
         "metric_table": str(metrics_csv),
         "projected_metric_caveat": (
-            "Colors describe overlap after projection, but all displayed Dice values are computed in 3D."
+            "Colors are projected after voxelwise 3D TP/FP/FN classification. Purple marks rays "
+            "with FN and FP at different AP depths but no voxelwise TP. All displayed Dice values "
+            "are computed in 3D."
         ),
+        "projected_error_colors": {
+            "green": "ray contains any real voxelwise TP",
+            "red": "ray contains FP only and no voxelwise TP",
+            "blue": "ray contains FN only and no voxelwise TP",
+            "purple": "ray contains both FN and FP at different AP depths but no voxelwise TP",
+        },
     }
     if pilot_config is not None:
         manifest["pilot_config"] = str(args.pilot_config.resolve())

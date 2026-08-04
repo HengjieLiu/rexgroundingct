@@ -9,14 +9,19 @@ from pathlib import Path
 import numpy as np
 
 from coronal_projection import (
+    DEPTH_MISMATCH_COLOR,
+    FN_COLOR,
+    FP_COLOR,
     MODEL_SPECS,
     OFFICIAL_CATEGORY_CODES,
+    TP_COLOR,
     VAL200_CATEGORY_MODE,
     category_directory_name,
     category_figure_path,
     coronal_ct_projection_xz,
     coronal_mask_projection_xz,
     finding_ids_by_category,
+    projected_error_rgba,
     radiology_coronal_display,
     resolve_projection_methods,
 )
@@ -83,6 +88,41 @@ class CoronalProjectionTests(unittest.TestCase):
         self.assertTrue(projected[0, 2])
         self.assertTrue(projected[2, 4])
         self.assertEqual(int(projected.sum()), 2)
+
+    def test_projected_error_rgba_colors_tp_only_ray_green(self) -> None:
+        gt = np.zeros((1, 3, 1), dtype=np.uint8)
+        pred = np.zeros_like(gt)
+        gt[0, 1, 0] = 1
+        pred[0, 1, 0] = 1
+        np.testing.assert_allclose(projected_error_rgba(gt, pred)[0, 0], TP_COLOR)
+
+    def test_projected_error_rgba_colors_fp_only_ray_red(self) -> None:
+        gt = np.zeros((1, 3, 1), dtype=np.uint8)
+        pred = np.zeros_like(gt)
+        pred[0, 1, 0] = 1
+        np.testing.assert_allclose(projected_error_rgba(gt, pred)[0, 0], FP_COLOR)
+
+    def test_projected_error_rgba_colors_fn_only_ray_blue(self) -> None:
+        gt = np.zeros((1, 3, 1), dtype=np.uint8)
+        pred = np.zeros_like(gt)
+        gt[0, 1, 0] = 1
+        np.testing.assert_allclose(projected_error_rgba(gt, pred)[0, 0], FN_COLOR)
+
+    def test_projected_error_rgba_colors_depth_disjoint_fn_fp_ray_purple(self) -> None:
+        gt = np.zeros((1, 3, 1), dtype=np.uint8)
+        pred = np.zeros_like(gt)
+        gt[0, 0, 0] = 1
+        pred[0, 2, 0] = 1
+        np.testing.assert_allclose(projected_error_rgba(gt, pred)[0, 0], DEPTH_MISMATCH_COLOR)
+
+    def test_projected_error_rgba_keeps_real_tp_green_with_ap_offset_errors(self) -> None:
+        gt = np.zeros((1, 4, 1), dtype=np.uint8)
+        pred = np.zeros_like(gt)
+        gt[0, 0, 0] = 1
+        gt[0, 1, 0] = 1
+        pred[0, 1, 0] = 1
+        pred[0, 2, 0] = 1
+        np.testing.assert_allclose(projected_error_rgba(gt, pred)[0, 0], TP_COLOR)
 
     def test_radiology_display_has_superior_up_and_patient_right_left(self) -> None:
         # RAS X increases toward patient right and Z increases toward superior.

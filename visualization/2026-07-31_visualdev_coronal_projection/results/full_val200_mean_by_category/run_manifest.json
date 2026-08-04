@@ -6416,11 +6416,17 @@
   "organization": "official ReX category, then fixed validation index",
   "output_dir": "/database/datasets/rexgroundingct/visualizations/2026-07-31_visualdev_coronal_projection/full_val200_mean_by_category",
   "output_dir_host_alias": "/data/hengjie/datasets/rexgroundingct/visualizations/2026-07-31_visualdev_coronal_projection/full_val200_mean_by_category",
-  "projected_metric_caveat": "Colors describe overlap after projection, but all displayed Dice values are computed in 3D.",
+  "projected_error_colors": {
+    "blue": "ray contains FN only and no voxelwise TP",
+    "green": "ray contains any real voxelwise TP",
+    "purple": "ray contains both FN and FP at different AP depths but no voxelwise TP",
+    "red": "ray contains FP only and no voxelwise TP"
+  },
+  "projected_metric_caveat": "Colors are projected after voxelwise 3D TP/FP/FN classification. Purple marks rays with FN and FP at different AP depths but no voxelwise TP. All displayed Dice values are computed in 3D.",
   "projection_methods": [
     "mean"
   ],
-  "repo_commit": "827f962c3cfee117b6442b74653c752ed36f296c",
+  "repo_commit": null,
   "script": "/workspace/visualization/2026-07-31_visualdev_coronal_projection/coronal_projection.py",
   "seg_dir": "/database/datasets/rexgroundingct/segmentations",
   "selected_cases": [

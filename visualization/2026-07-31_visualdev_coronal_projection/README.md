@@ -46,6 +46,22 @@ inference.
   structures at different anterior-posterior depths can overlap after
   projection.
 
+## Color Definition
+
+> [!IMPORTANT]
+> Prediction overlay colors are assigned per anterior-posterior projection ray
+> after voxelwise 3D TP/FP/FN classification. Green wins whenever the ray
+> contains any real voxelwise TP, so slight anterior-posterior over- or
+> under-segmentation still shows overlap. Purple marks rays where FN and FP
+> both occur at different anterior-posterior depths but no voxel overlaps.
+
+| Color | Meaning |
+| --- | --- |
+| Green | Ray contains any real voxelwise TP, `gt & pred` |
+| Red | No TP; ray contains FP only |
+| Blue | No TP; ray contains FN only |
+| Purple | No TP; ray contains depth-disjoint FN+FP |
+
 ## Layout
 
 Each case produces one PNG per CT projection method. Each row is one finding,
@@ -58,8 +74,52 @@ so the fixed val200 set yields one to five rows per case. Columns are:
 5. 100+100 plain: best no-DDP Exp009 continuation epoch 100, update 10,000
 6. Best DDP: continuation relative epoch 50 / absolute epoch 150, update 5,000
 
-Prediction panels show projected true-positive regions in green,
-false-positive regions in red, and false-negative regions in blue.
+Prediction panels use the four-color rule above and include the same legend in
+every rendered figure.
+
+## Reproducibility
+
+All renderer and packaging code lives in this folder, so another clone can
+regenerate the gallery without notebook state or `/tmp` helper scripts. The
+required inputs are:
+
+- the fixed val200 JSON, default
+  `configs/evaluation/rexgroundingct_val200_seed20260723.json`;
+- MICCAI metadata, default
+  `/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json`;
+- GT segmentations, default
+  `/data/hengjie/datasets/rexgroundingct/segmentations`;
+- CT volumes, default
+  `/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct`;
+- four prediction directories for public VoxTell v1.1, 100+100 attention,
+  100+100 plain, and Best DDP.
+
+The renderer writes outside Git by default:
+
+```text
+Docker: /database/datasets/rexgroundingct/visualizations/
+Host:   /data/hengjie/datasets/rexgroundingct/visualizations/
+```
+
+Set `REXGROUNDINGCT_VISUALIZATION_ROOT` to change the visualization root, or
+pass `--output-dir` to choose the exact destination. If local data or
+prediction mounts differ from the defaults, pass the corresponding `--val-json`,
+`--metadata-json`, `--seg-dir`, `--ct-root`, or `--*-pred-dir` arguments.
+
+Regenerate the full val200 mean gallery from the repository root:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python \
+  visualization/2026-07-31_visualdev_coronal_projection/coronal_projection.py \
+  --mode val200-by-category
+```
+
+Then refresh the committed package:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python \
+  visualization/2026-07-31_visualdev_coronal_projection/package_results.py
+```
 
 ## Pilot
 

@@ -21,6 +21,23 @@ A hit is a finding with 3D Dice greater than or equal to `0.1`.
 | 3 | 100+100 plain best no-DDP | 0.356849 | 37/49 | 75.51% |
 | 4 | Best DDP | 0.357690 | 38/49 | 77.55% |
 
+## Color Definition
+
+> [!IMPORTANT]
+> Prediction overlay colors are assigned per AP projection ray after voxelwise
+> 3D TP/FP/FN classification. Green wins whenever the ray contains any real
+> voxelwise TP, so slight AP over/under-segmentation still shows overlap.
+> Purple marks rays where FN and FP both occur at different AP depths but no
+> voxel overlaps.
+
+| Color | Meaning |
+| --- | --- |
+| Green | Ray contains any real voxelwise TP, `gt & pred` |
+| Red | No TP; ray contains FP only |
+| Blue | No TP; ray contains FN only |
+| Purple | No TP; ray contains depth-disjoint FN+FP |
+
+
 ## Figures (40)
 
 Figures are sorted by fixed validation index. Each figure shows only

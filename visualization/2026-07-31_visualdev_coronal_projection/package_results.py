@@ -131,6 +131,22 @@ MODEL_DEFINITIONS = (
     },
 )
 MODEL_KEYS = tuple(model["key"] for model in MODEL_DEFINITIONS)
+COLOR_DEFINITION_SECTION = """## Color Definition
+
+> [!IMPORTANT]
+> Prediction overlay colors are assigned per AP projection ray after voxelwise
+> 3D TP/FP/FN classification. Green wins whenever the ray contains any real
+> voxelwise TP, so slight AP over/under-segmentation still shows overlap.
+> Purple marks rays where FN and FP both occur at different AP depths but no
+> voxel overlaps.
+
+| Color | Meaning |
+| --- | --- |
+| Green | Ray contains any real voxelwise TP, `gt & pred` |
+| Red | No TP; ray contains FP only |
+| Blue | No TP; ray contains FN only |
+| Purple | No TP; ray contains depth-disjoint FN+FP |
+"""
 VAL_FILENAME_RE = re.compile(r"^val(?P<index>\d{3})_.+\.png$")
 MARKDOWN_LINK_RE = re.compile(r"(?:!\[[^\]]*\]|\[[^\]]+\])\(([^)]+)\)")
 MARKDOWN_IMAGE_RE = re.compile(r"!\[[^\]]*\]\(([^)]+\.png)\)")
@@ -568,6 +584,8 @@ Radiology orientation is fixed throughout: superior is up and patient right is
 on screen left. Each case/category figure contains only that category's
 findings and has at most three finding rows.
 
+{COLOR_DEFINITION_SECTION}
+
 ## Dataset category distribution
 
 Counts and percentages are finding-level within each split. Case totals are
@@ -675,6 +693,8 @@ def build_category_readme(context: PackageContext, code: str) -> str:
         "A hit is a finding with 3D Dice greater than or equal to `0.1`.",
         "",
         metric_table,
+        "",
+        COLOR_DEFINITION_SECTION,
         "",
         f"## Figures ({len(pngs)})",
         "",

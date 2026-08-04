@@ -7,6 +7,7 @@ import unittest
 from pathlib import Path
 
 from package_results import (
+    COLOR_DEFINITION_SECTION,
     CATEGORY_CODES,
     CATEGORY_DIRECTORIES,
     CATEGORY_FIGURE_COUNTS,
@@ -17,6 +18,7 @@ from package_results import (
     MODEL_KEYS,
     PackageContext,
     batch_items,
+    build_overview,
     build_category_readme,
     category_directory,
     load_context,
@@ -117,8 +119,47 @@ class PackageResultsTests(unittest.TestCase):
         readme = build_category_readme(context, "2f")
         self.assertIn("gallery intentionally contains zero PNGs", readme)
         self.assertIn("training split has 16", readme)
+        self.assertIn("depth-disjoint FN+FP", readme)
+        self.assertIn(COLOR_DEFINITION_SECTION, readme)
         self.assertNotIn("<details>", readme)
         self.assertNotIn("![", readme)
+
+    def test_overview_readme_includes_projection_color_definition(self) -> None:
+        split_rows = {
+            code: {
+                "train_count": "16" if code == "2f" else "1",
+                "train_ratio": "0.002",
+                "validation_count": "0" if code == "2f" else "1",
+                "validation_ratio": "0.0" if code == "2f" else "0.01",
+                "test_count": "0" if code == "2f" else "1",
+                "test_ratio": "0.0" if code == "2f" else "0.01",
+            }
+            for code in CATEGORY_CODES
+        }
+        finding_rows = []
+        for code in CATEGORY_CODES:
+            if code == "2f":
+                continue
+            row = {"category": code}
+            for key in MODEL_KEYS:
+                row[f"{key}_dice"] = "0.2"
+                row[f"{key}_hit"] = "True"
+            finding_rows.append(row)
+        overall, by_category = summarize_metrics(finding_rows)
+        context = PackageContext(
+            source=Path("/source"),
+            manifest={},
+            finding_rows=finding_rows,
+            category_index_rows=[],
+            split_rows=split_rows,
+            split_summaries={},
+            source_pngs={code: tuple() for code in CATEGORY_CODES},
+            overall_rows=overall,
+            category_metric_rows=by_category,
+        )
+        readme = build_overview(context)
+        self.assertIn("depth-disjoint FN+FP", readme)
+        self.assertIn(COLOR_DEFINITION_SECTION, readme)
 
     @unittest.skipUnless(
         DEFAULT_SOURCE.is_dir()

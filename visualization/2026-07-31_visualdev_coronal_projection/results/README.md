@@ -10,6 +10,23 @@ Radiology orientation is fixed throughout: superior is up and patient right is
 on screen left. Each case/category figure contains only that category's
 findings and has at most three finding rows.
 
+## Color Definition
+
+> [!IMPORTANT]
+> Prediction overlay colors are assigned per AP projection ray after voxelwise
+> 3D TP/FP/FN classification. Green wins whenever the ray contains any real
+> voxelwise TP, so slight AP over/under-segmentation still shows overlap.
+> Purple marks rays where FN and FP both occur at different AP depths but no
+> voxel overlaps.
+
+| Color | Meaning |
+| --- | --- |
+| Green | Ray contains any real voxelwise TP, `gt & pred` |
+| Red | No TP; ray contains FP only |
+| Blue | No TP; ray contains FN only |
+| Purple | No TP; ray contains depth-disjoint FN+FP |
+
+
 ## Dataset category distribution
 
 Counts and percentages are finding-level within each split. Case totals are
