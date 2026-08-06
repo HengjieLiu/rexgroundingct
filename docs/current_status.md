@@ -72,6 +72,12 @@ edit.
   evaluate target censuses at epochs `0/20/40/60/80`, run full val200 at epoch
   100, refresh a live report after every barrier, and stop at
   `selection_ready`.
+- `014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched` is being
+  prepared as the DDP effective batch-size-16 follow-up to exp007. It keeps the
+  cached-native v123 e5/d4 recipe and public VoxTell v1.1 initialization, uses
+  local batch `1`, DDP world size `4`, gradient accumulation `4`, and planned
+  synchronous val200 barriers at epochs `25/50/75/100`. The full run should not
+  launch until smoke outputs are reviewed and approved.
 - The standard CPU-only training-dynamics suite is active for Exp008, Exp009,
   and Exp011. Canonical figures live under each experiment's
   `reports/training_dynamics/` directory, with the shared gallery at
@@ -162,6 +168,11 @@ edit.
   planned barriers are relative epochs `25/50/75/100`, labeled as absolute
   exp007 epochs `125/150/175/200`, each followed by fixed val200 evaluation on
   all four GPUs before training resumes.
+- Experiment 014 should use DDP world size 4, per-GPU batch 1, gradient
+  accumulation 4, and effective batch 16. DDP accumulation uses `no_sync` on
+  non-final accumulation microsteps, and the launcher should resume from the
+  highest valid stable checkpoint below the next target update so mid-segment
+  kills do not force rollback to the previous val200 barrier.
 - Experiment 008 epoch-0 val20 preserved hit rate exactly at `23 / 31`.
   Independent mixed-precision sliding-window runs differed from the stored
   Exp006 Dice by at most `3.2e-5`, despite bitwise same-patch logit identity.
@@ -220,3 +231,5 @@ edit.
 - Launch and monitor experiment 013 after its schedule, subset, smoke, and
   dry-run gates pass. Use the target-only curves to decide whether public-start
   specialization helps before building any routed ensemble.
+- Review experiment 014 smoke outputs. If accepted, launch the full 100-epoch
+  DDP bs16 run with synchronous val200 barriers at epochs `25/50/75/100`.

@@ -1,6 +1,6 @@
 ---
 created: 2026-07-22
-updated: 2026-07-22
+updated: 2026-08-03
 status: active
 ---
 
@@ -38,6 +38,9 @@ status: active
   natural-replay updates per epoch.
 - `013_voxtell_public_category_only_specialists`: category-only specialists
   trained from the public VoxTell v1.1 checkpoint with no natural replay.
+- `014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched`:
+  cached-native v123 e5/d4 DDP effective global-batch-16 run with
+  pause/eval/resume val200 checkpoints.
 
 Do not rename experiment IDs casually. Runtime paths, configs, manifests, and
 reports depend on them.

@@ -175,6 +175,18 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
         ),
         "readiness_json": Path("runs/latest/run_group_manifest.json"),
     },
+    "014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched": {
+        "title": "VoxTell cached-native v123 e5/d4 DDP batch16 update-matched run",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched.json"
+        ),
+        "primary_report": Path("reports/ddp_bs16_update_matched_report.md"),
+        "primary_eval_json": Path(
+            "runs/latest/ddp_bs16/eval_epoch100_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("config/train_val_ct_readiness.json"),
+    },
 }
 
 
