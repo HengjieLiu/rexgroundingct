@@ -183,3 +183,17 @@ experiments:
     mean_global_dice_per_finding: null
     hit_rate: null
     overall_instance_f1: null
+  - id: "014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched"
+    title: "VoxTell cached-native v123 e5/d4 DDP batch16 update-matched run"
+    status: "runtime_initialized"
+    canonical_config: "configs/experiments/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched.json"
+    execution_spec: "experiments/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched/config/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched.json"
+    runtime_config_matches_canonical: true
+    repo_report: "experiments/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched/report.md"
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched/reports/ddp_bs16_update_matched_report.md"
+    repo_metrics: "experiments/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched/metrics_summary.json"
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null

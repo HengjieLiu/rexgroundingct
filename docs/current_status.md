@@ -72,12 +72,13 @@ edit.
   evaluate target censuses at epochs `0/20/40/60/80`, run full val200 at epoch
   100, refresh a live report after every barrier, and stop at
   `selection_ready`.
-- `014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched` is being
-  prepared as the DDP effective batch-size-16 follow-up to exp007. It keeps the
+- `014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched` is active as
+  the DDP effective batch-size-16 follow-up to exp007 in run group
+  `exp014_ddp_bs16_update_matched_20260804T051845Z`. It keeps the
   cached-native v123 e5/d4 recipe and public VoxTell v1.1 initialization, uses
-  local batch `1`, DDP world size `4`, gradient accumulation `4`, and planned
-  synchronous val200 barriers at epochs `25/50/75/100`. The full run should not
-  launch until smoke outputs are reviewed and approved.
+  local batch `1`, DDP world size `4`, gradient accumulation `4`, and has
+  completed val200 barriers through epoch 75. The epoch-75 val200 report shows
+  Dice `0.3258`, hit rate `0.7559`; epoch 100 remains pending.
 - The standard CPU-only training-dynamics suite is active for Exp008, Exp009,
   and Exp011. Canonical figures live under each experiment's
   `reports/training_dynamics/` directory, with the shared gallery at
@@ -231,5 +232,5 @@ edit.
 - Launch and monitor experiment 013 after its schedule, subset, smoke, and
   dry-run gates pass. Use the target-only curves to decide whether public-start
   specialization helps before building any routed ensemble.
-- Review experiment 014 smoke outputs. If accepted, launch the full 100-epoch
-  DDP bs16 run with synchronous val200 barriers at epochs `25/50/75/100`.
+- Monitor experiment 014 through epoch 100, then compare its sample-matched
+  epoch-25 and update-matched epoch-100 val200 results against exp007 DDP bs4.
