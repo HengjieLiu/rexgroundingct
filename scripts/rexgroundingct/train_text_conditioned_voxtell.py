@@ -10,6 +10,7 @@ and the ReXGroundingCT orientation fix applied before patch sampling.
 from __future__ import annotations
 
 import argparse
+import contextlib
 import json
 import os
 import random
@@ -1522,7 +1523,7 @@ def run_optimizer_update(
                 int(args.s3_coupling_ramp_updates),
             ),
         )
-    for _ in range(grad_accum):
+    for accum_step in range(grad_accum):
         images, targets, text_embeddings, batch_stats = make_batch(
             sampler=sampler,
             batch_size=batch_size,
@@ -1530,38 +1531,49 @@ def run_optimizer_update(
             device=device,
         )
         stats.update(batch_stats)
-        with torch.autocast(device.type, enabled=device.type == "cuda" and amp):
-            if is_dual_branch_model(network):
-                outputs = network(images, text_embeddings, return_branches=True)
-                loss, components = dual_branch_loss(
-                    outputs,
-                    targets,
-                    args,
-                    network,
-                )
-                for name, value in components.items():
-                    component_values.setdefault(name, []).append(float(value))
-            elif is_s3_attention_model(network):
-                outputs = network(images, text_embeddings)
-                base_loss = deep_supervision_loss(outputs, targets, args)
-                aux_loss, components = s3_attention_auxiliary_loss(
-                    network,
-                    targets,
-                    args,
-                )
-                loss = base_loss + aux_loss
-                component_values.setdefault("s3_base_v123", []).append(
-                    float(base_loss.detach().cpu())
-                )
-                for name, value in components.items():
-                    component_values.setdefault(name, []).append(float(value))
-                for name, value in s3_attention_stats(network).items():
-                    component_values.setdefault(name, []).append(float(value))
-            else:
-                outputs = network(images, text_embeddings)
-                loss = deep_supervision_loss(outputs, targets, args)
-            scaled_loss = loss / grad_accum
-        scaler.scale(scaled_loss).backward()
+        should_defer_ddp_sync = (
+            accum_step < grad_accum - 1
+            and dist.is_available()
+            and dist.is_initialized()
+            and dist.get_world_size() > 1
+            and hasattr(network, "no_sync")
+        )
+        sync_context = (
+            network.no_sync() if should_defer_ddp_sync else contextlib.nullcontext()
+        )
+        with sync_context:
+            with torch.autocast(device.type, enabled=device.type == "cuda" and amp):
+                if is_dual_branch_model(network):
+                    outputs = network(images, text_embeddings, return_branches=True)
+                    loss, components = dual_branch_loss(
+                        outputs,
+                        targets,
+                        args,
+                        network,
+                    )
+                    for name, value in components.items():
+                        component_values.setdefault(name, []).append(float(value))
+                elif is_s3_attention_model(network):
+                    outputs = network(images, text_embeddings)
+                    base_loss = deep_supervision_loss(outputs, targets, args)
+                    aux_loss, components = s3_attention_auxiliary_loss(
+                        network,
+                        targets,
+                        args,
+                    )
+                    loss = base_loss + aux_loss
+                    component_values.setdefault("s3_base_v123", []).append(
+                        float(base_loss.detach().cpu())
+                    )
+                    for name, value in components.items():
+                        component_values.setdefault(name, []).append(float(value))
+                    for name, value in s3_attention_stats(network).items():
+                        component_values.setdefault(name, []).append(float(value))
+                else:
+                    outputs = network(images, text_embeddings)
+                    loss = deep_supervision_loss(outputs, targets, args)
+                scaled_loss = loss / grad_accum
+            scaler.scale(scaled_loss).backward()
         loss_values.append(float(loss.detach().cpu()))
     grad_norm = None
     if (
