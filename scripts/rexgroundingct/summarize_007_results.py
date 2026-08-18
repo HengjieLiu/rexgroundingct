@@ -296,6 +296,27 @@ def main() -> int:
     parser.add_argument("--group-dir", type=Path, required=True)
     parser.add_argument("--output-json", type=Path, required=True)
     parser.add_argument("--output-md", type=Path, required=True)
+    parser.add_argument(
+        "--experiment-id",
+        default="007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+    )
+    parser.add_argument(
+        "--report-title",
+        default="Experiment 007 DDP Batch4 Update-Matched Report",
+    )
+    parser.add_argument("--training-label", default="exp007_ddp_bs4_e5_d4")
+    parser.add_argument(
+        "--training-time-note",
+        default=(
+            "Training time excludes validation pauses between exp007 segments."
+        ),
+    )
+    parser.add_argument(
+        "--checkpoint-role",
+        action="append",
+        default=[],
+        help="epoch=description role override for the Val200 progress table",
+    )
     parser.add_argument("--reference", action="append", default=[], help="label=/path/to/summary.json")
     parser.add_argument(
         "--reference-training",
@@ -326,7 +347,7 @@ def main() -> int:
         reference_trainings[label] = training_row(arm_dir_from_training_metrics(Path(path)))
 
     payload = {
-        "experiment": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+        "experiment": args.experiment_id,
         "exp_dir": str(args.exp_dir),
         "group_dir": str(args.group_dir),
         "training": training_row(arm_dir),
@@ -340,7 +361,7 @@ def main() -> int:
     write_json(args.output_json, payload)
 
     lines = [
-        "# Experiment 007 DDP Batch4 Update-Matched Report",
+        f"# {args.report_title}",
         "",
         f"Run group: `{args.group_dir.name}`",
         "",
@@ -355,6 +376,9 @@ def main() -> int:
         75: "intermediate",
         100: "update-matched to exp006 epoch100",
     }
+    for item in args.checkpoint_role:
+        epoch, role = item.split("=", 1)
+        roles[int(epoch)] = role
     for epoch in EPOCHS:
         metric = val200[str(epoch)]
         lines.append(
@@ -395,7 +419,7 @@ def main() -> int:
         ]
     )
 
-    training_models = {"exp007_ddp_bs4_e5_d4": training}
+    training_models = {args.training_label: training}
     training_models.update(payload["reference_trainings"])
     if training_models:
         lines.extend(
@@ -403,7 +427,7 @@ def main() -> int:
                 "",
                 "## Training Time",
                 "",
-                "Training time excludes validation pauses between exp007 segments.",
+                args.training_time_note,
                 "Model-level training time uses training-script elapsed timers. Checkpoint rows use cumulative update timers plus checkpoint mtimes, because exp006 did not emit separate elapsed metrics at every checkpoint.",
                 "",
                 "| Model | Global batch | Updates | Effective samples | Training time | Sec/update | Samples/sec | Peak allocated GiB |",

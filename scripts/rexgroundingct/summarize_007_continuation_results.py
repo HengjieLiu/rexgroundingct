@@ -35,6 +35,17 @@ def source_checkpoint_record(path: Path) -> dict[str, Any]:
     }
 
 
+def file_record(path: Path) -> dict[str, Any]:
+    if not path.is_file():
+        return {"path": str(path), "exists": False}
+    return {
+        "path": str(path),
+        "exists": True,
+        "sha256": sha256_file(path),
+        "bytes": path.stat().st_size,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--exp-dir", type=Path, required=True)
@@ -42,6 +53,21 @@ def main() -> int:
     parser.add_argument("--source-run-dir", type=Path, required=True)
     parser.add_argument("--source-checkpoint", type=Path, required=True)
     parser.add_argument("--absolute-epoch-offset", type=int, default=100)
+    parser.add_argument(
+        "--experiment-id",
+        default="007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+    )
+    parser.add_argument(
+        "--report-title",
+        default="Experiment 007 DDP Batch4 Continuation Report",
+    )
+    parser.add_argument("--training-label", default=None)
+    parser.add_argument("--run-type", default="continue100_from_ddp_epoch100")
+    parser.add_argument(
+        "--continuation-policy",
+        default="weights_only_init_checkpoint_fresh_optimizer_scaler_warmup_poly_10000_updates",
+    )
+    parser.add_argument("--schedule-manifest", type=Path, default=None)
     parser.add_argument("--output-json", type=Path, required=True)
     parser.add_argument("--output-md", type=Path, required=True)
     parser.add_argument("--reference", action="append", default=[], help="label=/path/to/summary.json")
@@ -74,14 +100,19 @@ def main() -> int:
         reference_trainings[label] = training_row(arm_dir_from_training_metrics(Path(path)))
 
     payload = {
-        "experiment": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
-        "run_type": "continue100_from_ddp_epoch100",
+        "experiment": args.experiment_id,
+        "run_type": args.run_type,
         "exp_dir": str(args.exp_dir),
         "group_dir": str(args.group_dir),
         "source_run_dir": str(args.source_run_dir),
         "source_checkpoint": source_checkpoint_record(args.source_checkpoint),
         "absolute_epoch_offset": args.absolute_epoch_offset,
-        "continuation_policy": "weights_only_init_checkpoint_fresh_optimizer_scaler_warmup_poly_10000_updates",
+        "continuation_policy": args.continuation_policy,
+        "schedule_manifest": (
+            file_record(args.schedule_manifest)
+            if args.schedule_manifest is not None
+            else None
+        ),
         "training": training_row(arm_dir),
         "reference_trainings": reference_trainings,
         "val200": val200,
@@ -93,19 +124,32 @@ def main() -> int:
     write_json(args.output_json, payload)
 
     lines = [
-        "# Experiment 007 DDP Batch4 Continuation Report",
+        f"# {args.report_title}",
         "",
         f"Run group: `{args.group_dir.name}`",
         f"Source run: `{args.source_run_dir}`",
         f"Source checkpoint: `{args.source_checkpoint}`",
         "",
         "Continuation policy: load source network weights only, then reset optimizer, AMP scaler, LR schedule, and update counter.",
-        "",
-        "## Val200 Progress",
-        "",
-        "| Relative epoch | Absolute epoch | Dice | Hit rate | Hits / findings |",
-        "| ---: | ---: | ---: | ---: | ---: |",
     ]
+    if payload["schedule_manifest"] is not None:
+        schedule = payload["schedule_manifest"]
+        lines.extend(
+            [
+                "",
+                f"Schedule manifest: `{schedule['path']}`",
+                f"Schedule manifest SHA256: `{schedule.get('sha256', 'missing')}`",
+            ]
+        )
+    lines.extend(
+        [
+            "",
+            "## Val200 Progress",
+            "",
+            "| Relative epoch | Absolute epoch | Dice | Hit rate | Hits / findings |",
+            "| ---: | ---: | ---: | ---: | ---: |",
+        ]
+    )
     for epoch in EPOCHS:
         metric = val200[str(epoch)]
         lines.append(
@@ -165,7 +209,10 @@ def main() -> int:
                 f"{fmt(segment.get('mean_update_seconds'), 3)} |"
             )
 
-    if reference_trainings:
+    training_label = args.training_label or f"{args.experiment_id}_continuation"
+    training_models = {training_label: training}
+    training_models.update(reference_trainings)
+    if training_models:
         lines.extend(
             [
                 "",
@@ -175,7 +222,7 @@ def main() -> int:
                 "| --- | ---: | ---: | ---: | ---: | ---: |",
             ]
         )
-        for label, item in reference_trainings.items():
+        for label, item in training_models.items():
             lines.append(
                 f"| {label} | {fmt(item.get('global_batch_size'), 0)} | "
                 f"{fmt(item.get('completed_updates'), 0)} | "
