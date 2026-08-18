@@ -79,6 +79,21 @@ edit.
   local batch `1`, DDP world size `4`, gradient accumulation `4`, and has
   completed val200 barriers through epoch 75. The epoch-75 val200 report shows
   Dice `0.3258`, hit rate `0.7559`; epoch 100 remains pending.
+- `015_voxtell_isotropic_resolution_audit` completed the train/val/test native
+  CT header and label-geometry audit for isotropic VoxTell planning. All 3,492
+  CTs are present with materialized-HU headers, train/val labels are present,
+  test labels are missing as expected, and released labels match CT shape while
+  using CT headers rather than label affines as physical-spacing truth.
+- `016_voxtell_iso07_hu_preprocessing` completed the
+  `crop_clip1024_linear_iso07_v1` cache: crop-to-nonzero, clipped linear HU,
+  0.7 mm isotropic trilinear image resampling, nearest-exact mask resampling,
+  image padding `-1`, target padding `0`, 3,492 cases, 8,068 targets, and zero
+  empty targets after fallback.
+- `017_voxtell_iso07_hu_ddp_bs4_update_matched` finished phase 1 under the
+  exp007 DDP batch4 recipe with the completed exp016 cache. The best phase-1
+  fixed val200 checkpoint is epoch 50 with Dice `0.3347`, hit rate `0.7769`,
+  and `296 / 381` hits; phase 2 is ready to continue from epoch 100 with
+  weights-only initialization and a fresh optimizer/LR/update horizon.
 - The standard CPU-only training-dynamics suite is active for Exp008, Exp009,
   and Exp011. Canonical figures live under each experiment's
   `reports/training_dynamics/` directory, with the shared gallery at
@@ -112,6 +127,12 @@ edit.
 - The shared native VoxTell cache `crop_zscore_native_v1` is complete under
   `/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/` with
   3,192 train/val cases, 8,068 targets, and 0 empty targets.
+- The shared 0.7 mm fixed-HU VoxTell cache `crop_clip1024_linear_iso07_v1` is
+  complete under
+  `/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/` with
+  3,492 train/val/test cases, 8,068 released train/val targets, and 0 empty
+  targets. Use `spawn` multiprocessing with one torch/OpenMP thread per worker
+  for this cache family.
 - Fixed CT NIfTIs are treated as already-materialized HU. Do not apply DICOM
   slope/intercept again. The validation-wide evidence and experiment 011
   interpretation are recorded in
@@ -234,3 +255,6 @@ edit.
   specialization helps before building any routed ensemble.
 - Monitor experiment 014 through epoch 100, then compare its sample-matched
   epoch-25 and update-matched epoch-100 val200 results against exp007 DDP bs4.
+- Launch experiment 017 phase 2 only after the static checks, schedule-prefix
+  check, DDP resume smoke, one-case iso07 inference restore, and four-case
+  sharded eval smoke pass; compare the continuation against exp007 phase 2.

@@ -46,3 +46,6 @@ small summaries easy to inspect while large outputs remain on `/mnt/shengdata1`.
 | `012_voxtell_category_specialists_replay50_cont100` | `active` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100` |
 | `013_voxtell_public_category_only_specialists` | `active` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists` |
 | `014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched` | `runtime_initialized` | `experiments/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched` |
+| `015_voxtell_isotropic_resolution_audit` | `audit_complete` | `experiments/015_voxtell_isotropic_resolution_audit/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/015_voxtell_isotropic_resolution_audit` |
+| `016_voxtell_iso07_hu_preprocessing` | `preprocessing_complete` | `experiments/016_voxtell_iso07_hu_preprocessing/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/016_voxtell_iso07_hu_preprocessing` |
+| `017_voxtell_iso07_hu_ddp_bs4_update_matched` | `phase2_continuation_ready` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched` |

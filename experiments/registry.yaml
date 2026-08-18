@@ -197,3 +197,45 @@ experiments:
     mean_global_dice_per_finding: null
     hit_rate: null
     overall_instance_f1: null
+  - id: "015_voxtell_isotropic_resolution_audit"
+    title: "VoxTell native-resolution audit for isotropic planning"
+    status: "audit_complete"
+    canonical_config: "configs/experiments/015_voxtell_isotropic_resolution_audit.json"
+    execution_spec: null
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/015_voxtell_isotropic_resolution_audit"
+    runtime_config_snapshot: null
+    runtime_config_matches_canonical: null
+    repo_report: "experiments/015_voxtell_isotropic_resolution_audit/report.md"
+    runtime_report: null
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null
+  - id: "016_voxtell_iso07_hu_preprocessing"
+    title: "VoxTell 0.7 mm isotropic HU preprocessing"
+    status: "preprocessing_complete"
+    canonical_config: "configs/experiments/016_voxtell_iso07_hu_preprocessing.json"
+    execution_spec: "experiments/016_voxtell_iso07_hu_preprocessing/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/016_voxtell_iso07_hu_preprocessing"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/016_voxtell_iso07_hu_preprocessing/config/016_voxtell_iso07_hu_preprocessing.json"
+    runtime_config_matches_canonical: true
+    repo_report: "experiments/016_voxtell_iso07_hu_preprocessing/report.md"
+    runtime_report: null
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null
+  - id: "017_voxtell_iso07_hu_ddp_bs4_update_matched"
+    title: "VoxTell 0.7 mm HU v123 e5/d4 DDP batch4 run"
+    status: "phase2_continuation_ready"
+    canonical_config: "configs/experiments/017_voxtell_iso07_hu_ddp_bs4_update_matched.json"
+    execution_spec: "experiments/017_voxtell_iso07_hu_ddp_bs4_update_matched/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/config/017_voxtell_iso07_hu_ddp_bs4_update_matched.json"
+    runtime_config_matches_canonical: true
+    repo_report: null
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/reports/iso07_hu_ddp_bs4_report.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null
