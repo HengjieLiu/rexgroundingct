@@ -1,0 +1,69 @@
+{
+  "experiment": "016_voxtell_iso07_hu_preprocessing",
+  "status": "preprocessing_complete",
+  "objective": "build and audit a 0.7 mm isotropic fixed-HU VoxTell preprocessing cache before finetuning",
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "segmentations": "/data/hengjie/datasets/rexgroundingct/segmentations",
+  "ct_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct",
+  "experiment_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/016_voxtell_iso07_hu_preprocessing",
+  "preprocessing": {
+    "cache_id": "crop_clip1024_linear_iso07_v1",
+    "cache_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1",
+    "splits": [
+      "train",
+      "val",
+      "test"
+    ],
+    "label_policy": "train and val require released labels; test is image-only and missing labels are expected",
+    "orientation": "same NibabelIOWithReorient image orientation and affine-derived target reorientation used by VoxTell caches",
+    "crop": "crop_to_nonzero before resampling; apply the same native crop to every target",
+    "normalization": "clip native cropped HU to [-1024,1024], divide by 1024, then resample",
+    "target_spacing_zyx_mm": [
+      0.7,
+      0.7,
+      0.7
+    ],
+    "image_interpolation": "torch trilinear align_corners=false without antialiasing",
+    "mask_interpolation": "torch nearest-exact with foreground-center splat fallback if a nonempty target disappears",
+    "image_dtype": "float32",
+    "target_dtype": "uint8",
+    "image_shape": "1,Z,Y,X",
+    "target_shape": "F,Z,Y,X",
+    "image_padding_value": -1.0,
+    "target_padding_value": 0
+  },
+  "storage_estimate": {
+    "source": "experiments/015_voxtell_isotropic_resolution_audit",
+    "train_val_image_gib_uncompressed_full_fov": 1578.915,
+    "all_image_gib_uncompressed_full_fov": 1731.866,
+    "train_val_dense_target_gib_uncompressed_full_fov": 1004.239,
+    "warning": "estimates are full-FOV/uncompressed; crop-to-nonzero, npz compression, and case geometry affect actual cache size"
+  },
+  "runtime_plan": {
+    "smoke_cases": "3-5 train/val/test cases",
+    "calibration_cases": "30-50 mixed cases with 8 workers",
+    "full_workers": "start at 8 workers; increase to 12 only if memory and storage I/O remain healthy",
+    "estimated_full_runtime": "3-8 hours, possibly overnight if NFS or large cases dominate"
+  },
+  "required_audit": {
+    "ct_missing_count": 0,
+    "train_val_label_missing_count": 0,
+    "test_label_missing_is_expected": true,
+    "empty_train_val_targets_after_fallback": 0,
+    "materialized_hu_header_failures": 0,
+    "normalization_range": [
+      -1.0,
+      1.0
+    ],
+    "target_spacing_zyx_mm": [
+      0.7,
+      0.7,
+      0.7
+    ]
+  },
+  "finetuning": {
+    "status": "out_of_scope_for_this_step",
+    "planned_initialization": "public VoxTell checkpoint",
+    "planned_cache_id": "crop_clip1024_linear_iso07_v1"
+  }
+}

@@ -187,6 +187,36 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
         ),
         "readiness_json": Path("config/train_val_ct_readiness.json"),
     },
+    "015_voxtell_isotropic_resolution_audit": {
+        "title": "VoxTell native-resolution audit for isotropic planning",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT / "015_voxtell_isotropic_resolution_audit.json"
+        ),
+        "primary_report": Path("reports/native_resolution_audit_report.md"),
+        "primary_eval_json": Path("reports/native_resolution_summary.json"),
+        "readiness_json": Path("reports/native_resolution_summary.json"),
+    },
+    "016_voxtell_iso07_hu_preprocessing": {
+        "title": "VoxTell 0.7 mm isotropic HU preprocessing",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT / "016_voxtell_iso07_hu_preprocessing.json"
+        ),
+        "primary_report": Path("reports/preprocessing_report.md"),
+        "primary_eval_json": Path("cache/manifest.json"),
+        "readiness_json": Path("cache/manifest.json"),
+    },
+    "017_voxtell_iso07_hu_ddp_bs4_update_matched": {
+        "title": "VoxTell 0.7 mm HU v123 e5/d4 DDP batch4 run",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "017_voxtell_iso07_hu_ddp_bs4_update_matched.json"
+        ),
+        "primary_report": Path("reports/iso07_hu_ddp_bs4_report.md"),
+        "primary_eval_json": Path(
+            "runs/latest/ddp_bs4/eval_epoch100_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("config/train_val_ct_readiness.json"),
+    },
 }
 
 

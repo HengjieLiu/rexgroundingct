@@ -1,0 +1,55 @@
+{
+  "experiment": "015_voxtell_isotropic_resolution_audit",
+  "status": "audit_complete",
+  "objective": "audit native CT spacing, label geometry, and candidate isotropic storage scale before selecting an isotropic VoxTell cache",
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "segmentations": "/data/hengjie/datasets/rexgroundingct/segmentations",
+  "ct_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct",
+  "repo_output_dir": "experiments/015_voxtell_isotropic_resolution_audit",
+  "runtime_experiment_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/015_voxtell_isotropic_resolution_audit",
+  "audit": {
+    "script": "scripts/rexgroundingct/audit_native_resolution.py",
+    "splits": [
+      "train",
+      "val",
+      "test"
+    ],
+    "target_spacings_mm": [
+      1.0,
+      0.7
+    ],
+    "method": "read NIfTI headers and released-label metadata only; do not resample images, build caches, or launch finetuning",
+    "outputs": [
+      "experiments/015_voxtell_isotropic_resolution_audit/report.md",
+      "experiments/015_voxtell_isotropic_resolution_audit/native_resolution_summary.json",
+      "experiments/015_voxtell_isotropic_resolution_audit/native_resolution_cases.csv"
+    ]
+  },
+  "findings": {
+    "cases_audited": 3492,
+    "train_cases": 2992,
+    "val_cases": 200,
+    "test_cases": 300,
+    "ct_missing": 0,
+    "ct_materialized_hu_header_failures": 0,
+    "metadata_shape_mismatches": 0,
+    "train_val_label_files_missing": 0,
+    "test_labels_missing_as_expected": 300,
+    "label_shape_mismatches": 0,
+    "label_affine_mismatches": 3192,
+    "label_spacing_policy": "released labels are grid-aligned to CT by shape and finding count; CT headers are the physical spacing source"
+  },
+  "storage_estimates": {
+    "train_val_1mm_image_gib_uncompressed_full_fov": 541.588,
+    "all_1mm_image_gib_uncompressed_full_fov": 594.055,
+    "train_val_0_7mm_image_gib_uncompressed_full_fov": 1578.915,
+    "all_0_7mm_image_gib_uncompressed_full_fov": 1731.866,
+    "train_val_0_7mm_dense_target_gib_uncompressed_full_fov": 1004.239,
+    "warning": "estimates are full-FOV and uncompressed; crop-to-nonzero, compression, and dtype choices change real cache size"
+  },
+  "downstream_decision": {
+    "selected_cache_spacing_mm": 0.7,
+    "selected_cache_experiment": "016_voxtell_iso07_hu_preprocessing",
+    "first_finetuning_experiment": "017_voxtell_iso07_hu_ddp_bs4_update_matched"
+  }
+}

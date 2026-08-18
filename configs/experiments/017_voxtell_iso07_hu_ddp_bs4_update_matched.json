@@ -1,0 +1,133 @@
+{
+  "experiment": "017_voxtell_iso07_hu_ddp_bs4_update_matched",
+  "status": "phase2_continuation_ready",
+  "objective": "test 0.7 mm isotropic clipped-linear-HU VoxTell finetuning under the exp007 DDP global-batch-4 recipe",
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "segmentations": "/data/hengjie/datasets/rexgroundingct/segmentations",
+  "ct_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct",
+  "experiment_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched",
+  "initialization": {
+    "source": "public VoxTell v1.1",
+    "load_policy": "load public model weights directly; do not initialize from exp007 or any other fine-tuned checkpoint",
+    "optimizer_resume": "resume only between exp017 DDP segments"
+  },
+  "continuation": {
+    "phase": "continue100_from_iso07_epoch100",
+    "status": "planned_for_immediate_launch",
+    "source_run_group": "exp017_iso07_hu_ddp_bs4_20260815T092119Z",
+    "source_checkpoint": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/checkpoints/checkpoint_update_010000.pth",
+    "source_checkpoint_sha256": "f11d238ffeaf9d96fe6ba7f81f6dd134953b18b0eaaae3f5404176aa0cec6cc4",
+    "source_checkpoint_expected_global_update": 10000,
+    "load_policy": "load network weights only with --init-checkpoint; reset optimizer, AMP scaler, scheduler, RNG-controlled run state, and update counter",
+    "fresh_optimizer_updates": 10000,
+    "relative_eval_epochs": [25, 50, 75, 100],
+    "absolute_eval_epochs": [125, 150, 175, 200],
+    "schedule_policy": "generate 80000 deterministic iso07 DDP events, verify first 40000 match original Exp017 phase-1 schedule, then rewrite source events 40000-79999 to a zero-based 40000-event continuation schedule"
+  },
+  "preprocessing": {
+    "classification": "intentionally changed method variable",
+    "source_experiment": "016_voxtell_iso07_hu_preprocessing",
+    "cache_id": "crop_clip1024_linear_iso07_v1",
+    "cache_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1",
+    "manifest_sha256": "59b53ed9fcd93b8e9872bf89770a14ffd6aeed31b206af33ca751b85d4bd2640",
+    "case_content_index_sha256": "162a079364b92f07a7c8fbf923c467abc141eb7d1170e2482527be79db53b4d4",
+    "target_index_sha256": "fd01d10bd0dcce5eea66f91faa36563caccba23f6afd03c380e8bccc40fa14b0",
+    "cases": 3492,
+    "train_cases": 2992,
+    "val_cases": 200,
+    "test_cases": 300,
+    "targets": 8068,
+    "empty_targets": 0,
+    "normalization": "crop native CT to nonzero, clip HU to [-1024,1024], divide by 1024, then trilinear 0.7 mm isotropic resampling",
+    "target_spacing_zyx_mm": [0.7, 0.7, 0.7],
+    "image_padding_value": -1.0,
+    "target_padding_value": 0,
+    "image_interpolation": "trilinear_align_corners_false_no_antialias",
+    "mask_interpolation": "nearest_exact_with_foreground_center_splat_fallback",
+    "physical_fov_caveat": "A 192^3 model patch at 0.7 mm covers about 134.4 mm per axis, so this is a geometry plus normalization experiment, not a pure HU-normalization ablation."
+  },
+  "schedule": {
+    "seed": 20260723,
+    "events": 40000,
+    "updates_per_epoch": 100,
+    "epochs": 100,
+    "global_batch_size": 4,
+    "local_batch_size": 1,
+    "world_size": 4,
+    "gradient_accumulation": 1,
+    "event_consumption_rule": "event_index = update * 4 + rank",
+    "prompt_policy": "multi-finding 2 positive + 1 negative; one-finding 1 positive + 2 negatives; every selected positive nonempty in its sampled patch",
+    "schedule_note": "Phase 1 generates a fresh schedule from iso07 cached metadata. Phase 2 uses the second 40000-event slice from a deterministic 80000-event iso07 stream. Do not require coordinate-prefix identity with native-cache schedules."
+  },
+  "training": {
+    "model_tensor_shape": [192, 192, 192],
+    "distributed": true,
+    "ddp_world_size": 4,
+    "per_gpu_batch_size": 1,
+    "effective_global_batch_size": 4,
+    "gradient_accumulation": 1,
+    "total_optimizer_updates": 10000,
+    "pause_eval_resume_updates": [2500, 5000, 7500, 10000],
+    "optimizer": "SGD",
+    "nesterov": true,
+    "momentum": 0.99,
+    "weight_decay": 0.00003,
+    "encoder_lr": 0.00001,
+    "decoder_lr": 0.0001,
+    "lr_schedule": "poly",
+    "poly_power": 0.9,
+    "warmup_updates": 100,
+    "gradient_clip_max_norm": 12.0,
+    "augmentation": "none added beyond VoxTell patch sampling"
+  },
+  "loss": {
+    "mode": "v123",
+    "nonempty_target": "Dice + weighted BCE",
+    "empty_target": "weighted BCE only",
+    "empty_target_loss_weight": 0.5,
+    "bce_foreground_weight": 1.0,
+    "bce_boundary_weight": 1.5,
+    "bce_background_weight": 0.5,
+    "bce_boundary_radius": 10,
+    "deep_supervision_weights": [1.0, 0.5, 0.25, 0.125, 0.0625]
+  },
+  "validation": {
+    "val200_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "val200_json_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "val200_epochs": [25, 50, 75, 100],
+    "primary_threshold": 0.5,
+    "save_probability_maps": false,
+    "eval_policy": "training pauses at each segment; val200 inference is sharded over all four GPUs; fixed JSON is passed directly",
+    "restore_policy": "predict on the iso07 cached crop, trilinearly restore probabilities to native cropped shape, insert into native reoriented image, then export to released-label layout"
+  },
+  "comparison_plan": {
+    "primary_baseline": "exp007 DDP bs4 native z-score e5/d4 epoch100 val200",
+    "primary_baseline_dice": 0.3309543045692373,
+    "primary_baseline_hit_rate": 0.7585301837270341,
+    "primary_baseline_hits": 289,
+    "primary_baseline_findings": 381,
+    "secondary_baselines": {
+      "exp011_native_linear_hu_e5d4_epoch100": {
+        "dice": 0.3205,
+        "hit_rate": 0.7533,
+        "hits": 287,
+        "findings": 381
+      },
+      "exp006_native_zscore_e5d4_epoch100": {
+        "dice": 0.32413407768565705,
+        "hit_rate": 0.7611548556430446,
+        "hits": 290,
+        "findings": 381
+      }
+    },
+    "phase2_primary_baseline": "exp007 phase-2 continuation from epoch100 using the same weights-only fresh-optimizer protocol",
+    "phase2_primary_checkpoints": ["relative_epoch50", "relative_epoch100"],
+    "phase2_source_checkpoint": "exp017 epoch100, not exp017 epoch50, to mirror exp007 phase-2"
+  },
+  "differences_from_exp007": [
+    "Use crop_clip1024_linear_iso07_v1 instead of crop_zscore_native_v1.",
+    "Generate schedule coordinates from iso07 cached metadata.",
+    "Restore validation predictions from iso07 cached crop space to native label space before evaluation.",
+    "Keep DDP world size, effective batch size, optimizer, loss, checkpoint cadence, and val200 cadence matched to exp007."
+  ]
+}

@@ -41,6 +41,12 @@ status: active
 - `014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched`:
   cached-native v123 e5/d4 DDP effective global-batch-16 run with
   pause/eval/resume val200 checkpoints.
+- `015_voxtell_isotropic_resolution_audit`: native CT spacing, label geometry,
+  and isotropic-storage audit used to select the 0.7 mm VoxTell cache path.
+- `016_voxtell_iso07_hu_preprocessing`: preprocessing-only build and audit for
+  the `crop_clip1024_linear_iso07_v1` 0.7 mm isotropic fixed-HU cache.
+- `017_voxtell_iso07_hu_ddp_bs4_update_matched`: 0.7 mm fixed-HU VoxTell DDP
+  batch4 finetuning and continuation protocol matched to exp007.
 
 Do not rename experiment IDs casually. Runtime paths, configs, manifests, and
 reports depend on them.
