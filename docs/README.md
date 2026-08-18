@@ -15,6 +15,8 @@ Start here when looking for project context.
 - `current_status.md`: current decisions, active work, blockers, and next
   actions.
 - `submission.md`: challenge submission packaging and final pre-submit checks.
+- `val200_leaderboards/`: dated fixed-val200 model leaderboard snapshots and
+  refresh notes.
 - `templates/`: reusable execution spec and experiment closeout templates.
 - `brainstorm/`: dated research notes covering model capability gaps,
   counterfactual supervision, and candidate redesigns.
