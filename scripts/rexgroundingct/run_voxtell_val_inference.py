@@ -16,6 +16,7 @@ from pathlib import Path
 import nibabel as nib
 import numpy as np
 import torch
+import torch.nn.functional as F
 from acvl_utils.cropping_and_padding.bounding_boxes import insert_crop_into_image
 from acvl_utils.cropping_and_padding.padding import pad_nd_image
 from nibabel.orientations import apply_orientation, io_orientation, ornt_transform
@@ -483,14 +484,27 @@ def restore_cached_native_crop(
     metadata: dict,
     fill_value: float | int = 0,
 ) -> np.ndarray:
-    """Insert native cached crop predictions back into reoriented full image space."""
+    """Restore cached crop predictions back into reoriented full image space."""
     native_shape = tuple(int(value) for value in metadata["native_cropped_shape_zyx"])
     cached_shape = tuple(int(value) for value in metadata["resampled_shape_zyx"])
-    if cached_shape != native_shape:
+    observed_shape = tuple(int(value) for value in prediction_crop.shape[1:])
+    if observed_shape != cached_shape:
         raise ValueError(
-            "run_voxtell_val_inference.py only supports native cached inference. "
-            f"Cached shape {cached_shape} differs from native cropped shape {native_shape}; "
-            "use the 2 mm inference wrapper for resampled caches."
+            f"Cached prediction shape {observed_shape} does not match metadata "
+            f"resampled shape {cached_shape}"
+        )
+    if cached_shape != native_shape:
+        tensor = torch.from_numpy(np.ascontiguousarray(prediction_crop))[None].float()
+        prediction_crop = (
+            F.interpolate(
+                tensor,
+                size=native_shape,
+                mode="trilinear",
+                align_corners=False,
+            )[0]
+            .cpu()
+            .numpy()
+            .astype(np.float32, copy=False)
         )
     orig_shape = tuple(int(value) for value in metadata["original_reoriented_shape_zyx"])
     restored = np.full(
@@ -568,7 +582,6 @@ def run_case(
     cache_metadata = None
     if preprocessed_cache_dir is not None:
         from voxtell_preprocessed_cache import (
-            NATIVE_GEOMETRY_PREPROCESS_IDS,
             image_padding_value,
             load_cached_case,
         )
@@ -578,12 +591,6 @@ def run_case(
             name,
             require_targets=False,
         )
-        if cache_metadata.get("preprocess_id") not in NATIVE_GEOMETRY_PREPROCESS_IDS:
-            raise ValueError(
-                f"{name}: --preprocessed-cache-dir for this wrapper requires "
-                "a native-geometry cache, got "
-                f"{cache_metadata.get('preprocess_id')!r}"
-            )
         cache_padding_value = image_padding_value(cache_metadata)
         if proposal_output_root is not None:
             if not isinstance(predictor, DualBranchVoxTellPredictor):

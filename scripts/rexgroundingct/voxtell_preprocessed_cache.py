@@ -31,6 +31,7 @@ NATIVE_PREPROCESS_ID = "crop_zscore_native_v1"
 ISO2MM_PREPROCESS_ID = "crop_zscore_2mm_v1"
 CLIPPED_ZSCORE_NATIVE_PREPROCESS_ID = "crop_clip1024_zscore_native_v1"
 CLIPPED_LINEAR_NATIVE_PREPROCESS_ID = "crop_clip1024_linear_native_v1"
+CLIPPED_LINEAR_ISO07_PREPROCESS_ID = "crop_clip1024_linear_iso07_v1"
 HU_CLIP_MIN = -1024.0
 HU_CLIP_MAX = 1024.0
 NATIVE_GEOMETRY_PREPROCESS_IDS = (
@@ -38,8 +39,13 @@ NATIVE_GEOMETRY_PREPROCESS_IDS = (
     CLIPPED_ZSCORE_NATIVE_PREPROCESS_ID,
     CLIPPED_LINEAR_NATIVE_PREPROCESS_ID,
 )
-SUPPORTED_PREPROCESS_IDS = (*NATIVE_GEOMETRY_PREPROCESS_IDS, ISO2MM_PREPROCESS_ID)
 TARGET_SPACING_2MM_ZYX = (2.0, 2.0, 2.0)
+TARGET_SPACING_ISO07_ZYX = (0.7, 0.7, 0.7)
+ISOTROPIC_PREPROCESS_IDS = (
+    ISO2MM_PREPROCESS_ID,
+    CLIPPED_LINEAR_ISO07_PREPROCESS_ID,
+)
+SUPPORTED_PREPROCESS_IDS = (*NATIVE_GEOMETRY_PREPROCESS_IDS, *ISOTROPIC_PREPROCESS_IDS)
 STANDARD_CACHE_ROOT = Path(
     "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell"
 )
@@ -93,6 +99,28 @@ PREPROCESS_SPECS: dict[str, dict[str, Any]] = {
         "image_padding_value": 0.0,
         "target_padding_value": 0,
         "requires_materialized_hu": False,
+        "target_spacing_zyx_mm": list(TARGET_SPACING_2MM_ZYX),
+        "image_interpolation": "trilinear_align_corners_false_no_antialias",
+        "mask_interpolation": "nearest_exact_with_foreground_center_splat_fallback",
+    },
+    CLIPPED_LINEAR_ISO07_PREPROCESS_ID: {
+        "normalization": (
+            "crop_to_nonzero_then_clip_hu_minus1024_plus1024_divide_by_1024_"
+            "before_resampling"
+        ),
+        "normalization_parameters": {
+            "scope": "complete_native_cropped_volume_before_resampling",
+            "clip_hu": [HU_CLIP_MIN, HU_CLIP_MAX],
+            "scale": 1.0 / HU_CLIP_MAX,
+            "offset": 0.0,
+            "output_range": [-1.0, 1.0],
+        },
+        "image_padding_value": -1.0,
+        "target_padding_value": 0,
+        "requires_materialized_hu": True,
+        "target_spacing_zyx_mm": list(TARGET_SPACING_ISO07_ZYX),
+        "image_interpolation": "trilinear_align_corners_false_no_antialias",
+        "mask_interpolation": "nearest_exact_with_foreground_center_splat_fallback",
     },
 }
 
@@ -539,6 +567,85 @@ def _preprocess_case_to_2mm(
     return image_2mm, targets_2mm, metadata
 
 
+def _preprocess_case_to_iso07_linear_hu(
+    entry: dict[str, Any],
+    ct_root: Path,
+    seg_dir: Path,
+    allow_missing_targets: bool,
+) -> tuple[np.ndarray, np.ndarray | None, dict[str, Any]]:
+    image, targets, metadata = _load_native_crop_raw(
+        entry,
+        ct_root=ct_root,
+        seg_dir=seg_dir,
+        allow_missing_targets=allow_missing_targets,
+    )
+    if not metadata["ct_intensity_header"]["materialized_hu_check_passed"]:
+        raise RuntimeError(
+            f"{metadata['name']}: {CLIPPED_LINEAR_ISO07_PREPROCESS_ID} requires int16 "
+            "fixed-NIfTI values with effective slope 1 and intercept 0; observed "
+            f"{metadata['ct_intensity_header']}"
+        )
+
+    normalized = _normalize_native_image(image, CLIPPED_LINEAR_NATIVE_PREPROCESS_ID)
+    native_spacing = tuple(float(value) for value in metadata["ct_properties"]["spacing"])
+    native_shape = tuple(int(value) for value in normalized.shape[1:])
+    output_shape = output_shape_for_spacing(
+        native_shape,
+        native_spacing,
+        target_spacing_zyx=TARGET_SPACING_ISO07_ZYX,
+    )
+    image_iso07 = resample_image_align_corners_false(normalized, output_shape)
+
+    targets_iso07: np.ndarray | None = None
+    fallback_indices: list[int] = []
+    output_counts: list[int] | None = None
+    positive_points: list[list[list[int]]] | None = None
+    if targets is not None:
+        targets_iso07, fallback_indices = resample_targets_nearest_with_fallback(
+            targets,
+            output_shape,
+        )
+        output_counts = [int(target.sum()) for target in targets_iso07]
+        if any(count <= 0 for count in output_counts):
+            raise RuntimeError(
+                f"{entry['name']}: 0.7 mm preprocessing contains an empty target after fallback"
+            )
+        positive_points = [positive_point_candidates(target) for target in targets_iso07]
+
+    spec = PREPROCESS_SPECS[CLIPPED_LINEAR_ISO07_PREPROCESS_ID]
+    metadata.update(
+        {
+            "preprocess_id": CLIPPED_LINEAR_ISO07_PREPROCESS_ID,
+            "normalization": spec["normalization"],
+            "normalization_parameters": spec["normalization_parameters"],
+            "image_padding_value": float(spec["image_padding_value"]),
+            "target_padding_value": int(spec["target_padding_value"]),
+            "normalized_cropped_statistics": _array_statistics(normalized),
+            "normalized_resampled_statistics": _array_statistics(image_iso07),
+            "image_resampling": {
+                "source_spacing_zyx_mm": list(native_spacing),
+                "target_spacing_zyx_mm": list(TARGET_SPACING_ISO07_ZYX),
+                "mode": "torch_trilinear",
+                "align_corners": False,
+                "antialias": False,
+            },
+            "mask_resampling": {
+                "mode": "torch_nearest_exact",
+                "fallback": "source_foreground_voxel_center_splat_if_nonempty_target_disappears",
+                "fallback_target_indices": fallback_indices,
+            },
+            "resampled_shape_zyx": list(output_shape),
+            "resampled_target_voxels": output_counts,
+            "resampled_target_positive_point_candidates": positive_points,
+            "image_nbytes": int(image_iso07.nbytes),
+            "targets_nbytes": int(targets_iso07.nbytes) if targets_iso07 is not None else 0,
+            "image_sha256": sha256_array(image_iso07),
+            "targets_sha256": sha256_array(targets_iso07) if targets_iso07 is not None else None,
+        }
+    )
+    return image_iso07, targets_iso07, metadata
+
+
 def preprocess_case(
     entry: dict[str, Any],
     preprocess_id: str,
@@ -556,6 +663,13 @@ def preprocess_case(
         )[preprocess_id]
     if preprocess_id == ISO2MM_PREPROCESS_ID:
         return _preprocess_case_to_2mm(entry, ct_root, seg_dir, allow_missing_targets)
+    if preprocess_id == CLIPPED_LINEAR_ISO07_PREPROCESS_ID:
+        return _preprocess_case_to_iso07_linear_hu(
+            entry,
+            ct_root,
+            seg_dir,
+            allow_missing_targets,
+        )
     valid = ", ".join(SUPPORTED_PREPROCESS_IDS)
     raise ValueError(f"Unsupported preprocess_id {preprocess_id!r}; valid: {valid}")
 

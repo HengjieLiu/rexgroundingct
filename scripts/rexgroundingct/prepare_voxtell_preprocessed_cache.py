@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import multiprocessing as mp
 import os
 import shutil
 from collections import Counter
@@ -14,6 +15,16 @@ from pathlib import Path
 from typing import Any
 
 from tqdm import tqdm
+
+
+DEFAULT_WORKER_THREADS = 1
+for _thread_env in (
+    "OMP_NUM_THREADS",
+    "MKL_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "NUMEXPR_NUM_THREADS",
+):
+    os.environ.setdefault(_thread_env, str(DEFAULT_WORKER_THREADS))
 
 from common import (
     CT_ROOT,
@@ -26,6 +37,7 @@ from common import (
 )
 from voxtell_preprocessed_cache import (
     CACHE_SCHEMA_VERSION,
+    CLIPPED_LINEAR_ISO07_PREPROCESS_ID,
     CLIPPED_LINEAR_NATIVE_PREPROCESS_ID,
     CLIPPED_ZSCORE_NATIVE_PREPROCESS_ID,
     NATIVE_GEOMETRY_PREPROCESS_IDS,
@@ -38,6 +50,26 @@ from voxtell_preprocessed_cache import (
     write_cached_native_variants,
     write_cached_case,
 )
+
+
+def _configure_process_threads(num_threads: int) -> None:
+    for key in (
+        "OMP_NUM_THREADS",
+        "MKL_NUM_THREADS",
+        "OPENBLAS_NUM_THREADS",
+        "NUMEXPR_NUM_THREADS",
+    ):
+        os.environ[key] = str(num_threads)
+    try:
+        import torch
+
+        torch.set_num_threads(num_threads)
+        try:
+            torch.set_num_interop_threads(num_threads)
+        except RuntimeError:
+            pass
+    except Exception:
+        pass
 
 
 def _atomic_write_json(path: Path, data: dict[str, Any]) -> None:
@@ -165,6 +197,24 @@ def _estimate_storage(
     return estimates
 
 
+def _skipped_storage_estimates(
+    entries: list[dict[str, Any]],
+    preprocess_ids: tuple[str, ...],
+) -> dict[str, dict[str, Any]]:
+    return {
+        preprocess_id: {
+            "sample_cases": 0,
+            "mean_case_bytes": 0,
+            "estimated_total_bytes": 0,
+            "sample_records": [],
+            "skipped": True,
+            "reason": "disabled_by_--skip-storage-estimate",
+            "selected_cases": len(entries),
+        }
+        for preprocess_id in preprocess_ids
+    }
+
+
 def _check_storage(
     cache_roots: dict[str, Path],
     estimates: dict[str, dict[str, Any]],
@@ -198,7 +248,10 @@ def _check_storage(
 def _run_build_jobs(
     jobs: list[tuple[dict, dict[str, str], tuple[str, ...], str, str, bool]],
     num_workers: int,
+    multiprocessing_start_method: str,
+    worker_threads: int,
 ) -> list[dict[str, dict[str, Any]]]:
+    _configure_process_threads(worker_threads)
     if num_workers == 1:
         return [
             record
@@ -208,7 +261,13 @@ def _run_build_jobs(
                 desc="Caching VoxTell preprocessed cases",
             )
         ]
-    pool = ProcessPoolExecutor(max_workers=num_workers)
+    context = mp.get_context(multiprocessing_start_method)
+    pool = ProcessPoolExecutor(
+        max_workers=num_workers,
+        mp_context=context,
+        initializer=_configure_process_threads,
+        initargs=(worker_threads,),
+    )
     try:
         return [
             record
@@ -365,6 +424,30 @@ def _cross_cache_audit(
                     normalization_failures.append(
                         {"name": record["name"], "preprocess_id": preprocess_id, "stats": stats}
                     )
+            elif preprocess_id == CLIPPED_LINEAR_ISO07_PREPROCESS_ID:
+                resampled_stats = record.get("normalized_resampled_statistics") or {}
+                if float(resampled_stats.get("min", -2.0)) < -1.000001 or float(
+                    resampled_stats.get("max", 2.0)
+                ) > 1.000001:
+                    normalization_failures.append(
+                        {
+                            "name": record["name"],
+                            "preprocess_id": preprocess_id,
+                            "stats": resampled_stats,
+                        }
+                    )
+                target_spacing = (
+                    (record.get("image_resampling") or {}).get("target_spacing_zyx_mm")
+                    or []
+                )
+                if [round(float(value), 6) for value in target_spacing] != [0.7, 0.7, 0.7]:
+                    normalization_failures.append(
+                        {
+                            "name": record["name"],
+                            "preprocess_id": preprocess_id,
+                            "target_spacing_zyx_mm": target_spacing,
+                        }
+                    )
     audit = {
         "compared_preprocess_ids": labels,
         "reference_cache_root": (
@@ -408,20 +491,48 @@ def main() -> int:
     parser.add_argument("--reference-cache-root", type=Path, default=None)
     parser.add_argument("--splits", nargs="+", default=["train", "val"])
     parser.add_argument("--num-workers", type=int, default=4)
+    parser.add_argument(
+        "--multiprocessing-start-method",
+        choices=("spawn", "forkserver", "fork"),
+        default="spawn",
+        help="Use spawn/forkserver for torch-backed resampling; fork is legacy.",
+    )
+    parser.add_argument(
+        "--worker-threads",
+        type=int,
+        default=DEFAULT_WORKER_THREADS,
+        help="Torch/OpenMP/MKL threads per cache worker.",
+    )
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--max-cases", type=int, default=None)
+    parser.add_argument(
+        "--max-cases-per-split",
+        type=int,
+        default=None,
+        help="Select up to this many cases from each requested split before --max-cases.",
+    )
     parser.add_argument("--case-name", action="append", default=None)
     parser.add_argument("--estimate-cases", type=int, default=8)
+    parser.add_argument(
+        "--skip-storage-estimate",
+        action="store_true",
+        help="Skip the pre-build sample preprocessing pass and record a skipped estimate.",
+    )
     parser.add_argument("--storage-buffer-fraction", type=float, default=0.20)
     parser.add_argument("--skip-storage-check", action="store_true")
     args = parser.parse_args()
 
     if args.num_workers < 1:
         raise ValueError("--num-workers must be >= 1")
+    if args.worker_threads < 1:
+        raise ValueError("--worker-threads must be >= 1")
     if args.estimate_cases < 1:
         raise ValueError("--estimate-cases must be >= 1")
     if args.storage_buffer_fraction < 0:
         raise ValueError("--storage-buffer-fraction must be >= 0")
+    if args.max_cases_per_split is not None and args.max_cases_per_split < 1:
+        raise ValueError("--max-cases-per-split must be >= 1")
+    _configure_process_threads(args.worker_threads)
 
     preprocess_ids = tuple(dict.fromkeys(args.preprocess_id))
     if len(preprocess_ids) > 1:
@@ -444,6 +555,17 @@ def main() -> int:
         missing = selected - {entry["name"] for entry in entries}
         if missing:
             raise ValueError(f"Requested case(s) not found in selected splits: {sorted(missing)}")
+    if args.max_cases_per_split is not None:
+        counts_by_split: dict[str, int] = {}
+        selected_entries = []
+        for entry in entries:
+            split = str(entry.get("_split"))
+            count = counts_by_split.get(split, 0)
+            if count >= args.max_cases_per_split:
+                continue
+            selected_entries.append(entry)
+            counts_by_split[split] = count + 1
+        entries = selected_entries
     if args.max_cases is not None:
         entries = entries[: args.max_cases]
     if not entries:
@@ -452,20 +574,37 @@ def main() -> int:
     for cache_root in cache_roots.values():
         cache_root.mkdir(parents=True, exist_ok=True)
         (cache_root / ".complete").unlink(missing_ok=True)
-    storage_estimates = _estimate_storage(
-        entries=entries,
-        preprocess_ids=preprocess_ids,
-        ct_root=args.ct_root,
-        seg_dir=args.seg_dir,
-        sample_cases=args.estimate_cases,
-    )
+    if args.skip_storage_estimate:
+        storage_estimates = _skipped_storage_estimates(entries, preprocess_ids)
+    else:
+        storage_estimates = _estimate_storage(
+            entries=entries,
+            preprocess_ids=preprocess_ids,
+            ct_root=args.ct_root,
+            seg_dir=args.seg_dir,
+            sample_cases=args.estimate_cases,
+        )
     storage_check = None
-    if not args.skip_storage_check:
+    if not args.skip_storage_check and not args.skip_storage_estimate:
         storage_check = _check_storage(
             cache_roots,
             storage_estimates,
             free_buffer=args.storage_buffer_fraction,
         )
+    elif args.skip_storage_estimate and not args.skip_storage_check:
+        storage_check = {
+            "path": str(next(iter(cache_roots.values()))),
+            "free_bytes": None,
+            "estimated_bytes_by_preprocess_id": {
+                preprocess_id: None for preprocess_id in preprocess_ids
+            },
+            "estimated_total_bytes": None,
+            "required_free_bytes_with_buffer": None,
+            "free_buffer_fraction": float(args.storage_buffer_fraction),
+            "passed": None,
+            "skipped": True,
+            "reason": "storage estimate was skipped",
+        }
 
     jobs = [
         (
@@ -478,7 +617,12 @@ def main() -> int:
         )
         for entry in entries
     ]
-    records_by_case = _run_build_jobs(jobs, args.num_workers)
+    records_by_case = _run_build_jobs(
+        jobs,
+        args.num_workers,
+        multiprocessing_start_method=args.multiprocessing_start_method,
+        worker_threads=args.worker_threads,
+    )
     records_by_id = {
         preprocess_id: [record[preprocess_id] for record in records_by_case]
         for preprocess_id in preprocess_ids
@@ -522,6 +666,9 @@ def main() -> int:
             "preprocess_id": preprocess_id,
             "splits": args.splits,
             "cases": len(records_by_id[preprocess_id]),
+            "num_workers": args.num_workers,
+            "multiprocessing_start_method": args.multiprocessing_start_method,
+            "worker_threads": args.worker_threads,
             "complete_case_markers": sum(
                 cache_case_paths(cache_root, entry["name"])["complete"].is_file()
                 for entry in entries
@@ -535,24 +682,13 @@ def main() -> int:
             "cross_cache_audit": cross_cache_audit,
             **summaries[preprocess_id],
         }
-        if preprocess_id == "crop_zscore_2mm_v1":
-            manifest.update(
-                {
-                    "target_spacing_zyx_mm": [2.0, 2.0, 2.0],
-                    "image_interpolation": "trilinear_align_corners_false_no_antialias",
-                    "mask_interpolation": (
-                        "nearest_exact_with_foreground_center_splat_fallback"
-                    ),
-                }
-            )
-        else:
-            manifest.update(
-                {
-                    "target_spacing_zyx_mm": None,
-                    "image_interpolation": None,
-                    "mask_interpolation": None,
-                }
-            )
+        manifest.update(
+            {
+                "target_spacing_zyx_mm": spec.get("target_spacing_zyx_mm"),
+                "image_interpolation": spec.get("image_interpolation"),
+                "mask_interpolation": spec.get("mask_interpolation"),
+            }
+        )
         _atomic_write_json(manifest_path, manifest)
         _atomic_write_text(
             cache_root / ".complete",

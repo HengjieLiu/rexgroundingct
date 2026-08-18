@@ -9,7 +9,10 @@ import unittest
 import numpy as np
 import torch
 
-from run_voxtell_val_inference import predict_preprocessed_crop_probabilities
+from run_voxtell_val_inference import (
+    predict_preprocessed_crop_probabilities,
+    restore_cached_native_crop,
+)
 from train_text_conditioned_voxtell import (
     RexVoxTellPatchSampler,
     capture_rng_state,
@@ -17,11 +20,13 @@ from train_text_conditioned_voxtell import (
     seed_everything,
 )
 from voxtell_preprocessed_cache import (
+    CLIPPED_LINEAR_ISO07_PREPROCESS_ID,
     CLIPPED_LINEAR_NATIVE_PREPROCESS_ID,
     CLIPPED_ZSCORE_NATIVE_PREPROCESS_ID,
     NATIVE_PREPROCESS_ID,
     _normalize_native_image,
     image_padding_value,
+    preprocess_spec,
 )
 
 
@@ -80,12 +85,29 @@ class VoxTellPreprocessedCacheTests(unittest.TestCase):
         )
         self.assertEqual(
             image_padding_value(
+                {"preprocess_id": CLIPPED_LINEAR_ISO07_PREPROCESS_ID}
+            ),
+            -1.0,
+        )
+        self.assertEqual(
+            image_padding_value(
                 {
                     "preprocess_id": CLIPPED_LINEAR_NATIVE_PREPROCESS_ID,
                     "image_padding_value": -0.75,
                 }
             ),
             -0.75,
+        )
+
+    def test_iso07_preprocess_spec(self) -> None:
+        spec = preprocess_spec(CLIPPED_LINEAR_ISO07_PREPROCESS_ID)
+        self.assertEqual(spec["target_spacing_zyx_mm"], [0.7, 0.7, 0.7])
+        self.assertEqual(spec["image_padding_value"], -1.0)
+        self.assertEqual(spec["target_padding_value"], 0)
+        self.assertEqual(spec["normalization_parameters"]["clip_hu"], [-1024.0, 1024.0])
+        self.assertEqual(
+            spec["mask_interpolation"],
+            "nearest_exact_with_foreground_center_splat_fallback",
         )
 
     def test_patch_sampler_uses_requested_fill_value(self) -> None:
@@ -108,6 +130,20 @@ class VoxTellPreprocessedCacheTests(unittest.TestCase):
         )
         self.assertEqual(tuple(probabilities.shape), (2, 2, 3, 4))
         np.testing.assert_allclose(probabilities, 0.5, rtol=0, atol=1e-6)
+
+    def test_resampled_cache_restore_interpolates_to_native_crop(self) -> None:
+        prediction = np.ones((2, 2, 3, 4), dtype=np.float32)
+        metadata = {
+            "resampled_shape_zyx": [2, 3, 4],
+            "native_cropped_shape_zyx": [4, 6, 8],
+            "original_reoriented_shape_zyx": [6, 8, 10],
+            "crop_bbox_zyx": [[1, 5], [1, 7], [1, 9]],
+        }
+        restored = restore_cached_native_crop(prediction, metadata)
+        self.assertEqual(tuple(restored.shape), (2, 6, 8, 10))
+        np.testing.assert_allclose(restored[:, 1:5, 1:7, 1:9], 1.0)
+        np.testing.assert_allclose(restored[:, :1], 0.0)
+        np.testing.assert_allclose(restored[:, 5:], 0.0)
 
     def test_rng_state_round_trip_for_segmented_training(self) -> None:
         original_state = capture_rng_state()

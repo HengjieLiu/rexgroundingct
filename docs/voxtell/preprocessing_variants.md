@@ -67,6 +67,7 @@ symlink to the audited exp004 cache:
 | `crop_clip1024_zscore_native_v1` | Experiment 011 standard HU-clipped cache | Clip the complete native crop to `[-1024,1024]` HU, then full-crop z-score; image padding `0` | Identical native targets and geometry to `crop_zscore_native_v1` | Changes normalization only; tests whether robust clipping removes harmful sentinel/outlier influence |
 | `crop_clip1024_linear_native_v1` | Experiment 011 standard fixed-HU cache | `clip(HU,-1024,1024)/1024`; image padding `-1` | Identical native targets and geometry to `crop_zscore_native_v1` | Changes normalization only; tests fixed HU calibration under VoxTell InstanceNorm |
 | `crop_zscore_2mm_v1` | Standard 2 mm cache | Full cropped-volume z-score first, then trilinear 2 mm isotropic resampling with `align_corners=False`, no antialiasing | Nearest-exact 2 mm masks, foreground-center fallback if a nonempty target disappears | Changes physical sampling and field of view; not comparable as only a runtime optimization |
+| `crop_clip1024_linear_iso07_v1` | Experiment 016 0.7 mm cache | Crop native CT to nonzero, clip HU to `[-1024,1024]`, divide by `1024`, then trilinear 0.7 mm isotropic resampling with `align_corners=False`, image padding `-1` | Native-cropped masks resampled with nearest-exact 0.7 mm spacing, foreground-center fallback if a nonempty target disappears; test entries are image-only | Changes both physical sampling and normalization; compare as a new finetuning preprocessing experiment, not as a runtime-only cache |
 | `full_fov_4mm_192_v1` | Proposal-stage cache | Inherits z-scored 2 mm cache, downsamples to 4 mm, center-pads to `192^3` | Native cropped targets retained for proposal-region labels | Stage-1 proposal input, not a direct VoxTell segmentation input |
 | Future CT/HU variants | Planned ablations | Must state clipping/windowing/statistics before launch | Same orientation and mask policy unless explicitly changed | Normalization ablation; do not mix with spacing changes without a matrix |
 
@@ -139,3 +140,21 @@ python /workspace/scripts/rexgroundingct/prepare_voxtell_preprocessed_cache.py \
   --splits train val \
   --num-workers 4
 ```
+
+Build the experiment 016 0.7 mm isotropic HU-linear cache:
+
+```bash
+python /workspace/scripts/rexgroundingct/prepare_voxtell_preprocessed_cache.py \
+  --preprocess-id crop_clip1024_linear_iso07_v1 \
+  --splits train val test \
+  --num-workers 16 \
+  --multiprocessing-start-method spawn \
+  --worker-threads 1 \
+  --estimate-cases 30
+```
+
+For this 0.7 mm cache, the 2026-08-14 calibration found that fork-style
+multiprocessing after torch-backed estimation could make no case-level writes.
+Use `spawn` plus one torch/OpenMP thread per worker. A 45-case calibration with
+`16` workers matched the serial content hashes and reduced build time from
+`14:03` to `1:14`.
