@@ -1,0 +1,53 @@
+{
+  "experiment": "019_voxtell_iso07_lung_bbox_coverage_audit",
+  "status": "audit_complete",
+  "objective": "measure the isotropic 0.7 mm voxel expansion required for a TotalSegmentator whole-lung bounding box to contain each released validation finding mask",
+  "inputs": {
+    "val_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "val_json_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "expected_cases": 200,
+    "expected_findings": 381,
+    "ct_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct",
+    "segmentation_root": "/data/hengjie/datasets/rexgroundingct/segmentations",
+    "totalsegmentator_cache": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_total_fast_3mm_v2_16_0",
+    "iso07_cache": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1"
+  },
+  "outputs": {
+    "lung_mask_cache": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/anatomy/totalsegmentator_lung_iso07_v1",
+    "runtime_root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/019_voxtell_iso07_lung_bbox_coverage_audit",
+    "report": "reports/iso07_lung_bbox_coverage_report.md",
+    "summary": "reports/iso07_lung_bbox_coverage_summary.json",
+    "finding_details": "reports/iso07_lung_bbox_finding_details.csv"
+  },
+  "lung_label_ids": {
+    "10": "lung_upper_lobe_left",
+    "11": "lung_lower_lobe_left",
+    "12": "lung_upper_lobe_right",
+    "13": "lung_middle_lobe_right",
+    "14": "lung_lower_lobe_right"
+  },
+  "geometry": {
+    "target_spacing_zyx_mm": [0.7, 0.7, 0.7],
+    "orientation": "reuse per-case iso07 metadata: original CT to RAS, then FXYZ to FZYX",
+    "crop": "reuse per-case crop_bbox_zyx from the iso07 cache",
+    "image_axis_order": "FZYX",
+    "mask_interpolation": "torch nearest-exact",
+    "empty_lung_fallback": "foreground-center splat, recorded if ever used",
+    "bbox_index_semantics": "inclusive lower and upper voxel indices"
+  },
+  "expansion": {
+    "direction_order": ["L", "R", "A", "P", "S", "I"],
+    "scalar_definition": "max of the six nonnegative directional deficits",
+    "physical_voxel_size_mm": 0.7,
+    "groups": {
+      "all_diffuse": ["1a", "1b", "1c", "1d", "1e", "1f"],
+      "all_local_focal": ["2a", "2b", "2c", "2d", "2e", "2f", "2g", "2h"],
+      "all": ["1a", "1b", "1c", "1d", "1e", "1f", "2a", "2b", "2c", "2d", "2e", "2f", "2g", "2h"]
+    }
+  },
+  "artifact_policy": {
+    "heavy_lung_masks_in_git": false,
+    "audit_is_read_only_with_respect_to_input_data": true,
+    "report_is_human_readable": true
+  }
+}

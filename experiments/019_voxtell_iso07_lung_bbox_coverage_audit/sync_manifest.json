@@ -1,0 +1,20 @@
+{
+  "id": "019_voxtell_iso07_lung_bbox_coverage_audit",
+  "status": "audit_complete",
+  "canonical_config": {
+    "repo_path": "configs/experiments/019_voxtell_iso07_lung_bbox_coverage_audit.json",
+    "sha256": "49187eb81b84d047fbc6fc5f6827ccb28275cfbec60ebb2476349a99c48c07c3"
+  },
+  "runtime_config_snapshot": {
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/019_voxtell_iso07_lung_bbox_coverage_audit/config/019_voxtell_iso07_lung_bbox_coverage_audit.json",
+    "sha256": "49187eb81b84d047fbc6fc5f6827ccb28275cfbec60ebb2476349a99c48c07c3"
+  },
+  "report": {
+    "repo_path": "experiments/019_voxtell_iso07_lung_bbox_coverage_audit/report.md",
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/019_voxtell_iso07_lung_bbox_coverage_audit/reports/iso07_lung_bbox_coverage_report.md",
+    "exists": true,
+    "repo_sha256": "356d239027caa104c922348e48c4488261b02d7140d455c1b475959167491590",
+    "sha256": "356d239027caa104c922348e48c4488261b02d7140d455c1b475959167491590"
+  },
+  "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/019_voxtell_iso07_lung_bbox_coverage_audit"
+}
