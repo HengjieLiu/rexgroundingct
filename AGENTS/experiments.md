@@ -1,6 +1,6 @@
 ---
 created: 2026-07-22
-updated: 2026-08-03
+updated: 2026-08-21
 status: active
 ---
 
@@ -47,6 +47,12 @@ status: active
   the `crop_clip1024_linear_iso07_v1` 0.7 mm isotropic fixed-HU cache.
 - `017_voxtell_iso07_hu_ddp_bs4_update_matched`: 0.7 mm fixed-HU VoxTell DDP
   batch4 finetuning and continuation protocol matched to exp007.
+- `018_voxtell_category2d_nodule_audit`: audit-only, hash-pinned ranking of
+  fixed-val200 single-model checkpoints for official category `2d` pulmonary
+  nodules/masses; it does not launch training or inference.
+- `019_voxtell_iso07_lung_bbox_coverage_audit`: audit-only comparison of
+  TotalSegmentator whole-lung bbox coverage against every fixed-val200 GT
+  finding after mapping both masks to the 0.7 mm iso07 geometry.
 
 Do not rename experiment IDs casually. Runtime paths, configs, manifests, and
 reports depend on them.

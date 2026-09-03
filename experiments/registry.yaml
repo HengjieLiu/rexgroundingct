@@ -239,3 +239,31 @@ experiments:
     mean_global_dice_per_finding: null
     hit_rate: null
     overall_instance_f1: null
+  - id: "018_voxtell_category2d_nodule_audit"
+    title: "Official category-2d nodule method audit"
+    status: "audit_complete"
+    canonical_config: "configs/experiments/018_voxtell_category2d_nodule_audit.json"
+    execution_spec: null
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/018_voxtell_category2d_nodule_audit"
+    runtime_config_snapshot: null
+    runtime_config_matches_canonical: null
+    repo_report: "experiments/018_voxtell_category2d_nodule_audit/report.md"
+    runtime_report: null
+    repo_metrics: "experiments/018_voxtell_category2d_nodule_audit/nodule_method_audit.json"
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null
+  - id: "019_voxtell_iso07_lung_bbox_coverage_audit"
+    title: "VoxTell 0.7 mm lung bounding-box coverage audit"
+    status: "audit_complete"
+    canonical_config: "configs/experiments/019_voxtell_iso07_lung_bbox_coverage_audit.json"
+    execution_spec: "experiments/019_voxtell_iso07_lung_bbox_coverage_audit/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/019_voxtell_iso07_lung_bbox_coverage_audit"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/019_voxtell_iso07_lung_bbox_coverage_audit/config/019_voxtell_iso07_lung_bbox_coverage_audit.json"
+    runtime_config_matches_canonical: true
+    repo_report: "experiments/019_voxtell_iso07_lung_bbox_coverage_audit/report.md"
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/019_voxtell_iso07_lung_bbox_coverage_audit/reports/iso07_lung_bbox_coverage_report.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null

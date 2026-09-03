@@ -1,6 +1,6 @@
 ---
 created: 2026-07-22
-updated: 2026-07-22
+updated: 2026-08-21
 status: active
 ---
 
@@ -49,3 +49,5 @@ small summaries easy to inspect while large outputs remain on `/mnt/shengdata1`.
 | `015_voxtell_isotropic_resolution_audit` | `audit_complete` | `experiments/015_voxtell_isotropic_resolution_audit/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/015_voxtell_isotropic_resolution_audit` |
 | `016_voxtell_iso07_hu_preprocessing` | `preprocessing_complete` | `experiments/016_voxtell_iso07_hu_preprocessing/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/016_voxtell_iso07_hu_preprocessing` |
 | `017_voxtell_iso07_hu_ddp_bs4_update_matched` | `phase2_continuation_ready` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched` |
+| `018_voxtell_category2d_nodule_audit` | `audit_complete` | `experiments/018_voxtell_category2d_nodule_audit/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/018_voxtell_category2d_nodule_audit` |
+| `019_voxtell_iso07_lung_bbox_coverage_audit` | `audit_complete` | `experiments/019_voxtell_iso07_lung_bbox_coverage_audit/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/019_voxtell_iso07_lung_bbox_coverage_audit` |

@@ -217,6 +217,30 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
         ),
         "readiness_json": Path("config/train_val_ct_readiness.json"),
     },
+    "018_voxtell_category2d_nodule_audit": {
+        "title": "Official category-2d nodule method audit",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "018_voxtell_category2d_nodule_audit.json"
+        ),
+        "primary_report": Path("reports/category2d_nodule_method_audit.md"),
+        "primary_eval_json": Path("reports/nodule_method_audit.json"),
+        "readiness_json": Path("reports/nodule_method_audit.json"),
+    },
+    "019_voxtell_iso07_lung_bbox_coverage_audit": {
+        "title": "VoxTell 0.7 mm lung bounding-box coverage audit",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "019_voxtell_iso07_lung_bbox_coverage_audit.json"
+        ),
+        "primary_report": Path("reports/iso07_lung_bbox_coverage_report.md"),
+        "primary_eval_json": Path(
+            "reports/iso07_lung_bbox_coverage_summary.json"
+        ),
+        "readiness_json": Path(
+            "reports/iso07_lung_bbox_coverage_summary.json"
+        ),
+    },
 }
 
 

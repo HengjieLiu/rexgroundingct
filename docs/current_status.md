@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-08-01
+updated: 2026-08-21
 status: active
 ---
 
@@ -94,6 +94,20 @@ edit.
   fixed val200 checkpoint is epoch 50 with Dice `0.3347`, hit rate `0.7769`,
   and `296 / 381` hits; phase 2 is ready to continue from epoch 100 with
   weights-only initialization and a fresh optimizer/LR/update horizon.
+- `018_voxtell_category2d_nodule_audit` is complete as a read-only,
+  hash-pinned fixed-val200 audit for official category `2d` pulmonary
+  nodules/masses (`132` findings). Its Dice-first reference is Exp007 phase-2
+  continuation relative epoch 50 / absolute epoch 150 (`0.394936`, `115/132`)
+  and its hit-rate guardrail is Exp017 0.7 mm phase-1 epoch 75 (`0.392786`,
+  `118/132`). Neither direct 2d fine-tune, Exp012 `category_2d_replay50` nor
+  Exp013 `category_2d_target100`, exceeded the Exp007 reference on its
+  available fixed-val200 result.
+- `019_voxtell_iso07_lung_bbox_coverage_audit` is complete for all 200 fixed
+  validation cases and 381 findings. The TotalSegmentator lung-lobe union
+  bbox contains 336/381 findings without expansion (`88.2%`); the required
+  isotropic expansion has median `0`, 95th percentile `3` voxels (`2.1 mm`),
+  and maximum `52` voxels (`36.4 mm`). The human-readable report is indexed
+  under `experiments/019_voxtell_iso07_lung_bbox_coverage_audit/report.md`.
 - The standard CPU-only training-dynamics suite is active for Exp008, Exp009,
   and Exp011. Canonical figures live under each experiment's
   `reports/training_dynamics/` directory, with the shared gallery at
@@ -258,3 +272,5 @@ edit.
 - Launch experiment 017 phase 2 only after the static checks, schedule-prefix
   check, DDP resume smoke, one-case iso07 inference restore, and four-case
   sharded eval smoke pass; compare the continuation against exp007 phase 2.
+- Use Exp018's fixed category-2d audit as the baseline for any later nodule
+  training proposal; do not launch a training matrix or GPU job under Exp018.
