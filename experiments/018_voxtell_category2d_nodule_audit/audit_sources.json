@@ -1,0 +1,781 @@
+{
+  "audit_snapshot": "2026-08-21_train_val_category2d",
+  "reference_dataset": {
+    "path": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "expected_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "category": "2d",
+    "category_label": "Pulmonary nodules/masses",
+    "expected_category_findings": 132
+  },
+  "training_validation_comparison": {
+    "metadata_path": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+    "metadata_expected_sha256": "3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a",
+    "category": "2d",
+    "expected_test_cases": 300,
+    "annotation_policy_evidence": {
+      "path": "challenge_info/rexgroundingct_challenge.md",
+      "expected_sha256": "81b46b035212d60e1544667bab7fc06a1295bfaa2828e6f3088d82f2059a44c1",
+      "raw_archive_path": "challenge_info/snapshots/2026-07-22T001343Z/raw/rexrank.ai/ReXGroundingCT/challenge.html",
+      "raw_archive_expected_sha256": "3b1264e89db26266254c3b4912d2d5e3a533ee53944405d801d341f69d85eb1d",
+      "entity_count_definition_raw_archive_path": "challenge_info/snapshots/2026-07-22T001343Z/raw/huggingface.co/datasets/rajpurkarlab/ReXGroundingCT.html",
+      "entity_count_definition_raw_archive_expected_sha256": "e4a0ecee73305b3510b9d3ca1f1bfcbe473a04d36800b3abb5aeceb47d7fb47f"
+    },
+    "expected_splits": {
+      "train": {
+        "expected_cases": 2992,
+        "expected_findings": 7687,
+        "expected_category_findings": 1743,
+        "expected_category_cases": 1305,
+        "expected_category_entities": 3185,
+        "expected_entity_count_equal_three": 504,
+        "expected_entity_count_greater_than_three": 36,
+        "expected_max_entity_count": 5
+      },
+      "val": {
+        "expected_cases": 200,
+        "expected_findings": 381,
+        "expected_category_findings": 132,
+        "expected_category_cases": 119,
+        "expected_category_entities": 466,
+        "expected_entity_count_equal_three": 14,
+        "expected_entity_count_greater_than_three": 46,
+        "expected_max_entity_count": 22
+      }
+    }
+  },
+  "curated_baseline": {
+    "path": "side_experiments/sideexp002_multimodel_ensemble_selection/outputs/baseline_per_category_performance.json",
+    "expected_sha256": "cf9dadd4ac3b3ad869ab889596309ee61ff19afa8dab281249a4012696f3cfec",
+    "expected_model_count": 20,
+    "mask_threshold_evidence_id": "sideexp002_fixed_mask_threshold"
+  },
+  "mask_threshold_evidence": {
+    "sideexp002_fixed_mask_threshold": {
+      "path": "side_experiments/sideexp002_multimodel_ensemble_selection/outputs/baseline_per_category_performance.json",
+      "expected_sha256": "cf9dadd4ac3b3ad869ab889596309ee61ff19afa8dab281249a4012696f3cfec",
+      "json_path": ["definitions", "mask_threshold"]
+    },
+    "exp004_primary_threshold": {
+      "path": "configs/experiments/004_voxtell_v123_native_vs_2mm_global_context_ft.json",
+      "expected_sha256": "2978c06c77c50329453af8d29c0510643ed121a1cf3183464ccb0805e4ecade3",
+      "json_path": ["validation", "primary_threshold"]
+    },
+    "exp006_primary_threshold": {
+      "path": "configs/experiments/006_voxtell_cached_native_v123_lr_ablation.json",
+      "expected_sha256": "b8e587a36a2a51e4ee9696a1690f557883f0d1deeae6c77602b225ebf154a210",
+      "json_path": ["validation", "primary_threshold"]
+    },
+    "exp007_primary_threshold": {
+      "path": "configs/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json",
+      "expected_sha256": "ff7d1d22c5e1887167156df886cc1e792a3318cbb39fc5147e4a45e4baf1b349",
+      "json_path": ["validation", "primary_threshold"]
+    },
+    "exp011_primary_threshold": {
+      "path": "configs/experiments/011_voxtell_v123_e4d4_ct_normalization_ablation.json",
+      "expected_sha256": "f98028e8810c44fb30a8883569f79ac84cabd2ff57100743474127ee00bb1235",
+      "json_path": ["validation", "primary_threshold"]
+    },
+    "exp012_final_threshold": {
+      "path": "configs/experiments/012_voxtell_category_specialists_replay50_cont100.json",
+      "expected_sha256": "8700da1116914e3d71933abafe859138f31d5550eca72519e53c9e51e4998782",
+      "json_path": ["validation", "final_threshold"]
+    },
+    "exp013_final_threshold": {
+      "path": "configs/experiments/013_voxtell_public_category_only_specialists.json",
+      "expected_sha256": "cd424e71122e3431f7a460421b4a772b7e9ff7381b89d519198f23ca8b7c17f7",
+      "json_path": ["validation", "final_threshold"]
+    },
+    "exp014_primary_threshold": {
+      "path": "configs/experiments/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched.json",
+      "expected_sha256": "18ea20f511a8e4ef956efe98d232a10c02b191b2a48fb5f5455c40ca4d71dafe",
+      "json_path": ["validation", "primary_threshold"]
+    },
+    "exp017_primary_threshold": {
+      "path": "configs/experiments/017_voxtell_iso07_hu_ddp_bs4_update_matched.json",
+      "expected_sha256": "32e2b702490255245c249e9b759b8a57aa442beccf3098908459edb2643f046f",
+      "json_path": ["validation", "primary_threshold"]
+    },
+    "exp018_project_fixed_threshold_policy": {
+      "path": "configs/experiments/018_voxtell_category2d_nodule_audit.json",
+      "expected_sha256": "08eea7163a955011b46d32db2113274d6ed20713da889182c45a3f88dd817402",
+      "json_path": ["official_nodule_contract", "primary_mask_threshold"]
+    }
+  },
+  "runtime_mask_threshold_evidence": {
+    "004_voxtell_v123_native_vs_2mm_global_context_ft": "exp004_primary_threshold",
+    "006_voxtell_cached_native_v123_lr_ablation": "exp006_primary_threshold",
+    "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched": "exp007_primary_threshold",
+    "011_voxtell_v123_e4d4_ct_normalization_ablation": "exp011_primary_threshold",
+    "012_voxtell_category_specialists_replay50_cont100": "exp012_final_threshold",
+    "013_voxtell_public_category_only_specialists": "exp013_final_threshold",
+    "014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched": "exp014_primary_threshold",
+    "017_voxtell_iso07_hu_ddp_bs4_update_matched": "exp017_primary_threshold"
+  },
+  "runtime_evaluator_scan": {
+    "root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct",
+    "glob": "*/runs/**/eval_epoch*_val200/eval/val_quick_global_eval.json",
+    "expected_evaluator_count": 58
+  },
+  "runtime_evaluations": [
+    {
+      "candidate_id": "exp004_native192_cont100_e100",
+      "experiment_id": "004_voxtell_v123_native_vs_2mm_global_context_ft",
+      "method_family": "Exp004 native192 continuation",
+      "model_id": "native192_cont100",
+      "phase": "paired continuation",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broad_sampling_variant",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft/runs/exp004_paired_20260724T081000Z/native192_cont100/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "1643066407aafa5e430340a2b384f8c656ed5b6f0baaaa311da2d2a1899bc5b3"
+    },
+    {
+      "candidate_id": "exp004_iso2mm_global192_cont100_e100",
+      "experiment_id": "004_voxtell_v123_native_vs_2mm_global_context_ft",
+      "method_family": "Exp004 2 mm global-context continuation",
+      "model_id": "iso2mm_global192_cont100",
+      "phase": "paired continuation",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broad_sampling_variant",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft/runs/exp004_paired_20260724T081000Z/iso2mm_global192_cont100/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "1bdbe64e70c99c7c30399421e7d28d7ec99df925d246077f91646366e166ae2c"
+    },
+    {
+      "candidate_id": "exp006_e7d4_e100",
+      "experiment_id": "006_voxtell_cached_native_v123_lr_ablation",
+      "method_family": "Exp006 cached-native LR ablation",
+      "model_id": "v123_cached_e7_d4",
+      "phase": "LR ablation",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broad_lr_ablation",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/runs/exp006_cached_native_lr_20260725T050001Z/v123_cached_e7_d4/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "2b50a5a01237a5c582af061fcc0bd8fbf6affa611117fdd5c341e70f5e4c95fd"
+    },
+    {
+      "candidate_id": "exp006_e7d6_e100",
+      "experiment_id": "006_voxtell_cached_native_v123_lr_ablation",
+      "method_family": "Exp006 cached-native LR ablation",
+      "model_id": "v123_cached_e7_d6",
+      "phase": "LR ablation",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broad_lr_ablation",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation/runs/exp006_cached_native_lr_20260725T050001Z/v123_cached_e7_d6/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "a8da7ccef459fb8478e91e404f770072868c94d7e24f8a59a9cdefac275f921c"
+    },
+    {
+      "candidate_id": "exp011_e4d4_native_zscore_e100",
+      "experiment_id": "011_voxtell_v123_e4d4_ct_normalization_ablation",
+      "method_family": "Exp011 e4d4 CT normalization",
+      "model_id": "v123_e4d4_zscore",
+      "phase": "e4d4 normalization ablation",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broad_normalization_variant",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation/runs/exp011_ct_norm_e4d4_20260728T085103Z/v123_e4d4_zscore/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "c05b9d55e06f0fc7e2ef46588030f5224edafee6af7b86f5500cbe9182969c94"
+    },
+    {
+      "candidate_id": "exp011_e4d4_clip_zscore_e100",
+      "experiment_id": "011_voxtell_v123_e4d4_ct_normalization_ablation",
+      "method_family": "Exp011 e4d4 CT normalization",
+      "model_id": "v123_e4d4_clip1024_zscore",
+      "phase": "e4d4 normalization ablation",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broad_normalization_variant",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation/runs/exp011_ct_norm_e4d4_20260728T085103Z/v123_e4d4_clip1024_zscore/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "2c479d0b530a0ce684bcbc9adac705d40f2c01702c5b783736e0f2fed604c4bb"
+    },
+    {
+      "candidate_id": "exp011_e4d4_clip_linear_e100",
+      "experiment_id": "011_voxtell_v123_e4d4_ct_normalization_ablation",
+      "method_family": "Exp011 e4d4 CT normalization",
+      "model_id": "v123_e4d4_clip1024_linear",
+      "phase": "e4d4 normalization ablation",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broad_normalization_variant",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/011_voxtell_v123_e4d4_ct_normalization_ablation/runs/exp011_ct_norm_e4d4_20260728T085103Z/v123_e4d4_clip1024_linear/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "9a4f76e7fd0a53c2cf526262f007535738b6ffa28ab1f634c636998127aeaa57"
+    },
+    {
+      "candidate_id": "exp007_ddp_e025",
+      "experiment_id": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "method_family": "Exp007 native DDP batch4",
+      "model_id": "ddp_bs4",
+      "phase": "phase 1",
+      "relative_epoch": 25,
+      "absolute_epoch": 25,
+      "method_scope": "broad_continuation",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/eval_epoch025_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "730e8e500e7fc0eb1fb6bccb4a0f81d9ba1c11158394a29e6e13c02f4766149b"
+    },
+    {
+      "candidate_id": "exp007_cont_e025_abs_e125",
+      "experiment_id": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "method_family": "Exp007 phase-2 continuation",
+      "model_id": "ddp_bs4",
+      "phase": "phase 2 continuation",
+      "relative_epoch": 25,
+      "absolute_epoch": 125,
+      "method_scope": "broad_continuation",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/eval_epoch025_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "bb2b283916d09d7b84ec7d9033de99ea314ac9ea8af9ec5dfe62de6514997963"
+    },
+    {
+      "candidate_id": "exp007_cont_e050_abs_e150",
+      "experiment_id": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "method_family": "Exp007 phase-2 continuation",
+      "model_id": "ddp_bs4",
+      "phase": "phase 2 continuation",
+      "relative_epoch": 50,
+      "absolute_epoch": 150,
+      "method_scope": "broad_continuation",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/eval_epoch050_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "a912a823af552e3b245d0cb03dee822fb54f923d4216d84e5539f315d014cadd"
+    },
+    {
+      "candidate_id": "exp007_cont_e075_abs_e175",
+      "experiment_id": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "method_family": "Exp007 phase-2 continuation",
+      "model_id": "ddp_bs4",
+      "phase": "phase 2 continuation",
+      "relative_epoch": 75,
+      "absolute_epoch": 175,
+      "method_scope": "broad_continuation",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/eval_epoch075_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "c626a8144f68b7fa24d84d9467a2c7c01518f5217c57d5320f5ddb2d63d83fac"
+    },
+    {
+      "candidate_id": "exp007_cont_e100_abs_e200",
+      "experiment_id": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "method_family": "Exp007 phase-2 continuation",
+      "model_id": "ddp_bs4",
+      "phase": "phase 2 continuation",
+      "relative_epoch": 100,
+      "absolute_epoch": 200,
+      "method_scope": "broad_continuation",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "69b66b9ba344644149cda47258158e825550a663126d92b6e0939209c57572fa"
+    },
+    {
+      "candidate_id": "exp012_r01_category_1alldiffuse_replay50_e100",
+      "experiment_id": "012_voxtell_category_specialists_replay50_cont100",
+      "method_family": "Exp012 R01 category specialist",
+      "model_id": "category_1alldiffuse_replay50",
+      "phase": "R01",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "non_2d_specialist",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_20260801T215219Z/category_1alldiffuse_replay50/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "2fc01ba31473af5ce92f19f1085bdbe3bc00cf584a8bf8d122b675e2a18be2a8"
+    },
+    {
+      "candidate_id": "exp012_r01_category_2a_replay50_e100",
+      "experiment_id": "012_voxtell_category_specialists_replay50_cont100",
+      "method_family": "Exp012 R01 category specialist",
+      "model_id": "category_2a_replay50",
+      "phase": "R01",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "non_2d_specialist",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_20260801T215219Z/category_2a_replay50/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "413d6a3ad57ba4e81668b8e7623fd1790ecab70a716d3e0bd174c4741556dcaa"
+    },
+    {
+      "candidate_id": "exp012_r01_category_2b_replay50_e100",
+      "experiment_id": "012_voxtell_category_specialists_replay50_cont100",
+      "method_family": "Exp012 R01 category specialist",
+      "model_id": "category_2b_replay50",
+      "phase": "R01",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "non_2d_specialist",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_20260801T215219Z/category_2b_replay50/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "df5501b72181894f4d8b19aaf10ae3329f9155f1532e6d19e5a7ea1accccc175"
+    },
+    {
+      "candidate_id": "exp012_r01_category_2c_replay50_e100",
+      "experiment_id": "012_voxtell_category_specialists_replay50_cont100",
+      "method_family": "Exp012 R01 category specialist",
+      "model_id": "category_2c_replay50",
+      "phase": "R01",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "non_2d_specialist",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_20260801T215219Z/category_2c_replay50/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "39d9188589b4b263f13d3e1277322453cc694d7401f6abacde37bc3082dfc000"
+    },
+    {
+      "candidate_id": "exp012_r02_category_1alldiffuse_replay00_e100",
+      "experiment_id": "012_voxtell_category_specialists_replay50_cont100",
+      "method_family": "Exp012 R02 category specialist",
+      "model_id": "category_1alldiffuse_replay00",
+      "phase": "R02",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "non_2d_specialist",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_r02_replay_ratio_20260802T122657Z/category_1alldiffuse_replay00/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "65d82d5505ce1faff927eb316e5637b5308b959e4baf12b7d5980ae95dd25e2c"
+    },
+    {
+      "candidate_id": "exp012_r02_category_1alldiffuse_replay10_e100",
+      "experiment_id": "012_voxtell_category_specialists_replay50_cont100",
+      "method_family": "Exp012 R02 category specialist",
+      "model_id": "category_1alldiffuse_replay10",
+      "phase": "R02",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "non_2d_specialist",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_r02_replay_ratio_20260802T122657Z/category_1alldiffuse_replay10/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "cdc991c79e12e26f3458355392439cc15e7b7f39d4e1d0e076ba7483ee028f50"
+    },
+    {
+      "candidate_id": "exp012_r02_category_1alldiffuse_replay25_e100",
+      "experiment_id": "012_voxtell_category_specialists_replay50_cont100",
+      "method_family": "Exp012 R02 category specialist",
+      "model_id": "category_1alldiffuse_replay25",
+      "phase": "R02",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "non_2d_specialist",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_r02_replay_ratio_20260802T122657Z/category_1alldiffuse_replay25/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "39c3de5d917267920d0ce5b9ad11d1b30edaeda246c3e93c5b5eebca53329480"
+    },
+    {
+      "candidate_id": "exp012_r02_category_2d_replay50_e100",
+      "experiment_id": "012_voxtell_category_specialists_replay50_cont100",
+      "method_family": "Exp012 R02 direct 2d replay50",
+      "model_id": "category_2d_replay50",
+      "phase": "R02",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "direct_2d_finetune",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_r02_replay_ratio_20260802T122657Z/category_2d_replay50/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "d9ab844e97cce6cc366ac7841c9208515fb3401d5ac40b1974d43deb1cc6438f"
+    },
+    {
+      "candidate_id": "exp013_category_1all_diffuse_target100_e100",
+      "experiment_id": "013_voxtell_public_category_only_specialists",
+      "method_family": "Exp013 public category-only specialist",
+      "model_id": "category_1all_diffuse_target100",
+      "phase": "category-only",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "non_2d_specialist",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_1all_diffuse_target100/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "8ff421e9a8ca4eb90dfb5a013f05d325363daa0ffac69ce778eaec57588226dd"
+    },
+    {
+      "candidate_id": "exp013_category_2all_focal_target100_e100",
+      "experiment_id": "013_voxtell_public_category_only_specialists",
+      "method_family": "Exp013 public category-only specialist",
+      "model_id": "category_2all_focal_target100",
+      "phase": "category-only",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broader_2d_inclusive_finetune",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2all_focal_target100/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "90c274d2b29bb8ef5a164cf9b4c29f81989ab73a682cc5c97aa0aefb30a90e12"
+    },
+    {
+      "candidate_id": "exp013_category_2bc_target100_e100",
+      "experiment_id": "013_voxtell_public_category_only_specialists",
+      "method_family": "Exp013 public category-only specialist",
+      "model_id": "category_2bc_target100",
+      "phase": "category-only",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "non_2d_specialist",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2bc_target100/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "b9ba4c0f49a1bd7cf7bab15fd06bd2857d052c8e5be3fe52cab770ccbb4cd044"
+    },
+    {
+      "candidate_id": "exp013_category_2d_target100_e100",
+      "experiment_id": "013_voxtell_public_category_only_specialists",
+      "method_family": "Exp013 public direct 2d target100",
+      "model_id": "category_2d_target100",
+      "phase": "category-only",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "direct_2d_finetune",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2d_target100/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "7cc2d6fe7cca130fdb07e5e20d2a1198030456d0e056837fc9b83de77c6e16a5"
+    },
+    {
+      "candidate_id": "exp014_ddp_bs16_e025",
+      "experiment_id": "014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched",
+      "method_family": "Exp014 native DDP batch16",
+      "model_id": "ddp_bs16",
+      "phase": "phase 1",
+      "relative_epoch": 25,
+      "absolute_epoch": 25,
+      "method_scope": "broad_batch_size_ablation",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched/runs/exp014_ddp_bs16_update_matched_20260804T051845Z/ddp_bs16/eval_epoch025_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "8ae1f302a945c6acd69a6f5cc6112ec1aab29a046dc2c1d4e0a3e5651bb30b41"
+    },
+    {
+      "candidate_id": "exp014_ddp_bs16_e050",
+      "experiment_id": "014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched",
+      "method_family": "Exp014 native DDP batch16",
+      "model_id": "ddp_bs16",
+      "phase": "phase 1",
+      "relative_epoch": 50,
+      "absolute_epoch": 50,
+      "method_scope": "broad_batch_size_ablation",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched/runs/exp014_ddp_bs16_update_matched_20260804T051845Z/ddp_bs16/eval_epoch050_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "8c19307c81c75789bd0ae69f22280a4e2e5459a807057ea363a8ddd88ef38502"
+    },
+    {
+      "candidate_id": "exp014_ddp_bs16_e075",
+      "experiment_id": "014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched",
+      "method_family": "Exp014 native DDP batch16",
+      "model_id": "ddp_bs16",
+      "phase": "phase 1",
+      "relative_epoch": 75,
+      "absolute_epoch": 75,
+      "method_scope": "broad_batch_size_ablation",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/014_voxtell_cached_native_v123_e5_d4_ddp_bs16_update_matched/runs/exp014_ddp_bs16_update_matched_20260804T051845Z/ddp_bs16/eval_epoch075_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "23996a668bc74ed07dd1ba470c84f64e40a5ed840cba31da18395147937b6547"
+    },
+    {
+      "candidate_id": "exp017_phase1_e025",
+      "experiment_id": "017_voxtell_iso07_hu_ddp_bs4_update_matched",
+      "method_family": "Exp017 0.7 mm phase 1",
+      "model_id": "ddp_bs4",
+      "phase": "phase 1",
+      "relative_epoch": 25,
+      "absolute_epoch": 25,
+      "method_scope": "broad_preprocessing_variant",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/eval_epoch025_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "7f888c2fbec21d4ea8dae5ce7de520c89ac3eddd9a7fd92d44afd8c9e5878ae3"
+    },
+    {
+      "candidate_id": "exp017_phase1_e050",
+      "experiment_id": "017_voxtell_iso07_hu_ddp_bs4_update_matched",
+      "method_family": "Exp017 0.7 mm phase 1",
+      "model_id": "ddp_bs4",
+      "phase": "phase 1",
+      "relative_epoch": 50,
+      "absolute_epoch": 50,
+      "method_scope": "broad_preprocessing_variant",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/eval_epoch050_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "4a72349e774187e551788d9dd5b293fe272199400f6ca47961bafb7d06a3488b"
+    },
+    {
+      "candidate_id": "exp017_phase1_e075",
+      "experiment_id": "017_voxtell_iso07_hu_ddp_bs4_update_matched",
+      "method_family": "Exp017 0.7 mm phase 1",
+      "model_id": "ddp_bs4",
+      "phase": "phase 1",
+      "relative_epoch": 75,
+      "absolute_epoch": 75,
+      "method_scope": "broad_preprocessing_variant",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/eval_epoch075_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "3b83ad1b13dc2c476bd147ca298132c499adeb892e52d354b1f2e78871f7aaf6"
+    },
+    {
+      "candidate_id": "exp017_phase1_e100",
+      "experiment_id": "017_voxtell_iso07_hu_ddp_bs4_update_matched",
+      "method_family": "Exp017 0.7 mm phase 1",
+      "model_id": "ddp_bs4",
+      "phase": "phase 1",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broad_preprocessing_variant",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "e7eb19e788f91d6eceb98d64e6bb78df11ecd6c18c5f9cb10e9a0268d1f9eaa8"
+    },
+    {
+      "candidate_id": "exp017_cont_e025_abs_e125",
+      "experiment_id": "017_voxtell_iso07_hu_ddp_bs4_update_matched",
+      "method_family": "Exp017 0.7 mm phase-2 continuation",
+      "model_id": "ddp_bs4",
+      "phase": "phase 2 continuation",
+      "relative_epoch": 25,
+      "absolute_epoch": 125,
+      "method_scope": "broad_preprocessing_variant",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/eval_epoch025_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "d4cf09ed2e2068d9b7d042422871eae9c320cbaec460f1a8284d2c02ae0dee65"
+    },
+    {
+      "candidate_id": "exp017_cont_e050_abs_e150",
+      "experiment_id": "017_voxtell_iso07_hu_ddp_bs4_update_matched",
+      "method_family": "Exp017 0.7 mm phase-2 continuation",
+      "model_id": "ddp_bs4",
+      "phase": "phase 2 continuation",
+      "relative_epoch": 50,
+      "absolute_epoch": 150,
+      "method_scope": "broad_preprocessing_variant",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/eval_epoch050_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "12b78c2df274e3a7e0295377ec180b1df350eb3a3bbd080bafdbd51335a0653b"
+    },
+    {
+      "candidate_id": "exp017_cont_e075_abs_e175",
+      "experiment_id": "017_voxtell_iso07_hu_ddp_bs4_update_matched",
+      "method_family": "Exp017 0.7 mm phase-2 continuation",
+      "model_id": "ddp_bs4",
+      "phase": "phase 2 continuation",
+      "relative_epoch": 75,
+      "absolute_epoch": 175,
+      "method_scope": "broad_preprocessing_variant",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/eval_epoch075_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "8ae99e2c5ce98eb522625f04dcdc9ecff0c0f836e2cc2fa3d7233f9655046168"
+    }
+  ],
+  "project_policy_runtime_evaluations": [
+    {
+      "candidate_id": "exp003_v1_opt_e100",
+      "experiment_id": "003_voxtell_rex_ft_rescue_ablation",
+      "method_family": "Exp003 rescue ablation",
+      "model_id": "v1_opt",
+      "phase": "full run",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broad_single_model",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "mask_threshold_evidence_id": "exp018_project_fixed_threshold_policy",
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/v1_opt/full_100ep/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "301b4545958a2e1a55d31bee8e0a6654c693143854aa34c87bf5fea953cdc980",
+      "exclusion_reason": "Raw evaluator JSON records only the global hit cutoff; no contemporaneous command or config records the segmentation mask threshold. The 0.5 source chain is forensic rather than direct, so this row is not eligible for the fixed-0.5 primary ranking."
+    },
+    {
+      "candidate_id": "exp003_v12_opt_poscrop_e100",
+      "experiment_id": "003_voxtell_rex_ft_rescue_ablation",
+      "method_family": "Exp003 rescue ablation",
+      "model_id": "v12_opt_poscrop",
+      "phase": "full run",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broad_single_model",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "mask_threshold_evidence_id": "exp018_project_fixed_threshold_policy",
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/v12_opt_poscrop/full_100ep/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "354938d34d8980b714d2bdc141d36ceb05def1ceb26103fcf66562e05f50f1f5",
+      "exclusion_reason": "Raw evaluator JSON records only the global hit cutoff; no contemporaneous command or config records the segmentation mask threshold. The 0.5 source chain is forensic rather than direct, so this row is not eligible for the fixed-0.5 primary ranking."
+    },
+    {
+      "candidate_id": "exp003_v123_opt_poscrop_emptyloss_e100",
+      "experiment_id": "003_voxtell_rex_ft_rescue_ablation",
+      "method_family": "Exp003 rescue ablation",
+      "model_id": "v123_opt_poscrop_emptyloss",
+      "phase": "full run",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broad_single_model",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "mask_threshold_evidence_id": "exp018_project_fixed_threshold_policy",
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/v123_opt_poscrop_emptyloss/full_100ep/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "23cd7d48106cf40ca458ee772eaebcb6ca53d0b5bed70fa389a0702db98ae7a1",
+      "exclusion_reason": "Raw evaluator JSON records only the global hit cutoff; no contemporaneous command or config records the segmentation mask threshold. The 0.5 source chain is forensic rather than direct, so this row is not eligible for the fixed-0.5 primary ranking."
+    },
+    {
+      "candidate_id": "exp003_v1234_opt_poscrop_emptyloss_ds_e100",
+      "experiment_id": "003_voxtell_rex_ft_rescue_ablation",
+      "method_family": "Exp003 rescue ablation",
+      "model_id": "v1234_opt_poscrop_emptyloss_ds",
+      "phase": "full run",
+      "relative_epoch": 100,
+      "absolute_epoch": 100,
+      "method_scope": "broad_single_model",
+      "evaluation_scope": "fixed_val200",
+      "mask_threshold": 0.5,
+      "mask_threshold_evidence_id": "exp018_project_fixed_threshold_policy",
+      "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation/runs/exp003_full_20260723T075256Z/v1234_opt_poscrop_emptyloss_ds/full_100ep/eval_epoch100_val200/eval/val_quick_global_eval.json",
+      "expected_sha256": "32c5c02ffd8e861deb9eb6ecde2f95509a45ef5578eda2bc4f3bc6cdb3d67dc1",
+      "exclusion_reason": "Raw evaluator JSON records only the global hit cutoff; no contemporaneous command or config records the segmentation mask threshold. The 0.5 source chain is forensic rather than direct, so this row is not eligible for the fixed-0.5 primary ranking."
+    }
+  ],
+  "unranked_runtime_evaluations": [],
+  "headline_candidate_ids": [
+    "exp007_cont_e050_abs_e150",
+    "exp017_phase1_e075"
+  ],
+  "direct_2d_finetunes": [
+    {
+      "experiment_id": "012_voxtell_category_specialists_replay50_cont100",
+      "arm": "category_2d_replay50",
+      "mask_threshold_evidence_id": "exp012_final_threshold",
+      "training_contract": "Exp009-source continuation; 50 targeted 2d and 50 natural-replay events per epoch.",
+      "selection_note": "Target-Dice selection retained the e0 Exp009 source; the completed e100 full-val200 result regressed.",
+      "selected_target_census_label": "e0 source checkpoint (2d slice of union evaluator)",
+      "target_census_series": [
+        {
+          "label": "e0 source checkpoint (2d slice of union evaluator)",
+          "evidence_scope": "target_census_only",
+          "dataset_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_r02_replay_ratio_20260802T122657Z/category_2d_replay50/eval_epoch000_union/eval/val_as_test_dataset.json",
+          "dataset_expected_sha256": "4fbce74eed418a83a4a2f5cc3878dfea8c3d64fc221e81dd718856828d5d030b",
+          "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_r02_replay_ratio_20260802T122657Z/category_2d_replay50/eval_epoch000_union/eval/val_quick_global_eval.json",
+          "expected_sha256": "1775f03bfa194689c21a1a8e899ba1f5a0efbf3e7c57d5afec40f1bd93a0eaa6",
+          "expected_category_findings": 132
+        }
+      ],
+      "fixed_val200_candidate_id": "exp012_r02_category_2d_replay50_e100"
+    },
+    {
+      "experiment_id": "013_voxtell_public_category_only_specialists",
+      "arm": "category_2d_target100",
+      "mask_threshold_evidence_id": "exp013_final_threshold",
+      "training_contract": "Public VoxTell v1.1 start; 100% targeted official-2d events and no replay.",
+      "selection_note": "All e0/e20/e40/e60/e80 target-census checkpoints are partial evidence; e80 is the target-Dice selection, while e100 is reported separately on full val200.",
+      "selected_target_census_label": "e80 target-census checkpoint",
+      "target_census_series": [
+        {
+          "label": "e0 target-census checkpoint",
+          "evidence_scope": "target_census_only",
+          "dataset_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2d_target100/eval_epoch000_target/eval/val_as_test_dataset.json",
+          "dataset_expected_sha256": "ed1b5b7125fb3f6afa7e1d8368e292045504824a528992f3d246e5903529a8fe",
+          "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2d_target100/eval_epoch000_target/eval/val_quick_global_eval.json",
+          "expected_sha256": "ac61380eb92f790548366b4c985db0619beff6f9e54ec71671bd4b268637d6a5",
+          "expected_category_findings": 132
+        },
+        {
+          "label": "e20 target-census checkpoint",
+          "evidence_scope": "target_census_only",
+          "dataset_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2d_target100/eval_epoch020_target/eval/val_as_test_dataset.json",
+          "dataset_expected_sha256": "ed1b5b7125fb3f6afa7e1d8368e292045504824a528992f3d246e5903529a8fe",
+          "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2d_target100/eval_epoch020_target/eval/val_quick_global_eval.json",
+          "expected_sha256": "fded7c7d24c7bd4eb85b0c2746f008f8f378badf479b4490acc1bf0419e0032c",
+          "expected_category_findings": 132
+        },
+        {
+          "label": "e40 target-census checkpoint",
+          "evidence_scope": "target_census_only",
+          "dataset_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2d_target100/eval_epoch040_target/eval/val_as_test_dataset.json",
+          "dataset_expected_sha256": "ed1b5b7125fb3f6afa7e1d8368e292045504824a528992f3d246e5903529a8fe",
+          "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2d_target100/eval_epoch040_target/eval/val_quick_global_eval.json",
+          "expected_sha256": "a9f89d4c87525b24d676234e3fc55202a9c9cd94d79f2f1cb3ca4d060419058c",
+          "expected_category_findings": 132
+        },
+        {
+          "label": "e60 target-census checkpoint",
+          "evidence_scope": "target_census_only",
+          "dataset_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2d_target100/eval_epoch060_target/eval/val_as_test_dataset.json",
+          "dataset_expected_sha256": "ed1b5b7125fb3f6afa7e1d8368e292045504824a528992f3d246e5903529a8fe",
+          "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2d_target100/eval_epoch060_target/eval/val_quick_global_eval.json",
+          "expected_sha256": "9ce8f273db778278a4c4983d32ba6754002ea9bf9cdc12528a584317cf32c75f",
+          "expected_category_findings": 132
+        },
+        {
+          "label": "e80 target-census checkpoint",
+          "evidence_scope": "target_census_only",
+          "dataset_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2d_target100/eval_epoch080_target/eval/val_as_test_dataset.json",
+          "dataset_expected_sha256": "ed1b5b7125fb3f6afa7e1d8368e292045504824a528992f3d246e5903529a8fe",
+          "evaluation_path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/013_voxtell_public_category_only_specialists/runs/exp013_category_only_voxtell_20260803T061201Z/category_2d_target100/eval_epoch080_target/eval/val_quick_global_eval.json",
+          "expected_sha256": "9873ad15c4e5e0295f1b9ff99d0a05ad4573d8a1188f23b2b6a3028d10912494",
+          "expected_category_findings": 132
+        }
+      ],
+      "fixed_val200_candidate_id": "exp013_category_2d_target100_e100"
+    }
+  ],
+  "broader_nodule_inclusive_finetunes": [
+    {
+      "experiment_id": "013_voxtell_public_category_only_specialists",
+      "arm": "category_2all_focal_target100",
+      "target_categories": ["2a", "2b", "2c", "2d", "2e", "2f", "2g", "2h"],
+      "note": "Public-start 100%-targeted focal-category specialist; direct-2d claims do not apply.",
+      "candidate_id": "exp013_category_2all_focal_target100_e100"
+    }
+  ],
+  "excluded_or_incomplete_evidence": [
+    {
+      "label": "Ensembles",
+      "detail": "Exp003's four-model probability ensemble (2d Dice 0.303438; 101/132 hits at 0.50) and SideExp002 ensemble results are excluded because the primary table ranks single checkpoints only."
+    },
+    {
+      "label": "Validation-selected threshold oracles",
+      "detail": "SideExp002's all-20 ensemble global threshold 0.55 (2d Dice 0.379972; 112/132) and category-selected 2d threshold 0.90 oracle (0.388159; 109/132) are descriptive validation selections, not fixed-0.5 single-model evidence."
+    },
+    {
+      "label": "Legacy Exp003 threshold provenance",
+      "detail": "Project policy fixes single-model thresholds at 0.5 unless explicitly performing an ensemble sweep, so the four Exp003 single-model rows are ranked. Their raw evaluator files record the global hit cutoff (0.1), not a contemporaneous segmentation-mask cutoff; the project-fixed 0.5 policy is hash-pinned in the Exp018 audit contract and the legacy code chain remains forensic rather than direct command capture."
+    },
+    {
+      "label": "Incompatible nodule definitions",
+      "detail": "Category 1e micronodules/tree-in-bud and Exp004's legacy regex-based nodule stratum (N=150) are not official category 2d (N=132)."
+    },
+    {
+      "label": "Incomplete evaluations",
+      "detail": "Target-only Exp013 checkpoint censuses are kept as partial evidence, not primary rows; Exp014 epoch 100 and Exp017 phase-2 epoch 100 have no fixed-val200 evaluator in this frozen snapshot."
+    },
+    {
+      "label": "Validation reuse",
+      "detail": "All rankings are fixed-val200 descriptive comparisons. They do not establish challenge-test generalization and should not be treated as a final test-set model selection."
+    }
+  ]
+}

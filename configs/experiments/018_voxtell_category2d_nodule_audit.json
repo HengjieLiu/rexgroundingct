@@ -1,0 +1,55 @@
+{
+  "experiment": "018_voxtell_category2d_nodule_audit",
+  "status": "audit_complete",
+  "objective": "establish a reproducible Dice-first, official-category-2d nodule baseline before proposing later nodule-improvement training",
+  "repo_output_dir": "experiments/018_voxtell_category2d_nodule_audit",
+  "runtime_experiment_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/018_voxtell_category2d_nodule_audit",
+  "audit": {
+    "script": "scripts/rexgroundingct/audit_category2d_nodule_methods.py",
+    "source_manifest": "experiments/018_voxtell_category2d_nodule_audit/audit_sources.json",
+    "method": "read and hash-pin pre-existing evaluator JSON, repo-local catalog artifacts, and released raw challenge metadata; do not load checkpoints, run inference, write predictions, launch training, or request GPUs",
+    "train_validation_distribution_audit": {
+      "source": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+      "source_contract": "the source SHA-256 and expected split aggregates are pinned in source_manifest",
+      "purpose": "compare official category-2d train and validation description distributions and released entity-count density",
+      "location_provenance": "findings text only; no lung/lobe masks, segmentation masks, CT images, coordinates, predictions, or image-derived localization",
+      "entity_provenance": "released entity_counts metadata only; no segmentation-mask inspection",
+      "reproduction_requirement": "the read-only raw metadata source must be available at the declared path with the manifest-pinned SHA-256"
+    },
+    "outputs": [
+      "experiments/018_voxtell_category2d_nodule_audit/report.md",
+      "experiments/018_voxtell_category2d_nodule_audit/nodule_method_audit.json"
+    ],
+    "reproduction_check": "python scripts/rexgroundingct/audit_category2d_nodule_methods.py --check"
+  },
+  "official_nodule_contract": {
+    "category": "2d",
+    "label": "Pulmonary nodules/masses",
+    "reference_dataset": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "reference_dataset_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "fixed_val200_cases": 200,
+    "fixed_val200_findings": 381,
+    "category_2d_findings": 132,
+    "primary_mask_threshold": 0.5,
+    "global_hit_dice_threshold": 0.1,
+    "ranking": "single-model fixed-val200 checkpoints ordered by category-2d Dice descending, hits descending, then candidate ID ascending",
+    "excluded_definitions": [
+      "category 1e micronodules/tree-in-bud",
+      "Exp004 legacy regex-based nodule stratum"
+    ]
+  },
+  "evidence_policy": {
+    "primary_table": "fixed-val200 threshold-0.5 single-model checkpoints only",
+    "direct_2d_finetunes": "list separately with target-census-only evidence labeled partial and available fixed-val200 evidence shown distinctly",
+    "excluded_from_primary_ranking": [
+      "ensembles",
+      "validation-selected threshold oracles",
+      "incompatible category definitions",
+      "incomplete evaluations"
+    ]
+  },
+  "downstream_decision": {
+    "conclusion": "No direct official-category-2d fine-tune has exceeded the broad Exp007 phase-2 continuation on fixed-val200 Dice.",
+    "next_step": "A nodule-only training matrix and GPU launch require a later, separate request."
+  }
+}
