@@ -23,6 +23,9 @@ status: active
 - `training_dynamics.md`: canonical per-experiment loss plots, segmented-metric
   merging, cross-experiment gallery organization, and live Exp011 refresh
   rules.
+- `training_sampling_strategy_audit_bilingual_2026-08-22.md`: bilingual audit
+  of the current positive/negative prompt sampling strategy, multi-finding
+  behavior, risks, and prioritized improvements.
 - `asymmetric_proposal_refinement.md`: dual-branch high-recall proposal,
   soft-guided refinement, asymmetric losses, fusion alternatives, literature,
   and the experiment 008 design.
