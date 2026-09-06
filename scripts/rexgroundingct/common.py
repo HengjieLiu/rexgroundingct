@@ -241,6 +241,61 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
             "reports/iso07_lung_bbox_coverage_summary.json"
         ),
     },
+    "020_ct_rate_ts_total_rex_val200_audit": {
+        "title": "CT-RATE ts_total ReX validation audit",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "020_ct_rate_ts_total_rex_val200_audit.json"
+        ),
+        "primary_report": Path(
+            "reports/ct_rate_ts_total_rex_val200_audit_report.md"
+        ),
+        "primary_eval_json": Path("reports/private/audit_results.json"),
+        "readiness_json": Path("config/source_lock.json"),
+    },
+    "021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100": {
+        "title": "VoxTell 0.7 mm category-2d nodule-only positive specialist",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100.json"
+        ),
+        "primary_report": Path("reports/nodule_specialist_report.md"),
+        "primary_eval_json": Path(
+            "runs/latest/ddp_bs4/eval_epoch100_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("reports/nodule_specialist_summary.json"),
+    },
+    "022_exp007_official_anatomy_val200_audit": {
+        "title": "Exp007 official-anatomy val200 benefit-harm audit",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "022_exp007_official_anatomy_val200_audit.json"
+        ),
+        "primary_report": Path("reports/aggregate_report.md"),
+        "primary_eval_json": Path("reports/summary.json"),
+        "readiness_json": Path("reports/validation_checks.json"),
+    },
+    "023_ct_rate_ts_total_rex_test300_audit": {
+        "title": "CT-RATE ts_total ReX test300 audit",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "023_ct_rate_ts_total_rex_test300_audit.json"
+        ),
+        "primary_report": Path(
+            "reports/ct_rate_ts_total_rex_test300_audit_report.md"
+        ),
+        "primary_eval_json": Path("reports/private/audit_results.json"),
+        "readiness_json": Path("config/source_lock.json"),
+    },
+    "024_test_inference_anatomy_audit": {
+        "title": "Validation-gated test inference with anatomy support",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT / "024_test_inference_anatomy_audit.json"
+        ),
+        "primary_report": Path("reports/b_validation_report.md"),
+        "primary_eval_json": Path("reports/b_validation_metrics.json"),
+        "readiness_json": Path("completion.json"),
+    },
 }
 
 

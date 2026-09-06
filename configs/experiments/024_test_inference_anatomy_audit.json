@@ -1,0 +1,27 @@
+{
+  "experiment": "024_test_inference_anatomy_audit",
+  "status": "complete",
+  "runtime_root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit",
+  "metadata_path": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "metadata_sha256": "3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a",
+  "ct_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct",
+  "val_manifest_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+  "exp007_e150_evaluator_sha256": "a912a823af552e3b245d0cb03dee822fb54f923d4216d84e5539f315d014cadd",
+  "oracle_path": "side_experiments/sideexp002_multimodel_ensemble_selection/outputs/all_methods_val200_cutoff030_category_oracle.json",
+  "oracle_sha256": "12e27782a14e4a4abb0402391ebb78bec0225bb3b478ed54eebde86199014202",
+  "exp018_audit_source_sha256": "ce2a1f1f81c4dd1512e581baa6c71bfa0fa1d555626969e25c71b446b6cdc018",
+  "test_counts": {"cases": 300, "findings": 582},
+  "val_counts": {"cases": 200, "findings": 381},
+  "threshold": 0.5,
+  "dilation_mm": [20],
+  "bootstrap": {"resamples": 2000, "seed": 20260905},
+  "source_status": "PASS_PENDING_MANUAL_VISUAL_REVIEW",
+  "source_runtime_root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit",
+  "source_manifest_sha256": "498de533faee91d980b91a530ad02aae78117552b45ae6215a6018e3eb1912ee",
+  "source_mask_label_ids": {"lung_upper_lobe_left": 10, "lung_lower_lobe_left": 11, "lung_upper_lobe_right": 12, "lung_middle_lobe_right": 13, "lung_lower_lobe_right": 14},
+  "preprocessed_cache_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell",
+  "preprocess_ids": ["crop_zscore_native_v1", "crop_clip1024_linear_native_v1", "crop_clip1024_linear_iso07_v1"],
+  "oracle_categories": {
+    "1a": "exp017_cont_e025_abs_e125", "1b": "exp012_r02_category_2d_replay50_e100", "1c": "exp017_cont_e075_abs_e175", "1d": "exp011_e4d4_clip_linear_e100", "1e": "exp012_r02_category_2d_replay50_e100", "1f": "exp007_cont_e100_abs_e200", "2a": "exp009_s3v2_e100", "2b": "exp013_category_2all_focal_target100_e100", "2c": "exp007_cont_e050_abs_e150", "2d": "exp007_cont_e050_abs_e150", "2e": "exp007_cont_e100_abs_e200", "2f": null, "2g": "exp007_ddp_e025", "2h": "exp017_cont_e075_abs_e175"
+  }
+}

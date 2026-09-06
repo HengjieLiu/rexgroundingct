@@ -1,0 +1,159 @@
+{
+  "experiment": "020_ct_rate_ts_total_rex_val200_audit",
+  "status": "audit_complete_pending_manual_visual_review",
+  "objective": "Acquire and audit only the official CT-RATE ts_total masks corresponding to the ReXGroundingCT MICCAI validation cohort before any downstream use.",
+  "population": {
+    "metadata_path": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+    "metadata_sha256": "3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a",
+    "rex_split": "val",
+    "expected_unique_cases": 200,
+    "expected_ct_rate_split_counts": {
+      "train_fixed": 200,
+      "valid_fixed": 0
+    },
+    "preserve_metadata_order": true,
+    "evaluation_manifest": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "evaluation_manifest_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "evaluation_join_key": "name",
+    "evaluation_order_policy": "retain separately from metadata order and join results only by name"
+  },
+  "repository_pins": {
+    "rexgroundingct": {
+      "repo_id": "rajpurkarlab/ReXGroundingCT",
+      "repo_type": "dataset",
+      "revision": "4aee42ef7ce5ee70fab3e43f9d2c14ece1cd5c80"
+    },
+    "ct_rate": {
+      "repo_id": "ibrahimhamamci/CT-RATE",
+      "repo_type": "dataset",
+      "revision": "deeca4d89e9f978d4d1bccd88a55071ddbb146bb"
+    },
+    "execution_policy": "authenticate to both gated repositories, re-query exact paths at these immutable revisions, and write a runtime source lock before any transfer"
+  },
+  "inputs": {
+    "local_ct_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct",
+    "local_ct_contract": "existing native CT-RATE fixed volumes only; do not move, rewrite, or resample them",
+    "target_remote_root": "dataset/ts_seg/ts_total/train_fixed",
+    "target_remote_task": "ts_total",
+    "downloaded_ct_rate_data_contract": "official source NIfTIs remain unchanged after validation"
+  },
+  "preflight": {
+    "requested_masks": 200,
+    "expected_remote_bytes": 415039487,
+    "remote_metadata_fields": [
+      "path",
+      "size",
+      "blob_id",
+      "lfs.sha256",
+      "xet_hash"
+    ],
+    "local_ct_provenance": "compute local SHA-256 and compare it with the pinned CT-RATE remote-object metadata when available",
+    "approval_gate": "print the resolved count, byte total, and first ten private manifest rows; require an explicit approval of the manifest SHA-256 before download"
+  },
+  "runtime": {
+    "root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/020_ct_rate_ts_total_rex_val200_audit",
+    "raw_masks": "sources/<ct_rate_revision>/raw",
+    "staging": "staging",
+    "private_manifests": "manifests/private",
+    "private_reports": "reports/private",
+    "derived_lungs": "derived/lungs_native",
+    "visual_qc": "visual_qc",
+    "logs": "logs",
+    "aggregate_report": "reports/ct_rate_ts_total_rex_val200_audit_report.md",
+    "policy": "all raw masks, derived masks, visualizations, logs, and case-level manifests remain under this external runtime root"
+  },
+  "execution_environment": {
+    "container_image_ref": "rexgroundingct-totalsegmentator:2.16.0-cu126",
+    "container_image_id": "sha256:047cfe9e32a9001de0f55d04bffdb1ad81bf59b8f9f7de049103cf5d15d0acb7",
+    "policy": "run NIfTI integrity, geometry, lung QC, and visual-QC stages in this locally pinned image; record package versions at runtime"
+  },
+  "download": {
+    "method": "revision-pinned targeted huggingface_hub download followed by staged full validation and atomic promotion",
+    "resumable": true,
+    "idempotent": true,
+    "do_not_clone_repository": true,
+    "do_not_download_other_ct_rate_tasks": true,
+    "terminal_statuses": [
+      "downloaded",
+      "already_valid",
+      "upstream_absent",
+      "auth_error",
+      "transport_error",
+      "integrity_error"
+    ]
+  },
+  "geometry_audit": {
+    "require_same_shape": true,
+    "index_transform": "inv(A_ct) @ A_seg",
+    "index_tolerance_vox": 0.00001,
+    "corner_tolerance_mm": 0.01,
+    "compare": [
+      "best_affine",
+      "qform_matrix_and_code",
+      "sform_matrix_and_code",
+      "units",
+      "axis_scales",
+      "determinant_and_handedness",
+      "eight_matching_index_corner_residuals_mm",
+      "orientation_codes"
+    ],
+    "result_dimensions": [
+      "source_provenance_status",
+      "index_grid_status",
+      "world_header_status",
+      "visual_qc_status"
+    ],
+    "header_metadata_policy": {
+      "record_all_qform_sform_matrix_code": true,
+      "qc_only_compatible_exception": {
+        "status": "SFORM_UNSET_QFORM_ALIGNED",
+        "allowed_only_if": [
+          "CT and segmentation each have the same coded qform matrix and code",
+          "both qforms agree with their respective best affine",
+          "the CT coded sform agrees with its best affine",
+          "the segmentation sform is specifically unset (code 0), not conflicting",
+          "shape, index grid, world affine, spacing, units, provenance, and labels all pass"
+        ],
+        "scope": "QC-only native lung derivation; record the sform absence explicitly"
+      },
+      "all_other_qform_sform_disagreements": "quarantine and report; never resample or derive lungs"
+    },
+    "mismatch_policy": "quarantine and report; this audit never authorizes automatic resampling"
+  },
+  "segmentation_qc": {
+    "full_gzip_and_nifti_read_required": true,
+    "require_finite_integer_labels": true,
+    "require_allowed_id_validation": true,
+    "physical_voxel_volume_ml": "abs(det(affine[:3,:3])) / 1000.0",
+    "connected_component_connectivity": 26,
+    "visual_qc_selection": "all exceptions plus a deterministic representative sample"
+  },
+  "lut_provenance_gate": {
+    "required": true,
+    "required_evidence": "CT-RATE-producer versioned total-task mapping with immutable source and hash",
+    "blocked_status": "LUT_PROVENANCE_BLOCKED",
+    "forbidden_fallbacks": [
+      "hard-coded lobe IDs",
+      "Exp019 label mapping",
+      "current local TotalSegmentator mapping without CT-RATE producer provenance"
+    ],
+    "when_blocked": "do not validate allowed anatomy IDs conclusively, derive left/right lungs, or claim a final PASS"
+  },
+  "git_policy": {
+    "tracked": [
+      "canonical config",
+      "execution spec",
+      "small aggregate redacted report",
+      "small provenance summary without case identifiers"
+    ],
+    "external_only": [
+      "case identifiers",
+      "per-case manifests",
+      "raw masks",
+      "derived masks",
+      "overlays",
+      "logs",
+      "detailed exception tables"
+    ]
+  }
+}
