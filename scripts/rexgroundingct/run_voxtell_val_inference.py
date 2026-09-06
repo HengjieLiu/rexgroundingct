@@ -271,6 +271,63 @@ def save_4d_prediction(
     nib.save(out_img, str(output_path))
 
 
+def export_prediction_to_ct_layout(
+    prediction: np.ndarray,
+    ct_img: nib.Nifti1Image,
+    ct_properties: dict,
+    name: str,
+    output_dtype: np.dtype | type | None = np.uint8,
+) -> tuple[np.ndarray, dict]:
+    """Export a finding-first network result against a 3-D CT reference.
+
+    Test cases deliberately have no released GT image.  The network still
+    emits ``(F, Z, Y, X)`` in nnU-Net's reoriented space, so this uses the same
+    orientation reversal as :func:`export_prediction_to_gt_layout` while
+    taking the spatial shape and affine exclusively from the CT reference.
+    """
+    if prediction.ndim != 4 or len(ct_img.shape) != 3:
+        raise ValueError(f"{name}: expected (F,Z,Y,X) prediction and 3-D CT, got {prediction.shape} and {ct_img.shape}")
+    ct_shape = tuple(int(dim) for dim in ct_img.shape)
+    nibabel_stuff = ct_properties.get("nibabel_stuff", {})
+    original_affine = nibabel_stuff.get("original_affine", ct_img.affine)
+    reoriented_affine = nibabel_stuff.get("reoriented_affine", original_affine)
+    expected_nnunet_shape = (prediction.shape[0], ct_shape[2], ct_shape[1], ct_shape[0])
+    if tuple(prediction.shape) != expected_nnunet_shape:
+        raise ValueError(f"{name}: prediction shape {prediction.shape} is not expected nnU-Net layout {expected_nnunet_shape} for CT shape {ct_shape}")
+    transform = ornt_transform(io_orientation(reoriented_affine), io_orientation(original_affine))
+    prediction_xyz = np.transpose(prediction, (0, 3, 2, 1))
+    exported = np.stack([apply_orientation(prediction_xyz[i], transform) for i in range(prediction.shape[0])], axis=0)
+    if output_dtype is not None:
+        exported = exported.astype(output_dtype, copy=False)
+    exported = np.ascontiguousarray(exported)
+    if tuple(exported.shape[1:]) != ct_shape:
+        raise ValueError(f"{name}: exported spatial shape {exported.shape[1:]} != CT shape {ct_shape}")
+    return exported, {
+        "raw_prediction_shape": list(prediction.shape),
+        "ct_shape": list(ct_shape),
+        "ct_axcodes": list(nib.aff2axcodes(ct_img.affine)),
+        "orientation_transform": _serializable_ornt(transform),
+        "final_prediction_shape": list(exported.shape),
+    }
+
+
+def save_4d_prediction_with_reference(
+    segmentation: np.ndarray,
+    reference_path: Path,
+    output_path: Path,
+    output_dtype: np.dtype | type = np.uint8,
+) -> None:
+    """Save a native-resolution finding-first mask using a CT reference."""
+    reference = nib.load(str(reference_path))
+    if len(reference.shape) != 3 or segmentation.ndim != 4 or tuple(segmentation.shape[1:]) != tuple(reference.shape):
+        raise ValueError(f"Reference/export shape mismatch: {segmentation.shape} versus {reference.shape}")
+    header = reference.header.copy()
+    header.set_data_dtype(output_dtype)
+    out_img = nib.Nifti1Image(segmentation.astype(output_dtype, copy=False), reference.affine, header)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    nib.save(out_img, str(output_path))
+
+
 def load_dataset_json_entries(path: Path, split_label: str) -> list[dict]:
     data = json.loads(path.read_text())
     if "test" not in data or not isinstance(data["test"], list):
@@ -573,7 +630,7 @@ def run_case(
     if not ct_path.is_file():
         result["status"] = "missing_ct"
         return result
-    if not gt_path.is_file():
+    if not gt_path.is_file() and entry.get("_split") != "test":
         result["status"] = "missing_gt"
         return result
 
@@ -649,14 +706,18 @@ def run_case(
             output_dtype = np.float32
         else:
             raise ValueError(f"Unsupported output_type: {output_type}")
-    gt_img = nib.load(str(gt_path))
-    prediction, export_metadata = export_prediction_to_gt_layout(
-        prediction,
-        gt_img,
-        ct_properties,
-        name,
-        output_dtype=output_dtype,
-    )
+    if gt_path.is_file():
+        reference_img = nib.load(str(gt_path))
+        prediction, export_metadata = export_prediction_to_gt_layout(
+            prediction, reference_img, ct_properties, name, output_dtype=output_dtype
+        )
+    else:
+        # Test metadata intentionally has no released GT.  The CT is the sole
+        # reference for native shape, affine, header, and orientation.
+        reference_img = nib.load(str(ct_path))
+        prediction, export_metadata = export_prediction_to_ct_layout(
+            prediction, reference_img, ct_properties, name, output_dtype=output_dtype
+        )
     if output_type == "probability":
         min_probability = float(np.min(prediction))
         max_probability = float(np.max(prediction))
@@ -665,34 +726,34 @@ def run_case(
                 f"{name}: probability range [{min_probability}, {max_probability}] is outside [0, 1]"
             )
         result["probability_range"] = [min_probability, max_probability]
-    save_4d_prediction(prediction, gt_path, pred_path, output_dtype=output_dtype)
+    if gt_path.is_file():
+        save_4d_prediction(prediction, gt_path, pred_path, output_dtype=output_dtype)
+    else:
+        save_4d_prediction_with_reference(prediction, ct_path, pred_path, output_dtype=output_dtype)
     if probability_prediction is not None and probability_output_dir is not None:
-        exported_probability, _ = export_prediction_to_gt_layout(
-            probability_prediction,
-            gt_img,
-            ct_properties,
-            name,
-            output_dtype=np.float32,
-        )
+        if gt_path.is_file():
+            exported_probability, _ = export_prediction_to_gt_layout(
+                probability_prediction, reference_img, ct_properties, name, output_dtype=np.float32
+            )
+        else:
+            exported_probability, _ = export_prediction_to_ct_layout(
+                probability_prediction, reference_img, ct_properties, name, output_dtype=np.float32
+            )
         probability_path = probability_output_dir / name
-        save_4d_prediction(
-            exported_probability,
-            gt_path,
-            probability_path,
-            output_dtype=np.float32,
-        )
+        if gt_path.is_file():
+            save_4d_prediction(exported_probability, gt_path, probability_path, output_dtype=np.float32)
+        else:
+            save_4d_prediction_with_reference(exported_probability, ct_path, probability_path, output_dtype=np.float32)
         result["probability_path"] = str(probability_path)
         result["probability_range"] = [
             float(np.min(exported_probability)),
             float(np.max(exported_probability)),
         ]
     if proposal_probability_prediction is not None:
+        if not gt_path.is_file():
+            raise ValueError("Proposal export requires GT for proposal diagnostics")
         exported_proposal_probability, _ = export_prediction_to_gt_layout(
-            proposal_probability_prediction,
-            gt_img,
-            ct_properties,
-            name,
-            output_dtype=np.float32,
+            proposal_probability_prediction, reference_img, ct_properties, name, output_dtype=np.float32
         )
         ground_truth = np.asanyarray(gt_img.dataobj)
         if ground_truth.ndim == 3:
