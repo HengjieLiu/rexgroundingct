@@ -267,3 +267,73 @@ experiments:
     mean_global_dice_per_finding: null
     hit_rate: null
     overall_instance_f1: null
+  - id: "020_ct_rate_ts_total_rex_val200_audit"
+    title: "CT-RATE ts_total ReX validation audit"
+    status: "audit_complete_pending_manual_visual_review"
+    canonical_config: "configs/experiments/020_ct_rate_ts_total_rex_val200_audit.json"
+    execution_spec: "experiments/020_ct_rate_ts_total_rex_val200_audit/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/020_ct_rate_ts_total_rex_val200_audit"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/020_ct_rate_ts_total_rex_val200_audit/config/020_ct_rate_ts_total_rex_val200_audit.json"
+    runtime_config_matches_canonical: null
+    repo_report: "experiments/020_ct_rate_ts_total_rex_val200_audit/report.md"
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/020_ct_rate_ts_total_rex_val200_audit/reports/ct_rate_ts_total_rex_val200_audit_report.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null
+  - id: "021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100"
+    title: "VoxTell 0.7 mm category-2d nodule-only positive specialist"
+    status: "implementation"
+    canonical_config: "configs/experiments/021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100.json"
+    execution_spec: "experiments/021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100/config/021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100.json"
+    runtime_config_matches_canonical: true
+    repo_report: null
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100/reports/nodule_specialist_report.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null
+  - id: "022_exp007_official_anatomy_val200_audit"
+    title: "Exp007 official-anatomy val200 benefit-harm audit"
+    status: "audit_complete_for_user_review"
+    canonical_config: "configs/experiments/022_exp007_official_anatomy_val200_audit.json"
+    execution_spec: "experiments/022_exp007_official_anatomy_val200_audit/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/022_exp007_official_anatomy_val200_audit"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/022_exp007_official_anatomy_val200_audit/config/022_exp007_official_anatomy_val200_audit.json"
+    runtime_config_matches_canonical: true
+    repo_report: "experiments/022_exp007_official_anatomy_val200_audit/report.md"
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/022_exp007_official_anatomy_val200_audit/reports/aggregate_report.md"
+    repo_metrics: "experiments/022_exp007_official_anatomy_val200_audit/metrics_summary.json"
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null
+  - id: "023_ct_rate_ts_total_rex_test300_audit"
+    title: "CT-RATE ts_total ReX test300 audit"
+    status: "preflight_complete_awaiting_manifest_approval"
+    canonical_config: "configs/experiments/023_ct_rate_ts_total_rex_test300_audit.json"
+    execution_spec: "experiments/023_ct_rate_ts_total_rex_test300_audit/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit/config/023_ct_rate_ts_total_rex_test300_audit.json"
+    runtime_config_matches_canonical: null
+    repo_report: "experiments/023_ct_rate_ts_total_rex_test300_audit/report.md"
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit/reports/ct_rate_ts_total_rex_test300_audit_report.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null
+  - id: "024_test_inference_anatomy_audit"
+    title: "Validation-gated test inference with anatomy support"
+    status: "complete"
+    canonical_config: "configs/experiments/024_test_inference_anatomy_audit.json"
+    execution_spec: "experiments/024_test_inference_anatomy_audit/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/config/024_test_inference_anatomy_audit.json"
+    runtime_config_matches_canonical: true
+    repo_report: "experiments/024_test_inference_anatomy_audit/aggregate_report.md"
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/reports/b_validation_report.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null

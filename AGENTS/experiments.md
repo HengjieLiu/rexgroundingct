@@ -1,6 +1,6 @@
 ---
 created: 2026-07-22
-updated: 2026-08-21
+updated: 2026-09-06
 status: active
 ---
 
@@ -53,6 +53,16 @@ status: active
 - `019_voxtell_iso07_lung_bbox_coverage_audit`: audit-only comparison of
   TotalSegmentator whole-lung bbox coverage against every fixed-val200 GT
   finding after mapping both masks to the 0.7 mm iso07 geometry.
+- `020_ct_rate_ts_total_rex_val200_audit`: CT-RATE `ts_total` mask acquisition
+  and validation-cohort audit before any downstream use.
+- `021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100`: 0.7 mm category-2d
+  nodule-only positive specialist initialized from Exp017 epoch 100.
+- `022_exp007_official_anatomy_val200_audit`: Exp007 official-anatomy val200
+  benefit-harm audit using the CT-RATE `ts_total` source masks.
+- `023_ct_rate_ts_total_rex_test300_audit`: CT-RATE `ts_total` mask preflight
+  and test-cohort audit before any downstream use.
+- `024_test_inference_anatomy_audit`: validation-gated test inference audit
+  comparing anatomy-supported and baseline preprocessing paths.
 
 Do not rename experiment IDs casually. Runtime paths, configs, manifests, and
 reports depend on them.

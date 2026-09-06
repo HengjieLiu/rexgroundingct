@@ -1,6 +1,6 @@
 {
   "experiment": "022_exp007_official_anatomy_val200_audit",
-  "status": "audit_complete_for_user_review",
+  "status": "audit_only",
   "val_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
   "val_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
   "eval_json": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/eval_epoch050_val200/eval/val_quick_global_eval.json",

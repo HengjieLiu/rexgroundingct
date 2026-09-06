@@ -1,6 +1,6 @@
 {
   "experiment": "020_ct_rate_ts_total_rex_val200_audit",
-  "status": "audit_complete_pending_manual_visual_review",
+  "status": "preflight_pinned_download_pending",
   "objective": "Acquire and audit only the official CT-RATE ts_total masks corresponding to the ReXGroundingCT MICCAI validation cohort before any downstream use.",
   "population": {
     "metadata_path": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",

@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-08-21
+updated: 2026-09-06
 status: active
 ---
 
@@ -12,6 +12,23 @@ edit.
 
 ## Active Work
 
+- `022_exp007_official_anatomy_val200_audit` is complete for user review:
+  200 CTs / 381 finding prompts, frozen Exp007 cont e050 / abs e150 baseline
+  Dice `0.346023`, official Exp020 masks only, 32 fixed diagnostic policies.
+  Exact whole-lung clipping drops Dice to `0.338113` (129 worsened findings);
+  the highest-observed routed comparison reaches `0.357341` (3 worsened).
+  Broad prompt-eligible lung support with a 20 mm margin reaches `0.350761`
+  with no measured Dice regressions. These are exploratory validation results,
+  not adopted methods. All baseline/geometry checks, 12,192 comparison checks,
+  and 19 tests pass; 40 diagnostic panels were AI-inspected. Official-mask
+  human visual QC remains pending. Review the report before choosing next work.
+- `020_ct_rate_ts_total_rex_val200_audit` sealed the 200-case CT-RATE
+  `ts_total` validation mask audit and is pending manual visual review. Its
+  outputs remain external and are not used downstream until that review is
+  accepted.
+- `021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100` has an implemented
+  0.7 mm category-2d specialist path and smoke-tested schedule tooling; a full
+  training run has not been accepted as complete.
 - `001_voxtell_v1_1_miccai200_val_eval` is the corrected-orientation pretrained
   VoxTell validation baseline.
 - `002_voxtell_text_ft_miccai_train_val` is the active challenge-valid
@@ -48,6 +65,13 @@ edit.
   memory, exact source geometry, and 87 of 117 labels observed. Four val200
   workers and an automatic report/visualization finalizer are launched but
   gated until two consecutive checks show at least 24,000 MiB free per GPU.
+- `023_ct_rate_ts_total_rex_test300_audit` completed no-download preflight for
+  the 300-case test cohort, including the pinned 300-mask manifest and source
+  checks. Authentication and manifest approval remain pending; no downstream
+  test inference uses these masks.
+- `024_test_inference_anatomy_audit` completed its validation-gated six-output
+  test inference audit. The aggregate is diagnostic only and makes no test-set
+  performance claim; manual source review remains required before adoption.
 - `011_voxtell_v123_e4d4_ct_normalization_ablation` completed the e4/d4
   normalization comparison in run group
   `exp011_ct_norm_e4d4_20260728T085103Z`. The paired e5/d4 rerun is active in

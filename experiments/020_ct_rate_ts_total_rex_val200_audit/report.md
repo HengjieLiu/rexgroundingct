@@ -1,45 +1,41 @@
----
-created: 2026-09-04
-updated: 2026-09-04
-status: pass_pending_manual_visual_review
-experiment_id: "020_ct_rate_ts_total_rex_val200_audit"
----
+# CT-RATE `ts_total` / ReX validation audit
 
-# CT-RATE `ts_total` / ReX Validation Audit
+This redacted report intentionally contains aggregate evidence only; detailed
+case-level manifests, source objects, and overlays remain in the restricted runtime root.
 
-## Technical result
+## Conclusion
 
 **PASS_PENDING_MANUAL_VISUAL_REVIEW**
 
-The audited source set is exactly the 200-case ReXGroundingCT MICCAI validation
-cohort, all mapped to CT-RATE `train_fixed`. The targeted `ts_total` set was
-sealed at CT-RATE revision `deeca4d89e9f978d4d1bccd88a55071ddbb146bb` and
-ReXGroundingCT revision `4aee42ef7ce5ee70fab3e43f9d2c14ece1cd5c80`.
+A geometry mismatch is quarantined evidence and never authorizes automatic resampling.
 
-| Check | Result |
-| --- | --- |
-| Requested and valid source masks | 200 / 200 |
-| Full local-CT SHA-256 provenance matches | 200 / 200 |
-| Full gzip/NIfTI integrity | 200 / 200 |
-| Same index grid and world affine | 200 / 200 |
-| Same spacing and orientation | 200 / 200 |
-| Allowed `ts_total` labels | 200 / 200 |
-| QC-only native left/right lung-mask pairs derived | 200 / 200 |
+## Pinned sources
 
-The producer-bound TotalSegmentator 2.7.0 LUT passed. Every pair has the same
-benign header-metadata convention: the CT and segmentation have identical
-coded qforms and effective affines, the CT's coded sform agrees with that
-affine, and the segmentation sform is unset. This is reported as
-`SFORM_UNSET_QFORM_ALIGNED`; it is not a resampling or header-rewriting step.
+- ReXGroundingCT revision: `4aee42ef7ce5ee70fab3e43f9d2c14ece1cd5c80`
+- CT-RATE revision: `deeca4d89e9f978d4d1bccd88a55071ddbb146bb`
+- Approved remote-manifest SHA-256: `179d7294d67c736757a4da42b4572473a2d7cb28a8456717f1aaa05bdd8ebeb2`
+- Producer LUT status: `PASS`
 
-Lung-QC found one fragmentation flag and no robust native-volume outliers.
-Twenty deterministic representative panels plus that flagged panel were
-generated externally and sealed to the audit result.
+## Coverage and provenance
 
-## Required next review
+- Requested masks: 200
+- Download statuses: already_valid=200
+- Local CT source-provenance statuses: FULL_HASH_MATCH=200
+- Full gzip/NIfTI integrity statuses: VALID=200
 
-A human must inspect the 21 external visual-QC panels and record the outcome
-before this becomes a final PASS. Until then, this audit does not authorize any
-training, inference, preprocessing, resampling, anatomy-prior integration, or
-other downstream use. Detailed manifests, source masks, derived masks, and
-overlays remain outside Git in the experiment runtime root.
+## Native geometry
+
+- Index-grid statuses: PASS=200
+- World/header statuses: PASS=200
+- Spacing statuses: PASS=200
+- qform/sform/unit compatibility statuses: SFORM_UNSET_QFORM_ALIGNED=200
+- Header metadata statuses: SEGMENTATION_SFORM_UNSET=200
+- Label-QC statuses: PASS=200
+- Cases selected as exceptions for visual QC: 1
+- Visual QC images generated: 21
+
+## Review state
+
+- Manual visual review: not yet recorded
+
+No model, preprocessing, inference, or anatomy-prior integration was modified by this audit.

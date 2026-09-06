@@ -1,6 +1,5 @@
 {
   "experiment": "024_test_inference_anatomy_audit",
-  "status": "complete",
   "runtime_root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit",
   "metadata_path": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
   "metadata_sha256": "3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a",

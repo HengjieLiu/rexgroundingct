@@ -1,6 +1,6 @@
 ---
 created: 2026-07-22
-updated: 2026-08-21
+updated: 2026-09-06
 status: active
 ---
 
@@ -33,8 +33,8 @@ small summaries easy to inspect while large outputs remain on `/mnt/shengdata1`.
 | ID | Status | Report | Runtime |
 | --- | --- | --- | --- |
 | `001_voxtell_v1_1_miccai200_val_eval` | `evaluation_complete` | `experiments/001_voxtell_v1_1_miccai200_val_eval/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/001_voxtell_v1_1_miccai200_val_eval` |
-| `002_voxtell_text_ft_miccai_train_val` | `runtime_initialized` | `` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val` |
-| `003_voxtell_rex_ft_rescue_ablation` | `runtime_initialized` | `` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation` |
+| `002_voxtell_text_ft_miccai_train_val` | `runtime_initialized` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/002_voxtell_text_ft_miccai_train_val` |
+| `003_voxtell_rex_ft_rescue_ablation` | `runtime_initialized` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/003_voxtell_rex_ft_rescue_ablation` |
 | `004_voxtell_v123_native_vs_2mm_global_context_ft` | `evaluation_complete` | `experiments/004_voxtell_v123_native_vs_2mm_global_context_ft/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/004_voxtell_v123_native_vs_2mm_global_context_ft` |
 | `005_voxtell_global_proposal_local_cascade` | `evaluation_complete` | `experiments/005_voxtell_global_proposal_local_cascade/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/005_voxtell_global_proposal_local_cascade` |
 | `006_voxtell_cached_native_v123_lr_ablation` | `evaluation_complete` | `experiments/006_voxtell_cached_native_v123_lr_ablation/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/006_voxtell_cached_native_v123_lr_ablation` |
@@ -51,3 +51,9 @@ small summaries easy to inspect while large outputs remain on `/mnt/shengdata1`.
 | `017_voxtell_iso07_hu_ddp_bs4_update_matched` | `phase2_continuation_ready` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched` |
 | `018_voxtell_category2d_nodule_audit` | `audit_complete` | `experiments/018_voxtell_category2d_nodule_audit/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/018_voxtell_category2d_nodule_audit` |
 | `019_voxtell_iso07_lung_bbox_coverage_audit` | `audit_complete` | `experiments/019_voxtell_iso07_lung_bbox_coverage_audit/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/019_voxtell_iso07_lung_bbox_coverage_audit` |
+| `020_ct_rate_ts_total_rex_val200_audit` | `audit_complete_pending_manual_visual_review` | `experiments/020_ct_rate_ts_total_rex_val200_audit/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/020_ct_rate_ts_total_rex_val200_audit` |
+| `021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100` | `implementation` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/021_voxtell_iso07_2d_nodule_specialist_from_exp017_e100` |
+| `022_exp007_official_anatomy_val200_audit` | `audit_complete_for_user_review` | `experiments/022_exp007_official_anatomy_val200_audit/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/022_exp007_official_anatomy_val200_audit` |
+| `023_ct_rate_ts_total_rex_test300_audit` | `preflight_complete_awaiting_manifest_approval` | `experiments/023_ct_rate_ts_total_rex_test300_audit/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit` |
+| `024_test_inference_anatomy_audit` | `complete` | `experiments/024_test_inference_anatomy_audit/aggregate_report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit` |
+| `022_exp007_official_anatomy_val200_audit` | `evaluation_complete` | `experiments/022_exp007_official_anatomy_val200_audit/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/022_exp007_official_anatomy_val200_audit` |

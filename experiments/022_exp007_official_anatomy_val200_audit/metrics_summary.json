@@ -1,0 +1,49 @@
+{
+  "canonical_config": {
+    "bytes": 1607,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/022_exp007_official_anatomy_val200_audit.json",
+    "repo_path": "configs/experiments/022_exp007_official_anatomy_val200_audit.json",
+    "sha256": "64fbf93b6c9fddfbb34b9b04666d4ef0f445bce1c228f6d6e132be75d7fd2679"
+  },
+  "eval_json": {
+    "bytes": 451660,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/022_exp007_official_anatomy_val200_audit/reports/summary.json",
+    "sha256": "a2dd6c2a30c1599970c6d507a164a2982850310e1a166e32e0824ea2fb1d9776"
+  },
+  "execution_spec": {
+    "bytes": 6427,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/experiments/022_exp007_official_anatomy_val200_audit/codex_execution_spec.md",
+    "repo_path": "experiments/022_exp007_official_anatomy_val200_audit/codex_execution_spec.md",
+    "sha256": "723d2dca1ab2478ee7940730ecf2392cf5809581e2fb3a809ba80d4a22a4e7ea"
+  },
+  "id": "022_exp007_official_anatomy_val200_audit",
+  "metrics": {},
+  "repo_commit": "aaad5bf833a6db776635fd1abbd073ed9ac5e03f",
+  "repo_dir": "experiments/022_exp007_official_anatomy_val200_audit",
+  "repo_metrics": "experiments/022_exp007_official_anatomy_val200_audit/metrics_summary.json",
+  "report": {
+    "bytes": 12476,
+    "copied": true,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/022_exp007_official_anatomy_val200_audit/reports/aggregate_report.md",
+    "repo_path": "experiments/022_exp007_official_anatomy_val200_audit/report.md",
+    "repo_sha256": "500a34fae0561f1d0c0942710a2ddae8ebb07d2467d42314dc201c1bcf5b28cb",
+    "sha256": "500a34fae0561f1d0c0942710a2ddae8ebb07d2467d42314dc201c1bcf5b28cb"
+  },
+  "runtime_config_matches_canonical": true,
+  "runtime_config_snapshot": {
+    "bytes": 1607,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/022_exp007_official_anatomy_val200_audit/config/022_exp007_official_anatomy_val200_audit.json",
+    "sha256": "64fbf93b6c9fddfbb34b9b04666d4ef0f445bce1c228f6d6e132be75d7fd2679"
+  },
+  "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/022_exp007_official_anatomy_val200_audit",
+  "runtime_link_status": "disabled",
+  "status": "evaluation_complete",
+  "synced_at_utc": "2026-09-06T22:28:58.469911+00:00",
+  "title": "Exp007 official-anatomy val200 benefit-harm audit",
+  "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
+}
