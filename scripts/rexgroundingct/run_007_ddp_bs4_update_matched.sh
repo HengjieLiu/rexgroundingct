@@ -20,9 +20,16 @@ SCHEDULE_EVENTS="${SCHEDULE_EVENTS:-40000}"
 SCHEDULE_NUM_WORKERS="${SCHEDULE_NUM_WORKERS:-4}"
 TIMESTAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 CONTINUATION_MODE="${CONTINUATION_MODE:-0}"
+PHASE3_MODE="${PHASE3_MODE:-0}"
+if [[ "$PHASE3_MODE" == "1" ]]; then
+  CONTINUATION_MODE=1
+fi
 DEFAULT_RUN_GROUP="exp007_ddp_bs4_update_matched_$TIMESTAMP"
 if [[ "$CONTINUATION_MODE" == "1" ]]; then
   DEFAULT_RUN_GROUP="exp007_cont100_from_ddp100_$TIMESTAMP"
+fi
+if [[ "$PHASE3_MODE" == "1" ]]; then
+  DEFAULT_RUN_GROUP="exp007_phase3_from_abs_e200_$TIMESTAMP"
 fi
 RUN_GROUP="${RUN_GROUP:-$DEFAULT_RUN_GROUP}"
 GROUP_DIR="${GROUP_DIR:-$EXP_DIR/runs/$RUN_GROUP}"
@@ -34,15 +41,29 @@ VAL200_JSON="${VAL200_JSON:-/workspace/configs/evaluation/rexgroundingct_val200_
 SOURCE_PREFIX_SCHEDULE="${SOURCE_PREFIX_SCHEDULE:-$EXP003_DIR/config/train_schedule_v123_opt_poscrop_emptyloss_seed${SEED}_100ep_100steps_gb1.jsonl}"
 ORIGINAL_DDP_SCHEDULE="${ORIGINAL_DDP_SCHEDULE:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_100ep_${STEPS_PER_EPOCH}steps_gb4.jsonl}"
 ORIGINAL_DDP_SCHEDULE_MANIFEST="${ORIGINAL_DDP_SCHEDULE_MANIFEST:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_100ep_${STEPS_PER_EPOCH}steps_gb4.manifest.json}"
-EXTENDED_SCHEDULE_EVENTS="${EXTENDED_SCHEDULE_EVENTS:-80000}"
-EXTENDED_SCHEDULE="${EXTENDED_SCHEDULE:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_200ep_${STEPS_PER_EPOCH}steps_gb4.jsonl}"
-EXTENDED_SCHEDULE_MANIFEST="${EXTENDED_SCHEDULE_MANIFEST:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_200ep_${STEPS_PER_EPOCH}steps_gb4.manifest.json}"
-SCHEDULE_START_EVENT="${SCHEDULE_START_EVENT:-40000}"
-CONTINUATION_SOURCE_RUN_GROUP="${CONTINUATION_SOURCE_RUN_GROUP:-exp007_full_20260725T231624Z}"
+if [[ "$PHASE3_MODE" == "1" ]]; then
+  EXTENDED_SCHEDULE_EVENTS="${EXTENDED_SCHEDULE_EVENTS:-120000}"
+  EXTENDED_SCHEDULE="${EXTENDED_SCHEDULE:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_300ep_${STEPS_PER_EPOCH}steps_gb4.jsonl}"
+  EXTENDED_SCHEDULE_MANIFEST="${EXTENDED_SCHEDULE_MANIFEST:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_300ep_${STEPS_PER_EPOCH}steps_gb4.manifest.json}"
+  SCHEDULE_START_EVENT="${SCHEDULE_START_EVENT:-80000}"
+  CONTINUATION_SOURCE_RUN_GROUP="${CONTINUATION_SOURCE_RUN_GROUP:-exp007_cont100_from_ddp100_20260730T062051Z}"
+else
+  EXTENDED_SCHEDULE_EVENTS="${EXTENDED_SCHEDULE_EVENTS:-80000}"
+  EXTENDED_SCHEDULE="${EXTENDED_SCHEDULE:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_200ep_${STEPS_PER_EPOCH}steps_gb4.jsonl}"
+  EXTENDED_SCHEDULE_MANIFEST="${EXTENDED_SCHEDULE_MANIFEST:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_200ep_${STEPS_PER_EPOCH}steps_gb4.manifest.json}"
+  SCHEDULE_START_EVENT="${SCHEDULE_START_EVENT:-40000}"
+  CONTINUATION_SOURCE_RUN_GROUP="${CONTINUATION_SOURCE_RUN_GROUP:-exp007_full_20260725T231624Z}"
+fi
+if [[ "$PHASE3_MODE" == "1" ]]; then
+  PRIOR_EXTENDED_SCHEDULE="${PRIOR_EXTENDED_SCHEDULE:-$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_200ep_${STEPS_PER_EPOCH}steps_gb4.jsonl}"
+  PRIOR_EXTENDED_SCHEDULE_EVENTS="${PRIOR_EXTENDED_SCHEDULE_EVENTS:-80000}"
+fi
 CONTINUATION_SOURCE_RUN_DIR="${CONTINUATION_SOURCE_RUN_DIR:-$EXP_DIR/runs/$CONTINUATION_SOURCE_RUN_GROUP/ddp_bs4}"
 INIT_CHECKPOINT="${INIT_CHECKPOINT:-$CONTINUATION_SOURCE_RUN_DIR/checkpoints/checkpoint_update_010000.pth}"
 INIT_CHECKPOINT_EXPECTED_UPDATE="${INIT_CHECKPOINT_EXPECTED_UPDATE:-10000}"
-if [[ "$CONTINUATION_MODE" == "1" ]]; then
+if [[ "$PHASE3_MODE" == "1" ]]; then
+  ABSOLUTE_EPOCH_OFFSET="${ABSOLUTE_EPOCH_OFFSET:-200}"
+elif [[ "$CONTINUATION_MODE" == "1" ]]; then
   ABSOLUTE_EPOCH_OFFSET="${ABSOLUTE_EPOCH_OFFSET:-100}"
 else
   ABSOLUTE_EPOCH_OFFSET="${ABSOLUTE_EPOCH_OFFSET:-0}"
@@ -52,18 +73,30 @@ REPORT_MD="$EXP_DIR/reports/ddp_bs4_update_matched_report.md"
 SCHEDULE="$ORIGINAL_DDP_SCHEDULE"
 SCHEDULE_MANIFEST="$ORIGINAL_DDP_SCHEDULE_MANIFEST"
 if [[ "$CONTINUATION_MODE" == "1" ]]; then
-  SCHEDULE="$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_cont100_from_ddp100_${EPOCHS}ep_${STEPS_PER_EPOCH}steps_gb4.jsonl"
-  SCHEDULE_MANIFEST="$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_cont100_from_ddp100_${EPOCHS}ep_${STEPS_PER_EPOCH}steps_gb4.manifest.json"
-  REPORT_JSON="$EXP_DIR/reports/ddp_bs4_continue100_from_epoch100_summary.json"
-  REPORT_MD="$EXP_DIR/reports/ddp_bs4_continue100_from_epoch100_report.md"
+  if [[ "$PHASE3_MODE" == "1" ]]; then
+    SCHEDULE="$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_phase3_abs_e200_${EPOCHS}ep_${STEPS_PER_EPOCH}steps_gb4.jsonl"
+    SCHEDULE_MANIFEST="$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_phase3_abs_e200_${EPOCHS}ep_${STEPS_PER_EPOCH}steps_gb4.manifest.json"
+    REPORT_JSON="$EXP_DIR/reports/phase3_status.json"
+    REPORT_MD="$EXP_DIR/reports/phase3_status.md"
+  else
+    SCHEDULE="$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_cont100_from_ddp100_${EPOCHS}ep_${STEPS_PER_EPOCH}steps_gb4.jsonl"
+    SCHEDULE_MANIFEST="$EXP_DIR/config/train_schedule_v123_ddp_bs4_seed${SEED}_cont100_from_ddp100_${EPOCHS}ep_${STEPS_PER_EPOCH}steps_gb4.manifest.json"
+    REPORT_JSON="$EXP_DIR/reports/ddp_bs4_continue100_from_epoch100_summary.json"
+    REPORT_MD="$EXP_DIR/reports/ddp_bs4_continue100_from_epoch100_report.md"
+  fi
 fi
 SOURCE_MODEL_DIR="$EXP_DIR/config/public_voxtell_v1_1_model"
 EXPECTED_PREFIX_SHA="f246927486c69e00a872990dbc6e7e8566f49f3b41dbb1bb05c5ce5a033f4776"
 EXPECTED_CACHE_MANIFEST_SHA="fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3"
 EXPECTED_VAL20_SHA="31557d624c47ee8c06799bf89cceb862471b34cfd47065001d6092e32d0dab5d"
 EXPECTED_VAL200_SHA="7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897"
-CHECKPOINT_UPDATES="${CHECKPOINT_UPDATES:-2500,5000,7500,10000}"
-SEGMENT_EPOCHS="${SEGMENT_EPOCHS:-25 50 75 100}"
+if [[ "$PHASE3_MODE" == "1" ]]; then
+  CHECKPOINT_UPDATES="${CHECKPOINT_UPDATES:-1000,2000,3000,4000,5000,6000,7000,8000,9000,10000}"
+  SEGMENT_EPOCHS="${SEGMENT_EPOCHS:-10 20 30 40 50 60 70 80 90 100}"
+else
+  CHECKPOINT_UPDATES="${CHECKPOINT_UPDATES:-2500,5000,7500,10000}"
+  SEGMENT_EPOCHS="${SEGMENT_EPOCHS:-25 50 75 100}"
+fi
 RUN_SAMPLE_TEST="${RUN_SAMPLE_TEST:-1}"
 RUN_DDP_SMOKE="${RUN_DDP_SMOKE:-1}"
 RUN_INFERENCE_SMOKE="${RUN_INFERENCE_SMOKE:-1}"
@@ -72,11 +105,50 @@ RUN_SMOKE_ONLY="${RUN_SMOKE_ONLY:-0}"
 RUN_FULL="${RUN_FULL:-1}"
 LOCK_STALE_SECONDS="${LOCK_STALE_SECONDS:-43200}"
 STABILITY_SECONDS="${STABILITY_SECONDS:-10}"
-MASTER_PORT="${MASTER_PORT:-29607}"
+if [[ "$PHASE3_MODE" == "1" ]]; then
+  MASTER_PORT="${MASTER_PORT:-29618}"
+else
+  MASTER_PORT="${MASTER_PORT:-29607}"
+fi
+GPU_LIST="${GPU_LIST:-0 1 2 3}"
+read -r -a GPUS <<< "$GPU_LIST"
+if [[ "${#GPUS[@]}" -ne "$WORLD_SIZE" ]]; then
+  echo "GPU_LIST has ${#GPUS[@]} entries but WORLD_SIZE=$WORLD_SIZE: $GPU_LIST" >&2
+  exit 1
+fi
+DDP_CUDA_VISIBLE_DEVICES="$(IFS=,; echo "${GPUS[*]}")"
 
 mkdir -p "$EXP_DIR/config" "$EXP_DIR/logs" "$EXP_DIR/reports" "$GROUP_DIR" "$RUN_DIR/logs"
 echo "$RUN_GROUP" > "$EXP_DIR/config/latest_run_group.txt"
 ln -sfn "$GROUP_DIR" "$EXP_DIR/runs/latest"
+
+update_phase3_state() {
+  [[ "$PHASE3_MODE" == "1" ]] || return 0
+  local status="$1" epoch="$2" action="$3" message="${4:-}"
+  python - "$GROUP_DIR/phase3_state.json" "$status" "$epoch" "$action" "$message" <<'PY'
+import datetime as dt
+import json
+import os
+import sys
+from pathlib import Path
+
+path = Path(sys.argv[1])
+payload = {
+    "experiment": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+    "phase": "phase3_from_abs_e200",
+    "status": sys.argv[2],
+    "relative_epoch": int(sys.argv[3]),
+    "absolute_epoch": 200 + int(sys.argv[3]),
+    "action": sys.argv[4],
+    "message": sys.argv[5],
+    "updated_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
+}
+path.parent.mkdir(parents=True, exist_ok=True)
+tmp = path.with_name(f".{path.name}.tmp.{os.getpid()}")
+tmp.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+os.replace(tmp, path)
+PY
+}
 
 sha256_path() {
   sha256sum "$1" | cut -d ' ' -f 1
@@ -215,6 +287,19 @@ prepare_continuation_schedule() {
   generate_schedule_if_needed "$ORIGINAL_DDP_SCHEDULE" "$ORIGINAL_DDP_SCHEDULE_MANIFEST" "$SCHEDULE_EVENTS" "original_ddp40k"
   verify_original_schedule
   generate_schedule_if_needed "$EXTENDED_SCHEDULE" "$EXTENDED_SCHEDULE_MANIFEST" "$EXTENDED_SCHEDULE_EVENTS" "extended_ddp80k"
+  if [[ "$PHASE3_MODE" == "1" ]]; then
+    python /workspace/scripts/rexgroundingct/prepare_007_phase3_schedule.py \
+      --original-schedule "$ORIGINAL_DDP_SCHEDULE" \
+      --prior-extended-schedule "$PRIOR_EXTENDED_SCHEDULE" \
+      --extended-schedule "$EXTENDED_SCHEDULE" \
+      --output-jsonl "$SCHEDULE" \
+      --manifest-json "$SCHEDULE_MANIFEST" \
+      --start-event "$SCHEDULE_START_EVENT" \
+      --events "$SCHEDULE_EVENTS" \
+      --original-events "$SCHEDULE_EVENTS" \
+      --prior-events "$PRIOR_EXTENDED_SCHEDULE_EVENTS"
+    return 0
+  fi
   python - \
     "$ORIGINAL_DDP_SCHEDULE" \
     "$EXTENDED_SCHEDULE" \
@@ -294,7 +379,7 @@ if line_count(continuation) != phase_events:
 record = {
     "created_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
     "schedule_schema_version": 2,
-    "purpose": "exp007 continuation events 40000..79999 rewritten to zero-based line order",
+    "purpose": f"exp007 continuation events {start_event}..{end_event - 1} rewritten to zero-based line order",
     "source_original_schedule": str(original),
     "source_original_schedule_sha256": sha256(original),
     "source_extended_schedule": str(extended),
@@ -506,7 +591,7 @@ run_ddp_smoke_segment() {
   elif [[ "$CONTINUATION_MODE" == "1" ]]; then
     init_args=(--init-checkpoint "$INIT_CHECKPOINT")
   fi
-  CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.run \
+  CUDA_VISIBLE_DEVICES="$DDP_CUDA_VISIBLE_DEVICES" python -m torch.distributed.run \
     --standalone \
     --nproc_per_node="$WORLD_SIZE" \
     /workspace/scripts/rexgroundingct/train_text_conditioned_voxtell.py \
@@ -651,6 +736,21 @@ summarize_results() {
   local source_training="$CONTINUATION_SOURCE_RUN_DIR/reports/training_metrics.json"
   local reference_args=()
   if [[ "$CONTINUATION_MODE" == "1" ]]; then
+    if [[ "$PHASE3_MODE" == "1" ]]; then
+      python /workspace/scripts/rexgroundingct/summarize_007_phase3_results.py \
+        --exp-dir "$EXP_DIR" \
+        --group-dir "$GROUP_DIR" \
+        --source-run-dir "$CONTINUATION_SOURCE_RUN_DIR" \
+        --source-checkpoint "$INIT_CHECKPOINT" \
+        --source-evaluation-json "$CONTINUATION_SOURCE_RUN_DIR/eval_epoch100_val200/eval/val_quick_global_eval.json" \
+        --absolute-epoch-offset "$ABSOLUTE_EPOCH_OFFSET" \
+        --steps-per-epoch "$STEPS_PER_EPOCH" \
+        --schedule-manifest "$SCHEDULE_MANIFEST" \
+        --state-json "$GROUP_DIR/phase3_state.json" \
+        --output-json "$REPORT_JSON" \
+        --output-md "$REPORT_MD" || true
+      return 0
+    fi
     [[ -f "$source_summary" ]] && reference_args+=(--reference "exp007_original_ddp_epoch100=$source_summary")
     [[ -f "$exp006_summary" ]] && reference_args+=(--reference "exp006_v123_cached_e5_d4_epoch100=$exp006_summary")
     [[ -f "$exp003_summary" ]] && reference_args+=(--reference "exp003_v123_epoch100=$exp003_summary")
@@ -717,9 +817,11 @@ run_val200_eval() {
 
   if eval_complete "$eval_dir" "$VAL200_JSON"; then
     echo "Already complete: epoch=$epoch val200"
+    update_phase3_state "running" "$epoch" "val200_complete" "Reused completed full val200 evaluation"
     summarize_results
     return 0
   fi
+  update_phase3_state "evaluating" "$epoch" "val200_start" "Starting full val200 evaluation"
   checkpoint_stable "$checkpoint" || { echo "Checkpoint not stable: $checkpoint" >&2; return 1; }
   lock="$(acquire_lock "$eval_dir")"
   materialize_model "$checkpoint" "$model_dir"
@@ -753,11 +855,12 @@ run_val200_eval() {
     return 1
   }
   rm -f "$lock"
+  update_phase3_state "running" "$epoch" "val200_complete" "Full val200 evaluation complete"
   summarize_results
 }
 
 run_full_segment() {
-  local epoch="$1"
+  local epoch="$1" previous_epoch="${2:-}"
   local target_update="$((epoch * STEPS_PER_EPOCH))"
   local checkpoint="$RUN_DIR/checkpoints/checkpoint_update_$(printf '%06d' "$target_update").pth"
   local resume_args=()
@@ -768,8 +871,8 @@ run_full_segment() {
     echo "Training segment already complete: epoch=$epoch update=$target_update"
     return 0
   fi
-  if [[ "$target_update" -gt 2500 ]]; then
-    local prev_update="$((target_update - 2500))"
+  if [[ -n "$previous_epoch" ]]; then
+    local prev_update="$((previous_epoch * STEPS_PER_EPOCH))"
     local prev_checkpoint="$RUN_DIR/checkpoints/checkpoint_update_$(printf '%06d' "$prev_update").pth"
     checkpoint_has_update "$prev_checkpoint" "$prev_update" || {
       echo "Missing previous checkpoint for resume: $prev_checkpoint" >&2
@@ -779,8 +882,9 @@ run_full_segment() {
   elif [[ "$CONTINUATION_MODE" == "1" ]]; then
     init_args=(--init-checkpoint "$INIT_CHECKPOINT")
   fi
+  update_phase3_state "training" "$epoch" "training_start" "Starting DDP segment to update $target_update"
   echo "Starting DDP segment to epoch=$epoch update=$target_update log=$log"
-  CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.run \
+  CUDA_VISIBLE_DEVICES="$DDP_CUDA_VISIBLE_DEVICES" python -m torch.distributed.run \
     --standalone \
     --nproc_per_node="$WORLD_SIZE" \
     /workspace/scripts/rexgroundingct/train_text_conditioned_voxtell.py \
@@ -797,6 +901,7 @@ run_full_segment() {
     "${resume_args[@]}" \
     >"$log" 2>&1
   checkpoint_has_update "$checkpoint" "$target_update"
+  update_phase3_state "evaluating" "$epoch" "checkpoint_complete" "Checkpoint complete; preparing full val200 evaluation"
   cp "$RUN_DIR/reports/training_metrics.json" \
     "$RUN_DIR/reports/training_metrics_segment_epoch$(printf '%03d' "$epoch").json"
 }
@@ -851,8 +956,11 @@ if [[ "$RUN_FULL" != "1" ]]; then
 fi
 
 status=0
+previous_epoch=""
+update_phase3_state "preparing" 0 "full_run_start" "Phase-3 full run starting"
+summarize_results
 for epoch in $SEGMENT_EPOCHS; do
-  if run_full_segment "$epoch"; then
+  if run_full_segment "$epoch" "$previous_epoch"; then
     if ! run_val200_eval "$epoch"; then
       status=1
       break
@@ -861,13 +969,18 @@ for epoch in $SEGMENT_EPOCHS; do
     status=1
     break
   fi
+  previous_epoch="$epoch"
 done
 
 summarize_results
 if [[ "$status" == "0" ]]; then
+  update_phase3_state "complete" 100 "phase3_complete" "All phase-3 milestones and full val200 evaluations complete"
+  summarize_results
   touch "$RUN_DIR/.train_complete"
   touch "$GROUP_DIR/.experiment_complete"
 else
+  update_phase3_state "failed" "${previous_epoch:-0}" "phase3_failed" "Training or full val200 evaluation failed"
+  summarize_results
   touch "$RUN_DIR/.train_failed"
 fi
 echo "Experiment 007 group dir: $GROUP_DIR"

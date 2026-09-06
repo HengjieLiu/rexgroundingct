@@ -1,0 +1,16 @@
+[Unit]
+Description=Poll Exp021 and launch Exp007 phase 3 when complete
+After=default.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/hengjie/code_sync/rexgroundingct
+Environment=REPO_ROOT=/home/hengjie/code_sync/rexgroundingct
+Environment=POLL_INTERVAL_SECONDS=1800
+Environment=PATH=/usr/local/anaconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/bin/bash /home/hengjie/code_sync/rexgroundingct/scripts/rexgroundingct/poll_exp021_then_launch_007_phase3.sh
+Restart=on-failure
+RestartSec=60
+
+[Install]
+WantedBy=default.target

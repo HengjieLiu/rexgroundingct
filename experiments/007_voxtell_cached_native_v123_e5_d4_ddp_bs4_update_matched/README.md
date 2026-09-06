@@ -45,6 +45,19 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 - Evaluation barriers: relative epochs `25/50/75/100`, labeled as absolute
   exp007 epochs `125/150/175/200`, with fixed val200 evaluation at each barrier.
 
+## Phase 3 queued behind Exp021
+
+- Execution spec: `experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/phase3_execution_spec.md`
+- Source checkpoint: this experiment's phase-2 absolute epoch-200 checkpoint,
+  loaded as network weights only.
+- Phase-3 barriers: relative epochs `10, 20, ..., 100`, labeled as absolute
+  epochs `210, 220, ..., 300`, with full fixed-val200 evaluation at every barrier.
+- Live report: `/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/reports/phase3_status.md`
+- Poller status: `/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/reports/phase3_autostart/poller_status.md`
+- The Exp021-gated poller is defined by
+  `scripts/rexgroundingct/poll_exp021_then_launch_007_phase3.sh` and the
+  `exp021_to_exp007_phase3_poller.service` systemd user unit.
+
 ## Ownership Rule
 
 - Configs are canonical in the repo.
