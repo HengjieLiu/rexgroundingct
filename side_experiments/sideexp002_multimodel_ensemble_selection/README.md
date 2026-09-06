@@ -25,6 +25,9 @@ sync workflow. Test-set inference is out of scope.
   model-selection and hard-mask complementarity records.
 - `summarize_baseline_categories.py`: ranks the 20 fixed val200 baselines
   globally and by official ReX category.
+- `summarize_all_val200_cutoff030.py`: revalidates the frozen 58-row primary
+  audit roster, applies an overall Dice cutoff of `0.30`, and computes the
+  retrospective per-category model oracle.
 - `collaborator_attention_manifest.json`: immutable four-decimal transcription
   of the paired collaborator Baseline, All-category, and Strict-2b2c table.
 - `compare_collaborator_attention_variance.py`: compares the paired attention
@@ -51,6 +54,10 @@ sync workflow. Test-set inference is out of scope.
   Dice/hit rankings and observed ranges.
 - `outputs/baseline_per_category_performance.json`: machine-readable companion
   to the baseline category report.
+- `outputs/all_methods_val200_cutoff030_category_oracle.md`: all 50 eligible
+  fixed-val200 methods ranked globally and by category, plus oracle results.
+- `outputs/all_methods_val200_cutoff030_category_oracle.json`:
+  machine-readable companion to the cutoff/oracle report.
 - `outputs/collaborator_attention_vs_20model_variance.md`: full category,
   cross-category, Exp009-method, and trajectory-context comparison.
 - `outputs/collaborator_attention_vs_20model_variance.json`: machine-readable
@@ -87,6 +94,9 @@ PYTHONDONTWRITEBYTECODE=1 python \
 
 PYTHONDONTWRITEBYTECODE=1 python \
   side_experiments/sideexp002_multimodel_ensemble_selection/summarize_baseline_categories.py
+
+PYTHONDONTWRITEBYTECODE=1 python \
+  side_experiments/sideexp002_multimodel_ensemble_selection/summarize_all_val200_cutoff030.py
 
 PYTHONDONTWRITEBYTECODE=1 python \
   side_experiments/sideexp002_multimodel_ensemble_selection/compare_collaborator_attention_variance.py
