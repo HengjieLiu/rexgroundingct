@@ -1,0 +1,15 @@
+{
+  "model_id": "attention_scale_screen_matched_comparison__base_update6000__b7f764fa",
+  "method_family": "attention_scale_screen_matched_comparison",
+  "result_dir": "outputs/attention_scale_screen_matched_comparison/full381/base_update6000",
+  "checkpoint": null,
+  "mean_dice": 0.3289252128343666,
+  "hits": 290,
+  "hit_rate": 0.7611548556430446,
+  "raw_like": true,
+  "result_hash": "b7f764fa52068b46be63308db4f66a922a10d367436bda62f0dc46d64396c0d3",
+  "dice_2a": 0.3190960661831388,
+  "dice_2b": 0.3653455285760879,
+  "dice_2c": 0.3903007778262166,
+  "dice_2d": 0.3610201661858183
+}

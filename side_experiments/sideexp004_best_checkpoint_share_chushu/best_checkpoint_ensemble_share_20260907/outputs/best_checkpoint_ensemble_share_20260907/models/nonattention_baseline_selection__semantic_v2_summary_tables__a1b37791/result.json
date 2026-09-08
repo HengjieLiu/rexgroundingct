@@ -1,0 +1,15 @@
+{
+  "model_id": "nonattention_baseline_selection__semantic_v2_summary_tables__a1b37791",
+  "method_family": "nonattention_baseline_selection",
+  "result_dir": "outputs/nonattention_baseline_selection/full381_update10000/semantic_v1_v2_strict_eval/semantic_v2_summary_tables",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/voxtell_v11_e1e-5_d1e-4_1gpu_bs1_acc4_10kupd/checkpoints/checkpoint_update_10000.pth",
+  "mean_dice": 0.3473931466391062,
+  "hits": 295,
+  "hit_rate": 0.7742782152230971,
+  "raw_like": false,
+  "result_hash": "a1b37791e35d57fc093eb66829f79725c5c429fd151b43addac03923dd036447",
+  "dice_2a": 0.3430538130805368,
+  "dice_2b": 0.3446081237028939,
+  "dice_2c": 0.3882180812836479,
+  "dice_2d": 0.4049602422485175
+}

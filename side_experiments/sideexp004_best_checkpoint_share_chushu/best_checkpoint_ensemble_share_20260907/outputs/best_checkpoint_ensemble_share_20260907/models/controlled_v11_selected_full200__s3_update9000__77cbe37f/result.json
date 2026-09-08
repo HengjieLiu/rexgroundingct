@@ -1,0 +1,15 @@
+{
+  "model_id": "controlled_v11_selected_full200__s3_update9000__77cbe37f",
+  "method_family": "controlled_v11_selected_full200",
+  "result_dir": "outputs/controlled_v11_selected_full200/s3_update9000",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/controlled_v11_selected_full200/models/s3_update9000/fold_0/checkpoint_final.pth",
+  "mean_dice": 0.3355345029481685,
+  "hits": 289,
+  "hit_rate": 0.7585301837270341,
+  "raw_like": true,
+  "result_hash": "77cbe37ff1d729d40f771f451ca17114d6e748ac365f97c49e0cde1ee1976656",
+  "dice_2a": 0.3358308682530442,
+  "dice_2b": 0.3578317727581574,
+  "dice_2c": 0.3865785699516634,
+  "dice_2d": 0.3692417537426509
+}

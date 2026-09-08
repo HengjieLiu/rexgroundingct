@@ -1,0 +1,15 @@
+{
+  "model_id": "qwen_lora_top6_global_from_v11_low_lr_e1e-6_d1e-5_from_u5000__update_07400__82d735f1",
+  "method_family": "qwen_lora_top6_global_from_v11_low_lr_e1e-6_d1e-5_from_u5000",
+  "result_dir": "outputs/qwen_lora_top6_global_from_v11_low_lr_e1e-6_d1e-5_from_u5000/full200_selected/update_07400",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/qwen_lora_top6_global_from_v11_low_lr_e1e-6_d1e-5_from_u5000/checkpoints/checkpoint_update_7400.pth",
+  "mean_dice": 0.3294091734811572,
+  "hits": 290,
+  "hit_rate": 0.7611548556430446,
+  "raw_like": true,
+  "result_hash": "82d735f12815c9172113b293f742ec6e8e45c072e8672114f7bbbb5d9e6f627e",
+  "dice_2a": 0.328278194575393,
+  "dice_2b": 0.3673851430897609,
+  "dice_2c": 0.3844488376748095,
+  "dice_2d": 0.359573225449048
+}

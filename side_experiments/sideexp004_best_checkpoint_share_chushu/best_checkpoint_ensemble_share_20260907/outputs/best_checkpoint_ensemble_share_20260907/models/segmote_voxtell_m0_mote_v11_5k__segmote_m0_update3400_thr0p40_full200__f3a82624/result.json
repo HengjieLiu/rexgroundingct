@@ -1,0 +1,15 @@
+{
+  "model_id": "segmote_voxtell_m0_mote_v11_5k__segmote_m0_update3400_thr0p40_full200__f3a82624",
+  "method_family": "segmote_voxtell_m0_mote_v11_5k",
+  "result_dir": "outputs/segmote_voxtell_m0_mote_v11_5k/full200_threshold_sweep/segmote_m0_update3400_thr0p40_full200",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/segmote_voxtell_m0_mote_v11_5k/checkpoints/checkpoint_update_3400.pth",
+  "mean_dice": 0.33333576270309506,
+  "hits": 289,
+  "hit_rate": 0.7585301837270341,
+  "raw_like": true,
+  "result_hash": "f3a82624a43ce9469ad5365ad2f9dc2742c116a90bceddf7651c581c08538993",
+  "dice_2a": 0.3211580292955654,
+  "dice_2b": 0.3592689847803641,
+  "dice_2c": 0.3931848977347591,
+  "dice_2d": 0.3813306578969292
+}

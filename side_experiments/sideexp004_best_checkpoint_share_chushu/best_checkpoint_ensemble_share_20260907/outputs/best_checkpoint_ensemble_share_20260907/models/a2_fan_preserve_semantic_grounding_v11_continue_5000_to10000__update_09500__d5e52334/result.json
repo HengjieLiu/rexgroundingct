@@ -1,0 +1,15 @@
+{
+  "model_id": "a2_fan_preserve_semantic_grounding_v11_continue_5000_to10000__update_09500__d5e52334",
+  "method_family": "a2_fan_preserve_semantic_grounding_v11_continue_5000_to10000",
+  "result_dir": "outputs/a2_fan_preserve_semantic_grounding_v11_continue_5000_to10000/full_validation/update_09500",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/a2_fan_preserve_semantic_grounding_v11_continue_5000_to10000/checkpoints/checkpoint_update_9500.pth",
+  "mean_dice": 0.33467875428160426,
+  "hits": 291,
+  "hit_rate": 0.7637795275590551,
+  "raw_like": true,
+  "result_hash": "d5e523342ceb694577c587f18a2d6e489c3dc7720a0a7e770393f0d739f5552c",
+  "dice_2a": 0.3178832686026484,
+  "dice_2b": 0.355269357803091,
+  "dice_2c": 0.375859043064357,
+  "dice_2d": 0.3806524064230806
+}

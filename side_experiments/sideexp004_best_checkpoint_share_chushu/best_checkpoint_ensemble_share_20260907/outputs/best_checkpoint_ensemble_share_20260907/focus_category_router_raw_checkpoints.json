@@ -1,0 +1,30 @@
+{
+  "selection_basis": "Full200 validation category mean Dice; validation estimate, not unbiased test performance",
+  "allowed_results": "raw checkpoint inference only",
+  "default_model": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e",
+  "focus_categories": [
+    "2a",
+    "2b",
+    "2c",
+    "2d"
+  ],
+  "category_to_model": {
+    "1a": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e",
+    "1b": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e",
+    "1c": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e",
+    "1d": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e",
+    "1e": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e",
+    "1f": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e",
+    "2a": "c2_less_semantic_coadapt_v11__pathology_continue_update_7600__41e10d95",
+    "2b": "s3_full200_every1000__update_06000__8a24d746",
+    "2c": "b3_plus_less_v11__b3_plus_less_update5000__8dc6626e",
+    "2d": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e",
+    "2e": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e",
+    "2g": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e",
+    "2h": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e"
+  },
+  "mean_dice": 0.35158696118524807,
+  "hits": 295,
+  "total_findings": 381,
+  "hit_rate": 0.7742782152230971
+}

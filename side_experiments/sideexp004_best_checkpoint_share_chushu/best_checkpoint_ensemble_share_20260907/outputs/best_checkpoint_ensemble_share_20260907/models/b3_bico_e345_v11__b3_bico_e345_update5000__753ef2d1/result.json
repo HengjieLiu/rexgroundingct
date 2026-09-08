@@ -1,0 +1,15 @@
+{
+  "model_id": "b3_bico_e345_v11__b3_bico_e345_update5000__753ef2d1",
+  "method_family": "b3_bico_e345_v11",
+  "result_dir": "outputs/b3_bico_e345_v11/training/full200/b3_bico_e345_update5000",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/b3_bico_e345_v11/training/checkpoints/checkpoint_update_5000.pth",
+  "mean_dice": 0.33467684706377754,
+  "hits": 291,
+  "hit_rate": 0.7637795275590551,
+  "raw_like": true,
+  "result_hash": "753ef2d13ae0c8f09f9ce7fbc14f425d78e9cf694c67af08ce9b88f7794ebdab",
+  "dice_2a": 0.3376993777315772,
+  "dice_2b": 0.3534517836632262,
+  "dice_2c": 0.3850163318572406,
+  "dice_2d": 0.3734646147429686
+}

@@ -1,0 +1,15 @@
+{
+  "model_id": "less_fan_conditioning_10k__c0_b0_update6800__21802344",
+  "method_family": "less_fan_conditioning_10k",
+  "result_dir": "outputs/less_fan_conditioning_10k/full200_selected/c0_b0_update6800",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/less_fan_conditioning_10k/c0_b0_continue/checkpoints/checkpoint_update_6800.pth",
+  "mean_dice": 0.3356495726600387,
+  "hits": 296,
+  "hit_rate": 0.7769028871391076,
+  "raw_like": true,
+  "result_hash": "21802344efc1ab8bf41035d5cabba1088c96452626573db0545d32773d686a4d",
+  "dice_2a": 0.3278458617255328,
+  "dice_2b": 0.3602540400444106,
+  "dice_2c": 0.3857838993245199,
+  "dice_2d": 0.3783978333225322
+}

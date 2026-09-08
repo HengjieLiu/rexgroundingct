@@ -1,0 +1,15 @@
+{
+  "model_id": "category_continuous_router_from_s3_u9000__best__4d50029f",
+  "method_family": "category_continuous_router_from_s3_u9000",
+  "result_dir": "outputs/category_continuous_router_from_s3_u9000/full_validation/best",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/category_continuous_router_from_s3_u9000/evaluation_model/fold_0/checkpoint_final.pth",
+  "mean_dice": 0.335546934464216,
+  "hits": 289,
+  "hit_rate": 0.7585301837270341,
+  "raw_like": true,
+  "result_hash": "4d50029fa5dbf815fd2d76254d0787e6919af4d024b6da041c5331e4b395e115",
+  "dice_2a": 0.3358097358776266,
+  "dice_2b": 0.3578426043263598,
+  "dice_2c": 0.3866225419893026,
+  "dice_2d": 0.3692651962331244
+}

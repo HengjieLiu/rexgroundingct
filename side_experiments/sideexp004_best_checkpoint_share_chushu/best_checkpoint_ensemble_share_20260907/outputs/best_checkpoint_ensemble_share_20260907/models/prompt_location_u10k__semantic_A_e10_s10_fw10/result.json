@@ -1,0 +1,15 @@
+{
+  "model_id": "prompt_location_u10k__semantic_A_e10_s10_fw10",
+  "method_family": "prompt_location_alignment_loss_v1_noattention_from_update8000_to10000",
+  "result_dir": "outputs/prompt_location_alignment_loss_v1_noattention_from_update8000_to10000/full381_update10000/semantic_posthoc",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/prompt_location_alignment_loss_v1_noattention_from_update8000_to10000/checkpoints/checkpoint_update_10000.pth",
+  "mean_dice": 0.34797807313195694,
+  "hits": 295,
+  "hit_rate": 0.7742782152230971,
+  "raw_like": false,
+  "result_hash": "43d488e67b5489a8a085b96c2ec3bafa918681e93137ab6493ea3febb99c22c7",
+  "dice_2a": 0.3394938581827743,
+  "dice_2b": 0.3447448171156098,
+  "dice_2c": 0.3879858614900097,
+  "dice_2d": 0.40700210054193886
+}

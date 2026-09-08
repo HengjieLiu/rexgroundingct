@@ -1,0 +1,15 @@
+{
+  "model_id": "attention_scale_screen_1_2_u500__update500__646afe72",
+  "method_family": "attention_scale_screen_1_2_u500",
+  "result_dir": "outputs/attention_scale_screen_1_2_u500/full381/update500",
+  "checkpoint": null,
+  "mean_dice": 0.32658874396275234,
+  "hits": 287,
+  "hit_rate": 0.7532808398950132,
+  "raw_like": true,
+  "result_hash": "646afe726f7bb78973350736972f90b60f623df16a0df26e60a3d85388499a12",
+  "dice_2a": 0.3091653826213931,
+  "dice_2b": 0.3552365754329062,
+  "dice_2c": 0.3931295329605228,
+  "dice_2d": 0.3553487858125125
+}

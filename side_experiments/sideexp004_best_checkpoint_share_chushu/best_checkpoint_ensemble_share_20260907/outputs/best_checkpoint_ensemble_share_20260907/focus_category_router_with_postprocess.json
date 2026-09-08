@@ -1,0 +1,30 @@
+{
+  "selection_basis": "Full200 validation category mean Dice; validation estimate, not unbiased test performance",
+  "allowed_results": "checkpoint inference plus existing deterministic post-processing pipelines",
+  "default_model": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+  "focus_categories": [
+    "2a",
+    "2b",
+    "2c",
+    "2d"
+  ],
+  "category_to_model": {
+    "1a": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+    "1b": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+    "1c": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+    "1d": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+    "1e": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+    "1f": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+    "2a": "c2_less_semantic_coadapt_v11__pathology_continue_update_7600__41e10d95",
+    "2b": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+    "2c": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+    "2d": "prompt_location_u10k__semantic_A_e10_s10_fw10",
+    "2e": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+    "2g": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+    "2h": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b"
+  },
+  "mean_dice": 0.3583126171564143,
+  "hits": 299,
+  "total_findings": 381,
+  "hit_rate": 0.7847769028871391
+}

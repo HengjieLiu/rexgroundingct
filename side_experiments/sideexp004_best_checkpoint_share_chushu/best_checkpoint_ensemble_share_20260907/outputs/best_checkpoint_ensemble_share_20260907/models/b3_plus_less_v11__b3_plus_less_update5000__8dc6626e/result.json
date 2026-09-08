@@ -1,0 +1,15 @@
+{
+  "model_id": "b3_plus_less_v11__b3_plus_less_update5000__8dc6626e",
+  "method_family": "b3_plus_less_v11",
+  "result_dir": "outputs/b3_plus_less_v11/full200/b3_plus_less_update5000",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/b3_plus_less_v11/checkpoints/checkpoint_update_5000.pth",
+  "mean_dice": 0.334277122102467,
+  "hits": 292,
+  "hit_rate": 0.7664041994750657,
+  "raw_like": true,
+  "result_hash": "8dc6626e918b45afcff2a33722a38b5b5738c365a3f6e65dbfa0313323540cb1",
+  "dice_2a": 0.3331687476542047,
+  "dice_2b": 0.3457470793523562,
+  "dice_2c": 0.4037973111859986,
+  "dice_2d": 0.3710897476204506
+}

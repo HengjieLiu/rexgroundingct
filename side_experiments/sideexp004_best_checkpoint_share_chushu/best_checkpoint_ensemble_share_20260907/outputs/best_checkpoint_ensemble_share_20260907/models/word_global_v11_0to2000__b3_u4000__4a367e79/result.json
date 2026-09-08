@@ -1,0 +1,15 @@
+{
+  "model_id": "word_global_v11_0to2000__b3_u4000__4a367e79",
+  "method_family": "word_global_v11_0to2000",
+  "result_dir": "outputs/word_global_v11_0to2000/full200_best_and_u4000/b3_u4000",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/word_global_v11_0to2000/B3_candidates_global_router/checkpoints/checkpoint_update_4000.pth",
+  "mean_dice": 0.3327853880592859,
+  "hits": 295,
+  "hit_rate": 0.7742782152230971,
+  "raw_like": true,
+  "result_hash": "4a367e790a531faaedf2084e5d3d0b67905d3d798ee76793cfaf7f693ba874cf",
+  "dice_2a": 0.3390199430965784,
+  "dice_2b": 0.3482394362278206,
+  "dice_2c": 0.379223584821213,
+  "dice_2d": 0.3766133161120665
+}

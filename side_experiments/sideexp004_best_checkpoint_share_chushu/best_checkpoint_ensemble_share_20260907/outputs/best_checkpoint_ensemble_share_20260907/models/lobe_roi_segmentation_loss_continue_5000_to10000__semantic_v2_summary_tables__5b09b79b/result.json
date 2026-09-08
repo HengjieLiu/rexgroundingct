@@ -1,0 +1,15 @@
+{
+  "model_id": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+  "method_family": "lobe_roi_segmentation_loss_continue_5000_to10000",
+  "result_dir": "outputs/lobe_roi_segmentation_loss_continue_5000_to10000/full200/update_06000/semantic_v1_v2_strict_eval/semantic_v2_summary_tables",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/lobe_roi_segmentation_loss_continue_5000_to10000/checkpoints/checkpoint_update_6000.pth",
+  "mean_dice": 0.35363191436506036,
+  "hits": 298,
+  "hit_rate": 0.7821522309711286,
+  "raw_like": false,
+  "result_hash": "5b09b79b1ac7836e057e7fade95dbd93dddc5476507f4c262dea6ba4bee0c85d",
+  "dice_2a": 0.3258656336221286,
+  "dice_2b": 0.3767284551201633,
+  "dice_2c": 0.4233902076075827,
+  "dice_2d": 0.4025690642162002
+}

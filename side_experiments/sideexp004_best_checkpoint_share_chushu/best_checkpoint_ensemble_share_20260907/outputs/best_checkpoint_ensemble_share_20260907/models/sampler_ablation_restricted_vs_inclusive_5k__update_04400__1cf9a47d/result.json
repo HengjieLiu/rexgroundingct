@@ -1,0 +1,15 @@
+{
+  "model_id": "sampler_ablation_restricted_vs_inclusive_5k__update_04400__1cf9a47d",
+  "method_family": "sampler_ablation_restricted_vs_inclusive_5k",
+  "result_dir": "outputs/sampler_ablation_restricted_vs_inclusive_5k/S1_inclusive/full200_bf16_cached/update_04400",
+  "checkpoint": null,
+  "mean_dice": 0.33809790901431325,
+  "hits": 292,
+  "hit_rate": 0.7664041994750657,
+  "raw_like": true,
+  "result_hash": "1cf9a47d94cf325306cb91d3e3f1f013f758e4dcb16778484629f0d79112a385",
+  "dice_2a": 0.3228583317765039,
+  "dice_2b": 0.3429455039880059,
+  "dice_2c": 0.3966835486533668,
+  "dice_2d": 0.3912098671732187
+}

@@ -1,0 +1,15 @@
+{
+  "model_id": "qwen_early_coadaptation_from_v11__C1_update_5000__92378e4c",
+  "method_family": "qwen_early_coadaptation_from_v11",
+  "result_dir": "outputs/qwen_early_coadaptation_from_v11/full_validation_selected_checkpoints/full_validation/C1_update_5000",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/qwen_lora_top6_global_from_v11/checkpoints/checkpoint_update_5000.pth",
+  "mean_dice": 0.3251869783409958,
+  "hits": 292,
+  "hit_rate": 0.7664041994750657,
+  "raw_like": true,
+  "result_hash": "92378e4cdb4f77344a805e19fd5bfd3e5235435744164afe09bc5e3cf6f5e1ec",
+  "dice_2a": 0.3203378715801163,
+  "dice_2b": 0.3625134776618576,
+  "dice_2c": 0.3733683257031036,
+  "dice_2d": 0.3638332307379338
+}

@@ -1,0 +1,15 @@
+{
+  "model_id": "resampling_fixed_d0p75_h0p7_w0p7_v1_v11_controlled_10kupd__resample_d075_baseline_update10000__e490373c",
+  "method_family": "resampling_fixed_d0p75_h0p7_w0p7_v1_v11_controlled_10kupd",
+  "result_dir": "outputs/resampling_fixed_d0p75_h0p7_w0p7_v1_v11_controlled_10kupd/full200/resample_d075_baseline_update10000",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/resampling_fixed_d0p75_h0p7_w0p7_v1_v11_controlled_10kupd/full200/resample_d075_baseline_update10000/voxtell_model/fold_0/checkpoint_final.pth",
+  "mean_dice": 0.3424869880783371,
+  "hits": 297,
+  "hit_rate": 0.7795275590551181,
+  "raw_like": true,
+  "result_hash": "e490373c0b15f8ab367ee8d7931a4f5960d66a283826ed0003cff483c5cc6b2f",
+  "dice_2a": 0.3422133697461759,
+  "dice_2b": 0.3598951478609602,
+  "dice_2c": 0.3784442556828485,
+  "dice_2d": 0.3901996835639967
+}

@@ -1,0 +1,15 @@
+{
+  "model_id": "c2_less_semantic_coadapt_v11__pathology_continue_update_7600__41e10d95",
+  "method_family": "c2_less_semantic_coadapt_v11",
+  "result_dir": "outputs/c2_less_semantic_coadapt_v11/p_pathology_continue_full200_selected/full_validation/pathology_continue_update_7600",
+  "checkpoint": "/common/lidxxlab/chushu/RexGroundingCT/outputs/c2_less_semantic_coadapt_v11/p_pathology_continue_5000_to10000_corrected/checkpoints/checkpoint_update_7600.pth",
+  "mean_dice": 0.33231951750051825,
+  "hits": 284,
+  "hit_rate": 0.7454068241469817,
+  "raw_like": true,
+  "result_hash": "41e10d95e343481c8dbcb148f1ea4aa7bfcfad56af1ccbf08004e320e571e1f9",
+  "dice_2a": 0.3432306621512351,
+  "dice_2b": 0.3487259841792081,
+  "dice_2c": 0.3769443512697888,
+  "dice_2d": 0.3674517517729554
+}
