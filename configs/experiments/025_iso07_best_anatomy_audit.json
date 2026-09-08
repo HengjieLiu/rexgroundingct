@@ -1,0 +1,17 @@
+{
+  "experiment": "025_iso07_best_anatomy_audit",
+  "runtime_root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/025_iso07_best_anatomy_audit",
+  "metadata_path": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "metadata_sha256": "3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a",
+  "checkpoint": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+  "checkpoint_sha256": "4f36d9bba1ab5a59a8ef2e5b02200027d1053aa241631b1782bf98744c8bba02",
+  "cache_manifest": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1/manifest.json",
+  "cache_manifest_sha256": "59b53ed9fcd93b8e9872bf89770a14ffd6aeed31b206af33ca751b85d4bd2640",
+  "test_counts": {"cases": 300, "findings": 582},
+  "val_counts": {"cases": 200, "findings": 381},
+  "threshold": 0.5,
+  "mask_source_status": "PASS_PENDING_MANUAL_VISUAL_REVIEW",
+  "val_mask_runtime": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/020_ct_rate_ts_total_rex_val200_audit",
+  "test_mask_runtime": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit",
+  "bootstrap": {"resamples": 2000, "seed": 20260905}
+}
