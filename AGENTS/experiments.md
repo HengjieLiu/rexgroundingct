@@ -63,6 +63,11 @@ status: active
   and test-cohort audit before any downstream use.
 - `024_test_inference_anatomy_audit`: validation-gated test inference audit
   comparing anatomy-supported and baseline preprocessing paths.
+- `025_iso07_best_anatomy_audit`: validation-gated anatomy audit and native
+  test export for the strongest existing 0.7 mm-resampled checkpoint.
+- `026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr`: public-start
+  cached-native v123 DDP batch4 run with fixed differential learning rates and
+  full val200 barriers every five epochs.
 
 Do not rename experiment IDs casually. Runtime paths, configs, manifests, and
 reports depend on them.

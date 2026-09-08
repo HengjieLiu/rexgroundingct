@@ -296,6 +296,27 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
         "primary_eval_json": Path("reports/b_validation_metrics.json"),
         "readiness_json": Path("completion.json"),
     },
+    "025_iso07_best_anatomy_audit": {
+        "title": "Best iso07 checkpoint anatomy audit and native test export",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT / "025_iso07_best_anatomy_audit.json"
+        ),
+        "primary_report": Path("reports/val_report.md"),
+        "primary_eval_json": Path("reports/val_metrics.json"),
+        "readiness_json": Path("completion.json"),
+    },
+    "026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr": {
+        "title": "VoxTell cached-native v123 e5/d4 DDP batch4 fixed-LR run",
+        "canonical_config": (
+            CANONICAL_CONFIG_ROOT
+            / "026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr.json"
+        ),
+        "primary_report": Path("reports/fixed_lr_report.md"),
+        "primary_eval_json": Path(
+            "runs/latest/ddp_bs4/eval_epoch100_val200/eval/val_quick_global_eval.json"
+        ),
+        "readiness_json": Path("config/train_val_ct_readiness.json"),
+    },
 }
 
 

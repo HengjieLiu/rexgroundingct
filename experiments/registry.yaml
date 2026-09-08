@@ -337,3 +337,31 @@ experiments:
     mean_global_dice_per_finding: null
     hit_rate: null
     overall_instance_f1: null
+  - id: "025_iso07_best_anatomy_audit"
+    title: "Best iso07 checkpoint anatomy audit and native test export"
+    status: "complete"
+    canonical_config: "configs/experiments/025_iso07_best_anatomy_audit.json"
+    execution_spec: "experiments/025_iso07_best_anatomy_audit/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/025_iso07_best_anatomy_audit"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/025_iso07_best_anatomy_audit/config/025_iso07_best_anatomy_audit.json"
+    runtime_config_matches_canonical: true
+    repo_report: "experiments/025_iso07_best_anatomy_audit/report.md"
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/025_iso07_best_anatomy_audit/reports/val_report.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: 0.33752638623854136
+    hit_rate: 0.7611548556430446
+    overall_instance_f1: null
+  - id: "026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr"
+    title: "VoxTell cached-native v123 e5/d4 DDP batch4 fixed-LR run"
+    status: "implemented_delayed_launch"
+    canonical_config: "configs/experiments/026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr.json"
+    execution_spec: "experiments/026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr/config/026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr.json"
+    runtime_config_matches_canonical: true
+    repo_report: null
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr/reports/fixed_lr_report.md"
+    repo_metrics: null
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null
