@@ -1,0 +1,90 @@
+{
+  "experiment": "026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr",
+  "status": "implemented_delayed_launch",
+  "objective": "Compare constant differential learning rates with the exp007 cached-native v123 DDP batch4 recipe from the public VoxTell v1.1 checkpoint",
+  "base_model_repo": "mrokuss/VoxTell",
+  "base_model_name": "voxtell_v1.1",
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "segmentations": "/data/hengjie/datasets/rexgroundingct/segmentations",
+  "ct_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/ct",
+  "experiment_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr",
+  "initialization": {
+    "source": "public VoxTell v1.1",
+    "load_policy": "resolve the public model through download_voxtell_model; do not initialize from exp006, exp007, or another fine-tuned checkpoint",
+    "optimizer_resume": "resume only between Exp026 five-epoch barriers"
+  },
+  "preprocessing": {
+    "classification": "cached-equivalent to VoxTell native baseline",
+    "cache_id": "crop_zscore_native_v1",
+    "cache_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1",
+    "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+    "cases": 3192,
+    "targets": 8068,
+    "empty_targets": 0,
+    "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+    "scientific_difference_from_exp007": "learning-rate schedule only; preprocessing, model input, sampler, and loss are unchanged"
+  },
+  "schedule": {
+    "seed": 20260723,
+    "events": 40000,
+    "updates_per_epoch": 100,
+    "epochs": 100,
+    "global_batch_size": 4,
+    "local_batch_size": 1,
+    "world_size": 4,
+    "gradient_accumulation": 1,
+    "source_schedule": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/config/train_schedule_v123_ddp_bs4_seed20260723_100ep_100steps_gb4.jsonl",
+    "source_schedule_sha256": "acdfed8dd8d9908e9ea33d6790d47f8f7e3cbeed4bad326274d115d38e96a0aa",
+    "event_consumption_rule": "event_index = update * 4 + rank",
+    "prompt_policy": "multi-finding 2 positive + 1 negative; one-finding 1 positive + 2 negatives; every selected positive nonempty in its sampled patch"
+  },
+  "training": {
+    "model_tensor_shape": [192, 192, 192],
+    "distributed": true,
+    "ddp_world_size": 4,
+    "per_gpu_batch_size": 1,
+    "effective_global_batch_size": 4,
+    "gradient_accumulation": 1,
+    "total_optimizer_updates": 10000,
+    "pause_eval_resume_updates": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000],
+    "optimizer": "SGD",
+    "nesterov": true,
+    "momentum": 0.99,
+    "weight_decay": 0.00003,
+    "encoder_lr": 0.00001,
+    "decoder_lr": 0.0001,
+    "lr_schedule": "fixed",
+    "warmup_updates": 0,
+    "gradient_clip_max_norm": 12.0,
+    "augmentation": "none added beyond VoxTell patch sampling"
+  },
+  "loss": {
+    "mode": "v123",
+    "nonempty_target": "Dice + weighted BCE",
+    "empty_target": "weighted BCE only",
+    "empty_target_loss_weight": 0.5,
+    "bce_foreground_weight": 1.0,
+    "bce_boundary_weight": 1.5,
+    "bce_background_weight": 0.5,
+    "bce_boundary_radius": 10,
+    "deep_supervision_weights": [1.0, 0.5, 0.25, 0.125, 0.0625]
+  },
+  "checkpoints": {
+    "immutable_updates": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000],
+    "rolling_recovery_interval_updates": 500,
+    "atomic_writes": true,
+    "save_probability_maps": false
+  },
+  "validation": {
+    "val200_json": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "val200_json_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "val200_epochs": [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100],
+    "primary_threshold": 0.5,
+    "eval_policy": "training pauses at each five-epoch segment; val200 inference is sharded over all four GPUs; fixed JSON is passed directly"
+  },
+  "comparison_plan": {
+    "primary_baseline": "exp007 original public-start cached-native v123 DDP batch4",
+    "primary_checkpoint": "Exp026 epoch100 val200 versus exp007 epoch100 val200",
+    "controlled_difference": "poly power-0.9 schedule with 100-update warmup in exp007 versus fixed differential learning rates with zero warmup in Exp026"
+  }
+}
