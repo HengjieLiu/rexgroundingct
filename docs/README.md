@@ -1,6 +1,6 @@
 ---
 created: 2026-07-22
-updated: 2026-07-24
+updated: 2026-09-08
 status: active
 ---
 
@@ -15,6 +15,8 @@ Start here when looking for project context.
 - `current_status.md`: current decisions, active work, blockers, and next
   actions.
 - `submission.md`: challenge submission packaging and final pre-submit checks.
+- `gpu8_transfer_runbook.md`: GPU9-to-GPU8 transfer and verification for code,
+  project data, Docker, and shared `/mnt` storage.
 - `val200_leaderboards/`: dated fixed-val200 model leaderboard snapshots and
   refresh notes.
 - `templates/`: reusable execution spec and experiment closeout templates.
