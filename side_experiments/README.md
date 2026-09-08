@@ -1,6 +1,6 @@
 ---
 created: 2026-07-29
-updated: 2026-07-29
+updated: 2026-09-07
 status: active
 ---
 
@@ -28,3 +28,6 @@ heavyweight runtime outputs remain outside Git.
 - `sideexp002_multimodel_ensemble_selection`: records the val200 model roster
   and hard-mask complementarity evidence, exports reusable pre-sigmoid logits,
   and performs cross-validated multi-model ensemble selection.
+- `sideexp003_ensemble_method_hub`: provides the unified checkpoint catalog,
+  generated val200/category leaderboards, shared logit-cache provenance, and
+  immutable method/run specifications for subsequent ensemble work.

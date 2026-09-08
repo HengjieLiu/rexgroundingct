@@ -1,6 +1,6 @@
 ---
 created: 2026-07-29
-updated: 2026-07-31
+updated: 2026-09-07
 status: active
 side_experiment_id: sideexp002_multimodel_ensemble_selection
 ---
@@ -74,6 +74,18 @@ Heavy arrays, manifests, locks, and logs live under:
 ```text
 /mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp002_multimodel_ensemble_selection
 ```
+
+As of 2026-09-07, the `logits/` entry at that location is a compatibility
+symlink. Its physical storage is managed by SideExp003 at:
+
+```text
+/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/legacy_sideexp002
+```
+
+The logical SideExp002 path remains stable so immutable export manifests and
+existing no-inference analyses continue to resolve without edits. Do not replace
+or rewrite legacy arrays; SideExp003 creates a new versioned strict export when
+one of the seven analysis-only caches is selected for a final recipe.
 
 Each case is stored as an atomic, memory-mappable `.npy` array in evaluator
 layout `(F, X, Y, Z)`. The default representation is float16 logits clipped to
