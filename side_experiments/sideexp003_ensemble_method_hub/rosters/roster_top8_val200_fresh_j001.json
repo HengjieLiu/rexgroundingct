@@ -1,0 +1,187 @@
+{
+  "N": 8,
+  "candidates": [
+    {
+      "array_bytes": 74086376448,
+      "cache_key": "v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+        "sha256": "a499ad1c0fada9a7e4d78e352fa5510d31295e82749e00ef0a4eee6da685e4aa"
+      },
+      "dtype": "float16",
+      "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe/export_manifest.json",
+      "export_manifest_sha256": "91f6a203a689adf24b36f0c863c1f9f0209949258575e7685f0efb8b571fdafb",
+      "id": "exp007_ddp_bs4_e050_a499ad1c",
+      "rank": 1,
+      "same_pass_metrics": {
+        "dice": 0.34586800803778955,
+        "hits": 295
+      },
+      "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe/reproduction_validation.json",
+      "validation_sha256": "8f7f63e06a722a77bed3c426adc2f15962e987a358a2fccb05c78ceaa097950f"
+    },
+    {
+      "array_bytes": 74086376448,
+      "cache_key": "v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf"
+      },
+      "dtype": "float16",
+      "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051/export_manifest.json",
+      "export_manifest_sha256": "52f3ff3fdbbe9051e2470dad8116784bf73e25e888d48ca64fe0a16a731741b6",
+      "id": "exp009_baseline_cont100_e100_50e631f1",
+      "rank": 2,
+      "same_pass_metrics": {
+        "dice": 0.33982096546631757,
+        "hits": 289
+      },
+      "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051/reproduction_validation.json",
+      "validation_sha256": "61d9812850dc81a0335f2bf0793d0ed5bafd31c7ddbd0d2b8ffd79bdabef28af"
+    },
+    {
+      "array_bytes": 74086376448,
+      "cache_key": "v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+        "sha256": "4f36d9bba1ab5a59a8ef2e5b02200027d1053aa241631b1782bf98744c8bba02"
+      },
+      "dtype": "float16",
+      "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca/export_manifest.json",
+      "export_manifest_sha256": "7e96b1e7ebccf56c28420c3a12dd0d135aa9b790ad4f63726bd93dce8ac827a2",
+      "id": "exp017_ddp_bs4_e050_4f36d9bb",
+      "rank": 3,
+      "same_pass_metrics": {
+        "dice": 0.338543829219285,
+        "hits": 290
+      },
+      "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca/reproduction_validation.json",
+      "validation_sha256": "18df5aea2b84f89898ed5dbb787f168fb345079a1a89502c9b60cb9213865ce6"
+    },
+    {
+      "array_bytes": 74086376448,
+      "cache_key": "v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "a3e93801ba121c0084ec52b7f7dc38cbb617dbec484b6113b4348aa7dec82f3d"
+      },
+      "dtype": "float16",
+      "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d/export_manifest.json",
+      "export_manifest_sha256": "00af78e219f833d80808694edabfa3ce9378a036122a185754b055eba9aec9bb",
+      "id": "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+      "rank": 4,
+      "same_pass_metrics": {
+        "dice": 0.3365350001098914,
+        "hits": 292
+      },
+      "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d/reproduction_validation.json",
+      "validation_sha256": "f2f2cad429f296571c7e4d1d9f79188fbf9eb9e1914d9519a5ad3cee8a49366b"
+    },
+    {
+      "array_bytes": 74086376448,
+      "cache_key": "v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "61bcec41fc90d38bb7a1665f0e9da5da6727661114ea368efcb9d8fe41305779"
+      },
+      "dtype": "float16",
+      "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd/export_manifest.json",
+      "export_manifest_sha256": "296bb51d1400780a98bb5da16230b6a7db177d7a632140d3d59711960c9fcdec",
+      "id": "exp008_v1_sharedfusion_softguide_e100_61bcec41",
+      "rank": 5,
+      "same_pass_metrics": {
+        "dice": 0.3365561428988576,
+        "hits": 288
+      },
+      "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd/reproduction_validation.json",
+      "validation_sha256": "3f7c68ea09dc0e8bb05ce585f6a6af49105f5861e32d316a36c10bc80778e318"
+    },
+    {
+      "array_bytes": 74086376448,
+      "cache_key": "v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_dualfusion_softguide/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "9ba13980560f3b6086b2529989db1029cb6866c9316f4f050e4632b9f615a654"
+      },
+      "dtype": "float16",
+      "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23/export_manifest.json",
+      "export_manifest_sha256": "fcfb386792ae7eb72375a21bd1a6829f1d4955be4e70df29f0bbf6450ee98534",
+      "id": "exp008_v1_dualfusion_softguide_e100_9ba13980",
+      "rank": 6,
+      "same_pass_metrics": {
+        "dice": 0.3359811490078042,
+        "hits": 286
+      },
+      "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23/reproduction_validation.json",
+      "validation_sha256": "e0153be38af7c3946cd2b7dc2a587616b8d1f3cca214114d932a2d00ac636756"
+    },
+    {
+      "array_bytes": 74086376448,
+      "cache_key": "v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v1_fixedrho_suppress_half_quarter/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "263f27d38b750d11d5453da684087b9985109d70410985bb9d450fefdfe1ede0"
+      },
+      "dtype": "float16",
+      "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704/export_manifest.json",
+      "export_manifest_sha256": "9f065e3f63cc130c054463e68e12629c04a8f16b0b96fe24698da0e22a09ba63",
+      "id": "exp009_s3v1_fixedrho_suppress_half_quarter_e100_263f27d3",
+      "rank": 7,
+      "same_pass_metrics": {
+        "dice": 0.3347021740516506,
+        "hits": 286
+      },
+      "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704/reproduction_validation.json",
+      "validation_sha256": "51b9a10230a4e578a3f70638c8f4a4700cd212c66d22d844727e50cb697c17bc"
+    },
+    {
+      "array_bytes": 74086376448,
+      "cache_key": "v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+        "sha256": "a50a69dc9f139bf2963fb5ac9a2d0386414c1288e90f08fff9693007bb8631ce"
+      },
+      "dtype": "float16",
+      "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69/export_manifest.json",
+      "export_manifest_sha256": "dd3ef8b8d8a4874ab8fbdf0b4793825b20b2666e995fb4d65023f4d6de4bd690",
+      "id": "exp017_ddp_bs4_e050_a50a69dc",
+      "rank": 8,
+      "same_pass_metrics": {
+        "dice": 0.3358431877568761,
+        "hits": 296
+      },
+      "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69/reproduction_validation.json",
+      "validation_sha256": "50ce951b7d07ce3ddbb4b9d5f41d8cfb2df6bcdc92406d24030df9fc517107c0"
+    }
+  ],
+  "created_at_utc": "2026-09-08T06:48:00Z",
+  "dataset": {
+    "cases": 200,
+    "findings": 381,
+    "path": "/home/hengjie/code_sync/rexgroundingct/configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "split": "val200"
+  },
+  "reuse_policy": "fresh_only",
+  "roster_id": "top8_val200_fresh_j001",
+  "roster_sha256": "ee9698192b472588908858c4f3e50bf3236df5bb0736260b1e5a9a05aa81fd81",
+  "schema_version": 1,
+  "source_job": {
+    "job_id": "j001_top20_val200_fresh",
+    "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/cache_jobs/j001_top20_val200_fresh/job_spec.json",
+    "sha256": "376a78f874416e10e1a2f345df76ebe0ff3987d132422b217bc3e845b74d976f"
+  },
+  "source_roster": {
+    "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/rosters/roster_top20_val200_dice_20260907T211605Z.json",
+    "roster_sha256": "04aaff359ba3e1e6748a2e0851f64a828906c28b0ed642b673088064275ba96c",
+    "sha256": "390a2058fdf37bb3ca9971c36686217081dac55e8fd0d01ac7e37dcc796a3f3d"
+  }
+}

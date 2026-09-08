@@ -1,0 +1,33 @@
+{
+  "chunk_elements": 4194304,
+  "comparison_spec_sha256": "b580b9ef90bd6991568d7451ae208b8d2d22cc4e05ab06653157c6b9026561ff",
+  "code": {
+    "preliminary_ensemble_sha256": "6dc420ad1e0b6e4bf1d6aa1654d85e51ea8a9fe4fe2295e892aa78615dd2c199",
+    "repo_commit": "413f078fadb0c6831a37e1dd32121818942a7800"
+  },
+  "created_at_utc": "2026-09-08T03:25:25Z",
+  "dataset_path": "/workspace/configs/evaluation/rexgroundingct_val200_seed20260723.json",
+  "dataset_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+  "execution": {
+    "cpu_only": true,
+    "metrics_only": true,
+    "nice": 10,
+    "single_process": true
+  },
+  "job_path": "/workspace/side_experiments/sideexp003_ensemble_method_hub/cache_jobs/j001_top20_val200_fresh/job_spec.json",
+  "outputs": {
+    "caruana_decision_json": "/workspace/side_experiments/sideexp003_ensemble_method_hub/methods/caruana_replacement_global/runs/r001_top4_fresh_val200/decision.json",
+    "caruana_report_md": "/workspace/side_experiments/sideexp003_ensemble_method_hub/methods/caruana_replacement_global/runs/r001_top4_fresh_val200/report.md",
+    "caruana_result_json": "/workspace/side_experiments/sideexp003_ensemble_method_hub/methods/caruana_replacement_global/runs/r001_top4_fresh_val200/result.json",
+    "comparison_json": "/workspace/side_experiments/sideexp003_ensemble_method_hub/methods/caruana_replacement_global/runs/r001_top4_fresh_val200/comparison.json",
+    "comparison_md": "/workspace/side_experiments/sideexp003_ensemble_method_hub/methods/caruana_replacement_global/runs/r001_top4_fresh_val200/comparison.md",
+    "uniform_decision_json": "/workspace/side_experiments/sideexp003_ensemble_method_hub/methods/uniform_global/runs/r001_top4_fresh_val200/decision.json",
+    "uniform_report_md": "/workspace/side_experiments/sideexp003_ensemble_method_hub/methods/uniform_global/runs/r001_top4_fresh_val200/report.md",
+    "uniform_result_json": "/workspace/side_experiments/sideexp003_ensemble_method_hub/methods/uniform_global/runs/r001_top4_fresh_val200/result.json"
+  },
+  "roster_path": "/workspace/side_experiments/sideexp003_ensemble_method_hub/rosters/roster_top4_val200_fresh_j001.json",
+  "roster_sha256": "5ccc93604203209a9bd1b685fffc95d81dbac19d00b1a80013bdf946fa780229",
+  "run_id": "r001_top4_fresh_val200",
+  "runtime_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/comparisons/r001_top4_fresh_val200",
+  "schema_version": 1
+}

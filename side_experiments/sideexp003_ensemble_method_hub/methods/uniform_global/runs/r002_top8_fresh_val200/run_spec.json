@@ -1,0 +1,62 @@
+{
+  "approvals": {
+    "diagnostic_full_val_confirmed": true,
+    "materialization_confirmed": false,
+    "roster_confirmed": true
+  },
+  "code": {
+    "entrypoint": "side_experiments/sideexp003_ensemble_method_hub/preliminary_ensemble.py",
+    "entrypoint_sha256": "6d2950b1193c4c461dbc30abad231fa12c24f4fb8d800c46106a802b284cd941",
+    "repo_commit": "413f078fadb0c6831a37e1dd32121818942a7800"
+  },
+  "completed_at_utc": "2026-09-08T08:26:34Z",
+  "data": {
+    "dataset_path": "/home/hengjie/code_sync/rexgroundingct/configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "dataset_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "diagnostic_scope": "optimistic_full_val200_same_set",
+    "folds_path": null
+  },
+  "method": {
+    "id": "uniform_global",
+    "spec_path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/methods/uniform_global/method_spec.md",
+    "spec_sha256": "4cac6e15fbf0c470d7fc29e90d72f6259b3963a054498638d472ee0b3df304af"
+  },
+  "outputs": {
+    "final_logits_dir": null,
+    "runtime_run_dir": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/methods/uniform_global/runs/r002_top8_fresh_val200",
+    "tracked_run_dir": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/methods/uniform_global/runs/r002_top8_fresh_val200"
+  },
+  "parameters": {
+    "averaging_domain": "post_sigmoid_probability",
+    "basket_size": null,
+    "chunk_elements": 4194304,
+    "metrics_only": true,
+    "threshold": 0.5,
+    "with_replacement": false
+  },
+  "result_sha256": "128d9a7edf87185604a59cdb449c3cc6e3a3576d7f71970e3b1ac3748b196ab4",
+  "roster": {
+    "N": 8,
+    "candidate_ids": [
+      "exp007_ddp_bs4_e050_a499ad1c",
+      "exp009_baseline_cont100_e100_50e631f1",
+      "exp017_ddp_bs4_e050_4f36d9bb",
+      "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+      "exp008_v1_sharedfusion_softguide_e100_61bcec41",
+      "exp008_v1_dualfusion_softguide_e100_9ba13980",
+      "exp009_s3v1_fixedrho_suppress_half_quarter_e100_263f27d3",
+      "exp017_ddp_bs4_e050_a50a69dc"
+    ],
+    "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/rosters/roster_top8_val200_fresh_j001.json",
+    "roster_sha256": "ee9698192b472588908858c4f3e50bf3236df5bb0736260b1e5a9a05aa81fd81",
+    "sha256": "79e994347efa20cd601567739ecc2843978e01a2e32d6af07ad5cb0ce1f377b2"
+  },
+  "run_id": "r002_top8_fresh_val200",
+  "schema_version": 1,
+  "status": "diagnostic_complete",
+  "tie_break": [
+    "mean_finding_dice_desc",
+    "hits_desc",
+    "candidate_id_asc"
+  ]
+}

@@ -1,0 +1,1747 @@
+{
+  "addition_rounds": 3,
+  "candidate_evaluations": 12,
+  "candidate_ids": [
+    "exp007_ddp_bs4_e050_a499ad1c",
+    "exp009_baseline_cont100_e100_50e631f1",
+    "exp017_ddp_bs4_e050_4f36d9bb",
+    "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801"
+  ],
+  "curve": [
+    {
+      "K": 1,
+      "added": "exp007_ddp_bs4_e050_a499ad1c",
+      "counts": {
+        "exp007_ddp_bs4_e050_a499ad1c": 1
+      },
+      "marginal_dice": 0.0,
+      "metrics": {
+        "categories": {
+          "1a": {
+            "dice": 0.09753876532837337,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "dice": 0.1467897040488263,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "dice": 0.15597106973570102,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "dice": 0.11696139215804956,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "dice": 0.1950702869638542,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "dice": 0.21243425091383214,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "dice": 0.3372153961644642,
+            "findings": 69,
+            "hit_rate": 0.855072463768116,
+            "hits": 59
+          },
+          "2b": {
+            "dice": 0.3570299675908985,
+            "findings": 49,
+            "hit_rate": 0.7755102040816326,
+            "hits": 38
+          },
+          "2c": {
+            "dice": 0.4152540394250476,
+            "findings": 60,
+            "hit_rate": 0.8166666666666667,
+            "hits": 49
+          },
+          "2d": {
+            "dice": 0.39497950259885206,
+            "findings": 132,
+            "hit_rate": 0.8712121212121212,
+            "hits": 115
+          },
+          "2e": {
+            "dice": 0.410407952609175,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "dice": 0.04756055284446494,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "dice": 0.16324369082341206,
+            "findings": 7,
+            "hit_rate": 0.5714285714285714,
+            "hits": 4
+          }
+        },
+        "dice": 0.34586800803778955,
+        "findings": 381,
+        "hit_rate": 0.7742782152230971,
+        "hits": 295
+      },
+      "sequence": [
+        "exp007_ddp_bs4_e050_a499ad1c"
+      ],
+      "weights": {
+        "exp007_ddp_bs4_e050_a499ad1c": 1.0
+      }
+    },
+    {
+      "K": 2,
+      "added": "exp017_ddp_bs4_e050_4f36d9bb",
+      "counts": {
+        "exp007_ddp_bs4_e050_a499ad1c": 1,
+        "exp017_ddp_bs4_e050_4f36d9bb": 1
+      },
+      "marginal_dice": 0.014271599312602967,
+      "metrics": {
+        "categories": {
+          "1a": {
+            "dice": 0.11137358855149547,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "dice": 0.1587830622808809,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "dice": 0.18997407964471905,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "dice": 0.12344023003632222,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "dice": 0.18949142834364288,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "dice": 0.21400937258683964,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "dice": 0.3647743756523894,
+            "findings": 69,
+            "hit_rate": 0.855072463768116,
+            "hits": 59
+          },
+          "2b": {
+            "dice": 0.3649607416105493,
+            "findings": 49,
+            "hit_rate": 0.7346938775510204,
+            "hits": 36
+          },
+          "2c": {
+            "dice": 0.4029038724617511,
+            "findings": 60,
+            "hit_rate": 0.8166666666666667,
+            "hits": 49
+          },
+          "2d": {
+            "dice": 0.41250468651188893,
+            "findings": 132,
+            "hit_rate": 0.8863636363636364,
+            "hits": 117
+          },
+          "2e": {
+            "dice": 0.4159222078131357,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "dice": 0.03051319962899216,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "dice": 0.27697075738144356,
+            "findings": 7,
+            "hit_rate": 0.5714285714285714,
+            "hits": 4
+          }
+        },
+        "dice": 0.3601396073503925,
+        "findings": 381,
+        "hit_rate": 0.7742782152230971,
+        "hits": 295
+      },
+      "sequence": [
+        "exp007_ddp_bs4_e050_a499ad1c",
+        "exp017_ddp_bs4_e050_4f36d9bb"
+      ],
+      "trials": {
+        "exp007_ddp_bs4_e050_a499ad1c": {
+          "candidate_id": "exp007_ddp_bs4_e050_a499ad1c",
+          "counts": {
+            "exp007_ddp_bs4_e050_a499ad1c": 2
+          },
+          "metrics": {
+            "categories": {
+              "1a": {
+                "dice": 0.09753876532837337,
+                "findings": 3,
+                "hit_rate": 0.3333333333333333,
+                "hits": 1
+              },
+              "1b": {
+                "dice": 0.1467897040488263,
+                "findings": 11,
+                "hit_rate": 0.36363636363636365,
+                "hits": 4
+              },
+              "1c": {
+                "dice": 0.15597106973570102,
+                "findings": 17,
+                "hit_rate": 0.4117647058823529,
+                "hits": 7
+              },
+              "1d": {
+                "dice": 0.11696139215804956,
+                "findings": 6,
+                "hit_rate": 0.16666666666666666,
+                "hits": 1
+              },
+              "1e": {
+                "dice": 0.1950702869638542,
+                "findings": 11,
+                "hit_rate": 0.6363636363636364,
+                "hits": 7
+              },
+              "1f": {
+                "dice": 0.21243425091383214,
+                "findings": 4,
+                "hit_rate": 0.5,
+                "hits": 2
+              },
+              "2a": {
+                "dice": 0.3372153961644642,
+                "findings": 69,
+                "hit_rate": 0.855072463768116,
+                "hits": 59
+              },
+              "2b": {
+                "dice": 0.3570299675908985,
+                "findings": 49,
+                "hit_rate": 0.7755102040816326,
+                "hits": 38
+              },
+              "2c": {
+                "dice": 0.4152540394250476,
+                "findings": 60,
+                "hit_rate": 0.8166666666666667,
+                "hits": 49
+              },
+              "2d": {
+                "dice": 0.39497950259885206,
+                "findings": 132,
+                "hit_rate": 0.8712121212121212,
+                "hits": 115
+              },
+              "2e": {
+                "dice": 0.410407952609175,
+                "findings": 11,
+                "hit_rate": 0.7272727272727273,
+                "hits": 8
+              },
+              "2f": {
+                "dice": null,
+                "findings": 0,
+                "hit_rate": null,
+                "hits": 0
+              },
+              "2g": {
+                "dice": 0.04756055284446494,
+                "findings": 1,
+                "hit_rate": 0.0,
+                "hits": 0
+              },
+              "2h": {
+                "dice": 0.16324369082341206,
+                "findings": 7,
+                "hit_rate": 0.5714285714285714,
+                "hits": 4
+              }
+            },
+            "dice": 0.34586800803778955,
+            "findings": 381,
+            "hit_rate": 0.7742782152230971,
+            "hits": 295
+          },
+          "sequence": [
+            "exp007_ddp_bs4_e050_a499ad1c",
+            "exp007_ddp_bs4_e050_a499ad1c"
+          ]
+        },
+        "exp009_baseline_cont100_e100_50e631f1": {
+          "candidate_id": "exp009_baseline_cont100_e100_50e631f1",
+          "counts": {
+            "exp007_ddp_bs4_e050_a499ad1c": 1,
+            "exp009_baseline_cont100_e100_50e631f1": 1
+          },
+          "metrics": {
+            "categories": {
+              "1a": {
+                "dice": 0.11489703032376791,
+                "findings": 3,
+                "hit_rate": 0.3333333333333333,
+                "hits": 1
+              },
+              "1b": {
+                "dice": 0.16338114152032762,
+                "findings": 11,
+                "hit_rate": 0.36363636363636365,
+                "hits": 4
+              },
+              "1c": {
+                "dice": 0.18651736275790018,
+                "findings": 17,
+                "hit_rate": 0.47058823529411764,
+                "hits": 8
+              },
+              "1d": {
+                "dice": 0.12034881042387498,
+                "findings": 6,
+                "hit_rate": 0.16666666666666666,
+                "hits": 1
+              },
+              "1e": {
+                "dice": 0.21027880761497705,
+                "findings": 11,
+                "hit_rate": 0.6363636363636364,
+                "hits": 7
+              },
+              "1f": {
+                "dice": 0.18749173971591318,
+                "findings": 4,
+                "hit_rate": 0.5,
+                "hits": 2
+              },
+              "2a": {
+                "dice": 0.34833751765959103,
+                "findings": 69,
+                "hit_rate": 0.8695652173913043,
+                "hits": 60
+              },
+              "2b": {
+                "dice": 0.36572463866278493,
+                "findings": 49,
+                "hit_rate": 0.7755102040816326,
+                "hits": 38
+              },
+              "2c": {
+                "dice": 0.4140742705865008,
+                "findings": 60,
+                "hit_rate": 0.8333333333333334,
+                "hits": 50
+              },
+              "2d": {
+                "dice": 0.40217117149139964,
+                "findings": 132,
+                "hit_rate": 0.8636363636363636,
+                "hits": 114
+              },
+              "2e": {
+                "dice": 0.4340519182730647,
+                "findings": 11,
+                "hit_rate": 0.7272727272727273,
+                "hits": 8
+              },
+              "2f": {
+                "dice": null,
+                "findings": 0,
+                "hit_rate": null,
+                "hits": 0
+              },
+              "2g": {
+                "dice": 0.04113285160889433,
+                "findings": 1,
+                "hit_rate": 0.0,
+                "hits": 0
+              },
+              "2h": {
+                "dice": 0.2068823308017709,
+                "findings": 7,
+                "hit_rate": 0.5714285714285714,
+                "hits": 4
+              }
+            },
+            "dice": 0.3549830253885011,
+            "findings": 381,
+            "hit_rate": 0.7795275590551181,
+            "hits": 297
+          },
+          "sequence": [
+            "exp007_ddp_bs4_e050_a499ad1c",
+            "exp009_baseline_cont100_e100_50e631f1"
+          ]
+        },
+        "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": {
+          "candidate_id": "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+          "counts": {
+            "exp007_ddp_bs4_e050_a499ad1c": 1,
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 1
+          },
+          "metrics": {
+            "categories": {
+              "1a": {
+                "dice": 0.12069459171957513,
+                "findings": 3,
+                "hit_rate": 0.3333333333333333,
+                "hits": 1
+              },
+              "1b": {
+                "dice": 0.16670887941062787,
+                "findings": 11,
+                "hit_rate": 0.36363636363636365,
+                "hits": 4
+              },
+              "1c": {
+                "dice": 0.19173390993566988,
+                "findings": 17,
+                "hit_rate": 0.47058823529411764,
+                "hits": 8
+              },
+              "1d": {
+                "dice": 0.12041877740983552,
+                "findings": 6,
+                "hit_rate": 0.16666666666666666,
+                "hits": 1
+              },
+              "1e": {
+                "dice": 0.2098862140313334,
+                "findings": 11,
+                "hit_rate": 0.6363636363636364,
+                "hits": 7
+              },
+              "1f": {
+                "dice": 0.2262164398502005,
+                "findings": 4,
+                "hit_rate": 0.5,
+                "hits": 2
+              },
+              "2a": {
+                "dice": 0.35071800645365303,
+                "findings": 69,
+                "hit_rate": 0.8695652173913043,
+                "hits": 60
+              },
+              "2b": {
+                "dice": 0.36827933246856126,
+                "findings": 49,
+                "hit_rate": 0.7755102040816326,
+                "hits": 38
+              },
+              "2c": {
+                "dice": 0.4099705157985035,
+                "findings": 60,
+                "hit_rate": 0.8333333333333334,
+                "hits": 50
+              },
+              "2d": {
+                "dice": 0.3870350245752945,
+                "findings": 132,
+                "hit_rate": 0.8787878787878788,
+                "hits": 116
+              },
+              "2e": {
+                "dice": 0.44333377452405354,
+                "findings": 11,
+                "hit_rate": 0.8181818181818182,
+                "hits": 9
+              },
+              "2f": {
+                "dice": null,
+                "findings": 0,
+                "hit_rate": null,
+                "hits": 0
+              },
+              "2g": {
+                "dice": 0.037275330486946326,
+                "findings": 1,
+                "hit_rate": 0.0,
+                "hits": 0
+              },
+              "2h": {
+                "dice": 0.22328546295544444,
+                "findings": 7,
+                "hit_rate": 0.5714285714285714,
+                "hits": 4
+              }
+            },
+            "dice": 0.3511824506951097,
+            "findings": 381,
+            "hit_rate": 0.7874015748031497,
+            "hits": 300
+          },
+          "sequence": [
+            "exp007_ddp_bs4_e050_a499ad1c",
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801"
+          ]
+        },
+        "exp017_ddp_bs4_e050_4f36d9bb": {
+          "candidate_id": "exp017_ddp_bs4_e050_4f36d9bb",
+          "counts": {
+            "exp007_ddp_bs4_e050_a499ad1c": 1,
+            "exp017_ddp_bs4_e050_4f36d9bb": 1
+          },
+          "metrics": {
+            "categories": {
+              "1a": {
+                "dice": 0.11137358855149547,
+                "findings": 3,
+                "hit_rate": 0.3333333333333333,
+                "hits": 1
+              },
+              "1b": {
+                "dice": 0.1587830622808809,
+                "findings": 11,
+                "hit_rate": 0.36363636363636365,
+                "hits": 4
+              },
+              "1c": {
+                "dice": 0.18997407964471905,
+                "findings": 17,
+                "hit_rate": 0.4117647058823529,
+                "hits": 7
+              },
+              "1d": {
+                "dice": 0.12344023003632222,
+                "findings": 6,
+                "hit_rate": 0.16666666666666666,
+                "hits": 1
+              },
+              "1e": {
+                "dice": 0.18949142834364288,
+                "findings": 11,
+                "hit_rate": 0.6363636363636364,
+                "hits": 7
+              },
+              "1f": {
+                "dice": 0.21400937258683964,
+                "findings": 4,
+                "hit_rate": 0.5,
+                "hits": 2
+              },
+              "2a": {
+                "dice": 0.3647743756523894,
+                "findings": 69,
+                "hit_rate": 0.855072463768116,
+                "hits": 59
+              },
+              "2b": {
+                "dice": 0.3649607416105493,
+                "findings": 49,
+                "hit_rate": 0.7346938775510204,
+                "hits": 36
+              },
+              "2c": {
+                "dice": 0.4029038724617511,
+                "findings": 60,
+                "hit_rate": 0.8166666666666667,
+                "hits": 49
+              },
+              "2d": {
+                "dice": 0.41250468651188893,
+                "findings": 132,
+                "hit_rate": 0.8863636363636364,
+                "hits": 117
+              },
+              "2e": {
+                "dice": 0.4159222078131357,
+                "findings": 11,
+                "hit_rate": 0.7272727272727273,
+                "hits": 8
+              },
+              "2f": {
+                "dice": null,
+                "findings": 0,
+                "hit_rate": null,
+                "hits": 0
+              },
+              "2g": {
+                "dice": 0.03051319962899216,
+                "findings": 1,
+                "hit_rate": 0.0,
+                "hits": 0
+              },
+              "2h": {
+                "dice": 0.27697075738144356,
+                "findings": 7,
+                "hit_rate": 0.5714285714285714,
+                "hits": 4
+              }
+            },
+            "dice": 0.3601396073503925,
+            "findings": 381,
+            "hit_rate": 0.7742782152230971,
+            "hits": 295
+          },
+          "sequence": [
+            "exp007_ddp_bs4_e050_a499ad1c",
+            "exp017_ddp_bs4_e050_4f36d9bb"
+          ]
+        }
+      },
+      "weights": {
+        "exp007_ddp_bs4_e050_a499ad1c": 0.5,
+        "exp017_ddp_bs4_e050_4f36d9bb": 0.5
+      }
+    },
+    {
+      "K": 3,
+      "added": "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+      "counts": {
+        "exp007_ddp_bs4_e050_a499ad1c": 1,
+        "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 1,
+        "exp017_ddp_bs4_e050_4f36d9bb": 1
+      },
+      "marginal_dice": -0.00153313039521219,
+      "metrics": {
+        "categories": {
+          "1a": {
+            "dice": 0.12001664855004575,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "dice": 0.17160120251674846,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "dice": 0.19177397901295365,
+            "findings": 17,
+            "hit_rate": 0.47058823529411764,
+            "hits": 8
+          },
+          "1d": {
+            "dice": 0.12626365153779173,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "dice": 0.20367681247412908,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "dice": 0.21357580347361474,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "dice": 0.35636259877276494,
+            "findings": 69,
+            "hit_rate": 0.8405797101449275,
+            "hits": 58
+          },
+          "2b": {
+            "dice": 0.367721292109829,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "dice": 0.41033968593057407,
+            "findings": 60,
+            "hit_rate": 0.8333333333333334,
+            "hits": 50
+          },
+          "2d": {
+            "dice": 0.40357510686471276,
+            "findings": 132,
+            "hit_rate": 0.8712121212121212,
+            "hits": 115
+          },
+          "2e": {
+            "dice": 0.43494314914143994,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "dice": 0.02894765269745217,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "dice": 0.279419522728611,
+            "findings": 7,
+            "hit_rate": 0.5714285714285714,
+            "hits": 4
+          }
+        },
+        "dice": 0.35860647695518033,
+        "findings": 381,
+        "hit_rate": 0.7742782152230971,
+        "hits": 295
+      },
+      "sequence": [
+        "exp007_ddp_bs4_e050_a499ad1c",
+        "exp017_ddp_bs4_e050_4f36d9bb",
+        "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801"
+      ],
+      "trials": {
+        "exp007_ddp_bs4_e050_a499ad1c": {
+          "candidate_id": "exp007_ddp_bs4_e050_a499ad1c",
+          "counts": {
+            "exp007_ddp_bs4_e050_a499ad1c": 2,
+            "exp017_ddp_bs4_e050_4f36d9bb": 1
+          },
+          "metrics": {
+            "categories": {
+              "1a": {
+                "dice": 0.10604971490804427,
+                "findings": 3,
+                "hit_rate": 0.3333333333333333,
+                "hits": 1
+              },
+              "1b": {
+                "dice": 0.14999404522301343,
+                "findings": 11,
+                "hit_rate": 0.36363636363636365,
+                "hits": 4
+              },
+              "1c": {
+                "dice": 0.16962269439143102,
+                "findings": 17,
+                "hit_rate": 0.4117647058823529,
+                "hits": 7
+              },
+              "1d": {
+                "dice": 0.1183227358869977,
+                "findings": 6,
+                "hit_rate": 0.16666666666666666,
+                "hits": 1
+              },
+              "1e": {
+                "dice": 0.198739507422248,
+                "findings": 11,
+                "hit_rate": 0.6363636363636364,
+                "hits": 7
+              },
+              "1f": {
+                "dice": 0.21450335133156276,
+                "findings": 4,
+                "hit_rate": 0.5,
+                "hits": 2
+              },
+              "2a": {
+                "dice": 0.34549410176948536,
+                "findings": 69,
+                "hit_rate": 0.855072463768116,
+                "hits": 59
+              },
+              "2b": {
+                "dice": 0.36098980359012717,
+                "findings": 49,
+                "hit_rate": 0.7551020408163265,
+                "hits": 37
+              },
+              "2c": {
+                "dice": 0.41414656954792245,
+                "findings": 60,
+                "hit_rate": 0.8166666666666667,
+                "hits": 49
+              },
+              "2d": {
+                "dice": 0.39845655250157586,
+                "findings": 132,
+                "hit_rate": 0.8787878787878788,
+                "hits": 116
+              },
+              "2e": {
+                "dice": 0.41347605255976344,
+                "findings": 11,
+                "hit_rate": 0.7272727272727273,
+                "hits": 8
+              },
+              "2f": {
+                "dice": null,
+                "findings": 0,
+                "hit_rate": null,
+                "hits": 0
+              },
+              "2g": {
+                "dice": 0.03995394016030915,
+                "findings": 1,
+                "hit_rate": 0.0,
+                "hits": 0
+              },
+              "2h": {
+                "dice": 0.19290419745530998,
+                "findings": 7,
+                "hit_rate": 0.5714285714285714,
+                "hits": 4
+              }
+            },
+            "dice": 0.350438126642319,
+            "findings": 381,
+            "hit_rate": 0.7742782152230971,
+            "hits": 295
+          },
+          "sequence": [
+            "exp007_ddp_bs4_e050_a499ad1c",
+            "exp017_ddp_bs4_e050_4f36d9bb",
+            "exp007_ddp_bs4_e050_a499ad1c"
+          ]
+        },
+        "exp009_baseline_cont100_e100_50e631f1": {
+          "candidate_id": "exp009_baseline_cont100_e100_50e631f1",
+          "counts": {
+            "exp007_ddp_bs4_e050_a499ad1c": 1,
+            "exp009_baseline_cont100_e100_50e631f1": 1,
+            "exp017_ddp_bs4_e050_4f36d9bb": 1
+          },
+          "metrics": {
+            "categories": {
+              "1a": {
+                "dice": 0.11588005684069892,
+                "findings": 3,
+                "hit_rate": 0.3333333333333333,
+                "hits": 1
+              },
+              "1b": {
+                "dice": 0.16909112307874,
+                "findings": 11,
+                "hit_rate": 0.36363636363636365,
+                "hits": 4
+              },
+              "1c": {
+                "dice": 0.1914440881827975,
+                "findings": 17,
+                "hit_rate": 0.47058823529411764,
+                "hits": 8
+              },
+              "1d": {
+                "dice": 0.12561582399917423,
+                "findings": 6,
+                "hit_rate": 0.16666666666666666,
+                "hits": 1
+              },
+              "1e": {
+                "dice": 0.1974003221242515,
+                "findings": 11,
+                "hit_rate": 0.5454545454545454,
+                "hits": 6
+              },
+              "1f": {
+                "dice": 0.15584415626434586,
+                "findings": 4,
+                "hit_rate": 0.25,
+                "hits": 1
+              },
+              "2a": {
+                "dice": 0.35556792477804744,
+                "findings": 69,
+                "hit_rate": 0.855072463768116,
+                "hits": 59
+              },
+              "2b": {
+                "dice": 0.366867928468552,
+                "findings": 49,
+                "hit_rate": 0.7346938775510204,
+                "hits": 36
+              },
+              "2c": {
+                "dice": 0.40710895695033705,
+                "findings": 60,
+                "hit_rate": 0.8333333333333334,
+                "hits": 50
+              },
+              "2d": {
+                "dice": 0.40758604908009466,
+                "findings": 132,
+                "hit_rate": 0.8712121212121212,
+                "hits": 115
+              },
+              "2e": {
+                "dice": 0.4358165054343425,
+                "findings": 11,
+                "hit_rate": 0.7272727272727273,
+                "hits": 8
+              },
+              "2f": {
+                "dice": null,
+                "findings": 0,
+                "hit_rate": null,
+                "hits": 0
+              },
+              "2g": {
+                "dice": 0.03235608366719429,
+                "findings": 1,
+                "hit_rate": 0.0,
+                "hits": 0
+              },
+              "2h": {
+                "dice": 0.26821636782190594,
+                "findings": 7,
+                "hit_rate": 0.5714285714285714,
+                "hits": 4
+              }
+            },
+            "dice": 0.35814469961771744,
+            "findings": 381,
+            "hit_rate": 0.7690288713910761,
+            "hits": 293
+          },
+          "sequence": [
+            "exp007_ddp_bs4_e050_a499ad1c",
+            "exp017_ddp_bs4_e050_4f36d9bb",
+            "exp009_baseline_cont100_e100_50e631f1"
+          ]
+        },
+        "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": {
+          "candidate_id": "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+          "counts": {
+            "exp007_ddp_bs4_e050_a499ad1c": 1,
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 1,
+            "exp017_ddp_bs4_e050_4f36d9bb": 1
+          },
+          "metrics": {
+            "categories": {
+              "1a": {
+                "dice": 0.12001664855004575,
+                "findings": 3,
+                "hit_rate": 0.3333333333333333,
+                "hits": 1
+              },
+              "1b": {
+                "dice": 0.17160120251674846,
+                "findings": 11,
+                "hit_rate": 0.36363636363636365,
+                "hits": 4
+              },
+              "1c": {
+                "dice": 0.19177397901295365,
+                "findings": 17,
+                "hit_rate": 0.47058823529411764,
+                "hits": 8
+              },
+              "1d": {
+                "dice": 0.12626365153779173,
+                "findings": 6,
+                "hit_rate": 0.16666666666666666,
+                "hits": 1
+              },
+              "1e": {
+                "dice": 0.20367681247412908,
+                "findings": 11,
+                "hit_rate": 0.6363636363636364,
+                "hits": 7
+              },
+              "1f": {
+                "dice": 0.21357580347361474,
+                "findings": 4,
+                "hit_rate": 0.5,
+                "hits": 2
+              },
+              "2a": {
+                "dice": 0.35636259877276494,
+                "findings": 69,
+                "hit_rate": 0.8405797101449275,
+                "hits": 58
+              },
+              "2b": {
+                "dice": 0.367721292109829,
+                "findings": 49,
+                "hit_rate": 0.7551020408163265,
+                "hits": 37
+              },
+              "2c": {
+                "dice": 0.41033968593057407,
+                "findings": 60,
+                "hit_rate": 0.8333333333333334,
+                "hits": 50
+              },
+              "2d": {
+                "dice": 0.40357510686471276,
+                "findings": 132,
+                "hit_rate": 0.8712121212121212,
+                "hits": 115
+              },
+              "2e": {
+                "dice": 0.43494314914143994,
+                "findings": 11,
+                "hit_rate": 0.7272727272727273,
+                "hits": 8
+              },
+              "2f": {
+                "dice": null,
+                "findings": 0,
+                "hit_rate": null,
+                "hits": 0
+              },
+              "2g": {
+                "dice": 0.02894765269745217,
+                "findings": 1,
+                "hit_rate": 0.0,
+                "hits": 0
+              },
+              "2h": {
+                "dice": 0.279419522728611,
+                "findings": 7,
+                "hit_rate": 0.5714285714285714,
+                "hits": 4
+              }
+            },
+            "dice": 0.35860647695518033,
+            "findings": 381,
+            "hit_rate": 0.7742782152230971,
+            "hits": 295
+          },
+          "sequence": [
+            "exp007_ddp_bs4_e050_a499ad1c",
+            "exp017_ddp_bs4_e050_4f36d9bb",
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801"
+          ]
+        },
+        "exp017_ddp_bs4_e050_4f36d9bb": {
+          "candidate_id": "exp017_ddp_bs4_e050_4f36d9bb",
+          "counts": {
+            "exp007_ddp_bs4_e050_a499ad1c": 1,
+            "exp017_ddp_bs4_e050_4f36d9bb": 2
+          },
+          "metrics": {
+            "categories": {
+              "1a": {
+                "dice": 0.10845878286262696,
+                "findings": 3,
+                "hit_rate": 0.3333333333333333,
+                "hits": 1
+              },
+              "1b": {
+                "dice": 0.15216193742471865,
+                "findings": 11,
+                "hit_rate": 0.36363636363636365,
+                "hits": 4
+              },
+              "1c": {
+                "dice": 0.18675662857277875,
+                "findings": 17,
+                "hit_rate": 0.47058823529411764,
+                "hits": 8
+              },
+              "1d": {
+                "dice": 0.12595578894546955,
+                "findings": 6,
+                "hit_rate": 0.16666666666666666,
+                "hits": 1
+              },
+              "1e": {
+                "dice": 0.16358186827195073,
+                "findings": 11,
+                "hit_rate": 0.5454545454545454,
+                "hits": 6
+              },
+              "1f": {
+                "dice": 0.14937926851096542,
+                "findings": 4,
+                "hit_rate": 0.25,
+                "hits": 1
+              },
+              "2a": {
+                "dice": 0.3520999050770403,
+                "findings": 69,
+                "hit_rate": 0.8405797101449275,
+                "hits": 58
+              },
+              "2b": {
+                "dice": 0.36020936480197896,
+                "findings": 49,
+                "hit_rate": 0.7142857142857143,
+                "hits": 35
+              },
+              "2c": {
+                "dice": 0.3868627309158207,
+                "findings": 60,
+                "hit_rate": 0.8166666666666667,
+                "hits": 49
+              },
+              "2d": {
+                "dice": 0.3882011499947158,
+                "findings": 132,
+                "hit_rate": 0.8560606060606061,
+                "hits": 113
+              },
+              "2e": {
+                "dice": 0.4150654875906881,
+                "findings": 11,
+                "hit_rate": 0.7272727272727273,
+                "hits": 8
+              },
+              "2f": {
+                "dice": null,
+                "findings": 0,
+                "hit_rate": null,
+                "hits": 0
+              },
+              "2g": {
+                "dice": 0.033719448012420654,
+                "findings": 1,
+                "hit_rate": 0.0,
+                "hits": 0
+              },
+              "2h": {
+                "dice": 0.3008861167986933,
+                "findings": 7,
+                "hit_rate": 0.5714285714285714,
+                "hits": 4
+              }
+            },
+            "dice": 0.3449653105345682,
+            "findings": 381,
+            "hit_rate": 0.7559055118110236,
+            "hits": 288
+          },
+          "sequence": [
+            "exp007_ddp_bs4_e050_a499ad1c",
+            "exp017_ddp_bs4_e050_4f36d9bb",
+            "exp017_ddp_bs4_e050_4f36d9bb"
+          ]
+        }
+      },
+      "weights": {
+        "exp007_ddp_bs4_e050_a499ad1c": 0.3333333333333333,
+        "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 0.3333333333333333,
+        "exp017_ddp_bs4_e050_4f36d9bb": 0.3333333333333333
+      }
+    },
+    {
+      "K": 4,
+      "added": "exp017_ddp_bs4_e050_4f36d9bb",
+      "counts": {
+        "exp007_ddp_bs4_e050_a499ad1c": 1,
+        "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 1,
+        "exp017_ddp_bs4_e050_4f36d9bb": 2
+      },
+      "marginal_dice": -0.0001733306928024536,
+      "metrics": {
+        "categories": {
+          "1a": {
+            "dice": 0.11739707819932947,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "dice": 0.16529086362788592,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "dice": 0.19106633282626662,
+            "findings": 17,
+            "hit_rate": 0.47058823529411764,
+            "hits": 8
+          },
+          "1d": {
+            "dice": 0.12782181456861466,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "dice": 0.17904265470101624,
+            "findings": 11,
+            "hit_rate": 0.5454545454545454,
+            "hits": 6
+          },
+          "1f": {
+            "dice": 0.1890312811604763,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "dice": 0.36289283916570375,
+            "findings": 69,
+            "hit_rate": 0.8260869565217391,
+            "hits": 57
+          },
+          "2b": {
+            "dice": 0.36603548527144997,
+            "findings": 49,
+            "hit_rate": 0.7346938775510204,
+            "hits": 36
+          },
+          "2c": {
+            "dice": 0.4005737929116023,
+            "findings": 60,
+            "hit_rate": 0.8333333333333334,
+            "hits": 50
+          },
+          "2d": {
+            "dice": 0.40902480228610916,
+            "findings": 132,
+            "hit_rate": 0.8787878787878788,
+            "hits": 116
+          },
+          "2e": {
+            "dice": 0.42943683645072356,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "dice": 0.027590221928229682,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "dice": 0.27136336279522644,
+            "findings": 7,
+            "hit_rate": 0.42857142857142855,
+            "hits": 3
+          }
+        },
+        "dice": 0.3584331462623779,
+        "findings": 381,
+        "hit_rate": 0.7664041994750657,
+        "hits": 292
+      },
+      "sequence": [
+        "exp007_ddp_bs4_e050_a499ad1c",
+        "exp017_ddp_bs4_e050_4f36d9bb",
+        "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+        "exp017_ddp_bs4_e050_4f36d9bb"
+      ],
+      "trials": {
+        "exp007_ddp_bs4_e050_a499ad1c": {
+          "candidate_id": "exp007_ddp_bs4_e050_a499ad1c",
+          "counts": {
+            "exp007_ddp_bs4_e050_a499ad1c": 2,
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 1,
+            "exp017_ddp_bs4_e050_4f36d9bb": 1
+          },
+          "metrics": {
+            "categories": {
+              "1a": {
+                "dice": 0.11533481150981784,
+                "findings": 3,
+                "hit_rate": 0.3333333333333333,
+                "hits": 1
+              },
+              "1b": {
+                "dice": 0.16259308998107266,
+                "findings": 11,
+                "hit_rate": 0.36363636363636365,
+                "hits": 4
+              },
+              "1c": {
+                "dice": 0.18934687628981572,
+                "findings": 17,
+                "hit_rate": 0.47058823529411764,
+                "hits": 8
+              },
+              "1d": {
+                "dice": 0.12097526625689063,
+                "findings": 6,
+                "hit_rate": 0.16666666666666666,
+                "hits": 1
+              },
+              "1e": {
+                "dice": 0.20822479100373936,
+                "findings": 11,
+                "hit_rate": 0.6363636363636364,
+                "hits": 7
+              },
+              "1f": {
+                "dice": 0.22101741364734095,
+                "findings": 4,
+                "hit_rate": 0.5,
+                "hits": 2
+              },
+              "2a": {
+                "dice": 0.35236498800917393,
+                "findings": 69,
+                "hit_rate": 0.855072463768116,
+                "hits": 59
+              },
+              "2b": {
+                "dice": 0.3661623457375851,
+                "findings": 49,
+                "hit_rate": 0.7755102040816326,
+                "hits": 38
+              },
+              "2c": {
+                "dice": 0.41358990271121043,
+                "findings": 60,
+                "hit_rate": 0.8166666666666667,
+                "hits": 49
+              },
+              "2d": {
+                "dice": 0.4049936349648773,
+                "findings": 132,
+                "hit_rate": 0.8863636363636364,
+                "hits": 117
+              },
+              "2e": {
+                "dice": 0.4258212837280561,
+                "findings": 11,
+                "hit_rate": 0.7272727272727273,
+                "hits": 8
+              },
+              "2f": {
+                "dice": null,
+                "findings": 0,
+                "hit_rate": null,
+                "hits": 0
+              },
+              "2g": {
+                "dice": 0.0331017324649232,
+                "findings": 1,
+                "hit_rate": 0.0,
+                "hits": 0
+              },
+              "2h": {
+                "dice": 0.2577593449701743,
+                "findings": 7,
+                "hit_rate": 0.7142857142857143,
+                "hits": 5
+              }
+            },
+            "dice": 0.35775581006429347,
+            "findings": 381,
+            "hit_rate": 0.7847769028871391,
+            "hits": 299
+          },
+          "sequence": [
+            "exp007_ddp_bs4_e050_a499ad1c",
+            "exp017_ddp_bs4_e050_4f36d9bb",
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+            "exp007_ddp_bs4_e050_a499ad1c"
+          ]
+        },
+        "exp009_baseline_cont100_e100_50e631f1": {
+          "candidate_id": "exp009_baseline_cont100_e100_50e631f1",
+          "counts": {
+            "exp007_ddp_bs4_e050_a499ad1c": 1,
+            "exp009_baseline_cont100_e100_50e631f1": 1,
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 1,
+            "exp017_ddp_bs4_e050_4f36d9bb": 1
+          },
+          "metrics": {
+            "categories": {
+              "1a": {
+                "dice": 0.12135399620536025,
+                "findings": 3,
+                "hit_rate": 0.3333333333333333,
+                "hits": 1
+              },
+              "1b": {
+                "dice": 0.17540091450000522,
+                "findings": 11,
+                "hit_rate": 0.36363636363636365,
+                "hits": 4
+              },
+              "1c": {
+                "dice": 0.19170002774865239,
+                "findings": 17,
+                "hit_rate": 0.47058823529411764,
+                "hits": 8
+              },
+              "1d": {
+                "dice": 0.12598835675994455,
+                "findings": 6,
+                "hit_rate": 0.16666666666666666,
+                "hits": 1
+              },
+              "1e": {
+                "dice": 0.19712595904974117,
+                "findings": 11,
+                "hit_rate": 0.6363636363636364,
+                "hits": 7
+              },
+              "1f": {
+                "dice": 0.1949841554775865,
+                "findings": 4,
+                "hit_rate": 0.5,
+                "hits": 2
+              },
+              "2a": {
+                "dice": 0.35634212956058187,
+                "findings": 69,
+                "hit_rate": 0.8405797101449275,
+                "hits": 58
+              },
+              "2b": {
+                "dice": 0.369031654561225,
+                "findings": 49,
+                "hit_rate": 0.7551020408163265,
+                "hits": 37
+              },
+              "2c": {
+                "dice": 0.40428084455548413,
+                "findings": 60,
+                "hit_rate": 0.85,
+                "hits": 51
+              },
+              "2d": {
+                "dice": 0.40323903299866365,
+                "findings": 132,
+                "hit_rate": 0.8712121212121212,
+                "hits": 115
+              },
+              "2e": {
+                "dice": 0.44099223150109984,
+                "findings": 11,
+                "hit_rate": 0.7272727272727273,
+                "hits": 8
+              },
+              "2f": {
+                "dice": null,
+                "findings": 0,
+                "hit_rate": null,
+                "hits": 0
+              },
+              "2g": {
+                "dice": 0.033449763789514544,
+                "findings": 1,
+                "hit_rate": 0.0,
+                "hits": 0
+              },
+              "2h": {
+                "dice": 0.27346470834859565,
+                "findings": 7,
+                "hit_rate": 0.5714285714285714,
+                "hits": 4
+              }
+            },
+            "dice": 0.35750604499458,
+            "findings": 381,
+            "hit_rate": 0.7769028871391076,
+            "hits": 296
+          },
+          "sequence": [
+            "exp007_ddp_bs4_e050_a499ad1c",
+            "exp017_ddp_bs4_e050_4f36d9bb",
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+            "exp009_baseline_cont100_e100_50e631f1"
+          ]
+        },
+        "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": {
+          "candidate_id": "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+          "counts": {
+            "exp007_ddp_bs4_e050_a499ad1c": 1,
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 2,
+            "exp017_ddp_bs4_e050_4f36d9bb": 1
+          },
+          "metrics": {
+            "categories": {
+              "1a": {
+                "dice": 0.12461771934521665,
+                "findings": 3,
+                "hit_rate": 0.3333333333333333,
+                "hits": 1
+              },
+              "1b": {
+                "dice": 0.17517808372740434,
+                "findings": 11,
+                "hit_rate": 0.36363636363636365,
+                "hits": 4
+              },
+              "1c": {
+                "dice": 0.1926712630466793,
+                "findings": 17,
+                "hit_rate": 0.47058823529411764,
+                "hits": 8
+              },
+              "1d": {
+                "dice": 0.12651953772364624,
+                "findings": 6,
+                "hit_rate": 0.16666666666666666,
+                "hits": 1
+              },
+              "1e": {
+                "dice": 0.20398037943860503,
+                "findings": 11,
+                "hit_rate": 0.6363636363636364,
+                "hits": 7
+              },
+              "1f": {
+                "dice": 0.21485164499538298,
+                "findings": 4,
+                "hit_rate": 0.5,
+                "hits": 2
+              },
+              "2a": {
+                "dice": 0.3559763963840187,
+                "findings": 69,
+                "hit_rate": 0.8405797101449275,
+                "hits": 58
+              },
+              "2b": {
+                "dice": 0.3692492567262156,
+                "findings": 49,
+                "hit_rate": 0.7551020408163265,
+                "hits": 37
+              },
+              "2c": {
+                "dice": 0.40586770527206734,
+                "findings": 60,
+                "hit_rate": 0.85,
+                "hits": 51
+              },
+              "2d": {
+                "dice": 0.3891410298564823,
+                "findings": 132,
+                "hit_rate": 0.8712121212121212,
+                "hits": 115
+              },
+              "2e": {
+                "dice": 0.44677454894817714,
+                "findings": 11,
+                "hit_rate": 0.7272727272727273,
+                "hits": 8
+              },
+              "2f": {
+                "dice": null,
+                "findings": 0,
+                "hit_rate": null,
+                "hits": 0
+              },
+              "2g": {
+                "dice": 0.03127425597906571,
+                "findings": 1,
+                "hit_rate": 0.0,
+                "hits": 0
+              },
+              "2h": {
+                "dice": 0.2737628497786361,
+                "findings": 7,
+                "hit_rate": 0.5714285714285714,
+                "hits": 4
+              }
+            },
+            "dice": 0.3534775038354324,
+            "findings": 381,
+            "hit_rate": 0.7769028871391076,
+            "hits": 296
+          },
+          "sequence": [
+            "exp007_ddp_bs4_e050_a499ad1c",
+            "exp017_ddp_bs4_e050_4f36d9bb",
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801"
+          ]
+        },
+        "exp017_ddp_bs4_e050_4f36d9bb": {
+          "candidate_id": "exp017_ddp_bs4_e050_4f36d9bb",
+          "counts": {
+            "exp007_ddp_bs4_e050_a499ad1c": 1,
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 1,
+            "exp017_ddp_bs4_e050_4f36d9bb": 2
+          },
+          "metrics": {
+            "categories": {
+              "1a": {
+                "dice": 0.11739707819932947,
+                "findings": 3,
+                "hit_rate": 0.3333333333333333,
+                "hits": 1
+              },
+              "1b": {
+                "dice": 0.16529086362788592,
+                "findings": 11,
+                "hit_rate": 0.36363636363636365,
+                "hits": 4
+              },
+              "1c": {
+                "dice": 0.19106633282626662,
+                "findings": 17,
+                "hit_rate": 0.47058823529411764,
+                "hits": 8
+              },
+              "1d": {
+                "dice": 0.12782181456861466,
+                "findings": 6,
+                "hit_rate": 0.16666666666666666,
+                "hits": 1
+              },
+              "1e": {
+                "dice": 0.17904265470101624,
+                "findings": 11,
+                "hit_rate": 0.5454545454545454,
+                "hits": 6
+              },
+              "1f": {
+                "dice": 0.1890312811604763,
+                "findings": 4,
+                "hit_rate": 0.5,
+                "hits": 2
+              },
+              "2a": {
+                "dice": 0.36289283916570375,
+                "findings": 69,
+                "hit_rate": 0.8260869565217391,
+                "hits": 57
+              },
+              "2b": {
+                "dice": 0.36603548527144997,
+                "findings": 49,
+                "hit_rate": 0.7346938775510204,
+                "hits": 36
+              },
+              "2c": {
+                "dice": 0.4005737929116023,
+                "findings": 60,
+                "hit_rate": 0.8333333333333334,
+                "hits": 50
+              },
+              "2d": {
+                "dice": 0.40902480228610916,
+                "findings": 132,
+                "hit_rate": 0.8787878787878788,
+                "hits": 116
+              },
+              "2e": {
+                "dice": 0.42943683645072356,
+                "findings": 11,
+                "hit_rate": 0.7272727272727273,
+                "hits": 8
+              },
+              "2f": {
+                "dice": null,
+                "findings": 0,
+                "hit_rate": null,
+                "hits": 0
+              },
+              "2g": {
+                "dice": 0.027590221928229682,
+                "findings": 1,
+                "hit_rate": 0.0,
+                "hits": 0
+              },
+              "2h": {
+                "dice": 0.27136336279522644,
+                "findings": 7,
+                "hit_rate": 0.42857142857142855,
+                "hits": 3
+              }
+            },
+            "dice": 0.3584331462623779,
+            "findings": 381,
+            "hit_rate": 0.7664041994750657,
+            "hits": 292
+          },
+          "sequence": [
+            "exp007_ddp_bs4_e050_a499ad1c",
+            "exp017_ddp_bs4_e050_4f36d9bb",
+            "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+            "exp017_ddp_bs4_e050_4f36d9bb"
+          ]
+        }
+      },
+      "weights": {
+        "exp007_ddp_bs4_e050_a499ad1c": 0.25,
+        "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 0.25,
+        "exp017_ddp_bs4_e050_4f36d9bb": 0.5
+      }
+    }
+  ],
+  "diagnostic_scope": "optimistic_full_val200_same_set",
+  "final_counts": {
+    "exp007_ddp_bs4_e050_a499ad1c": 1,
+    "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 1,
+    "exp017_ddp_bs4_e050_4f36d9bb": 2
+  },
+  "final_sequence": [
+    "exp007_ddp_bs4_e050_a499ad1c",
+    "exp017_ddp_bs4_e050_4f36d9bb",
+    "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+    "exp017_ddp_bs4_e050_4f36d9bb"
+  ],
+  "final_weights": {
+    "exp007_ddp_bs4_e050_a499ad1c": 0.25,
+    "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 0.25,
+    "exp017_ddp_bs4_e050_4f36d9bb": 0.5
+  },
+  "method": "caruana_replacement_global",
+  "metrics_only": true,
+  "probability_threshold": 0.5,
+  "schema_version": 1,
+  "start_candidate": "exp007_ddp_bs4_e050_a499ad1c",
+  "status": "complete",
+  "timing": {
+    "active_cpu_seconds": 4436.485039668999,
+    "active_wall_seconds": 6061.9304171688855,
+    "aggregation_seconds": 0.014925841242074966,
+    "ensemble_generation_seconds": 561.7859222367406,
+    "ground_truth_read_seconds": 138.9671114049852,
+    "logical_source_bytes": 889036210176,
+    "process_rchar": 5757595969,
+    "process_read_bytes": 353386721280,
+    "source_read_convert_sigmoid_seconds": 3571.9637929834425,
+    "threshold_dice_evaluation_seconds": 139.27232382819057
+  }
+}

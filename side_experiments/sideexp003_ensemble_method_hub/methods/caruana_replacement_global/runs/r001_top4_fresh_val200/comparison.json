@@ -1,0 +1,30 @@
+{
+  "caruana_final": {
+    "dice": 0.3584331462623779,
+    "hits": 292,
+    "sequence": [
+      "exp007_ddp_bs4_e050_a499ad1c",
+      "exp017_ddp_bs4_e050_4f36d9bb",
+      "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+      "exp017_ddp_bs4_e050_4f36d9bb"
+    ],
+    "wall_seconds": 6061.9304171688855,
+    "weights": {
+      "exp007_ddp_bs4_e050_a499ad1c": 0.25,
+      "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": 0.25,
+      "exp017_ddp_bs4_e050_4f36d9bb": 0.5
+    }
+  },
+  "derived_logits_written": false,
+  "deterministic_result_sha256": "0b8f1a2ce8e28c9dc002ad4659f23b8edd49307b20c571e0b4b60d0c2154b6c8",
+  "diagnostic_scope": "optimistic_full_val200_same_set",
+  "roster_sha256": "5ccc93604203209a9bd1b685fffc95d81dbac19d00b1a80013bdf946fa780229",
+  "schema_version": 1,
+  "status": "complete",
+  "total_worker_wall_seconds": 10151.328307818621,
+  "uniform": {
+    "dice": 0.3575041942161927,
+    "hits": 296,
+    "wall_seconds": 4089.2497002854943
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "chunk_elements": 4194304,
+  "code": {
+    "entrypoint": "side_experiments/sideexp003_ensemble_method_hub/preliminary_ensemble.py",
+    "entrypoint_sha256": "6d2950b1193c4c461dbc30abad231fa12c24f4fb8d800c46106a802b284cd941",
+    "repo_commit": "413f078fadb0c6831a37e1dd32121818942a7800"
+  },
+  "created_at_utc": "2026-09-08T06:48:00Z",
+  "dataset_path": "/workspace/configs/evaluation/rexgroundingct_val200_seed20260723.json",
+  "dataset_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+  "execution": {
+    "cpu_only": true,
+    "metrics_only": true,
+    "nice": 10,
+    "single_process": true
+  },
+  "job_path": "/workspace/side_experiments/sideexp003_ensemble_method_hub/cache_jobs/j001_top20_val200_fresh/job_spec.json",
+  "outputs": {
+    "decision_json": "/workspace/side_experiments/sideexp003_ensemble_method_hub/methods/uniform_global/runs/r002_top8_fresh_val200/decision.json",
+    "report_md": "/workspace/side_experiments/sideexp003_ensemble_method_hub/methods/uniform_global/runs/r002_top8_fresh_val200/report.md",
+    "result_json": "/workspace/side_experiments/sideexp003_ensemble_method_hub/methods/uniform_global/runs/r002_top8_fresh_val200/result.json"
+  },
+  "roster_path": "/workspace/side_experiments/sideexp003_ensemble_method_hub/rosters/roster_top8_val200_fresh_j001.json",
+  "roster_sha256": "ee9698192b472588908858c4f3e50bf3236df5bb0736260b1e5a9a05aa81fd81",
+  "run_id": "r002_top8_fresh_val200",
+  "runtime_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/methods/uniform_global/runs/r002_top8_fresh_val200",
+  "schema_version": 1,
+  "task": "uniform_only",
+  "top": 8,
+  "uniform_spec_sha256": "574cfa48c8882e49b0ea173175e8c7d1b8b301df320169848837d751cdf5cb9d"
+}

@@ -1,0 +1,57 @@
+{
+  "approvals": {
+    "diagnostic_full_val_confirmed": true,
+    "materialization_confirmed": false,
+    "roster_confirmed": true
+  },
+  "code": {
+    "preliminary_ensemble_sha256": "6dc420ad1e0b6e4bf1d6aa1654d85e51ea8a9fe4fe2295e892aa78615dd2c199",
+    "repo_commit": "413f078fadb0c6831a37e1dd32121818942a7800"
+  },
+  "completed_at_utc": "2026-09-08T06:14:40Z",
+  "data": {
+    "dataset_path": "/home/hengjie/code_sync/rexgroundingct/configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "dataset_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "diagnostic_scope": "optimistic_full_val200_same_set",
+    "folds_path": null
+  },
+  "method": {
+    "id": "caruana_replacement_global",
+    "spec_path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/methods/caruana_replacement_global/method_spec.md",
+    "spec_sha256": "8523567879057d1bbe8a28a4dcdb36ddf0b0669cc5158e7c07fd33d9e30bba79"
+  },
+  "outputs": {
+    "final_logits_dir": null,
+    "runtime_run_dir": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/methods/caruana_replacement_global/runs/r001_top4_fresh_val200",
+    "tracked_run_dir": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/methods/caruana_replacement_global/runs/r001_top4_fresh_val200"
+  },
+  "parameters": {
+    "averaging_domain": "post_sigmoid_probability",
+    "basket_size": 4,
+    "chunk_elements": 4194304,
+    "metrics_only": true,
+    "threshold": 0.5,
+    "with_replacement": true
+  },
+  "result_sha256": "13c7a00c8b76af875a6a456b3d2fe0b95f6ab406a46522834a89dc84f3e13439",
+  "roster": {
+    "N": 4,
+    "candidate_ids": [
+      "exp007_ddp_bs4_e050_a499ad1c",
+      "exp009_baseline_cont100_e100_50e631f1",
+      "exp017_ddp_bs4_e050_4f36d9bb",
+      "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801"
+    ],
+    "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/rosters/roster_top4_val200_fresh_j001.json",
+    "roster_sha256": "5ccc93604203209a9bd1b685fffc95d81dbac19d00b1a80013bdf946fa780229",
+    "sha256": "142f400de7ba33f07368f1cd5db3318777ac0cef100fa3d1cec50b501594e1d1"
+  },
+  "run_id": "r001_top4_fresh_val200",
+  "schema_version": 1,
+  "status": "diagnostic_complete",
+  "tie_break": [
+    "mean_finding_dice_desc",
+    "hits_desc",
+    "candidate_id_asc"
+  ]
+}

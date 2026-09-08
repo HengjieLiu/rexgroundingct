@@ -1,0 +1,7 @@
+{
+  "derived_logits_materialized": false,
+  "formal_recipe": false,
+  "oof": false,
+  "reason": "selection and evaluation both use full val200",
+  "status": "diagnostic_only"
+}

@@ -1,0 +1,179 @@
+{
+  "analysis_sources": [
+    {
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/seeded_caruana.py",
+      "sha256": "15307387f89ac23f7e81c801f1981a3f1fd239f7d25221e63f875e47d6760458"
+    },
+    {
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/preliminary_ensemble.py",
+      "sha256": "6d2950b1193c4c461dbc30abad231fa12c24f4fb8d800c46106a802b284cd941"
+    },
+    {
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/methods/caruana_replacement_seeded_scoped/method_spec.md",
+      "sha256": "5d4e5581253effb101a2ebe1e3c2d3fc2e0505535b20f93b104cc7bec0e384cf"
+    }
+  ],
+  "approvals": {
+    "derived_logits_confirmed": false,
+    "full_val_diagnostic_confirmed": true,
+    "per_scope_seeds_confirmed": true,
+    "roster_confirmed": true,
+    "wave5_concurrency_confirmed": true
+  },
+  "caruana_run_id": "r001_top16_per_scope_seed4_fullval",
+  "created_at_utc": "2026-09-08T08:18:25Z",
+  "dataset": {
+    "cases": 200,
+    "findings": 381,
+    "path": "/home/hengjie/code_sync/rexgroundingct/configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "split": "val200"
+  },
+  "job_id": "a001_top16_after_wave4_fullval",
+  "job_spec_sha256": "6fd89dcad5c9d53d49ae0be5ffd335cd19f86297a4cd8906fa36a368f2979e2e",
+  "method": "caruana_replacement_seeded_scoped",
+  "outputs": {
+    "caruana_run": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/methods/caruana_replacement_seeded_scoped/runs/r001_top16_per_scope_seed4_fullval",
+    "derived_roster": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/rosters/roster_top16_val200_fresh_j001_j002.json",
+    "runtime_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/analysis_jobs/a001_top16_after_wave4_fullval",
+    "uniform_run": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/methods/uniform_global/runs/r003_top16_fresh_val200"
+  },
+  "parameters": {
+    "averaging_domain": "post_sigmoid_probability",
+    "chunk_elements": 4194304,
+    "continue_through_maximum": true,
+    "hit_dice_threshold": 0.1,
+    "initial_basket_size": 4,
+    "maximum_basket_size": 16,
+    "metrics_only": true,
+    "oof": false,
+    "probability_threshold": 0.5,
+    "with_replacement": true
+  },
+  "poll_interval_seconds": 600,
+  "rank_sources": {
+    "1": "j001_top20_val200_fresh",
+    "10": "j002_top20_val200_fresh_r09_r20",
+    "11": "j002_top20_val200_fresh_r09_r20",
+    "12": "j002_top20_val200_fresh_r09_r20",
+    "13": "j002_top20_val200_fresh_r09_r20",
+    "14": "j002_top20_val200_fresh_r09_r20",
+    "15": "j002_top20_val200_fresh_r09_r20",
+    "16": "j002_top20_val200_fresh_r09_r20",
+    "2": "j001_top20_val200_fresh",
+    "3": "j001_top20_val200_fresh",
+    "4": "j001_top20_val200_fresh",
+    "5": "j001_top20_val200_fresh",
+    "6": "j001_top20_val200_fresh",
+    "7": "j001_top20_val200_fresh",
+    "8": "j001_top20_val200_fresh",
+    "9": "j002_top20_val200_fresh_r09_r20"
+  },
+  "reuse_policy": "fresh_only",
+  "safety": {
+    "consecutive_degraded_polls": 2,
+    "minimum_available_memory_bytes": 68719476736,
+    "minimum_free_bytes": 21990232555520,
+    "wave5_degradation_factor": 2.0,
+    "wave5_recovery_factor": 1.5
+  },
+  "schema_version": 1,
+  "scopes": [
+    "all",
+    "2a",
+    "2b",
+    "2c",
+    "2d"
+  ],
+  "seed_candidate_ids": {
+    "2a": [
+      "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+      "exp017_ddp_bs4_e050_4f36d9bb",
+      "exp017_ddp_bs4_e100_f11d238f",
+      "exp009_baseline_cont100_e100_50e631f1"
+    ],
+    "2b": [
+      "exp009_s3v1_fixedrho_suppress_half_quarter_e100_263f27d3",
+      "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+      "exp017_ddp_bs4_e075_39aabab2",
+      "exp007_ddp_bs4_e050_a499ad1c"
+    ],
+    "2c": [
+      "exp007_ddp_bs4_e050_a499ad1c",
+      "exp008_v1_sharedfusion_softguide_e080_ed0cdd0a",
+      "exp012_category_2a_replay50_e100_8dcdac04",
+      "exp017_ddp_bs4_e050_a50a69dc"
+    ],
+    "2d": [
+      "exp007_ddp_bs4_e050_a499ad1c",
+      "exp017_ddp_bs4_e050_4f36d9bb",
+      "exp009_baseline_cont100_e100_50e631f1",
+      "exp008_v1_sharedfusion_softguide_e100_61bcec41"
+    ],
+    "all": [
+      "exp007_ddp_bs4_e050_a499ad1c",
+      "exp009_baseline_cont100_e100_50e631f1",
+      "exp017_ddp_bs4_e050_4f36d9bb",
+      "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801"
+    ]
+  },
+  "seed_ranks": {
+    "2a": [
+      4,
+      3,
+      15,
+      2
+    ],
+    "2b": [
+      7,
+      4,
+      11,
+      1
+    ],
+    "2c": [
+      1,
+      16,
+      13,
+      8
+    ],
+    "2d": [
+      1,
+      3,
+      2,
+      5
+    ],
+    "all": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "source_jobs": [
+    {
+      "job_id": "j001_top20_val200_fresh",
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/cache_jobs/j001_top20_val200_fresh/job_spec.json",
+      "sha256": "376a78f874416e10e1a2f345df76ebe0ff3987d132422b217bc3e845b74d976f"
+    },
+    {
+      "job_id": "j002_top20_val200_fresh_r09_r20",
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/cache_jobs/j002_top20_val200_fresh_r09_r20/job_spec.json",
+      "sha256": "ce52efe6fd3e2c029722f06ff69f6401e9cf456ba49dd7a3ad40f6867355898e"
+    }
+  ],
+  "source_roster": {
+    "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/rosters/roster_top20_val200_dice_20260907T211605Z.json",
+    "roster_id": "top20_val200_dice_20260907T211605Z",
+    "roster_sha256": "04aaff359ba3e1e6748a2e0851f64a828906c28b0ed642b673088064275ba96c",
+    "sha256": "390a2058fdf37bb3ca9971c36686217081dac55e8fd0d01ac7e37dcc796a3f3d"
+  },
+  "status": "waiting_for_wave4",
+  "tie_break": [
+    "scope_mean_finding_dice_desc",
+    "scope_hits_desc",
+    "candidate_id_asc"
+  ],
+  "top": 16,
+  "uniform_run_id": "r003_top16_fresh_val200",
+  "workers": 5
+}
