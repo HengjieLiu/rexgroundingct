@@ -1,0 +1,3359 @@
+{
+  "dataset": {
+    "cases": 200,
+    "category_findings": {
+      "1a": 3,
+      "1b": 11,
+      "1c": 17,
+      "1d": 6,
+      "1e": 11,
+      "1f": 4,
+      "2a": 69,
+      "2b": 49,
+      "2c": 60,
+      "2d": 132,
+      "2e": 11,
+      "2f": 0,
+      "2g": 1,
+      "2h": 7
+    },
+    "findings": 381,
+    "hit_dice_threshold": 0.1,
+    "manifest": {
+      "path": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+      "sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897"
+    },
+    "official_category_order": [
+      "1a",
+      "1b",
+      "1c",
+      "1d",
+      "1e",
+      "1f",
+      "2a",
+      "2b",
+      "2c",
+      "2d",
+      "2e",
+      "2f",
+      "2g",
+      "2h"
+    ]
+  },
+  "records": [
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/a2_fan_preserve_semantic_grounding_v11_continue_5000_to10000/checkpoints/checkpoint_update_9500.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "a2_fan_preserve_semantic_grounding_v11_continue_5000_to10000",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.10420518864210036,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.14382907024245165,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.18921519134611225,
+            "findings": 17,
+            "hit_rate": 0.5294117647058824,
+            "hits": 9
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.11910889277713561,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.18327966172137042,
+            "findings": 11,
+            "hit_rate": 0.5454545454545454,
+            "hits": 6
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.2245508198889896,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.31788326860264843,
+            "findings": 69,
+            "hit_rate": 0.8260869565217391,
+            "hits": 57
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.355269357803091,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.375859043064357,
+            "findings": 60,
+            "hit_rate": 0.8,
+            "hits": 48
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.38065240642308057,
+            "findings": 132,
+            "hit_rate": 0.8636363636363636,
+            "hits": 114
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.46725237883426307,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.1124424312211474,
+            "findings": 1,
+            "hit_rate": 1.0,
+            "hits": 1
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.19717942551712983,
+            "findings": 7,
+            "hit_rate": 0.42857142857142855,
+            "hits": 3
+          }
+        },
+        "overall": {
+          "dice": 0.3346787542816043,
+          "findings": 381,
+          "hit_rate": 0.7637795275590551,
+          "hits": 291
+        }
+      },
+      "model_id": "a2_fan_preserve_semantic_grounding_v11_continue_5000_to10000__update_09500__d5e52334",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/a2_fan_preserve_semantic_grounding_v11_continue_5000_to10000/full_validation/update_09500",
+      "result_hash": "d5e523342ceb694577c587f18a2d6e489c3dc7720a0a7e770393f0d739f5552c",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/a2_fan_preserve_semantic_grounding_v11_continue_5000_to10000__update_09500__d5e52334/per_category.json",
+          "sha256": "526f401e8c43721b4392fd2e9303a6895d417d0fe651bdd5521223f2f5394f76"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/a2_fan_preserve_semantic_grounding_v11_continue_5000_to10000__update_09500__d5e52334/per_finding.json",
+          "sha256": "a5a0c37526afb4404b5dddd25e1bbc87d230e5021ede4b3e529e76f5eccdf899"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/a2_fan_preserve_semantic_grounding_v11_continue_5000_to10000__update_09500__d5e52334/result.json",
+          "sha256": "2be3a4ba6d6bd68a8b50df182790590f7295f886990a2fd2ecaf2ba8430ef90f"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "",
+      "checkpoint_path_status": "not_declared",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "attention_scale_screen_1_2_u500",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.10338842837624614,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.12949754663769328,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.16667414955880666,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.14116610251547515,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.22383013819414038,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.259066390355372,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.30916538262139315,
+            "findings": 69,
+            "hit_rate": 0.8115942028985508,
+            "hits": 56
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.35523657543290627,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.39312953296052283,
+            "findings": 60,
+            "hit_rate": 0.8333333333333334,
+            "hits": 50
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.3553487858125125,
+            "findings": 132,
+            "hit_rate": 0.8333333333333334,
+            "hits": 110
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4661741972480778,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.1155776991771452,
+            "findings": 1,
+            "hit_rate": 1.0,
+            "hits": 1
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.14864424880544705,
+            "findings": 7,
+            "hit_rate": 0.2857142857142857,
+            "hits": 2
+          }
+        },
+        "overall": {
+          "dice": 0.32658874396275234,
+          "findings": 381,
+          "hit_rate": 0.7532808398950132,
+          "hits": 287
+        }
+      },
+      "model_id": "attention_scale_screen_1_2_u500__update500__646afe72",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/attention_scale_screen_1_2_u500/full381/update500",
+      "result_hash": "646afe726f7bb78973350736972f90b60f623df16a0df26e60a3d85388499a12",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/attention_scale_screen_1_2_u500__update500__646afe72/per_category.json",
+          "sha256": "5bc00969446aae177870bc2cdeafbac8cc842f919dd808111afc000f7290dcdc"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/attention_scale_screen_1_2_u500__update500__646afe72/per_finding.json",
+          "sha256": "2e1ac05e1a8017d2320bd847548e679b2af7d5822e7f263a552a8c0455e3da0b"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/attention_scale_screen_1_2_u500__update500__646afe72/result.json",
+          "sha256": "c5fbbcdf9f69803b101640630d574a4bbddd8c56df877311c88c3e4eb172aff2"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "",
+      "checkpoint_path_status": "not_declared",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "attention_scale_screen_matched_comparison",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.07626008117887516,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.11039824866497859,
+            "findings": 11,
+            "hit_rate": 0.2727272727272727,
+            "hits": 3
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.1671002109316215,
+            "findings": 17,
+            "hit_rate": 0.47058823529411764,
+            "hits": 8
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.14111604922862106,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.17706322662300777,
+            "findings": 11,
+            "hit_rate": 0.5454545454545454,
+            "hits": 6
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.23035670649390097,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.3190960661831388,
+            "findings": 69,
+            "hit_rate": 0.8405797101449275,
+            "hits": 58
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.36534552857608793,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3903007778262166,
+            "findings": 60,
+            "hit_rate": 0.8166666666666667,
+            "hits": 49
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.3610201661858182,
+            "findings": 132,
+            "hit_rate": 0.8484848484848485,
+            "hits": 112
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4546801166535003,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.1240786302655447,
+            "findings": 1,
+            "hit_rate": 1.0,
+            "hits": 1
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.1718564177977693,
+            "findings": 7,
+            "hit_rate": 0.5714285714285714,
+            "hits": 4
+          }
+        },
+        "overall": {
+          "dice": 0.32892521283436665,
+          "findings": 381,
+          "hit_rate": 0.7611548556430446,
+          "hits": 290
+        }
+      },
+      "model_id": "attention_scale_screen_matched_comparison__base_update6000__b7f764fa",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/attention_scale_screen_matched_comparison/full381/base_update6000",
+      "result_hash": "b7f764fa52068b46be63308db4f66a922a10d367436bda62f0dc46d64396c0d3",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/attention_scale_screen_matched_comparison__base_update6000__b7f764fa/per_category.json",
+          "sha256": "a5344dfda6a31f590650e3559b84851c38d3b3d78a0d3ad03cd36ed10bb7eb14"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/attention_scale_screen_matched_comparison__base_update6000__b7f764fa/per_finding.json",
+          "sha256": "f12182023c23d700114c999f9af9b93438fa5af73ae85564b0301709aac58389"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/attention_scale_screen_matched_comparison__base_update6000__b7f764fa/result.json",
+          "sha256": "fae3ee6df45789fd420c135d5af450d6713454a6930c3b23b2e5bd5117cf386a"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/b3_bico_e345_v11/training/checkpoints/checkpoint_update_5000.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "b3_bico_e345_v11",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.10659938689751307,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.1268991026454441,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.15335654732342302,
+            "findings": 17,
+            "hit_rate": 0.35294117647058826,
+            "hits": 6
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.11863231207179664,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.2090444441072963,
+            "findings": 11,
+            "hit_rate": 0.8181818181818182,
+            "hits": 9
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.2348889707912855,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.33769937773157727,
+            "findings": 69,
+            "hit_rate": 0.8260869565217391,
+            "hits": 57
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3534517836632262,
+            "findings": 49,
+            "hit_rate": 0.7346938775510204,
+            "hits": 36
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3850163318572406,
+            "findings": 60,
+            "hit_rate": 0.85,
+            "hits": 51
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.37346461474296866,
+            "findings": 132,
+            "hit_rate": 0.8560606060606061,
+            "hits": 113
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.46288249305485557,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.0253215407407997,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.15750828734357353,
+            "findings": 7,
+            "hit_rate": 0.42857142857142855,
+            "hits": 3
+          }
+        },
+        "overall": {
+          "dice": 0.33467684706377754,
+          "findings": 381,
+          "hit_rate": 0.7637795275590551,
+          "hits": 291
+        }
+      },
+      "model_id": "b3_bico_e345_v11__b3_bico_e345_update5000__753ef2d1",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/b3_bico_e345_v11/training/full200/b3_bico_e345_update5000",
+      "result_hash": "753ef2d13ae0c8f09f9ce7fbc14f425d78e9cf694c67af08ce9b88f7794ebdab",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/b3_bico_e345_v11__b3_bico_e345_update5000__753ef2d1/per_category.json",
+          "sha256": "94699cc84506f42cc1806facbde42a8a4825ac57548b5b88831a127c0befd8b1"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/b3_bico_e345_v11__b3_bico_e345_update5000__753ef2d1/per_finding.json",
+          "sha256": "6285b91d423522a471ad5ebc9dff1a27f2459a0f7e482816f023a835a3e20263"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/b3_bico_e345_v11__b3_bico_e345_update5000__753ef2d1/result.json",
+          "sha256": "7077519ab58d71280a243072b49f8ccf2bcbbada33ee0e138eeb28d32d6684ae"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/b3_plus_less_v11/checkpoints/checkpoint_update_5000.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "b3_plus_less_v11",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.10274585318601005,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.14014852872259223,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.14594745168693968,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.1220055554871255,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.19209797603275539,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.23495266861448003,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.33316874765420473,
+            "findings": 69,
+            "hit_rate": 0.8405797101449275,
+            "hits": 58
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3457470793523562,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.40379731118599865,
+            "findings": 60,
+            "hit_rate": 0.85,
+            "hits": 51
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.37108974762045055,
+            "findings": 132,
+            "hit_rate": 0.8484848484848485,
+            "hits": 112
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4564560275411454,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.0463775814742304,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.14776485788894567,
+            "findings": 7,
+            "hit_rate": 0.5714285714285714,
+            "hits": 4
+          }
+        },
+        "overall": {
+          "dice": 0.334277122102467,
+          "findings": 381,
+          "hit_rate": 0.7664041994750657,
+          "hits": 292
+        }
+      },
+      "model_id": "b3_plus_less_v11__b3_plus_less_update5000__8dc6626e",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/b3_plus_less_v11/full200/b3_plus_less_update5000",
+      "result_hash": "8dc6626e918b45afcff2a33722a38b5b5738c365a3f6e65dbfa0313323540cb1",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/b3_plus_less_v11__b3_plus_less_update5000__8dc6626e/per_category.json",
+          "sha256": "300f73d79252dfd320cc0152a77518a95b60a4d649870f25266c32b33fc9174e"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/b3_plus_less_v11__b3_plus_less_update5000__8dc6626e/per_finding.json",
+          "sha256": "7ba0909afdd3f3f06b271d959bb53b05a2cfe2cb9a837500d2f7c2a559035001"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/b3_plus_less_v11__b3_plus_less_update5000__8dc6626e/result.json",
+          "sha256": "bdce9099d6d2e508f50e92fd16e688f9b850d775cf915a43017874fa1211f554"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/c2_less_semantic_coadapt_v11/p_pathology_continue_5000_to10000_corrected/checkpoints/checkpoint_update_7600.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "c2_less_semantic_coadapt_v11",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.12020942568881436,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.14511715152071858,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.20163961085874832,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.11981643801895737,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.19166922185724597,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.15683800361392322,
+            "findings": 4,
+            "hit_rate": 0.25,
+            "hits": 1
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.3432306621512351,
+            "findings": 69,
+            "hit_rate": 0.855072463768116,
+            "hits": 59
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3487259841792081,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3769443512697888,
+            "findings": 60,
+            "hit_rate": 0.8166666666666667,
+            "hits": 49
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.36745175177295547,
+            "findings": 132,
+            "hit_rate": 0.8106060606060606,
+            "hits": 107
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4505346426054585,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.1418112417645418,
+            "findings": 1,
+            "hit_rate": 1.0,
+            "hits": 1
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.11226574606382649,
+            "findings": 7,
+            "hit_rate": 0.2857142857142857,
+            "hits": 2
+          }
+        },
+        "overall": {
+          "dice": 0.33231951750051825,
+          "findings": 381,
+          "hit_rate": 0.7454068241469817,
+          "hits": 284
+        }
+      },
+      "model_id": "c2_less_semantic_coadapt_v11__pathology_continue_update_7600__41e10d95",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/c2_less_semantic_coadapt_v11/p_pathology_continue_full200_selected/full_validation/pathology_continue_update_7600",
+      "result_hash": "41e10d95e343481c8dbcb148f1ea4aa7bfcfad56af1ccbf08004e320e571e1f9",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/c2_less_semantic_coadapt_v11__pathology_continue_update_7600__41e10d95/per_category.json",
+          "sha256": "fdf9ea6d887d967bc09ee4ec08c9f5f0c87bbcc17f76ea3e262c74a766031144"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/c2_less_semantic_coadapt_v11__pathology_continue_update_7600__41e10d95/per_finding.json",
+          "sha256": "ef9e81ef02cdf580d4b31f498f51722dd380b3ec3f9a8d4e194be6c9853c28f0"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/c2_less_semantic_coadapt_v11__pathology_continue_update_7600__41e10d95/result.json",
+          "sha256": "38802a9d37db9fa81345ab343ac2a0fe17c322238509649ad9a05af5492b4ba4"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/category_continuous_router_from_s3_u9000/evaluation_model/fold_0/checkpoint_final.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "category_continuous_router_from_s3_u9000",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.09358668978403152,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.1223091001212416,
+            "findings": 11,
+            "hit_rate": 0.2727272727272727,
+            "hits": 3
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.18916957093970577,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.13495154382747074,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.19421114475352771,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.22016982461864076,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.33580973587762664,
+            "findings": 69,
+            "hit_rate": 0.8405797101449275,
+            "hits": 58
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3578426043263598,
+            "findings": 49,
+            "hit_rate": 0.7755102040816326,
+            "hits": 38
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3866225419893026,
+            "findings": 60,
+            "hit_rate": 0.8333333333333334,
+            "hits": 50
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.3692651962331244,
+            "findings": 132,
+            "hit_rate": 0.8409090909090909,
+            "hits": 111
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4675946939323523,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.0907872146089272,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.1849687632763035,
+            "findings": 7,
+            "hit_rate": 0.42857142857142855,
+            "hits": 3
+          }
+        },
+        "overall": {
+          "dice": 0.3355469344642161,
+          "findings": 381,
+          "hit_rate": 0.7585301837270341,
+          "hits": 289
+        }
+      },
+      "model_id": "category_continuous_router_from_s3_u9000__best__4d50029f",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/category_continuous_router_from_s3_u9000/full_validation/best",
+      "result_hash": "4d50029fa5dbf815fd2d76254d0787e6919af4d024b6da041c5331e4b395e115",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/category_continuous_router_from_s3_u9000__best__4d50029f/per_category.json",
+          "sha256": "db2c116121cbf611f3d549368c1fe8cda6519c07768c97e8d6f387c7449141f8"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/category_continuous_router_from_s3_u9000__best__4d50029f/per_finding.json",
+          "sha256": "36a93e22ec44dccc7758da8ef794e6c0e34347c1747872ee5ff1a586fd96936a"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/category_continuous_router_from_s3_u9000__best__4d50029f/result.json",
+          "sha256": "418135155cb054a385a87478a24740fee7bc91a325f4457c23a6d8fb321dc204"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/controlled_v11_selected_full200/models/s3_update9000/fold_0/checkpoint_final.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "controlled_v11_selected_full200",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.0935882129499348,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.1223293142064863,
+            "findings": 11,
+            "hit_rate": 0.2727272727272727,
+            "hits": 3
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.1891756625797993,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.1349579629479966,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.19426290043503072,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.2199217855558861,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.3358308682530442,
+            "findings": 69,
+            "hit_rate": 0.8405797101449275,
+            "hits": 58
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3578317727581574,
+            "findings": 49,
+            "hit_rate": 0.7755102040816326,
+            "hits": 38
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3865785699516634,
+            "findings": 60,
+            "hit_rate": 0.8333333333333334,
+            "hits": 50
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.36924175374265095,
+            "findings": 132,
+            "hit_rate": 0.8409090909090909,
+            "hits": 111
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.46760306483699066,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.0907502890125258,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.18497842451695573,
+            "findings": 7,
+            "hit_rate": 0.42857142857142855,
+            "hits": 3
+          }
+        },
+        "overall": {
+          "dice": 0.3355345029481685,
+          "findings": 381,
+          "hit_rate": 0.7585301837270341,
+          "hits": 289
+        }
+      },
+      "model_id": "controlled_v11_selected_full200__s3_update9000__77cbe37f",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/controlled_v11_selected_full200/s3_update9000",
+      "result_hash": "77cbe37ff1d729d40f771f451ca17114d6e748ac365f97c49e0cde1ee1976656",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/controlled_v11_selected_full200__s3_update9000__77cbe37f/per_category.json",
+          "sha256": "7aff0d32b630871497fbc720bb62c5ed81637773a1cda054ffbd8ded389269e9"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/controlled_v11_selected_full200__s3_update9000__77cbe37f/per_finding.json",
+          "sha256": "85ce037bee477ef7543a3fee1eb443b37380fc2667e25dae5fa9a4dfcf9e4b19"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/controlled_v11_selected_full200__s3_update9000__77cbe37f/result.json",
+          "sha256": "7ca8c19948c31eeca2d067aca1e4a0c563881057a572f6ab699d55f5ee584401"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/less_fan_conditioning_10k/c0_b0_continue/checkpoints/checkpoint_update_6800.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "less_fan_conditioning_10k",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.10393634747541003,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.14299639792952182,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.19219183290809655,
+            "findings": 17,
+            "hit_rate": 0.5294117647058824,
+            "hits": 9
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.1309985696320379,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.20581174133237487,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.19421661443501254,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.3278458617255328,
+            "findings": 69,
+            "hit_rate": 0.8115942028985508,
+            "hits": 56
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.36025404004441064,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.38578389932451995,
+            "findings": 60,
+            "hit_rate": 0.8333333333333334,
+            "hits": 50
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.3783978333225322,
+            "findings": 132,
+            "hit_rate": 0.8939393939393939,
+            "hits": 118
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.46242388994146694,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.114799642431549,
+            "findings": 1,
+            "hit_rate": 1.0,
+            "hits": 1
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.04754953758952899,
+            "findings": 7,
+            "hit_rate": 0.2857142857142857,
+            "hits": 2
+          }
+        },
+        "overall": {
+          "dice": 0.3356495726600387,
+          "findings": 381,
+          "hit_rate": 0.7769028871391076,
+          "hits": 296
+        }
+      },
+      "model_id": "less_fan_conditioning_10k__c0_b0_update6800__21802344",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/less_fan_conditioning_10k/full200_selected/c0_b0_update6800",
+      "result_hash": "21802344efc1ab8bf41035d5cabba1088c96452626573db0545d32773d686a4d",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/less_fan_conditioning_10k__c0_b0_update6800__21802344/per_category.json",
+          "sha256": "bb147aba38b583a1795c61bacf16f0e8486d223d0789bea5c22bd0a200eca899"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/less_fan_conditioning_10k__c0_b0_update6800__21802344/per_finding.json",
+          "sha256": "2588c226ef7737ff6be15a80431964c64679848ad9c14d58bc031a4f31750210"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/less_fan_conditioning_10k__c0_b0_update6800__21802344/result.json",
+          "sha256": "4b8dead781900d02a765c9cacd899fef6bd7b26f61d8b5691d71fcaaa842ce9e"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/lobe_roi_segmentation_loss_continue_5000_to10000/checkpoints/checkpoint_update_6000.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_pipeline",
+      "method_family": "lobe_roi_segmentation_loss_continue_5000_to10000",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.08829281750182864,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.13403705006007186,
+            "findings": 11,
+            "hit_rate": 0.2727272727272727,
+            "hits": 3
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.1941388280645126,
+            "findings": 17,
+            "hit_rate": 0.5294117647058824,
+            "hits": 9
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.13864872906364975,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.1934734330557821,
+            "findings": 11,
+            "hit_rate": 0.5454545454545454,
+            "hits": 6
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.20627544013293408,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.3258656336221286,
+            "findings": 69,
+            "hit_rate": 0.8405797101449275,
+            "hits": 58
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.37672845512016334,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.42339020760758267,
+            "findings": 60,
+            "hit_rate": 0.8666666666666667,
+            "hits": 52
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.4025690642162002,
+            "findings": 132,
+            "hit_rate": 0.8787878787878788,
+            "hits": 116
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4495257800526874,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.1665080760484834,
+            "findings": 1,
+            "hit_rate": 1.0,
+            "hits": 1
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.18723825483735182,
+            "findings": 7,
+            "hit_rate": 0.5714285714285714,
+            "hits": 4
+          }
+        },
+        "overall": {
+          "dice": 0.35363191436506036,
+          "findings": 381,
+          "hit_rate": 0.7821522309711286,
+          "hits": 298
+        }
+      },
+      "model_id": "lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": false,
+      "result_dir": "outputs/lobe_roi_segmentation_loss_continue_5000_to10000/full200/update_06000/semantic_v1_v2_strict_eval/semantic_v2_summary_tables",
+      "result_hash": "5b09b79b1ac7836e057e7fade95dbd93dddc5476507f4c262dea6ba4bee0c85d",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b/per_category.json",
+          "sha256": "5fdf67cbbc78b205f693ff936d7fff9252f8e8495af448bc90545af61af65764"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b/per_finding.json",
+          "sha256": "87875f8d69495e29d71de727a9995b8a691960a728757cf372085c83aa9185c4"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/lobe_roi_segmentation_loss_continue_5000_to10000__semantic_v2_summary_tables__5b09b79b/result.json",
+          "sha256": "e47f4f95f87b73b554995c6f2af92c9e1622227de0b0aebc57eb2dc026a90bd0"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/voxtell_v11_e1e-5_d1e-4_1gpu_bs1_acc4_10kupd/checkpoints/checkpoint_update_10000.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "nonattention_baseline_selection",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.1067237089102004,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.12737046693365486,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.18305076476981913,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.12542379210730015,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.20322976656086975,
+            "findings": 11,
+            "hit_rate": 0.5454545454545454,
+            "hits": 6
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.1827035646620361,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.3339566468742799,
+            "findings": 69,
+            "hit_rate": 0.855072463768116,
+            "hits": 59
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.34183891940203537,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.37621160536757137,
+            "findings": 60,
+            "hit_rate": 0.8166666666666667,
+            "hits": 49
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.37994993427672147,
+            "findings": 132,
+            "hit_rate": 0.8636363636363636,
+            "hits": 114
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.45441948216838046,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.1033900259241942,
+            "findings": 1,
+            "hit_rate": 1.0,
+            "hits": 1
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.17909249206610858,
+            "findings": 7,
+            "hit_rate": 0.42857142857142855,
+            "hits": 3
+          }
+        },
+        "overall": {
+          "dice": 0.33445367142623345,
+          "findings": 381,
+          "hit_rate": 0.7664041994750657,
+          "hits": 292
+        }
+      },
+      "model_id": "nonattention_baseline_selection__full381_update10000__f9c103ca",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/nonattention_baseline_selection/full381_update10000",
+      "result_hash": "f9c103ca318c9aa523175eb9761b0e482fb6d032ce56e9b3f805753c0c57dc02",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/nonattention_baseline_selection__full381_update10000__f9c103ca/per_category.json",
+          "sha256": "78323181961f3d9d1e3b579e86e308504ff4ed215429f10ca8f4744742f1852a"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/nonattention_baseline_selection__full381_update10000__f9c103ca/per_finding.json",
+          "sha256": "f41aabbc5035369abcee10003a4d81db48ca5a57d87778a6f6a852340ebd1076"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/nonattention_baseline_selection__full381_update10000__f9c103ca/result.json",
+          "sha256": "b2814923f8a822ba28be1f6a0be270bd70142b2591bb59faecd709c82e68c362"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/voxtell_v11_e1e-5_d1e-4_1gpu_bs1_acc4_10kupd/checkpoints/checkpoint_update_10000.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_pipeline",
+      "method_family": "nonattention_baseline_selection",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.1071142311650633,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.12912111339486465,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.18552180344223934,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.12542452364195614,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.21128273215664786,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.18270356466207685,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.34305381308053673,
+            "findings": 69,
+            "hit_rate": 0.8695652173913043,
+            "hits": 60
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.34460812370289395,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3882180812836478,
+            "findings": 60,
+            "hit_rate": 0.8333333333333334,
+            "hits": 50
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.40496024224851757,
+            "findings": 132,
+            "hit_rate": 0.8636363636363636,
+            "hits": 114
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4513191085102916,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.1035143758794966,
+            "findings": 1,
+            "hit_rate": 1.0,
+            "hits": 1
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.18305703265782855,
+            "findings": 7,
+            "hit_rate": 0.42857142857142855,
+            "hits": 3
+          }
+        },
+        "overall": {
+          "dice": 0.3473931466391062,
+          "findings": 381,
+          "hit_rate": 0.7742782152230971,
+          "hits": 295
+        }
+      },
+      "model_id": "nonattention_baseline_selection__semantic_v2_summary_tables__a1b37791",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": false,
+      "result_dir": "outputs/nonattention_baseline_selection/full381_update10000/semantic_v1_v2_strict_eval/semantic_v2_summary_tables",
+      "result_hash": "a1b37791e35d57fc093eb66829f79725c5c429fd151b43addac03923dd036447",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/nonattention_baseline_selection__semantic_v2_summary_tables__a1b37791/per_category.json",
+          "sha256": "6a501983b66b3a71696335a3f2c18cb0bede29b0b67483f7e2c6e5e4e367992c"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/nonattention_baseline_selection__semantic_v2_summary_tables__a1b37791/per_finding.json",
+          "sha256": "c2340db8da2deb5b0571c1de296400f92765c13a930d4af6517611c98e5852ee"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/nonattention_baseline_selection__semantic_v2_summary_tables__a1b37791/result.json",
+          "sha256": "79d00c6e56835cd1b75ca09b21f7c09022627a4fafcb53631521b7f192714749"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/prompt_location_alignment_loss_v1_noattention_from_update8000_to10000/checkpoints/checkpoint_update_10000.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "prompt_location_alignment_loss_v1_noattention_from_update8000_to10000",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.0999510791114898,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.12743675932045384,
+            "findings": 11,
+            "hit_rate": 0.2727272727272727,
+            "hits": 3
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.18781242086614258,
+            "findings": 17,
+            "hit_rate": 0.47058823529411764,
+            "hits": 8
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.12992678775048228,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.2049214546658673,
+            "findings": 11,
+            "hit_rate": 0.5454545454545454,
+            "hits": 6
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.1941880345922135,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.33269762088288635,
+            "findings": 69,
+            "hit_rate": 0.855072463768116,
+            "hits": 59
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.341985480300171,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3786224312476122,
+            "findings": 60,
+            "hit_rate": 0.8166666666666667,
+            "hits": 49
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.3814541571243404,
+            "findings": 132,
+            "hit_rate": 0.8712121212121212,
+            "hits": 115
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.47112197045904325,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.0800756769124456,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.14691981240290986,
+            "findings": 7,
+            "hit_rate": 0.5714285714285714,
+            "hits": 4
+          }
+        },
+        "overall": {
+          "dice": 0.33537662110356864,
+          "findings": 381,
+          "hit_rate": 0.7690288713910761,
+          "hits": 293
+        }
+      },
+      "model_id": "prompt_location_alignment_loss_v1_noattention_from_update8000_to10000__full381_update10000__476e16cb",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/prompt_location_alignment_loss_v1_noattention_from_update8000_to10000/full381_update10000",
+      "result_hash": "476e16cb4caffb1bf9d57367b1e387666ffb098096c51c19d531737d5ad6ae51",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/prompt_location_alignment_loss_v1_noattention_from_update8000_to10000__full381_update10000__476e16cb/per_category.json",
+          "sha256": "bb42479970b42894b9518acfa1b5be16629806d89541d367ec063f3c20b1f322"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/prompt_location_alignment_loss_v1_noattention_from_update8000_to10000__full381_update10000__476e16cb/per_finding.json",
+          "sha256": "b30df94116b983aab8cc859b68797c3ad0f6d0f9fb0a169f7c7a34bfe41fba9d"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/prompt_location_alignment_loss_v1_noattention_from_update8000_to10000__full381_update10000__476e16cb/result.json",
+          "sha256": "07ec0aab3632a592707d9b04259709f44cbd9a9fa64c14c6d03c29eba2c91d23"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/prompt_location_alignment_loss_v1_noattention_from_update8000_to10000/checkpoints/checkpoint_update_10000.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_pipeline",
+      "method_family": "prompt_location_alignment_loss_v1_noattention_from_update8000_to10000",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.10052526783005887,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.13281246031129024,
+            "findings": 11,
+            "hit_rate": 0.2727272727272727,
+            "hits": 3
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.1904111965068013,
+            "findings": 17,
+            "hit_rate": 0.47058823529411764,
+            "hits": 8
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.12992692038626472,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.21162044659517446,
+            "findings": 11,
+            "hit_rate": 0.5454545454545454,
+            "hits": 6
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.19418803418803415,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.3394938581827743,
+            "findings": 69,
+            "hit_rate": 0.855072463768116,
+            "hits": 59
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3447448171156098,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3879858614900097,
+            "findings": 60,
+            "hit_rate": 0.8333333333333334,
+            "hits": 50
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.40700210054193886,
+            "findings": 132,
+            "hit_rate": 0.8787878787878788,
+            "hits": 116
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4678439082981484,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.0801371206723869,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.16408325113773212,
+            "findings": 7,
+            "hit_rate": 0.5714285714285714,
+            "hits": 4
+          }
+        },
+        "overall": {
+          "dice": 0.34797807313195694,
+          "findings": 381,
+          "hit_rate": 0.7742782152230971,
+          "hits": 295
+        }
+      },
+      "model_id": "prompt_location_u10k__semantic_A_e10_s10_fw10",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": false,
+      "result_dir": "outputs/prompt_location_alignment_loss_v1_noattention_from_update8000_to10000/full381_update10000/semantic_posthoc",
+      "result_hash": "43d488e67b5489a8a085b96c2ec3bafa918681e93137ab6493ea3febb99c22c7",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/prompt_location_u10k__semantic_A_e10_s10_fw10/per_category.json",
+          "sha256": "b6f2cb917218adb2a8638c135f1a0c2d62abc9bd58ae781c41e58c79fdfeb5f1"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/prompt_location_u10k__semantic_A_e10_s10_fw10/per_finding.json",
+          "sha256": "a529d50c9b2f129fa831a6c448020b67bb8cf3d6b8b97ea9c42a03fe3e240393"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/prompt_location_u10k__semantic_A_e10_s10_fw10/result.json",
+          "sha256": "1187920921ac044107dd6c156836560c926c0434063210dce1a536518bfa9f34"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/qwen_lora_top6_global_from_v11/checkpoints/checkpoint_update_5000.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "qwen_early_coadaptation_from_v11",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.09653755481684688,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.16231506622703823,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.14284612509000064,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.12567421233846718,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.2047503365363152,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.15083333374636806,
+            "findings": 4,
+            "hit_rate": 0.25,
+            "hits": 1
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.32033787158011623,
+            "findings": 69,
+            "hit_rate": 0.8405797101449275,
+            "hits": 58
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.36251347766185754,
+            "findings": 49,
+            "hit_rate": 0.7755102040816326,
+            "hits": 38
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3733683257031035,
+            "findings": 60,
+            "hit_rate": 0.85,
+            "hits": 51
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.3638332307379338,
+            "findings": 132,
+            "hit_rate": 0.8636363636363636,
+            "hits": 114
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4667370640119912,
+            "findings": 11,
+            "hit_rate": 0.8181818181818182,
+            "hits": 9
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.06343871579457,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.04157685050667135,
+            "findings": 7,
+            "hit_rate": 0.14285714285714285,
+            "hits": 1
+          }
+        },
+        "overall": {
+          "dice": 0.3251869783409958,
+          "findings": 381,
+          "hit_rate": 0.7664041994750657,
+          "hits": 292
+        }
+      },
+      "model_id": "qwen_early_coadaptation_from_v11__C1_update_5000__92378e4c",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/qwen_early_coadaptation_from_v11/full_validation_selected_checkpoints/full_validation/C1_update_5000",
+      "result_hash": "92378e4cdb4f77344a805e19fd5bfd3e5235435744164afe09bc5e3cf6f5e1ec",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/qwen_early_coadaptation_from_v11__C1_update_5000__92378e4c/per_category.json",
+          "sha256": "6ef64e75e668b176559fa2844449eae68d6eb2430ce3b8abb4abb01f5a31a6af"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/qwen_early_coadaptation_from_v11__C1_update_5000__92378e4c/per_finding.json",
+          "sha256": "95da0231bca934d070981d83121a7513dd45fd05467c1636f586181f7a200c48"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/qwen_early_coadaptation_from_v11__C1_update_5000__92378e4c/result.json",
+          "sha256": "f69907ea9d1dcbad6184535a3abf6a6915b7973985cfbedb0166ab81da567db2"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/qwen_lora_top6_global_from_v11_low_lr_e1e-6_d1e-5_from_u5000/checkpoints/checkpoint_update_7400.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "qwen_lora_top6_global_from_v11_low_lr_e1e-6_d1e-5_from_u5000",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.0932580978180243,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.14417814512991162,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.16776351282141527,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.13075769652001265,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.19027098361795938,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.17691207570529835,
+            "findings": 4,
+            "hit_rate": 0.25,
+            "hits": 1
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.328278194575393,
+            "findings": 69,
+            "hit_rate": 0.8115942028985508,
+            "hits": 56
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3673851430897609,
+            "findings": 49,
+            "hit_rate": 0.7755102040816326,
+            "hits": 38
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3844488376748095,
+            "findings": 60,
+            "hit_rate": 0.85,
+            "hits": 51
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.359573225449048,
+            "findings": 132,
+            "hit_rate": 0.8409090909090909,
+            "hits": 111
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.48931453424023,
+            "findings": 11,
+            "hit_rate": 0.8181818181818182,
+            "hits": 9
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.1514515235506464,
+            "findings": 1,
+            "hit_rate": 1.0,
+            "hits": 1
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.06920447566834749,
+            "findings": 7,
+            "hit_rate": 0.42857142857142855,
+            "hits": 3
+          }
+        },
+        "overall": {
+          "dice": 0.3294091734811572,
+          "findings": 381,
+          "hit_rate": 0.7611548556430446,
+          "hits": 290
+        }
+      },
+      "model_id": "qwen_lora_top6_global_from_v11_low_lr_e1e-6_d1e-5_from_u5000__update_07400__82d735f1",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/qwen_lora_top6_global_from_v11_low_lr_e1e-6_d1e-5_from_u5000/full200_selected/update_07400",
+      "result_hash": "82d735f12815c9172113b293f742ec6e8e45c072e8672114f7bbbb5d9e6f627e",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/qwen_lora_top6_global_from_v11_low_lr_e1e-6_d1e-5_from_u5000__update_07400__82d735f1/per_category.json",
+          "sha256": "f0b1f0f92866202cab96c0ba20181a75b7f845e59bc4c6e466384af028f33000"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/qwen_lora_top6_global_from_v11_low_lr_e1e-6_d1e-5_from_u5000__update_07400__82d735f1/per_finding.json",
+          "sha256": "6754b42a4d998d636c535b8a8c1a17595ef8b319100e660dc82f0352e9690feb"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/qwen_lora_top6_global_from_v11_low_lr_e1e-6_d1e-5_from_u5000__update_07400__82d735f1/result.json",
+          "sha256": "a077c7b0798498b8eb50cbcc4c8bca2cf8b2ef2afd85a92ef66c10d006dea66c"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/resampling_fixed_d0p75_h0p7_w0p7_v1_v11_controlled_10kupd/full200/resample_d075_baseline_update10000/voxtell_model/fold_0/checkpoint_final.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "resampling_fixed_d0p75_h0p7_w0p7_v1_v11_controlled_10kupd",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.10596673731285645,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.15590708159125757,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.16448662632301803,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.11107930356200775,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.19189090261997188,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.18269352631891364,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.3422133697461759,
+            "findings": 69,
+            "hit_rate": 0.8260869565217391,
+            "hits": 57
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3598951478609602,
+            "findings": 49,
+            "hit_rate": 0.7755102040816326,
+            "hits": 38
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.37844425568284845,
+            "findings": 60,
+            "hit_rate": 0.85,
+            "hits": 51
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.39019968356399665,
+            "findings": 132,
+            "hit_rate": 0.8863636363636364,
+            "hits": 117
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.45020024284707616,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.1394309286180951,
+            "findings": 1,
+            "hit_rate": 1.0,
+            "hits": 1
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.22830141663110703,
+            "findings": 7,
+            "hit_rate": 0.42857142857142855,
+            "hits": 3
+          }
+        },
+        "overall": {
+          "dice": 0.3424869880783371,
+          "findings": 381,
+          "hit_rate": 0.7795275590551181,
+          "hits": 297
+        }
+      },
+      "model_id": "resampling_fixed_d0p75_h0p7_w0p7_v1_v11_controlled_10kupd__resample_d075_baseline_update10000__e490373c",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/resampling_fixed_d0p75_h0p7_w0p7_v1_v11_controlled_10kupd/full200/resample_d075_baseline_update10000",
+      "result_hash": "e490373c0b15f8ab367ee8d7931a4f5960d66a283826ed0003cff483c5cc6b2f",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/resampling_fixed_d0p75_h0p7_w0p7_v1_v11_controlled_10kupd__resample_d075_baseline_update10000__e490373c/per_category.json",
+          "sha256": "9d13cb22afdeec67fdaea9b12f31a6f280b5b193a2be7cb7b75fe6ab80fe4168"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/resampling_fixed_d0p75_h0p7_w0p7_v1_v11_controlled_10kupd__resample_d075_baseline_update10000__e490373c/per_finding.json",
+          "sha256": "1d9ae285b44da46d0af2bb5b2016a9d3b873607233887edae142f24e095b96de"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/resampling_fixed_d0p75_h0p7_w0p7_v1_v11_controlled_10kupd__resample_d075_baseline_update10000__e490373c/result.json",
+          "sha256": "1b2123308671cb857ecda664ab193975684c5e0a3562c1f18b73b89ee4418d7e"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd/baseline/checkpoints/checkpoint_update_10000.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.09583545768819253,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.14129925074140715,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.1647731192682358,
+            "findings": 17,
+            "hit_rate": 0.5294117647058824,
+            "hits": 9
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.10840899235847433,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.19092272755546674,
+            "findings": 11,
+            "hit_rate": 0.5454545454545454,
+            "hits": 6
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.19128289922448924,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.3338854989332298,
+            "findings": 69,
+            "hit_rate": 0.8115942028985508,
+            "hits": 56
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3619962742827397,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3778247886630567,
+            "findings": 60,
+            "hit_rate": 0.8166666666666667,
+            "hits": 49
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.4004475731610995,
+            "findings": 132,
+            "hit_rate": 0.8636363636363636,
+            "hits": 114
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4604929439685456,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.0661795542607122,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.268722954682236,
+            "findings": 7,
+            "hit_rate": 0.42857142857142855,
+            "hits": 3
+          }
+        },
+        "overall": {
+          "dice": 0.34508090072683734,
+          "findings": 381,
+          "hit_rate": 0.7611548556430446,
+          "hits": 290
+        }
+      },
+      "model_id": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd/full200/resample_baseline_update10000",
+      "result_hash": "1bf09c0e907196faa7f5dd0d700e0a5d468169f353a6ec31332ab6b2bab18b45",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e/per_category.json",
+          "sha256": "96a50c65796c00d1d2272dd5bf60ce593b23dfce953032b43dfcefce59658aec"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e/per_finding.json",
+          "sha256": "84c73a908ebd3836fa451ba0c604ba96ce3661cbb937930603f57f790ce4a168"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__resample_baseline_update10000__1bf09c0e/result.json",
+          "sha256": "a6608149ff8b75e8b59e3ddc30d127bf739a6c2e05ebf51200e59369c2c3bcda"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd/baseline/checkpoints/checkpoint_update_10000.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_pipeline",
+      "method_family": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.0962525323347682,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.14153177042730014,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.16422823266008887,
+            "findings": 17,
+            "hit_rate": 0.5294117647058824,
+            "hits": 9
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.10826456441770865,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.19124644060765314,
+            "findings": 11,
+            "hit_rate": 0.5454545454545454,
+            "hits": 6
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.19054425765316582,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.3343828974137074,
+            "findings": 69,
+            "hit_rate": 0.8115942028985508,
+            "hits": 56
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3613183508322109,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.37760813584109193,
+            "findings": 60,
+            "hit_rate": 0.8166666666666667,
+            "hits": 49
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.40266438611749494,
+            "findings": 132,
+            "hit_rate": 0.8636363636363636,
+            "hits": 114
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.46051320892072173,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.0641496601871927,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.2683762562000378,
+            "findings": 7,
+            "hit_rate": 0.42857142857142855,
+            "hits": 3
+          }
+        },
+        "overall": {
+          "dice": 0.3457915938917155,
+          "findings": 381,
+          "hit_rate": 0.7611548556430446,
+          "hits": 290
+        }
+      },
+      "model_id": "resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__update_10000__de0cd397",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": false,
+      "result_dir": "outputs/resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd/baseline/postprocess_axial_smoothing/full200_currentbaseline/sigma_0p5mm/full_volume/update_10000",
+      "result_hash": "de0cd3974b06ba357bb2c1861c160e465c10506e3a30841b97bc97c57a69e21e",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__update_10000__de0cd397/per_category.json",
+          "sha256": "7be1fd8d2d2e4b212f0e7e5a073f91c007c41eeafa58982293c5cd7f740b79e3"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__update_10000__de0cd397/per_finding.json",
+          "sha256": "01c0a77f251fa256bf1801b5168749804f93a8abe87682c7862f4e6836525055"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/resampling_fixed_d1p0_h0p7_w0p7_v1_v11_controlled_10kupd__update_10000__de0cd397/result.json",
+          "sha256": "c6e94d7b3cd9afc709699295bb923eb8b100dc44370f4b0f1efc8e0bd1ea00d2"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/s3_multiscale_2b2c_v11_e1e-5_d1e-4_s3e1e-4_1gpu_bs1_acc4_10kupd/voxtell_compatible_models/clean_multiscale_strict2b2c_update6000/fold_0/checkpoint_final.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "s3_full200_every1000",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.07766336388449803,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.12921358086229848,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.18750471412574116,
+            "findings": 17,
+            "hit_rate": 0.47058823529411764,
+            "hits": 8
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.14311455859626174,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.19146153340691188,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.2185586959919497,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.31958173795368755,
+            "findings": 69,
+            "hit_rate": 0.8405797101449275,
+            "hits": 58
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3676216094099972,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.39016226901017753,
+            "findings": 60,
+            "hit_rate": 0.8333333333333334,
+            "hits": 50
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.35560057552373564,
+            "findings": 132,
+            "hit_rate": 0.8560606060606061,
+            "hits": 113
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.44712153118959697,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.1481084647988428,
+            "findings": 1,
+            "hit_rate": 1.0,
+            "hits": 1
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.1343919710906893,
+            "findings": 7,
+            "hit_rate": 0.5714285714285714,
+            "hits": 4
+          }
+        },
+        "overall": {
+          "dice": 0.32835096750513143,
+          "findings": 381,
+          "hit_rate": 0.7716535433070866,
+          "hits": 294
+        }
+      },
+      "model_id": "s3_full200_every1000__update_06000__8a24d746",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/s3_full200_every1000/results/clean_multiscale_strict2b2c/update_06000",
+      "result_hash": "8a24d74647b8ac264ae0bb10bbd7f590e0e777c70ec6f2c128b8d798b4d2478c",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/s3_full200_every1000__update_06000__8a24d746/per_category.json",
+          "sha256": "e7d762861c208e51826a17540170ed54571ad096905f050b77a193d31dfaade8"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/s3_full200_every1000__update_06000__8a24d746/per_finding.json",
+          "sha256": "45bb434bbca0bc412e0f4015f635b4892535a0cb1054180e5e8fb2c5c2043636"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/s3_full200_every1000__update_06000__8a24d746/result.json",
+          "sha256": "a509f281efe4b9b6c0c7e2ac00d4d2e2a325104966533364ad5fe31ff2ed1c79"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "",
+      "checkpoint_path_status": "not_declared",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "sampler_ablation_restricted_vs_inclusive_5k",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.09342757098967298,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.15887140396067956,
+            "findings": 11,
+            "hit_rate": 0.45454545454545453,
+            "hits": 5
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.17276356929196857,
+            "findings": 17,
+            "hit_rate": 0.47058823529411764,
+            "hits": 8
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.14253111217362405,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.2127685132727592,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.15806451659308748,
+            "findings": 4,
+            "hit_rate": 0.25,
+            "hits": 1
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.32285833177650397,
+            "findings": 69,
+            "hit_rate": 0.8115942028985508,
+            "hits": 56
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3429455039880059,
+            "findings": 49,
+            "hit_rate": 0.7551020408163265,
+            "hits": 37
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.39668354865336675,
+            "findings": 60,
+            "hit_rate": 0.8166666666666667,
+            "hits": 49
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.39120986717321865,
+            "findings": 132,
+            "hit_rate": 0.8863636363636364,
+            "hits": 117
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4530041185627958,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.1100485354201455,
+            "findings": 1,
+            "hit_rate": 1.0,
+            "hits": 1
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.05817032869572779,
+            "findings": 7,
+            "hit_rate": 0.14285714285714285,
+            "hits": 1
+          }
+        },
+        "overall": {
+          "dice": 0.3380979090143132,
+          "findings": 381,
+          "hit_rate": 0.7664041994750657,
+          "hits": 292
+        }
+      },
+      "model_id": "sampler_ablation_restricted_vs_inclusive_5k__update_04400__1cf9a47d",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/sampler_ablation_restricted_vs_inclusive_5k/S1_inclusive/full200_bf16_cached/update_04400",
+      "result_hash": "1cf9a47d94cf325306cb91d3e3f1f013f758e4dcb16778484629f0d79112a385",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/sampler_ablation_restricted_vs_inclusive_5k__update_04400__1cf9a47d/per_category.json",
+          "sha256": "bf68aaf05b0d54a9ed1ac2a09dd243123e87b8e360bcff87a6de85937bc4effa"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/sampler_ablation_restricted_vs_inclusive_5k__update_04400__1cf9a47d/per_finding.json",
+          "sha256": "c657aaa5970a9b46144fc199b5844fcdbfc141623b1ff1ed71cfe39e0067ce9f"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/sampler_ablation_restricted_vs_inclusive_5k__update_04400__1cf9a47d/result.json",
+          "sha256": "ebcac3a9a73561206f6ce24fd9b80c54b1eae0d680dc3aa23df95d9d3e769a86"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/segmote_voxtell_m0_mote_v11_5k/checkpoints/checkpoint_update_3400.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "segmote_voxtell_m0_mote_v11_5k",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.07661766414989322,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.11509291886680234,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.18017000864278726,
+            "findings": 17,
+            "hit_rate": 0.4117647058823529,
+            "hits": 7
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.12761602056413945,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.20240369537055347,
+            "findings": 11,
+            "hit_rate": 0.6363636363636364,
+            "hits": 7
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.16543574636240369,
+            "findings": 4,
+            "hit_rate": 0.25,
+            "hits": 1
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.32115802929556536,
+            "findings": 69,
+            "hit_rate": 0.7971014492753623,
+            "hits": 55
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3592689847803641,
+            "findings": 49,
+            "hit_rate": 0.7755102040816326,
+            "hits": 38
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3931848977347591,
+            "findings": 60,
+            "hit_rate": 0.8333333333333334,
+            "hits": 50
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.3813306578969292,
+            "findings": 132,
+            "hit_rate": 0.8787878787878788,
+            "hits": 116
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.43523179603478857,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.074167881362767,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.033676852171328146,
+            "findings": 7,
+            "hit_rate": 0.14285714285714285,
+            "hits": 1
+          }
+        },
+        "overall": {
+          "dice": 0.3333357627030951,
+          "findings": 381,
+          "hit_rate": 0.7585301837270341,
+          "hits": 289
+        }
+      },
+      "model_id": "segmote_voxtell_m0_mote_v11_5k__segmote_m0_update3400_thr0p40_full200__f3a82624",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/segmote_voxtell_m0_mote_v11_5k/full200_threshold_sweep/segmote_m0_update3400_thr0p40_full200",
+      "result_hash": "f3a82624a43ce9469ad5365ad2f9dc2742c116a90bceddf7651c581c08538993",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/segmote_voxtell_m0_mote_v11_5k__segmote_m0_update3400_thr0p40_full200__f3a82624/per_category.json",
+          "sha256": "d2c888d1b63be27ccd239eb7a9c32eea3431f5f3108174cc39b8990b641e82df"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/segmote_voxtell_m0_mote_v11_5k__segmote_m0_update3400_thr0p40_full200__f3a82624/per_finding.json",
+          "sha256": "dd39ed077d05b59bee85992a61396826d2a74e5ef0868714abe7b5b37e2227ef"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/segmote_voxtell_m0_mote_v11_5k__segmote_m0_update3400_thr0p40_full200__f3a82624/result.json",
+          "sha256": "061b8ab1e578ea9ae9b851fb398fbfd7d1f8074bbf469307e6ffbbd58133ba9d"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/word_global_v11_0to2000/B3_candidates_global_router/checkpoints/checkpoint_update_4000.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "word_global_v11_0to2000",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.10799317603236513,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.1566972592876956,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.1617680357860331,
+            "findings": 17,
+            "hit_rate": 0.5294117647058824,
+            "hits": 9
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.12077691714021195,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.17275594744358094,
+            "findings": 11,
+            "hit_rate": 0.5454545454545454,
+            "hits": 6
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.23769182600949043,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.33901994309657846,
+            "findings": 69,
+            "hit_rate": 0.8695652173913043,
+            "hits": 60
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3482394362278206,
+            "findings": 49,
+            "hit_rate": 0.7755102040816326,
+            "hits": 38
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.37922358482121304,
+            "findings": 60,
+            "hit_rate": 0.85,
+            "hits": 51
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.37661331611206644,
+            "findings": 132,
+            "hit_rate": 0.8560606060606061,
+            "hits": 113
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4189144052511338,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.0893374669162541,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.11398649194765512,
+            "findings": 7,
+            "hit_rate": 0.2857142857142857,
+            "hits": 2
+          }
+        },
+        "overall": {
+          "dice": 0.3327853880592859,
+          "findings": 381,
+          "hit_rate": 0.7742782152230971,
+          "hits": 295
+        }
+      },
+      "model_id": "word_global_v11_0to2000__b3_u4000__4a367e79",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/word_global_v11_0to2000/full200_best_and_u4000/b3_u4000",
+      "result_hash": "4a367e790a531faaedf2084e5d3d0b67905d3d798ee76793cfaf7f693ba874cf",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/word_global_v11_0to2000__b3_u4000__4a367e79/per_category.json",
+          "sha256": "9b677eec64d10575e7d343806e33674d08c70d1f2cac8b7554ec1a5438c77b19"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/word_global_v11_0to2000__b3_u4000__4a367e79/per_finding.json",
+          "sha256": "3848633dfe7961c44f0fd8d5498896754e3bf63eaa61774f53869af5ba33db32"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/word_global_v11_0to2000__b3_u4000__4a367e79/result.json",
+          "sha256": "e80d3b656097132d4540f0f8f79b0825c21966b00f86b1868e05e5ab3d1ad026"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    },
+    {
+      "checkpoint_path": "/common/lidxxlab/chushu/RexGroundingCT/outputs/word_global_v11_b3_low_lr_poly_from4000_to5000/checkpoints/checkpoint_update_5000.pth",
+      "checkpoint_path_status": "declared_not_locally_verifiable",
+      "evaluation_type": "source_declared_raw_like",
+      "method_family": "word_global_v11_b3_low_lr_poly_full200_selected",
+      "metrics": {
+        "categories": {
+          "1a": {
+            "available": true,
+            "dice": 0.10810110942008798,
+            "findings": 3,
+            "hit_rate": 0.3333333333333333,
+            "hits": 1
+          },
+          "1b": {
+            "available": true,
+            "dice": 0.15209847163742488,
+            "findings": 11,
+            "hit_rate": 0.36363636363636365,
+            "hits": 4
+          },
+          "1c": {
+            "available": true,
+            "dice": 0.1527305712776443,
+            "findings": 17,
+            "hit_rate": 0.47058823529411764,
+            "hits": 8
+          },
+          "1d": {
+            "available": true,
+            "dice": 0.12350500961444501,
+            "findings": 6,
+            "hit_rate": 0.16666666666666666,
+            "hits": 1
+          },
+          "1e": {
+            "available": true,
+            "dice": 0.18879584848832956,
+            "findings": 11,
+            "hit_rate": 0.5454545454545454,
+            "hits": 6
+          },
+          "1f": {
+            "available": true,
+            "dice": 0.24889704537686663,
+            "findings": 4,
+            "hit_rate": 0.5,
+            "hits": 2
+          },
+          "2a": {
+            "available": true,
+            "dice": 0.3358631609969916,
+            "findings": 69,
+            "hit_rate": 0.855072463768116,
+            "hits": 59
+          },
+          "2b": {
+            "available": true,
+            "dice": 0.3539446721369281,
+            "findings": 49,
+            "hit_rate": 0.7755102040816326,
+            "hits": 38
+          },
+          "2c": {
+            "available": true,
+            "dice": 0.3805816591096219,
+            "findings": 60,
+            "hit_rate": 0.8333333333333334,
+            "hits": 50
+          },
+          "2d": {
+            "available": true,
+            "dice": 0.3866837793995437,
+            "findings": 132,
+            "hit_rate": 0.8560606060606061,
+            "hits": 113
+          },
+          "2e": {
+            "available": true,
+            "dice": 0.4663071025648438,
+            "findings": 11,
+            "hit_rate": 0.7272727272727273,
+            "hits": 8
+          },
+          "2f": {
+            "available": false,
+            "dice": null,
+            "findings": 0,
+            "hit_rate": null,
+            "hits": 0
+          },
+          "2g": {
+            "available": true,
+            "dice": 0.0823931973429845,
+            "findings": 1,
+            "hit_rate": 0.0,
+            "hits": 0
+          },
+          "2h": {
+            "available": true,
+            "dice": 0.12853114579901734,
+            "findings": 7,
+            "hit_rate": 0.42857142857142855,
+            "hits": 3
+          }
+        },
+        "overall": {
+          "dice": 0.3383560987336641,
+          "findings": 381,
+          "hit_rate": 0.7690288713910761,
+          "hits": 293
+        }
+      },
+      "model_id": "word_global_v11_b3_low_lr_poly_full200_selected__b3_low_lr_update5000__0b0b5171",
+      "provenance_status": "bundle_only_no_threshold_or_checkpoint_sha256",
+      "raw_like": true,
+      "result_dir": "outputs/word_global_v11_b3_low_lr_poly_full200_selected/b3_low_lr_update5000",
+      "result_hash": "0b0b51710dd3ed376eecd31c3b89bd83de894e337494c0a134f603c3e3ae1851",
+      "source_files": {
+        "per_category": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/word_global_v11_b3_low_lr_poly_full200_selected__b3_low_lr_update5000__0b0b5171/per_category.json",
+          "sha256": "f6872c8f48a3011982ccd9c641d9f9aefc20af59963ccd8a58075938512235dd"
+        },
+        "per_finding": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/word_global_v11_b3_low_lr_poly_full200_selected__b3_low_lr_update5000__0b0b5171/per_finding.json",
+          "sha256": "0aa63ac647dc4888f7d5f19a4507112d158aad3890122fd32792ac4c55c16907"
+        },
+        "result": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/models/word_global_v11_b3_low_lr_poly_full200_selected__b3_low_lr_update5000__0b0b5171/result.json",
+          "sha256": "fbd2c49b19a1d54cc49bd45c9581e329fb4e313e2c6a82c326f98e63e2b21dbf"
+        },
+        "selected_models": {
+          "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+          "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+        }
+      }
+    }
+  ],
+  "schema_version": 1,
+  "scope": {
+    "cohort": "24 normalized selected collaborator result variants",
+    "not_included": "The larger 309-result bundle is excluded because it lacks full official category/per-finding data outside 2a-2d.",
+    "provenance_note": "raw_like is source-declared only; the bundle does not supply threshold provenance or checkpoint SHA-256 values."
+  },
+  "sources": {
+    "collaborator_bundle": {
+      "selected_model_count": 24,
+      "selected_models": {
+        "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/selected_models.json",
+        "sha256": "67de079b51fbf01152286137e2956806065bf9d3ed4361d3763204743e8a3867"
+      },
+      "source_declared_pipeline_count": 4,
+      "source_declared_raw_like_count": 20,
+      "source_report": {
+        "path": "side_experiments/sideexp004_best_checkpoint_share_chushu/best_checkpoint_ensemble_share_20260907/outputs/best_checkpoint_ensemble_share_20260907/report.md",
+        "sha256": "95b963da7a5788becbd3ec78a657c5702d5ddd6009ab01a85a34351a82f19162"
+      },
+      "source_reported_repository_commit": "1fd6445daab285f373b346912f0fba1e878dc0c5"
+    },
+    "sideexp003_checkpoint_catalog": {
+      "path": "side_experiments/sideexp003_ensemble_method_hub/checkpoint_catalog.json",
+      "sha256": "bd7fb876bd90c4f9e2e61ce33a4fcaf3d49493e411e3cab1fdae33f8c68551a8"
+    }
+  }
+}
