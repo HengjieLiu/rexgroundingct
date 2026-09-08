@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "run_id": "rNNN_roster-slug",
+  "status": "draft",
+  "method": {
+    "id": "METHOD_ID",
+    "spec_path": "methods/METHOD_ID/method_spec.md",
+    "spec_sha256": null
+  },
+  "roster": {
+    "path": "rosters/roster_ROSTER.json",
+    "sha256": null,
+    "catalog_sha256": null,
+    "candidate_ids": [],
+    "checkpoint_sha256s": [],
+    "cache_keys": [],
+    "N": null
+  },
+  "data": {
+    "dataset_path": "configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "dataset_sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "folds_path": null,
+    "folds_sha256": null
+  },
+  "search": {
+    "Mmax": null,
+    "parameters": {},
+    "tie_break": [],
+    "commands": []
+  },
+  "code": {
+    "repo_commit": null,
+    "dirty_state_record": null
+  },
+  "outputs": {
+    "tracked_run_dir": null,
+    "runtime_run_dir": null,
+    "result_json": null,
+    "report_md": null,
+    "final_decision_json": null,
+    "final_logits_dir": null
+  },
+  "approvals": {
+    "roster_confirmed": false,
+    "Mmax_confirmed": false,
+    "final_M_confirmed": false
+  }
+}

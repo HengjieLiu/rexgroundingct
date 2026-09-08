@@ -1,0 +1,1625 @@
+{
+  "auto_continue": true,
+  "candidates": [
+    {
+      "architecture": "voxtell_standard",
+      "architecture_kind": "standard",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe",
+      "cache_version_id": "sideexp003_v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+        "sha256": "a499ad1c0fada9a7e4d78e352fa5510d31295e82749e00ef0a4eee6da685e4aa"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json",
+        "sha256": "ff7d1d22c5e1887167156df886cc1e792a3318cbb39fc5147e4a45e4baf1b349"
+      },
+      "epoch": 50,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/eval_epoch050_val200/eval/val_quick_global_eval.json",
+        "sha256": "a912a823af552e3b245d0cb03dee822fb54f923d4216d84e5539f315d014cadd"
+      },
+      "experiment_name": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "experiment_number": 7,
+      "gpu": 0,
+      "id": "exp007_ddp_bs4_e050_a499ad1c",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": null,
+        "model_type": "voxtell_standard",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "4c71865186268b17ffbc55b51688b1081dd35f45a2190ca0ba21148634b1455b",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch050",
+      "model_id": "ddp_bs4",
+      "model_spec": {
+        "model_type": "voxtell_standard",
+        "path": null,
+        "sha256": null
+      },
+      "performance": {
+        "dice": 0.3460234857111323,
+        "findings": 381,
+        "hit_rate": 0.7769028871391076,
+        "hits": 296
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch050/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp007_ddp_bs4_e050_a499ad1c.json",
+      "rank": 1,
+      "run": "exp007_cont100_from_ddp100_20260730T062051Z",
+      "wave": 1
+    },
+    {
+      "architecture": "standard",
+      "architecture_kind": "standard",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051",
+      "cache_version_id": "sideexp003_v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/009_voxtell_s3_attention_coupling_ablation.json",
+        "sha256": "f172db976f40d9f74a5978e65f1324be69fc9b648cb545315d8fe177305da215"
+      },
+      "epoch": 100,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/eval_epoch100_val200/eval/val_quick_global_eval.json",
+        "sha256": "dde9f3ef77b32f3859e4c3f684a55d71baed4e36950ce4e4af02fd23fc022a3d"
+      },
+      "experiment_name": "009_voxtell_s3_attention_coupling_ablation",
+      "experiment_number": 9,
+      "gpu": 1,
+      "id": "exp009_baseline_cont100_e100_50e631f1",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": null,
+        "model_type": "voxtell_standard",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "4c71865186268b17ffbc55b51688b1081dd35f45a2190ca0ba21148634b1455b",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100",
+      "model_id": "baseline_cont100",
+      "model_spec": {
+        "model_type": "voxtell_standard",
+        "path": null,
+        "sha256": null
+      },
+      "performance": {
+        "dice": 0.33983926010313587,
+        "findings": 381,
+        "hit_rate": 0.7559055118110236,
+        "hits": 288
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp009_baseline_cont100_e100_50e631f1.json",
+      "rank": 2,
+      "run": "exp009_s3_attention_20260727T081747Z",
+      "wave": 1
+    },
+    {
+      "architecture": "voxtell_standard",
+      "architecture_kind": "standard",
+      "cache": {
+        "id": "crop_clip1024_linear_iso07_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1/manifest.json",
+        "manifest_sha256": "59b53ed9fcd93b8e9872bf89770a14ffd6aeed31b206af33ca751b85d4bd2640",
+        "normalization": "crop native CT to nonzero, clip HU to [-1024,1024], divide by 1024, then trilinear 0.7 mm isotropic resampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1"
+      },
+      "cache_key": "v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca",
+      "cache_version_id": "sideexp003_v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+        "sha256": "4f36d9bba1ab5a59a8ef2e5b02200027d1053aa241631b1782bf98744c8bba02"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/017_voxtell_iso07_hu_ddp_bs4_update_matched.json",
+        "sha256": "32e2b702490255245c249e9b759b8a57aa442beccf3098908459edb2643f046f"
+      },
+      "epoch": 50,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/eval_epoch050_val200/eval/val_quick_global_eval.json",
+        "sha256": "12b78c2df274e3a7e0295377ec180b1df350eb3a3bbd080bafdbd51335a0653b"
+      },
+      "experiment_name": "017_voxtell_iso07_hu_ddp_bs4_update_matched",
+      "experiment_number": 17,
+      "gpu": 2,
+      "id": "exp017_ddp_bs4_e050_4f36d9bb",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": null,
+        "model_type": "voxtell_standard",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "4c71865186268b17ffbc55b51688b1081dd35f45a2190ca0ba21148634b1455b",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/model_epoch050",
+      "model_id": "ddp_bs4",
+      "model_spec": {
+        "model_type": "voxtell_standard",
+        "path": null,
+        "sha256": null
+      },
+      "performance": {
+        "dice": 0.33752638623854136,
+        "findings": 381,
+        "hit_rate": 0.7611548556430446,
+        "hits": 290
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/model_epoch050/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp017_ddp_bs4_e050_4f36d9bb.json",
+      "rank": 3,
+      "run": "exp017_cont100_from_iso07_epoch100_20260816T165351Z",
+      "wave": 1
+    },
+    {
+      "architecture": "s3_attention",
+      "architecture_kind": "s3",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d",
+      "cache_version_id": "sideexp003_v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "a3e93801ba121c0084ec52b7f7dc38cbb617dbec484b6113b4348aa7dec82f3d"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/009_voxtell_s3_attention_coupling_ablation.json",
+        "sha256": "f172db976f40d9f74a5978e65f1324be69fc9b648cb545315d8fe177305da215"
+      },
+      "epoch": 100,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/eval_epoch100_val200/eval/val_quick_global_eval.json",
+        "sha256": "67f479054b2a4e81c4c9b0d2acfd1bed94878f003ea308e69eb06200824ca056"
+      },
+      "experiment_name": "009_voxtell_s3_attention_coupling_ablation",
+      "experiment_number": 9,
+      "gpu": 3,
+      "id": "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": "c0a6980e47e830c763fe1c724fed30a6a672a52fb339110f5ab2ecaef6538553",
+        "model_type": "voxtell_s3_attention_v1",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "11acc10dd1c6f8dbc3e86a9166790227e65462d32016d0a269654c91317adda4",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100",
+      "model_id": "s3v2_balanced_feature_half_quarter",
+      "model_spec": {
+        "model_type": "voxtell_s3_attention_v1",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100/model_spec.json",
+        "sha256": "c0a6980e47e830c763fe1c724fed30a6a672a52fb339110f5ab2ecaef6538553"
+      },
+      "performance": {
+        "dice": 0.3367180602443776,
+        "findings": 381,
+        "hit_rate": 0.7664041994750657,
+        "hits": 292
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801.json",
+      "rank": 4,
+      "run": "exp009_s3_attention_20260727T081747Z",
+      "wave": 1
+    },
+    {
+      "architecture": "dual_branch",
+      "architecture_kind": "dual",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd",
+      "cache_version_id": "sideexp003_v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "61bcec41fc90d38bb7a1665f0e9da5da6727661114ea368efcb9d8fe41305779"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/008_voxtell_dual_branch_proposal_refinement_ablation.json",
+        "sha256": "b7282467c62dd2d6d3ff347f36ce7ff9ec548344061b3e5e4b4369a78d157f38"
+      },
+      "epoch": 100,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/eval_epoch100_val200/eval/val_quick_global_eval.json",
+        "sha256": "34ef0eb159c61818f3e905819e221786edfdcd772afa5321a6256c7d5e03382c"
+      },
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "gpu": 0,
+      "id": "exp008_v1_sharedfusion_softguide_e100_61bcec41",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": "dd36127e702975f13e926443d94ee28b98c278d2428e3bd652348048db4a98b6",
+        "model_type": "voxtell_dual_branch_v1",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "5d0accdbf6ae9ef3fbc06d013fe46c3444948e5eb40993856c6df363c153bc45",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/model_epoch100",
+      "model_id": "v1_sharedfusion_softguide",
+      "model_spec": {
+        "model_type": "voxtell_dual_branch_v1",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/model_epoch100/model_spec.json",
+        "sha256": "dd36127e702975f13e926443d94ee28b98c278d2428e3bd652348048db4a98b6"
+      },
+      "performance": {
+        "dice": 0.33658986857481515,
+        "findings": 381,
+        "hit_rate": 0.7532808398950132,
+        "hits": 287
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/model_epoch100/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp008_v1_sharedfusion_softguide_e100_61bcec41.json",
+      "rank": 5,
+      "run": "exp008_dual_branch_20260726T182647Z",
+      "wave": 2
+    },
+    {
+      "architecture": "dual_branch",
+      "architecture_kind": "dual",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23",
+      "cache_version_id": "sideexp003_v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_dualfusion_softguide/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "9ba13980560f3b6086b2529989db1029cb6866c9316f4f050e4632b9f615a654"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/008_voxtell_dual_branch_proposal_refinement_ablation.json",
+        "sha256": "b7282467c62dd2d6d3ff347f36ce7ff9ec548344061b3e5e4b4369a78d157f38"
+      },
+      "epoch": 100,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_dualfusion_softguide/eval_epoch100_val200/eval/val_quick_global_eval.json",
+        "sha256": "ef741d90b38234e7baf477fd002ab6be9c5e5f534f8c17b718abafe2812ca249"
+      },
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "gpu": 1,
+      "id": "exp008_v1_dualfusion_softguide_e100_9ba13980",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": "15c09d629f231a77d543764168f8eb8cefa7f7c2643030775d63cd022e35f940",
+        "model_type": "voxtell_dual_branch_v1",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "5ceff8de5062e50a3e014834a603fe1c4ffc0d4df062bfc8087707ba530a935f",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_dualfusion_softguide/model_epoch100",
+      "model_id": "v1_dualfusion_softguide",
+      "model_spec": {
+        "model_type": "voxtell_dual_branch_v1",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_dualfusion_softguide/model_epoch100/model_spec.json",
+        "sha256": "15c09d629f231a77d543764168f8eb8cefa7f7c2643030775d63cd022e35f940"
+      },
+      "performance": {
+        "dice": 0.33604885747413554,
+        "findings": 381,
+        "hit_rate": 0.7506561679790026,
+        "hits": 286
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_dualfusion_softguide/model_epoch100/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp008_v1_dualfusion_softguide_e100_9ba13980.json",
+      "rank": 6,
+      "run": "exp008_dual_branch_20260726T182647Z",
+      "wave": 2
+    },
+    {
+      "architecture": "s3_attention",
+      "architecture_kind": "s3",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704",
+      "cache_version_id": "sideexp003_v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v1_fixedrho_suppress_half_quarter/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "263f27d38b750d11d5453da684087b9985109d70410985bb9d450fefdfe1ede0"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/009_voxtell_s3_attention_coupling_ablation.json",
+        "sha256": "f172db976f40d9f74a5978e65f1324be69fc9b648cb545315d8fe177305da215"
+      },
+      "epoch": 100,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v1_fixedrho_suppress_half_quarter/eval_epoch100_val200/eval/val_quick_global_eval.json",
+        "sha256": "ba5634190cf14da69a4d5f45ba19e825ff237d5596961c7756428ad0dd0e85d2"
+      },
+      "experiment_name": "009_voxtell_s3_attention_coupling_ablation",
+      "experiment_number": 9,
+      "gpu": 2,
+      "id": "exp009_s3v1_fixedrho_suppress_half_quarter_e100_263f27d3",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": "d2e3c00c8464e068ad017f485acdb7470bec75488c5c12bb4dc9198e853a9114",
+        "model_type": "voxtell_s3_attention_v1",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "a7f7b84c4b3129d058e01d3766ca4b2d3515ddb957ccc67b875f1771bc0ea0c1",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v1_fixedrho_suppress_half_quarter/model_epoch100",
+      "model_id": "s3v1_fixedrho_suppress_half_quarter",
+      "model_spec": {
+        "model_type": "voxtell_s3_attention_v1",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v1_fixedrho_suppress_half_quarter/model_epoch100/model_spec.json",
+        "sha256": "d2e3c00c8464e068ad017f485acdb7470bec75488c5c12bb4dc9198e853a9114"
+      },
+      "performance": {
+        "dice": 0.33470946473151214,
+        "findings": 381,
+        "hit_rate": 0.7480314960629921,
+        "hits": 285
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v1_fixedrho_suppress_half_quarter/model_epoch100/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp009_s3v1_fixedrho_suppress_half_quarter_e100_263f27d3.json",
+      "rank": 7,
+      "run": "exp009_s3_attention_20260727T081747Z",
+      "wave": 2
+    },
+    {
+      "architecture": "voxtell_standard",
+      "architecture_kind": "standard",
+      "cache": {
+        "id": "crop_clip1024_linear_iso07_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1/manifest.json",
+        "manifest_sha256": "59b53ed9fcd93b8e9872bf89770a14ffd6aeed31b206af33ca751b85d4bd2640",
+        "normalization": "crop native CT to nonzero, clip HU to [-1024,1024], divide by 1024, then trilinear 0.7 mm isotropic resampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1"
+      },
+      "cache_key": "v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69",
+      "cache_version_id": "sideexp003_v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+        "sha256": "a50a69dc9f139bf2963fb5ac9a2d0386414c1288e90f08fff9693007bb8631ce"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/017_voxtell_iso07_hu_ddp_bs4_update_matched.json",
+        "sha256": "32e2b702490255245c249e9b759b8a57aa442beccf3098908459edb2643f046f"
+      },
+      "epoch": 50,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/eval_epoch050_val200/eval/val_quick_global_eval.json",
+        "sha256": "4a72349e774187e551788d9dd5b293fe272199400f6ca47961bafb7d06a3488b"
+      },
+      "experiment_name": "017_voxtell_iso07_hu_ddp_bs4_update_matched",
+      "experiment_number": 17,
+      "gpu": 3,
+      "id": "exp017_ddp_bs4_e050_a50a69dc",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": null,
+        "model_type": "voxtell_standard",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "4c71865186268b17ffbc55b51688b1081dd35f45a2190ca0ba21148634b1455b",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/model_epoch050",
+      "model_id": "ddp_bs4",
+      "model_spec": {
+        "model_type": "voxtell_standard",
+        "path": null,
+        "sha256": null
+      },
+      "performance": {
+        "dice": 0.33468131547805235,
+        "findings": 381,
+        "hit_rate": 0.7769028871391076,
+        "hits": 296
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/model_epoch050/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp017_ddp_bs4_e050_a50a69dc.json",
+      "rank": 8,
+      "run": "exp017_iso07_hu_ddp_bs4_20260815T092119Z",
+      "wave": 2
+    },
+    {
+      "architecture": "voxtell_standard",
+      "architecture_kind": "standard",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_985c56db1deb0d9b65bca73c028bbdca374ef190f8f131de415684fee18ccb16",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_985c56db1deb0d9b65bca73c028bbdca374ef190f8f131de415684fee18ccb16",
+      "cache_version_id": "sideexp003_v2_985c56db1deb0d9b65bca73c028bbdca374ef190f8f131de415684fee18ccb16",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "d56474a645f90e827af14e116454362d146db835ef5cf111120fb29ab8b78c0c"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json",
+        "sha256": "ff7d1d22c5e1887167156df886cc1e792a3318cbb39fc5147e4a45e4baf1b349"
+      },
+      "epoch": 100,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/eval_epoch100_val200/eval/val_quick_global_eval.json",
+        "sha256": "69b66b9ba344644149cda47258158e825550a663126d92b6e0939209c57572fa"
+      },
+      "experiment_name": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "experiment_number": 7,
+      "gpu": 0,
+      "id": "exp007_ddp_bs4_e100_d56474a6",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": null,
+        "model_type": "voxtell_standard",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "4c71865186268b17ffbc55b51688b1081dd35f45a2190ca0ba21148634b1455b",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch100",
+      "model_id": "ddp_bs4",
+      "model_spec": {
+        "model_type": "voxtell_standard",
+        "path": null,
+        "sha256": null
+      },
+      "performance": {
+        "dice": 0.3346592080565097,
+        "findings": 381,
+        "hit_rate": 0.7664041994750657,
+        "hits": 292
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch100/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp007_ddp_bs4_e100_d56474a6.json",
+      "rank": 9,
+      "run": "exp007_cont100_from_ddp100_20260730T062051Z",
+      "wave": 3
+    },
+    {
+      "architecture": "dual_branch",
+      "architecture_kind": "dual",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_3a6dabb84f3e415e57b3f02a5958f80f840498d49dcaf90238f5c8d25cab6339",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_3a6dabb84f3e415e57b3f02a5958f80f840498d49dcaf90238f5c8d25cab6339",
+      "cache_version_id": "sideexp003_v2_3a6dabb84f3e415e57b3f02a5958f80f840498d49dcaf90238f5c8d25cab6339",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v3_dualfusion_softguide_joint/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "f98374db047ca885c1b698121664425c8b049b8e5a44d3673f114cb5a9b6dd0b"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/008_voxtell_dual_branch_proposal_refinement_ablation.json",
+        "sha256": "b7282467c62dd2d6d3ff347f36ce7ff9ec548344061b3e5e4b4369a78d157f38"
+      },
+      "epoch": 100,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v3_dualfusion_softguide_joint/eval_epoch100_val200/eval/val_quick_global_eval.json",
+        "sha256": "a0d3cf68851806797ed6b20e7cdb84d73241d8396158ff4853df5f84b07fa019"
+      },
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "gpu": 1,
+      "id": "exp008_v3_dualfusion_softguide_joint_e100_f98374db",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": "4ca1a7f5f676a7118b472d44aa8daa1ef30a813c9b2c0ab5862ba75eda911730",
+        "model_type": "voxtell_dual_branch_v1",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "2e46b20ef72101516164d917009255bddd9ea1579a805aafd227ce18cbf1b819",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v3_dualfusion_softguide_joint/model_epoch100",
+      "model_id": "v3_dualfusion_softguide_joint",
+      "model_spec": {
+        "model_type": "voxtell_dual_branch_v1",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v3_dualfusion_softguide_joint/model_epoch100/model_spec.json",
+        "sha256": "4ca1a7f5f676a7118b472d44aa8daa1ef30a813c9b2c0ab5862ba75eda911730"
+      },
+      "performance": {
+        "dice": 0.33452015530600027,
+        "findings": 381,
+        "hit_rate": 0.7559055118110236,
+        "hits": 288
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v3_dualfusion_softguide_joint/model_epoch100/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp008_v3_dualfusion_softguide_joint_e100_f98374db.json",
+      "rank": 10,
+      "run": "exp008_dual_branch_20260726T182647Z",
+      "wave": 3
+    },
+    {
+      "architecture": "voxtell_standard",
+      "architecture_kind": "standard",
+      "cache": {
+        "id": "crop_clip1024_linear_iso07_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1/manifest.json",
+        "manifest_sha256": "59b53ed9fcd93b8e9872bf89770a14ffd6aeed31b206af33ca751b85d4bd2640",
+        "normalization": "crop native CT to nonzero, clip HU to [-1024,1024], divide by 1024, then trilinear 0.7 mm isotropic resampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1"
+      },
+      "cache_key": "v2_7d2798c3054c72c59a2b8c895a80caac57b2404f9cba37596ea4c555cca947b1",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_7d2798c3054c72c59a2b8c895a80caac57b2404f9cba37596ea4c555cca947b1",
+      "cache_version_id": "sideexp003_v2_7d2798c3054c72c59a2b8c895a80caac57b2404f9cba37596ea4c555cca947b1",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/model_epoch075/fold_0/checkpoint_final.pth",
+        "sha256": "39aabab2569f9be9d89c425f2b6639e2cc87f6960129d78b558f6f2d3cd1fa5c"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/017_voxtell_iso07_hu_ddp_bs4_update_matched.json",
+        "sha256": "32e2b702490255245c249e9b759b8a57aa442beccf3098908459edb2643f046f"
+      },
+      "epoch": 75,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/eval_epoch075_val200/eval/val_quick_global_eval.json",
+        "sha256": "8ae99e2c5ce98eb522625f04dcdc9ecff0c0f836e2cc2fa3d7233f9655046168"
+      },
+      "experiment_name": "017_voxtell_iso07_hu_ddp_bs4_update_matched",
+      "experiment_number": 17,
+      "gpu": 2,
+      "id": "exp017_ddp_bs4_e075_39aabab2",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": null,
+        "model_type": "voxtell_standard",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "4c71865186268b17ffbc55b51688b1081dd35f45a2190ca0ba21148634b1455b",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/model_epoch075",
+      "model_id": "ddp_bs4",
+      "model_spec": {
+        "model_type": "voxtell_standard",
+        "path": null,
+        "sha256": null
+      },
+      "performance": {
+        "dice": 0.33387461223685266,
+        "findings": 381,
+        "hit_rate": 0.7716535433070866,
+        "hits": 294
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/model_epoch075/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp017_ddp_bs4_e075_39aabab2.json",
+      "rank": 11,
+      "run": "exp017_cont100_from_iso07_epoch100_20260816T165351Z",
+      "wave": 3
+    },
+    {
+      "architecture": "dual_branch",
+      "architecture_kind": "dual",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_460bc47530b0c94b23df24a80e92d70ad8c883a0cf9d9e6b341c3a49993a0d5c",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_460bc47530b0c94b23df24a80e92d70ad8c883a0cf9d9e6b341c3a49993a0d5c",
+      "cache_version_id": "sideexp003_v2_460bc47530b0c94b23df24a80e92d70ad8c883a0cf9d9e6b341c3a49993a0d5c",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v2_dualfusion_precision/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "e67e2bc2840fb46af7e3eb4567c5c840d7db177bc24fbf5dae475018b27052b6"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/008_voxtell_dual_branch_proposal_refinement_ablation.json",
+        "sha256": "b7282467c62dd2d6d3ff347f36ce7ff9ec548344061b3e5e4b4369a78d157f38"
+      },
+      "epoch": 100,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v2_dualfusion_precision/eval_epoch100_val200/eval/val_quick_global_eval.json",
+        "sha256": "c8edad1d1256c0366b1fdbedc6ffb1684edf4fb2446274db97fdfc86e76ed66d"
+      },
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "gpu": 3,
+      "id": "exp008_v2_dualfusion_precision_e100_e67e2bc2",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": "c5ea9e7c6648d569922b5aa7d274e3f63d7a6322c05992c2c0bdee588062d378",
+        "model_type": "voxtell_dual_branch_v1",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "8905a9d4a31827880f9a4d585d97b6fabb1acd2d7d300eb0beca9f8a80f6f633",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v2_dualfusion_precision/model_epoch100",
+      "model_id": "v2_dualfusion_precision",
+      "model_spec": {
+        "model_type": "voxtell_dual_branch_v1",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v2_dualfusion_precision/model_epoch100/model_spec.json",
+        "sha256": "c5ea9e7c6648d569922b5aa7d274e3f63d7a6322c05992c2c0bdee588062d378"
+      },
+      "performance": {
+        "dice": 0.33328520101915393,
+        "findings": 381,
+        "hit_rate": 0.7532808398950132,
+        "hits": 287
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v2_dualfusion_precision/model_epoch100/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp008_v2_dualfusion_precision_e100_e67e2bc2.json",
+      "rank": 12,
+      "run": "exp008_dual_branch_20260726T182647Z",
+      "wave": 3
+    },
+    {
+      "architecture": "voxtell_standard",
+      "architecture_kind": "standard",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "unspecified",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_970aa27766b0d1aca142747f872cb382dc4006a266b28b8ee6c61c2d6674a88b",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_970aa27766b0d1aca142747f872cb382dc4006a266b28b8ee6c61c2d6674a88b",
+      "cache_version_id": "sideexp003_v2_970aa27766b0d1aca142747f872cb382dc4006a266b28b8ee6c61c2d6674a88b",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_20260801T215219Z/category_2a_replay50/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "8dcdac045bd5d4c7609552e39d48915c2cf667944965d2edf3d4131d05b4c40c"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/012_voxtell_category_specialists_replay50_cont100.json",
+        "sha256": "8700da1116914e3d71933abafe859138f31d5550eca72519e53c9e51e4998782"
+      },
+      "epoch": 100,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_20260801T215219Z/category_2a_replay50/eval_epoch100_val200/eval/val_quick_global_eval.json",
+        "sha256": "413d6a3ad57ba4e81668b8e7623fd1790ecab70a716d3e0bd174c4741556dcaa"
+      },
+      "experiment_name": "012_voxtell_category_specialists_replay50_cont100",
+      "experiment_number": 12,
+      "gpu": 0,
+      "id": "exp012_category_2a_replay50_e100_8dcdac04",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": null,
+        "model_type": "voxtell_standard",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "4c71865186268b17ffbc55b51688b1081dd35f45a2190ca0ba21148634b1455b",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_20260801T215219Z/category_2a_replay50/model_epoch100",
+      "model_id": "category_2a_replay50",
+      "model_spec": {
+        "model_type": "voxtell_standard",
+        "path": null,
+        "sha256": null
+      },
+      "performance": {
+        "dice": 0.33327792456928335,
+        "findings": 381,
+        "hit_rate": 0.7480314960629921,
+        "hits": 285
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/012_voxtell_category_specialists_replay50_cont100/runs/exp012_category_specialists_20260801T215219Z/category_2a_replay50/model_epoch100/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp012_category_2a_replay50_e100_8dcdac04.json",
+      "rank": 13,
+      "run": "exp012_category_specialists_20260801T215219Z",
+      "wave": 4
+    },
+    {
+      "architecture": "standard",
+      "architecture_kind": "standard",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_091cf4237a0cc6fb40c47b6a741f64cc14a97c83fd87e1e32fde0eaf6dd7d88c",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_091cf4237a0cc6fb40c47b6a741f64cc14a97c83fd87e1e32fde0eaf6dd7d88c",
+      "cache_version_id": "sideexp003_v2_091cf4237a0cc6fb40c47b6a741f64cc14a97c83fd87e1e32fde0eaf6dd7d88c",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+        "sha256": "24e8ab9301175851192bf9c45dcab971a67faca5a6b1b9f38450aece743dae94"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json",
+        "sha256": "ff7d1d22c5e1887167156df886cc1e792a3318cbb39fc5147e4a45e4baf1b349"
+      },
+      "epoch": 50,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/eval_epoch050_val200/eval/val_quick_global_eval.json",
+        "sha256": "1e71f12e5d41f6dd3715565a3a4144a35bcc6ea0ed203a14db1c2e671977d89d"
+      },
+      "experiment_name": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "experiment_number": 7,
+      "gpu": 1,
+      "id": "exp007_ddp_bs4_e050_24e8ab93",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": null,
+        "model_type": "voxtell_standard",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "4c71865186268b17ffbc55b51688b1081dd35f45a2190ca0ba21148634b1455b",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/model_epoch050",
+      "model_id": "ddp_bs4",
+      "model_spec": {
+        "model_type": "voxtell_standard",
+        "path": null,
+        "sha256": null
+      },
+      "performance": {
+        "dice": 0.3332675833035555,
+        "findings": 381,
+        "hit_rate": 0.7559055118110236,
+        "hits": 288
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/model_epoch050/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp007_ddp_bs4_e050_24e8ab93.json",
+      "rank": 14,
+      "run": "exp007_full_20260725T231624Z",
+      "wave": 4
+    },
+    {
+      "architecture": "voxtell_standard",
+      "architecture_kind": "standard",
+      "cache": {
+        "id": "crop_clip1024_linear_iso07_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1/manifest.json",
+        "manifest_sha256": "59b53ed9fcd93b8e9872bf89770a14ffd6aeed31b206af33ca751b85d4bd2640",
+        "normalization": "crop native CT to nonzero, clip HU to [-1024,1024], divide by 1024, then trilinear 0.7 mm isotropic resampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1"
+      },
+      "cache_key": "v2_cd261a722f97fbf9dcd3c6d4c062e45746413439f29b1bd7c644dcf1b0be7bd0",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_cd261a722f97fbf9dcd3c6d4c062e45746413439f29b1bd7c644dcf1b0be7bd0",
+      "cache_version_id": "sideexp003_v2_cd261a722f97fbf9dcd3c6d4c062e45746413439f29b1bd7c644dcf1b0be7bd0",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "f11d238ffeaf9d96fe6ba7f81f6dd134953b18b0eaaae3f5404176aa0cec6cc4"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/017_voxtell_iso07_hu_ddp_bs4_update_matched.json",
+        "sha256": "32e2b702490255245c249e9b759b8a57aa442beccf3098908459edb2643f046f"
+      },
+      "epoch": 100,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/eval_epoch100_val200/eval/val_quick_global_eval.json",
+        "sha256": "e7eb19e788f91d6eceb98d64e6bb78df11ecd6c18c5f9cb10e9a0268d1f9eaa8"
+      },
+      "experiment_name": "017_voxtell_iso07_hu_ddp_bs4_update_matched",
+      "experiment_number": 17,
+      "gpu": 2,
+      "id": "exp017_ddp_bs4_e100_f11d238f",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": null,
+        "model_type": "voxtell_standard",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "4c71865186268b17ffbc55b51688b1081dd35f45a2190ca0ba21148634b1455b",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/model_epoch100",
+      "model_id": "ddp_bs4",
+      "model_spec": {
+        "model_type": "voxtell_standard",
+        "path": null,
+        "sha256": null
+      },
+      "performance": {
+        "dice": 0.33281102687261843,
+        "findings": 381,
+        "hit_rate": 0.7690288713910761,
+        "hits": 293
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/model_epoch100/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp017_ddp_bs4_e100_f11d238f.json",
+      "rank": 15,
+      "run": "exp017_iso07_hu_ddp_bs4_20260815T092119Z",
+      "wave": 4
+    },
+    {
+      "architecture": "dual_branch",
+      "architecture_kind": "dual",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_a444cfc47c7d46575ff278fd3c89e6afec9ddbd4f9fc9b730d7da0b43a7ffbfd",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a444cfc47c7d46575ff278fd3c89e6afec9ddbd4f9fc9b730d7da0b43a7ffbfd",
+      "cache_version_id": "sideexp003_v2_a444cfc47c7d46575ff278fd3c89e6afec9ddbd4f9fc9b730d7da0b43a7ffbfd",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/model_epoch080/fold_0/checkpoint_final.pth",
+        "sha256": "ed0cdd0a0c8b409a8c99abe608d3ea65e21a30e6e42c70308ce25029b9de369f"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/008_voxtell_dual_branch_proposal_refinement_ablation.json",
+        "sha256": "b7282467c62dd2d6d3ff347f36ce7ff9ec548344061b3e5e4b4369a78d157f38"
+      },
+      "epoch": 80,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/eval_epoch080_val200/eval/val_quick_global_eval.json",
+        "sha256": "ec103783c29068d75d1cba4192460c6966e59b86c05d3cc4314ff034741ad707"
+      },
+      "experiment_name": "008_voxtell_dual_branch_proposal_refinement_ablation",
+      "experiment_number": 8,
+      "gpu": 3,
+      "id": "exp008_v1_sharedfusion_softguide_e080_ed0cdd0a",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": "dd36127e702975f13e926443d94ee28b98c278d2428e3bd652348048db4a98b6",
+        "model_type": "voxtell_dual_branch_v1",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "5d0accdbf6ae9ef3fbc06d013fe46c3444948e5eb40993856c6df363c153bc45",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/model_epoch080",
+      "model_id": "v1_sharedfusion_softguide",
+      "model_spec": {
+        "model_type": "voxtell_dual_branch_v1",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/model_epoch080/model_spec.json",
+        "sha256": "dd36127e702975f13e926443d94ee28b98c278d2428e3bd652348048db4a98b6"
+      },
+      "performance": {
+        "dice": 0.3328089069723196,
+        "findings": 381,
+        "hit_rate": 0.7427821522309711,
+        "hits": 283
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/model_epoch080/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp008_v1_sharedfusion_softguide_e080_ed0cdd0a.json",
+      "rank": 16,
+      "run": "exp008_dual_branch_20260726T182647Z",
+      "wave": 4
+    },
+    {
+      "architecture": "s3_attention",
+      "architecture_kind": "s3",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_81a6233dfb516fa0cd32463e31a3f3a24ff9b1c00c2cc08b091e5f792c92bc4f",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_81a6233dfb516fa0cd32463e31a3f3a24ff9b1c00c2cc08b091e5f792c92bc4f",
+      "cache_version_id": "sideexp003_v2_81a6233dfb516fa0cd32463e31a3f3a24ff9b1c00c2cc08b091e5f792c92bc4f",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v3_logit_residual_half_quarter/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "a0167aaa349ab0c5e407cb524943eec36696756a55dc364a351d8bd4171366a8"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/009_voxtell_s3_attention_coupling_ablation.json",
+        "sha256": "f172db976f40d9f74a5978e65f1324be69fc9b648cb545315d8fe177305da215"
+      },
+      "epoch": 100,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v3_logit_residual_half_quarter/eval_epoch100_val200/eval/val_quick_global_eval.json",
+        "sha256": "95c2ed99cf25c81bc8bfff99170acbe816f5d1bd09f9c4b95f564ad5582cd85a"
+      },
+      "experiment_name": "009_voxtell_s3_attention_coupling_ablation",
+      "experiment_number": 9,
+      "gpu": 0,
+      "id": "exp009_s3v3_logit_residual_half_quarter_e100_a0167aaa",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": "89d275806fe197b2c6f2e61fbc5cfe7438482734fb6260c1cf743a764394ebc2",
+        "model_type": "voxtell_s3_attention_v1",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "74b6200d9d0389f058e2a70778675f0d492ed90750e04407f53b29934f2caf01",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v3_logit_residual_half_quarter/model_epoch100",
+      "model_id": "s3v3_logit_residual_half_quarter",
+      "model_spec": {
+        "model_type": "voxtell_s3_attention_v1",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v3_logit_residual_half_quarter/model_epoch100/model_spec.json",
+        "sha256": "89d275806fe197b2c6f2e61fbc5cfe7438482734fb6260c1cf743a764394ebc2"
+      },
+      "performance": {
+        "dice": 0.3326611841869791,
+        "findings": 381,
+        "hit_rate": 0.7611548556430446,
+        "hits": 290
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v3_logit_residual_half_quarter/model_epoch100/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp009_s3v3_logit_residual_half_quarter_e100_a0167aaa.json",
+      "rank": 17,
+      "run": "exp009_s3_attention_20260727T081747Z",
+      "wave": 5
+    },
+    {
+      "architecture": "voxtell_standard",
+      "architecture_kind": "standard",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_d2aa331c85c0314d41bfbd6cfeb5ef7533e7ae257d009819bc0ac3a4bf63aee3",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d2aa331c85c0314d41bfbd6cfeb5ef7533e7ae257d009819bc0ac3a4bf63aee3",
+      "cache_version_id": "sideexp003_v2_d2aa331c85c0314d41bfbd6cfeb5ef7533e7ae257d009819bc0ac3a4bf63aee3",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_phase3_from_abs_e200_20260905T101022Z/ddp_bs4/model_epoch080/fold_0/checkpoint_final.pth",
+        "sha256": "b5dc2c6f840fe43cf203bcd0ef301dc67d06027d60345957c204039562f6d97d"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json",
+        "sha256": "ff7d1d22c5e1887167156df886cc1e792a3318cbb39fc5147e4a45e4baf1b349"
+      },
+      "epoch": 80,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_phase3_from_abs_e200_20260905T101022Z/ddp_bs4/eval_epoch080_val200/eval/val_quick_global_eval.json",
+        "sha256": "20948eec8a7eaf17d3003ae7761323d33e3060fe7adeab942e1a7d53c87eba3a"
+      },
+      "experiment_name": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "experiment_number": 7,
+      "gpu": 1,
+      "id": "exp007_ddp_bs4_e080_b5dc2c6f",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": null,
+        "model_type": "voxtell_standard",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "4c71865186268b17ffbc55b51688b1081dd35f45a2190ca0ba21148634b1455b",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_phase3_from_abs_e200_20260905T101022Z/ddp_bs4/model_epoch080",
+      "model_id": "ddp_bs4",
+      "model_spec": {
+        "model_type": "voxtell_standard",
+        "path": null,
+        "sha256": null
+      },
+      "performance": {
+        "dice": 0.33182210420051517,
+        "findings": 381,
+        "hit_rate": 0.7716535433070866,
+        "hits": 294
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_phase3_from_abs_e200_20260905T101022Z/ddp_bs4/model_epoch080/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp007_ddp_bs4_e080_b5dc2c6f.json",
+      "rank": 18,
+      "run": "exp007_phase3_from_abs_e200_20260905T101022Z",
+      "wave": 5
+    },
+    {
+      "architecture": "standard",
+      "architecture_kind": "standard",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_3aff543e68410d50b0228c0f243b7a914422ec82b1f07f558be95712f433163d",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_3aff543e68410d50b0228c0f243b7a914422ec82b1f07f558be95712f433163d",
+      "cache_version_id": "sideexp003_v2_3aff543e68410d50b0228c0f243b7a914422ec82b1f07f558be95712f433163d",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/model_epoch075/fold_0/checkpoint_final.pth",
+        "sha256": "7f0b6a5f06733cdfb4ecb097b8a8f6fdb506d60800f35a846967ee76ffe638f3"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json",
+        "sha256": "ff7d1d22c5e1887167156df886cc1e792a3318cbb39fc5147e4a45e4baf1b349"
+      },
+      "epoch": 75,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/eval_epoch075_val200/eval/val_quick_global_eval.json",
+        "sha256": "e694f52a30e81e1bac2c5764b53e17065a8ed755b63c93ef7ebfb8fec93494ba"
+      },
+      "experiment_name": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "experiment_number": 7,
+      "gpu": 2,
+      "id": "exp007_ddp_bs4_e075_7f0b6a5f",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": null,
+        "model_type": "voxtell_standard",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "4c71865186268b17ffbc55b51688b1081dd35f45a2190ca0ba21148634b1455b",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/model_epoch075",
+      "model_id": "ddp_bs4",
+      "model_spec": {
+        "model_type": "voxtell_standard",
+        "path": null,
+        "sha256": null
+      },
+      "performance": {
+        "dice": 0.3318101637825379,
+        "findings": 381,
+        "hit_rate": 0.7611548556430446,
+        "hits": 290
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_full_20260725T231624Z/ddp_bs4/model_epoch075/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp007_ddp_bs4_e075_7f0b6a5f.json",
+      "rank": 19,
+      "run": "exp007_full_20260725T231624Z",
+      "wave": 5
+    },
+    {
+      "architecture": "voxtell_standard",
+      "architecture_kind": "standard",
+      "cache": {
+        "id": "crop_zscore_native_v1",
+        "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1/manifest.json",
+        "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3",
+        "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+        "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1"
+      },
+      "cache_key": "v2_31979324c66a5b776d13f791a88fd83fdb2ab06b3dfefdda8c2b3462e234f521",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_31979324c66a5b776d13f791a88fd83fdb2ab06b3dfefdda8c2b3462e234f521",
+      "cache_version_id": "sideexp003_v2_31979324c66a5b776d13f791a88fd83fdb2ab06b3dfefdda8c2b3462e234f521",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch075/fold_0/checkpoint_final.pth",
+        "sha256": "e3ec77b28c7b308dab2c48034ef7a198576f5230721f4c91394c1272e8d2b13f"
+      },
+      "config": {
+        "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched.json",
+        "sha256": "ff7d1d22c5e1887167156df886cc1e792a3318cbb39fc5147e4a45e4baf1b349"
+      },
+      "epoch": 75,
+      "evaluation": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/eval_epoch075_val200/eval/val_quick_global_eval.json",
+        "sha256": "c626a8144f68b7fa24d84d9467a2c7c01518f5217c57d5320f5ddb2d63d83fac"
+      },
+      "experiment_name": "007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched",
+      "experiment_number": 7,
+      "gpu": 3,
+      "id": "exp007_ddp_bs4_e075_e3ec77b2",
+      "inference_contract": {
+        "inference_batch_size": 1,
+        "logit_threshold": 0.0,
+        "model_spec_sha256": null,
+        "model_type": "voxtell_standard",
+        "output_layout": "F,X,Y,Z",
+        "plans_sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc",
+        "prediction": "VoxTell sliding-window preprocessed crop final logits",
+        "probability_threshold": 0.5,
+        "prompt_order": "sorted_prompts_numeric_finding_index",
+        "restore": "cached crop to released-label native evaluator layout",
+        "schema_version": 1
+      },
+      "inference_contract_sha256": "4c71865186268b17ffbc55b51688b1081dd35f45a2190ca0ba21148634b1455b",
+      "model_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch075",
+      "model_id": "ddp_bs4",
+      "model_spec": {
+        "model_type": "voxtell_standard",
+        "path": null,
+        "sha256": null
+      },
+      "performance": {
+        "dice": 0.33179894515449193,
+        "findings": 381,
+        "hit_rate": 0.7506561679790026,
+        "hits": 286
+      },
+      "plans": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch075/plans.json",
+        "sha256": "d94ce4eeb9ef067eb10a92aad1b7342e568c44cc23f261013632db3c13b2c4fc"
+      },
+      "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp007_ddp_bs4_e075_e3ec77b2.json",
+      "rank": 20,
+      "run": "exp007_cont100_from_ddp100_20260730T062051Z",
+      "wave": 5
+    }
+  ],
+  "container": {
+    "image": "rexgroundingct-voxtell:cu126",
+    "image_id": "sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f"
+  },
+  "created_at_utc": "2026-09-07T23:02:02Z",
+  "dataset": {
+    "cases": 200,
+    "findings": 381,
+    "path": "/home/hengjie/code_sync/rexgroundingct/configs/evaluation/rexgroundingct_val200_seed20260723.json",
+    "sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897",
+    "split": "val200"
+  },
+  "gpu_safety": {
+    "minimum_post_smoke_free_mib": 4096,
+    "minimum_start_free_mib": 20000,
+    "poll_seconds": 60
+  },
+  "gpus": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "initial_eta_hours": {
+    "all_20": [
+      15.0,
+      28.0
+    ],
+    "wave_1": [
+      2.5,
+      5.5
+    ]
+  },
+  "job_id": "j001_top20_val200_fresh",
+  "job_spec_sha256": "b379536c17dcb8f4d45fb075f80adbb22e1db66799cdb99499dd0f7eef542cc1",
+  "reuse_policy": "fresh_only",
+  "roster_id": "top20_val200_dice_20260907T211605Z",
+  "roster_sha256": "04aaff359ba3e1e6748a2e0851f64a828906c28b0ed642b673088064275ba96c",
+  "runtime_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh",
+  "schema_version": 1,
+  "source_bundle": {
+    "files": [
+      {
+        "path": "external/VoxTell/voxtell/__init__.py",
+        "sha256": "fcf874527b533547dd8a835f74c9bee8fc2010ed25d477ab054f1885bcf8b9f7"
+      },
+      {
+        "path": "external/VoxTell/voxtell/inference/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "external/VoxTell/voxtell/inference/predict_from_raw_data.py",
+        "sha256": "45a885712448fe9c1066091630abc17ba49e4b93921a15e2ba9a4c1b636269f7"
+      },
+      {
+        "path": "external/VoxTell/voxtell/inference/predictor.py",
+        "sha256": "a3de480f5a58146d9d15f26c4ac4e91d24a1e39bbb3cf5d3ec6a9ecba84f3f58"
+      },
+      {
+        "path": "external/VoxTell/voxtell/model/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "external/VoxTell/voxtell/model/transformer.py",
+        "sha256": "d98f0acd8bfcedbf0697441d17644ce184d7c826c501d50d36bfb50bef5d596e"
+      },
+      {
+        "path": "external/VoxTell/voxtell/model/voxtell_model.py",
+        "sha256": "6c1b057e7d8750f4d4c5349fbebf8d785f40e6c1f49d971c0379c24282d72b64"
+      },
+      {
+        "path": "external/VoxTell/voxtell/training/__init__.py",
+        "sha256": "cd07f84ac58725437cf17e07078796ad29bdfa31205f568a798b6bc5663a1340"
+      },
+      {
+        "path": "external/VoxTell/voxtell/training/run_finetuning.py",
+        "sha256": "81263b49bf9897caa53d9af22b5870edfd98212e73f42c1078f6aa025dca98bc"
+      },
+      {
+        "path": "external/VoxTell/voxtell/training/voxtell_trainer.py",
+        "sha256": "0bba7dc081c23ee3ff3a40f9ce0f5a2fd19276da826a95023f3c34428cd798d7"
+      },
+      {
+        "path": "external/VoxTell/voxtell/utils/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "external/VoxTell/voxtell/utils/embedding_bank.py",
+        "sha256": "de1a9ed6f3e11ea67055175c366a6661c53f0397618e666ab66e66c7f9209aac"
+      },
+      {
+        "path": "external/VoxTell/voxtell/utils/text_embedding.py",
+        "sha256": "02d74132c14297a72b59ec73499d7a7ecbbf037cfeb88ec89d695aedf6699125"
+      },
+      {
+        "path": "scripts/rexgroundingct/common.py",
+        "sha256": "02b011f54070d5a9dd92bea76e36ce18f7a06a8333d75ba6ef414dbc0c5efec3"
+      },
+      {
+        "path": "scripts/rexgroundingct/run_voxtell_val_inference.py",
+        "sha256": "896c0a5e62e3055823653b0e65a99499e397346c1c4f0ae5a01b2d8f8c615d82"
+      },
+      {
+        "path": "scripts/rexgroundingct/voxtell_dual_branch.py",
+        "sha256": "73a93e62122b548a0ff8e0fdd4de499c2402dccb734ac8ed83d7c383ddd792f3"
+      },
+      {
+        "path": "scripts/rexgroundingct/voxtell_preprocessed_cache.py",
+        "sha256": "d75acf197a8a111a419d32203f5383a9bb3b93094058b8f46172aa91ccc6e82c"
+      },
+      {
+        "path": "scripts/rexgroundingct/voxtell_s3_attention.py",
+        "sha256": "bac708b6d8617d612892a3c056a970fb86c918dcfff264e5632871f22554304a"
+      },
+      {
+        "path": "side_experiments/sideexp002_multimodel_ensemble_selection/analyze_candidates.py",
+        "sha256": "f1165f00f370862474252ce9e2d919470b2d243acf2333055bb04795ed134e69"
+      },
+      {
+        "path": "side_experiments/sideexp002_multimodel_ensemble_selection/export_logits.py",
+        "sha256": "5f13db5cecddb1537cafcadb3ba15e893a9fe0478b4ad493ffd18a9e85c4c87a"
+      },
+      {
+        "path": "side_experiments/sideexp002_multimodel_ensemble_selection/storage_validation.py",
+        "sha256": "9bac6b7c310997daed4415255c859edb5321726f9c12977c5c8d4d0ae126b035"
+      },
+      {
+        "path": "side_experiments/sideexp003_ensemble_method_hub/fresh_cache.py",
+        "sha256": "ec553857dc7e7e7ec8559f480f5efbc9e9568b35d24c4ba10da7707f3532f8af"
+      },
+      {
+        "path": "side_experiments/sideexp003_ensemble_method_hub/fresh_export.py",
+        "sha256": "89f23519f567c3ec3f14ffbba7ab24d8995621ead8f34527342e3082a852af86"
+      },
+      {
+        "path": "side_experiments/sideexp003_ensemble_method_hub/fresh_orchestrator.py",
+        "sha256": "f4325e09a2951ddb76ae30bdba19f8f53572dbd39058117bdc106aa6fbf6efe3"
+      },
+      {
+        "path": "side_experiments/sideexp003_ensemble_method_hub/hub.py",
+        "sha256": "dc975ed37e449b30871dc0e6cb409ff403e085e90d83c5e5245a495a9ca2850f"
+      }
+    ],
+    "sha256": "ecfd609aa7cf6382bfef94467a2d6105ab46725a92c94301126ea23fe9580faa"
+  },
+  "status": "planned",
+  "storage_contract": {
+    "clip": [
+      -30.0,
+      30.0
+    ],
+    "kind": "pre_sigmoid_logits",
+    "layout": "F,X,Y,Z",
+    "publication_policy": "float16_if_exact_threshold_sign_else_float32",
+    "same_pass_probability_threshold": 0.5,
+    "staging_dtype": "float32"
+  },
+  "test300": {
+    "dataset": {
+      "cases": 300,
+      "findings": 582,
+      "path": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+      "sha256": "3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a"
+    },
+    "metric_status": "not_available_withheld_labels",
+    "status": "deferred"
+  },
+  "wave_size": 4,
+  "waves": [
+    {
+      "members": [
+        {
+          "candidate_id": "exp007_ddp_bs4_e050_a499ad1c",
+          "gpu": 0,
+          "rank": 1
+        },
+        {
+          "candidate_id": "exp009_baseline_cont100_e100_50e631f1",
+          "gpu": 1,
+          "rank": 2
+        },
+        {
+          "candidate_id": "exp017_ddp_bs4_e050_4f36d9bb",
+          "gpu": 2,
+          "rank": 3
+        },
+        {
+          "candidate_id": "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+          "gpu": 3,
+          "rank": 4
+        }
+      ],
+      "status": "queued",
+      "wave": 1
+    },
+    {
+      "members": [
+        {
+          "candidate_id": "exp008_v1_sharedfusion_softguide_e100_61bcec41",
+          "gpu": 0,
+          "rank": 5
+        },
+        {
+          "candidate_id": "exp008_v1_dualfusion_softguide_e100_9ba13980",
+          "gpu": 1,
+          "rank": 6
+        },
+        {
+          "candidate_id": "exp009_s3v1_fixedrho_suppress_half_quarter_e100_263f27d3",
+          "gpu": 2,
+          "rank": 7
+        },
+        {
+          "candidate_id": "exp017_ddp_bs4_e050_a50a69dc",
+          "gpu": 3,
+          "rank": 8
+        }
+      ],
+      "status": "queued",
+      "wave": 2
+    },
+    {
+      "members": [
+        {
+          "candidate_id": "exp007_ddp_bs4_e100_d56474a6",
+          "gpu": 0,
+          "rank": 9
+        },
+        {
+          "candidate_id": "exp008_v3_dualfusion_softguide_joint_e100_f98374db",
+          "gpu": 1,
+          "rank": 10
+        },
+        {
+          "candidate_id": "exp017_ddp_bs4_e075_39aabab2",
+          "gpu": 2,
+          "rank": 11
+        },
+        {
+          "candidate_id": "exp008_v2_dualfusion_precision_e100_e67e2bc2",
+          "gpu": 3,
+          "rank": 12
+        }
+      ],
+      "status": "queued",
+      "wave": 3
+    },
+    {
+      "members": [
+        {
+          "candidate_id": "exp012_category_2a_replay50_e100_8dcdac04",
+          "gpu": 0,
+          "rank": 13
+        },
+        {
+          "candidate_id": "exp007_ddp_bs4_e050_24e8ab93",
+          "gpu": 1,
+          "rank": 14
+        },
+        {
+          "candidate_id": "exp017_ddp_bs4_e100_f11d238f",
+          "gpu": 2,
+          "rank": 15
+        },
+        {
+          "candidate_id": "exp008_v1_sharedfusion_softguide_e080_ed0cdd0a",
+          "gpu": 3,
+          "rank": 16
+        }
+      ],
+      "status": "queued",
+      "wave": 4
+    },
+    {
+      "members": [
+        {
+          "candidate_id": "exp009_s3v3_logit_residual_half_quarter_e100_a0167aaa",
+          "gpu": 0,
+          "rank": 17
+        },
+        {
+          "candidate_id": "exp007_ddp_bs4_e080_b5dc2c6f",
+          "gpu": 1,
+          "rank": 18
+        },
+        {
+          "candidate_id": "exp007_ddp_bs4_e075_7f0b6a5f",
+          "gpu": 2,
+          "rank": 19
+        },
+        {
+          "candidate_id": "exp007_ddp_bs4_e075_e3ec77b2",
+          "gpu": 3,
+          "rank": 20
+        }
+      ],
+      "status": "queued",
+      "wave": 5
+    }
+  ]
+}

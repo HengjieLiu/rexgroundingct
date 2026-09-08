@@ -1,0 +1,230 @@
+{
+  "compatibility_symlink": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp002_multimodel_ensemble_selection/logits",
+  "destination_physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/legacy_sideexp002",
+  "inventory": {
+    "array_bytes": 1778072932352,
+    "array_count": 4000,
+    "candidate_count": 20,
+    "candidate_ids": [
+      "exp006_e5d4_e100",
+      "exp006_e6d4_e100",
+      "exp007_ddp_e050",
+      "exp007_ddp_e075",
+      "exp007_ddp_e100",
+      "exp008_dual_e080",
+      "exp008_dual_e100",
+      "exp008_joint_e080",
+      "exp008_joint_e100",
+      "exp008_precision_e080",
+      "exp008_precision_e100",
+      "exp008_shared_e080",
+      "exp008_shared_e100",
+      "exp009_baseline_e100",
+      "exp009_s3v1_e100",
+      "exp009_s3v2_e100",
+      "exp009_s3v3_e100",
+      "exp011_clip_zscore_e100",
+      "exp011_linear_hu_e100",
+      "exp011_native_zscore_e100"
+    ],
+    "export_manifest_count": 20,
+    "export_manifests": [
+      {
+        "candidate_id": "exp006_e5d4_e100",
+        "case_count": 200,
+        "dtype": "float32",
+        "finding_count": 381,
+        "relative_path": "exp006_e5d4_e100/export_manifest.json",
+        "sha256": "da56c21dde489c566dc9fe21b05308e30f844c44496c40af913facabb8789fd4",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp006_e6d4_e100",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp006_e6d4_e100/export_manifest.json",
+        "sha256": "b705b2bb54feb6e3f1885c760576ced20d8fa6ae8b3475d4e449cdaedca2e981",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp007_ddp_e050",
+        "case_count": 200,
+        "dtype": "float32",
+        "finding_count": 381,
+        "relative_path": "exp007_ddp_e050/export_manifest.json",
+        "sha256": "33038a97d19878f2949a601c09b5f48aa5631a968f7e87381ccb6862569c4eae",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp007_ddp_e075",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp007_ddp_e075/export_manifest.json",
+        "sha256": "dc4b9d596a450f6a84ff833ef8731cbf9eece7fd3178a19c574f60b966c01292",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp007_ddp_e100",
+        "case_count": 200,
+        "dtype": "float32",
+        "finding_count": 381,
+        "relative_path": "exp007_ddp_e100/export_manifest.json",
+        "sha256": "2dbfabc10ce157bbfd7acd95c8aff36e8f79aecb0c4e749dc9e65597ea042dd2",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp008_dual_e080",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp008_dual_e080/export_manifest.json",
+        "sha256": "92c6e01fc91a3245f9012c1227756df9b8a42fb8a93746e3c4275f2d44fc4028",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp008_dual_e100",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp008_dual_e100/export_manifest.json",
+        "sha256": "7876544300533d57c087f195c39ff30da8bd701f438dbb906d946931ad71c94c",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp008_joint_e080",
+        "case_count": 200,
+        "dtype": "float32",
+        "finding_count": 381,
+        "relative_path": "exp008_joint_e080/export_manifest.json",
+        "sha256": "5caa9937fb1f6895579f1aacd97f79ebcf4bb2a07dbcd4de81f777c8bcd7ee31",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp008_joint_e100",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp008_joint_e100/export_manifest.json",
+        "sha256": "8b0a48e6ea23f1fcb28a6c105656578505cdc3e10e10863e3f5cea92c411fcca",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp008_precision_e080",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp008_precision_e080/export_manifest.json",
+        "sha256": "b50a02656b138906f4e27bc5d2e015cc3a94666aaef55393f33f303fbf209035",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp008_precision_e100",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp008_precision_e100/export_manifest.json",
+        "sha256": "5069fb26948b10f7c4d8932695b3cfe08c5f1b85f0f2a195b1b7251f1fb0b328",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp008_shared_e080",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp008_shared_e080/export_manifest.json",
+        "sha256": "c6a8b30fee81bc2360b8e5e6108d8658980fd7d2c86c216705d11845376f0d1a",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp008_shared_e100",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp008_shared_e100/export_manifest.json",
+        "sha256": "7f2d222a04f729d75ca0005831e11095293eff3442029828cde2e3888d05cadf",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp009_baseline_e100",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp009_baseline_e100/export_manifest.json",
+        "sha256": "e14806107f3bba9b4c69a2a7bb502a86a27315c85edea389212d3c7696564d8f",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp009_s3v1_e100",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp009_s3v1_e100/export_manifest.json",
+        "sha256": "d9f413bf1922850e2f2c0740987e345abc0ea67990d1ce1da91bfe6ad3d26fa3",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp009_s3v2_e100",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp009_s3v2_e100/export_manifest.json",
+        "sha256": "a6ab3f613d4136d5776640f04b90b755b6deef6ef190951746085b01661dcfc4",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp009_s3v3_e100",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp009_s3v3_e100/export_manifest.json",
+        "sha256": "679c74ccddf7517cd34d520eaefdff853b93b19976e6820cd20dd5e156254684",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp011_clip_zscore_e100",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp011_clip_zscore_e100/export_manifest.json",
+        "sha256": "2242806ee69658404638553e1c86dd8a3f954a7a518f8ad9130f47e2bd10bd4c",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp011_linear_hu_e100",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp011_linear_hu_e100/export_manifest.json",
+        "sha256": "a0f1f5481901963293f8a5f5b0e5320937cdc3b0d58e4e641dc65523fcced9bd",
+        "status": "complete"
+      },
+      {
+        "candidate_id": "exp011_native_zscore_e100",
+        "case_count": 200,
+        "dtype": "float16",
+        "finding_count": 381,
+        "relative_path": "exp011_native_zscore_e100/export_manifest.json",
+        "sha256": "7926ae9a8ae98d069736afe65ee288391a05d162d884f81c0d0522ff4152e6ce",
+        "status": "complete"
+      }
+    ],
+    "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/legacy_sideexp002",
+    "manifest_array_paths_resolvable": 4000,
+    "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/legacy_sideexp002"
+  },
+  "migrated_at_utc": "2026-09-07T21:17:36Z",
+  "schema_version": 1,
+  "source_logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp002_multimodel_ensemble_selection/logits",
+  "source_physical_path_before_move": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp002_multimodel_ensemble_selection/logits",
+  "status": "migrated",
+  "verification": {
+    "export_manifest_hashes_match": true,
+    "inventory_match": true,
+    "manifest_array_paths_resolve": true,
+    "new_physical_path_resolves": true,
+    "old_logical_path_resolves": true,
+    "same_mount_atomic_rename": true
+  }
+}
