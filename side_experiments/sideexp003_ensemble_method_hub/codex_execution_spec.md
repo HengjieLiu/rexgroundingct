@@ -15,8 +15,10 @@ recipe materialization without the explicit user gates below.
 
 The foundation milestone ended after steps 1–4. The user subsequently
 authorized the frozen top-20 fresh val200 cache job. That authorization covers
-the 20 base-model inference passes only; it does not authorize greedy search or
-a final `M`.
+the 20 base-model inference passes. The user separately authorized top-4 and
+top-8 metrics-only full-val diagnostics, including the top-4
+Caruana-with-replacement comparison. These narrow diagnostics do not authorize
+the formal OOF search, a final `M`, or derived logit materialization.
 
 ## Immutable inputs
 
@@ -87,9 +89,28 @@ Fresh caches stage clipped float32 arrays. If an offline float16 cast preserves
 every threshold-zero voxel, publish float16; otherwise publish the staged
 float32 arrays. This makes dtype fallback inference-free.
 
+If the frozen source bundle changes between waves, the original job remains
+immutable. Resume only through a new audited continuation job that verifies the
+strict parent-cache prefix, records every old/new source-file hash, rejects any
+unaudited worker-source change, preserves the original rank/wave assignment,
+and generates new cache keys from the continuation source bundle. Never update
+the parent job hash or reuse its queued cache keys for the changed source.
+
 Base caches are long-lived. Intermediate greedy rounds save recipes/metrics,
 not duplicate logits. Only the user-confirmed final recipe may save derived
 ensemble logits.
+
+The authorized top-4 diagnostic is an explicit non-materializing exception to
+the formal `Mmax` gate. It must be labelled optimistic because member selection
+and evaluation both use val200. Its outputs cannot be promoted to a formal
+recipe without a later OOF run and user decision.
+
+The separately authorized top-16 seeded scoped diagnostic is also a
+non-materializing exception. It may start after fresh ranks 1–16 pass, while
+Wave 5 exports ranks 17–20. It computes one top-16 uniform pass and fixed-seed
+Caruana replacement curves through K=16 for `all/2a/2b/2c/2d`. All curves must
+be labelled optimistic same-val results and may not set a formal recipe or
+materialize derived logits.
 
 Legacy SideExp002 exports keep their old logical paths through a symlink. Its 13
 strict-gate exports may be reused under their legacy contract. The seven

@@ -1,5 +1,5 @@
 {
-  "artifact_state_updated_at_utc": "2026-09-08T02:37:33Z",
+  "artifact_state_updated_at_utc": "2026-09-08T13:55:58Z",
   "candidate_count": 80,
   "candidates": [
     {
@@ -3085,8 +3085,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": null,
-          "status": "queued",
+          "active_cache_version": "sideexp003_v2_a02086943b20265be0d4c7e965775951fd1404ebd0101eed482848b0e285ee6a",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": null,
@@ -3136,6 +3136,32 @@
               "strict_eligible": false,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_091cf4237a0cc6fb40c47b6a741f64cc14a97c83fd87e1e32fde0eaf6dd7d88c/reproduction_validation.json",
               "warnings": [],
+              "wave": 4
+            },
+            {
+              "cache_key": "v2_a02086943b20265be0d4c7e965775951fd1404ebd0101eed482848b0e285ee6a",
+              "cache_version_id": "sideexp003_v2_a02086943b20265be0d4c7e965775951fd1404ebd0101eed482848b0e285ee6a",
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T11:19:16Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8252.684675309807,
+              "error": null,
+              "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a02086943b20265be0d4c7e965775951fd1404ebd0101eed482848b0e285ee6a/export_manifest.json",
+              "findings": 381,
+              "gpu": 1,
+              "job_id": "j002_top20_val200_fresh_r09_r20",
+              "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a02086943b20265be0d4c7e965775951fd1404ebd0101eed482848b0e285ee6a",
+              "metrics_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a02086943b20265be0d4c7e965775951fd1404ebd0101eed482848b0e285ee6a/reproduction_validation.json",
+              "origin": "sideexp003",
+              "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a02086943b20265be0d4c7e965775951fd1404ebd0101eed482848b0e285ee6a",
+              "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j002_top20_val200_fresh_r09_r20/progress/exp007_ddp_bs4_e050_24e8ab93.json",
+              "started_at_utc": "2026-09-08T09:01:44Z",
+              "status": "strict_passed",
+              "strict_eligible": true,
+              "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a02086943b20265be0d4c7e965775951fd1404ebd0101eed482848b0e285ee6a/reproduction_validation.json",
+              "warnings": [
+                "historical_reproduction_mismatch"
+              ],
               "wave": 4
             }
           ]
@@ -3264,6 +3290,14 @@
         {
           "gpu": 1,
           "job_id": "j001_top20_val200_fresh",
+          "rank": 14,
+          "reuse_policy": "fresh_only",
+          "roster_id": "top20_val200_dice_20260907T211605Z",
+          "wave": 4
+        },
+        {
+          "gpu": 1,
+          "job_id": "j002_top20_val200_fresh_r09_r20",
           "rank": 14,
           "reuse_policy": "fresh_only",
           "roster_id": "top20_val200_dice_20260907T211605Z",
@@ -4111,8 +4145,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": null,
-          "status": "queued",
+          "active_cache_version": "sideexp003_v2_e57eccfec0b3d17d51d8dd13bf731c4fc450ad63b0adff26bb5908774c3023ee",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": null,
@@ -4162,6 +4196,32 @@
               "strict_eligible": false,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_3aff543e68410d50b0228c0f243b7a914422ec82b1f07f558be95712f433163d/reproduction_validation.json",
               "warnings": [],
+              "wave": 5
+            },
+            {
+              "cache_key": "v2_e57eccfec0b3d17d51d8dd13bf731c4fc450ad63b0adff26bb5908774c3023ee",
+              "cache_version_id": "sideexp003_v2_e57eccfec0b3d17d51d8dd13bf731c4fc450ad63b0adff26bb5908774c3023ee",
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T13:55:11Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8766.635921679437,
+              "error": null,
+              "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_e57eccfec0b3d17d51d8dd13bf731c4fc450ad63b0adff26bb5908774c3023ee/export_manifest.json",
+              "findings": 381,
+              "gpu": 2,
+              "job_id": "j002_top20_val200_fresh_r09_r20",
+              "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_e57eccfec0b3d17d51d8dd13bf731c4fc450ad63b0adff26bb5908774c3023ee",
+              "metrics_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_e57eccfec0b3d17d51d8dd13bf731c4fc450ad63b0adff26bb5908774c3023ee/reproduction_validation.json",
+              "origin": "sideexp003",
+              "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_e57eccfec0b3d17d51d8dd13bf731c4fc450ad63b0adff26bb5908774c3023ee",
+              "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j002_top20_val200_fresh_r09_r20/progress/exp007_ddp_bs4_e075_7f0b6a5f.json",
+              "started_at_utc": "2026-09-08T11:29:05Z",
+              "status": "strict_passed",
+              "strict_eligible": true,
+              "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_e57eccfec0b3d17d51d8dd13bf731c4fc450ad63b0adff26bb5908774c3023ee/reproduction_validation.json",
+              "warnings": [
+                "historical_reproduction_mismatch"
+              ],
               "wave": 5
             }
           ]
@@ -4294,6 +4354,14 @@
           "reuse_policy": "fresh_only",
           "roster_id": "top20_val200_dice_20260907T211605Z",
           "wave": 5
+        },
+        {
+          "gpu": 2,
+          "job_id": "j002_top20_val200_fresh_r09_r20",
+          "rank": 19,
+          "reuse_policy": "fresh_only",
+          "roster_id": "top20_val200_dice_20260907T211605Z",
+          "wave": 5
         }
       ],
       "run": "exp007_full_20260725T231624Z",
@@ -4357,8 +4425,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": null,
-          "status": "queued",
+          "active_cache_version": "sideexp003_v2_bd782a9a86a690ca50607a450b63d4bd93c467feda3f25c9efa4084c463886a9",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": "v2_31979324c66a5b776d13f791a88fd83fdb2ab06b3dfefdda8c2b3462e234f521",
@@ -4382,6 +4450,32 @@
               "strict_eligible": false,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_31979324c66a5b776d13f791a88fd83fdb2ab06b3dfefdda8c2b3462e234f521/reproduction_validation.json",
               "warnings": [],
+              "wave": 5
+            },
+            {
+              "cache_key": "v2_bd782a9a86a690ca50607a450b63d4bd93c467feda3f25c9efa4084c463886a9",
+              "cache_version_id": "sideexp003_v2_bd782a9a86a690ca50607a450b63d4bd93c467feda3f25c9efa4084c463886a9",
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T13:55:17Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8772.939010411501,
+              "error": null,
+              "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_bd782a9a86a690ca50607a450b63d4bd93c467feda3f25c9efa4084c463886a9/export_manifest.json",
+              "findings": 381,
+              "gpu": 3,
+              "job_id": "j002_top20_val200_fresh_r09_r20",
+              "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_bd782a9a86a690ca50607a450b63d4bd93c467feda3f25c9efa4084c463886a9",
+              "metrics_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_bd782a9a86a690ca50607a450b63d4bd93c467feda3f25c9efa4084c463886a9/reproduction_validation.json",
+              "origin": "sideexp003",
+              "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_bd782a9a86a690ca50607a450b63d4bd93c467feda3f25c9efa4084c463886a9",
+              "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j002_top20_val200_fresh_r09_r20/progress/exp007_ddp_bs4_e075_e3ec77b2.json",
+              "started_at_utc": "2026-09-08T11:29:05Z",
+              "status": "strict_passed",
+              "strict_eligible": true,
+              "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_bd782a9a86a690ca50607a450b63d4bd93c467feda3f25c9efa4084c463886a9/reproduction_validation.json",
+              "warnings": [
+                "historical_reproduction_mismatch"
+              ],
               "wave": 5
             }
           ]
@@ -4514,6 +4608,14 @@
           "reuse_policy": "fresh_only",
           "roster_id": "top20_val200_dice_20260907T211605Z",
           "wave": 5
+        },
+        {
+          "gpu": 3,
+          "job_id": "j002_top20_val200_fresh_r09_r20",
+          "rank": 20,
+          "reuse_policy": "fresh_only",
+          "roster_id": "top20_val200_dice_20260907T211605Z",
+          "wave": 5
         }
       ],
       "run": "exp007_cont100_from_ddp100_20260730T062051Z",
@@ -4577,8 +4679,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": null,
-          "status": "queued",
+          "active_cache_version": "sideexp003_v2_279286fa73875ed0dddeb4f46298c8cc198836611a004d79ca4ef9bd6d714210",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": "v2_d2aa331c85c0314d41bfbd6cfeb5ef7533e7ae257d009819bc0ac3a4bf63aee3",
@@ -4602,6 +4704,32 @@
               "strict_eligible": false,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d2aa331c85c0314d41bfbd6cfeb5ef7533e7ae257d009819bc0ac3a4bf63aee3/reproduction_validation.json",
               "warnings": [],
+              "wave": 5
+            },
+            {
+              "cache_key": "v2_279286fa73875ed0dddeb4f46298c8cc198836611a004d79ca4ef9bd6d714210",
+              "cache_version_id": "sideexp003_v2_279286fa73875ed0dddeb4f46298c8cc198836611a004d79ca4ef9bd6d714210",
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T13:54:50Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8745.444213662297,
+              "error": null,
+              "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_279286fa73875ed0dddeb4f46298c8cc198836611a004d79ca4ef9bd6d714210/export_manifest.json",
+              "findings": 381,
+              "gpu": 1,
+              "job_id": "j002_top20_val200_fresh_r09_r20",
+              "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_279286fa73875ed0dddeb4f46298c8cc198836611a004d79ca4ef9bd6d714210",
+              "metrics_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_279286fa73875ed0dddeb4f46298c8cc198836611a004d79ca4ef9bd6d714210/reproduction_validation.json",
+              "origin": "sideexp003",
+              "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_279286fa73875ed0dddeb4f46298c8cc198836611a004d79ca4ef9bd6d714210",
+              "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j002_top20_val200_fresh_r09_r20/progress/exp007_ddp_bs4_e080_b5dc2c6f.json",
+              "started_at_utc": "2026-09-08T11:29:05Z",
+              "status": "strict_passed",
+              "strict_eligible": true,
+              "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_279286fa73875ed0dddeb4f46298c8cc198836611a004d79ca4ef9bd6d714210/reproduction_validation.json",
+              "warnings": [
+                "historical_reproduction_mismatch"
+              ],
               "wave": 5
             }
           ]
@@ -4730,6 +4858,14 @@
         {
           "gpu": 1,
           "job_id": "j001_top20_val200_fresh",
+          "rank": 18,
+          "reuse_policy": "fresh_only",
+          "roster_id": "top20_val200_dice_20260907T211605Z",
+          "wave": 5
+        },
+        {
+          "gpu": 1,
+          "job_id": "j002_top20_val200_fresh_r09_r20",
           "rank": 18,
           "reuse_policy": "fresh_only",
           "roster_id": "top20_val200_dice_20260907T211605Z",
@@ -5382,8 +5518,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": null,
-          "status": "queued",
+          "active_cache_version": "sideexp003_v2_9ab1a17db9f41ab535d898c6ac5144e517e6b9c3c327f6ed8795c5a9f39beb05",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": "v2_985c56db1deb0d9b65bca73c028bbdca374ef190f8f131de415684fee18ccb16",
@@ -5406,6 +5542,30 @@
               "status": "queued",
               "strict_eligible": false,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_985c56db1deb0d9b65bca73c028bbdca374ef190f8f131de415684fee18ccb16/reproduction_validation.json",
+              "warnings": [],
+              "wave": 3
+            },
+            {
+              "cache_key": "v2_9ab1a17db9f41ab535d898c6ac5144e517e6b9c3c327f6ed8795c5a9f39beb05",
+              "cache_version_id": "sideexp003_v2_9ab1a17db9f41ab535d898c6ac5144e517e6b9c3c327f6ed8795c5a9f39beb05",
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T08:50:23Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8347.965335719287,
+              "error": null,
+              "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_9ab1a17db9f41ab535d898c6ac5144e517e6b9c3c327f6ed8795c5a9f39beb05/export_manifest.json",
+              "findings": 381,
+              "gpu": 0,
+              "job_id": "j002_top20_val200_fresh_r09_r20",
+              "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_9ab1a17db9f41ab535d898c6ac5144e517e6b9c3c327f6ed8795c5a9f39beb05",
+              "metrics_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_9ab1a17db9f41ab535d898c6ac5144e517e6b9c3c327f6ed8795c5a9f39beb05/reproduction_validation.json",
+              "origin": "sideexp003",
+              "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_9ab1a17db9f41ab535d898c6ac5144e517e6b9c3c327f6ed8795c5a9f39beb05",
+              "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j002_top20_val200_fresh_r09_r20/progress/exp007_ddp_bs4_e100_d56474a6.json",
+              "started_at_utc": "2026-09-08T06:31:15Z",
+              "status": "strict_passed",
+              "strict_eligible": true,
+              "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_9ab1a17db9f41ab535d898c6ac5144e517e6b9c3c327f6ed8795c5a9f39beb05/reproduction_validation.json",
               "warnings": [],
               "wave": 3
             }
@@ -5535,6 +5695,14 @@
         {
           "gpu": 0,
           "job_id": "j001_top20_val200_fresh",
+          "rank": 9,
+          "reuse_policy": "fresh_only",
+          "roster_id": "top20_val200_dice_20260907T211605Z",
+          "wave": 3
+        },
+        {
+          "gpu": 0,
+          "job_id": "j002_top20_val200_fresh_r09_r20",
           "rank": 9,
           "reuse_policy": "fresh_only",
           "roster_id": "top20_val200_dice_20260907T211605Z",
@@ -5815,8 +5983,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": "legacy_sideexp002_exp008_dual_e100",
-          "status": "exporting",
+          "active_cache_version": "sideexp003_v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": null,
@@ -5845,13 +6013,13 @@
             {
               "cache_key": "v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23",
               "cache_version_id": "sideexp003_v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23",
-              "cases": 54,
-              "completed_at_utc": null,
-              "dtype": null,
-              "elapsed_seconds": 1995.660400327295,
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T04:32:16Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8879.17396986857,
               "error": null,
               "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23/export_manifest.json",
-              "findings": 92,
+              "findings": 381,
               "gpu": 1,
               "job_id": "j001_top20_val200_fresh",
               "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23",
@@ -5860,8 +6028,8 @@
               "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23",
               "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp008_v1_dualfusion_softguide_e100_9ba13980.json",
               "started_at_utc": "2026-09-08T02:04:17Z",
-              "status": "exporting",
-              "strict_eligible": false,
+              "status": "strict_passed",
+              "strict_eligible": true,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23/reproduction_validation.json",
               "warnings": [],
               "wave": 2
@@ -6059,8 +6227,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": "legacy_sideexp002_exp008_shared_e080",
-          "status": "queued",
+          "active_cache_version": "sideexp003_v2_353f8e40457b2678e7fd8bbb0addeecbcad67ddc58dd0b53725877ce5d47e95d",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": null,
@@ -6107,6 +6275,30 @@
               "status": "queued",
               "strict_eligible": false,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a444cfc47c7d46575ff278fd3c89e6afec9ddbd4f9fc9b730d7da0b43a7ffbfd/reproduction_validation.json",
+              "warnings": [],
+              "wave": 4
+            },
+            {
+              "cache_key": "v2_353f8e40457b2678e7fd8bbb0addeecbcad67ddc58dd0b53725877ce5d47e95d",
+              "cache_version_id": "sideexp003_v2_353f8e40457b2678e7fd8bbb0addeecbcad67ddc58dd0b53725877ce5d47e95d",
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T11:27:50Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8766.791631929576,
+              "error": null,
+              "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_353f8e40457b2678e7fd8bbb0addeecbcad67ddc58dd0b53725877ce5d47e95d/export_manifest.json",
+              "findings": 381,
+              "gpu": 3,
+              "job_id": "j002_top20_val200_fresh_r09_r20",
+              "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_353f8e40457b2678e7fd8bbb0addeecbcad67ddc58dd0b53725877ce5d47e95d",
+              "metrics_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_353f8e40457b2678e7fd8bbb0addeecbcad67ddc58dd0b53725877ce5d47e95d/reproduction_validation.json",
+              "origin": "sideexp003",
+              "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_353f8e40457b2678e7fd8bbb0addeecbcad67ddc58dd0b53725877ce5d47e95d",
+              "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j002_top20_val200_fresh_r09_r20/progress/exp008_v1_sharedfusion_softguide_e080_ed0cdd0a.json",
+              "started_at_utc": "2026-09-08T09:01:44Z",
+              "status": "strict_passed",
+              "strict_eligible": true,
+              "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_353f8e40457b2678e7fd8bbb0addeecbcad67ddc58dd0b53725877ce5d47e95d/reproduction_validation.json",
               "warnings": [],
               "wave": 4
             }
@@ -6240,6 +6432,14 @@
           "reuse_policy": "fresh_only",
           "roster_id": "top20_val200_dice_20260907T211605Z",
           "wave": 4
+        },
+        {
+          "gpu": 3,
+          "job_id": "j002_top20_val200_fresh_r09_r20",
+          "rank": 16,
+          "reuse_policy": "fresh_only",
+          "roster_id": "top20_val200_dice_20260907T211605Z",
+          "wave": 4
         }
       ],
       "run": "exp008_dual_branch_20260726T182647Z",
@@ -6303,8 +6503,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": "legacy_sideexp002_exp008_shared_e100",
-          "status": "exporting",
+          "active_cache_version": "sideexp003_v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": null,
@@ -6333,13 +6533,13 @@
             {
               "cache_key": "v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd",
               "cache_version_id": "sideexp003_v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd",
-              "cases": 51,
-              "completed_at_utc": null,
-              "dtype": null,
-              "elapsed_seconds": 1975.7998974323273,
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T04:33:58Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8981.072318110615,
               "error": null,
               "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd/export_manifest.json",
-              "findings": 89,
+              "findings": 381,
               "gpu": 0,
               "job_id": "j001_top20_val200_fresh",
               "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd",
@@ -6348,10 +6548,12 @@
               "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd",
               "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp008_v1_sharedfusion_softguide_e100_61bcec41.json",
               "started_at_utc": "2026-09-08T02:04:17Z",
-              "status": "exporting",
-              "strict_eligible": false,
+              "status": "strict_passed",
+              "strict_eligible": true,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd/reproduction_validation.json",
-              "warnings": [],
+              "warnings": [
+                "historical_reproduction_mismatch"
+              ],
               "wave": 2
             }
           ]
@@ -6758,8 +6960,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": "legacy_sideexp002_exp008_precision_e100",
-          "status": "queued",
+          "active_cache_version": "sideexp003_v2_339bbb581330c405e36224951245084041d42040ebe0630d6a8f62c7a98734ba",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": null,
@@ -6806,6 +7008,30 @@
               "status": "queued",
               "strict_eligible": false,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_460bc47530b0c94b23df24a80e92d70ad8c883a0cf9d9e6b341c3a49993a0d5c/reproduction_validation.json",
+              "warnings": [],
+              "wave": 3
+            },
+            {
+              "cache_key": "v2_339bbb581330c405e36224951245084041d42040ebe0630d6a8f62c7a98734ba",
+              "cache_version_id": "sideexp003_v2_339bbb581330c405e36224951245084041d42040ebe0630d6a8f62c7a98734ba",
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T09:01:05Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8989.186374552548,
+              "error": null,
+              "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_339bbb581330c405e36224951245084041d42040ebe0630d6a8f62c7a98734ba/export_manifest.json",
+              "findings": 381,
+              "gpu": 3,
+              "job_id": "j002_top20_val200_fresh_r09_r20",
+              "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_339bbb581330c405e36224951245084041d42040ebe0630d6a8f62c7a98734ba",
+              "metrics_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_339bbb581330c405e36224951245084041d42040ebe0630d6a8f62c7a98734ba/reproduction_validation.json",
+              "origin": "sideexp003",
+              "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_339bbb581330c405e36224951245084041d42040ebe0630d6a8f62c7a98734ba",
+              "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j002_top20_val200_fresh_r09_r20/progress/exp008_v2_dualfusion_precision_e100_e67e2bc2.json",
+              "started_at_utc": "2026-09-08T06:31:16Z",
+              "status": "strict_passed",
+              "strict_eligible": true,
+              "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_339bbb581330c405e36224951245084041d42040ebe0630d6a8f62c7a98734ba/reproduction_validation.json",
               "warnings": [],
               "wave": 3
             }
@@ -6935,6 +7161,14 @@
         {
           "gpu": 3,
           "job_id": "j001_top20_val200_fresh",
+          "rank": 12,
+          "reuse_policy": "fresh_only",
+          "roster_id": "top20_val200_dice_20260907T211605Z",
+          "wave": 3
+        },
+        {
+          "gpu": 3,
+          "job_id": "j002_top20_val200_fresh_r09_r20",
           "rank": 12,
           "reuse_policy": "fresh_only",
           "roster_id": "top20_val200_dice_20260907T211605Z",
@@ -7215,8 +7449,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": "legacy_sideexp002_exp008_joint_e100",
-          "status": "queued",
+          "active_cache_version": "sideexp003_v2_99fcd35504e45e2463d9a1c31f7f34b6f26a943484f5424c41c0aa25d5590e16",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": null,
@@ -7263,6 +7497,30 @@
               "status": "queued",
               "strict_eligible": false,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_3a6dabb84f3e415e57b3f02a5958f80f840498d49dcaf90238f5c8d25cab6339/reproduction_validation.json",
+              "warnings": [],
+              "wave": 3
+            },
+            {
+              "cache_key": "v2_99fcd35504e45e2463d9a1c31f7f34b6f26a943484f5424c41c0aa25d5590e16",
+              "cache_version_id": "sideexp003_v2_99fcd35504e45e2463d9a1c31f7f34b6f26a943484f5424c41c0aa25d5590e16",
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T09:00:53Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8978.131614170969,
+              "error": null,
+              "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_99fcd35504e45e2463d9a1c31f7f34b6f26a943484f5424c41c0aa25d5590e16/export_manifest.json",
+              "findings": 381,
+              "gpu": 1,
+              "job_id": "j002_top20_val200_fresh_r09_r20",
+              "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_99fcd35504e45e2463d9a1c31f7f34b6f26a943484f5424c41c0aa25d5590e16",
+              "metrics_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_99fcd35504e45e2463d9a1c31f7f34b6f26a943484f5424c41c0aa25d5590e16/reproduction_validation.json",
+              "origin": "sideexp003",
+              "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_99fcd35504e45e2463d9a1c31f7f34b6f26a943484f5424c41c0aa25d5590e16",
+              "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j002_top20_val200_fresh_r09_r20/progress/exp008_v3_dualfusion_softguide_joint_e100_f98374db.json",
+              "started_at_utc": "2026-09-08T06:31:15Z",
+              "status": "strict_passed",
+              "strict_eligible": true,
+              "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_99fcd35504e45e2463d9a1c31f7f34b6f26a943484f5424c41c0aa25d5590e16/reproduction_validation.json",
               "warnings": [],
               "wave": 3
             }
@@ -7392,6 +7650,14 @@
         {
           "gpu": 1,
           "job_id": "j001_top20_val200_fresh",
+          "rank": 10,
+          "reuse_policy": "fresh_only",
+          "roster_id": "top20_val200_dice_20260907T211605Z",
+          "wave": 3
+        },
+        {
+          "gpu": 1,
+          "job_id": "j002_top20_val200_fresh_r09_r20",
           "rank": 10,
           "reuse_policy": "fresh_only",
           "roster_id": "top20_val200_dice_20260907T211605Z",
@@ -7705,8 +7971,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": "legacy_sideexp002_exp009_s3v1_e100",
-          "status": "exporting",
+          "active_cache_version": "sideexp003_v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": null,
@@ -7735,13 +8001,13 @@
             {
               "cache_key": "v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704",
               "cache_version_id": "sideexp003_v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704",
-              "cases": 58,
-              "completed_at_utc": null,
-              "dtype": null,
-              "elapsed_seconds": 1976.6418506763875,
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T04:24:38Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8414.213630925864,
               "error": null,
               "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704/export_manifest.json",
-              "findings": 100,
+              "findings": 381,
               "gpu": 2,
               "job_id": "j001_top20_val200_fresh",
               "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704",
@@ -7750,10 +8016,12 @@
               "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704",
               "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp009_s3v1_fixedrho_suppress_half_quarter_e100_263f27d3.json",
               "started_at_utc": "2026-09-08T02:04:23Z",
-              "status": "exporting",
-              "strict_eligible": false,
+              "status": "strict_passed",
+              "strict_eligible": true,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704/reproduction_validation.json",
-              "warnings": [],
+              "warnings": [
+                "historical_reproduction_mismatch"
+              ],
               "wave": 2
             }
           ]
@@ -8195,8 +8463,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": "legacy_sideexp002_exp009_s3v3_e100",
-          "status": "queued",
+          "active_cache_version": "sideexp003_v2_7dc791e199e57afdba1d2cca3e9aff45d9a008a54b95b755562c4c60f9b3cc56",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": null,
@@ -8244,6 +8512,32 @@
               "strict_eligible": false,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_81a6233dfb516fa0cd32463e31a3f3a24ff9b1c00c2cc08b091e5f792c92bc4f/reproduction_validation.json",
               "warnings": [],
+              "wave": 5
+            },
+            {
+              "cache_key": "v2_7dc791e199e57afdba1d2cca3e9aff45d9a008a54b95b755562c4c60f9b3cc56",
+              "cache_version_id": "sideexp003_v2_7dc791e199e57afdba1d2cca3e9aff45d9a008a54b95b755562c4c60f9b3cc56",
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T13:54:11Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8692.28349218145,
+              "error": null,
+              "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_7dc791e199e57afdba1d2cca3e9aff45d9a008a54b95b755562c4c60f9b3cc56/export_manifest.json",
+              "findings": 381,
+              "gpu": 0,
+              "job_id": "j002_top20_val200_fresh_r09_r20",
+              "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_7dc791e199e57afdba1d2cca3e9aff45d9a008a54b95b755562c4c60f9b3cc56",
+              "metrics_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_7dc791e199e57afdba1d2cca3e9aff45d9a008a54b95b755562c4c60f9b3cc56/reproduction_validation.json",
+              "origin": "sideexp003",
+              "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_7dc791e199e57afdba1d2cca3e9aff45d9a008a54b95b755562c4c60f9b3cc56",
+              "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j002_top20_val200_fresh_r09_r20/progress/exp009_s3v3_logit_residual_half_quarter_e100_a0167aaa.json",
+              "started_at_utc": "2026-09-08T11:29:18Z",
+              "status": "strict_passed",
+              "strict_eligible": true,
+              "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_7dc791e199e57afdba1d2cca3e9aff45d9a008a54b95b755562c4c60f9b3cc56/reproduction_validation.json",
+              "warnings": [
+                "historical_reproduction_mismatch"
+              ],
               "wave": 5
             }
           ]
@@ -8372,6 +8666,14 @@
         {
           "gpu": 0,
           "job_id": "j001_top20_val200_fresh",
+          "rank": 17,
+          "reuse_policy": "fresh_only",
+          "roster_id": "top20_val200_dice_20260907T211605Z",
+          "wave": 5
+        },
+        {
+          "gpu": 0,
+          "job_id": "j002_top20_val200_fresh_r09_r20",
           "rank": 17,
           "reuse_policy": "fresh_only",
           "roster_id": "top20_val200_dice_20260907T211605Z",
@@ -10374,8 +10676,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": null,
-          "status": "queued",
+          "active_cache_version": "sideexp003_v2_79b4bbd8d2f2d9348b53a0a931de077b6d29ed1616bc23ea8997771f3e839279",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": "v2_970aa27766b0d1aca142747f872cb382dc4006a266b28b8ee6c61c2d6674a88b",
@@ -10399,6 +10701,32 @@
               "strict_eligible": false,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_970aa27766b0d1aca142747f872cb382dc4006a266b28b8ee6c61c2d6674a88b/reproduction_validation.json",
               "warnings": [],
+              "wave": 4
+            },
+            {
+              "cache_key": "v2_79b4bbd8d2f2d9348b53a0a931de077b6d29ed1616bc23ea8997771f3e839279",
+              "cache_version_id": "sideexp003_v2_79b4bbd8d2f2d9348b53a0a931de077b6d29ed1616bc23ea8997771f3e839279",
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T11:19:21Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8253.895816922188,
+              "error": null,
+              "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_79b4bbd8d2f2d9348b53a0a931de077b6d29ed1616bc23ea8997771f3e839279/export_manifest.json",
+              "findings": 381,
+              "gpu": 0,
+              "job_id": "j002_top20_val200_fresh_r09_r20",
+              "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_79b4bbd8d2f2d9348b53a0a931de077b6d29ed1616bc23ea8997771f3e839279",
+              "metrics_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_79b4bbd8d2f2d9348b53a0a931de077b6d29ed1616bc23ea8997771f3e839279/reproduction_validation.json",
+              "origin": "sideexp003",
+              "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_79b4bbd8d2f2d9348b53a0a931de077b6d29ed1616bc23ea8997771f3e839279",
+              "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j002_top20_val200_fresh_r09_r20/progress/exp012_category_2a_replay50_e100_8dcdac04.json",
+              "started_at_utc": "2026-09-08T09:01:47Z",
+              "status": "strict_passed",
+              "strict_eligible": true,
+              "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_79b4bbd8d2f2d9348b53a0a931de077b6d29ed1616bc23ea8997771f3e839279/reproduction_validation.json",
+              "warnings": [
+                "historical_reproduction_mismatch"
+              ],
               "wave": 4
             }
           ]
@@ -10527,6 +10855,14 @@
         {
           "gpu": 0,
           "job_id": "j001_top20_val200_fresh",
+          "rank": 13,
+          "reuse_policy": "fresh_only",
+          "roster_id": "top20_val200_dice_20260907T211605Z",
+          "wave": 4
+        },
+        {
+          "gpu": 0,
+          "job_id": "j002_top20_val200_fresh_r09_r20",
           "rank": 13,
           "reuse_policy": "fresh_only",
           "roster_id": "top20_val200_dice_20260907T211605Z",
@@ -13048,19 +13384,19 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": null,
-          "status": "exporting",
+          "active_cache_version": "sideexp003_v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": "v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69",
               "cache_version_id": "sideexp003_v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69",
-              "cases": 56,
-              "completed_at_utc": null,
-              "dtype": null,
-              "elapsed_seconds": 1984.3568950369954,
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T04:31:49Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8848.915213417262,
               "error": null,
               "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69/export_manifest.json",
-              "findings": 109,
+              "findings": 381,
               "gpu": 3,
               "job_id": "j001_top20_val200_fresh",
               "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69",
@@ -13069,10 +13405,12 @@
               "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69",
               "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j001_top20_val200_fresh/progress/exp017_ddp_bs4_e050_a50a69dc.json",
               "started_at_utc": "2026-09-08T02:04:20Z",
-              "status": "exporting",
-              "strict_eligible": false,
+              "status": "strict_passed",
+              "strict_eligible": true,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69/reproduction_validation.json",
-              "warnings": [],
+              "warnings": [
+                "historical_reproduction_mismatch"
+              ],
               "wave": 2
             }
           ]
@@ -13268,8 +13606,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": null,
-          "status": "queued",
+          "active_cache_version": "sideexp003_v2_a7061b160d18dec1df8333cb25befac839fd988f637d6e50d9633bd7110f9d6d",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": "v2_7d2798c3054c72c59a2b8c895a80caac57b2404f9cba37596ea4c555cca947b1",
@@ -13293,6 +13631,32 @@
               "strict_eligible": false,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_7d2798c3054c72c59a2b8c895a80caac57b2404f9cba37596ea4c555cca947b1/reproduction_validation.json",
               "warnings": [],
+              "wave": 3
+            },
+            {
+              "cache_key": "v2_a7061b160d18dec1df8333cb25befac839fd988f637d6e50d9633bd7110f9d6d",
+              "cache_version_id": "sideexp003_v2_a7061b160d18dec1df8333cb25befac839fd988f637d6e50d9633bd7110f9d6d",
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T08:58:47Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8849.997387304902,
+              "error": null,
+              "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a7061b160d18dec1df8333cb25befac839fd988f637d6e50d9633bd7110f9d6d/export_manifest.json",
+              "findings": 381,
+              "gpu": 2,
+              "job_id": "j002_top20_val200_fresh_r09_r20",
+              "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a7061b160d18dec1df8333cb25befac839fd988f637d6e50d9633bd7110f9d6d",
+              "metrics_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a7061b160d18dec1df8333cb25befac839fd988f637d6e50d9633bd7110f9d6d/reproduction_validation.json",
+              "origin": "sideexp003",
+              "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a7061b160d18dec1df8333cb25befac839fd988f637d6e50d9633bd7110f9d6d",
+              "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j002_top20_val200_fresh_r09_r20/progress/exp017_ddp_bs4_e075_39aabab2.json",
+              "started_at_utc": "2026-09-08T06:31:17Z",
+              "status": "strict_passed",
+              "strict_eligible": true,
+              "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a7061b160d18dec1df8333cb25befac839fd988f637d6e50d9633bd7110f9d6d/reproduction_validation.json",
+              "warnings": [
+                "historical_reproduction_mismatch"
+              ],
               "wave": 3
             }
           ]
@@ -13421,6 +13785,14 @@
         {
           "gpu": 2,
           "job_id": "j001_top20_val200_fresh",
+          "rank": 11,
+          "reuse_policy": "fresh_only",
+          "roster_id": "top20_val200_dice_20260907T211605Z",
+          "wave": 3
+        },
+        {
+          "gpu": 2,
+          "job_id": "j002_top20_val200_fresh_r09_r20",
           "rank": 11,
           "reuse_policy": "fresh_only",
           "roster_id": "top20_val200_dice_20260907T211605Z",
@@ -13674,8 +14046,8 @@
           "versions": []
         },
         "val200": {
-          "active_cache_version": null,
-          "status": "queued",
+          "active_cache_version": "sideexp003_v2_ece4981b3b05be6666c3f128e1b77736d95e1e0e62e76c5a0ace43ba3d92fd0b",
+          "status": "strict_passed",
           "versions": [
             {
               "cache_key": "v2_cd261a722f97fbf9dcd3c6d4c062e45746413439f29b1bd7c644dcf1b0be7bd0",
@@ -13699,6 +14071,32 @@
               "strict_eligible": false,
               "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_cd261a722f97fbf9dcd3c6d4c062e45746413439f29b1bd7c644dcf1b0be7bd0/reproduction_validation.json",
               "warnings": [],
+              "wave": 4
+            },
+            {
+              "cache_key": "v2_ece4981b3b05be6666c3f128e1b77736d95e1e0e62e76c5a0ace43ba3d92fd0b",
+              "cache_version_id": "sideexp003_v2_ece4981b3b05be6666c3f128e1b77736d95e1e0e62e76c5a0ace43ba3d92fd0b",
+              "cases": 200,
+              "completed_at_utc": "2026-09-08T11:26:17Z",
+              "dtype": "float16",
+              "elapsed_seconds": 8673.27738218382,
+              "error": null,
+              "export_manifest_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_ece4981b3b05be6666c3f128e1b77736d95e1e0e62e76c5a0ace43ba3d92fd0b/export_manifest.json",
+              "findings": 381,
+              "gpu": 2,
+              "job_id": "j002_top20_val200_fresh_r09_r20",
+              "logical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_ece4981b3b05be6666c3f128e1b77736d95e1e0e62e76c5a0ace43ba3d92fd0b",
+              "metrics_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_ece4981b3b05be6666c3f128e1b77736d95e1e0e62e76c5a0ace43ba3d92fd0b/reproduction_validation.json",
+              "origin": "sideexp003",
+              "physical_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_ece4981b3b05be6666c3f128e1b77736d95e1e0e62e76c5a0ace43ba3d92fd0b",
+              "progress_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j002_top20_val200_fresh_r09_r20/progress/exp017_ddp_bs4_e100_f11d238f.json",
+              "started_at_utc": "2026-09-08T09:01:44Z",
+              "status": "strict_passed",
+              "strict_eligible": true,
+              "validation_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_ece4981b3b05be6666c3f128e1b77736d95e1e0e62e76c5a0ace43ba3d92fd0b/reproduction_validation.json",
+              "warnings": [
+                "historical_reproduction_mismatch"
+              ],
               "wave": 4
             }
           ]
@@ -13827,6 +14225,14 @@
         {
           "gpu": 2,
           "job_id": "j001_top20_val200_fresh",
+          "rank": 15,
+          "reuse_policy": "fresh_only",
+          "roster_id": "top20_val200_dice_20260907T211605Z",
+          "wave": 4
+        },
+        {
+          "gpu": 2,
+          "job_id": "j002_top20_val200_fresh_r09_r20",
           "rank": 15,
           "reuse_policy": "fresh_only",
           "roster_id": "top20_val200_dice_20260907T211605Z",

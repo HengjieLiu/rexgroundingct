@@ -568,6 +568,124 @@ def build_job(
     return job
 
 
+def build_continuation_job(
+    parent_job: dict[str, Any],
+    *,
+    job_id: str,
+    start_rank: int,
+    current_source_bundle: dict[str, Any],
+    source_drift_audit: dict[str, Any],
+) -> dict[str, Any]:
+    """Create a new-key continuation without mutating the frozen parent job."""
+
+    parent_errors = validate_job(parent_job)
+    if parent_errors:
+        raise FreshCacheError("invalid parent job: " + "; ".join(parent_errors))
+    parent_candidates = parent_job["candidates"]
+    if start_rank <= 1 or start_rank > len(parent_candidates):
+        raise FreshCacheError("continuation start rank must be inside the parent roster")
+    expected_parent_ranks = list(range(1, len(parent_candidates) + 1))
+    if [candidate["rank"] for candidate in parent_candidates] != expected_parent_ranks:
+        raise FreshCacheError("parent job must contain the complete frozen rank order")
+    if current_source_bundle.get("sha256") == parent_job["source_bundle"].get("sha256"):
+        raise FreshCacheError("continuation requires a changed source bundle")
+    if source_drift_audit.get("new_source_bundle_sha256") != current_source_bundle.get("sha256"):
+        raise FreshCacheError("source-drift audit does not match the current source bundle")
+    if source_drift_audit.get("parent_source_bundle_sha256") != parent_job["source_bundle"].get("sha256"):
+        raise FreshCacheError("source-drift audit does not match the parent source bundle")
+
+    wave_size = int(parent_job["wave_size"])
+    gpus = list(parent_job["gpus"])
+    wave_start = (start_rank - 1) // wave_size + 1
+    if start_rank != (wave_start - 1) * wave_size + 1:
+        raise FreshCacheError("continuation must start at a wave boundary")
+    candidates = copy.deepcopy(parent_candidates[start_rank - 1 :])
+    cache_context = {
+        "dataset": copy.deepcopy(parent_job["dataset"]),
+        "source_bundle": copy.deepcopy(current_source_bundle),
+        "container": copy.deepcopy(parent_job["container"]),
+    }
+    for index, candidate in enumerate(candidates):
+        expected_rank = start_rank + index
+        if candidate["rank"] != expected_rank:
+            raise FreshCacheError("continuation candidates are not rank-contiguous")
+        wave = wave_start + index // wave_size
+        gpu = gpus[index % wave_size]
+        key = make_cache_key(candidate, cache_context)
+        candidate.update(
+            {
+                "wave": wave,
+                "gpu": gpu,
+                "cache_key": key,
+                "cache_version_id": f"sideexp003_{key}",
+                "cache_root": str(RUNTIME_ROOT / "cache/logits/by_cache_key" / key),
+                "progress_path": str(
+                    RUNTIME_ROOT
+                    / "cache/jobs"
+                    / job_id
+                    / "progress"
+                    / f"{candidate['id']}.json"
+                ),
+                "source_bundle_sha256": current_source_bundle["sha256"],
+                "parent_cache_key": parent_candidates[expected_rank - 1]["cache_key"],
+            }
+        )
+    waves = []
+    max_wave = max(candidate["wave"] for candidate in candidates)
+    for wave_number in range(wave_start, max_wave + 1):
+        members = [candidate for candidate in candidates if candidate["wave"] == wave_number]
+        waves.append(
+            {
+                "wave": wave_number,
+                "status": "queued",
+                "members": [
+                    {
+                        "rank": candidate["rank"],
+                        "candidate_id": candidate["id"],
+                        "gpu": candidate["gpu"],
+                    }
+                    for candidate in members
+                ],
+            }
+        )
+    audit_copy = copy.deepcopy(source_drift_audit)
+    job = {
+        "schema_version": JOB_SCHEMA_VERSION,
+        "job_id": job_id,
+        "created_at_utc": utc_now(),
+        "status": "planned",
+        "roster_id": parent_job["roster_id"],
+        "roster_sha256": parent_job["roster_sha256"],
+        "reuse_policy": "fresh_only",
+        "auto_continue": True,
+        "wave_size": wave_size,
+        "gpus": gpus,
+        "gpu_safety": copy.deepcopy(parent_job["gpu_safety"]),
+        "runtime_root": str(RUNTIME_ROOT / "cache/jobs" / job_id),
+        "container": copy.deepcopy(parent_job["container"]),
+        "dataset": copy.deepcopy(parent_job["dataset"]),
+        "test300": copy.deepcopy(parent_job["test300"]),
+        "source_bundle": copy.deepcopy(current_source_bundle),
+        "storage_contract": copy.deepcopy(parent_job["storage_contract"]),
+        "initial_eta_hours": {"remaining": [7.0, 12.0]},
+        "continuation": {
+            "parent_job_id": parent_job["job_id"],
+            "parent_job_spec_sha256": parent_job["job_spec_sha256"],
+            "parent_source_bundle_sha256": parent_job["source_bundle"]["sha256"],
+            "rank_start": start_rank,
+            "wave_start": wave_start,
+            "completed_parent_ranks": list(range(1, start_rank)),
+            "original_top_n": len(parent_candidates),
+            "cache_policy": "new_source_bundle_new_cache_keys_no_parent_overwrite",
+            "source_drift_audit": audit_copy,
+        },
+        "waves": waves,
+        "candidates": candidates,
+    }
+    job["job_spec_sha256"] = json_sha256(job)
+    return job
+
+
 def validate_job(job: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if job.get("schema_version") != JOB_SCHEMA_VERSION:
@@ -581,11 +699,27 @@ def validate_job(job: dict[str, Any]) -> list[str]:
     signature = expected.pop("job_spec_sha256", None)
     if signature != json_sha256(expected):
         errors.append("job spec SHA mismatch")
+    continuation = job.get("continuation")
+    rank_start = 1
+    wave_start = 1
+    if continuation is not None:
+        if not isinstance(continuation, dict):
+            errors.append("job continuation must be an object")
+        else:
+            rank_start = int(continuation.get("rank_start", 0))
+            wave_start = int(continuation.get("wave_start", 0))
+            if rank_start <= 1 or wave_start <= 1:
+                errors.append("continuation rank/wave start is invalid")
+            if continuation.get("parent_source_bundle_sha256") == job.get("source_bundle", {}).get("sha256"):
+                errors.append("continuation did not change source bundle")
+            audit = continuation.get("source_drift_audit")
+            if not isinstance(audit, dict) or audit.get("new_source_bundle_sha256") != job.get("source_bundle", {}).get("sha256"):
+                errors.append("continuation source-drift audit mismatch")
     ranks = [candidate.get("rank") for candidate in candidates]
-    if ranks != list(range(1, len(candidates) + 1)):
+    if ranks != list(range(rank_start, rank_start + len(candidates))):
         errors.append("job ranks are not contiguous")
     for index, candidate in enumerate(candidates):
-        expected_wave = index // int(job["wave_size"]) + 1
+        expected_wave = index // int(job["wave_size"]) + wave_start
         expected_gpu = job["gpus"][index % int(job["wave_size"])]
         if candidate.get("wave") != expected_wave or candidate.get("gpu") != expected_gpu:
             errors.append(f"{candidate.get('id')}: wave/GPU assignment mismatch")

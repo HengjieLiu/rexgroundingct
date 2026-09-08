@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""SideExp003 catalog, rendering, validation, and legacy-cache migration.
+"""SideExp003 catalog, cache, and reproducible ensemble-method entrypoint.
 
-This module is deliberately CPU-only.  It never loads a model, runs inference,
-or starts an ensemble search.  The catalog JSON is the sole source for both
-leaderboards.
+The hub never loads a model itself. GPU inference and CPU-only ensemble workers
+run through explicit, frozen job specifications.
 """
 
 from __future__ import annotations
@@ -28,6 +27,8 @@ if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
 import fresh_cache  # noqa: E402
+import preliminary_ensemble  # noqa: E402
+import seeded_caruana  # noqa: E402
 
 CATALOG_PATH = HERE / "checkpoint_catalog.json"
 LEADERBOARD_PATH = HERE / "val200_checkpoint_leaderboard.md"
@@ -69,6 +70,21 @@ SAFE_SLUG_RE = re.compile(r"[^a-z0-9]+")
 EXPECTED_TOP20_CATALOG_SHA256 = (
     "0f70f841cd9f9f88f94bac5b0a8160394af12b6efd832823aa11c9c357d4a6fe"
 )
+CONTINUATION_ALLOWED_SOURCE_DRIFT = {
+    "scripts/rexgroundingct/common.py": (
+        "experiment_registry_only; worker imports REX_SEG_DIR and sorted_prompts, "
+        "whose committed definitions did not change"
+    ),
+    "side_experiments/sideexp003_ensemble_method_hub/hub.py": (
+        "control_plane_cli_only; no model prediction implementation"
+    ),
+    "side_experiments/sideexp003_ensemble_method_hub/fresh_cache.py": (
+        "continuation contract construction and validation only"
+    ),
+    "side_experiments/sideexp003_ensemble_method_hub/fresh_orchestrator.py": (
+        "continuation rank/wave scheduling and completion reporting only"
+    ),
+}
 
 
 class HubError(RuntimeError):
@@ -1422,10 +1438,19 @@ def check_command(args: argparse.Namespace) -> int:
                             f"{candidate['candidate_id']}: strict cache missing {field} {value}"
                         )
     for roster_path in sorted((HERE / "rosters").glob("roster_*.json")):
-        roster_errors = fresh_cache.validate_roster(read_json(roster_path))
+        roster = read_json(roster_path)
+        if roster.get("roster_kind") == "merged_fresh_analysis":
+            roster_errors = seeded_caruana.validate_merged_roster(roster)
+        elif roster.get("source_job") and roster.get("reuse_policy") == "fresh_only":
+            roster_errors = preliminary_ensemble.validate_derived_roster(roster)
+        else:
+            roster_errors = fresh_cache.validate_roster(roster)
         errors.extend(f"{roster_path.name}: {error}" for error in roster_errors)
     for job_path in sorted((HERE / "cache_jobs").glob("*/job_spec.json")):
         job_errors = fresh_cache.validate_job(read_json(job_path))
+        errors.extend(f"{job_path.parent.name}: {error}" for error in job_errors)
+    for job_path in sorted((HERE / "analysis_jobs").glob("*/job_spec.json")):
+        job_errors = seeded_caruana.validate_launch_spec(read_json(job_path))
         errors.extend(f"{job_path.parent.name}: {error}" for error in job_errors)
     if IMPORT_MANIFEST_PATH.is_file():
         errors.extend(_check_import_manifest(read_json(IMPORT_MANIFEST_PATH)))
@@ -1562,6 +1587,23 @@ def _render_job(job: dict[str, Any]) -> str:
             "after every member of the previous wave is `strict_passed`.",
         ]
     )
+    continuation = job.get("continuation")
+    if isinstance(continuation, dict):
+        audit = continuation["source_drift_audit"]
+        lines.extend(
+            [
+                "",
+                "## Audited continuation",
+                "",
+                f"Parent job: `{continuation['parent_job_id']}` "
+                f"(`{continuation['parent_job_spec_sha256']}`).",
+                f"Parent source bundle: `{continuation['parent_source_bundle_sha256']}`.",
+                f"Continuation source bundle: `{job['source_bundle']['sha256']}`.",
+                f"Source-drift audit: `{audit['audit_sha256']}`.",
+                "Completed parent caches remain immutable; every continuation candidate "
+                "uses a new cache key bound to the continuation source bundle.",
+            ]
+        )
     return "\n".join(lines) + "\n"
 
 
@@ -1643,6 +1685,189 @@ def cache_sync_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def _continuation_audit(
+    parent_job: dict[str, Any], start_rank: int
+) -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
+    current_bundle = fresh_cache.source_bundle()
+    old_files = {
+        value["path"]: value["sha256"]
+        for value in parent_job["source_bundle"]["files"]
+    }
+    new_files = {
+        value["path"]: value["sha256"] for value in current_bundle["files"]
+    }
+    changed_paths = sorted(
+        path
+        for path in set(old_files) | set(new_files)
+        if old_files.get(path) != new_files.get(path)
+    )
+    unexpected = [
+        path for path in changed_paths if path not in CONTINUATION_ALLOWED_SOURCE_DRIFT
+    ]
+    if unexpected:
+        raise HubError(
+            "continuation source drift includes unaudited inference files: "
+            + ", ".join(unexpected)
+        )
+    if not changed_paths:
+        raise HubError("continuation source bundle did not change")
+
+    progress: dict[str, dict[str, Any]] = {}
+    parent_evidence = []
+    for candidate in parent_job["candidates"]:
+        if int(candidate["rank"]) >= start_rank:
+            continue
+        progress_path = Path(candidate["progress_path"])
+        if not progress_path.is_file():
+            raise HubError(f"rank {candidate['rank']}: missing parent progress")
+        record = read_json(progress_path)
+        if record.get("job_id") != parent_job["job_id"] or record.get("status") != "strict_passed":
+            raise HubError(f"rank {candidate['rank']}: parent cache is not strict_passed")
+        validation_path = Path(candidate["cache_root"]) / "reproduction_validation.json"
+        manifest_path = Path(candidate["cache_root"]) / "export_manifest.json"
+        if not validation_path.is_file() or not manifest_path.is_file():
+            raise HubError(f"rank {candidate['rank']}: parent cache evidence is incomplete")
+        validation = read_json(validation_path)
+        if (
+            validation.get("status") != "passed"
+            or validation.get("cases") != 200
+            or validation.get("findings") != 381
+            or not validation.get("array_hashes_verified")
+        ):
+            raise HubError(f"rank {candidate['rank']}: parent validation gate is incomplete")
+        progress[candidate["id"]] = record
+        parent_evidence.append(
+            {
+                "rank": candidate["rank"],
+                "candidate_id": candidate["id"],
+                "cache_key": candidate["cache_key"],
+                "dtype": validation.get("dtype"),
+                "cases": validation.get("cases"),
+                "findings": validation.get("findings"),
+                "export_manifest_sha256": sha256_file(manifest_path),
+                "validation_sha256": sha256_file(validation_path),
+            }
+        )
+    expected_parent_ranks = list(range(1, start_rank))
+    if [int(value["rank"]) for value in parent_evidence] != expected_parent_ranks:
+        raise HubError("parent strict-cache prefix is not rank-contiguous")
+
+    commit = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    audit = {
+        "schema_version": 1,
+        "created_at_utc": utc_now(),
+        "decision": "approved_by_user_2026-09-08",
+        "parent_job_id": parent_job["job_id"],
+        "parent_job_spec_sha256": parent_job["job_spec_sha256"],
+        "parent_source_bundle_sha256": parent_job["source_bundle"]["sha256"],
+        "new_source_bundle_sha256": current_bundle["sha256"],
+        "current_repo_commit": commit,
+        "changed_files": [
+            {
+                "path": path,
+                "parent_sha256": old_files.get(path),
+                "continuation_sha256": new_files.get(path),
+                "classification": CONTINUATION_ALLOWED_SOURCE_DRIFT[path],
+            }
+            for path in changed_paths
+        ],
+        "protected_worker_sources_unchanged": sorted(
+            path for path in old_files if path not in changed_paths
+        ),
+        "parent_strict_cache_evidence": parent_evidence,
+        "policy": (
+            "The continuation uses new cache keys bound to the new source bundle; "
+            "parent cache paths and manifests remain immutable."
+        ),
+    }
+    audit["audit_sha256"] = json_sha256(audit)
+    audit["source_bundle"] = current_bundle
+    return audit, progress
+
+
+def cache_continue_command(args: argparse.Namespace) -> int:
+    parent_path = _job_path(args.parent_job)
+    parent_job = read_json(parent_path)
+    parent_errors = fresh_cache.validate_job(parent_job)
+    if parent_errors:
+        raise HubError("parent job is invalid: " + "; ".join(parent_errors))
+    job_path = _job_path(args.job_id)
+    if job_path.is_file():
+        job = read_json(job_path)
+        errors = fresh_cache.validate_job(job)
+        if errors:
+            raise HubError("existing continuation job is invalid: " + "; ".join(errors))
+        audit = job["continuation"]["source_drift_audit"]
+        _unused_audit, parent_progress = _continuation_audit(
+            parent_job, int(job["continuation"]["rank_start"])
+        )
+        if job["source_bundle"]["sha256"] != fresh_cache.source_bundle()["sha256"]:
+            raise HubError("existing continuation source bundle has drifted")
+    else:
+        audit, parent_progress = _continuation_audit(parent_job, args.start_rank)
+        job = fresh_cache.build_continuation_job(
+            parent_job,
+            job_id=args.job_id,
+            start_rank=args.start_rank,
+            current_source_bundle=audit["source_bundle"],
+            source_drift_audit={
+                key: value for key, value in audit.items() if key != "source_bundle"
+            },
+        )
+
+    roster = read_json(_roster_path(parent_job["roster_id"]))
+    source_errors = fresh_cache.validate_real_sources(
+        roster, verify_checkpoints=not args.skip_checkpoint_rehash
+    )
+    if source_errors:
+        raise HubError(
+            "continuation source preflight failed:\n- " + "\n- ".join(source_errors)
+        )
+    for candidate in job["candidates"]:
+        cache_root = Path(candidate["cache_root"])
+        if cache_root.exists():
+            manifest_path = cache_root / "export_manifest.json"
+            if not manifest_path.is_file():
+                raise HubError(f"continuation cache target exists without manifest: {cache_root}")
+            manifest = read_json(manifest_path)
+            if manifest.get("job_id") != job["job_id"]:
+                raise HubError(f"continuation cache target belongs to another job: {cache_root}")
+
+    summary = {
+        "status": "dry_run" if args.dry_run else "planned",
+        "job_id": job["job_id"],
+        "parent_job_id": parent_job["job_id"],
+        "rank_range": [job["candidates"][0]["rank"], job["candidates"][-1]["rank"]],
+        "waves": [value["wave"] for value in job["waves"]],
+        "candidates": len(job["candidates"]),
+        "parent_strict_passed": len(parent_progress),
+        "parent_source_bundle_sha256": parent_job["source_bundle"]["sha256"],
+        "new_source_bundle_sha256": job["source_bundle"]["sha256"],
+        "changed_files": [value["path"] for value in audit["changed_files"]],
+    }
+    print(json.dumps(summary, indent=2))
+    if args.apply and not job_path.is_file():
+        audit_path = job_path.with_name("source_drift_audit.json")
+        fresh_cache.atomic_write_json(
+            audit_path,
+            {key: value for key, value in audit.items() if key != "source_bundle"},
+        )
+        fresh_cache.atomic_write_json(job_path, job)
+        fresh_cache.atomic_write_text(job_path.with_name("job_spec.md"), _render_job(job))
+        catalog = fresh_cache.update_catalog_progress(
+            read_json(CATALOG_PATH), parent_job, parent_progress
+        )
+        catalog = fresh_cache.apply_job_to_catalog(catalog, job)
+        write_catalog_outputs(catalog)
+    return 0
+
+
 def cache_run_command(args: argparse.Namespace) -> int:
     job_path = _job_path(args.job)
     job = read_json(job_path)
@@ -1657,6 +1882,42 @@ def cache_watch_command(args: argparse.Namespace) -> int:
     from fresh_orchestrator import watch_job
 
     return int(watch_job(_job_path(args.job), args.interval, args.once))
+
+
+def ensemble_compare_command(args: argparse.Namespace) -> int:
+    from preliminary_ensemble import compare_command
+
+    args.roster = str(_roster_path(args.roster))
+    args.job = str(_job_path(args.job))
+    return int(compare_command(args))
+
+
+def ensemble_uniform_command(args: argparse.Namespace) -> int:
+    from preliminary_ensemble import uniform_command
+
+    args.roster = str(_roster_path(args.roster))
+    args.job = str(_job_path(args.job))
+    return int(uniform_command(args))
+
+
+def ensemble_seeded_plan_command(args: argparse.Namespace) -> int:
+    args.roster = str(_roster_path(args.roster))
+    args.source_job = [str(_job_path(value)) for value in args.source_job]
+    return int(seeded_caruana.plan_command(args))
+
+
+def ensemble_seeded_run_command(args: argparse.Namespace) -> int:
+    return int(
+        seeded_caruana.run_waiter(
+            seeded_caruana._analysis_job_path(args.job),
+            int(args.poll_interval),
+            bool(args.auto_start),
+        )
+    )
+
+
+def ensemble_seeded_watch_command(args: argparse.Namespace) -> int:
+    return int(seeded_caruana.watch_command(args))
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -1710,6 +1971,18 @@ def build_parser() -> argparse.ArgumentParser:
     plan_mode.add_argument("--apply", action="store_true")
     plan.set_defaults(func=cache_plan_command)
 
+    continuation = cache_sub.add_parser(
+        "continue", help="create an audited new-source continuation job"
+    )
+    continuation.add_argument("--parent-job", required=True)
+    continuation.add_argument("--job-id", required=True)
+    continuation.add_argument("--start-rank", type=int, required=True)
+    continuation.add_argument("--skip-checkpoint-rehash", action="store_true")
+    continuation_mode = continuation.add_mutually_exclusive_group(required=True)
+    continuation_mode.add_argument("--dry-run", action="store_true")
+    continuation_mode.add_argument("--apply", action="store_true")
+    continuation.set_defaults(func=cache_continue_command)
+
     run = cache_sub.add_parser("run", help="run the guarded fresh cache waves")
     run.add_argument("--job", required=True)
     run.add_argument("--auto-continue", action="store_true")
@@ -1727,6 +2000,60 @@ def build_parser() -> argparse.ArgumentParser:
     sync_mode.add_argument("--dry-run", action="store_true")
     sync_mode.add_argument("--apply", action="store_true")
     sync.set_defaults(func=cache_sync_command)
+
+    ensemble = subparsers.add_parser("ensemble", help="run frozen ensemble methods")
+    ensemble_sub = ensemble.add_subparsers(dest="ensemble_action", required=True)
+    compare = ensemble_sub.add_parser(
+        "compare", help="compare top-4 uniform and Caruana replacement diagnostics"
+    )
+    compare.add_argument("--roster", required=True)
+    compare.add_argument("--job", required=True)
+    compare.add_argument("--run-id", required=True)
+    compare_mode = compare.add_mutually_exclusive_group(required=True)
+    compare_mode.add_argument("--dry-run", action="store_true")
+    compare_mode.add_argument("--apply", action="store_true")
+    compare.set_defaults(func=ensemble_compare_command)
+
+    uniform = ensemble_sub.add_parser(
+        "uniform", help="evaluate a frozen top-k uniform probability ensemble"
+    )
+    uniform.add_argument("--roster", required=True)
+    uniform.add_argument("--job", required=True)
+    uniform.add_argument("--top", type=int, required=True)
+    uniform.add_argument("--run-id", required=True)
+    uniform_mode = uniform.add_mutually_exclusive_group(required=True)
+    uniform_mode.add_argument("--dry-run", action="store_true")
+    uniform_mode.add_argument("--apply", action="store_true")
+    uniform.set_defaults(func=ensemble_uniform_command)
+
+    seeded_plan = ensemble_sub.add_parser(
+        "seeded-plan", help="prepare the wave-gated top-16 seeded scoped diagnostic"
+    )
+    seeded_plan.add_argument("--roster", required=True)
+    seeded_plan.add_argument("--source-job", action="append", required=True)
+    seeded_plan.add_argument("--top", type=int, required=True)
+    seeded_plan.add_argument("--workers", type=int, required=True)
+    seeded_plan.add_argument("--job", required=True)
+    seeded_plan_mode = seeded_plan.add_mutually_exclusive_group(required=True)
+    seeded_plan_mode.add_argument("--dry-run", action="store_true")
+    seeded_plan_mode.add_argument("--apply", action="store_true")
+    seeded_plan.set_defaults(func=ensemble_seeded_plan_command)
+
+    seeded_run = ensemble_sub.add_parser(
+        "seeded-run", help="wait for ranks 1-16 and run the prepared diagnostic"
+    )
+    seeded_run.add_argument("--job", required=True)
+    seeded_run.add_argument("--poll-interval", type=int, default=600)
+    seeded_run.add_argument("--auto-start", action="store_true")
+    seeded_run.set_defaults(func=ensemble_seeded_run_command)
+
+    seeded_watch = ensemble_sub.add_parser(
+        "seeded-watch", help="watch a prepared seeded diagnostic"
+    )
+    seeded_watch.add_argument("--job", required=True)
+    seeded_watch.add_argument("--interval", type=int, default=600)
+    seeded_watch.add_argument("--once", action="store_true")
+    seeded_watch.set_defaults(func=ensemble_seeded_watch_command)
 
     check = subparsers.add_parser("check", help="validate catalog, renders, and migration")
     check.add_argument("--deep", action="store_true", help="rehash all source files")
@@ -1753,7 +2080,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         print(json.dumps(exc.stub, indent=2, sort_keys=True), file=sys.stderr)
         return 2
-    except (HubError, OSError, ValueError) as exc:
+    except (HubError, seeded_caruana.SeededCaruanaError, OSError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
 

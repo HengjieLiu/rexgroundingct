@@ -1,0 +1,143 @@
+{
+  "audit_sha256": "9ff8b54d858579bffef45b26e9b0e7e3f2a79136a8dfdd5c40072b66a31cea0b",
+  "changed_files": [
+    {
+      "classification": "experiment_registry_only; worker imports REX_SEG_DIR and sorted_prompts, whose committed definitions did not change",
+      "continuation_sha256": "be625ae68d6194e593536c50fcbe6c6a39efd0b8e7f2b421abf6592103e7aa5a",
+      "parent_sha256": "02b011f54070d5a9dd92bea76e36ce18f7a06a8333d75ba6ef414dbc0c5efec3",
+      "path": "scripts/rexgroundingct/common.py"
+    },
+    {
+      "classification": "continuation contract construction and validation only",
+      "continuation_sha256": "6337cdef2bfb6ffff691308063935f247335cc70865eac6c0506fe3d6a652f4d",
+      "parent_sha256": "ec553857dc7e7e7ec8559f480f5efbc9e9568b35d24c4ba10da7707f3532f8af",
+      "path": "side_experiments/sideexp003_ensemble_method_hub/fresh_cache.py"
+    },
+    {
+      "classification": "continuation rank/wave scheduling and completion reporting only",
+      "continuation_sha256": "0512842b65e5e677af903f0bd2217b1b35296b9c5b92da49d11f69423e8aa949",
+      "parent_sha256": "f4325e09a2951ddb76ae30bdba19f8f53572dbd39058117bdc106aa6fbf6efe3",
+      "path": "side_experiments/sideexp003_ensemble_method_hub/fresh_orchestrator.py"
+    },
+    {
+      "classification": "control_plane_cli_only; no model prediction implementation",
+      "continuation_sha256": "0b162eb993603a246a7f488742be591fdd22b7aae47e1225f5e528cc7c644923",
+      "parent_sha256": "dc975ed37e449b30871dc0e6cb409ff403e085e90d83c5e5245a495a9ca2850f",
+      "path": "side_experiments/sideexp003_ensemble_method_hub/hub.py"
+    }
+  ],
+  "created_at_utc": "2026-09-08T06:29:55Z",
+  "current_repo_commit": "413f078fadb0c6831a37e1dd32121818942a7800",
+  "decision": "approved_by_user_2026-09-08",
+  "new_source_bundle_sha256": "ce59a4d5021a6969d2fc63fe9b19d2fc8b1c1d3d81f4b26defbdec680d38bb28",
+  "parent_job_id": "j001_top20_val200_fresh",
+  "parent_job_spec_sha256": "b379536c17dcb8f4d45fb075f80adbb22e1db66799cdb99499dd0f7eef542cc1",
+  "parent_source_bundle_sha256": "ecfd609aa7cf6382bfef94467a2d6105ab46725a92c94301126ea23fe9580faa",
+  "parent_strict_cache_evidence": [
+    {
+      "cache_key": "v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe",
+      "candidate_id": "exp007_ddp_bs4_e050_a499ad1c",
+      "cases": 200,
+      "dtype": "float16",
+      "export_manifest_sha256": "91f6a203a689adf24b36f0c863c1f9f0209949258575e7685f0efb8b571fdafb",
+      "findings": 381,
+      "rank": 1,
+      "validation_sha256": "8f7f63e06a722a77bed3c426adc2f15962e987a358a2fccb05c78ceaa097950f"
+    },
+    {
+      "cache_key": "v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051",
+      "candidate_id": "exp009_baseline_cont100_e100_50e631f1",
+      "cases": 200,
+      "dtype": "float16",
+      "export_manifest_sha256": "52f3ff3fdbbe9051e2470dad8116784bf73e25e888d48ca64fe0a16a731741b6",
+      "findings": 381,
+      "rank": 2,
+      "validation_sha256": "61d9812850dc81a0335f2bf0793d0ed5bafd31c7ddbd0d2b8ffd79bdabef28af"
+    },
+    {
+      "cache_key": "v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca",
+      "candidate_id": "exp017_ddp_bs4_e050_4f36d9bb",
+      "cases": 200,
+      "dtype": "float16",
+      "export_manifest_sha256": "7e96b1e7ebccf56c28420c3a12dd0d135aa9b790ad4f63726bd93dce8ac827a2",
+      "findings": 381,
+      "rank": 3,
+      "validation_sha256": "18df5aea2b84f89898ed5dbb787f168fb345079a1a89502c9b60cb9213865ce6"
+    },
+    {
+      "cache_key": "v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d",
+      "candidate_id": "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+      "cases": 200,
+      "dtype": "float16",
+      "export_manifest_sha256": "00af78e219f833d80808694edabfa3ce9378a036122a185754b055eba9aec9bb",
+      "findings": 381,
+      "rank": 4,
+      "validation_sha256": "f2f2cad429f296571c7e4d1d9f79188fbf9eb9e1914d9519a5ad3cee8a49366b"
+    },
+    {
+      "cache_key": "v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd",
+      "candidate_id": "exp008_v1_sharedfusion_softguide_e100_61bcec41",
+      "cases": 200,
+      "dtype": "float16",
+      "export_manifest_sha256": "296bb51d1400780a98bb5da16230b6a7db177d7a632140d3d59711960c9fcdec",
+      "findings": 381,
+      "rank": 5,
+      "validation_sha256": "3f7c68ea09dc0e8bb05ce585f6a6af49105f5861e32d316a36c10bc80778e318"
+    },
+    {
+      "cache_key": "v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23",
+      "candidate_id": "exp008_v1_dualfusion_softguide_e100_9ba13980",
+      "cases": 200,
+      "dtype": "float16",
+      "export_manifest_sha256": "fcfb386792ae7eb72375a21bd1a6829f1d4955be4e70df29f0bbf6450ee98534",
+      "findings": 381,
+      "rank": 6,
+      "validation_sha256": "e0153be38af7c3946cd2b7dc2a587616b8d1f3cca214114d932a2d00ac636756"
+    },
+    {
+      "cache_key": "v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704",
+      "candidate_id": "exp009_s3v1_fixedrho_suppress_half_quarter_e100_263f27d3",
+      "cases": 200,
+      "dtype": "float16",
+      "export_manifest_sha256": "9f065e3f63cc130c054463e68e12629c04a8f16b0b96fe24698da0e22a09ba63",
+      "findings": 381,
+      "rank": 7,
+      "validation_sha256": "51b9a10230a4e578a3f70638c8f4a4700cd212c66d22d844727e50cb697c17bc"
+    },
+    {
+      "cache_key": "v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69",
+      "candidate_id": "exp017_ddp_bs4_e050_a50a69dc",
+      "cases": 200,
+      "dtype": "float16",
+      "export_manifest_sha256": "dd3ef8b8d8a4874ab8fbdf0b4793825b20b2666e995fb4d65023f4d6de4bd690",
+      "findings": 381,
+      "rank": 8,
+      "validation_sha256": "50ce951b7d07ce3ddbb4b9d5f41d8cfb2df6bcdc92406d24030df9fc517107c0"
+    }
+  ],
+  "policy": "The continuation uses new cache keys bound to the new source bundle; parent cache paths and manifests remain immutable.",
+  "protected_worker_sources_unchanged": [
+    "external/VoxTell/voxtell/__init__.py",
+    "external/VoxTell/voxtell/inference/__init__.py",
+    "external/VoxTell/voxtell/inference/predict_from_raw_data.py",
+    "external/VoxTell/voxtell/inference/predictor.py",
+    "external/VoxTell/voxtell/model/__init__.py",
+    "external/VoxTell/voxtell/model/transformer.py",
+    "external/VoxTell/voxtell/model/voxtell_model.py",
+    "external/VoxTell/voxtell/training/__init__.py",
+    "external/VoxTell/voxtell/training/run_finetuning.py",
+    "external/VoxTell/voxtell/training/voxtell_trainer.py",
+    "external/VoxTell/voxtell/utils/__init__.py",
+    "external/VoxTell/voxtell/utils/embedding_bank.py",
+    "external/VoxTell/voxtell/utils/text_embedding.py",
+    "scripts/rexgroundingct/run_voxtell_val_inference.py",
+    "scripts/rexgroundingct/voxtell_dual_branch.py",
+    "scripts/rexgroundingct/voxtell_preprocessed_cache.py",
+    "scripts/rexgroundingct/voxtell_s3_attention.py",
+    "side_experiments/sideexp002_multimodel_ensemble_selection/analyze_candidates.py",
+    "side_experiments/sideexp002_multimodel_ensemble_selection/export_logits.py",
+    "side_experiments/sideexp002_multimodel_ensemble_selection/storage_validation.py",
+    "side_experiments/sideexp003_ensemble_method_hub/fresh_export.py"
+  ],
+  "schema_version": 1
+}

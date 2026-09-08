@@ -482,15 +482,21 @@ def run_job(job_path: Path) -> int:
         previous = read_json(_job_state_path(job))
         state["started_at_utc"] = previous.get("started_at_utc", state["started_at_utc"])
     state = _write_state(job, state)
+    candidates = job["candidates"]
+    ranks = [int(candidate["rank"]) for candidate in candidates]
+    eta_range = job["initial_eta_hours"].get(
+        "remaining", job["initial_eta_hours"].get("all_20")
+    )
     print(
-        f"{job['job_id']}: fresh-only 20-model export; initial ETA "
-        f"{job['initial_eta_hours']['all_20'][0]:.0f}-{job['initial_eta_hours']['all_20'][1]:.0f}h",
+        f"{job['job_id']}: fresh-only {len(candidates)}-model export for ranks "
+        f"{min(ranks)}-{max(ranks)}; initial ETA {eta_range[0]:.0f}-{eta_range[1]:.0f}h",
         flush=True,
     )
     active_names: list[str] = []
     try:
-        max_wave = max(candidate["wave"] for candidate in job["candidates"])
-        for wave in range(1, max_wave + 1):
+        min_wave = min(candidate["wave"] for candidate in candidates)
+        max_wave = max(candidate["wave"] for candidate in candidates)
+        for wave in range(min_wave, max_wave + 1):
             members = [candidate for candidate in job["candidates"] if candidate["wave"] == wave]
             completed = [_progress(job, candidate) for candidate in members]
             if all(record and record.get("status") == "strict_passed" for record in completed):
@@ -531,13 +537,27 @@ def run_job(job_path: Path) -> int:
         if len(records) != len(job["candidates"]) or any(
             value.get("status") != "strict_passed" for value in records.values()
         ):
-            raise FreshCacheError("job ended without 20/20 strict caches")
+            raise FreshCacheError(
+                f"job ended without {len(job['candidates'])}/{len(job['candidates'])} strict caches"
+            )
+        completed_count = len(candidates)
+        parent_count = len(job.get("continuation", {}).get("completed_parent_ranks", []))
         state = _write_state(
-            job, state, status="strict_passed", current_wave=max_wave,
-            completed_at_utc=utc_now(), strict_passed=20,
+            job,
+            state,
+            status="strict_passed",
+            current_wave=max_wave,
+            completed_at_utc=utc_now(),
+            strict_passed=completed_count,
+            overall_strict_passed=parent_count + completed_count,
         )
         _sync_catalog(job_path)
-        print(f"{job['job_id']}: 20/20 strict_passed", flush=True)
+        print(
+            f"{job['job_id']}: {completed_count}/{completed_count} strict_passed; "
+            f"overall top-20 {parent_count + completed_count}/"
+            f"{job.get('continuation', {}).get('original_top_n', completed_count)}",
+            flush=True,
+        )
         return 0
     except Exception as exc:
         reason = str(exc)

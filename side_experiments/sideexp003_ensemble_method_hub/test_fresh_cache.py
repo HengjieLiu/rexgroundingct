@@ -81,6 +81,44 @@ class FreshScheduleTests(unittest.TestCase):
         self.assertNotEqual(first, second)
         self.assertTrue(first.startswith("v2_"))
 
+    def test_audited_continuation_preserves_original_ranks_and_new_keys(self) -> None:
+        parent = fresh_cache.build_job(roster(), job_id="j001", wave_size=4)
+        current_bundle = {"sha256": "source_v2", "files": []}
+        audit = {
+            "audit_sha256": "audit",
+            "parent_source_bundle_sha256": "source",
+            "new_source_bundle_sha256": "source_v2",
+        }
+        continuation = fresh_cache.build_continuation_job(
+            parent,
+            job_id="j002",
+            start_rank=9,
+            current_source_bundle=current_bundle,
+            source_drift_audit=audit,
+        )
+
+        self.assertEqual(
+            [value["rank"] for value in continuation["candidates"]],
+            list(range(9, 21)),
+        )
+        self.assertEqual(
+            [value["wave"] for value in continuation["candidates"]],
+            [3] * 4 + [4] * 4 + [5] * 4,
+        )
+        self.assertEqual(
+            [value["gpu"] for value in continuation["candidates"]],
+            [0, 1, 2, 3] * 3,
+        )
+        self.assertNotEqual(
+            continuation["candidates"][0]["cache_key"],
+            parent["candidates"][8]["cache_key"],
+        )
+        self.assertEqual(
+            continuation["candidates"][0]["parent_cache_key"],
+            parent["candidates"][8]["cache_key"],
+        )
+        self.assertEqual(fresh_cache.validate_job(continuation), [])
+
 
 class CatalogStateTests(unittest.TestCase):
     def catalog_candidate(self) -> dict:
