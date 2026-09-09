@@ -29,5 +29,6 @@ visualization/outputs/
 visualization/**/*_executed.ipynb
 visualization/**/*.png
 
-# Curated val200 gallery intentionally committed through Git LFS.
+# Curated val200 galleries intentionally committed through Git LFS.
 !visualization/2026-07-31_visualdev_coronal_projection/results/full_val200_mean_by_category/**/*.png
+!visualization/2026-09-09_coronal_lung_projection_comparison/results/**/*.png

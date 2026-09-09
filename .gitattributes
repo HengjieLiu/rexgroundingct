@@ -1,1 +1,2 @@
 visualization/2026-07-31_visualdev_coronal_projection/results/full_val200_mean_by_category/**/*.png filter=lfs diff=lfs merge=lfs -text
+visualization/2026-09-09_coronal_lung_projection_comparison/results/**/*.png filter=lfs diff=lfs merge=lfs -text

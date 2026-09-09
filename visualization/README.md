@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-08-01
+updated: 2026-09-09
 status: active
 ---
 
@@ -8,10 +8,10 @@ status: active
 
 This folder contains lightweight, repo-tracked visualization notebooks and
 helpers. Heavy generated figures, executed notebooks, and derived tables should
-be written to the experiment runtime tree under `/mnt/shengdata1`, not committed
-to Git. The curated val200 coronal-projection result below is a narrow exception:
-its review gallery is intentionally versioned through Git LFS, while all other
-generated visualization PNGs remain ignored.
+be written to external runtime storage, not committed to Git. The two curated
+val200 coronal-projection galleries below are narrow exceptions: their PNGs
+are configured for Git LFS, while other generated visualization PNGs remain
+ignored. Derived medical-image masks remain external.
 
 ## Current Notebook
 
@@ -26,6 +26,13 @@ connected-component measurements, Dice labels, and plotting logic auditable.
 
 ## Coronal Projection Development
 
+- `2026-09-09_coronal_lung_projection_comparison/`: per-finding 3×5 comparison
+  of whole-volume and exact-lung-only CT mean backgrounds. It compares frozen
+  overall/category/iso07 models with raw, whole-lung +20 mm, and corrected
+  bilateral upper-lobe +20 mm predictions. Full GT/prediction overlays and
+  3D Dice remain unchanged between background methods. Its full-val200 package
+  under `results/` embeds 762 figures in separate full-body/lung-only category
+  Markdown galleries; derived masks and detailed runtime records stay external.
 - `2026-07-31_visualdev_coronal_projection/`: one-row-per-finding whole-volume
   coronal projection pilot. It compares public VoxTell and three fine-tuned
   checkpoints, uses bone-resistant CT projections plus binary mask MIPs, and
