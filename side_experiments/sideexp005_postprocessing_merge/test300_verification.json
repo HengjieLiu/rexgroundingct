@@ -1,0 +1,49 @@
+{
+  "acceptance": [
+    "exact d11/d12 parity with frozen val adapter",
+    "original collaborator and d2/d3 regressions",
+    "score-independent report gate and provenance failures",
+    "complete 300-case/582-prompt/600-file synthetic run without labels or ZIPs",
+    "storage wait and automatic recovery",
+    "completed-job restart and interrupted two-file publication",
+    "four CPU workers and exact output mounts; no GPU or segmentation mounts",
+    "native geometry and nonbinary/hash failures"
+  ],
+  "files": [
+    {
+      "path": "side_experiments/sideexp005_postprocessing_merge/test300_postprocessing.py",
+      "sha256": "895863bfe3b4f81ff4261eec2d1eed11c574cd98e4e8ed5ab549454b21fcd1eb"
+    },
+    {
+      "path": "side_experiments/sideexp005_postprocessing_merge/launch_test300.py",
+      "sha256": "5f66635dbd68c518c8e3780fdea87fde5981cda090f298c9fe9bf23e8e4b4a5b"
+    },
+    {
+      "path": "side_experiments/sideexp005_postprocessing_merge/test300_config.json",
+      "sha256": "1e37bbe5768d54ffd682485288f0e41bdbd01248cf5c96cc40b74bb0b3cd334f"
+    },
+    {
+      "path": "side_experiments/sideexp005_postprocessing_merge/test300_execution_spec.md",
+      "sha256": "9480b5d52c349b6fd49728d80abe339fa5ab01404cebe159db48fbd5db119056"
+    },
+    {
+      "path": "side_experiments/sideexp005_postprocessing_merge/test_test300.py",
+      "sha256": "9cc99687f89bf068f90b4e4e796be1fe0dbe3605fc9272b4d2f08e0921d83ad2"
+    }
+  ],
+  "image_id": "sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f",
+  "job_sha256": "c7b39164431a10288700e92484937cf0c30541bdaccb7e7c8f1a59ef6517af23",
+  "repository_checks": "passed; 19 pre-existing consistency warnings",
+  "resolved_test_failure": "Renamed new coordinator to test300_postprocessing.py to avoid SideExp003 module-name collision under multiprocessing spawn.",
+  "status": "passed",
+  "suites": {
+    "exp024_postprocessing": 6,
+    "sideexp003": 98,
+    "submission_register": 11,
+    "test300_acceptance": 8,
+    "val200_collector": 2,
+    "val200_postprocessing": 13
+  },
+  "unique_targeted_tests": 138,
+  "verified_at_utc": "2026-09-10T08:05:46.630435+00:00"
+}

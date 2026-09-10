@@ -1,0 +1,82 @@
+{
+  "container_name": "sideexp005_r002_d1_test300_d11_d12_frozen_postprocessing",
+  "d1_job_sha256": "1b981c0420b308ecde216eba6feef6d200986e83fb7f9a9636e2febae1765e6e",
+  "d1_prediction_root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/d1",
+  "environment": {
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "NUMPY_MADVISE_HUGEPAGE": "0",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "expected": {
+    "cases": 300,
+    "findings": 582
+  },
+  "experiment": "sideexp005_postprocessing_merge",
+  "image_id": "sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f",
+  "inputs": {
+    "anatomy_audit": {
+      "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit/reports/private/audit_results.json",
+      "sha256": "a8ab8606eb64b8c8c4688436a1bdfab092e492d230aa4962cc2eca566a9974bd"
+    },
+    "d1_completion": {
+      "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/submission_jobs/s001_top4_test300_d123/completion.json",
+      "sha256": "053eb1f24bcbe6a16e6070354fa5d519756d511fc8c3872cccba957efc91e5eb"
+    },
+    "d1_manifest": {
+      "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/submission_jobs/s001_top4_test300_d123/d1.manifest.json",
+      "sha256": "9dd2d76b68389189e498f468e40d6c08d5b058cc42bff83cde58c5e9341e69b8"
+    },
+    "dataset": {
+      "cases": 300,
+      "findings": 582,
+      "labels": "withheld",
+      "path": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+      "sha256": "3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a",
+      "split": "test300"
+    },
+    "original_routing": {
+      "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/config/prompt_routing_test.json",
+      "sha256": "4987dfe273641096b85a3297319067385a5e5cc8d7b1fc9f570c57b1ca8b9dd6"
+    },
+    "test_job": {
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/submission_jobs/s001_top4_test300_d123/job_spec.json",
+      "sha256": "e1c75f0f1766c894df8bb0ddc4095956a247abfe50389bbc1bd9f7170a4fc9d9"
+    }
+  },
+  "output_root": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs",
+  "poll_seconds": 30,
+  "repo_root": "/home/hengjie/code_sync/rexgroundingct",
+  "run_id": "r002_d1_test300_d11_d12_frozen_postprocessing",
+  "runtime_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing",
+  "schema_version": 1,
+  "score_requirement": "none",
+  "source_status": "PASS_PENDING_MANUAL_VISUAL_REVIEW",
+  "storage": {
+    "headroom_bytes": 161061273600,
+    "reserve_bytes": 21990232555520
+  },
+  "validation_dependency": {
+    "collector_source": {
+      "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/closeout_source.json",
+      "sha256": "f71aebf3061138b7857c4f0f0e47300a51b3425d4fa0542d659b6e46b5d0204d"
+    },
+    "config": {
+      "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/config.json",
+      "sha256": "86881ea5b57b569214db26ec04114fe4080f67287b8f4910a2f5b559143331c5"
+    },
+    "job": {
+      "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/job_manifest.json",
+      "sha256": "4bf3353ea5624b9117014cca9d4450a614633933cfbd603dfd37e6f44c0cbc1c"
+    },
+    "job_sha256": "71413f80671f6019dd44948a19ef4d2639e34619824a7b31f371bd50cdc230a3",
+    "launch": {
+      "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/launch.json",
+      "sha256": "9bd20e597441044d1514364bf6adc29ed3116b0aea4ad29820635c5b14038eb0"
+    },
+    "runtime_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing"
+  },
+  "workers": 4,
+  "zip_policy": "skipped_by_request"
+}
