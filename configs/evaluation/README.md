@@ -22,3 +22,9 @@ Experiment 012 uses exhaustive target-category censuses plus fixed-val80 union
 sets at its intermediate barriers. Their case/finding counts, source hashes,
 and zero train/validation overlap audit are recorded in
 `rexgroundingct_exp012_category_evaluation_subsets.manifest.json`.
+
+Experiment 027 freezes patient-grouped halves of all 200 validation scans in
+`rexgroundingct_exp027_halves_seed20260909.manifest.json`. It records the source
+metadata hash, selected partition hash, balancing score and original 2a finding
+IDs/prompts. A contains 35 2a findings; B contains 34. All four runs share this
+partition, and evaluation aggregates the same per-finding records into A/B/full.

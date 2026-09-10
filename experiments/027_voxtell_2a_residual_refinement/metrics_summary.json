@@ -1,0 +1,49 @@
+{
+  "canonical_config": {
+    "bytes": 2903,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/configs/experiments/027_voxtell_2a_residual_refinement.json",
+    "repo_path": "configs/experiments/027_voxtell_2a_residual_refinement.json",
+    "sha256": "d601ed90a7886bd61992850a63b3002f0d84e7245650b0ea8ed35bccb64c49c5"
+  },
+  "eval_json": {
+    "bytes": 4012,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/full_fp32_100ep/reports/live_dashboard.json",
+    "sha256": "5e8ee796a0a7cb4c10f258bc57a45f0c3b3fecbfa17b51972d07749c36611c5b"
+  },
+  "execution_spec": {
+    "bytes": 10981,
+    "exists": true,
+    "path": "/home/hengjie/code_sync/rexgroundingct/experiments/027_voxtell_2a_residual_refinement/codex_execution_spec.md",
+    "repo_path": "experiments/027_voxtell_2a_residual_refinement/codex_execution_spec.md",
+    "sha256": "460d2a76615df17e3081ed78a9e3372c41608710d45f21ac14afa08764982d9e"
+  },
+  "id": "027_voxtell_2a_residual_refinement",
+  "metrics": {},
+  "repo_commit": "83b12f9155108ecb4f066cfcaa1a659522670c1e",
+  "repo_dir": "experiments/027_voxtell_2a_residual_refinement",
+  "repo_metrics": "experiments/027_voxtell_2a_residual_refinement/metrics_summary.json",
+  "report": {
+    "bytes": 4561,
+    "copied": false,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/full_fp32_100ep/reports/live_dashboard.md",
+    "sha256": "24669b444fccc900990216a1f11e996b6ad0a1a2d0ae7fd1d1f4a09b3ca886d4",
+    "skipped_reason": "Live report is linked through runtime; no static mirror"
+  },
+  "runtime_config_matches_canonical": true,
+  "runtime_config_snapshot": {
+    "bytes": 2903,
+    "exists": true,
+    "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/full_fp32_100ep/config/027_voxtell_2a_residual_refinement.json",
+    "sha256": "d601ed90a7886bd61992850a63b3002f0d84e7245650b0ea8ed35bccb64c49c5"
+  },
+  "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/full_fp32_100ep",
+  "runtime_link_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement",
+  "runtime_link_status": "exists",
+  "status": "cache_preparation",
+  "synced_at_utc": "2026-09-10T06:51:23.670715+00:00",
+  "title": "Four-condition 2a residual logit refinement",
+  "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
+}

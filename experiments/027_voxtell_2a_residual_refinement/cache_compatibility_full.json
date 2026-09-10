@@ -1,0 +1,31 @@
+{
+  "current_contract": "47d7eab826a0e5ed40a7854ce02d8fe4121dca07eaac96eb6a2a6e956de1735f",
+  "legacy_cases": 196,
+  "legacy_contract": "e10f9ec7d6dc51e8169b4a8978486c047dd50d81f49c4af588bf96d1fc9f767f",
+  "policy": "Accept only these exact input-bound contracts; keep existing metadata and arrays unchanged.",
+  "prepared_sha256": "681e172a0241657bf775d47d71952c47c591693e85ca91494e42747f80b23215",
+  "previous_code": {
+    "exp027_common.py": "fd8e1d498c3bdb45515dafa8e292c15acdde43fbab60c60038c35e3daeda500b",
+    "exp027_data.py": "ff2f30842cc2c060d941e6fd28250732bb489eb240f0e23f8d3afc0281a1c163",
+    "exp027_model.py": "2dc0028364ff4672b460d4c0f8b4bc247e7a5ce4c6fd7a2cf6035c80f1ee36b8",
+    "exp027_report.py": "e89e47e79040de5de803a57dfcea05867cfef7e5d1b3a74f1ecade1fb520cd32",
+    "exp027_runner.py": "a73658b1122c2c2c1b291c05ef0f32dde4b75272a7f9b246d25ccead023e6a35",
+    "run_027_host.sh": "ddcef9c5c2453d7c6bb1599330c5d47476aecc3e2a8af12914a8d071e8bc546f",
+    "run_027_residual_refinement.py": "6bf6e64a8a0c1ac54929ed5585ffc699228d0d905be6bb35923be3182ed6db8c",
+    "run_voxtell_val_inference.py": "896c0a5e62e3055823653b0e65a99499e397346c1c4f0ae5a01b2d8f8c615d82",
+    "train_text_conditioned_voxtell.py": "128ebf62ccd3062db18d5aa9c04748a5953f7e50f2c3664c3e05963cb7f873b5",
+    "voxtell_preprocessed_cache.py": "d75acf197a8a111a419d32203f5383a9bb3b93094058b8f46172aa91ccc6e82c"
+  },
+  "producer": {
+    "candidate_points": "0125d7e53812a2348977e0736368ef73532672f572058a520c1b94eab222f492",
+    "load_validation_array": "557427b06230a317f1d958895635d0009c559a55ee9d4c7213243c1430c917f0",
+    "native_to_original": "53b3a17e25bc0551f39a8527255868f28016a8a05d11f5c4708cf36233e8ae57",
+    "original_to_native": "b36e8fd18a9726595a9f0f49dd9a6ee9bc35683237dafff3c61e7c30810a2130",
+    "run_voxtell_val_inference.py": "896c0a5e62e3055823653b0e65a99499e397346c1c4f0ae5a01b2d8f8c615d82",
+    "stored_logits": "026821862bcef87684e95cbe1324b8308dc974910295e26074323bf815d09559",
+    "train_text_conditioned_voxtell.py": "128ebf62ccd3062db18d5aa9c04748a5953f7e50f2c3664c3e05963cb7f873b5",
+    "voxtell_preprocessed_cache.py": "d75acf197a8a111a419d32203f5383a9bb3b93094058b8f46172aa91ccc6e82c",
+    "write_case_cache": "833553f0ae05a6e5237076a04db03347da8447dc812ed1de8017e062c63686c9"
+  },
+  "verification": "AST-identical case export body, orientation/storage/point helper ASTs, and unchanged upstream source hashes; existing data hashes verified before launch."
+}

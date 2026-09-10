@@ -1,0 +1,82 @@
+{
+  "experiment": "027_voxtell_2a_residual_refinement",
+  "status": "awaiting_timing_approval",
+  "seed": 20260909,
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "metadata_sha256": "3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a",
+  "experiment_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/precision_fp32",
+  "base": {
+    "candidate_id": "exp007_ddp_bs4_e050_a499ad1c",
+    "checkpoint": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+    "checkpoint_sha256": "a499ad1c0fada9a7e4d78e352fa5510d31295e82749e00ef0a4eee6da685e4aa",
+    "validation_cache": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe",
+    "logit_clip": [
+      -30,
+      30
+    ]
+  },
+  "preprocessing": {
+    "classification": "cached-equivalent native VoxTell",
+    "cache_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1",
+    "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3"
+  },
+  "split": {
+    "candidates": 5000,
+    "manifest": "configs/evaluation/rexgroundingct_exp027_halves_seed20260909.manifest.json"
+  },
+  "model": {
+    "channels": 16,
+    "groups": 4,
+    "dilations": [
+      1,
+      2,
+      4,
+      1
+    ],
+    "patch_size": [
+      192,
+      192,
+      192
+    ]
+  },
+  "loss": {
+    "residual_l1": 0.005,
+    "dice_epsilon": 1e-06
+  },
+  "optimizer": {
+    "lr": 0.0001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "grad_clip": 1
+  },
+  "training": {
+    "batch_size": 1,
+    "gradient_accumulation": 1,
+    "amp": false,
+    "total_updates": null,
+    "evaluation_updates": null,
+    "lr_schedule": "constant",
+    "updates_per_epoch": 100
+  },
+  "benchmark": {
+    "updates": 100,
+    "warmup_updates": 5
+  },
+  "evaluation": {
+    "threshold": 0.5,
+    "overlap": 0.5
+  },
+  "report": {
+    "interval_seconds": 30
+  },
+  "expected": {
+    "train_findings": 1120,
+    "val_findings": 69,
+    "val_cases": 63,
+    "val_total_cases": 200
+  }
+}
