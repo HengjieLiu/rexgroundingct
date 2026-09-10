@@ -365,3 +365,17 @@ experiments:
     mean_global_dice_per_finding: null
     hit_rate: null
     overall_instance_f1: null
+  - id: "027_voxtell_2a_residual_refinement"
+    title: "Four-condition 2a residual logit refinement"
+    status: "cache_preparation"
+    canonical_config: "configs/experiments/027_voxtell_2a_residual_refinement.json"
+    execution_spec: "experiments/027_voxtell_2a_residual_refinement/codex_execution_spec.md"
+    runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/full_fp32_100ep"
+    runtime_config_snapshot: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/full_fp32_100ep/config/027_voxtell_2a_residual_refinement.json"
+    runtime_config_matches_canonical: true
+    repo_report: null
+    runtime_report: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/full_fp32_100ep/reports/live_dashboard.md"
+    repo_metrics: "experiments/027_voxtell_2a_residual_refinement/metrics_summary.json"
+    mean_global_dice_per_finding: null
+    hit_rate: null
+    overall_instance_f1: null

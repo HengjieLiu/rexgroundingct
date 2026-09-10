@@ -58,3 +58,4 @@ small summaries easy to inspect while large outputs remain on `/mnt/shengdata1`.
 | `024_test_inference_anatomy_audit` | `complete` | `experiments/024_test_inference_anatomy_audit/aggregate_report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit` |
 | `025_iso07_best_anatomy_audit` | `complete` | `experiments/025_iso07_best_anatomy_audit/report.md` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/025_iso07_best_anatomy_audit` |
 | `026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr` | `implemented_delayed_launch` |  | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr` |
+| `027_voxtell_2a_residual_refinement` | `cache_preparation` | `` | `/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/full_fp32_100ep` |

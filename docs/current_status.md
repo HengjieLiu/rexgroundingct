@@ -12,6 +12,33 @@ edit.
 
 ## Active Work
 
+- `027_voxtell_2a_residual_refinement`: both 100-update precision benchmarks
+  completed. The user adopted FP32 for refinement training/evaluation by default
+  and authorized four concurrent full runs: 100 updates × 100 epochs, with
+  synchronous 69-finding A/B/full evaluations every 10 epochs. The canonical
+  config targets the separate `full_fp32_100ep` runtime. All 801 training CTs /
+  1,120 findings and 63 validation CTs / 69 findings must be cached and verified
+  before any trainer starts; the prior 196 caches are reused with an input-bound
+  producer-compatibility proof. Initial weights are pristine and common, LR
+  remains 1e-4 and clipping 1.0, and TF32 is disabled only for refiner workers.
+  Implementation passes 36 CPU contract/controller tests and 16 CPU PyTorch
+  tests with GPUs disabled. The independent live report writer publishes
+  training updates within five seconds and provisional per-finding validation
+  scores before peers finish, then replaces them with each arm's final result.
+  See `full_run_verification.md` and the experiment README for the current board,
+  launch manifest and retained benchmark comparison. Ranking and checkpoint
+  selection remain pending user review. The authorized orchestration launched
+  at 2026-09-10 06:50 UTC (host PID 2754829); all four cache workers are active,
+  each assigned 216 CTs. Training starts automatically only after complete cache
+  verification. The live full-run board is updating during preparation.
+  The read-only `data_loading_audit.md` found synchronous patch loading, a
+  two-case metadata/mapping cache and redundant buffer copies. Mean loading
+  fell from 0.975–1.468 s in the earlier FP16 trial to 0.080–0.086 s in the
+  later FP32 trial on identical schedules, consistent with warmer NFS file
+  pages or changed contention. Later loading accounted for only 7–8% of
+  training wall time; speedup claims need a controlled same-precision replay.
+  Bounded prefetch, metadata retention and predictable input access are
+  proposed; loader optimizations have not been implemented.
 - `022_exp007_official_anatomy_val200_audit` is complete for user review:
   200 CTs / 381 finding prompts, frozen Exp007 cont e050 / abs e150 baseline
   Dice `0.346023`, official Exp020 masks only, 32 fixed diagnostic policies.

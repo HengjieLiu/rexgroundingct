@@ -68,6 +68,10 @@ status: active
 - `026_voxtell_cached_native_v123_e5_d4_ddp_bs4_fixed_lr`: public-start
   cached-native v123 DDP batch4 run with fixed differential learning rates and
   full val200 barriers every five epochs.
+- `027_voxtell_2a_residual_refinement`: four data-source conditions for a frozen
+  Exp007 2a residual refiner, with local Markdown/PNG monitoring. GPU timing
+  requires explicit approval; full-run scheduling follows the user's timing
+  review, and model ranking remains a user decision.
 
 Do not rename experiment IDs casually. Runtime paths, configs, manifests, and
 reports depend on them.
@@ -84,6 +88,15 @@ For VoxTell/ReXGroundingCT work, record normalization scope, resampling,
 patch/window policy, cache ownership, orientation/export checks, and expected
 data-pipeline bottlenecks. Use `docs/voxtell/preprocessing_variants.md` for the
 standard cache IDs and required fields.
+
+## Refinement Precision Default
+
+Use FP32 for new refinement-model training and evaluation by default, with
+mixed precision or TF32 requiring an explicit recorded experiment decision.
+This default applies to refiners, not frozen base-model cache generation or
+existing cache storage. Preserve those source contracts and all historical
+experiment configurations. The user adopted this rule after Exp027's matched
+FP16/FP32 benchmarks and approved its 10,000-update FP32 full run.
 
 ## Milestone Evaluation
 
