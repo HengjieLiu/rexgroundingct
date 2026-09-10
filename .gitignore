@@ -31,3 +31,16 @@ visualization/**/*.png
 
 # Curated val200 gallery intentionally committed through Git LFS.
 !visualization/2026-07-31_visualdev_coronal_projection/results/full_val200_mean_by_category/**/*.png
+
+# Submission control plane contains metadata only; heavy artifacts stay external.
+submissions/**/*.nii
+submissions/**/*.nii.gz
+submissions/**/*.zip
+submissions/**/*.pt
+submissions/**/*.pth
+submissions/**/*.ckpt
+submissions/**/*.safetensors
+submissions/**/*.log
+submissions/**/*.png
+submissions/**/*.jpg
+submissions/**/*.jpeg
