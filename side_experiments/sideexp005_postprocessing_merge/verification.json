@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-09-10T06:57:10.003782+00:00",
+  "image_id": "sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f",
+  "checks": {
+    "sideexp005_tests": 13,
+    "sideexp003_tests": 93,
+    "exp024_tests": 6,
+    "submission_register_tests": 10,
+    "repository_workflow": "passed (existing runtime/sync warnings)"
+  },
+  "numerical_sources": {
+    "side_experiments/sideexp005_postprocessing_merge/methods.py": "f92c7a8c4cb774e602ba409065fcd12cf7f21023e95953579990c7b017296886",
+    "side_experiments/sideexp005_postprocessing_merge/runner.py": "11c33818a245542b44671a60f0b76ef93016d212ff1ed94ec3f4b9266cffc01f"
+  }
+}

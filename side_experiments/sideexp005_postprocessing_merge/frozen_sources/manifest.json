@@ -1,0 +1,46 @@
+{
+  "archive": "RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze.zip",
+  "archive_sha256": "7561acb37aa3281f863a4759a40a899d13d1181ff68c309744e8ed411d9c3c7c",
+  "files": [
+    {
+      "path": "apply_semantic_constraint_best_policy.py",
+      "archive_member": "RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze/scripts/apply_semantic_constraint_best_policy.py",
+      "sha256": "bb8d1abd80b2d38bced428037750d40f649238b6a9c7c083d5cad1f06e34f0b4"
+    },
+    {
+      "path": "apply_semantic_v2_strict_to_rex_predictions.py",
+      "archive_member": "RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze/scripts/apply_semantic_v2_strict_to_rex_predictions.py",
+      "sha256": "940be78b78494646bde4f58e184ff5366b76f8d1fe2fab90133d89cb306803d4"
+    },
+    {
+      "path": "audit_fine_spatial_modifiers.py",
+      "archive_member": "RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze/scripts/audit_fine_spatial_modifiers.py",
+      "sha256": "b9b73b79c3c0df5f9949c2fc6d79f99ec1e037d02a6525e8cf45a33395f16f8a"
+    },
+    {
+      "path": "audit_segment_v2_scopeaware.py",
+      "archive_member": "RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze/scripts/audit_segment_v2_scopeaware.py",
+      "sha256": "1d12e2f1f3e0243ff92531d1064344372aef4953a4fcca00d017e66c6b9bf989"
+    },
+    {
+      "path": "evaluate_anatomy_prior_ablation.py",
+      "archive_member": "RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze/scripts/evaluate_anatomy_prior_ablation.py",
+      "sha256": "06825963d53184150b097f79773c703c79f6ce6ca52d05a371ac42a8edc0b703"
+    },
+    {
+      "path": "evaluate_anatomy_prior_diagnostic.py",
+      "archive_member": "RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze/scripts/evaluate_anatomy_prior_diagnostic.py",
+      "sha256": "08f2fef1be44af4a5b564e77d7e66dcd4adbc986575be30edcf00124d9be2319"
+    },
+    {
+      "path": "evaluate_semantic_aware_lobe_constraint_part1.py",
+      "archive_member": "RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze/scripts/evaluate_semantic_aware_lobe_constraint_part1.py",
+      "sha256": "e3495690581bb2720a9c5cf4e06f07d9bec638f7360c0d0d72fa2883139410c2"
+    },
+    {
+      "path": "run_totalseg_lung_priors.py",
+      "archive_member": "RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze/scripts/run_totalseg_lung_priors.py",
+      "sha256": "8cca74a8d4a840f1b75ba0a6d0c02f7304fa0542d982b610a5a962bf94220459"
+    }
+  ]
+}

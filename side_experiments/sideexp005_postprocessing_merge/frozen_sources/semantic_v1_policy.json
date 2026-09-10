@@ -1,0 +1,26 @@
+{
+  "threshold": 0.5,
+  "groups": {
+    "high_conf_exact_lobe": {
+      "roi": "exact_lobe",
+      "dilation_mm": 15
+    },
+    "ambiguous_lobe": {
+      "roi": "side_lung",
+      "dilation_mm": 15
+    },
+    "laterality_only": {
+      "roi": "side_lung",
+      "dilation_mm": 15
+    },
+    "bilateral_multifocal": {
+      "roi": "whole_lung",
+      "dilation_mm": 10
+    },
+    "nonlocalizable": {
+      "roi": "whole_lung",
+      "dilation_mm": 10
+    }
+  },
+  "provenance": "Reconstructed from deployment load_config assertions; referenced YAML absent from ZIP"
+}

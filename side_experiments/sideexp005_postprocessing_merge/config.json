@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "experiment": "sideexp005_postprocessing_merge",
+  "run_id": "r001_d1_val200_frozen_postprocessing",
+  "runtime_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing",
+  "image_id": "sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f",
+  "workers": 4,
+  "chunk_elements": 4194304,
+  "expected": {
+    "cases": 200,
+    "findings": 381
+  },
+  "inputs": {
+    "dataset": {
+      "path": "/home/hengjie/code_sync/rexgroundingct/configs/evaluation/rexgroundingct_val200_seed20260723.json",
+      "sha256": "7c6db98a2548165cf12448c4b6bc3701f5db8641b5a8627678f69691d8322897"
+    },
+    "roster": {
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/rosters/roster_top4_val200_fresh_j001.json",
+      "sha256": "142f400de7ba33f07368f1cd5db3318777ac0cef100fa3d1cec50b501594e1d1"
+    },
+    "baseline_result": {
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/methods/uniform_global/runs/r001_top4_fresh_val200/result.json",
+      "sha256": "1c3a7f7b17cdebf45418cc55b7c06bf3a7f3e0cfc4739d31a865ecfdea3b3f7d"
+    },
+    "routes": {
+      "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/config/prompt_routing_val.json",
+      "sha256": "fc277cc70bef374a7b274cff69b75bb1585a18f3f94139c389aa3354e9b1b118"
+    },
+    "anatomy_audit": {
+      "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/020_ct_rate_ts_total_rex_val200_audit/reports/private/audit_results.json",
+      "sha256": "a47847d81d95860bfefd2dc67b8641013a01f4383004d20039deb1ef9e66923e"
+    }
+  },
+  "candidate_ids": [
+    "exp007_ddp_bs4_e050_a499ad1c",
+    "exp009_baseline_cont100_e100_50e631f1",
+    "exp017_ddp_bs4_e050_4f36d9bb",
+    "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801"
+  ],
+  "ground_truth_root": "/data/hengjie/datasets/rexgroundingct/segmentations",
+  "storage": {
+    "reserve_bytes": 21990232555520,
+    "headroom_bytes": 268435456000
+  },
+  "baseline": {
+    "dice": 0.3575041942161927,
+    "hits": 296,
+    "tolerance": 1e-12
+  },
+  "routing_counts": {
+    "lobe": 110,
+    "side": 67,
+    "whole": 204,
+    "v2_selected": 49
+  },
+  "source_status": "PASS_PENDING_MANUAL_VISUAL_REVIEW",
+  "test_generation": "pending_validation_review",
+  "environment": {
+    "NUMPY_MADVISE_HUGEPAGE": "0",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  }
+}

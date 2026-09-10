@@ -1,0 +1,9 @@
+{
+  "source": "experiments/027_postprocessing_merge",
+  "destination": "side_experiments/sideexp005_postprocessing_merge",
+  "files": {
+    "RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze.zip": "7561acb37aa3281f863a4759a40a899d13d1181ff68c309744e8ed411d9c3c7c",
+    "rex_anatomy_postprocessing_source_audit.md": "b76221745967df8900d5bd2761cdbc3ec631c8379901342adc13d38033998d86"
+  },
+  "verified_identical": true
+}
