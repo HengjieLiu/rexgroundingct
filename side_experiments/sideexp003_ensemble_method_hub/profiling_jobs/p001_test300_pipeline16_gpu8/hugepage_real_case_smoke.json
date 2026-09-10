@@ -1,0 +1,55 @@
+{
+  "extra_inference": 0,
+  "numpy_madvise_hugepage": false,
+  "publication": {
+    "bytes": 2030043264,
+    "dtype": "float16",
+    "elapsed_seconds": 25.944858599454165,
+    "io": {
+      "cancelled_write_bytes": 0,
+      "rchar": 4204944,
+      "read_bytes": 2030047232,
+      "syscr": 10,
+      "syscw": 3,
+      "wchar": 2030045887,
+      "write_bytes": 2030055424
+    },
+    "name": "train_12972_a_2.nii.gz",
+    "rank": 8,
+    "rss_peak_bytes": 17149001728,
+    "timings": {
+      "publication_hash": 1.379906877875328,
+      "publication_read_convert": 3.7298693396151066,
+      "shared_write_fsync": 4.338476464152336,
+      "storage_mask_proof": 2.668737042695284,
+      "strict_validation": 13.765402927994728
+    }
+  },
+  "restore": {
+    "array_sha256": "e07700ef593eb9c447db36b228c2e4931cda25e9635a826c351cecb0e3e49626",
+    "elapsed_seconds": 79.97897144407034,
+    "io": {
+      "cancelled_write_bytes": 0,
+      "rchar": 2162074,
+      "read_bytes": 3418935296,
+      "syscr": 22,
+      "syscw": 5,
+      "wchar": 4060089285,
+      "write_bytes": 4060094464
+    },
+    "name": "train_12972_a_2.nii.gz",
+    "rank": 8,
+    "rss_peak_bytes": 17149001728,
+    "timings": {
+      "crop_read_hash": 26.660309962928295,
+      "ct_header": 0.005781311541795731,
+      "finite_range_clip": 1.1096859760582447,
+      "local_array_hash": 3.4748267717659473,
+      "local_write": 23.314170241355896,
+      "orientation_total": 17.034092977643013,
+      "restore_insert_child": 0.3051632009446621,
+      "restore_resample_child": 6.97378933429718,
+      "restore_total": 8.255751386284828
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "cpu_workers": [
+    4,
+    8,
+    16
+  ],
+  "extra_inference": 0,
+  "extra_local_bytes": 86503325696,
+  "extra_shared_bytes": 86503325696,
+  "numpy_madvise_hugepage": false,
+  "parent_job_sha256": "62eada06c82d485229fa18dd14be455aff445eb89baac63712ed660e51c615ab",
+  "source_sha256": "a73d7b2bfb73ce09ad3f2a9eebd99e3de1b943de79ca9f5fd9d9317ec35f76d4"
+}

@@ -1,0 +1,8 @@
+{
+  "shared_bytes": 92944942235,
+  "local_bytes": 212938347361,
+  "shared_free_bytes": 25555531464704,
+  "local_free_bytes": 6801552224256,
+  "minimum_shared_reserve_bytes": 21990232555520,
+  "cleanup": "Retained only benchmark-owned arrays for audit and possible CPU replay; no existing caches deleted."
+}

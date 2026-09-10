@@ -1,0 +1,107 @@
+{
+  "cpu_modes": {
+    "cpu16": {
+      "host_iowait_percent": 0.2767815175156062,
+      "host_vm_counters": {
+        "compact_fail": 96939,
+        "compact_stall": 98868,
+        "compact_success": 1929,
+        "observed_seconds": 721.6286752223969,
+        "thp_fault_fallback": 26815
+      },
+      "observed_process_rss_sum_peak_bytes": 74431053824,
+      "process_kernel_cpu_percent": 90.79924264529474
+    },
+    "cpu4": {
+      "host_iowait_percent": 0.1580606584601727,
+      "host_vm_counters": {
+        "compact_fail": 67038,
+        "compact_stall": 69420,
+        "compact_success": 2382,
+        "observed_seconds": 871.6016848087311,
+        "thp_fault_fallback": 14167
+      },
+      "observed_process_rss_sum_peak_bytes": 41007697920,
+      "process_kernel_cpu_percent": 86.66014765560064
+    },
+    "cpu8": {
+      "host_iowait_percent": 0.18839318402402638,
+      "host_vm_counters": {
+        "compact_fail": 107186,
+        "compact_stall": 109679,
+        "compact_success": 2493,
+        "observed_seconds": 861.6237075328827,
+        "thp_fault_fallback": 31232
+      },
+      "observed_process_rss_sum_peak_bytes": 64731877376,
+      "process_kernel_cpu_percent": 92.64614253990062
+    },
+    "nohuge_cpu16": {
+      "host_iowait_percent": 1.4604314015093305,
+      "host_vm_counters": {
+        "compact_fail": 0,
+        "compact_stall": 0,
+        "compact_success": 0,
+        "observed_seconds": 310.24821162223816,
+        "thp_fault_fallback": 0
+      },
+      "observed_process_rss_sum_peak_bytes": 78546198528,
+      "process_kernel_cpu_percent": 25.06120345316325
+    },
+    "nohuge_cpu4": {
+      "host_iowait_percent": 0.46124142697400594,
+      "host_vm_counters": {
+        "compact_fail": 8,
+        "compact_stall": 8,
+        "compact_success": 0,
+        "observed_seconds": 273.32543659210205,
+        "thp_fault_fallback": 0
+      },
+      "observed_process_rss_sum_peak_bytes": 38621761536,
+      "process_kernel_cpu_percent": 21.909409791062988
+    },
+    "nohuge_cpu8": {
+      "host_iowait_percent": 1.0064415132164837,
+      "host_vm_counters": {
+        "compact_fail": 9,
+        "compact_stall": 9,
+        "compact_success": 0,
+        "observed_seconds": 345.88847517967224,
+        "thp_fault_fallback": 0
+      },
+      "observed_process_rss_sum_peak_bytes": 46301519872,
+      "process_kernel_cpu_percent": 23.351168528734995
+    }
+  },
+  "gpu_case_activity": {
+    "5": {
+      "mean_sampled_gpu_utilization_percent": 14.163077641129494,
+      "observed_case_seconds": 1200.0,
+      "sampled_zero_utilization_percent": 75.3873445391655,
+      "sampled_zero_utilization_seconds": 904.648134469986
+    },
+    "6": {
+      "mean_sampled_gpu_utilization_percent": 11.493202825404316,
+      "observed_case_seconds": 1169.0,
+      "sampled_zero_utilization_percent": 80.81068725439093,
+      "sampled_zero_utilization_seconds": 944.67693400383
+    },
+    "7": {
+      "mean_sampled_gpu_utilization_percent": 9.181018166833644,
+      "observed_case_seconds": 1112.0,
+      "sampled_zero_utilization_percent": 84.29843761938082,
+      "sampled_zero_utilization_seconds": 937.3986263275146
+    },
+    "8": {
+      "mean_sampled_gpu_utilization_percent": 7.428825945921347,
+      "observed_case_seconds": 994.0,
+      "sampled_zero_utilization_percent": 83.47365601921466,
+      "sampled_zero_utilization_seconds": 829.7281408309937
+    }
+  },
+  "limitations": [
+    "Host VM and iowait counters include unrelated processes.",
+    "GPU utilization is sampled during case intervals and includes diagnostic spooling.",
+    "RSS sums can double-count shared mappings; worker peak RSS is also reported separately."
+  ]
+}

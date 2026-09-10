@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "job_sha256": "62eada06c82d485229fa18dd14be455aff445eb89baac63712ed660e51c615ab",
+  "modes": {
+    "reference": {
+      "cases": 16,
+      "prompts": 50,
+      "published_bytes": 12985567232,
+      "reference_hashes_match": true
+    },
+    "cpu4": {
+      "cases": 16,
+      "prompts": 50,
+      "published_bytes": 12985567232,
+      "reference_hashes_match": true
+    },
+    "cpu8": {
+      "cases": 16,
+      "prompts": 50,
+      "published_bytes": 12985567232,
+      "reference_hashes_match": true
+    },
+    "cpu16": {
+      "cases": 16,
+      "prompts": 50,
+      "published_bytes": 12985567232,
+      "reference_hashes_match": true
+    },
+    "nohuge_cpu4": {
+      "cases": 16,
+      "prompts": 50,
+      "published_bytes": 12985567232,
+      "reference_hashes_match": true
+    },
+    "nohuge_cpu8": {
+      "cases": 16,
+      "prompts": 50,
+      "published_bytes": 12985567232,
+      "reference_hashes_match": true
+    },
+    "nohuge_cpu16": {
+      "cases": 16,
+      "prompts": 50,
+      "published_bytes": 12985567232,
+      "reference_hashes_match": true
+    }
+  },
+  "containers": {
+    "sideexp003_p001_test300_pipeline16_gpu8_g0": {
+      "ExitCode": 0,
+      "OOMKilled": false,
+      "FinishedAt": "2026-09-10T04:45:36.18783139Z"
+    },
+    "sideexp003_p001_test300_pipeline16_gpu8_g1": {
+      "ExitCode": 0,
+      "OOMKilled": false,
+      "FinishedAt": "2026-09-10T04:45:26.29009834Z"
+    },
+    "sideexp003_p001_test300_pipeline16_gpu8_g2": {
+      "ExitCode": 0,
+      "OOMKilled": false,
+      "FinishedAt": "2026-09-10T04:45:23.164011872Z"
+    },
+    "sideexp003_p001_test300_pipeline16_gpu8_g3": {
+      "ExitCode": 0,
+      "OOMKilled": false,
+      "FinishedAt": "2026-09-10T04:46:19.761995192Z"
+    },
+    "sideexp003_p001_test300_pipeline16_gpu8_cpu": {
+      "ExitCode": 0,
+      "OOMKilled": false,
+      "FinishedAt": "2026-09-10T05:30:08.650235679Z"
+    },
+    "sideexp003_p001_test300_pipeline16_gpu8_nohuge": {
+      "ExitCode": 0,
+      "OOMKilled": false,
+      "FinishedAt": "2026-09-10T05:48:06.752241248Z"
+    }
+  },
+  "prediction_checks": "full array hash/finite/geometry/mask checks performed by every replay; this closeout independently cross-checks manifests and file sizes",
+  "production_resume": false
+}

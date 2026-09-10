@@ -1,0 +1,12 @@
+{
+  "pid": 3712501,
+  "argv": [
+    "/usr/local/anaconda3/bin/python",
+    "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/profile_test300.py",
+    "run",
+    "--job",
+    "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/profiling_jobs/p001_test300_pipeline16_gpu8/job.json"
+  ],
+  "job_sha256": "62eada06c82d485229fa18dd14be455aff445eb89baac63712ed660e51c615ab",
+  "log": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/profiling_jobs/p001_test300_pipeline16_gpu8/supervisor.log"
+}

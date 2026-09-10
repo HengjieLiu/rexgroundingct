@@ -1,1 +1,2 @@
 visualization/2026-07-31_visualdev_coronal_projection/results/full_val200_mean_by_category/**/*.png filter=lfs diff=lfs merge=lfs -text
+side_experiments/sideexp003_ensemble_method_hub/profiling_jobs/p001_test300_pipeline16_gpu8/pipeline_case_timings.csv -text whitespace=cr-at-eol

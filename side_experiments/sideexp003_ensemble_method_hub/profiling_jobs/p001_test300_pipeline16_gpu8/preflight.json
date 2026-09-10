@@ -1,0 +1,12 @@
+{
+  "sideexp003_pinned_image_tests": 92,
+  "result": "passed",
+  "cuda_synthetic_timers": "passed",
+  "repo_workflow": "passed",
+  "host_limitation": "nibabel absent; full tests passed in pinned image",
+  "final_selection_tests": "passed",
+  "job_sha256": "62eada06c82d485229fa18dd14be455aff445eb89baac63712ed660e51c615ab",
+  "final_sideexp003_pinned_image_tests": 93,
+  "final_chunk_fallback_test": "passed",
+  "final_result": "passed"
+}
