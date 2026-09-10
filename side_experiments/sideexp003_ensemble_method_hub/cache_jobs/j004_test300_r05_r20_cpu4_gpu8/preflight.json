@@ -1,0 +1,38 @@
+{
+  "at_utc": "2026-09-10T07:27:36Z",
+  "cpu_parity": {
+    "array_sha256": "e07700ef593eb9c447db36b228c2e4931cda25e9635a826c351cecb0e3e49626",
+    "at_utc": "2026-09-10T07:26:23Z",
+    "checked": [
+      "values",
+      "shape",
+      "affine",
+      "orientation",
+      "numeric_finding_order",
+      "prompt_hashes"
+    ],
+    "cpu_seconds": 71.29188172891736,
+    "name": "train_12972_a_2.nii.gz",
+    "rank": 8,
+    "source": "62eada06c82d485229fa18dd14be455aff445eb89baac63712ed660e51c615ab",
+    "status": "passed",
+    "timings": {
+      "crop_hash": 14.809411890804768,
+      "crop_read": 0.04429401829838753,
+      "ct_header": 0.11701257526874542,
+      "finite_range_clip": 2.3243285566568375,
+      "local_array_hash": 2.6677931286394596,
+      "local_write": 20.409995164722204,
+      "orientation_total": 20.857128109782934,
+      "restore_insert_child": 0.5967304892838001,
+      "restore_resample_child": 7.61615177616477,
+      "restore_total": 9.630809880793095
+    }
+  },
+  "final_continuation_tests": 5,
+  "job_spec_sha256": "117cc3ffd5007a568e99dd75cc7e6b557877c804644608b59ea4dcd90dc8698f",
+  "repository_checks": "passed (19 existing consistency warnings)",
+  "sideexp003_tests": 98,
+  "source_bundle_sha256": "6cc9a8652c7987fd492b2099ffe3f6ef483ef8b63dd346e1f9aeeef8a5997673",
+  "status": "passed"
+}

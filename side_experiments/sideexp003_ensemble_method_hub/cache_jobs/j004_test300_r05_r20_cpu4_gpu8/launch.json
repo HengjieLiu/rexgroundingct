@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "/usr/local/anaconda3/bin/python",
+    "-u",
+    "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/continue_test300.py",
+    "run"
+  ],
+  "branch": "gpu8",
+  "host": "shenggpu8",
+  "job_spec_sha256": "117cc3ffd5007a568e99dd75cc7e6b557877c804644608b59ea4dcd90dc8698f",
+  "monitor_minutes": 30,
+  "pid": 3974216,
+  "report_interval_minutes": 5,
+  "started_at_utc": "2026-09-10T07:27:36Z"
+}

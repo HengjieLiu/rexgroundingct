@@ -1,0 +1,221 @@
+{
+  "available_ram_gib": 335.619571685791,
+  "cpu_workers": 4,
+  "failures_observed": 0,
+  "final_eta": {
+    "basis": "workload-normalized ordinary case timings; future-wave slowest-model proxy; publication allowance 0.8\u20132h per wave; provisional",
+    "models": {
+      "5": {
+        "cases": 16,
+        "fit_cases": 14,
+        "full_pipeline_hours": 7.599880843290501,
+        "mean_cpu_seconds": 14.67733425114836,
+        "mean_gpu_seconds": 90.67473049195749,
+        "remaining_pipeline_hours": 7.13814339624434,
+        "text_seconds_per_case": 60.09067396260798
+      },
+      "6": {
+        "cases": 15,
+        "fit_cases": 13,
+        "full_pipeline_hours": 7.855815376202696,
+        "mean_cpu_seconds": 12.798398519364687,
+        "mean_gpu_seconds": 95.48594405186864,
+        "remaining_pipeline_hours": 7.398694263781994,
+        "text_seconds_per_case": 60.99289570376277
+      },
+      "7": {
+        "cases": 17,
+        "fit_cases": 15,
+        "full_pipeline_hours": 6.554913058075962,
+        "mean_cpu_seconds": 15.589159195125102,
+        "mean_gpu_seconds": 82.25892444799344,
+        "remaining_pipeline_hours": 6.135007366979346,
+        "text_seconds_per_case": 53.5004748404026
+      },
+      "8": {
+        "cases": 15,
+        "fit_cases": 13,
+        "full_pipeline_hours": 7.74751165880841,
+        "mean_cpu_seconds": 15.443777355437096,
+        "mean_gpu_seconds": 95.52665204583452,
+        "remaining_pipeline_hours": 7.31583316575669,
+        "text_seconds_per_case": 61.85784100368619
+      }
+    },
+    "remaining_waves_hours": [
+      26.42460529429256,
+      54.449210588585125
+    ],
+    "wave2_remaining_hours": [
+      6.349020697836496,
+      13.098041395672992
+    ]
+  },
+  "gpus": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "job_spec_sha256": "117cc3ffd5007a568e99dd75cc7e6b557877c804644608b59ea4dcd90dc8698f",
+  "local_free_tib": 6.118173453956842,
+  "milestones": [
+    {
+      "at_utc": "2026-09-10T07:33:42Z",
+      "inferred_by_rank": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "minutes": 5,
+      "remaining_waves_hours": [
+        31,
+        63
+      ],
+      "snapshot_sha256": "bb2aed244219f3e6ae018396ee2cacb4961bfe04ce45b1019ab033b7092e1384",
+      "staged_by_rank": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "smoke_running",
+      "wave2_remaining_hours": null
+    },
+    {
+      "at_utc": "2026-09-10T07:38:54Z",
+      "inferred_by_rank": [
+        2,
+        2,
+        3,
+        2
+      ],
+      "minutes": 10,
+      "remaining_waves_hours": [
+        31,
+        63
+      ],
+      "snapshot_sha256": "54a42b83255e34f4be303ce967bd0d0c6d66256ccdab10d889dea718710b5bd4",
+      "staged_by_rank": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "status": "exporting",
+      "wave2_remaining_hours": null
+    },
+    {
+      "at_utc": "2026-09-10T07:43:39Z",
+      "inferred_by_rank": [
+        5,
+        5,
+        6,
+        5
+      ],
+      "minutes": 15,
+      "remaining_waves_hours": [
+        28.285129323779703,
+        58.17025864755941
+      ],
+      "snapshot_sha256": "a17779cfb055323a9f493972db889bd142408d24bfe0201387e8e00870e70866",
+      "staged_by_rank": [
+        5,
+        5,
+        6,
+        5
+      ],
+      "status": "exporting",
+      "wave2_remaining_hours": [
+        6.964508709067316,
+        14.329017418134633
+      ]
+    },
+    {
+      "at_utc": "2026-09-10T07:48:53Z",
+      "inferred_by_rank": [
+        9,
+        9,
+        10,
+        8
+      ],
+      "minutes": 20,
+      "remaining_waves_hours": [
+        27.48743230706548,
+        56.57486461413096
+      ],
+      "snapshot_sha256": "fca02daf3b7a3c267c033c0b82de17e4f7f65ea837a3f45854f66340dd1f667d",
+      "staged_by_rank": [
+        9,
+        8,
+        10,
+        8
+      ],
+      "status": "exporting",
+      "wave2_remaining_hours": [
+        6.720892694825584,
+        13.841785389651168
+      ]
+    },
+    {
+      "at_utc": "2026-09-10T07:53:59Z",
+      "inferred_by_rank": [
+        12,
+        12,
+        13,
+        12
+      ],
+      "minutes": 25,
+      "remaining_waves_hours": [
+        26.27790179727981,
+        54.15580359455962
+      ],
+      "snapshot_sha256": "d9450c29d0e8672b335105bd68d35599a9bab6fccd29a41521258d3ddf22557a",
+      "staged_by_rank": [
+        12,
+        12,
+        13,
+        12
+      ],
+      "status": "exporting",
+      "wave2_remaining_hours": [
+        6.362500720673624,
+        13.125001441347248
+      ]
+    },
+    {
+      "at_utc": "2026-09-10T07:59:08Z",
+      "inferred_by_rank": [
+        16,
+        15,
+        17,
+        15
+      ],
+      "minutes": 30,
+      "remaining_waves_hours": [
+        26.42460529429256,
+        54.449210588585125
+      ],
+      "snapshot_sha256": "9f7bcc530061063a25cf6cd40b0cd1cc0261bfa7c23cf0ce7daf06d25b9e8a3b",
+      "staged_by_rank": [
+        16,
+        15,
+        17,
+        15
+      ],
+      "status": "exporting",
+      "wave2_remaining_hours": [
+        6.349020697836496,
+        13.098041395672992
+      ]
+    }
+  ],
+  "new_published_models": 0,
+  "observation_ended_at_utc": "2026-09-10T07:59:08Z",
+  "observation_started_at_utc": "2026-09-10T07:28:50Z",
+  "parent_completed_models": 4,
+  "production_policy": "continue original Waves 2\u20135 after each full validation barrier; preserve resource gates",
+  "shared_free_tib": 23.06082248687744,
+  "status": "observation_complete_production_continues"
+}
