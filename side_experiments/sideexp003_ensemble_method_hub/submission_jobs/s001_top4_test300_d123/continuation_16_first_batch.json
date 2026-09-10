@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-09-10T01:16:05.536479+00:00",
+  "job_sha256": "1b981c0420b308ecde216eba6feef6d200986e83fb7f9a9636e2febae1765e6e",
+  "execution_sha256": "3f1cecc4680b403c077e11a0877f2ee93407d6adaec257e65f0555191983d614",
+  "first_batch_cases": 16,
+  "verified_prediction_files": 48,
+  "completed_at_utc": "2026-09-10T01:14:47Z",
+  "batch_wall_seconds_approx": 1070.7283958382905,
+  "median_case_seconds": 802.2540162224323,
+  "runner_cases_at_check": 30,
+  "runner_eta_seconds_at_check": 9719.598324835917,
+  "runner_still_running": true,
+  "workers": 16,
+  "cpu_allowance": 16,
+  "phase_seconds": {
+    "anatomy_seconds": 7239.058195140213,
+    "averaging_seconds": 504.4518432915211,
+    "hashing_seconds": 31.938600409775972,
+    "reading_seconds": 1156.6818283572793,
+    "validation_seconds": 2332.0871248096228,
+    "writing_seconds": 87.4621967151761
+  },
+  "runtime_evidence": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/submission_jobs/s001_top4_test300_d123/continuation_16/first_batch_monitor.json",
+  "waves_2_to_5": "held"
+}

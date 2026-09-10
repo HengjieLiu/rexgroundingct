@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-09-10T00:48:14Z",
+  "job_id": "s001_top4_test300_d123",
+  "job_sha256": "1b981c0420b308ecde216eba6feef6d200986e83fb7f9a9636e2febae1765e6e",
+  "workers": 16,
+  "cpu_allowance": 16,
+  "numerical_threads_per_worker": 1,
+  "minimum_start_available_ram_bytes": 322122547200,
+  "dispatch_reserve_ram_bytes": 68719476736,
+  "policy": "retain_completed_smoke_then_sixteen_cases",
+  "source_files": [
+    {
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/submission_test300_16.py",
+      "sha256": "eb6aa350d307f51af2aef0b2ac709c30ce3f9262464ab8cbb4a70c3e9e15c94b"
+    },
+    {
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/handoff_submission_16.py",
+      "sha256": "7f9a3c2392a60e3fd2a59db34798bfa25918ac337807eb44ed0933a400552cbc"
+    },
+    {
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/submission_16_execution_spec.md",
+      "sha256": "fa8e6689cfd64c289be66877eb0751dfc7015684401e2ea23611fece67309010"
+    },
+    {
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/finish_test300_wave1.py",
+      "sha256": "5acc145cce7f1bb46095cc3fe9c808ddfb0468e00816acc0d60e0fa1670aaf23"
+    },
+    {
+      "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/test300_runner.py",
+      "sha256": "ac151bbeb8fbae34d82b1c9afc9ef1ff9b7dc45193e9b348fff083c0ebd5b8a9"
+    }
+  ],
+  "reproduction": "python /home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/submission_test300_16.py --job /home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/submission_jobs/s001_top4_test300_d123/job_spec.json --execution /mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/submission_jobs/s001_top4_test300_d123/continuation_16/execution_spec.json",
+  "validation": {
+    "new_tests": 3,
+    "synthetic_cases": 300,
+    "synthetic_findings": 582,
+    "synthetic_prediction_files": 900,
+    "synthetic_zips": 3,
+    "status": "passed"
+  },
+  "execution_sha256": "3f1cecc4680b403c077e11a0877f2ee93407d6adaec257e65f0555191983d614"
+}

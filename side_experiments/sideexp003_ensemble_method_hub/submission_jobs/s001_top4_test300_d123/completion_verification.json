@@ -1,0 +1,31 @@
+{
+  "checked_at_utc": "2026-09-10T03:09:32.003281+00:00",
+  "status": "passed",
+  "archive_checks": {
+    "d1": {
+      "status": "passed",
+      "files": 300,
+      "findings": 582,
+      "zip_sha256": "d785c2268cf6e9fe5a9cedc5194f6100882c17027ca97f8c3660472079bdd5cd",
+      "zip_bytes": 269742965,
+      "zip_MiB": 257.25
+    },
+    "d2": {
+      "status": "passed",
+      "files": 300,
+      "findings": 582,
+      "zip_sha256": "2a0c5753efa06d9c1b60658d53d98dc547af4620eae9a1eecb82b30152961b06",
+      "zip_bytes": 269458971,
+      "zip_MiB": 256.98
+    },
+    "d3": {
+      "status": "passed",
+      "files": 300,
+      "findings": 582,
+      "zip_sha256": "5341975cac8f4a6c56a81338730f6f90bc93e669fcce2cd43395459ce58d5064",
+      "zip_bytes": 269448276,
+      "zip_MiB": 256.97
+    }
+  },
+  "job_sha256": "1b981c0420b308ecde216eba6feef6d200986e83fb7f9a9636e2febae1765e6e"
+}

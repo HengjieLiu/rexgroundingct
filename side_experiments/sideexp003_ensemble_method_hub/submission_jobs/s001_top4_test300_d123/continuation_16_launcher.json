@@ -1,0 +1,14 @@
+{
+  "pid": 3457864,
+  "command": [
+    "/usr/local/anaconda3/bin/python",
+    "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/handoff_submission_16.py",
+    "--job",
+    "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/submission_jobs/s001_top4_test300_d123/job_spec.json",
+    "--execution",
+    "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/submission_jobs/s001_top4_test300_d123/continuation_16/execution_spec.json"
+  ],
+  "execution_sha256": "3f1cecc4680b403c077e11a0877f2ee93407d6adaec257e65f0555191983d614",
+  "new_container": "sideexp003_s001_top4_test300_d123_w16",
+  "status": "armed"
+}

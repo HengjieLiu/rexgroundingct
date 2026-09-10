@@ -1,0 +1,44 @@
+{
+  "created_at_utc": "2026-09-09T19:13:25.912406+00:00",
+  "job_sha256": "1b981c0420b308ecde216eba6feef6d200986e83fb7f9a9636e2febae1765e6e",
+  "status": "passed",
+  "checks": {
+    "full_sideexp003_suite": {
+      "tests": 82,
+      "status": "passed"
+    },
+    "focused_submission_suite_after_adding_full_pipeline_test": {
+      "tests": 12,
+      "status": "passed"
+    },
+    "existing_exp024_postprocessing": {
+      "tests": 6,
+      "status": "passed"
+    },
+    "repository_workflow": {
+      "status": "passed",
+      "warnings": "existing sync/runtime warnings"
+    },
+    "frozen_exporter_sources": {
+      "status": "unchanged"
+    },
+    "real_input_freeze": {
+      "status": "passed",
+      "anatomy_hashes": 300,
+      "ct_headers": 300,
+      "routing_entries": 582
+    },
+    "synthetic_full_pipeline": {
+      "cases": 300,
+      "findings": 582,
+      "prediction_files": 900,
+      "zip_files": 3,
+      "status": "passed"
+    }
+  },
+  "limitations": [
+    "Real retained smoke and full prediction validation will execute after the Wave 1 gate opens.",
+    "Anatomy source retains PASS_PENDING_MANUAL_VISUAL_REVIEW."
+  ],
+  "main_ref": "4617db190f1e6bf93e2093fe7ef4741c2bf9bc7d"
+}
