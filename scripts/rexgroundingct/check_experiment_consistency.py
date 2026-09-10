@@ -172,7 +172,8 @@ def check_one(
 ) -> None:
     definition = EXPERIMENTS[experiment]
     repo_dir = repo_root / experiment
-    runtime_dir = runtime_root / experiment
+    runtime_link_dir = runtime_root / experiment
+    runtime_dir = runtime_link_dir / definition.get("active_runtime_subdir", "")
     config = canonical_config_path(experiment)
     runtime_config = runtime_dir / "config" / config.name
     report = runtime_dir / definition["primary_report"]
@@ -188,9 +189,9 @@ def check_one(
             errors.append(f"{experiment} runtime link exists but is not a symlink: {link}")
         else:
             target = Path(os.readlink(link))
-            if target != runtime_dir:
+            if target != runtime_link_dir:
                 errors.append(
-                    f"{experiment} runtime symlink points to {target}, expected {runtime_dir}"
+                    f"{experiment} runtime symlink points to {target}, expected {runtime_link_dir}"
                 )
 
     runtime_available = runtime_root.exists() and runtime_dir.exists()

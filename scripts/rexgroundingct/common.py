@@ -317,6 +317,15 @@ EXPERIMENTS: dict[str, dict[str, Any]] = {
         ),
         "readiness_json": Path("config/train_val_ct_readiness.json"),
     },
+    "027_voxtell_2a_residual_refinement": {
+        "title": "Four-condition 2a residual logit refinement",
+        "active_runtime_subdir": "full_fp32_100ep",
+        "live_report": True,
+        "canonical_config": CANONICAL_CONFIG_ROOT / "027_voxtell_2a_residual_refinement.json",
+        "primary_report": Path("reports/live_dashboard.md"),
+        "primary_eval_json": Path("reports/live_dashboard.json"),
+        "readiness_json": Path("status.json"),
+    },
 }
 
 
@@ -360,7 +369,7 @@ def canonical_config_path(experiment: str) -> Path:
 
 
 def runtime_experiment_dir(experiment: str, exp_root: Path = EXP_ROOT) -> Path:
-    return exp_root / experiment
+    return exp_root / experiment / experiment_definition(experiment).get("active_runtime_subdir", "")
 
 
 def snapshot_experiment_config(

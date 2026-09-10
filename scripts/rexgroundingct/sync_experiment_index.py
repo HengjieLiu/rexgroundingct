@@ -94,6 +94,11 @@ def summarize_eval(eval_json: Path) -> dict[str, Any] | None:
 
 
 def status_for(runtime_dir: Path, report: Path, eval_json: Path) -> str:
+    if "027_voxtell_2a_residual_refinement" in (runtime_dir.name, runtime_dir.parent.name):
+        status_path = runtime_dir / "status.json"
+        if status_path.is_file():
+            return str(read_json(status_path)["status"])
+        return "awaiting_timing_approval"
     checkpoints = runtime_dir / "checkpoints"
     if report.exists() and eval_json.exists():
         return "evaluation_complete"
@@ -138,7 +143,7 @@ def render_experiment_readme(record: dict[str, Any]) -> str:
         f"- Canonical config: `{record['canonical_config']['repo_path']}`",
         f"- Execution spec: `{execution_spec_path}`",
         f"- Runtime directory: `{record['runtime_dir']}`",
-        "- Runtime link: `runtime` is ignored by git and points to the runtime directory.",
+        f"- Runtime link: `runtime` is ignored by git and points to `{record.get('runtime_link_dir', record['runtime_dir'])}`.",
         "",
         "## Synced Small Artifacts",
         "",
@@ -155,6 +160,24 @@ def render_experiment_readme(record: dict[str, Any]) -> str:
         "- Keep `codex_execution_spec.md` current before substantial long-running work.",
         "",
     ]
+    if record["id"] == "027_voxtell_2a_residual_refinement":
+        lines.extend([
+            "## Exp027 references", "",
+            "- [Accepted questions and decisions](design_decisions.md)",
+            "- [Live full-run dashboard](runtime/full_fp32_100ep/reports/live_dashboard.md)",
+            "- [Live full-run subplot figure](runtime/full_fp32_100ep/reports/live_dashboard.png)",
+            "- [Full-run verification and launch](full_run_verification.md)",
+            "- [Verification and launch commands](verification.md)",
+            "- [Warm-up numerical diagnosis and AMP recovery](numerical_diagnosis.md)",
+            "- [FP16 / FP32 comparison](runtime/reports/precision_comparison.md)",
+            "- [Completed precision benchmark results](precision_benchmark_results.md)",
+            "- [FP16 100-update results](fp16_benchmark_results.md)",
+            "- [FP32 benchmark configuration](fp32_benchmark_config.json)",
+            "- [Data-loading audit and proposed improvements](data_loading_audit.md)", "",
+            "The authorized full run uses FP32, 100 epochs × 100 updates, with evaluation every 10 epochs.",
+            "Complete caching of all training and validation 2a cases is required before training.",
+            "All results remain pending user review. No automatic ranking or promotion.", "",
+        ])
     return "\n".join(lines)
 
 
@@ -257,7 +280,8 @@ def sync_one(
 ) -> dict[str, Any]:
     definition = EXPERIMENTS[experiment]
     repo_dir = repo_root / experiment
-    runtime_dir = runtime_root / experiment
+    runtime_link_dir = runtime_root / experiment
+    runtime_dir = runtime_link_dir / definition.get("active_runtime_subdir", "")
     repo_dir.mkdir(parents=True, exist_ok=True)
 
     config = canonical_config_path(experiment)
@@ -265,12 +289,17 @@ def sync_one(
     report = runtime_dir / definition["primary_report"]
     eval_json = runtime_dir / definition["primary_eval_json"]
 
-    runtime_link_status = ensure_runtime_symlink(repo_dir, runtime_dir, create=create_symlinks)
-    report_record = copy_small_artifact(
-        report,
-        repo_dir / "report.md",
-        max_bytes=max_copy_mb * 1024 * 1024,
-    )
+    runtime_link_status = ensure_runtime_symlink(repo_dir, runtime_link_dir, create=create_symlinks)
+    if definition.get("live_report"):
+        # A continuously refreshed report has one runtime owner, not a stale Git mirror.
+        report_record = {**artifact_record(report), "copied": False,
+                         "skipped_reason": "Live report is linked through runtime; no static mirror"}
+    else:
+        report_record = copy_small_artifact(
+            report,
+            repo_dir / "report.md",
+            max_bytes=max_copy_mb * 1024 * 1024,
+        )
     config_record = artifact_record(config)
     runtime_config_record = artifact_record(runtime_config)
     runtime_config_matches = (
@@ -289,6 +318,7 @@ def sync_one(
         "status": status_for(runtime_dir, report, eval_json),
         "repo_dir": rel_to_repo(repo_dir),
         "runtime_dir": str(runtime_dir),
+        "runtime_link_dir": str(runtime_link_dir),
         "runtime_link_status": runtime_link_status,
         "canonical_config": {
             **config_record,
