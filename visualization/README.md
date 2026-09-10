@@ -26,6 +26,10 @@ connected-component measurements, Dice labels, and plotting logic auditable.
 
 ## Coronal Projection Development
 
+- `2026-09-09_val200_gt_outside_lung/`: full-val200 GT coverage analysis using
+  the downloaded CT-RATE whole-lung masks. It reports category M/N and paired
+  outside voxel-count/physical-volume distributions, plus outside percentages
+  and per-scan union measurements. Detailed outputs remain external.
 - `2026-09-09_coronal_lung_projection_comparison/`: per-finding 3×5 comparison
   of whole-volume and exact-lung-only CT mean backgrounds. It compares frozen
   overall/category/iso07 models with raw, whole-lung +20 mm, and corrected
