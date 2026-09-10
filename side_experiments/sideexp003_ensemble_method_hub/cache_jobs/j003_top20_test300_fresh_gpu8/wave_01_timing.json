@@ -1,0 +1,27 @@
+{
+  "basis": "earliest resumed worker start through all four workers exiting",
+  "completed_models": 4,
+  "held_ranks": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "phase_observations": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j003_top20_test300_fresh_gpu8/wave1_phase_observations.json",
+  "prior_interrupted_attempt_excluded": true,
+  "updated_at_utc": "2026-09-09T23:44:03Z",
+  "wall_seconds": 59341.941134,
+  "wave": 1
+}

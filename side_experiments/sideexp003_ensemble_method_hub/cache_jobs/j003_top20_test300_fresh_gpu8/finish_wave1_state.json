@@ -1,0 +1,304 @@
+{
+  "candidates": {
+    "exp007_ddp_bs4_e050_a499ad1c": {
+      "bytes": 117073679872,
+      "candidate_id": "exp007_ddp_bs4_e050_a499ad1c",
+      "cases": 300,
+      "completed_at_utc": "2026-09-09T23:37:51Z",
+      "dtype": "float16",
+      "elapsed_seconds": 58969.55613206327,
+      "eta_seconds": 0,
+      "findings": 582,
+      "free_mib_after_smoke": 44074,
+      "gpu": 0,
+      "job_id": "j003_top20_test300_fresh_gpu8",
+      "job_spec_sha256": "50ac85fb91a37a748be45e82e27d4ed09862645cdb06258b07f67fdd5bf8e912",
+      "metric_status": "not_available_withheld_labels",
+      "rank": 1,
+      "recent_case_costs": [
+        {
+          "elements": 255328256,
+          "seconds": 179.02223907783628
+        },
+        {
+          "elements": 135528448,
+          "seconds": 88.73135392740369
+        },
+        {
+          "elements": 420478976,
+          "seconds": 281.0337723456323
+        },
+        {
+          "elements": 128450560,
+          "seconds": 107.41277784854174
+        },
+        {
+          "elements": 601620480,
+          "seconds": 434.1297217383981
+        },
+        {
+          "elements": 61341696,
+          "seconds": 67.08873546868563
+        },
+        {
+          "elements": 233308160,
+          "seconds": 109.73534718900919
+        },
+        {
+          "elements": 98566144,
+          "seconds": 73.96197719871998
+        },
+        {
+          "elements": 131334144,
+          "seconds": 83.41951495036483
+        },
+        {
+          "elements": 220200960,
+          "seconds": 84.52990248799324
+        }
+      ],
+      "seconds_per_case": 147.88518419243394,
+      "smoke_cases": [
+        "train_3109_a_1.nii.gz",
+        "train_12972_a_2.nii.gz"
+      ],
+      "started_at_utc": "2026-09-09T07:15:02Z",
+      "status": "strict_passed",
+      "updated_at_utc": "2026-09-09T23:37:51Z",
+      "warnings": [],
+      "wave": 1
+    },
+    "exp009_baseline_cont100_e100_50e631f1": {
+      "bytes": 117073679872,
+      "candidate_id": "exp009_baseline_cont100_e100_50e631f1",
+      "cases": 300,
+      "completed_at_utc": "2026-09-09T23:22:32Z",
+      "dtype": "float16",
+      "elapsed_seconds": 58029.83139330894,
+      "eta_seconds": 0,
+      "findings": 582,
+      "free_mib_after_smoke": 44074,
+      "gpu": 1,
+      "job_id": "j003_top20_test300_fresh_gpu8",
+      "job_spec_sha256": "50ac85fb91a37a748be45e82e27d4ed09862645cdb06258b07f67fdd5bf8e912",
+      "metric_status": "not_available_withheld_labels",
+      "rank": 2,
+      "recent_case_costs": [
+        {
+          "elements": 255328256,
+          "seconds": 134.02928083017468
+        },
+        {
+          "elements": 135528448,
+          "seconds": 134.68443615734577
+        },
+        {
+          "elements": 420478976,
+          "seconds": 270.0726290419698
+        },
+        {
+          "elements": 128450560,
+          "seconds": 104.67712527140975
+        },
+        {
+          "elements": 601620480,
+          "seconds": 373.5494889616966
+        },
+        {
+          "elements": 61341696,
+          "seconds": 126.0866070985794
+        },
+        {
+          "elements": 233308160,
+          "seconds": 97.74854121729732
+        },
+        {
+          "elements": 98566144,
+          "seconds": 71.80260607972741
+        },
+        {
+          "elements": 131334144,
+          "seconds": 99.16492932662368
+        },
+        {
+          "elements": 220200960,
+          "seconds": 94.97779538109899
+        }
+      ],
+      "seconds_per_case": 147.4914253237471,
+      "smoke_cases": [
+        "train_3109_a_1.nii.gz",
+        "train_12972_a_2.nii.gz"
+      ],
+      "started_at_utc": "2026-09-09T07:15:22Z",
+      "status": "strict_passed",
+      "updated_at_utc": "2026-09-09T23:22:32Z",
+      "warnings": [],
+      "wave": 1
+    },
+    "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": {
+      "bytes": 117073679872,
+      "candidate_id": "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+      "cases": 300,
+      "completed_at_utc": "2026-09-09T23:42:26Z",
+      "dtype": "float16",
+      "elapsed_seconds": 59188.89220228046,
+      "eta_seconds": 0,
+      "findings": 582,
+      "free_mib_after_smoke": 43196,
+      "gpu": 3,
+      "job_id": "j003_top20_test300_fresh_gpu8",
+      "job_spec_sha256": "50ac85fb91a37a748be45e82e27d4ed09862645cdb06258b07f67fdd5bf8e912",
+      "metric_status": "not_available_withheld_labels",
+      "rank": 4,
+      "recent_case_costs": [
+        {
+          "elements": 255328256,
+          "seconds": 167.1623619236052
+        },
+        {
+          "elements": 135528448,
+          "seconds": 96.49213916063309
+        },
+        {
+          "elements": 420478976,
+          "seconds": 310.7747118845582
+        },
+        {
+          "elements": 128450560,
+          "seconds": 63.541767563670874
+        },
+        {
+          "elements": 601620480,
+          "seconds": 473.6984504647553
+        },
+        {
+          "elements": 61341696,
+          "seconds": 62.26704862341285
+        },
+        {
+          "elements": 233308160,
+          "seconds": 92.71447787061334
+        },
+        {
+          "elements": 98566144,
+          "seconds": 63.37296465411782
+        },
+        {
+          "elements": 131334144,
+          "seconds": 76.10426096990705
+        },
+        {
+          "elements": 220200960,
+          "seconds": 87.36135758459568
+        }
+      ],
+      "seconds_per_case": 147.5763537934795,
+      "smoke_cases": [
+        "train_3109_a_1.nii.gz",
+        "train_12972_a_2.nii.gz"
+      ],
+      "started_at_utc": "2026-09-09T07:15:57Z",
+      "status": "strict_passed",
+      "updated_at_utc": "2026-09-09T23:42:26Z",
+      "warnings": [],
+      "wave": 1
+    },
+    "exp017_ddp_bs4_e050_4f36d9bb": {
+      "bytes": 234147321344,
+      "candidate_id": "exp017_ddp_bs4_e050_4f36d9bb",
+      "cases": 300,
+      "completed_at_utc": "2026-09-09T23:43:58Z",
+      "dtype": "float32",
+      "elapsed_seconds": 59299.21359125897,
+      "eta_seconds": 0,
+      "findings": 582,
+      "free_mib_after_smoke": 44396,
+      "gpu": 2,
+      "job_id": "j003_top20_test300_fresh_gpu8",
+      "job_spec_sha256": "50ac85fb91a37a748be45e82e27d4ed09862645cdb06258b07f67fdd5bf8e912",
+      "metric_status": "not_available_withheld_labels",
+      "rank": 3,
+      "recent_case_costs": [
+        {
+          "elements": 255328256,
+          "seconds": 221.82280061021447
+        },
+        {
+          "elements": 135528448,
+          "seconds": 156.11495285481215
+        },
+        {
+          "elements": 420478976,
+          "seconds": 383.887424454093
+        },
+        {
+          "elements": 128450560,
+          "seconds": 167.86722178012133
+        },
+        {
+          "elements": 601620480,
+          "seconds": 520.4182724878192
+        },
+        {
+          "elements": 61341696,
+          "seconds": 99.89132592454553
+        },
+        {
+          "elements": 233308160,
+          "seconds": 232.31823355704546
+        },
+        {
+          "elements": 98566144,
+          "seconds": 143.49534048512578
+        },
+        {
+          "elements": 131334144,
+          "seconds": 164.17590065300465
+        },
+        {
+          "elements": 220200960,
+          "seconds": 222.81956501305103
+        }
+      ],
+      "seconds_per_case": 157.91980272234727,
+      "smoke_cases": [
+        "train_3691_a_2.nii.gz",
+        "train_12972_a_2.nii.gz"
+      ],
+      "started_at_utc": "2026-09-09T07:15:39Z",
+      "status": "strict_passed",
+      "updated_at_utc": "2026-09-09T23:43:58Z",
+      "warnings": [],
+      "wave": 1
+    }
+  },
+  "completed_models": 4,
+  "coordinator_exited": true,
+  "coordinator_pid": 2103906,
+  "held_ranks": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "job_id": "j003_top20_test300_fresh_gpu8",
+  "job_spec_sha256": "50ac85fb91a37a748be45e82e27d4ed09862645cdb06258b07f67fdd5bf8e912",
+  "pid": 2974265,
+  "scheduler_stopped": true,
+  "status": "stopped_after_wave1",
+  "updated_at_utc": "2026-09-09T23:44:05Z",
+  "wave": 1
+}

@@ -1,0 +1,178 @@
+{
+  "branch": "gpu8",
+  "checkpoint_preflight": {
+    "checkpoints_rehashed": 20,
+    "roster_sha256": "04aaff359ba3e1e6748a2e0851f64a828906c28b0ed642b673088064275ba96c",
+    "status": "passed",
+    "validated_at_utc": "2026-09-09T01:02:24Z"
+  },
+  "geometry": {
+    "cases": 300,
+    "findings": 582,
+    "geometry_index_sha256": "9718215853d8db6e68a54bcca1b131665258fdb23947d1563bb748943cb0b8f6",
+    "native_elements_per_model": 58536820736,
+    "segmentation_directory_empty": true,
+    "status": "passed"
+  },
+  "job_spec_sha256": "50ac85fb91a37a748be45e82e27d4ed09862645cdb06258b07f67fdd5bf8e912",
+  "main_ref_before": "4617db190f1e6bf93e2093fe7ef4741c2bf9bc7d",
+  "native_preprocessing": {
+    "bytes": 121120947708,
+    "cases": 300,
+    "targets": 0
+  },
+  "offline_dependency_check": "passed: Qwen4B tokenizer/config resolved without network",
+  "preprocessing_regressions": {
+    "log": "preprocessing_tests.log",
+    "passed": 7,
+    "skipped": 0
+  },
+  "protected_source_sha256s": {
+    "preliminary_ensemble.py": "6d2950b1193c4c461dbc30abad231fa12c24f4fb8d800c46106a802b284cd941",
+    "resume_seeded_caruana.py": "f701acafa609e87481403739f9e303dce9c72265bb9e9f5bedb12ee42fbe7177",
+    "seeded_caruana.py": "15307387f89ac23f7e81c801f1981a3f1fd239f7d25221e63f875e47d6760458"
+  },
+  "repository_checks": {
+    "existing_consistency_warnings": 19,
+    "sideexp003": "passed: 80 unique checkpoints, 76 eligible, 4 needs_review",
+    "workflow": "passed"
+  },
+  "retained_smokes": {
+    "array_hashes_verified": true,
+    "arrays": 8,
+    "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j003_top20_test300_fresh_gpu8/smoke_validation.json",
+    "status": "passed"
+  },
+  "source_bundle": {
+    "files": [
+      {
+        "path": "external/VoxTell/voxtell/__init__.py",
+        "sha256": "fcf874527b533547dd8a835f74c9bee8fc2010ed25d477ab054f1885bcf8b9f7"
+      },
+      {
+        "path": "external/VoxTell/voxtell/inference/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "external/VoxTell/voxtell/inference/predict_from_raw_data.py",
+        "sha256": "45a885712448fe9c1066091630abc17ba49e4b93921a15e2ba9a4c1b636269f7"
+      },
+      {
+        "path": "external/VoxTell/voxtell/inference/predictor.py",
+        "sha256": "a3de480f5a58146d9d15f26c4ac4e91d24a1e39bbb3cf5d3ec6a9ecba84f3f58"
+      },
+      {
+        "path": "external/VoxTell/voxtell/model/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "external/VoxTell/voxtell/model/transformer.py",
+        "sha256": "d98f0acd8bfcedbf0697441d17644ce184d7c826c501d50d36bfb50bef5d596e"
+      },
+      {
+        "path": "external/VoxTell/voxtell/model/voxtell_model.py",
+        "sha256": "6c1b057e7d8750f4d4c5349fbebf8d785f40e6c1f49d971c0379c24282d72b64"
+      },
+      {
+        "path": "external/VoxTell/voxtell/training/__init__.py",
+        "sha256": "cd07f84ac58725437cf17e07078796ad29bdfa31205f568a798b6bc5663a1340"
+      },
+      {
+        "path": "external/VoxTell/voxtell/training/run_finetuning.py",
+        "sha256": "81263b49bf9897caa53d9af22b5870edfd98212e73f42c1078f6aa025dca98bc"
+      },
+      {
+        "path": "external/VoxTell/voxtell/training/voxtell_trainer.py",
+        "sha256": "0bba7dc081c23ee3ff3a40f9ce0f5a2fd19276da826a95023f3c34428cd798d7"
+      },
+      {
+        "path": "external/VoxTell/voxtell/utils/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "external/VoxTell/voxtell/utils/embedding_bank.py",
+        "sha256": "de1a9ed6f3e11ea67055175c366a6661c53f0397618e666ab66e66c7f9209aac"
+      },
+      {
+        "path": "external/VoxTell/voxtell/utils/text_embedding.py",
+        "sha256": "02d74132c14297a72b59ec73499d7a7ecbbf037cfeb88ec89d695aedf6699125"
+      },
+      {
+        "path": "scripts/rexgroundingct/common.py",
+        "sha256": "be625ae68d6194e593536c50fcbe6c6a39efd0b8e7f2b421abf6592103e7aa5a"
+      },
+      {
+        "path": "scripts/rexgroundingct/run_voxtell_val_inference.py",
+        "sha256": "896c0a5e62e3055823653b0e65a99499e397346c1c4f0ae5a01b2d8f8c615d82"
+      },
+      {
+        "path": "scripts/rexgroundingct/voxtell_dual_branch.py",
+        "sha256": "73a93e62122b548a0ff8e0fdd4de499c2402dccb734ac8ed83d7c383ddd792f3"
+      },
+      {
+        "path": "scripts/rexgroundingct/voxtell_preprocessed_cache.py",
+        "sha256": "d75acf197a8a111a419d32203f5383a9bb3b93094058b8f46172aa91ccc6e82c"
+      },
+      {
+        "path": "scripts/rexgroundingct/voxtell_s3_attention.py",
+        "sha256": "bac708b6d8617d612892a3c056a970fb86c918dcfff264e5632871f22554304a"
+      },
+      {
+        "path": "side_experiments/sideexp002_multimodel_ensemble_selection/analyze_candidates.py",
+        "sha256": "f1165f00f370862474252ce9e2d919470b2d243acf2333055bb04795ed134e69"
+      },
+      {
+        "path": "side_experiments/sideexp002_multimodel_ensemble_selection/export_logits.py",
+        "sha256": "5f13db5cecddb1537cafcadb3ba15e893a9fe0478b4ad493ffd18a9e85c4c87a"
+      },
+      {
+        "path": "side_experiments/sideexp002_multimodel_ensemble_selection/storage_validation.py",
+        "sha256": "9bac6b7c310997daed4415255c859edb5321726f9c12977c5c8d4d0ae126b035"
+      },
+      {
+        "path": "side_experiments/sideexp003_ensemble_method_hub/fresh_cache.py",
+        "sha256": "6337cdef2bfb6ffff691308063935f247335cc70865eac6c0506fe3d6a652f4d"
+      },
+      {
+        "path": "side_experiments/sideexp003_ensemble_method_hub/fresh_export.py",
+        "sha256": "89f23519f567c3ec3f14ffbba7ab24d8995621ead8f34527342e3082a852af86"
+      },
+      {
+        "path": "side_experiments/sideexp003_ensemble_method_hub/fresh_orchestrator.py",
+        "sha256": "0512842b65e5e677af903f0bd2217b1b35296b9c5b92da49d11f69423e8aa949"
+      },
+      {
+        "path": "side_experiments/sideexp003_ensemble_method_hub/hub.py",
+        "sha256": "4f9d38cdfce99138415236967d6ddd4e0c81ca1514f63144f59b428104969460"
+      },
+      {
+        "path": "side_experiments/sideexp003_ensemble_method_hub/test300_cache.py",
+        "sha256": "66f6e5dcafd5ed9c879593d3b49d9f54126345ba37a4760941e0af1348522cec"
+      },
+      {
+        "path": "side_experiments/sideexp003_ensemble_method_hub/test300_execution_spec.md",
+        "sha256": "68a620a423e2ac17174fa3bfcbf3afeb8bf722d7c9facde5febfced34ee726ad"
+      },
+      {
+        "path": "side_experiments/sideexp003_ensemble_method_hub/test300_runner.py",
+        "sha256": "ac151bbeb8fbae34d82b1c9afc9ef1ff9b7dc45193e9b348fff083c0ebd5b8a9"
+      }
+    ],
+    "sha256": "14e08295f14402043a1c1dd553194adecd4610a28053b8e313c4b608acf19dc6"
+  },
+  "startup_retry": {
+    "archived_spec": "failed_startup_001/job_spec.json",
+    "reason": "Explicit HF_HUB_CACHE override matching GPU8 readiness; failed startup exported zero cases.",
+    "superseded_job_spec_sha256": "981c4471643905188bc46b7cb47f1a1db3de6db81ac6914cf106b27237ece12a"
+  },
+  "status": "passed_wave1_exporting",
+  "tests": {
+    "log": "release_tests.log",
+    "passed": 63,
+    "skipped": 0,
+    "suite": "SideExp003 unittest discovery in frozen VoxTell image"
+  },
+  "val200_artifacts_unchanged": true,
+  "val200_catalog_artifacts_sha256_before": "209803342933bca6778df46e909d5078d718c0dcd6c2d166882efd35f21ba493",
+  "validated_at_utc": "2026-09-09T01:29:35Z"
+}

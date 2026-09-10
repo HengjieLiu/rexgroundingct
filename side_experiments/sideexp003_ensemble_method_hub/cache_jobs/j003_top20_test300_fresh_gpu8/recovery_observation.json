@@ -1,0 +1,219 @@
+{
+  "branch": "gpu8",
+  "cpu_identity_preserved": true,
+  "cpu_state": {
+    "analysis": {
+      "completed_through_k": 12,
+      "current_pass": "K=13",
+      "status": "running_caruana",
+      "updated_at_utc": "2026-09-09T07:10:27Z"
+    },
+    "completed_cases": {
+      "initial": 200,
+      "k05": 200,
+      "k06": 200,
+      "k07": 200,
+      "k08": 200,
+      "k09": 200,
+      "k10": 200,
+      "k11": 200,
+      "k12": 200,
+      "k13": 18
+    },
+    "container": "rex-resume-gpu8-20260909t001017z-production",
+    "elapsed_seconds": 26086.099220328033,
+    "estimated_full_pass_seconds": 6303.211690258235,
+    "estimated_remaining_seconds": 23878.200783039443,
+    "eta_basis": "median of recent newly completed full passes",
+    "host": "shenggpu8",
+    "job_id": "a001_top16_after_wave4_fullval",
+    "pid": 1578545,
+    "runtime_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/analysis_jobs/a001_top16_after_wave4_fullval",
+    "session": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/analysis_jobs/a001_top16_after_wave4_fullval/resume_sessions/gpu8_20260909T001017Z",
+    "status": "computing_new_cases",
+    "updated_at_utc": "2026-09-09T07:42:34Z",
+    "workers": 5
+  },
+  "frozen_sources_preserved": true,
+  "local_free_tib": 6.328532788902521,
+  "main": "4617db190f1e6bf93e2093fe7ef4741c2bf9bc7d",
+  "new_case_validation": {
+    "cases": [
+      {
+        "array_sha256": "6496bbe0b5e001d72b062eb3892ea99e02b2198afd70102f9038c09c3ce74805",
+        "case": "train_13334_a_5.nii.gz",
+        "completed_at_utc": "2026-09-09T07:39:18Z",
+        "rank": 1,
+        "shape": [
+          2,
+          512,
+          512,
+          357
+        ],
+        "status": "passed"
+      },
+      {
+        "array_sha256": "12e2e834fe6205e024cdf8fd30c2a6a31ecfa2cd3f90b0068603b32c1cc5fb9f",
+        "case": "train_13147_a_1.nii.gz",
+        "completed_at_utc": "2026-09-09T07:39:40Z",
+        "rank": 2,
+        "shape": [
+          3,
+          512,
+          512,
+          320
+        ],
+        "status": "passed"
+      },
+      {
+        "array_sha256": "2a7ce3d1e282d6d6fcc5e731f3fda8e14cbf25de3b60d806f03bd3724b120eaf",
+        "case": "train_13147_a_1.nii.gz",
+        "completed_at_utc": "2026-09-09T07:39:40Z",
+        "rank": 3,
+        "shape": [
+          3,
+          512,
+          512,
+          320
+        ],
+        "status": "passed"
+      },
+      {
+        "array_sha256": "b6ac4bd720a3e331b2129cfcf114a5c4226a40cdef4326c1f1be023753352a4f",
+        "case": "train_13192_a_1.nii.gz",
+        "completed_at_utc": "2026-09-09T07:38:52Z",
+        "rank": 4,
+        "shape": [
+          2,
+          512,
+          512,
+          282
+        ],
+        "status": "passed"
+      }
+    ],
+    "job_spec_sha256": "50ac85fb91a37a748be45e82e27d4ed09862645cdb06258b07f67fdd5bf8e912",
+    "status": "passed",
+    "updated_at_utc": "2026-09-09T07:41:16Z"
+  },
+  "paired_val200_manifests_verified": 20,
+  "shared_free_tib": 24.0220308303833,
+  "smoke_gate": {
+    "job_spec_sha256": "50ac85fb91a37a748be45e82e27d4ed09862645cdb06258b07f67fdd5bf8e912",
+    "released_at_utc": "2026-09-09T07:35:21Z"
+  },
+  "state": {
+    "candidates": {
+      "exp007_ddp_bs4_e050_a499ad1c": {
+        "cases": 10,
+        "eta_seconds": 42249.23320084438,
+        "status": "exporting"
+      },
+      "exp009_baseline_cont100_e100_50e631f1": {
+        "cases": 11,
+        "eta_seconds": 38310.31954773854,
+        "status": "exporting"
+      },
+      "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801": {
+        "cases": 13,
+        "eta_seconds": 33028.67914070074,
+        "status": "exporting"
+      },
+      "exp017_ddp_bs4_e050_4f36d9bb": {
+        "cases": 11,
+        "eta_seconds": 37864.58667614751,
+        "status": "exporting"
+      }
+    },
+    "completed_models": 0,
+    "cpu_policy": "leave_val200_cpu_search_uninterrupted",
+    "cpu_search": {
+      "analysis": {
+        "completed_through_k": 12,
+        "current_pass": "K=13",
+        "status": "running_caruana",
+        "updated_at_utc": "2026-09-09T07:10:27Z"
+      },
+      "completed_cases": {
+        "initial": 200,
+        "k05": 200,
+        "k06": 200,
+        "k07": 200,
+        "k08": 200,
+        "k09": 200,
+        "k10": 200,
+        "k11": 200,
+        "k12": 200,
+        "k13": 18
+      },
+      "container": "rex-resume-gpu8-20260909t001017z-production",
+      "elapsed_seconds": 26024.787163753062,
+      "estimated_full_pass_seconds": 6303.211690258235,
+      "estimated_remaining_seconds": 23878.200783039443,
+      "eta_basis": "median of recent newly completed full passes",
+      "host": "shenggpu8",
+      "job_id": "a001_top16_after_wave4_fullval",
+      "pid": 1578545,
+      "runtime_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/analysis_jobs/a001_top16_after_wave4_fullval",
+      "session": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/analysis_jobs/a001_top16_after_wave4_fullval/resume_sessions/gpu8_20260909T001017Z",
+      "status": "computing_new_cases",
+      "updated_at_utc": "2026-09-09T07:41:32Z",
+      "workers": 5
+    },
+    "elapsed_seconds": 1631.1713651046157,
+    "free_gpu_mib": {
+      "0": 44419,
+      "1": 44617,
+      "2": 44615,
+      "3": 38411
+    },
+    "host": "shenggpu8",
+    "job_id": "j003_top20_test300_fresh_gpu8",
+    "job_spec_sha256": "50ac85fb91a37a748be45e82e27d4ed09862645cdb06258b07f67fdd5bf8e912",
+    "local_free_bytes": 6960484851712,
+    "normalized_cost_ratio": null,
+    "paused_cpu_container": null,
+    "pid": 2103906,
+    "recovery_session": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/jobs/j003_top20_test300_fresh_gpu8/recovery_sessions/no_pause_20260909T071438Z",
+    "shared_free_bytes": 26412502220800,
+    "status": "exporting",
+    "updated_at_utc": "2026-09-09T07:41:50Z",
+    "wave": 1
+  },
+  "status": "recovery_test_passed_export_running",
+  "updated_at_utc": "2026-09-09T07:42:42Z",
+  "workers": [
+    {
+      "cases": 11,
+      "findings": 35,
+      "free_mib_after_smoke": 44074,
+      "rank": 1,
+      "status": "exporting",
+      "updated_at_utc": "2026-09-09T07:42:04Z"
+    },
+    {
+      "cases": 12,
+      "findings": 37,
+      "free_mib_after_smoke": 44074,
+      "rank": 2,
+      "status": "exporting",
+      "updated_at_utc": "2026-09-09T07:42:03Z"
+    },
+    {
+      "cases": 12,
+      "findings": 36,
+      "free_mib_after_smoke": 44396,
+      "rank": 3,
+      "status": "exporting",
+      "updated_at_utc": "2026-09-09T07:42:03Z"
+    },
+    {
+      "cases": 13,
+      "findings": 39,
+      "free_mib_after_smoke": 43196,
+      "rank": 4,
+      "status": "exporting",
+      "updated_at_utc": "2026-09-09T07:40:53Z"
+    }
+  ]
+}

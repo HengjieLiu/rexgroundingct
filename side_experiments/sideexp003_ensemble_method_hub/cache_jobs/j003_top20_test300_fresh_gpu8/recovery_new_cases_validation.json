@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "rank": 1,
+      "case": "train_13334_a_5.nii.gz",
+      "shape": [
+        2,
+        512,
+        512,
+        357
+      ],
+      "array_sha256": "6496bbe0b5e001d72b062eb3892ea99e02b2198afd70102f9038c09c3ce74805",
+      "completed_at_utc": "2026-09-09T07:39:18Z",
+      "status": "passed"
+    },
+    {
+      "rank": 2,
+      "case": "train_13147_a_1.nii.gz",
+      "shape": [
+        3,
+        512,
+        512,
+        320
+      ],
+      "array_sha256": "12e2e834fe6205e024cdf8fd30c2a6a31ecfa2cd3f90b0068603b32c1cc5fb9f",
+      "completed_at_utc": "2026-09-09T07:39:40Z",
+      "status": "passed"
+    },
+    {
+      "rank": 3,
+      "case": "train_13147_a_1.nii.gz",
+      "shape": [
+        3,
+        512,
+        512,
+        320
+      ],
+      "array_sha256": "2a7ce3d1e282d6d6fcc5e731f3fda8e14cbf25de3b60d806f03bd3724b120eaf",
+      "completed_at_utc": "2026-09-09T07:39:40Z",
+      "status": "passed"
+    },
+    {
+      "rank": 4,
+      "case": "train_13192_a_1.nii.gz",
+      "shape": [
+        2,
+        512,
+        512,
+        282
+      ],
+      "array_sha256": "b6ac4bd720a3e331b2129cfcf114a5c4226a40cdef4326c1f1be023753352a4f",
+      "completed_at_utc": "2026-09-09T07:38:52Z",
+      "status": "passed"
+    }
+  ],
+  "job_spec_sha256": "50ac85fb91a37a748be45e82e27d4ed09862645cdb06258b07f67fdd5bf8e912",
+  "updated_at_utc": "2026-09-09T07:41:16Z"
+}

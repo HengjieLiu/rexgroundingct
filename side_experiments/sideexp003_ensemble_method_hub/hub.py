@@ -1042,11 +1042,21 @@ def validate_catalog(catalog: dict[str, Any]) -> list[str]:
                 errors.append(f"{candidate.get('candidate_id')}: unknown active cache version")
         if (
             not isinstance(test300, dict)
-            or test300.get("status") != "deferred"
+            or test300.get("status") not in fresh_cache.VALID_FRESH_STATUSES | {"deferred"}
             or test300.get("metric_status") != "not_available_withheld_labels"
             or test300.get("dataset", {}).get("sha256") != fresh_cache.TEST300_SHA256
         ):
-            errors.append(f"{candidate.get('candidate_id')}: invalid test300 deferred contract")
+            errors.append(f"{candidate.get('candidate_id')}: invalid test300 contract")
+        elif test300.get("status") != "deferred":
+            versions = test300.get("versions", [])
+            ids = [v.get("cache_version_id") for v in versions]
+            if len(ids) != len(set(ids)) or test300.get("active_cache_version") not in [None, *ids]:
+                errors.append(f"{candidate.get('candidate_id')}: invalid test cache versions")
+            for version in versions:
+                if version.get("metrics_path") is not None or version.get("metric_status") != "not_available_withheld_labels":
+                    errors.append(f"{candidate.get('candidate_id')}: test metrics must be unavailable")
+                if version.get("strict_eligible") and (version.get("cases"), version.get("findings")) != (300, 582):
+                    errors.append(f"{candidate.get('candidate_id')}: incomplete test cache")
     return errors
 
 
@@ -1429,7 +1439,8 @@ def check_command(args: argparse.Namespace) -> int:
                 errors.append(f"{candidate['candidate_id']}: preprocessing manifest missing")
             elif sha256_file(Path(manifest_path)) != manifest_sha:
                 errors.append(f"{candidate['candidate_id']}: preprocessing manifest SHA drift")
-        for version in candidate.get("inference_artifacts", {}).get("val200", {}).get("versions", []):
+        artifacts = candidate.get("inference_artifacts", {})
+        for version in [v for split in ("val200", "test300") for v in artifacts.get(split, {}).get("versions", [])]:
             if version.get("status") == "strict_passed":
                 for field in ("physical_path", "export_manifest_path", "validation_path"):
                     value = version.get(field)
@@ -1447,7 +1458,14 @@ def check_command(args: argparse.Namespace) -> int:
             roster_errors = fresh_cache.validate_roster(roster)
         errors.extend(f"{roster_path.name}: {error}" for error in roster_errors)
     for job_path in sorted((HERE / "cache_jobs").glob("*/job_spec.json")):
-        job_errors = fresh_cache.validate_job(read_json(job_path))
+        job = read_json(job_path)
+        job_errors = fresh_cache.validate_job(job)
+        if job.get("kind") == "test300_base_logits":
+            import test300_cache
+            try:
+                test300_cache.validate_job(job)
+            except fresh_cache.FreshCacheError as exc:
+                job_errors.append(str(exc))
         errors.extend(f"{job_path.parent.name}: {error}" for error in job_errors)
     for job_path in sorted((HERE / "analysis_jobs").glob("*/job_spec.json")):
         job_errors = seeded_caruana.validate_launch_spec(read_json(job_path))
@@ -1565,7 +1583,7 @@ def roster_command(args: argparse.Namespace) -> int:
 
 def _render_job(job: dict[str, Any]) -> str:
     lines = [
-        f"# {job['job_id']} Fresh Val200 Logit Export",
+        f"# {job['job_id']} Fresh {job.get('dataset', {}).get('split', 'val200')} Logit Export",
         "",
         f"Roster: `{job['roster_id']}` (`{job['roster_sha256']}`).",
         f"Job-spec SHA-256: `{job['job_spec_sha256']}`.",
@@ -1608,8 +1626,8 @@ def _render_job(job: dict[str, Any]) -> str:
 
 
 def cache_plan_command(args: argparse.Namespace) -> int:
-    if args.split != "val200":
-        raise HubError("fresh inference is currently authorized only for val200")
+    import test300_cache
+
     if args.reuse_policy != "fresh-only":
         raise HubError("this job requires --reuse-policy fresh-only")
     roster_path = _roster_path(args.roster)
@@ -1620,6 +1638,20 @@ def cache_plan_command(args: argparse.Namespace) -> int:
         errors = fresh_cache.validate_job(job)
         if errors:
             raise HubError("existing job is invalid: " + "; ".join(errors))
+        if job["dataset"].get("split", "val200") != args.split or job["roster_sha256"] != roster["roster_sha256"]:
+            raise HubError("existing job split/roster differs from requested inputs")
+        if args.split == "test300":
+            test300_cache.validate_job(job)
+            if args.staging_root and Path(job["staging_root"]).parent != args.staging_root:
+                raise HubError("existing test job has a different staging root")
+            if args.native_cache_root and any(c["cache"]["id"] == "crop_zscore_native_v1" and Path(c["cache"]["root"]) != args.native_cache_root for c in job["candidates"]):
+                raise HubError("existing test job has a different native cache root")
+    elif args.split == "test300":
+        if args.wave_size != 4:
+            raise HubError("test300 requires four-GPU waves")
+        job = test300_cache.build_job(roster, args.job_id,
+            staging_root=args.staging_root or test300_cache.STAGING_ROOT,
+            native_root=args.native_cache_root or test300_cache.NATIVE_ROOT)
     else:
         job = fresh_cache.build_job(
             roster, job_id=args.job_id, wave_size=args.wave_size, gpus=range(args.wave_size)
@@ -1653,7 +1685,8 @@ def cache_plan_command(args: argparse.Namespace) -> int:
         if not job_path.is_file():
             fresh_cache.atomic_write_json(job_path, job)
             fresh_cache.atomic_write_text(job_path.with_name("job_spec.md"), _render_job(job))
-        catalog = fresh_cache.apply_job_to_catalog(read_json(CATALOG_PATH), job)
+        catalog = (test300_cache.sync_catalog(read_json(CATALOG_PATH), job) if args.split == "test300"
+                   else fresh_cache.apply_job_to_catalog(read_json(CATALOG_PATH), job))
         write_catalog_outputs(catalog)
     return 0
 
@@ -1668,7 +1701,12 @@ def cache_sync_command(args: argparse.Namespace) -> int:
             value = read_json(path)
             if value.get("job_id") == job["job_id"]:
                 progress[candidate["id"]] = value
-    catalog = fresh_cache.update_catalog_progress(read_json(CATALOG_PATH), job, progress)
+    if job.get("kind") == "test300_base_logits":
+        import test300_cache
+        test300_cache.validate_job(job)
+        catalog = test300_cache.sync_catalog(read_json(CATALOG_PATH), job)
+    else:
+        catalog = fresh_cache.update_catalog_progress(read_json(CATALOG_PATH), job, progress)
     print(
         json.dumps(
             {
@@ -1873,12 +1911,19 @@ def cache_run_command(args: argparse.Namespace) -> int:
     job = read_json(job_path)
     if args.auto_continue and not job.get("auto_continue"):
         raise HubError("job spec does not authorize auto-continue")
-    from fresh_orchestrator import run_job
+    if job.get("kind") == "test300_base_logits":
+        from test300_runner import run_job
+    else:
+        from fresh_orchestrator import run_job
 
     return int(run_job(job_path))
 
 
 def cache_watch_command(args: argparse.Namespace) -> int:
+    path = _job_path(args.job)
+    if read_json(path).get("kind") == "test300_base_logits":
+        from test300_runner import watch
+        return int(watch(path, args.interval, args.once))
     from fresh_orchestrator import watch_job
 
     return int(watch_job(_job_path(args.job), args.interval, args.once))
@@ -1966,6 +2011,8 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument("--wave-size", type=int, default=4)
     plan.add_argument("--reuse-policy", choices=["fresh-only"], required=True)
     plan.add_argument("--skip-checkpoint-rehash", action="store_true")
+    plan.add_argument("--staging-root", type=Path, help="test300 local staging base")
+    plan.add_argument("--native-cache-root", type=Path, help="test-only native preprocessing root")
     plan_mode = plan.add_mutually_exclusive_group(required=True)
     plan_mode.add_argument("--dry-run", action="store_true")
     plan_mode.add_argument("--apply", action="store_true")
