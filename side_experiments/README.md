@@ -31,3 +31,9 @@ heavyweight runtime outputs remain outside Git.
 - `sideexp003_ensemble_method_hub`: provides the unified checkpoint catalog,
   generated val200/category leaderboards, shared logit-cache provenance, and
   immutable method/run specifications for subsequent ensemble work.
+- `sideexp005_postprocessing_merge`: compares frozen d1/d2/d3/d11/d12 on
+  val200 using official CT-RATE anatomy. Collaborator v1 is d11; collaborator
+  strict v2 is applied to d11 to produce d12. Separate r002 is armed to generate
+  test d11/d12 after the verified val report, regardless of scores, without ZIPs.
+  See [the test execution contract](sideexp005_postprocessing_merge/test300_execution_spec.md)
+  and the SideExp005 README for live state and aggregate report locations.

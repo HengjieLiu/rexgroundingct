@@ -19,6 +19,8 @@ weights stay on the external data and experiment mounts.
   projects.
 - `docs/current_status.md`: current decisions, active work, blockers, and next
   actions.
+- [Submission register](submissions/REGISTER.md): a/b/c/d aliases, prediction paths,
+  model recipes, packaging status and recorded uploads.
 - `experiments/README.md`: repo-local experiment index.
 - `dataset/README.md`: gated ReXGroundingCT and CT-RATE download workflow.
 - `docker/voxtell/README.md`: VoxTell Docker build and run notes.

@@ -10,6 +10,29 @@ This is the canonical challenge-level packaging checklist. It is model-agnostic:
 VoxTell-derived outputs are the current likely path, but the checks apply to any
 ReXGroundingCT submission.
 
+## Central submission records
+
+Open [the submission register](../submissions/REGISTER.md) before choosing a
+prediction directory or an archive. It maps a1–d3 and reserved d11/d12 to their actual names and
+paths, model/checkpoint recipes, postprocessing and recorded upload history.
+The c-series aliases retain Exp025's baseline/whole_lung20/fine20 directories.
+See [the register workflow](../submissions/README.md) for check, refresh and
+render commands. Future leaderboard evidence and reviews belong under the
+same top-level `submissions/` folder.
+
+d11 is the frozen collaborator semantic-v1 applied to d1; d12 applies frozen
+strict semantic-v2 to d11. Their [SideExp005 validation audit](../side_experiments/sideexp005_postprocessing_merge/README.md)
+is separate from test readiness. Separate SideExp005 run
+`r002_d1_test300_d11_d12_frozen_postprocessing` is authorized to generate test
+d11/d12 after the val200 report is verified, regardless of validation scores.
+ZIPs are skipped by request. Existing d1/d2/d3 completion evidence cannot cover
+d11/d12; their own producer and per-file manifests establish prediction readiness.
+
+Keep prediction readiness, ZIP readiness and upload history separate. Record
+the exact submitted name, uploaded ZIP hash and external ID after a confirmed
+upload; do not infer submission from completion of predictions. Existing
+prediction directories and producer manifests remain authoritative.
+
 ## Before Packaging
 
 1. Refresh or verify official sources:

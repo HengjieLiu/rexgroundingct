@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-09-06
+updated: 2026-09-09
 status: active
 ---
 
@@ -12,6 +12,148 @@ edit.
 
 ## Active Work
 
+- **SideExp005 test d11/d12 automation armed:** 2026-09-10T08:04:50Z.
+  Separate run `r002_d1_test300_d11_d12_frozen_postprocessing`, supervisor PID
+  `4025791`, waits for verified val200 report collection and successful worker
+  exit, then generates both test300 variants regardless of validation scores.
+  This user authorization supersedes the previous manual validation-review gate.
+  Outputs are Exp024 `outputs/d11` and `outputs/d12`; no ZIPs or uploads.
+  Preflight verified all 300 CTs / 582 prompts, native headers, d1 and official
+  anatomy hashes. All 138 targeted tests and repository checks passed.
+  The four CPU workers use one numerical thread each and
+  `NUMPY_MADVISE_HUGEPAGE=0`, with 150 GiB headroom above the 20 TiB reserve.
+  Original r001 runner/collector and Waves 2–5 remain independent. Use
+  `side_experiments/sideexp005_postprocessing_merge/test300_postprocessing.py watch --once`.
+  Job SHA: `c7b39164431a10288700e92484937cf0c30541bdaccb7e7c8f1a59ef6517af23`.
+  Register changes to the separate test producer occur after the val collector
+  finishes, preserving val results and manually recorded submission history.
+
+- **SideExp003 Waves 2–5 continuation authorized and launched**, 2026-09-10T07:27:36Z.
+  New source-bound job `j004_test300_r05_r20_cpu4_gpu8` runs original ranks
+  5–20 on four GPUs, each feeding one spawned CPU worker (four total), with
+  at most two pending crops per GPU and `NUMPY_MADVISE_HUGEPAGE=0` throughout.
+  Supervisor PID `3974216`. It retains 20 TiB shared reserve, 64 GiB RAM
+  headroom, and both GPU smoke gates. No unrelated CPU jobs are paused.
+  All 98 SideExp003 tests and repository checks passed; the largest native
+  benchmark crop matched the reference hash exactly through the new handoff.
+  Original j003 remains closed after Wave 1; d1/d2/d3 remain complete.
+  This user decision supersedes the earlier Waves 2–5 hold below. Use
+  `continue_test300.py watch` and the j004 runtime, not the old coordinator.
+  The requested 30-minute observation completed at 2026-09-10T07:59:08Z:
+  63/1,200 Wave 2 outputs staged, all four workers healthy. The
+  updated remaining Waves 2–5 estimate is 26–54 hours, including publication
+  and validation; later-model and disk variability remain uncertain. The
+  detached production coordinator continues. See j004 `launch_report.md`
+  and `observation_summary.json` for all five-minute checkpoints.
+
+
+- **SideExp005 postprocessing audit running:** the collaborator ZIP and
+  source audit were moved unchanged from the former Exp027 folder to
+  `side_experiments/sideexp005_postprocessing_merge/`, with before/after hashes.
+  The independent CPU runner compares d1/d2/d3/d11/d12 on val200, first requiring
+  reproduction of d1 Dice 0.3575041942161927 and 296/381 hits. d11 is frozen
+  collaborator semantic-v1; d12 is d11 followed by strict semantic-v2. Four
+  workers use NUMPY_MADVISE_HUGEPAGE=0. The detached supervisor launched at
+  2026-09-10T06:59:11Z after full preflight, 13 SideExp005 tests, 93 SideExp003
+  tests, six Exp024 tests, ten register tests and repository checks passed.
+  Container: `sideexp005_r001_d1_val200_frozen_postprocessing`.
+  The central register reserves d11/d12;
+  test generation remains pending review. No canonical Exp027 registration or
+  Waves 2–5 continuation belongs to this task. See the SideExp005 README/spec
+  and external runtime state for launch and progress evidence.
+
+- **p001 test300 profiling completed** at 2026-09-10T05:48:10Z
+  (September 9, 10:48 PM PDT). All 16 model–case inference jobs and six 16-case
+  CPU replay comparisons passed exact native hashes, geometry and storage masks.
+  **93 SideExp003 tests passed** in the pinned image. The demonstrated slowdown
+  is NumPy huge-page advice triggering kernel memory compaction: worker kernel
+  CPU share was 87–93%, falling to 22–25% with process-local
+  `NUMPY_MADVISE_HUGEPAGE=0`. Original CPU4/8/16 totals were
+  14.62/14.44/12.08 min; fixed totals were **4.80/5.95/5.31 min**.
+  Recommend the allocation setting and **four CPU workers**, with bounded
+  continuous handoff for a future continuation. No production code or global
+  kernel setting was changed. Waves 2–5 remain held. The 31–63 h remaining-wave
+  envelope retains the measured unfixed GPU/text cost; the modified GPU path
+  was not measured and needs retained smoke timing before adopting an ETA.
+  See `side_experiments/sideexp003_ensemble_method_hub/profiling_jobs/p001_test300_pipeline16_gpu8/pipeline_report.md`,
+  `completion_verification.json`, and `storage_inventory.json`.
+
+- **s001 d1/d2/d3 is complete** at 2026-09-10T02:37:02Z (September 9,
+  7:37 PM PDT). All three native prediction folders contain 300 cases /
+  582 prompts, and all three ZIPs passed hash, CRC and exact-file-set checks.
+  The 16-worker container exited successfully (code 0); continuation wall
+  time was 1 h 40 min. Outputs are beside Exp024 a/b under `outputs/d1`,
+  `d2`, `d3` and `d1.zip`, `d2.zip`, `d3.zip`. No upload was performed.
+  Waves 2–5 remain held. Completion and verification records are in
+  `side_experiments/sideexp003_ensemble_method_hub/submission_jobs/s001_top4_test300_d123/`.
+
+- Sixteen-worker s001 continuation milestone (now complete). The handoff completed at
+  2026-09-10T00:56:55Z (September 9 PDT), retaining both smoke cases and
+  launching `sideexp003_s001_top4_test300_d123_w16` with 16 CPU cores.
+  The first 16 parallel cases completed by 01:14:47Z; all 48 d1/d2/d3 file
+  hashes were independently verified. At 01:15:02Z the rolling run had
+  30/300 cases complete, 75/582 prompts, and about 360 GiB available RAM.
+  At that milestone the runner continued; Waves 2–5 stay held. Evidence:
+  `side_experiments/sideexp003_ensemble_method_hub/submission_jobs/s001_top4_test300_d123/continuation_16_first_batch.json`.
+  The original submission container exited intentionally during handoff;
+  current progress is shared s001 `state.json` and `continuation_16/state.json`.
+
+- User authorized a 16-worker d1/d2/d3 continuation after retained smoke
+  completion (2026-09-09 PDT). The old submission supervisor `3026396` is
+  intentionally SIGSTOP-held so it cannot dispatch the four-worker main run;
+  its remaining smoke worker continues. Tested handoff PID `3457864` waits for
+  both smoke journals and all six file hashes, retires the old owner, then
+  launches `sideexp003_s001_top4_test300_d123_w16` with 16 CPU cores. See
+  `side_experiments/sideexp003_ensemble_method_hub/submission_16_execution_spec.md`
+  and shared s001 `continuation_16/handoff_state.json`. Do not manually resume
+  the old supervisor. Original numerical/export functions and outputs are
+  retained; Waves 2–5 remain held. Three new continuation tests, including a
+  full synthetic 300-case/582-prompt/three-ZIP run, and repository checks passed.
+
+- Latest user decision, 2026-09-09T21:38Z: cancel the proposed Wave 2 overlap
+  before implementation or launch. Keep Waves 2–5 held and wait for d1/d2/d3
+  to finish. No Wave 2 workers, progress records or overlap sessions were
+  created. The existing Wave 1 finish guard and automatic submission runner
+  remain active.
+
+- SideExp003 submission job `s001_top4_test300_d123` is armed on gpu8 at
+  2026-09-09T19:12:07Z in detached CPU-only container
+  `sideexp003_s001_top4_test300_d123` (supervisor PID `3026396`). It waits for
+  the Wave 1 finish guard, coordinator exit and four strict test caches, then
+  automatically writes d1/d2/d3 and three ZIPs beside Exp024 a/b outputs.
+  d1 is the equally weighted sigmoid-probability ensemble; d2/d3 independently
+  apply the existing 20 mm anatomy policies to d1. Ranks 5–20 remain held.
+  All 300 anatomy identities and CT headers were frozen; new numerical,
+  postprocessing, restart, ZIP and synthetic full-run checks passed alongside
+  SideExp003 regressions. Outputs remain pending behind the dependency gate.
+  Read `side_experiments/sideexp003_ensemble_method_hub/submission_jobs/s001_top4_test300_d123/launch_report.md`
+  for exact launch/watch commands and `submission_test300_spec.md` for the
+  contract. Do not edit frozen submission sources while its runner is live.
+
+- Latest SideExp003 instruction, 2026-09-09: finish test300 Wave 1 only, then
+  hold ranks 5–20 because export speed is unacceptable. Guard PID `2974265`
+  has intentionally stopped scheduler PID `2103906`; all four Wave 1 Docker
+  workers remain running and unpaused. At 18:34:42Z their counts were
+  271/272/259/271 cases. The guard waits for all four strict publications and
+  successful worker exits, terminates the scheduler, and saves the inventory
+  and phase observations. Do not manually resume the scheduler or launch later
+  waves. See `side_experiments/sideexp003_ensemble_method_hub/finish_test300_wave1_spec.md`.
+  The val200 CPU search completed through K=16 at 15:53:05Z. Next investigation:
+  compare test and val GPU compute, CT layout copying, hashes and I/O using
+  matched workloads; preserve the finished caches and frozen scoring code.
+- SideExp003 on `shenggpu8`, branch `gpu8`: test300 job
+  `j003_top20_test300_fresh_gpu8` restarted under the separately recorded
+  `resume_test300_no_pause.py` coordinator. The user accepts contention and
+  requires the five-worker val200 ensemble search to remain uninterrupted.
+  All 40 saved test case arrays passed hash/prompt/CT geometry validation;
+  68 SideExp003 tests and repository checks passed. The frozen inference
+  source, job/cache identities and 20 TiB shared reserve are preserved.
+  Recovery session `no_pause_20260909T071438Z` passed all eight smoke checks
+  and independent validation of one new output per GPU. At 07:42:42Z Wave 1
+  was exporting at 11/12/12/13 cases, while the same unpaused CPU container
+  continued K=13 (18/200). Complete test caches remain pending. See
+  `side_experiments/sideexp003_ensemble_method_hub/test300_no_pause_execution_spec.md`
+  and the job's `recovery_report.md` for launch and follow-up evidence.
 - `022_exp007_official_anatomy_val200_audit` is complete for user review:
   200 CTs / 381 finding prompts, frozen Exp007 cont e050 / abs e150 baseline
   Dice `0.346023`, official Exp020 masks only, 32 fixed diagnostic policies.
