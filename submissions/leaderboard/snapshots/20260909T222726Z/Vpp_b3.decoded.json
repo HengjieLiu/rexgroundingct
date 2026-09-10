@@ -1,0 +1,90 @@
+{
+  "_create_time": "2026-09-06T23:36:25.472767Z",
+  "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/81U1FmE4VxlJKVVjWOXa",
+  "_update_time": "2026-09-06T23:52:32.403781Z",
+  "baseLabel": "V++_b3",
+  "dice": 0.332147596250632,
+  "hitRate": 0.7350993377483444,
+  "instanceF1": 0.21370716510903429,
+  "instancePrecision": 0.13665338645418326,
+  "instanceRecall": 0.49,
+  "institution": "SHS",
+  "leaderboardSplit": "public-50pct",
+  "perCategory": {
+    "1a": {
+      "dice": 0.2638863206474939,
+      "hit": 0.8,
+      "n": 5
+    },
+    "1b": {
+      "dice": 0.12983820979244445,
+      "hit": 0.2,
+      "n": 5
+    },
+    "1c": {
+      "dice": 0.1763588010718259,
+      "hit": 0.4375,
+      "n": 16
+    },
+    "1d": {
+      "dice": 0.16934231974487624,
+      "hit": 0.5,
+      "n": 6
+    },
+    "1e": {
+      "dice": 0.19509624200377867,
+      "hit": 0.5,
+      "n": 10
+    },
+    "1f": {
+      "dice": 0.012016683338722927,
+      "hit": 0.0,
+      "n": 2
+    },
+    "2a": {
+      "dice": 0.2699466288523313,
+      "hit": 0.7868852459016393,
+      "n": 61
+    },
+    "2b": {
+      "dice": 0.39158672437302594,
+      "hit": 0.782608695652174,
+      "n": 46
+    },
+    "2c": {
+      "dice": 0.36336522594492915,
+      "hit": 0.7435897435897436,
+      "n": 39
+    },
+    "2d": {
+      "dice": 0.3355990267285007,
+      "hit": 0.7938144329896907,
+      "n": 97
+    },
+    "2e": {
+      "dice": 0.3837239608949172,
+      "hit": 0.7692307692307693,
+      "n": 13
+    },
+    "2g": {
+      "dice": 0.5546214148650764,
+      "hit": 1.0,
+      "n": 1
+    },
+    "2h": {
+      "dice": 0.4863036861857862,
+      "hit": 1.0,
+      "n": 1
+    }
+  },
+  "publicCases": 150,
+  "registeredTeam": "INAIA",
+  "status": "published",
+  "submissionNumber": 1,
+  "submitter": "Chushu",
+  "submitterKey": "s_0a0a81ee14ac3230",
+  "team": "V++_b3",
+  "totalCases": 150,
+  "totalFindings": 302,
+  "updatedAt": "2026-09-06T23:52:32.352Z"
+}

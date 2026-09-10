@@ -1,0 +1,105 @@
+{
+  "results": [
+    {
+      "candidate_submission_id": "b3",
+      "displayed_rank": 15,
+      "evidence_file": "Vpp_b3.firestore.json",
+      "evidence_sha256": "950712ec555a48bdd1e21249d3482ab1779a14ed6393534f503d984630b2bd49",
+      "evidence_snapshot": "snapshots/20260909T222726Z",
+      "external_id": "81U1FmE4VxlJKVVjWOXa",
+      "extracted_at_utc": "2026-09-09T22:27:26.448237+00:00",
+      "findings": 302,
+      "institution": "SHS",
+      "leaderboard_split": "public-50pct",
+      "match_status": "local_artifact_link_unconfirmed",
+      "notes": [
+        "Exact match to user-provided public entry.",
+        "Case-wise and finding-wise Dice can legitimately differ. The evaluator computes both; the public publisher mapping remains unconfirmed. See dice_aggregation.md; the initial snapshot discrepancy wording was too strong."
+      ],
+      "original_displayed_name": "V++_b3",
+      "per_category": {
+        "1a": {
+          "dice": 0.2638863206474939,
+          "hit": 0.8,
+          "n": 5
+        },
+        "1b": {
+          "dice": 0.12983820979244445,
+          "hit": 0.2,
+          "n": 5
+        },
+        "1c": {
+          "dice": 0.1763588010718259,
+          "hit": 0.4375,
+          "n": 16
+        },
+        "1d": {
+          "dice": 0.16934231974487624,
+          "hit": 0.5,
+          "n": 6
+        },
+        "1e": {
+          "dice": 0.19509624200377867,
+          "hit": 0.5,
+          "n": 10
+        },
+        "1f": {
+          "dice": 0.012016683338722927,
+          "hit": 0.0,
+          "n": 2
+        },
+        "2a": {
+          "dice": 0.2699466288523313,
+          "hit": 0.7868852459016393,
+          "n": 61
+        },
+        "2b": {
+          "dice": 0.39158672437302594,
+          "hit": 0.782608695652174,
+          "n": 46
+        },
+        "2c": {
+          "dice": 0.36336522594492915,
+          "hit": 0.7435897435897436,
+          "n": 39
+        },
+        "2d": {
+          "dice": 0.3355990267285007,
+          "hit": 0.7938144329896907,
+          "n": 97
+        },
+        "2e": {
+          "dice": 0.3837239608949172,
+          "hit": 0.7692307692307693,
+          "n": 13
+        },
+        "2g": {
+          "dice": 0.5546214148650764,
+          "hit": 1.0,
+          "n": 1
+        },
+        "2h": {
+          "dice": 0.4863036861857862,
+          "hit": 1.0,
+          "n": 1
+        }
+      },
+      "public_cases": 150,
+      "reported_metrics": {
+        "dice": 0.332147596250632,
+        "hitRate": 0.7350993377483444,
+        "instanceF1": 0.21370716510903429,
+        "instancePrecision": 0.13665338645418326,
+        "instanceRecall": 0.49
+      },
+      "result_id": "Vpp_b3_20260909T222726Z",
+      "source_updated_at": "2026-09-06T23:52:32.352Z",
+      "source_url": "https://rexrank.ai/ReXGroundingCT/challenge.html",
+      "submission_event_id": null,
+      "submission_id": null,
+      "submitter": "Chushu",
+      "team": "INAIA"
+    }
+  ],
+  "schema_version": 1
+}

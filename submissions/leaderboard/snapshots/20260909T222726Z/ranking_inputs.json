@@ -1,0 +1,2682 @@
+[
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/040Qhyb9cD1d5u6fX38k",
+    "status": "published",
+    "dice": 0.3211027159651803,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "test2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/0jfrSv255fHN7Z4iBLgd",
+    "status": "published",
+    "dice": 0.3267568832078017,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_cot83_ph"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/0xFEPtDLlJWcpfP1Ppm3",
+    "status": "published",
+    "dice": 0.22730400570609774,
+    "submitterKey": "s_ff35bf740889a073",
+    "submitter": "Yunxi Wu",
+    "team": "GroundXpert-CT (submission 3)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/1F8Wx0gHJXaRTuPtpXGz",
+    "status": "published",
+    "dice": 0.1746549473859997,
+    "submitterKey": "s_a94129f23891e324",
+    "submitter": "Junggu park",
+    "team": "zeroshot"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/1wZ5gEDNyfHorKyLvga2",
+    "status": "published",
+    "dice": 0.3269733497724972,
+    "submitterKey": "s_2946bebb1da60e48",
+    "submitter": "Moritz Langenberg",
+    "team": "ThoraxTell 1.1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/2WNRHWxc9NU88dbo4mnu",
+    "status": "published",
+    "dice": 0.33270245298917744,
+    "submitterKey": "s_2946bebb1da60e48",
+    "submitter": "Moritz Langenberg",
+    "team": "ThoraxTell 1.3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/2rBSayhuRaCgh8X3TcNm",
+    "status": "published",
+    "dice": 0.2954623998415113,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "FARM-Siyu-Best-Hyper"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/33tuZs40wlHdjlZG1ZPu",
+    "status": "published",
+    "dice": 0.19310579708916284,
+    "submitterKey": "s_ff35bf740889a073",
+    "submitter": "Yunxi Wu",
+    "team": "GroundXpert-CT V3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/347kCgiX79pml9cI6WZ2",
+    "status": "published",
+    "dice": 0.3169202621044685,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_Supreme_11M_Hybrid_V2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/39I9tFTjSFyiw4L1Eptp",
+    "status": "published",
+    "dice": 0.2298267500536421,
+    "submitterKey": "s_a94129f23891e324",
+    "submitter": "Junggu park",
+    "team": "e2e"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/3L9YreKgZxIKDmFwBQCB",
+    "status": "published",
+    "dice": 0.11271670343284944,
+    "submitterKey": "s_0cd0d908546de755",
+    "submitter": "Joaqu\u00edn De Ferrari",
+    "team": "phase_3_exp_002_mean_teacher"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/3Q5uQTEQnE596iTDFyT6",
+    "status": "published",
+    "dice": 0.198210752755402,
+    "submitterKey": "s_1df8d011f8915e85",
+    "submitter": "Fernando",
+    "team": "COLIPRI"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/3lP8nOHSq7acwUdzfBCU",
+    "status": "published",
+    "dice": 0.31627297973283447,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_Supreme_11M_Hybrid_V8_1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/3mtKEzPsNrWLG8inN9TI",
+    "status": "published",
+    "dice": 0.2921556246578105,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/4QlWsCmBDEH5MuiNZj2k",
+    "status": "published",
+    "dice": 0.29645790635318653,
+    "submitterKey": "s_f10aabbac7a23bc8",
+    "submitter": "Haodong Li",
+    "team": "VoxFiLM-v1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/4ZTiefuwaVQFFayPCZSF",
+    "status": "published",
+    "dice": 0.33705704635055883,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "control"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/4neghb9oRMbBFZP6gSyE",
+    "status": "published",
+    "dice": 0.3285029329345713,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "VT++_resample_semantic_v2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/4o8cdGcPRvRDxDHdIphA",
+    "status": "published",
+    "dice": 0.34043612248248145,
+    "submitterKey": "s_2946bebb1da60e48",
+    "submitter": "Moritz Langenberg",
+    "team": "ThoraxTell 1.4c"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/50PlDB4rm0TYtjAeV7dP",
+    "status": "published",
+    "dice": 0.3237005542589871,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/523aCDniLdj3DFSpazSF",
+    "status": "published",
+    "dice": 0.1957395181743781,
+    "submitterKey": "s_0d156ab11e44abb0",
+    "submitter": "Changsun Lee",
+    "team": "SLR3D"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/56v9IHDsZKZiCEWpWiRJ",
+    "status": "published",
+    "dice": 0.3489928175644629,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "juniper_v0.2r"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/5HOH6LU04KpyYrTWFNgb",
+    "status": "published",
+    "dice": 0.12566781897670312,
+    "submitterKey": "s_0cd0d908546de755",
+    "submitter": "Joaqu\u00edn De Ferrari",
+    "team": "voxtell_v1.1_zeroshot_test_submission"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/5Tj75DgIHoccENmeIDTL",
+    "status": "published",
+    "dice": 0.3262588022009794,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "control5"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/5XNT5pzdjd8pQCCp8nl9",
+    "status": "published",
+    "dice": 0.2557781963100959,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "FindingNemo_oemer"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/5hrvDBsN66cUJpPrB8Xh",
+    "status": "published",
+    "dice": 0.33215956085011084,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_v2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/6DLcM9ng3UTRMwBOwibg",
+    "status": "published",
+    "dice": 0.2580290661909824,
+    "submitterKey": "s_a94129f23891e324",
+    "submitter": "Junggu park",
+    "team": "e2eunetfine"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/6aRJ2Y4vUqsd96cR3wAV",
+    "status": "published",
+    "dice": 0.2372562561916428,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "Farm-Siyu-Best-6"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/6edeWF9QG2OLNsdOxbAi",
+    "status": "published",
+    "dice": 0.33885805062022906,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "Juniper-v0.1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/7GG4YpgKJ3iSAnyOU886",
+    "status": "published",
+    "dice": 0.32308393137341934,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline8"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/7HqPfwziRXJD0G5VdzUT",
+    "status": "published",
+    "dice": 0.3297176850545054,
+    "submitterKey": "s_cba3bb0369bb8013",
+    "submitter": "Mercy Prasanna Ranjit",
+    "team": "CARE-CT-V2 (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/7Lz9DqseL5DCv0HhYFcx",
+    "status": "published",
+    "dice": 0.30549902623979447,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_KFold0_Selective_Guidance_V1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/7XGF660lKQCyFuSO2e9u",
+    "status": "published",
+    "dice": 0.22265269877742033,
+    "submitterKey": "s_1ec67d613e645e0a",
+    "submitter": "Michael Birmingham",
+    "team": "VoxTell-ZS + orientation correction"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/7jJaZMMfaHl73WBfBwNV",
+    "status": "published",
+    "dice": 0.35979530771852986,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_TAP (submission 3)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/7kIBxNTJB36NHBb9fhXk",
+    "status": "published",
+    "dice": 0.3400286094275681,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "juniper_v0.1f"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/81U1FmE4VxlJKVVjWOXa",
+    "status": "published",
+    "dice": 0.332147596250632,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "V++_b3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/8CjOo4RlHd7rBTGaThMq",
+    "status": "published",
+    "dice": 0.31511995156081457,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "rescue 5"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/8LlM7r2Rys9Hkdlq2ZLX",
+    "status": "published",
+    "dice": 0.1460837125451437,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "FARM-VoxTell-FT-HZ-2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/8Y7ZhgUk7f64Y2JzY6dC",
+    "status": "published",
+    "dice": 0.23090780545367445,
+    "submitterKey": "s_a94129f23891e324",
+    "submitter": "Junggu park",
+    "team": "2e2mix"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/9BLwPPEYj6q5g0aMeJCY",
+    "status": "published",
+    "dice": 0.30408708464029727,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "Farm-Best-HZ-3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/9C8uUQir03n1CgfrwUA2",
+    "status": "published",
+    "dice": 0.32487753630239874,
+    "submitterKey": "s_d00a8278e210690a",
+    "submitter": "Sep",
+    "team": "VT++"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/9U1P07TWKzb716BmMAcp",
+    "status": "published",
+    "dice": 0.3099456719355741,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "VT++_raw"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/9XXEExxqb2ntnJL3I9wG",
+    "status": "published",
+    "dice": 0.33280885179785774,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRVox-0906-1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/9wivFgsjeyeCT22GJ5Bt",
+    "status": "published",
+    "dice": 0.29262971269385435,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "test"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/9xnlXQBaI5g7RVxHVBOZ",
+    "status": "published",
+    "dice": 0.28354151749848794,
+    "submitterKey": "s_08bad38a4c9ca894",
+    "submitter": "Boyan Lv",
+    "team": "SJTU426Lab-V5censored"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ADSnnomF8kfwdPfY1p6i",
+    "status": "published",
+    "dice": 0.32173626926408044,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline10"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/AKj1CsxBuuEZBivT0ipc",
+    "status": "published",
+    "dice": 0.26428532227079077,
+    "submitterKey": "s_c36f49343a1e550f",
+    "submitter": "Antoine Saporta",
+    "team": "Jolia-Loc-v0"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/AOujW2DXItYeK4V2xeQI",
+    "status": "published",
+    "dice": 0.3296872482862243,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "composite"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/AfwU62In8fGbIhrmlP9C",
+    "status": "published",
+    "dice": 0.3253519419495689,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "control1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/AgRokl4yJWTd0qo7hCZS",
+    "status": "published",
+    "dice": 0.31617458718220753,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "Farm-Best-Siyu-5"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/AykAmdxaWUL5IdHjgvUO",
+    "status": "published",
+    "dice": 0.3401150358570042,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_dd"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/BD2IY77ykx3XD9ekWdkO",
+    "status": "published",
+    "dice": 0.324091749018357,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "Farm-Best-HZ-6"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/BPQ3Rs3X3G0YTc2rWCQC",
+    "status": "published",
+    "dice": 0.36484487796750853,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "juniper_v0.1ree5"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/BUEyB3b4HyHM86za0uXn",
+    "status": "published",
+    "dice": 0.2956907635335867,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "JECT_revert336_1p0mm"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/BZW0IDUXfKapri6ty5Av",
+    "status": "published",
+    "dice": 0.3261173297067363,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "V++_b1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/BZYqlpjJq4KjMRfQ53Ow",
+    "status": "published",
+    "dice": 0.3308944112142406,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_v8enc_LT"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/BuGNGprhmYTWYzbYKn8N",
+    "status": "published",
+    "dice": 0.21116868910613296,
+    "submitterKey": "s_a94129f23891e324",
+    "submitter": "Junggu park",
+    "team": "e2etrain"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/C7OJJZkgRvqSrMsPljKi",
+    "status": "published",
+    "dice": 0.33230067255178564,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_v25"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/CMNXXWOvp22QB9w0xV0T",
+    "status": "published",
+    "dice": 0.04795262413228395,
+    "submitterKey": "s_1ec67d613e645e0a",
+    "submitter": "Michael Birmingham",
+    "team": "VoxTell zero-shot (verbatim prompts) UCSF"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/CO4ofUyYJYNQCZts0lyd",
+    "status": "published",
+    "dice": 0.33774362277007003,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "test3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/CXml8srUyT9Qcf266cUe",
+    "status": "published",
+    "dice": 0.32057794931095307,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "FARM-Best-Siyu-7"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/CbRhRs153TMthgMRhdAP",
+    "status": "published",
+    "dice": 0.3218395661090732,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS (submission 5)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Chs9t5fcZFxBErmsn9Dd",
+    "status": "published",
+    "dice": 0.22045095341218438,
+    "submitterKey": "s_1df8d011f8915e85",
+    "submitter": "Fernando",
+    "team": "COLIPRI (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Cr5lDRNbfXwjxFLN7DRV",
+    "status": "published",
+    "dice": 0.33094595506046326,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "control4"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/DLkAEuGxSXFrcuSADGbm",
+    "status": "published",
+    "dice": 0.32853199656116755,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "V++_resample_semantic_v1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/DwQPAZ5BROxlpRD0EGte",
+    "status": "published",
+    "dice": 0.3509950673658227,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_th (submission 3)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/DxJLNJ3Cd6psptPbuJaG",
+    "status": "published",
+    "dice": 0.32898044605273324,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "selector 4"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/E0yNq7wMyagyhTVJL0U0",
+    "status": "published",
+    "dice": 0.179695958568916,
+    "submitterKey": "s_0cd0d908546de755",
+    "submitter": "Joaqu\u00edn De Ferrari",
+    "team": "Voxtell_naive_finetuning_001"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ED3SexyaVg7vTfoJaKlC",
+    "status": "published",
+    "dice": 0.16314807528635744,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "FARM-VoxTell-FT-Test"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ERnFTVObJ27GxQT2r2uS",
+    "status": "published",
+    "dice": 0.3178351883247482,
+    "submitterKey": "s_08bad38a4c9ca894",
+    "submitter": "Boyan Lv",
+    "team": "SJTU426Lab-v11"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ElSo2nk1weGajOiI1ASP",
+    "status": "published",
+    "dice": 0.3248511981714036,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.15"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/EwMJUsDB0YvkCSBo9taM",
+    "status": "published",
+    "dice": 0.3102718576841634,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT_LF-KFold5-LS008-LatGate"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/FD1GXhzCYzVkmZstNwYj",
+    "status": "published",
+    "dice": 0.2768000039637691,
+    "submitterKey": "s_a5372c315703fa5f",
+    "submitter": "Ronald Fecso",
+    "team": "MUW-GroundCT-v2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/FD9LnfmgdvOgZgSkxqN7",
+    "status": "published",
+    "dice": 0.3209175058169425,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "VoXTell_2.2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/FIHgjdHpblgiuuYtXSD8",
+    "status": "published",
+    "dice": 0.32848834093820206,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "B3_only_LLR_v1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/FQHtoqw1HwBQVWz3UUke",
+    "status": "published",
+    "dice": 0.31484845746980794,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "crowd b"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Fap3uQBJFEjbIxXc2VW1",
+    "status": "published",
+    "dice": 0.3481962793331315,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "controlsel"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/FatpLaKcFQg3TBh1T6FH",
+    "status": "published",
+    "dice": 0.1148538609894324,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "Jie Xu"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Fiz0O5oyash3Px0QbkWR",
+    "status": "published",
+    "dice": 0.34717557170411417,
+    "submitterKey": "s_3ba2185683d1d854",
+    "submitter": "Th\u00e9o Danielou",
+    "team": "Curia-MAE-loc-v0"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/FybIZcZWKIR09EheWnpF",
+    "status": "published",
+    "dice": 0.3041280740057331,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "Vox-Normal-LV2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/G9Lx5F6EzmBByYLxjaBn",
+    "status": "published",
+    "dice": 0.32373029847296636,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "ECCVrejected"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/GcuS6L9Kj3uD2XSS6jMY",
+    "status": "published",
+    "dice": 0.3613021085728546,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_fs"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/GeoRlbOWZ72wNRT5rTwQ",
+    "status": "published",
+    "dice": 0.20053561169961245,
+    "submitterKey": "s_0d156ab11e44abb0",
+    "submitter": "Changsun Lee",
+    "team": "SLR3D (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/GiHjhHkmR6G8L5Z3Y3eO",
+    "status": "published",
+    "dice": 0.24786336664971165,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "JECT"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Hf67TdfsxTtKnDg0Q4Dt",
+    "status": "published",
+    "dice": 0.26287330462918285,
+    "submitterKey": "s_b7dcab7d7e1a89d9",
+    "submitter": "Mengkang Lu",
+    "team": "e6_rescue_2a2c2d"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Hg1b8im6S8rEB86opKyX",
+    "status": "published",
+    "dice": 0.30449278375871375,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT_LF-Pres6-NoRoute"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/HkL0TANhsgx3ZYw4dHDP",
+    "status": "published",
+    "dice": 0.33498364611673914,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_v9aug"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/HnZhwXzfgVer3TTwWYI8",
+    "status": "published",
+    "dice": 0.15617329404176436,
+    "submitterKey": "s_d8dd47a8d8a7022c",
+    "submitter": "Abrar Jahin",
+    "team": "TextUNet3D-Ground_v2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/HxwBQQqeniGCcYrchA7t",
+    "status": "published",
+    "dice": 0.357404418266264,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "juniper_baseline"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/I7jD45Q5WQDwgI3pAVVT",
+    "status": "published",
+    "dice": 0.33105589978003785,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "composite 7"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ImFS9jAXihMmwHDLX71G",
+    "status": "published",
+    "dice": 0.32402339343932646,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "VT++_semantic_v1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Iqia7eJe1Dw06tKtgqPO",
+    "status": "published",
+    "dice": 0.28947450296982213,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_FT-Hybrid-V2-Repaired"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/JK7Q7BFiwvVrack3WyX0",
+    "status": "published",
+    "dice": 0.3083792304351427,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.07"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/JSQyvnVgwDMVKEB2TdKM",
+    "status": "published",
+    "dice": 0.3377689942632373,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_dc"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/JmGA9VctDpzDDtjmqOxs",
+    "status": "published",
+    "dice": 0.3342956601463163,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_tv-s3_t85"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Jp55daT1xmo3qmvtADo4",
+    "status": "published",
+    "dice": 0.27839383858975963,
+    "submitterKey": "s_1df8d011f8915e85",
+    "submitter": "Fernando",
+    "team": "MMM"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/K8S49JOziCkrGxNkPgyL",
+    "status": "published",
+    "dice": 0.29642856689762803,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell-SC-Hybrid-V1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/KE4Q4HaCqHkTLh6lYvaK",
+    "status": "published",
+    "dice": 0.31057100144233935,
+    "submitterKey": "s_08bad38a4c9ca894",
+    "submitter": "Boyan Lv",
+    "team": "SJTU426Lab-V10"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Ki0uSj5L6nns8m9IaQtp",
+    "status": "published",
+    "dice": 0.28131984477841343,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/KieFcaypTmNgcnXDbQ7L",
+    "status": "published",
+    "dice": 0.2760587748398389,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "CoRaL_Crops"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/KpPbnFJHskzI5VUWJO1J",
+    "status": "published",
+    "dice": 0.3453403506596468,
+    "submitterKey": "s_3ba2185683d1d854",
+    "submitter": "Th\u00e9o Danielou",
+    "team": "Curia-MAE-loc-v0.1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/L4TXQrKc03EBMd8obf9F",
+    "status": "published",
+    "dice": 0.32402339343932646,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "VT++_semantic_v1 (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/LXIMZgpkACKVQiNsWHeM",
+    "status": "published",
+    "dice": 0.32029078379743103,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "V++_a2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/La7sGNDS7wLkANjlgvQ7",
+    "status": "published",
+    "dice": 0.2974776602669089,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRVox"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/LicrXnTeKjbwx7G0N5v8",
+    "status": "published",
+    "dice": 0.3417721768258473,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_th_cp (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Lq5TXwjBQiT3Ap82aP5f",
+    "status": "published",
+    "dice": 0.33640924888166324,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "Finalb"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/LsshJdSHxqnVKt7VSRkQ",
+    "status": "published",
+    "dice": 0.336427021374027,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_v9aug_step025"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/LtUTwFAIegouq3qvus1x",
+    "status": "published",
+    "dice": 0.3233339018035277,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "F1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/LxPacAKowI0isVECxVPw",
+    "status": "published",
+    "dice": 0.30341881490672873,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_Supreme_11M_Hybrid_V3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/MVNjMbe6aBaOC2gA75UR",
+    "status": "published",
+    "dice": 0.19251428736367365,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/MvQNyOSn4FZMp1iSGiYd",
+    "status": "published",
+    "dice": 0.32502829471483685,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRVox-0902-1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/MxZTUh1QW4Kn6AWQmwm1",
+    "status": "published",
+    "dice": 0.3686796503902429,
+    "submitterKey": "s_109ff8c216d362be",
+    "submitter": "Kwang-Hyun Uhm",
+    "team": "Grounder_1.4d"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/N4wbIWYTYznnHQDhgppx",
+    "status": "published",
+    "dice": 0.3289888514412499,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "agent1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/N8YP9Ip8pPtj55xM0pCD",
+    "status": "published",
+    "dice": 0.2259682269658129,
+    "submitterKey": "s_a3a37a1ee376126d",
+    "submitter": "Shuo Jiang",
+    "team": "voxpr"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/NICZQtav0yGQvQiTiP9a",
+    "status": "published",
+    "dice": 0.361570030024312,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "juniper_v0.1ree"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/NQBnCYE5nOZ0GaN6Kq4z",
+    "status": "published",
+    "dice": 0.3316363476202357,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "composite 4"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/NSCuT7cF9StLImLaVa0T",
+    "status": "published",
+    "dice": 0.33151909309043437,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_v9aug_ph"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/NSYYOz8hSJLksVcTnzSe",
+    "status": "published",
+    "dice": 0.3122936995843878,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT_LF-KFold5-Low-LatGate"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/NVsmuug0YKF99NW0dH8F",
+    "status": "published",
+    "dice": 0.3682813868614592,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_TAP (submission 4)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/NcUu351F6FBsjofEM52d",
+    "status": "published",
+    "dice": 0.30091961098106873,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "Farm-Best-HZ-2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Nl9GJM54OVb4Upxdg4jt",
+    "status": "published",
+    "dice": 0.27728479129308414,
+    "submitterKey": "s_c36f49343a1e550f",
+    "submitter": "Antoine Saporta",
+    "team": "Jolia-Loc-v0.1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/NmNwT26GjpWsE9RrFSsB",
+    "status": "published",
+    "dice": 0.32360790991045774,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "S4"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/O38vSpyiL2ziFrs4ShiX",
+    "status": "published",
+    "dice": 0.3234991985353226,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRVox-Base3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/OASQ2SkHalpqXCa9wib0",
+    "status": "published",
+    "dice": 0.28131984477841343,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Od0ElPpWqsThsMcppTq4",
+    "status": "published",
+    "dice": 0.3246444931427918,
+    "submitterKey": "s_e632ab9f655c2f36",
+    "submitter": "Kevin Jin",
+    "team": "Referent-b"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Ogqk9D0pNZtFBfUGbdT1",
+    "status": "published",
+    "dice": 0.32115026565370947,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline11"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/OolPTpACsoEhd1NhIHhg",
+    "status": "published",
+    "dice": 0.2015696157741563,
+    "submitterKey": "s_c56d90a86fe3ca70",
+    "submitter": "Xiaotong",
+    "team": "TextSwinUNETR-baseline"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/OqcWkJKZTIkawvsJa5Pe",
+    "status": "published",
+    "dice": 0.32531155874667467,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "ECCVrejected2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/PAZhll0EbY9S3nm5MImg",
+    "status": "published",
+    "dice": 0.36725194050450405,
+    "submitterKey": "s_109ff8c216d362be",
+    "submitter": "Kwang-Hyun Uhm",
+    "team": "Grounder_1.4a"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/PXDdKmrdX2ABFVqOV90O",
+    "status": "published",
+    "dice": 0.2627743357238489,
+    "submitterKey": "s_b7dcab7d7e1a89d9",
+    "submitter": "Mengkang Lu",
+    "team": "e1_rescue_1c2a2c2d"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/PguIRjjUzqU8dyY7X6YY",
+    "status": "published",
+    "dice": 0.30397523177500196,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "2sk3_0.4"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/PhtAGYaZsoB9TGmYkS4m",
+    "status": "published",
+    "dice": 0.36684536193687334,
+    "submitterKey": "s_109ff8c216d362be",
+    "submitter": "Kwang-Hyun Uhm",
+    "team": "Grounder_1.4c"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Q6Q8McvikpeelEpHtERC",
+    "status": "published",
+    "dice": 0.3294831563902981,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "V++_b2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/QAUEVIHLOb8E9e13d89W",
+    "status": "published",
+    "dice": 0.3264986631299101,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_v9dsaug"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/QHUjfoHgleMgFbWhyo1b",
+    "status": "published",
+    "dice": 0.3190116467191824,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRVox1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/QHdErPDEMbXUZnq6VUau",
+    "status": "published",
+    "dice": 0.29041693272326663,
+    "submitterKey": "s_fa1ba9a496c2814c",
+    "submitter": "Kristhian Aguilar",
+    "team": "VoXTell-FT-B6000-Anatomy"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/QHk4Wh3MTw3OiLFn7QZP",
+    "status": "published",
+    "dice": 0.32641377972791985,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRVox-0902-2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/QIMtvgMhlvPAGhGHGRdQ",
+    "status": "published",
+    "dice": 0.3088791878057859,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "V++_c1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/QPcIPPfhPODPbJzXGUDc",
+    "status": "published",
+    "dice": 0.25454493805864253,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/QUG2nVt5UZquz64GbWEP",
+    "status": "published",
+    "dice": 0.32495282873699244,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_cot83_t85"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/QrJLkdVLJ6BeKnAhZn01",
+    "status": "published",
+    "dice": 0.29912749211722883,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRPhraseVox"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/R0egnh0uRJls9bTFR08p",
+    "status": "published",
+    "dice": 0.29953404079440715,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "Vox-Normal-LV"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/R3rRg2eg3yR0PIst3m2d",
+    "status": "published",
+    "dice": 0.32483379397410667,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "V++_c2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/RNCMYsCT6oK6uv9lE6f9",
+    "status": "published",
+    "dice": 0.3141483618865799,
+    "submitterKey": "s_109ff8c216d362be",
+    "submitter": "Kwang-Hyun Uhm",
+    "team": "Grounder"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/SRWoMCVXCFsCnMnBpDEr",
+    "status": "published",
+    "dice": 0.3176230480164341,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "V++_a1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/SYNElu1frhJ4xx1Ja7BD",
+    "status": "published",
+    "dice": 0.2954392128012584,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.02"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/SajvCbl1SWHd9SJ40bdT",
+    "status": "published",
+    "dice": 0.2761247930388463,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.0"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/SfahIdNrmk5VmjXWMWQG",
+    "status": "published",
+    "dice": 0.33283756044377566,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_v8enc"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/SkIZvoxCgKGkSTkKsAfU",
+    "status": "published",
+    "dice": 0.3657228232209867,
+    "submitterKey": "s_109ff8c216d362be",
+    "submitter": "Kwang-Hyun Uhm",
+    "team": "Grounder_1.4b"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/StHRgniImTxc36VtoRxg",
+    "status": "published",
+    "dice": 0.335775939944054,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_dtm"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Tj7UqKXd4oLqHzidPuZk",
+    "status": "published",
+    "dice": 0.3227462243130492,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "selector focal"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/TqO1FR4fZ57uMraxfrra",
+    "status": "published",
+    "dice": 0.29797140484861195,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "FARM-Siyu-Best-Hyper-V2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/UGcIafnn2PzWHiPVUS1F",
+    "status": "published",
+    "dice": 0.3325312436739573,
+    "submitterKey": "s_cba3bb0369bb8013",
+    "submitter": "Mercy Prasanna Ranjit",
+    "team": "Mercy Prasanna Ranjit"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/UHCVr9UXNraXmabBO7cc",
+    "status": "published",
+    "dice": 0.17853928320718043,
+    "submitterKey": "s_bd5d6c938eba345a",
+    "submitter": "Sam Church",
+    "team": "ConTEXTual Net CT - 1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/UIkUX3HDR4SGcLukI6mG",
+    "status": "published",
+    "dice": 0.3319049106138171,
+    "submitterKey": "s_109ff8c216d362be",
+    "submitter": "Kwang-Hyun Uhm",
+    "team": "Grounder_1.1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/UKEIgaFmF4VYy4b5zMI4",
+    "status": "published",
+    "dice": 0.2910935564549616,
+    "submitterKey": "s_08bad38a4c9ca894",
+    "submitter": "Boyan Lv",
+    "team": "SJTU426Lab-V5naive"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/UODphvR81N82sqx9oBDG",
+    "status": "published",
+    "dice": 0.3432756751708439,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline12"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/URC9TRrLqxT0GYAx0f7x",
+    "status": "published",
+    "dice": 0.29637802842757555,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT_LF"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/UVX372RJRIb3NKPOXmTo",
+    "status": "published",
+    "dice": 0.1626845277781147,
+    "submitterKey": "s_ff35bf740889a073",
+    "submitter": "Yunxi Wu",
+    "team": "GroundXpert-CT (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/V8sECWUohQWbBhsMw0Be",
+    "status": "published",
+    "dice": 0.3193894808392255,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRVox-Base2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/VgLEyoEbEC9Y4ZpukvJ3",
+    "status": "published",
+    "dice": 0.3332681534390782,
+    "submitterKey": "s_dc7ddb52e7b74f47",
+    "submitter": "wshdfoisdahf",
+    "team": "UShanghaiTech (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/VgiOUCdgvpqoiiyif0dZ",
+    "status": "published",
+    "dice": 0.3314795810573258,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline9"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ViAvvCB7TxpI8m8ZSTW5",
+    "status": "published",
+    "dice": 0.36779035149145894,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_TAP (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/WDZH3bo6xZXVkrntiEBB",
+    "status": "published",
+    "dice": 0.33747124418032515,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_tv-s3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/WS5m6ni7nIQhB5oILS2q",
+    "status": "published",
+    "dice": 0.2224471005393786,
+    "submitterKey": "s_09ab432f64dc1c56",
+    "submitter": "Safwan Sakib",
+    "team": "VoxTell_001"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/WWkTXwDbUiiCND8Rh6dY",
+    "status": "published",
+    "dice": 0.3085311617048971,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT_LF-KFold5-VL"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/WeynSzWaMDAKKPjDw4RK",
+    "status": "published",
+    "dice": 0.35308078720443176,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "needpaper_v0.1_hv2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/XCdp68NyY64KrWRJ59Iu",
+    "status": "published",
+    "dice": 0.22882257333639303,
+    "submitterKey": "s_59f0974579b28c22",
+    "submitter": "chixian",
+    "team": "VoxTell Prompt Aug."
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/XLiWU84wWmMR6tb6NxuX",
+    "status": "published",
+    "dice": 0.3023205999569863,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT_LF-Pres6"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/YEcyOkrYMD8FY9pphsd0",
+    "status": "published",
+    "dice": 0.3542341999798213,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "needpaper_v0.0"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/YPm5UjsGhZInZqr09Bhu",
+    "status": "published",
+    "dice": 0.32534178556232085,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.12"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/YgdLncXRwopHEjNSgamn",
+    "status": "published",
+    "dice": 0.26400954996623377,
+    "submitterKey": "s_b7dcab7d7e1a89d9",
+    "submitter": "Mengkang Lu",
+    "team": "QWen3_v2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/YiArULp7JXFyBu35A3fT",
+    "status": "published",
+    "dice": 0.2428758890365873,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "VoXTell_4.0_global"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/YqOA3STlWJMQ17WC8raU",
+    "status": "published",
+    "dice": 0.30234137274170514,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.04"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/YxvOTfSjw2c9ZUDVuIcZ",
+    "status": "published",
+    "dice": 0.29727995505758875,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "2sk3_0.5"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/Z3SIKD2hF7PTbJa9t3Hf",
+    "status": "published",
+    "dice": 0.2987883924557969,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_Supreme_11M_Hybrid_V5"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ZIYLcTgUDV6IYMOBP3DO",
+    "status": "published",
+    "dice": 0.3332832740771877,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "composite 5"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ZRwaApFKlAozMLoDUqpV",
+    "status": "published",
+    "dice": 0.27548187531017476,
+    "submitterKey": "s_fa1ba9a496c2814c",
+    "submitter": "Kristhian Aguilar",
+    "team": "VoXTell-FT-Anatomy"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ZzZQIsVtHaUCLRVwg98Q",
+    "status": "published",
+    "dice": 0.3338739855875,
+    "submitterKey": "s_2946bebb1da60e48",
+    "submitter": "Moritz Langenberg",
+    "team": "ThoraxTell 1.4"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/a54qDtpIuF8tLwvKJqgU",
+    "status": "published",
+    "dice": 0.3520239702203951,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_th_cp"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/aMlFzg7ZDLmADIwNgSGv",
+    "status": "published",
+    "dice": 0.3249209754652687,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRVox-Base"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/aNo8JLwx7guahBLXy2E0",
+    "status": "published",
+    "dice": 0.3613686914487697,
+    "submitterKey": "s_109ff8c216d362be",
+    "submitter": "Kwang-Hyun Uhm",
+    "team": "Grounder_1.3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/aQeg2zdYeidI6R9FOryr",
+    "status": "published",
+    "dice": 0.31212399465808865,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "VoXTell_3.1_dualsep"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/aSSM9iwx0Okgk2wKDBfw",
+    "status": "published",
+    "dice": 0.13610125193843914,
+    "submitterKey": "s_ff35bf740889a073",
+    "submitter": "Le Zhang",
+    "team": "GroundXpert-CT"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/aXjFOQk4TlHrH77QNy14",
+    "status": "published",
+    "dice": 0.36171092855462594,
+    "submitterKey": "s_109ff8c216d362be",
+    "submitter": "Kwang-Hyun Uhm",
+    "team": "Grounder_1.4"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/aYFSodnhGfkzTYhyz6H3",
+    "status": "published",
+    "dice": 0.3112957219461985,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT_LF-KFold10-LatGate"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/adv6RVHObCGGbKnpYu39",
+    "status": "published",
+    "dice": 0.33498545022593473,
+    "submitterKey": "s_e632ab9f655c2f36",
+    "submitter": "Kevin Jin",
+    "team": "Referent-V2 (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/aie87yYGSWGp9qblYQRa",
+    "status": "published",
+    "dice": 0.3121585314869847,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "2s-cg-k3_2 VoxNormal"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/alr4BoJau7xhVlKGUqCc",
+    "status": "published",
+    "dice": 0.3330307010530001,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRVox-0902-3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/auOUWaVyYqMftjJd7Lhn",
+    "status": "published",
+    "dice": 0.3720946748409871,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "needpaper_v0.2_avg"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/aw5QNrNWhEnPMJ94DDx0",
+    "status": "published",
+    "dice": 0.22244710053937866,
+    "submitterKey": "s_09ab432f64dc1c56",
+    "submitter": "Safwan Sakib",
+    "team": "VoxTell_0001"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/b6T377vkzr3BuOCgunkO",
+    "status": "published",
+    "dice": 0.26805671785145485,
+    "submitterKey": "s_a94129f23891e324",
+    "submitter": "Junggu park",
+    "team": "2e2unetpure"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/b9nRfs9HQR0aAoU9FHm5",
+    "status": "published",
+    "dice": 0.3255522982197794,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.13"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/bAMjcFyEp3itBpOgpxNl",
+    "status": "published",
+    "dice": 0.34517375343058937,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline14sel"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/bDd1rqydwuEQgtzU4532",
+    "status": "published",
+    "dice": 0.01731081810460754,
+    "submitterKey": "s_0cd0d908546de755",
+    "submitter": "Joaqu\u00edn De Ferrari",
+    "team": "Exp 002 - Spatial Prior Quantile Baseline"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/bPFMqMMhvbqPeNDQdKf8",
+    "status": "published",
+    "dice": 0.3274878125057854,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "control6"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/bUmIDPb4tXi2Ylpi0it5",
+    "status": "published",
+    "dice": 0.31742765462307737,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "2s-cg-k3_15-emph VoxNormal"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/bZXXmZFUgmOAOS314c7B",
+    "status": "published",
+    "dice": 0.306582844799368,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRPhraseVox-2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/bZz0VBSfR1D4mGorZsIM",
+    "status": "published",
+    "dice": 0.3218521604510389,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline5"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/bicsTssxIDDb3XifTbfQ",
+    "status": "published",
+    "dice": 0.33567301477291184,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRVox0909-1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/bvfSBo09Z4oGByIupHP8",
+    "status": "published",
+    "dice": 0.34326280008249505,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline13"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/bzGQ2ENfrPzCxO8eruqN",
+    "status": "published",
+    "dice": 0.3267616302021099,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_cot83_ph2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/c1kEntAFOgVH7sa17WLD",
+    "status": "published",
+    "dice": 0.26400954996592524,
+    "submitterKey": "s_b7dcab7d7e1a89d9",
+    "submitter": "Mengkang Lu",
+    "team": "voxtell_e005_vocomni_e6"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/cJpjB1v7uDb0h57TkY5O",
+    "status": "published",
+    "dice": 0.31932659141682534,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "rescue"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/cTNOBmmBb73rD2ZM3zlI",
+    "status": "published",
+    "dice": 0.31797835165560484,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline4"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/carN4z9F0tSw0sfCd5o9",
+    "status": "published",
+    "dice": 0.3571866046077787,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "needpaper_v0.0_plain"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/cmOsJGMmHiulfHM4RdoK",
+    "status": "published",
+    "dice": 0.33105589978003785,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "composite 6 (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/crOMyQHt65CFRTetmezs",
+    "status": "published",
+    "dice": 0.3002449119097107,
+    "submitterKey": "s_dc7ddb52e7b74f47",
+    "submitter": "wshdfoisdahf",
+    "team": "ISOMAPv2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/cwIS9slAKiPe6U92TNdm",
+    "status": "published",
+    "dice": 0.3217805771833962,
+    "submitterKey": "s_fa1ba9a496c2814c",
+    "submitter": "Kristhian Aguilar",
+    "team": "VoXTell-FT-B24k-E"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/dDql0laCGHiVUEQzyWCf",
+    "status": "published",
+    "dice": 0.3209175058169425,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "VoXTell_2.3_t"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/dIxtFnq6teFMdgDFFtGM",
+    "status": "published",
+    "dice": 0.3594475237869182,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "juniper_v0.1br"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/dWPUPs1LVCnaEzRsXPlC",
+    "status": "published",
+    "dice": 0.26482990014295116,
+    "submitterKey": "s_fa1ba9a496c2814c",
+    "submitter": "Kristhian Aguilar",
+    "team": "VoxTell-FT"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/dXHbWea3AH3HKNAODnd8",
+    "status": "published",
+    "dice": 0.08418595123564925,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT_LF-Hybrid-CC-NoRoute"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/dmXOYSf0splN6Eu2RZT0",
+    "status": "published",
+    "dice": 0.3256937327491825,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline10000_0.5"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/drWj33mvoCPj1tU02SWv",
+    "status": "published",
+    "dice": 0.32060552591650077,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "JECT_f"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/dzEmyj3CPgDfOqDZD1cl",
+    "status": "published",
+    "dice": 0.34055599523066954,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_dt"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/e043On6Vu3tJfJh8zdoX",
+    "status": "published",
+    "dice": 0.3352077089943885,
+    "submitterKey": "s_2e75a993728d1b04",
+    "submitter": "Minghui Zhang",
+    "team": "IMRVox-0904-1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ecNm9EOzcbCGWdhUIiy6",
+    "status": "published",
+    "dice": 0.3081823796970492,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_FT-Hybrid-V2-Repaired_1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/emsYzSUrkZNu0T3buQs2",
+    "status": "published",
+    "dice": 0.3200943202361208,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.08"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/f1TDaKL1kL6kOvdxBGPO",
+    "status": "published",
+    "dice": 0.38024073966432353,
+    "submitterKey": "s_dc7ddb52e7b74f47",
+    "submitter": "wshdfoisdahf",
+    "team": "UShanghaitech"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/f2j64JVCvXBSwQQABPey",
+    "status": "published",
+    "dice": 0.33420059120671275,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_v8tv"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/fE8fR6JraWcYHCTp2cNI",
+    "status": "published",
+    "dice": 0.3481962822544671,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "controlside"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/fIJY9jEEytpW55hi5WWt",
+    "status": "published",
+    "dice": 0.3150749475453305,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "VoXTell_3.0_dual"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/farm-voxtell-ft",
+    "status": null,
+    "dice": 0.16314807528635744,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "FARM-VoxTell-FT"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/fmDBzAwnBxf2bTKuvo2K",
+    "status": "published",
+    "dice": 0.32387588232575487,
+    "submitterKey": "s_fa1ba9a496c2814c",
+    "submitter": "Kristhian Aguilar",
+    "team": "VoXTell-FT-B24k-E0"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/g5zEvlGTkr5HT14nXfZY",
+    "status": "published",
+    "dice": 0.3338739856198387,
+    "submitterKey": "s_2946bebb1da60e48",
+    "submitter": "Moritz Langenberg",
+    "team": "ThoraxTell 1.2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/g7GfbJ7eWGtZIZd5PjA8",
+    "status": "published",
+    "dice": 0.1460837125451437,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "FARM-VoxTell-FT-HZ"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/gQMsGGMmKKOJaPZkaFLF",
+    "status": "published",
+    "dice": 0.2683636732744662,
+    "submitterKey": "s_b7dcab7d7e1a89d9",
+    "submitter": "Mengkang Lu",
+    "team": "voxtell_valadapt_all200_e3_t075"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/gRUSuYIIEOal3HJZ5XFU",
+    "status": "published",
+    "dice": 0.35566849931811345,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "needpaper_v0.1_plain"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/gTOd2KNQZ2q4VvHcN0lA",
+    "status": "published",
+    "dice": 0.3301686286316045,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "composite 2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ggyCqbJKNgQ4IkXYRJuu",
+    "status": "published",
+    "dice": 0.31408449632498114,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_Supreme_11M_Hybrid_V8"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/gotuN6pq4rIngtkN6AmA",
+    "status": "published",
+    "dice": 0.32423186041504626,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "VoXTell_1.1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/gsYLn2kGpV7nqpNCGydq",
+    "status": "published",
+    "dice": 0.3159245877238289,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "rescue2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/gu6y2dRNzyajsvP53AGD",
+    "status": "published",
+    "dice": 0.32323558980965716,
+    "submitterKey": "s_a5372c315703fa5f",
+    "submitter": "Ronald Fecso",
+    "team": "MUW-Grounder"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/gvfPZbhtHZKYY9fds8Cd",
+    "status": "published",
+    "dice": 0.36393047144199264,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_fs (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/h3Fhmodsw790gN2uzT5e",
+    "status": "published",
+    "dice": 0.31356039569811195,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_Supreme_11M_Hybrid_V6"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/h9DuOlEOnfLbP57GV3tW",
+    "status": "published",
+    "dice": 0.34418763879780995,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline14"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/hhuUyTVRGtoJKn4ZJkYX",
+    "status": "published",
+    "dice": 0.2901969251066378,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "Vox-Normal"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/hyGLLVl758Xs1NW0wymp",
+    "status": "published",
+    "dice": 0.32331128718642277,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/iAxelwnQpe0sQrW0SPX8",
+    "status": "published",
+    "dice": 0.31527127471742195,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "JECT_base"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/iBbXoi9eDCuiSelTiabW",
+    "status": "published",
+    "dice": 0.32892624178824764,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "composite 3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/iV0XYdP04SbwihBlIDzl",
+    "status": "published",
+    "dice": 0.3038404857656231,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "2sk3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/iXy1p6b9J7rB7s611mLk",
+    "status": "published",
+    "dice": 0.3052882810324205,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "2s-cg-k3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ilgc3PEbIz7QGVvZZgGY",
+    "status": "published",
+    "dice": 0.2888366410387725,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.01"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ilr2iMBLu98zeBgYa2Sr",
+    "status": "published",
+    "dice": 0.2813326374774192,
+    "submitterKey": "s_b20a0f835ff762c0",
+    "submitter": "Sangyoon Park",
+    "team": "Voxtell-FT"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/irTKjVUOkNPigL9ddMLI",
+    "status": "published",
+    "dice": 0.3276075164304576,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "selector 3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/j33dDfVRfAeWc8sgQqaa",
+    "status": "published",
+    "dice": 0.26797349643464136,
+    "submitterKey": "s_b7dcab7d7e1a89d9",
+    "submitter": "Mengkang Lu",
+    "team": "voxtell_valadapt_all200_e3_t075_gate1c_t030"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/j8tn89gO0BOv0pzaeBaP",
+    "status": "published",
+    "dice": 0.32935945807953215,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "composite 3 real"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/jBPAiOmgyD2uClRNXN2Z",
+    "status": "published",
+    "dice": 0.36689684256587557,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_TAP"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/jafylcsMt2IyGbSz6wgz",
+    "status": "published",
+    "dice": 0.14053619855484414,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "SAT"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/jnl0zsVR6pw8DzPcFdag",
+    "status": "published",
+    "dice": 0.31161419174687843,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.06"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/jzvcvXlh2IvG0Vers2Ej",
+    "status": "published",
+    "dice": 0.336168957642639,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_basetest"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/k4tSBtGHLqokrtx94aao",
+    "status": "published",
+    "dice": 0.35446645035196495,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_th (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/kCFnZah9E23KHl1B9Amx",
+    "status": "published",
+    "dice": 0.23055204986690314,
+    "submitterKey": "s_7c6399ab9be9ae2f",
+    "submitter": "jiyechoi",
+    "team": "VT-zero"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/l3DPyPjUMsJGj7FyVR44",
+    "status": "published",
+    "dice": 0.31616659383791285,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "VoXTell_1.3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/l9UG75ZYLp14dv8mJlCa",
+    "status": "published",
+    "dice": 0.3288876986070111,
+    "submitterKey": "s_a5372c315703fa5f",
+    "submitter": "Ronald Fecso",
+    "team": "MUW-Grounder-v2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/lSh2YGxGuFBdG7rbVVNx",
+    "status": "published",
+    "dice": 0.3252381269468979,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.11"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/lbF9evAIgTHE67AIyrLZ",
+    "status": "published",
+    "dice": 0.32542769780128045,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.14"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ltSmUsujKWr86HK9FW4d",
+    "status": "published",
+    "dice": 0.3290651522068294,
+    "submitterKey": "s_cba3bb0369bb8013",
+    "submitter": "Mercy Prasanna Ranjit",
+    "team": "CARE-CT-V2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/lurT8iMGaR4dtTF6Fe8M",
+    "status": "published",
+    "dice": 0.29580818985229657,
+    "submitterKey": "s_a94129f23891e324",
+    "submitter": "Junggu park",
+    "team": "pbe2epure"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/lzYtLwA3g9uN4qYfx1cg",
+    "status": "published",
+    "dice": 0.3683056932957016,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_TAP (submission 5)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/mendmpwQ0ddWEq2f83Ud",
+    "status": "published",
+    "dice": 0.31028475210518386,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT_LF-KFold5-Low"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/mlwdvs3iEKZmZCUzxKRs",
+    "status": "published",
+    "dice": 0.2997769527536063,
+    "submitterKey": "s_a5372c315703fa5f",
+    "submitter": "Ronald Fecso",
+    "team": "MUW-GroundCT-v3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/muw-groundct",
+    "status": null,
+    "dice": 0.2424824522539124,
+    "submitterKey": "s_a5372c315703fa5f",
+    "submitter": "Ronald Fecso",
+    "team": "MUW-GroundCT"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/muw-text2unet",
+    "status": null,
+    "dice": 0.1061985532480955,
+    "submitterKey": "s_a5372c315703fa5f",
+    "submitter": "Ronald Fecso",
+    "team": "MUW-Text2UNet"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/muw-text2unet-v2",
+    "status": null,
+    "dice": 0.18756892437453124,
+    "submitterKey": "s_a5372c315703fa5f",
+    "submitter": "Ronald Fecso",
+    "team": "MUW-Text2UNet-v2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/mxCETki6cfH1FsW4pDEo",
+    "status": "published",
+    "dice": 0.2676237200667165,
+    "submitterKey": "s_b7dcab7d7e1a89d9",
+    "submitter": "Mengkang Lu",
+    "team": "nninteractive"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/nFsffFkdVFuIjNumvKM7",
+    "status": "published",
+    "dice": 0.3062744028635866,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_5Fold_Selective_Guidance_V1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/nbFOIj6a0J0kMZ3AFwCr",
+    "status": "published",
+    "dice": 0.3227639702179706,
+    "submitterKey": "s_cba3bb0369bb8013",
+    "submitter": "Mercy Prasanna Ranjit",
+    "team": "CARE-CT"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/nrvRJv1bj3NkdyYEoKIn",
+    "status": "published",
+    "dice": 0.33583599051157864,
+    "submitterKey": "s_109ff8c216d362be",
+    "submitter": "Kwang-Hyun Uhm",
+    "team": "Grounder_1.2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/oJaQ5PRRgGmmhqK2Y1Ue",
+    "status": "published",
+    "dice": 0.3045036586172573,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.05"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/oQbzkMqbfOkDyHxdVGrV",
+    "status": "published",
+    "dice": 0.30193842251804315,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS (submission 3)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/otRJcoEbvje3zCP4SyBb",
+    "status": "published",
+    "dice": 0.3220059725754269,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.09"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/owrKCOMZUoNN66bDpbm7",
+    "status": "published",
+    "dice": 0.31564840445002257,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "VoXTell_1.0"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/p3C6NSBdUzgITq5jfxNm",
+    "status": "published",
+    "dice": 0.32684222900097365,
+    "submitterKey": "s_dc7ddb52e7b74f47",
+    "submitter": "wshdfoisdahf",
+    "team": "UShanghaiTech"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/pPXecPKC0Wsnv2sdk11R",
+    "status": "published",
+    "dice": 0.31491146210309373,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "Farm-Best-Siyu-4"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/pVi5onmhx8fsr9HBC7aV",
+    "status": "published",
+    "dice": 0.27297838785736955,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "FARM-Siyu-Second"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/psZJe8heSmGtd0phaOHW",
+    "status": "published",
+    "dice": 0.3219554262653355,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "test (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/pueXRsnSuoPHtf0Y9doh",
+    "status": "published",
+    "dice": 0.27260200846467747,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "CoRaL"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/q7wkHeP5Gf3oJ64YIGZy",
+    "status": "published",
+    "dice": 0.3361479596323079,
+    "submitterKey": "s_e632ab9f655c2f36",
+    "submitter": "Kevin Jin",
+    "team": "Referent-V2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/q9TEIR6GLheX9WKRRusx",
+    "status": "published",
+    "dice": 0.3454061881120682,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "juniper-v0.1r"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/qd7FJYhffhG5NtGZnXot",
+    "status": "published",
+    "dice": 0.32199065093982465,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "rescue4"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/quU4mOeKGwkIl0qwY2fk",
+    "status": "published",
+    "dice": 0.09261233925064924,
+    "submitterKey": "s_5791962ae8eab5c2",
+    "submitter": "Adinath",
+    "team": "V2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/r06jxg5uZNZJdfZvv8Fa",
+    "status": "published",
+    "dice": 0.3395329850816365,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "juniper_v0.1f2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/rA0SURwa9rJxX5lgtaW9",
+    "status": "published",
+    "dice": 0.3052029453260079,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell_FT_LF-Diffuse-Aware-V1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/rcaAqjx0NOZy7dS4Uocw",
+    "status": "published",
+    "dice": 0.10248829571324637,
+    "submitterKey": "s_d8dd47a8d8a7022c",
+    "submitter": "Abrar Jahin",
+    "team": "TextUNet3D-Ground"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/rt1JZx5Z7H0fFkQXxnaH",
+    "status": "published",
+    "dice": 0.26662257736021727,
+    "submitterKey": "s_b7dcab7d7e1a89d9",
+    "submitter": "Mengkang Lu",
+    "team": "Mengkang Lu"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/rzkDsnP5VPFcVf433lIV",
+    "status": "published",
+    "dice": 0.3043748184662514,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/s0DK8iukBc7MYD6qi1ht",
+    "status": "published",
+    "dice": 0.32770680383924455,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "control2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/s9Zci1Ax9T1Mzye7ZOfS",
+    "status": "published",
+    "dice": 0.3287159936313506,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "B3_only_LLR_v2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/sDpKu64qJ9J59253rcRU",
+    "status": "published",
+    "dice": 0.25124781650818345,
+    "submitterKey": "s_08bad38a4c9ca894",
+    "submitter": "Boyan Lv",
+    "team": "SJTU426Lab-v176"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/sbrqhXflrg6ItxzVnKF3",
+    "status": "published",
+    "dice": 0.32432346997909156,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline6"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/scokYIfQki4LUzj6dyck",
+    "status": "published",
+    "dice": 0.32761621634527405,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_s"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/sfT6suaUMr4hqgB9fexL",
+    "status": "published",
+    "dice": 0.3510297299821685,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "comparison_test"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/sgDg0k6rEeSSfX0AguuE",
+    "status": "published",
+    "dice": 0.14623703932349705,
+    "submitterKey": "s_5791962ae8eab5c2",
+    "submitter": "Adinath",
+    "team": "V3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/sjy6T2PUpjpB9FbNSF3W",
+    "status": "published",
+    "dice": 0.2290641246314925,
+    "submitterKey": "s_9d6d0b8d4c117b09",
+    "submitter": "Jia-Xuan Jiang",
+    "team": "rexgct_023"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/srsktbOGpKKL8vuGcdtr",
+    "status": "published",
+    "dice": 0.31832703136596185,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS (submission 4)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/suQoPPBjLHN1ewxQvdjQ",
+    "status": "published",
+    "dice": 0.3141724282672038,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoxTell_Supreme_11M_Hybrid_V1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/svKwsm4rPZSYIOuGvtKS",
+    "status": "published",
+    "dice": 0.30903264315524115,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT_LF-KFold5-Guarded"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/tGR1d2tb8ICxzZfPXGIg",
+    "status": "published",
+    "dice": 0.09523572496355139,
+    "submitterKey": "s_5791962ae8eab5c2",
+    "submitter": "Adinath",
+    "team": "vocal-v1"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/tLfTHwosZaXJOvUwGr6g",
+    "status": "published",
+    "dice": 0.35151674978254327,
+    "submitterKey": "s_bf63755352af85fc",
+    "submitter": "Rachel van 't Hull",
+    "team": "TAGS_th"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/td1KsW1DgyN67N0mSILk",
+    "status": "published",
+    "dice": 0.2997936708995102,
+    "submitterKey": "s_02cd88f58486ec6c",
+    "submitter": "\u00f6mer",
+    "team": "needfirstplace_v1.03"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/thoraxtell",
+    "status": null,
+    "dice": 0.29567575667570467,
+    "submitterKey": "s_2946bebb1da60e48",
+    "submitter": "Moritz Langenberg",
+    "team": "ThoraxTell"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/uPEIV3PeKkT8mOzCO2Dl",
+    "status": "published",
+    "dice": 0.31967632959504433,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "baseline7"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/udBPfQ8aL4FqNPT4eXP0",
+    "status": "published",
+    "dice": 0.3209801934049639,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "VoXTell_2.1_hu"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/uiTc5JAh665LLQvmMHEp",
+    "status": "published",
+    "dice": 0.30683106234266283,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT_LF-KFold5-Hit"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/uikOtxnh4Asrl7NxlSZe",
+    "status": "published",
+    "dice": 0.3280440644990272,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "control3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/uuenui26zHhlsSJqTl90",
+    "status": "published",
+    "dice": 0.3183303424702287,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "baseline_plus_re"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/uymaWrm1RI9ifB0CJOE7",
+    "status": "published",
+    "dice": 0.324091749018357,
+    "submitterKey": "s_c1e30e34b223d9bf",
+    "submitter": "Siyu",
+    "team": "FarmAdd100-LateRefine60_40-TTA3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/v7ULOYohcwcbHIkGgoPI",
+    "status": "published",
+    "dice": 0.3386473625311674,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "Juniper-v0"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/vBKiRsus9hN1ZSJfObvg",
+    "status": "published",
+    "dice": 0.32074547446119944,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "selector"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/vWrZZd5M1X8ZhK9WDGqj",
+    "status": "published",
+    "dice": 0.2985049515782669,
+    "submitterKey": "s_fa1ba9a496c2814c",
+    "submitter": "Kristhian Aguilar",
+    "team": "VoXTell-FT-B24k-Anatomy"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/vcMBlbGRy6veqTlVIDw2",
+    "status": "published",
+    "dice": 0.32880661782286,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "VoXTell_2.0"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/vgbIsf6WTCehP90LjIUc",
+    "status": "published",
+    "dice": 0.32361163516586744,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "composite 6"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/vhbbgBOMGq3YJTCh25wS",
+    "status": "published",
+    "dice": 0.2805518085044654,
+    "submitterKey": "s_fa1ba9a496c2814c",
+    "submitter": "Kristhian Aguilar",
+    "team": "VoXTell-FT-B1000-Anatomy"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/vmjLFwtMvP4xGUKhLJ5B",
+    "status": "published",
+    "dice": 0.32269301059471656,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "V++_a3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/voxtell-ft",
+    "status": null,
+    "dice": 0.1527559503076378,
+    "submitterKey": "s_885376c724e95d9a",
+    "submitter": "Abdullah",
+    "team": "VoXTell-FT"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/w5KS8DHC5djRZEFM4uNx",
+    "status": "published",
+    "dice": 0.31566313043535826,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "2s-cg-k3_15 VoxNormal"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/w5mG1MDUQn3VAq3dtgII",
+    "status": "published",
+    "dice": 0.31652434568489346,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "rescue3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/wCf3lQbXU1EJ8N3do7eC",
+    "status": "published",
+    "dice": 0.30501359305543674,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT_LF-Pres6-Loose-NoRoute"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/wgSa4gzMtw2SBLVB28l2",
+    "status": "published",
+    "dice": 0.27600876668488494,
+    "submitterKey": "s_30b752466158decc",
+    "submitter": "Syed Abdullah Basit",
+    "team": "VoXTell-FT (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/wjJXipXYMp7a5H36gn1A",
+    "status": "published",
+    "dice": 0.3323923015485208,
+    "submitterKey": "s_62a2718fb5daea76",
+    "submitter": "Azad Singh",
+    "team": "CARE-CT (submission 2)"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/xE41thrWP8lzAqNRtDz7",
+    "status": "published",
+    "dice": 0.3215557605173424,
+    "submitterKey": "s_afa3cdfa976c6749",
+    "submitter": "hanbinko",
+    "team": "VoXTell_1.2_clsaux"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/xKYxGozEtaLssZaW8uGp",
+    "status": "published",
+    "dice": 0.3479715579808696,
+    "submitterKey": "s_2946bebb1da60e48",
+    "submitter": "Moritz Langenberg",
+    "team": "VoxTell 1.4b"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/xQPLn7Uz3uesGhhQbYYj",
+    "status": "published",
+    "dice": 0.348404712307869,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "juniper_v0.1rt"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/xfGSw2qlFES5WLpxZdaq",
+    "status": "published",
+    "dice": 0.32036114484673295,
+    "submitterKey": "s_e632ab9f655c2f36",
+    "submitter": "Kevin Jin",
+    "team": "Referent"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/xoZHuuYUB3ctxAHbx8FW",
+    "status": "published",
+    "dice": 0.14739118868237175,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "FARM-VoxTell-FT-HZ-3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/xzzO9jFHPYlaQDyfAAis",
+    "status": "published",
+    "dice": 0.37045822761494085,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "needpaper_v0.2_fin"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/yGHKwZbzVcUHwFFQudRK",
+    "status": "published",
+    "dice": 0.32412588449654667,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "F2"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/yJT5JXAOEKX8cWN5ZiID",
+    "status": "published",
+    "dice": 0.2706583322239507,
+    "submitterKey": "s_ce177f1b6e99ecdc",
+    "submitter": "Jie Xu",
+    "team": "FARM-Siyu-First"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/yokloSgOndpIA8Xr4HJI",
+    "status": "published",
+    "dice": 0.3251992158161587,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "selector fix"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/ywaFTAe7BJZkHG9kELMi",
+    "status": "published",
+    "dice": 0.37471775818345776,
+    "submitterKey": "s_5d39eae22a618af9",
+    "submitter": "Daesung Kim",
+    "team": "needpaper_v0.2_lat"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/z2MeuFkCgUcSE8TzVc46",
+    "status": "published",
+    "dice": 0.31313226136098915,
+    "submitterKey": "s_ca9a8412821ecfc1",
+    "submitter": "Harsh Khandelwal",
+    "team": "2s-cg-k3_25 VoxNormal"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/z8ds8EjxETaTNjh0hyEs",
+    "status": "published",
+    "dice": 0.32014775203561857,
+    "submitterKey": "s_0a0a81ee14ac3230",
+    "submitter": "Chushu",
+    "team": "V++_c3"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/znG5gGW3ngLO7fPBBWpr",
+    "status": "published",
+    "dice": 0.23922463011456713,
+    "submitterKey": "s_a94129f23891e324",
+    "submitter": "Junggu park",
+    "team": "e2ecordinate"
+  },
+  {
+    "_document_name": "projects/rexgrounding-challenge/databases/(default)/documents/leaderboard/zz2ibk2nYyhnyg8Z7Ren",
+    "status": "published",
+    "dice": 0.3640000277323808,
+    "submitterKey": "s_87f34727844ae7e5",
+    "submitter": "Seongeun Lee",
+    "team": "juniper_v0.1re"
+  }
+]
