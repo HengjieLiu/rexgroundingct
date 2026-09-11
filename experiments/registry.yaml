@@ -367,7 +367,7 @@ experiments:
     overall_instance_f1: null
   - id: "027_voxtell_2a_residual_refinement"
     title: "Four-condition 2a residual logit refinement"
-    status: "cache_preparation"
+    status: "stopped_by_user"
     canonical_config: "configs/experiments/027_voxtell_2a_residual_refinement.json"
     execution_spec: "experiments/027_voxtell_2a_residual_refinement/codex_execution_spec.md"
     runtime_dir: "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/full_fp32_100ep"
