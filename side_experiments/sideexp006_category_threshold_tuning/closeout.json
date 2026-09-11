@@ -1,0 +1,54 @@
+{
+  "status": "complete",
+  "run_identity": "1f639c57f93c37c36066d8d3a247a1958b2821b6f26068d2b4e06c7432ce741c",
+  "runtime_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp006_category_threshold_tuning/runs/r001_a1_val200",
+  "cases": 200,
+  "findings": 381,
+  "thresholds": 19,
+  "finding_threshold_records": 7239,
+  "baseline": {
+    "category": "overall",
+    "dice": 0.34586800803778955,
+    "findings": 381,
+    "hit_rate": 0.7742782152230971,
+    "hits": 295,
+    "label": "All findings",
+    "threshold": 0.5,
+    "threshold_pct": 50
+  },
+  "overall_maxima": {
+    "baseline_dice": 0.34586800803778955,
+    "baseline_hit_rate": 0.7742782152230971,
+    "best_dice": 0.3459823617843387,
+    "best_dice_threshold": 0.6,
+    "best_hit_rate": 0.7795275590551181,
+    "best_hit_rate_threshold": 0.7,
+    "category": "overall",
+    "dice_delta": 0.0001143537465491673,
+    "findings": 381,
+    "hit_rate_delta": 0.005249343832020914,
+    "label": "All findings"
+  },
+  "notebook_verification": {
+    "code_cells": 5,
+    "embedded_figures": 2,
+    "error_cells": 0,
+    "html": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp006_category_threshold_tuning/runs/r001_a1_val200/a1_val200_thresholds.html",
+    "html_sha256": "c61f1beec6dd4bd83f11acf3c7f4e4a933e27d64d570f1d869a37608b1505c01",
+    "identity": "1f639c57f93c37c36066d8d3a247a1958b2821b6f26068d2b4e06c7432ce741c",
+    "notebook": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp006_category_threshold_tuning/runs/r001_a1_val200/a1_val200_thresholds.executed.ipynb",
+    "notebook_builder_sha256": "db22fc7b63d42237c61a9e1d27135376e541415eab69ee234889c0af0de25085",
+    "notebook_sha256": "1503d4357dbafcac8f62830f60487a4d96f7b3a49b1f024749272677b3d3ae49",
+    "status": "complete"
+  },
+  "tests": {
+    "focused_tests_passed": 15,
+    "real_evaluator_parity_comparisons": 6,
+    "canonical_workflow": "passed",
+    "preexisting_workflow_warnings": 19,
+    "source_compile": "passed",
+    "git_diff_check": "passed"
+  },
+  "initial_attempt": "Zero accepted records; logical hash mismatch fixed and preserved under attempts/initial_hash_check",
+  "thresholds_adopted": false
+}
