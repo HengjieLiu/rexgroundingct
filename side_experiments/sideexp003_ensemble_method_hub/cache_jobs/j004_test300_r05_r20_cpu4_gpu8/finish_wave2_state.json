@@ -1,0 +1,88 @@
+{
+  "completed_caches": [
+    {
+      "cache_key": "v4_5a169fff0640b5993f16f309f3a91830fdfe09977c7f40dea22132634fa09923",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v4_5a169fff0640b5993f16f309f3a91830fdfe09977c7f40dea22132634fa09923",
+      "export_manifest_sha256": "1ace5ba0ac4be93afe28c6b35b673566609882f5816e8c20983e94a0c6eed203",
+      "id": "exp008_v1_sharedfusion_softguide_e100_61bcec41",
+      "rank": 5,
+      "validation_sha256": "868e4a913f35699ee94460091789a60fdcb544e16ccf9e97090c80e747c3a1bb"
+    },
+    {
+      "cache_key": "v4_c6c256cdc48ebc329feecd3a9b0bf3a2f4d5aec1ddc9871b3cfc5455fa0c40ed",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v4_c6c256cdc48ebc329feecd3a9b0bf3a2f4d5aec1ddc9871b3cfc5455fa0c40ed",
+      "export_manifest_sha256": "f75d1924b77bd7814861044472327b577665df3e0541e31fccb9a51bf5db8b3a",
+      "id": "exp008_v1_dualfusion_softguide_e100_9ba13980",
+      "rank": 6,
+      "validation_sha256": "868e4a913f35699ee94460091789a60fdcb544e16ccf9e97090c80e747c3a1bb"
+    },
+    {
+      "cache_key": "v4_06b04860e97b825af62d1e1ec26e04c73b4a6df2d8de604cc8db17c4c33c39a0",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v4_06b04860e97b825af62d1e1ec26e04c73b4a6df2d8de604cc8db17c4c33c39a0",
+      "export_manifest_sha256": "ff241889e67258de3cce7c50ec9281908ebfba650363ba652e473ad49c53d359",
+      "id": "exp009_s3v1_fixedrho_suppress_half_quarter_e100_263f27d3",
+      "rank": 7,
+      "validation_sha256": "868e4a913f35699ee94460091789a60fdcb544e16ccf9e97090c80e747c3a1bb"
+    },
+    {
+      "cache_key": "v4_800db7c340d5f9b8fa0d230d3d81adab75491220d0abd537e5d0c8f940bd0530",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v4_800db7c340d5f9b8fa0d230d3d81adab75491220d0abd537e5d0c8f940bd0530",
+      "export_manifest_sha256": "e9d56ac0ca3c509ffd4973106544909957b6441a5e530c2e324adfcdaec4df3e",
+      "id": "exp017_ddp_bs4_e050_a50a69dc",
+      "rank": 8,
+      "validation_sha256": "868e4a913f35699ee94460091789a60fdcb544e16ccf9e97090c80e747c3a1bb"
+    }
+  ],
+  "completed_models": 4,
+  "coordinator_exited": true,
+  "coordinator_pid": 3974216,
+  "guard_pid": 550694,
+  "held_ranks": [
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "job_spec_sha256": "117cc3ffd5007a568e99dd75cc7e6b557877c804644608b59ea4dcd90dc8698f",
+  "models": [
+    {
+      "cases": 300,
+      "published": 300,
+      "rank": 5,
+      "running": false,
+      "status": "strict_passed"
+    },
+    {
+      "cases": 300,
+      "published": 300,
+      "rank": 6,
+      "running": false,
+      "status": "strict_passed"
+    },
+    {
+      "cases": 300,
+      "published": 300,
+      "rank": 7,
+      "running": false,
+      "status": "strict_passed"
+    },
+    {
+      "cases": 300,
+      "published": 300,
+      "rank": 8,
+      "running": false,
+      "status": "strict_passed"
+    }
+  ],
+  "scheduler_stopped": true,
+  "status": "stopped_after_wave2",
+  "updated_at_utc": "2026-09-10T19:54:06Z"
+}

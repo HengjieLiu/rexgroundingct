@@ -6,6 +6,11 @@ status: active
 
 # Test300 ranks 5–20 with four CPU workers
 
+**Wave 2 complete; j004 retired:** all four ranks 5–8 completed unchanged.
+The terminal `finish_wave2_state.json` records the handoff and coordinator exit.
+The separately frozen j005 now owns ranks 9–20. Do not restart or manually
+resume j004; the lifecycle and restart instructions below are historical.
+
 User-authorized continuation after p001 profiling. Read
 [the execution specification](../../continue_test300_spec.md).
 Four GPUs each feed one CPU process through at most two pending local crop
