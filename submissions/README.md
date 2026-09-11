@@ -29,6 +29,16 @@ completion records cannot cover them. ZIP creation is skipped by request,
 recorded as `skipped_by_request` with null ZIP path and hash. Prediction
 readiness still does not imply an upload.
 
+Family **e** uses the frozen original top eight checkpoints, each weighted 1/8
+in sigmoid-probability averaging. e1 is raw; e2/e3 apply our 20 mm anatomy
+supports; e11 applies semantic-v1 to e1 and e12 applies strict semantic-v2 to
+e11. The multi-digit suffixes remain method IDs within family e. Separate
+SideExp005 r003 supplies val200 comparison evidence; r004 produces the five
+test folders after the verified val report and all eight test caches, regardless
+of scores. Its completion must cover 1,500 files / five variants. Existing
+d-series completion cannot establish e readiness. ZIPs are skipped by request,
+with null path/hash. Read the [e-series execution contract](../side_experiments/sideexp005_postprocessing_merge/e_series_execution_spec.md).
+
 ## Commands
 
 From the repository root, using the host Python standard library:

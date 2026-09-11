@@ -78,10 +78,21 @@ def validate(registry):
         require(row['family'] == family and family in registry['families'], 'family mismatch')
         policies = {'1': 'raw', '2': 'whole_lung20', '3': 'fine20',
                     '11': 'semantic_v1', '12': 'semantic_v2_strict'}
-        require(suffix in policies and (suffix in ('1', '2', '3') or family == 'd'), 'unknown submission method ID')
+        require(suffix in policies and (suffix in ('1', '2', '3') or family in ('d', 'e')), 'unknown submission method ID')
         expected_policy = policies[suffix]
         require(row['postprocessing'] == expected_policy, 'suffix/postprocessing mismatch')
         require(expected_policy in registry['postprocessing'], 'missing postprocessing definition')
+        if family == 'e':
+            require(row.get('parent_id') == (None if suffix == '1' else 'e11' if suffix == '12' else 'e1'), 'e postprocessing parent mismatch')
+            source = row['evidence']
+            require(source.get('kind') == 'frozen_e_ensemble'
+                    and source['run_id'] == 'r004_top8_test300_frozen_postprocessing'
+                    and re.fullmatch(r'[0-9a-f]{64}', source['job_sha256']), 'invalid e producer')
+            require(source['completion']['path'] and source['verification']['path'] and source['job']['sha256'], 'missing e producer evidence')
+            require(source['authorization'] == {'validation_score_requirement': 'none', 'zip_policy': 'skipped_by_request'}, 'e authorization drift')
+            require(row['zip'] == {'path': None, 'sha256': None, 'policy': 'skipped_by_request'}, 'e ZIPs must remain skipped')
+            require(len(registry['families']['e']['models']) == 8
+                    and registry['families']['e']['recipe']['weights'] == [.125]*8, 'e ensemble drift')
         if sid in ('d11', 'd12'):
             require(row.get('parent_id') == {'d11': 'd1', 'd12': 'd11'}[sid], 'postprocessing parent mismatch')
             source = row['evidence']
@@ -143,9 +154,10 @@ def observe(row, registry, expected_names):
             return obs
         for key in ('implementation', 'routing'):
             pinned(row['postprocessing_sources'][key])
-        if source.get('kind') == 'frozen_test_postprocessing':
-            for key in ('frozen_policy', 'source_archive'):
-                pinned(row['postprocessing_sources'][key])
+        if source.get('kind') in ('frozen_test_postprocessing', 'frozen_e_ensemble'):
+            if source['kind'] == 'frozen_test_postprocessing':
+                for key in ('frozen_policy', 'source_archive'):
+                    pinned(row['postprocessing_sources'][key])
             pinned(source['job'])
             job = read(source['job']['path'])
             require(job['job_sha256'] == source['job_sha256'] and job['run_id'] == source['run_id'], 'foreign postprocessing job')
@@ -160,8 +172,8 @@ def observe(row, registry, expected_names):
         exists = directory.is_dir()
         files = {p.name for p in directory.glob('*.nii.gz') if p.is_file()} if exists else set()
         obs['cases'] = len(files) if exists else None
-        obs['prediction_status'] = 'pending' if row['family'] == 'd' else 'unavailable'
-        if source.get('kind') == 'frozen_test_postprocessing' and obs['runner_status']:
+        obs['prediction_status'] = 'pending' if row['family'] in ('d', 'e') else 'unavailable'
+        if source.get('kind') in ('frozen_test_postprocessing', 'frozen_e_ensemble') and obs['runner_status']:
             obs['prediction_status'] = obs['runner_status']
         completion = Path(source['completion']['path'])
         verification = Path(source['verification']['path'])
@@ -191,11 +203,11 @@ def observe(row, registry, expected_names):
                     'iso07 output/checkpoint mismatch')
         else:
             require(done.get('job_sha256') == source['job_sha256'], 'foreign producer completion')
-            if source.get('kind') == 'frozen_test_postprocessing':
+            if source.get('kind') in ('frozen_test_postprocessing', 'frozen_e_ensemble'):
                 declared = done['outputs'][row['id']]
                 require(declared['directory'] == str(directory) and declared['verification'] == str(verification)
                         and declared['verification_sha256'] == sha(verification), 'postprocessing output binding drift')
-                require(done['files'] == 600 and done['cases'] == 300 and done['findings'] == 582
+                require(done['files'] == (1500 if source['kind'] == 'frozen_e_ensemble' else 600) and done['cases'] == 300 and done['findings'] == 582
                         and done['zip_policy'] == 'skipped_by_request' and done['archives'] == {}, 'postprocessing completion contract')
         verified = read(verification)
         records = verified['files']

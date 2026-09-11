@@ -13,7 +13,7 @@ ReXGroundingCT submission.
 ## Central submission records
 
 Open [the submission register](../submissions/REGISTER.md) before choosing a
-prediction directory or an archive. It maps a1–d3 and reserved d11/d12 to their actual names and
+prediction directory or an archive. It maps the a/b/c/d/e variants to their actual names and
 paths, model/checkpoint recipes, postprocessing and recorded upload history.
 The c-series aliases retain Exp025's baseline/whole_lung20/fine20 directories.
 See [the register workflow](../submissions/README.md) for check, refresh and
@@ -27,6 +27,13 @@ is separate from test readiness. Separate SideExp005 run
 d11/d12 after the val200 report is verified, regardless of validation scores.
 ZIPs are skipped by request. Existing d1/d2/d3 completion evidence cannot cover
 d11/d12; their own producer and per-file manifests establish prediction readiness.
+
+The e series uses original top-eight equal probability averaging: e1 raw,
+e2/e3 our 20 mm supports, e11 semantic-v1 from e1, e12 strict semantic-v2
+from e11. Separate SideExp005 r003 supplies the d/e val200 comparison;
+r004 automatically creates the five test folders after the verified val report
+and all eight test cache validations, regardless of scores. No ZIPs or uploads
+are created in this phase. See the [e-series contract](../side_experiments/sideexp005_postprocessing_merge/e_series_execution_spec.md).
 
 Keep prediction readiness, ZIP readiness and upload history separate. Record
 the exact submitted name, uploaded ZIP hash and external ID after a confirmed

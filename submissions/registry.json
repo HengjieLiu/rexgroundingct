@@ -374,6 +374,216 @@
         }
       ],
       "summary": "Ranks 1\u20134 of frozen j003: Exp007 native, Exp009 baseline, Exp017 iso0.7 and Exp009 S3v2. Float32 sigmoid probabilities are accumulated in rank order; sum >= 2.0. Both anatomy variants derive independently from d1."
+    },
+    "e": {
+      "models": [
+        {
+          "candidate_id": "exp007_ddp_bs4_e050_a499ad1c",
+          "checkpoint": {
+            "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+            "sha256": "a499ad1c0fada9a7e4d78e352fa5510d31295e82749e00ef0a4eee6da685e4aa"
+          },
+          "paired_val200": {
+            "cache_key": "v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe",
+            "export_manifest": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe/export_manifest.json",
+            "export_sha256": "91f6a203a689adf24b36f0c863c1f9f0209949258575e7685f0efb8b571fdafb",
+            "job_id": "j001_top20_val200_fresh",
+            "validation": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe/reproduction_validation.json",
+            "validation_sha256": "8f7f63e06a722a77bed3c426adc2f15962e987a358a2fccb05c78ceaa097950f"
+          },
+          "preprocessing": {
+            "id": "crop_zscore_native_v1",
+            "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_test300_v1/manifest.json",
+            "manifest_sha256": "96c2c18235a6d2c21d87fac797912578a0f3b59e7696f58a29c787707831bd53",
+            "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+            "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_test300_v1"
+          }
+        },
+        {
+          "candidate_id": "exp009_baseline_cont100_e100_50e631f1",
+          "checkpoint": {
+            "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth",
+            "sha256": "50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf"
+          },
+          "paired_val200": {
+            "cache_key": "v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051",
+            "export_manifest": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051/export_manifest.json",
+            "export_sha256": "52f3ff3fdbbe9051e2470dad8116784bf73e25e888d48ca64fe0a16a731741b6",
+            "job_id": "j001_top20_val200_fresh",
+            "validation": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051/reproduction_validation.json",
+            "validation_sha256": "61d9812850dc81a0335f2bf0793d0ed5bafd31c7ddbd0d2b8ffd79bdabef28af"
+          },
+          "preprocessing": {
+            "id": "crop_zscore_native_v1",
+            "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_test300_v1/manifest.json",
+            "manifest_sha256": "96c2c18235a6d2c21d87fac797912578a0f3b59e7696f58a29c787707831bd53",
+            "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+            "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_test300_v1"
+          }
+        },
+        {
+          "candidate_id": "exp017_ddp_bs4_e050_4f36d9bb",
+          "checkpoint": {
+            "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+            "sha256": "4f36d9bba1ab5a59a8ef2e5b02200027d1053aa241631b1782bf98744c8bba02"
+          },
+          "paired_val200": {
+            "cache_key": "v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca",
+            "export_manifest": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca/export_manifest.json",
+            "export_sha256": "7e96b1e7ebccf56c28420c3a12dd0d135aa9b790ad4f63726bd93dce8ac827a2",
+            "job_id": "j001_top20_val200_fresh",
+            "validation": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca/reproduction_validation.json",
+            "validation_sha256": "18df5aea2b84f89898ed5dbb787f168fb345079a1a89502c9b60cb9213865ce6"
+          },
+          "preprocessing": {
+            "id": "crop_clip1024_linear_iso07_v1",
+            "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1/manifest.json",
+            "manifest_sha256": "59b53ed9fcd93b8e9872bf89770a14ffd6aeed31b206af33ca751b85d4bd2640",
+            "normalization": "crop native CT to nonzero, clip HU to [-1024,1024], divide by 1024, then trilinear 0.7 mm isotropic resampling",
+            "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1"
+          }
+        },
+        {
+          "candidate_id": "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+          "checkpoint": {
+            "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100/fold_0/checkpoint_final.pth",
+            "sha256": "a3e93801ba121c0084ec52b7f7dc38cbb617dbec484b6113b4348aa7dec82f3d"
+          },
+          "paired_val200": {
+            "cache_key": "v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d",
+            "export_manifest": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d/export_manifest.json",
+            "export_sha256": "00af78e219f833d80808694edabfa3ce9378a036122a185754b055eba9aec9bb",
+            "job_id": "j001_top20_val200_fresh",
+            "validation": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d/reproduction_validation.json",
+            "validation_sha256": "f2f2cad429f296571c7e4d1d9f79188fbf9eb9e1914d9519a5ad3cee8a49366b"
+          },
+          "preprocessing": {
+            "id": "crop_zscore_native_v1",
+            "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_test300_v1/manifest.json",
+            "manifest_sha256": "96c2c18235a6d2c21d87fac797912578a0f3b59e7696f58a29c787707831bd53",
+            "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+            "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_test300_v1"
+          }
+        },
+        {
+          "candidate_id": "exp008_v1_sharedfusion_softguide_e100_61bcec41",
+          "checkpoint": {
+            "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_sharedfusion_softguide/model_epoch100/fold_0/checkpoint_final.pth",
+            "sha256": "61bcec41fc90d38bb7a1665f0e9da5da6727661114ea368efcb9d8fe41305779"
+          },
+          "paired_val200": {
+            "cache_key": "v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd",
+            "export_manifest": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd/export_manifest.json",
+            "export_sha256": "296bb51d1400780a98bb5da16230b6a7db177d7a632140d3d59711960c9fcdec",
+            "job_id": "j001_top20_val200_fresh",
+            "validation": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_a4ba8f9594d3f159053c54f9f0dc557a3df32e963f0afc220de1aa6a0789ecfd/reproduction_validation.json",
+            "validation_sha256": "3f7c68ea09dc0e8bb05ce585f6a6af49105f5861e32d316a36c10bc80778e318"
+          },
+          "preprocessing": {
+            "id": "crop_zscore_native_v1",
+            "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_test300_v1/manifest.json",
+            "manifest_sha256": "96c2c18235a6d2c21d87fac797912578a0f3b59e7696f58a29c787707831bd53",
+            "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+            "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_test300_v1"
+          }
+        },
+        {
+          "candidate_id": "exp008_v1_dualfusion_softguide_e100_9ba13980",
+          "checkpoint": {
+            "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/008_voxtell_dual_branch_proposal_refinement_ablation/runs/exp008_dual_branch_20260726T182647Z/v1_dualfusion_softguide/model_epoch100/fold_0/checkpoint_final.pth",
+            "sha256": "9ba13980560f3b6086b2529989db1029cb6866c9316f4f050e4632b9f615a654"
+          },
+          "paired_val200": {
+            "cache_key": "v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23",
+            "export_manifest": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23/export_manifest.json",
+            "export_sha256": "fcfb386792ae7eb72375a21bd1a6829f1d4955be4e70df29f0bbf6450ee98534",
+            "job_id": "j001_top20_val200_fresh",
+            "validation": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_48c3f564a6ebae6814165e3621e8c1d13b387d83991319f550eb581868c86a23/reproduction_validation.json",
+            "validation_sha256": "e0153be38af7c3946cd2b7dc2a587616b8d1f3cca214114d932a2d00ac636756"
+          },
+          "preprocessing": {
+            "id": "crop_zscore_native_v1",
+            "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_test300_v1/manifest.json",
+            "manifest_sha256": "96c2c18235a6d2c21d87fac797912578a0f3b59e7696f58a29c787707831bd53",
+            "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+            "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_test300_v1"
+          }
+        },
+        {
+          "candidate_id": "exp009_s3v1_fixedrho_suppress_half_quarter_e100_263f27d3",
+          "checkpoint": {
+            "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v1_fixedrho_suppress_half_quarter/model_epoch100/fold_0/checkpoint_final.pth",
+            "sha256": "263f27d38b750d11d5453da684087b9985109d70410985bb9d450fefdfe1ede0"
+          },
+          "paired_val200": {
+            "cache_key": "v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704",
+            "export_manifest": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704/export_manifest.json",
+            "export_sha256": "9f065e3f63cc130c054463e68e12629c04a8f16b0b96fe24698da0e22a09ba63",
+            "job_id": "j001_top20_val200_fresh",
+            "validation": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_fb2790b8cd31a9819dcfef1b9c68145864c539a64eec17c74c37a5775740e704/reproduction_validation.json",
+            "validation_sha256": "51b9a10230a4e578a3f70638c8f4a4700cd212c66d22d844727e50cb697c17bc"
+          },
+          "preprocessing": {
+            "id": "crop_zscore_native_v1",
+            "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_test300_v1/manifest.json",
+            "manifest_sha256": "96c2c18235a6d2c21d87fac797912578a0f3b59e7696f58a29c787707831bd53",
+            "normalization": "orientation fix, crop-to-nonzero, full cropped-volume z-score once, then native-resolution patch/window sampling",
+            "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_test300_v1"
+          }
+        },
+        {
+          "candidate_id": "exp017_ddp_bs4_e050_a50a69dc",
+          "checkpoint": {
+            "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_iso07_hu_ddp_bs4_20260815T092119Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+            "sha256": "a50a69dc9f139bf2963fb5ac9a2d0386414c1288e90f08fff9693007bb8631ce"
+          },
+          "paired_val200": {
+            "cache_key": "v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69",
+            "export_manifest": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69/export_manifest.json",
+            "export_sha256": "dd3ef8b8d8a4874ab8fbdf0b4793825b20b2666e995fb4d65023f4d6de4bd690",
+            "job_id": "j001_top20_val200_fresh",
+            "validation": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d521b95e6b10eeb58c863744eaaa3f7c56867759e12c08e8191a8bfe2ef9fc69/reproduction_validation.json",
+            "validation_sha256": "50ce951b7d07ce3ddbb4b9d5f41d8cfb2df6bcdc92406d24030df9fc517107c0"
+          },
+          "preprocessing": {
+            "id": "crop_clip1024_linear_iso07_v1",
+            "manifest_path": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1/manifest.json",
+            "manifest_sha256": "59b53ed9fcd93b8e9872bf89770a14ffd6aeed31b206af33ca751b85d4bd2640",
+            "normalization": "crop native CT to nonzero, clip HU to [-1024,1024], divide by 1024, then trilinear 0.7 mm isotropic resampling",
+            "root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_clip1024_linear_iso07_v1"
+          }
+        }
+      ],
+      "name": "Frozen top-eight probability ensemble",
+      "recipe": {
+        "description": "Frozen original ranks 1\u20138; float32 sigmoid-probability sum >= 4.0.",
+        "kind": "probability_average",
+        "weights": [
+          0.125,
+          0.125,
+          0.125,
+          0.125,
+          0.125,
+          0.125,
+          0.125,
+          0.125
+        ]
+      },
+      "sources": [
+        {
+          "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/rosters/roster_top8_val200_fresh_j001.json",
+          "sha256": "79e994347efa20cd601567739ecc2843978e01a2e32d6af07ad5cb0ce1f377b2"
+        },
+        {
+          "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/cache_jobs/j003_top20_test300_fresh_gpu8/job_spec.json",
+          "sha256": "84116362df86effd1d6bacff11c897b7c8bf69aa0b2f4ec327f35093a3e798f3"
+        },
+        {
+          "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp003_ensemble_method_hub/cache_jobs/j004_test300_r05_r20_cpu4_gpu8/job_spec.json",
+          "sha256": "e118bdf4530da960fce39758aa10c177b8715e7706380101b180f9b9c285323f"
+        }
+      ],
+      "summary": "Original ranks 1\u20138, equally weighted; paired val200 and test300 caches with unchanged anatomy postprocessors."
     }
   },
   "last_refreshed_at_utc": "2026-09-10T06:57:53+00:00",
@@ -1003,10 +1213,106 @@
         },
         "experiment": "sideexp005_postprocessing_merge",
         "job_sha256": "71413f80671f6019dd44948a19ef4d2639e34619824a7b31f371bd50cdc230a3",
-        "report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/report.md",
+        "metrics": {
+          "case_wise_dice": 0.3788163061365211,
+          "cases": 200,
+          "categories": {
+            "1a": {
+              "dice": 0.12135399620536025,
+              "findings": 3,
+              "hit_rate": 0.3333333333333333,
+              "hits": 1
+            },
+            "1b": {
+              "dice": 0.17540091450000522,
+              "findings": 11,
+              "hit_rate": 0.36363636363636365,
+              "hits": 4
+            },
+            "1c": {
+              "dice": 0.19170002774865239,
+              "findings": 17,
+              "hit_rate": 0.47058823529411764,
+              "hits": 8
+            },
+            "1d": {
+              "dice": 0.12598835675994455,
+              "findings": 6,
+              "hit_rate": 0.16666666666666666,
+              "hits": 1
+            },
+            "1e": {
+              "dice": 0.19712595904974117,
+              "findings": 11,
+              "hit_rate": 0.6363636363636364,
+              "hits": 7
+            },
+            "1f": {
+              "dice": 0.1949841554775865,
+              "findings": 4,
+              "hit_rate": 0.5,
+              "hits": 2
+            },
+            "2a": {
+              "dice": 0.35634212956058187,
+              "findings": 69,
+              "hit_rate": 0.8405797101449275,
+              "hits": 58
+            },
+            "2b": {
+              "dice": 0.369031642113076,
+              "findings": 49,
+              "hit_rate": 0.7551020408163265,
+              "hits": 37
+            },
+            "2c": {
+              "dice": 0.40428084455548413,
+              "findings": 60,
+              "hit_rate": 0.85,
+              "hits": 51
+            },
+            "2d": {
+              "dice": 0.4032336956001313,
+              "findings": 132,
+              "hit_rate": 0.8712121212121212,
+              "hits": 115
+            },
+            "2e": {
+              "dice": 0.44099223150109984,
+              "findings": 11,
+              "hit_rate": 0.7272727272727273,
+              "hits": 8
+            },
+            "2f": {
+              "dice": null,
+              "findings": 0,
+              "hit_rate": null,
+              "hits": 0
+            },
+            "2g": {
+              "dice": 0.033449763789514544,
+              "findings": 1,
+              "hit_rate": 0.0,
+              "hits": 0
+            },
+            "2h": {
+              "dice": 0.27346470834859565,
+              "findings": 7,
+              "hit_rate": 0.5714285714285714,
+              "hits": 4
+            }
+          },
+          "dice": 0.3575041942161927,
+          "findings": 381,
+          "hit_rate": 0.7769028871391076,
+          "hits": 296
+        },
+        "report_path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/report.md",
         "run_id": "r001_d1_val200_frozen_postprocessing",
-        "status": "running_baseline",
-        "summary_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/summary.json"
+        "runtime_report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/report.md",
+        "status": "complete",
+        "summary_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/summary.json",
+        "summary_sha256": "15ce28bc2d90e0c71d923ea575e38ebd3cf3bca4e9ba006be4d41f132ed18d00"
       },
       "zip": {
         "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/d1.zip",
@@ -1073,10 +1379,106 @@
         },
         "experiment": "sideexp005_postprocessing_merge",
         "job_sha256": "71413f80671f6019dd44948a19ef4d2639e34619824a7b31f371bd50cdc230a3",
-        "report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/report.md",
+        "metrics": {
+          "case_wise_dice": 0.38385277514269417,
+          "cases": 200,
+          "categories": {
+            "1a": {
+              "dice": 0.12135399620536025,
+              "findings": 3,
+              "hit_rate": 0.3333333333333333,
+              "hits": 1
+            },
+            "1b": {
+              "dice": 0.17544834796770345,
+              "findings": 11,
+              "hit_rate": 0.36363636363636365,
+              "hits": 4
+            },
+            "1c": {
+              "dice": 0.1924218263168575,
+              "findings": 17,
+              "hit_rate": 0.47058823529411764,
+              "hits": 8
+            },
+            "1d": {
+              "dice": 0.12598925700558142,
+              "findings": 6,
+              "hit_rate": 0.16666666666666666,
+              "hits": 1
+            },
+            "1e": {
+              "dice": 0.20046118002341498,
+              "findings": 11,
+              "hit_rate": 0.6363636363636364,
+              "hits": 7
+            },
+            "1f": {
+              "dice": 0.19498415547760597,
+              "findings": 4,
+              "hit_rate": 0.5,
+              "hits": 2
+            },
+            "2a": {
+              "dice": 0.3609103244993885,
+              "findings": 69,
+              "hit_rate": 0.8405797101449275,
+              "hits": 58
+            },
+            "2b": {
+              "dice": 0.36953370552997733,
+              "findings": 49,
+              "hit_rate": 0.7551020408163265,
+              "hits": 37
+            },
+            "2c": {
+              "dice": 0.4052002346485677,
+              "findings": 60,
+              "hit_rate": 0.85,
+              "hits": 51
+            },
+            "2d": {
+              "dice": 0.41135884261105454,
+              "findings": 132,
+              "hit_rate": 0.8712121212121212,
+              "hits": 115
+            },
+            "2e": {
+              "dice": 0.44099223150109984,
+              "findings": 11,
+              "hit_rate": 0.7272727272727273,
+              "hits": 8
+            },
+            "2f": {
+              "dice": null,
+              "findings": 0,
+              "hit_rate": null,
+              "hits": 0
+            },
+            "2g": {
+              "dice": 0.033449763789514544,
+              "findings": 1,
+              "hit_rate": 0.0,
+              "hits": 0
+            },
+            "2h": {
+              "dice": 0.27957909267443415,
+              "findings": 7,
+              "hit_rate": 0.5714285714285714,
+              "hits": 4
+            }
+          },
+          "dice": 0.3615980924721036,
+          "findings": 381,
+          "hit_rate": 0.7769028871391076,
+          "hits": 296
+        },
+        "report_path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/report.md",
         "run_id": "r001_d1_val200_frozen_postprocessing",
-        "status": "running_baseline",
-        "summary_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/summary.json"
+        "runtime_report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/report.md",
+        "status": "complete",
+        "summary_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/summary.json",
+        "summary_sha256": "15ce28bc2d90e0c71d923ea575e38ebd3cf3bca4e9ba006be4d41f132ed18d00"
       },
       "zip": {
         "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/d2.zip",
@@ -1143,10 +1545,106 @@
         },
         "experiment": "sideexp005_postprocessing_merge",
         "job_sha256": "71413f80671f6019dd44948a19ef4d2639e34619824a7b31f371bd50cdc230a3",
-        "report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/report.md",
+        "metrics": {
+          "case_wise_dice": 0.3855032835274729,
+          "cases": 200,
+          "categories": {
+            "1a": {
+              "dice": 0.12135399620536025,
+              "findings": 3,
+              "hit_rate": 0.3333333333333333,
+              "hits": 1
+            },
+            "1b": {
+              "dice": 0.17740891007365217,
+              "findings": 11,
+              "hit_rate": 0.36363636363636365,
+              "hits": 4
+            },
+            "1c": {
+              "dice": 0.1923129276984177,
+              "findings": 17,
+              "hit_rate": 0.47058823529411764,
+              "hits": 8
+            },
+            "1d": {
+              "dice": 0.125989238600272,
+              "findings": 6,
+              "hit_rate": 0.16666666666666666,
+              "hits": 1
+            },
+            "1e": {
+              "dice": 0.1984208294448192,
+              "findings": 11,
+              "hit_rate": 0.6363636363636364,
+              "hits": 7
+            },
+            "1f": {
+              "dice": 0.19498415547760597,
+              "findings": 4,
+              "hit_rate": 0.5,
+              "hits": 2
+            },
+            "2a": {
+              "dice": 0.36195000147169265,
+              "findings": 69,
+              "hit_rate": 0.8405797101449275,
+              "hits": 58
+            },
+            "2b": {
+              "dice": 0.36967921792796443,
+              "findings": 49,
+              "hit_rate": 0.7551020408163265,
+              "hits": 37
+            },
+            "2c": {
+              "dice": 0.4013812469779527,
+              "findings": 60,
+              "hit_rate": 0.8333333333333334,
+              "hits": 50
+            },
+            "2d": {
+              "dice": 0.41953644736518664,
+              "findings": 132,
+              "hit_rate": 0.8712121212121212,
+              "hits": 115
+            },
+            "2e": {
+              "dice": 0.44099223150109984,
+              "findings": 11,
+              "hit_rate": 0.7272727272727273,
+              "hits": 8
+            },
+            "2f": {
+              "dice": null,
+              "findings": 0,
+              "hit_rate": null,
+              "hits": 0
+            },
+            "2g": {
+              "dice": 0.033449763789514544,
+              "findings": 1,
+              "hit_rate": 0.0,
+              "hits": 0
+            },
+            "2h": {
+              "dice": 0.27957909267443415,
+              "findings": 7,
+              "hit_rate": 0.5714285714285714,
+              "hits": 4
+            }
+          },
+          "dice": 0.36402970225098663,
+          "findings": 381,
+          "hit_rate": 0.7742782152230971,
+          "hits": 295
+        },
+        "report_path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/report.md",
         "run_id": "r001_d1_val200_frozen_postprocessing",
-        "status": "running_baseline",
-        "summary_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/summary.json"
+        "runtime_report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/report.md",
+        "status": "complete",
+        "summary_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/summary.json",
+        "summary_sha256": "15ce28bc2d90e0c71d923ea575e38ebd3cf3bca4e9ba006be4d41f132ed18d00"
       },
       "zip": {
         "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/d3.zip",
@@ -1156,13 +1654,24 @@
     {
       "display_name": "d11 \u2014 Top-four equal probability ensemble \u2014 Collaborator semantic-v1",
       "evidence": {
+        "authorization": {
+          "validation_score_requirement": "none",
+          "zip_policy": "skipped_by_request"
+        },
         "completion": {
-          "path": null,
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/completion.json",
           "sha256": null
         },
-        "kind": "planned_postprocessing",
+        "job": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/job_manifest.json",
+          "sha256": "82c3b083ebf8cf51ef145f8ccf82d01389f8eab270bc9cd5d5f240936d8570bf"
+        },
+        "job_sha256": "c7b39164431a10288700e92484937cf0c30541bdaccb7e7c8f1a59ef6517af23",
+        "kind": "frozen_test_postprocessing",
+        "run_id": "r002_d1_test300_d11_d12_frozen_postprocessing",
+        "runner_state": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/state.json",
         "verification": {
-          "path": null,
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/manifests/d11.json",
           "sha256": null
         }
       },
@@ -1172,19 +1681,19 @@
       },
       "family": "d",
       "id": "d11",
-      "notes": "Test generation is pending review of SideExp005 val200. No test predictions, ZIPs or upload are recorded.",
+      "notes": "Test generation authorized automatically after verified val200 report, regardless of scores; ZIPs skipped by request.",
       "observed": {
-        "cases": null,
-        "checked_at_utc": "2026-09-10T06:57:53+00:00",
-        "completion_sha256": null,
-        "error": "Test generation is pending review of the separate SideExp005 val200 audit.",
-        "findings": null,
-        "prediction_status": "planned_pending_review",
-        "runner_status": null,
-        "verification_sha256": null,
+        "cases": 300,
+        "checked_at_utc": "2026-09-10T09:32:53+00:00",
+        "completion_sha256": "b20e43165cbba382b0ee56b5dccb6da473378437999b0e102148b52b211486d0",
+        "error": null,
+        "findings": 582,
+        "prediction_status": "ready",
+        "runner_status": "complete",
+        "verification_sha256": "59cbec07bedcdd428e4d728231adf5d4820d2e647891732b076b968df378d3a0",
         "zip_bytes": null,
         "zip_sha256": null,
-        "zip_status": "planned_pending_review"
+        "zip_status": "skipped_by_request"
       },
       "parent_id": "d1",
       "postprocessing": "semantic_v1",
@@ -1193,16 +1702,19 @@
         "anatomy_review_status": "PASS_PENDING_MANUAL_VISUAL_REVIEW",
         "anatomy_source_runtime": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit",
         "frozen_policy": {
-          "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/frozen_sources/semantic_v1_policy.json",
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/source/side_experiments/sideexp005_postprocessing_merge/frozen_sources/semantic_v1_policy.json",
           "sha256": "e305fd25442d859e2d6cb4c3769b0d2bf6745200ae166a147e8a022ba26b89f7"
         },
         "implementation": {
-          "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/methods.py",
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/source/side_experiments/sideexp005_postprocessing_merge/methods.py",
           "sha256": "f92c7a8c4cb774e602ba409065fcd12cf7f21023e95953579990c7b017296886"
         },
-        "routing": null,
+        "routing": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/job_manifest.json",
+          "sha256": "82c3b083ebf8cf51ef145f8ccf82d01389f8eab270bc9cd5d5f240936d8570bf"
+        },
         "source_archive": {
-          "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze.zip",
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/source/side_experiments/sideexp005_postprocessing_merge/RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze.zip",
           "sha256": "7561acb37aa3281f863a4759a40a899d13d1181ff68c309744e8ed411d9c3c7c"
         }
       },
@@ -1218,26 +1730,134 @@
         },
         "experiment": "sideexp005_postprocessing_merge",
         "job_sha256": "71413f80671f6019dd44948a19ef4d2639e34619824a7b31f371bd50cdc230a3",
-        "report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/report.md",
+        "metrics": {
+          "case_wise_dice": 0.38681727556338863,
+          "cases": 200,
+          "categories": {
+            "1a": {
+              "dice": 0.12163018253634485,
+              "findings": 3,
+              "hit_rate": 0.3333333333333333,
+              "hits": 1
+            },
+            "1b": {
+              "dice": 0.178127953575012,
+              "findings": 11,
+              "hit_rate": 0.36363636363636365,
+              "hits": 4
+            },
+            "1c": {
+              "dice": 0.192492985207006,
+              "findings": 17,
+              "hit_rate": 0.47058823529411764,
+              "hits": 8
+            },
+            "1d": {
+              "dice": 0.12598925700558142,
+              "findings": 6,
+              "hit_rate": 0.16666666666666666,
+              "hits": 1
+            },
+            "1e": {
+              "dice": 0.20135088876546361,
+              "findings": 11,
+              "hit_rate": 0.6363636363636364,
+              "hits": 7
+            },
+            "1f": {
+              "dice": 0.19498415547761175,
+              "findings": 4,
+              "hit_rate": 0.5,
+              "hits": 2
+            },
+            "2a": {
+              "dice": 0.3620223553881201,
+              "findings": 69,
+              "hit_rate": 0.8405797101449275,
+              "hits": 58
+            },
+            "2b": {
+              "dice": 0.370076821820247,
+              "findings": 49,
+              "hit_rate": 0.7551020408163265,
+              "hits": 37
+            },
+            "2c": {
+              "dice": 0.4137225118504074,
+              "findings": 60,
+              "hit_rate": 0.85,
+              "hits": 51
+            },
+            "2d": {
+              "dice": 0.4194784754875054,
+              "findings": 132,
+              "hit_rate": 0.8712121212121212,
+              "hits": 115
+            },
+            "2e": {
+              "dice": 0.4370713682002776,
+              "findings": 11,
+              "hit_rate": 0.7272727272727273,
+              "hits": 8
+            },
+            "2f": {
+              "dice": null,
+              "findings": 0,
+              "hit_rate": null,
+              "hits": 0
+            },
+            "2g": {
+              "dice": 0.03349227645253659,
+              "findings": 1,
+              "hit_rate": 0.0,
+              "hits": 0
+            },
+            "2h": {
+              "dice": 0.27957909267443415,
+              "findings": 7,
+              "hit_rate": 0.5714285714285714,
+              "hits": 4
+            }
+          },
+          "dice": 0.36601983718514824,
+          "findings": 381,
+          "hit_rate": 0.7769028871391076,
+          "hits": 296
+        },
+        "report_path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/report.md",
         "run_id": "r001_d1_val200_frozen_postprocessing",
-        "status": "running_baseline",
-        "summary_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/summary.json"
+        "runtime_report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/report.md",
+        "status": "complete",
+        "summary_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/summary.json",
+        "summary_sha256": "15ce28bc2d90e0c71d923ea575e38ebd3cf3bca4e9ba006be4d41f132ed18d00"
       },
       "zip": {
-        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/d11.zip",
+        "path": null,
+        "policy": "skipped_by_request",
         "sha256": null
       }
     },
     {
       "display_name": "d12 \u2014 Top-four equal probability ensemble \u2014 Collaborator semantic-v2 strict",
       "evidence": {
+        "authorization": {
+          "validation_score_requirement": "none",
+          "zip_policy": "skipped_by_request"
+        },
         "completion": {
-          "path": null,
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/completion.json",
           "sha256": null
         },
-        "kind": "planned_postprocessing",
+        "job": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/job_manifest.json",
+          "sha256": "82c3b083ebf8cf51ef145f8ccf82d01389f8eab270bc9cd5d5f240936d8570bf"
+        },
+        "job_sha256": "c7b39164431a10288700e92484937cf0c30541bdaccb7e7c8f1a59ef6517af23",
+        "kind": "frozen_test_postprocessing",
+        "run_id": "r002_d1_test300_d11_d12_frozen_postprocessing",
+        "runner_state": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/state.json",
         "verification": {
-          "path": null,
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/manifests/d12.json",
           "sha256": null
         }
       },
@@ -1247,19 +1867,19 @@
       },
       "family": "d",
       "id": "d12",
-      "notes": "Test generation is pending review of SideExp005 val200. No test predictions, ZIPs or upload are recorded.",
+      "notes": "Test generation authorized automatically after verified val200 report, regardless of scores; ZIPs skipped by request.",
       "observed": {
-        "cases": null,
-        "checked_at_utc": "2026-09-10T06:57:53+00:00",
-        "completion_sha256": null,
-        "error": "Test generation is pending review of the separate SideExp005 val200 audit.",
-        "findings": null,
-        "prediction_status": "planned_pending_review",
-        "runner_status": null,
-        "verification_sha256": null,
+        "cases": 300,
+        "checked_at_utc": "2026-09-10T09:32:53+00:00",
+        "completion_sha256": "b20e43165cbba382b0ee56b5dccb6da473378437999b0e102148b52b211486d0",
+        "error": null,
+        "findings": 582,
+        "prediction_status": "ready",
+        "runner_status": "complete",
+        "verification_sha256": "587f6ac220e2288dcee15a7e5484f9f7a8109e9a497d111328b8886ee8d58a4a",
         "zip_bytes": null,
         "zip_sha256": null,
-        "zip_status": "planned_pending_review"
+        "zip_status": "skipped_by_request"
       },
       "parent_id": "d11",
       "postprocessing": "semantic_v2_strict",
@@ -1268,16 +1888,19 @@
         "anatomy_review_status": "PASS_PENDING_MANUAL_VISUAL_REVIEW",
         "anatomy_source_runtime": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit",
         "frozen_policy": {
-          "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/frozen_sources/apply_semantic_v2_strict_to_rex_predictions.py",
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/source/side_experiments/sideexp005_postprocessing_merge/frozen_sources/apply_semantic_v2_strict_to_rex_predictions.py",
           "sha256": "940be78b78494646bde4f58e184ff5366b76f8d1fe2fab90133d89cb306803d4"
         },
         "implementation": {
-          "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/methods.py",
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/source/side_experiments/sideexp005_postprocessing_merge/methods.py",
           "sha256": "f92c7a8c4cb774e602ba409065fcd12cf7f21023e95953579990c7b017296886"
         },
-        "routing": null,
+        "routing": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/job_manifest.json",
+          "sha256": "82c3b083ebf8cf51ef145f8ccf82d01389f8eab270bc9cd5d5f240936d8570bf"
+        },
         "source_archive": {
-          "path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze.zip",
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/source/side_experiments/sideexp005_postprocessing_merge/RexGrounding_challenge2026-c2-less-semantic-coadapt-v11-freeze.zip",
           "sha256": "7561acb37aa3281f863a4759a40a899d13d1181ff68c309744e8ed411d9c3c7c"
         }
       },
@@ -1293,13 +1916,1005 @@
         },
         "experiment": "sideexp005_postprocessing_merge",
         "job_sha256": "71413f80671f6019dd44948a19ef4d2639e34619824a7b31f371bd50cdc230a3",
-        "report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/report.md",
+        "metrics": {
+          "case_wise_dice": 0.3903386897782603,
+          "cases": 200,
+          "categories": {
+            "1a": {
+              "dice": 0.12163018253634485,
+              "findings": 3,
+              "hit_rate": 0.3333333333333333,
+              "hits": 1
+            },
+            "1b": {
+              "dice": 0.178127953575012,
+              "findings": 11,
+              "hit_rate": 0.36363636363636365,
+              "hits": 4
+            },
+            "1c": {
+              "dice": 0.192492985207006,
+              "findings": 17,
+              "hit_rate": 0.47058823529411764,
+              "hits": 8
+            },
+            "1d": {
+              "dice": 0.12598925700558142,
+              "findings": 6,
+              "hit_rate": 0.16666666666666666,
+              "hits": 1
+            },
+            "1e": {
+              "dice": 0.20135088876546361,
+              "findings": 11,
+              "hit_rate": 0.6363636363636364,
+              "hits": 7
+            },
+            "1f": {
+              "dice": 0.19498415547761175,
+              "findings": 4,
+              "hit_rate": 0.5,
+              "hits": 2
+            },
+            "2a": {
+              "dice": 0.3620223553881201,
+              "findings": 69,
+              "hit_rate": 0.8405797101449275,
+              "hits": 58
+            },
+            "2b": {
+              "dice": 0.370076821820247,
+              "findings": 49,
+              "hit_rate": 0.7551020408163265,
+              "hits": 37
+            },
+            "2c": {
+              "dice": 0.4272112148967167,
+              "findings": 60,
+              "hit_rate": 0.8666666666666667,
+              "hits": 52
+            },
+            "2d": {
+              "dice": 0.4214286183491014,
+              "findings": 132,
+              "hit_rate": 0.8712121212121212,
+              "hits": 115
+            },
+            "2e": {
+              "dice": 0.4370713682002776,
+              "findings": 11,
+              "hit_rate": 0.7272727272727273,
+              "hits": 8
+            },
+            "2f": {
+              "dice": null,
+              "findings": 0,
+              "hit_rate": null,
+              "hits": 0
+            },
+            "2g": {
+              "dice": 0.03349227645253659,
+              "findings": 1,
+              "hit_rate": 0.0,
+              "hits": 0
+            },
+            "2h": {
+              "dice": 0.2796072173695246,
+              "findings": 7,
+              "hit_rate": 0.5714285714285714,
+              "hits": 4
+            }
+          },
+          "dice": 0.3688201991625101,
+          "findings": 381,
+          "hit_rate": 0.7795275590551181,
+          "hits": 297
+        },
+        "report_path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/report.md",
         "run_id": "r001_d1_val200_frozen_postprocessing",
-        "status": "running_baseline",
-        "summary_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/summary.json"
+        "runtime_report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/report.md",
+        "status": "complete",
+        "summary_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r001_d1_val200_frozen_postprocessing/reports/summary.json",
+        "summary_sha256": "15ce28bc2d90e0c71d923ea575e38ebd3cf3bca4e9ba006be4d41f132ed18d00"
       },
       "zip": {
-        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/d12.zip",
+        "path": null,
+        "policy": "skipped_by_request",
+        "sha256": null
+      }
+    },
+    {
+      "display_name": "e1 \u2014 Top-eight equal probability ensemble \u2014 raw",
+      "evidence": {
+        "authorization": {
+          "validation_score_requirement": "none",
+          "zip_policy": "skipped_by_request"
+        },
+        "completion": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/completion.json",
+          "sha256": null
+        },
+        "job": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/job_manifest.json",
+          "sha256": "ccededeb68d4a62baa6e3688e59db8cb95f5a73dc1f7b0a3fdafa0be2b61d336"
+        },
+        "job_sha256": "5fee63d1859824ac8f52a6d9eec93ee62ecd6c11020f23f533fc753cf4892700",
+        "kind": "frozen_e_ensemble",
+        "run_id": "r004_top8_test300_frozen_postprocessing",
+        "runner_state": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/state.json",
+        "verification": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/manifests/e1.json",
+          "sha256": null
+        }
+      },
+      "expected": {
+        "cases": 300,
+        "findings": 582
+      },
+      "family": "e",
+      "id": "e1",
+      "notes": "Generate all e variants regardless of validation scores. ZIPs skipped by request.",
+      "observed": {
+        "cases": 300,
+        "checked_at_utc": "2026-09-10T23:38:43+00:00",
+        "completion_sha256": "b373b1a923279f9e432a245822bdf79d72b6d9ce87b8a5880505544d9e14b057",
+        "error": null,
+        "findings": 582,
+        "prediction_status": "ready",
+        "runner_status": "complete",
+        "verification_sha256": "3fb4be3f13412b3bfde067147569a8d99a2447455119438bd1c152d98ad7dd3c",
+        "zip_bytes": null,
+        "zip_sha256": null,
+        "zip_status": "skipped_by_request"
+      },
+      "parent_id": null,
+      "postprocessing": "raw",
+      "postprocessing_sources": {
+        "anatomy_audit": {
+          "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit/reports/private/audit_results.json",
+          "sha256": "a8ab8606eb64b8c8c4688436a1bdfab092e492d230aa4962cc2eca566a9974bd"
+        },
+        "anatomy_review_status": "PASS_PENDING_MANUAL_VISUAL_REVIEW",
+        "implementation": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/source/side_experiments/sideexp005_postprocessing_merge/methods.py",
+          "sha256": "f92c7a8c4cb774e602ba409065fcd12cf7f21023e95953579990c7b017296886"
+        },
+        "routing": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/job_manifest.json",
+          "sha256": "ccededeb68d4a62baa6e3688e59db8cb95f5a73dc1f7b0a3fdafa0be2b61d336"
+        }
+      },
+      "prediction": {
+        "directory_name": "e1",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/e1"
+      },
+      "submission_history": [],
+      "validation": {
+        "expected": {
+          "cases": 200,
+          "findings": 381
+        },
+        "experiment": "sideexp005_postprocessing_merge",
+        "job_sha256": "262ea94db0e8c19791b62926c2be25983949f173daf9f73d8de0786a83958c14",
+        "metrics": {
+          "case_wise_dice": 0.3725191206732302,
+          "cases": 200,
+          "categories": {
+            "1a": {
+              "dice": 0.12499337829981232,
+              "findings": 3,
+              "hit_rate": 0.3333333333333333,
+              "hits": 1
+            },
+            "1b": {
+              "dice": 0.1730416663736201,
+              "findings": 11,
+              "hit_rate": 0.36363636363636365,
+              "hits": 4
+            },
+            "1c": {
+              "dice": 0.18856536294661008,
+              "findings": 17,
+              "hit_rate": 0.47058823529411764,
+              "hits": 8
+            },
+            "1d": {
+              "dice": 0.1248363216633027,
+              "findings": 6,
+              "hit_rate": 0.16666666666666666,
+              "hits": 1
+            },
+            "1e": {
+              "dice": 0.19865038014286987,
+              "findings": 11,
+              "hit_rate": 0.5454545454545454,
+              "hits": 6
+            },
+            "1f": {
+              "dice": 0.1593059940848885,
+              "findings": 4,
+              "hit_rate": 0.25,
+              "hits": 1
+            },
+            "2a": {
+              "dice": 0.3528564627681046,
+              "findings": 69,
+              "hit_rate": 0.8260869565217391,
+              "hits": 57
+            },
+            "2b": {
+              "dice": 0.3654754704932657,
+              "findings": 49,
+              "hit_rate": 0.7346938775510204,
+              "hits": 36
+            },
+            "2c": {
+              "dice": 0.4027859562775406,
+              "findings": 60,
+              "hit_rate": 0.8333333333333334,
+              "hits": 50
+            },
+            "2d": {
+              "dice": 0.3938458347338418,
+              "findings": 132,
+              "hit_rate": 0.8712121212121212,
+              "hits": 115
+            },
+            "2e": {
+              "dice": 0.4491460958803551,
+              "findings": 11,
+              "hit_rate": 0.7272727272727273,
+              "hits": 8
+            },
+            "2f": {
+              "dice": null,
+              "findings": 0,
+              "hit_rate": null,
+              "hits": 0
+            },
+            "2g": {
+              "dice": 0.041937546038457854,
+              "findings": 1,
+              "hit_rate": 0.0,
+              "hits": 0
+            },
+            "2h": {
+              "dice": 0.2563968846388805,
+              "findings": 7,
+              "hit_rate": 0.5714285714285714,
+              "hits": 4
+            }
+          },
+          "dice": 0.35234375344586844,
+          "findings": 381,
+          "hit_rate": 0.7637795275590551,
+          "hits": 291
+        },
+        "report_path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/de_val200_report.md",
+        "report_sha256": "b1f1d007f8a4f5253d327482a326f03e9cdd58c20d03d2a8b1fc086c354a2083",
+        "run_id": "r003_top8_val200_frozen_postprocessing",
+        "runtime_report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r003_top8_val200_frozen_postprocessing/reports/report.md",
+        "status": "complete"
+      },
+      "zip": {
+        "path": null,
+        "policy": "skipped_by_request",
+        "sha256": null
+      }
+    },
+    {
+      "display_name": "e2 \u2014 Top-eight equal probability ensemble \u2014 whole_lung20",
+      "evidence": {
+        "authorization": {
+          "validation_score_requirement": "none",
+          "zip_policy": "skipped_by_request"
+        },
+        "completion": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/completion.json",
+          "sha256": null
+        },
+        "job": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/job_manifest.json",
+          "sha256": "ccededeb68d4a62baa6e3688e59db8cb95f5a73dc1f7b0a3fdafa0be2b61d336"
+        },
+        "job_sha256": "5fee63d1859824ac8f52a6d9eec93ee62ecd6c11020f23f533fc753cf4892700",
+        "kind": "frozen_e_ensemble",
+        "run_id": "r004_top8_test300_frozen_postprocessing",
+        "runner_state": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/state.json",
+        "verification": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/manifests/e2.json",
+          "sha256": null
+        }
+      },
+      "expected": {
+        "cases": 300,
+        "findings": 582
+      },
+      "family": "e",
+      "id": "e2",
+      "notes": "Generate all e variants regardless of validation scores. ZIPs skipped by request.",
+      "observed": {
+        "cases": 300,
+        "checked_at_utc": "2026-09-10T23:38:43+00:00",
+        "completion_sha256": "b373b1a923279f9e432a245822bdf79d72b6d9ce87b8a5880505544d9e14b057",
+        "error": null,
+        "findings": 582,
+        "prediction_status": "ready",
+        "runner_status": "complete",
+        "verification_sha256": "539eef718537863f32d03b94f2ac4f1b91a2fe15d8561e2fa34899657eab066d",
+        "zip_bytes": null,
+        "zip_sha256": null,
+        "zip_status": "skipped_by_request"
+      },
+      "parent_id": "e1",
+      "postprocessing": "whole_lung20",
+      "postprocessing_sources": {
+        "anatomy_audit": {
+          "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit/reports/private/audit_results.json",
+          "sha256": "a8ab8606eb64b8c8c4688436a1bdfab092e492d230aa4962cc2eca566a9974bd"
+        },
+        "anatomy_review_status": "PASS_PENDING_MANUAL_VISUAL_REVIEW",
+        "implementation": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/source/side_experiments/sideexp005_postprocessing_merge/methods.py",
+          "sha256": "f92c7a8c4cb774e602ba409065fcd12cf7f21023e95953579990c7b017296886"
+        },
+        "routing": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/job_manifest.json",
+          "sha256": "ccededeb68d4a62baa6e3688e59db8cb95f5a73dc1f7b0a3fdafa0be2b61d336"
+        }
+      },
+      "prediction": {
+        "directory_name": "e2",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/e2"
+      },
+      "submission_history": [],
+      "validation": {
+        "expected": {
+          "cases": 200,
+          "findings": 381
+        },
+        "experiment": "sideexp005_postprocessing_merge",
+        "job_sha256": "262ea94db0e8c19791b62926c2be25983949f173daf9f73d8de0786a83958c14",
+        "metrics": {
+          "case_wise_dice": 0.3790826590699229,
+          "cases": 200,
+          "categories": {
+            "1a": {
+              "dice": 0.12499337829981232,
+              "findings": 3,
+              "hit_rate": 0.3333333333333333,
+              "hits": 1
+            },
+            "1b": {
+              "dice": 0.17306528063595794,
+              "findings": 11,
+              "hit_rate": 0.36363636363636365,
+              "hits": 4
+            },
+            "1c": {
+              "dice": 0.18963958661356134,
+              "findings": 17,
+              "hit_rate": 0.47058823529411764,
+              "hits": 8
+            },
+            "1d": {
+              "dice": 0.12483803191336379,
+              "findings": 6,
+              "hit_rate": 0.16666666666666666,
+              "hits": 1
+            },
+            "1e": {
+              "dice": 0.20258154411309437,
+              "findings": 11,
+              "hit_rate": 0.5454545454545454,
+              "hits": 6
+            },
+            "1f": {
+              "dice": 0.15930599408491933,
+              "findings": 4,
+              "hit_rate": 0.25,
+              "hits": 1
+            },
+            "2a": {
+              "dice": 0.3587818568228061,
+              "findings": 69,
+              "hit_rate": 0.8405797101449275,
+              "hits": 58
+            },
+            "2b": {
+              "dice": 0.36587035681844615,
+              "findings": 49,
+              "hit_rate": 0.7346938775510204,
+              "hits": 36
+            },
+            "2c": {
+              "dice": 0.4042624943636879,
+              "findings": 60,
+              "hit_rate": 0.8333333333333334,
+              "hits": 50
+            },
+            "2d": {
+              "dice": 0.4039193688179019,
+              "findings": 132,
+              "hit_rate": 0.8712121212121212,
+              "hits": 115
+            },
+            "2e": {
+              "dice": 0.4491460958803551,
+              "findings": 11,
+              "hit_rate": 0.7272727272727273,
+              "hits": 8
+            },
+            "2f": {
+              "dice": null,
+              "findings": 0,
+              "hit_rate": null,
+              "hits": 0
+            },
+            "2g": {
+              "dice": 0.041937546038457854,
+              "findings": 1,
+              "hit_rate": 0.0,
+              "hits": 0
+            },
+            "2h": {
+              "dice": 0.2690807469251488,
+              "findings": 7,
+              "hit_rate": 0.5714285714285714,
+              "hits": 4
+            }
+          },
+          "dice": 0.3575853861607602,
+          "findings": 381,
+          "hit_rate": 0.7664041994750657,
+          "hits": 292
+        },
+        "report_path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/de_val200_report.md",
+        "report_sha256": "b1f1d007f8a4f5253d327482a326f03e9cdd58c20d03d2a8b1fc086c354a2083",
+        "run_id": "r003_top8_val200_frozen_postprocessing",
+        "runtime_report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r003_top8_val200_frozen_postprocessing/reports/report.md",
+        "status": "complete"
+      },
+      "zip": {
+        "path": null,
+        "policy": "skipped_by_request",
+        "sha256": null
+      }
+    },
+    {
+      "display_name": "e3 \u2014 Top-eight equal probability ensemble \u2014 fine20",
+      "evidence": {
+        "authorization": {
+          "validation_score_requirement": "none",
+          "zip_policy": "skipped_by_request"
+        },
+        "completion": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/completion.json",
+          "sha256": null
+        },
+        "job": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/job_manifest.json",
+          "sha256": "ccededeb68d4a62baa6e3688e59db8cb95f5a73dc1f7b0a3fdafa0be2b61d336"
+        },
+        "job_sha256": "5fee63d1859824ac8f52a6d9eec93ee62ecd6c11020f23f533fc753cf4892700",
+        "kind": "frozen_e_ensemble",
+        "run_id": "r004_top8_test300_frozen_postprocessing",
+        "runner_state": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/state.json",
+        "verification": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/manifests/e3.json",
+          "sha256": null
+        }
+      },
+      "expected": {
+        "cases": 300,
+        "findings": 582
+      },
+      "family": "e",
+      "id": "e3",
+      "notes": "Generate all e variants regardless of validation scores. ZIPs skipped by request.",
+      "observed": {
+        "cases": 300,
+        "checked_at_utc": "2026-09-10T23:38:43+00:00",
+        "completion_sha256": "b373b1a923279f9e432a245822bdf79d72b6d9ce87b8a5880505544d9e14b057",
+        "error": null,
+        "findings": 582,
+        "prediction_status": "ready",
+        "runner_status": "complete",
+        "verification_sha256": "d345af2f35929d43763d5600d9143a9b243d8e5ed00df6029504603123da8778",
+        "zip_bytes": null,
+        "zip_sha256": null,
+        "zip_status": "skipped_by_request"
+      },
+      "parent_id": "e1",
+      "postprocessing": "fine20",
+      "postprocessing_sources": {
+        "anatomy_audit": {
+          "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit/reports/private/audit_results.json",
+          "sha256": "a8ab8606eb64b8c8c4688436a1bdfab092e492d230aa4962cc2eca566a9974bd"
+        },
+        "anatomy_review_status": "PASS_PENDING_MANUAL_VISUAL_REVIEW",
+        "implementation": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/source/side_experiments/sideexp005_postprocessing_merge/methods.py",
+          "sha256": "f92c7a8c4cb774e602ba409065fcd12cf7f21023e95953579990c7b017296886"
+        },
+        "routing": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/job_manifest.json",
+          "sha256": "ccededeb68d4a62baa6e3688e59db8cb95f5a73dc1f7b0a3fdafa0be2b61d336"
+        }
+      },
+      "prediction": {
+        "directory_name": "e3",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/e3"
+      },
+      "submission_history": [],
+      "validation": {
+        "expected": {
+          "cases": 200,
+          "findings": 381
+        },
+        "experiment": "sideexp005_postprocessing_merge",
+        "job_sha256": "262ea94db0e8c19791b62926c2be25983949f173daf9f73d8de0786a83958c14",
+        "metrics": {
+          "case_wise_dice": 0.3804024250539648,
+          "cases": 200,
+          "categories": {
+            "1a": {
+              "dice": 0.12499337829981232,
+              "findings": 3,
+              "hit_rate": 0.3333333333333333,
+              "hits": 1
+            },
+            "1b": {
+              "dice": 0.1756670669771572,
+              "findings": 11,
+              "hit_rate": 0.36363636363636365,
+              "hits": 4
+            },
+            "1c": {
+              "dice": 0.18944826750187813,
+              "findings": 17,
+              "hit_rate": 0.47058823529411764,
+              "hits": 8
+            },
+            "1d": {
+              "dice": 0.12483792475518761,
+              "findings": 6,
+              "hit_rate": 0.16666666666666666,
+              "hits": 1
+            },
+            "1e": {
+              "dice": 0.20090505018669613,
+              "findings": 11,
+              "hit_rate": 0.6363636363636364,
+              "hits": 7
+            },
+            "1f": {
+              "dice": 0.15930599408491933,
+              "findings": 4,
+              "hit_rate": 0.25,
+              "hits": 1
+            },
+            "2a": {
+              "dice": 0.3605564438529389,
+              "findings": 69,
+              "hit_rate": 0.8405797101449275,
+              "hits": 58
+            },
+            "2b": {
+              "dice": 0.36631206234646974,
+              "findings": 49,
+              "hit_rate": 0.7346938775510204,
+              "hits": 36
+            },
+            "2c": {
+              "dice": 0.39754542611721483,
+              "findings": 60,
+              "hit_rate": 0.8166666666666667,
+              "hits": 49
+            },
+            "2d": {
+              "dice": 0.4110076165640989,
+              "findings": 132,
+              "hit_rate": 0.8712121212121212,
+              "hits": 115
+            },
+            "2e": {
+              "dice": 0.4491460958803551,
+              "findings": 11,
+              "hit_rate": 0.7272727272727273,
+              "hits": 8
+            },
+            "2f": {
+              "dice": null,
+              "findings": 0,
+              "hit_rate": null,
+              "hits": 0
+            },
+            "2g": {
+              "dice": 0.041937546038457854,
+              "findings": 1,
+              "hit_rate": 0.0,
+              "hits": 0
+            },
+            "2h": {
+              "dice": 0.2690807469251488,
+              "findings": 7,
+              "hit_rate": 0.5714285714285714,
+              "hits": 4
+            }
+          },
+          "dice": 0.3593797164294664,
+          "findings": 381,
+          "hit_rate": 0.7664041994750657,
+          "hits": 292
+        },
+        "report_path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/de_val200_report.md",
+        "report_sha256": "b1f1d007f8a4f5253d327482a326f03e9cdd58c20d03d2a8b1fc086c354a2083",
+        "run_id": "r003_top8_val200_frozen_postprocessing",
+        "runtime_report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r003_top8_val200_frozen_postprocessing/reports/report.md",
+        "status": "complete"
+      },
+      "zip": {
+        "path": null,
+        "policy": "skipped_by_request",
+        "sha256": null
+      }
+    },
+    {
+      "display_name": "e11 \u2014 Top-eight equal probability ensemble \u2014 semantic_v1",
+      "evidence": {
+        "authorization": {
+          "validation_score_requirement": "none",
+          "zip_policy": "skipped_by_request"
+        },
+        "completion": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/completion.json",
+          "sha256": null
+        },
+        "job": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/job_manifest.json",
+          "sha256": "ccededeb68d4a62baa6e3688e59db8cb95f5a73dc1f7b0a3fdafa0be2b61d336"
+        },
+        "job_sha256": "5fee63d1859824ac8f52a6d9eec93ee62ecd6c11020f23f533fc753cf4892700",
+        "kind": "frozen_e_ensemble",
+        "run_id": "r004_top8_test300_frozen_postprocessing",
+        "runner_state": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/state.json",
+        "verification": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/manifests/e11.json",
+          "sha256": null
+        }
+      },
+      "expected": {
+        "cases": 300,
+        "findings": 582
+      },
+      "family": "e",
+      "id": "e11",
+      "notes": "Generate all e variants regardless of validation scores. ZIPs skipped by request.",
+      "observed": {
+        "cases": 300,
+        "checked_at_utc": "2026-09-10T23:38:43+00:00",
+        "completion_sha256": "b373b1a923279f9e432a245822bdf79d72b6d9ce87b8a5880505544d9e14b057",
+        "error": null,
+        "findings": 582,
+        "prediction_status": "ready",
+        "runner_status": "complete",
+        "verification_sha256": "4e51f3af9006eb51115356235caf5db3a95450a4db7303462f71d8c9979f2918",
+        "zip_bytes": null,
+        "zip_sha256": null,
+        "zip_status": "skipped_by_request"
+      },
+      "parent_id": "e1",
+      "postprocessing": "semantic_v1",
+      "postprocessing_sources": {
+        "anatomy_audit": {
+          "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit/reports/private/audit_results.json",
+          "sha256": "a8ab8606eb64b8c8c4688436a1bdfab092e492d230aa4962cc2eca566a9974bd"
+        },
+        "anatomy_review_status": "PASS_PENDING_MANUAL_VISUAL_REVIEW",
+        "implementation": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/source/side_experiments/sideexp005_postprocessing_merge/methods.py",
+          "sha256": "f92c7a8c4cb774e602ba409065fcd12cf7f21023e95953579990c7b017296886"
+        },
+        "routing": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/job_manifest.json",
+          "sha256": "ccededeb68d4a62baa6e3688e59db8cb95f5a73dc1f7b0a3fdafa0be2b61d336"
+        }
+      },
+      "prediction": {
+        "directory_name": "e11",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/e11"
+      },
+      "submission_history": [],
+      "validation": {
+        "expected": {
+          "cases": 200,
+          "findings": 381
+        },
+        "experiment": "sideexp005_postprocessing_merge",
+        "job_sha256": "262ea94db0e8c19791b62926c2be25983949f173daf9f73d8de0786a83958c14",
+        "metrics": {
+          "case_wise_dice": 0.38181306665025744,
+          "cases": 200,
+          "categories": {
+            "1a": {
+              "dice": 0.12523233598684239,
+              "findings": 3,
+              "hit_rate": 0.3333333333333333,
+              "hits": 1
+            },
+            "1b": {
+              "dice": 0.1766714003735301,
+              "findings": 11,
+              "hit_rate": 0.36363636363636365,
+              "hits": 4
+            },
+            "1c": {
+              "dice": 0.1897702519284636,
+              "findings": 17,
+              "hit_rate": 0.47058823529411764,
+              "hits": 8
+            },
+            "1d": {
+              "dice": 0.12483803191336379,
+              "findings": 6,
+              "hit_rate": 0.16666666666666666,
+              "hits": 1
+            },
+            "1e": {
+              "dice": 0.20440926263995587,
+              "findings": 11,
+              "hit_rate": 0.6363636363636364,
+              "hits": 7
+            },
+            "1f": {
+              "dice": 0.1593059940849269,
+              "findings": 4,
+              "hit_rate": 0.25,
+              "hits": 1
+            },
+            "2a": {
+              "dice": 0.3606468392703792,
+              "findings": 69,
+              "hit_rate": 0.8405797101449275,
+              "hits": 58
+            },
+            "2b": {
+              "dice": 0.36654735799518484,
+              "findings": 49,
+              "hit_rate": 0.7346938775510204,
+              "hits": 36
+            },
+            "2c": {
+              "dice": 0.40940798649481525,
+              "findings": 60,
+              "hit_rate": 0.8333333333333334,
+              "hits": 50
+            },
+            "2d": {
+              "dice": 0.4116147883521229,
+              "findings": 132,
+              "hit_rate": 0.8712121212121212,
+              "hits": 115
+            },
+            "2e": {
+              "dice": 0.4433784182720968,
+              "findings": 11,
+              "hit_rate": 0.7272727272727273,
+              "hits": 8
+            },
+            "2f": {
+              "dice": null,
+              "findings": 0,
+              "hit_rate": null,
+              "hits": 0
+            },
+            "2g": {
+              "dice": 0.041957490461166175,
+              "findings": 1,
+              "hit_rate": 0.0,
+              "hits": 0
+            },
+            "2h": {
+              "dice": 0.2690807469251488,
+              "findings": 7,
+              "hit_rate": 0.5714285714285714,
+              "hits": 4
+            }
+          },
+          "dice": 0.3614847763129456,
+          "findings": 381,
+          "hit_rate": 0.7690288713910761,
+          "hits": 293
+        },
+        "report_path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/de_val200_report.md",
+        "report_sha256": "b1f1d007f8a4f5253d327482a326f03e9cdd58c20d03d2a8b1fc086c354a2083",
+        "run_id": "r003_top8_val200_frozen_postprocessing",
+        "runtime_report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r003_top8_val200_frozen_postprocessing/reports/report.md",
+        "status": "complete"
+      },
+      "zip": {
+        "path": null,
+        "policy": "skipped_by_request",
+        "sha256": null
+      }
+    },
+    {
+      "display_name": "e12 \u2014 Top-eight equal probability ensemble \u2014 semantic_v2_strict",
+      "evidence": {
+        "authorization": {
+          "validation_score_requirement": "none",
+          "zip_policy": "skipped_by_request"
+        },
+        "completion": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/completion.json",
+          "sha256": null
+        },
+        "job": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/job_manifest.json",
+          "sha256": "ccededeb68d4a62baa6e3688e59db8cb95f5a73dc1f7b0a3fdafa0be2b61d336"
+        },
+        "job_sha256": "5fee63d1859824ac8f52a6d9eec93ee62ecd6c11020f23f533fc753cf4892700",
+        "kind": "frozen_e_ensemble",
+        "run_id": "r004_top8_test300_frozen_postprocessing",
+        "runner_state": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/state.json",
+        "verification": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/manifests/e12.json",
+          "sha256": null
+        }
+      },
+      "expected": {
+        "cases": 300,
+        "findings": 582
+      },
+      "family": "e",
+      "id": "e12",
+      "notes": "Generate all e variants regardless of validation scores. ZIPs skipped by request.",
+      "observed": {
+        "cases": 300,
+        "checked_at_utc": "2026-09-10T23:38:43+00:00",
+        "completion_sha256": "b373b1a923279f9e432a245822bdf79d72b6d9ce87b8a5880505544d9e14b057",
+        "error": null,
+        "findings": 582,
+        "prediction_status": "ready",
+        "runner_status": "complete",
+        "verification_sha256": "a5323821ec37bf7209b025d47fb6404172007d58f88ca527ff33cb71855c8f88",
+        "zip_bytes": null,
+        "zip_sha256": null,
+        "zip_status": "skipped_by_request"
+      },
+      "parent_id": "e11",
+      "postprocessing": "semantic_v2_strict",
+      "postprocessing_sources": {
+        "anatomy_audit": {
+          "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/023_ct_rate_ts_total_rex_test300_audit/reports/private/audit_results.json",
+          "sha256": "a8ab8606eb64b8c8c4688436a1bdfab092e492d230aa4962cc2eca566a9974bd"
+        },
+        "anatomy_review_status": "PASS_PENDING_MANUAL_VISUAL_REVIEW",
+        "implementation": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/source/side_experiments/sideexp005_postprocessing_merge/methods.py",
+          "sha256": "f92c7a8c4cb774e602ba409065fcd12cf7f21023e95953579990c7b017296886"
+        },
+        "routing": {
+          "path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r004_top8_test300_frozen_postprocessing/job_manifest.json",
+          "sha256": "ccededeb68d4a62baa6e3688e59db8cb95f5a73dc1f7b0a3fdafa0be2b61d336"
+        }
+      },
+      "prediction": {
+        "directory_name": "e12",
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/e12"
+      },
+      "submission_history": [],
+      "validation": {
+        "expected": {
+          "cases": 200,
+          "findings": 381
+        },
+        "experiment": "sideexp005_postprocessing_merge",
+        "job_sha256": "262ea94db0e8c19791b62926c2be25983949f173daf9f73d8de0786a83958c14",
+        "metrics": {
+          "case_wise_dice": 0.38544355457616086,
+          "cases": 200,
+          "categories": {
+            "1a": {
+              "dice": 0.12523233598684239,
+              "findings": 3,
+              "hit_rate": 0.3333333333333333,
+              "hits": 1
+            },
+            "1b": {
+              "dice": 0.1766714003735301,
+              "findings": 11,
+              "hit_rate": 0.36363636363636365,
+              "hits": 4
+            },
+            "1c": {
+              "dice": 0.1897702519284636,
+              "findings": 17,
+              "hit_rate": 0.47058823529411764,
+              "hits": 8
+            },
+            "1d": {
+              "dice": 0.12483803191336379,
+              "findings": 6,
+              "hit_rate": 0.16666666666666666,
+              "hits": 1
+            },
+            "1e": {
+              "dice": 0.20440926263995587,
+              "findings": 11,
+              "hit_rate": 0.6363636363636364,
+              "hits": 7
+            },
+            "1f": {
+              "dice": 0.1593059940849269,
+              "findings": 4,
+              "hit_rate": 0.25,
+              "hits": 1
+            },
+            "2a": {
+              "dice": 0.3606468392703792,
+              "findings": 69,
+              "hit_rate": 0.8405797101449275,
+              "hits": 58
+            },
+            "2b": {
+              "dice": 0.36654735799518484,
+              "findings": 49,
+              "hit_rate": 0.7346938775510204,
+              "hits": 36
+            },
+            "2c": {
+              "dice": 0.4231340874254768,
+              "findings": 60,
+              "hit_rate": 0.8666666666666667,
+              "hits": 52
+            },
+            "2d": {
+              "dice": 0.4136529165290206,
+              "findings": 132,
+              "hit_rate": 0.8712121212121212,
+              "hits": 115
+            },
+            "2e": {
+              "dice": 0.4433784182720968,
+              "findings": 11,
+              "hit_rate": 0.7272727272727273,
+              "hits": 8
+            },
+            "2f": {
+              "dice": null,
+              "findings": 0,
+              "hit_rate": null,
+              "hits": 0
+            },
+            "2g": {
+              "dice": 0.041957490461166175,
+              "findings": 1,
+              "hit_rate": 0.0,
+              "hits": 0
+            },
+            "2h": {
+              "dice": 0.2691792253445166,
+              "findings": 7,
+              "hit_rate": 0.5714285714285714,
+              "hits": 4
+            }
+          },
+          "dice": 0.3643542994733807,
+          "findings": 381,
+          "hit_rate": 0.7742782152230971,
+          "hits": 295
+        },
+        "report_path": "/home/hengjie/code_sync/rexgroundingct/side_experiments/sideexp005_postprocessing_merge/de_val200_report.md",
+        "report_sha256": "b1f1d007f8a4f5253d327482a326f03e9cdd58c20d03d2a8b1fc086c354a2083",
+        "run_id": "r003_top8_val200_frozen_postprocessing",
+        "runtime_report_path": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r003_top8_val200_frozen_postprocessing/reports/report.md",
+        "status": "complete"
+      },
+      "zip": {
+        "path": null,
+        "policy": "skipped_by_request",
         "sha256": null
       }
     }
