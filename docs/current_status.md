@@ -12,7 +12,58 @@ edit.
 
 ## Active Work
 
-- **SideExp005 test d11/d12 automation armed:** 2026-09-10T08:04:50Z.
+- **SideExp006 A1 threshold sweep complete:** all 200 val cases / 381 findings
+  at 19 thresholds (0.05–0.95) produced 7,239 verified records. Saved-cache
+  baseline reproduced exactly: Dice 0.34586800803778955, 295/381 hits. Best
+  observed global Dice is 0.3459823617843387 at 0.60; category maxima vary.
+  The executed notebook and HTML are ready under the SideExp006 external
+  `runs/r001_a1_val200/` runtime. See
+  [the report](../side_experiments/sideexp006_category_threshold_tuning/report.md).
+  Fifteen tests and repository checks passed. Threshold adoption, instance
+  metrics, and B1/D1/E1 sweeps remain deferred for review.
+
+- **Test300 Wave 3 running under j005.** Wave 2 completed unchanged at
+  2026-09-10T19:54:06Z; all ranks 5–8 have strict 300-case/582-prompt caches.
+  The old j004 coordinator exited and remains retired. The automatic transition
+  passed retained-logit parity and cold-source verification for all 16 benchmark
+  pairs: reference 338.0 s versus streaming 226.9 s (33% shorter in this small
+  benchmark; full-wave overlap remains unmeasured). Prelaunch regression and
+  repository gates passed. Frozen j005 SHA:
+  `6a155ab3c9908b6652f58ab4fc965b378f1964ad09a624fbd4a7e4ac880a438c`.
+  Coordinator PID `765487` launched at 20:10:52Z; transition PID `604748`
+  monitors it. At 20:34Z, ranks 9/10/11/12 had staged 10/10/9/10 cases,
+  all four GPU workers had passed smoke gates, and no failures were reported.
+  The single publisher waits for the first complete checkpoint; Waves 4–5
+  follow staging barriers with publication overlap. Early remaining ETA is
+  23–45 hours, combining workload-weighted live samples and Wave 2 priors;
+  it is provisional. Minute monitoring and five-minute reports are active.
+  See [j005 instructions](../side_experiments/sideexp003_ensemble_method_hub/cache_jobs/j005_test300_r09_r20_streaming_gpu8/README.md).
+  Use `stream_test300.py watch --job j005_test300_r09_r20_streaming_gpu8 --once`.
+  Do not resume j004. This supersedes its earlier automatic rollout below.
+
+
+- **SideExp005 e-series complete:** r003 val200 verified 1,000 files;
+  see `de_val200_report.md`. r004 test300 verified 1,500 files;
+  see `e_test300_report.md`.
+  Historical launch: 2026-09-10T15:21:25Z, supervisor PID `375011`.
+  Original ranks 1–8 used four CPU workers and equal sigmoid-probability
+  averaging. The r004 test stage followed the verified r003 validation report
+  and eight strict published caches,
+  regardless of validation scores. Wave 2 is checked immediately and every
+  600 seconds. Later export waves continue independently. Outputs are
+  Exp024 `outputs/e1`, `e2`, `e3`, `e11`, `e12`, without ZIPs or uploads.
+  The e1 baseline must reproduce Dice 0.35234375344586844 and 291/381 HITs.
+  Read `side_experiments/sideexp005_postprocessing_merge/e_series_execution_spec.md`;
+  use `e_series.py watch --once` for progress. Final aggregate documents are
+  `de_val200_report.md` and `e_test300_report.md`; existing d-only evidence is preserved.
+  All 149 targeted tests and repository checks passed. Real preflight verified
+  200 val / 300 test cases, numeric prompts, official anatomy and native headers.
+  Launch evidence: `side_experiments/sideexp005_postprocessing_merge/e_series_launch.json`.
+  Val job SHA `262ea94db0e8c19791b62926c2be25983949f173daf9f73d8de0786a83958c14`;
+  test job SHA `5fee63d1859824ac8f52a6d9eec93ee62ecd6c11020f23f533fc753cf4892700`.
+
+- **SideExp005 test d11/d12 complete:** 600 files verified; both variants cover 300 CTs / 582 prompts. ZIPs skipped by request.
+  Historical launch policy: 2026-09-10T08:04:50Z.
   Separate run `r002_d1_test300_d11_d12_frozen_postprocessing`, supervisor PID
   `4025791`, waits for verified val200 report collection and successful worker
   exit, then generates both test300 variants regardless of validation scores.
@@ -47,7 +98,10 @@ edit.
   and `observation_summary.json` for all five-minute checkpoints.
 
 
-- **SideExp005 postprocessing audit running:** the collaborator ZIP and
+- **SideExp005 postprocessing audit complete:**
+  Verified all 1000 outputs / 1905 finding evaluations. d1 Dice 0.357504, 296/381 hits; d2 Dice 0.361598, 296/381 hits; d3 Dice 0.364030, 295/381 hits; d11 Dice 0.366020, 296/381 hits; d12 Dice 0.368820, 297/381 hits.
+  Aggregate report: `side_experiments/sideexp005_postprocessing_merge/report.md`.
+  the collaborator ZIP and
   source audit were moved unchanged from the former Exp027 folder to
   `side_experiments/sideexp005_postprocessing_merge/`, with before/after hashes.
   The independent CPU runner compares d1/d2/d3/d11/d12 on val200, first requiring
