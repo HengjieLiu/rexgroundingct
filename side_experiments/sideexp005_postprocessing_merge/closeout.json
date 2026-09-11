@@ -1,0 +1,11 @@
+{
+  "collected_at_utc": "2026-09-10T08:38:22+00:00",
+  "files_verified": 1000,
+  "finding_evaluations_verified": 1905,
+  "job_sha256": "71413f80671f6019dd44948a19ef4d2639e34619824a7b31f371bd50cdc230a3",
+  "report_sha256": "1368fc27f5e4a4e066d00b4bd7aefc85542e2a22602a3d4f18f92cabb4b23feb",
+  "status": "complete",
+  "submission_history_changed": false,
+  "summary_sha256": "15ce28bc2d90e0c71d923ea575e38ebd3cf3bca4e9ba006be4d41f132ed18d00",
+  "test_generation": "pending_validation_review"
+}

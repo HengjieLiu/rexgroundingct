@@ -1,0 +1,124 @@
+{
+  "archives": {},
+  "candidates": [
+    {
+      "cache_key": "v3_6af052b3370aee14cede4058d20f34e491900cd444656537c7af8bb63cd48fb2",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v3_6af052b3370aee14cede4058d20f34e491900cd444656537c7af8bb63cd48fb2",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+        "sha256": "a499ad1c0fada9a7e4d78e352fa5510d31295e82749e00ef0a4eee6da685e4aa"
+      },
+      "id": "exp007_ddp_bs4_e050_a499ad1c",
+      "paired_val200": {
+        "cache_key": "v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe",
+        "export_manifest": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe/export_manifest.json",
+        "export_sha256": "91f6a203a689adf24b36f0c863c1f9f0209949258575e7685f0efb8b571fdafb",
+        "job_id": "j001_top20_val200_fresh",
+        "validation": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe/reproduction_validation.json",
+        "validation_sha256": "8f7f63e06a722a77bed3c426adc2f15962e987a358a2fccb05c78ceaa097950f"
+      },
+      "rank": 1
+    },
+    {
+      "cache_key": "v3_5bc31807a3490244cca848c4879205b4417ff7726d7ccdfa253b8f0dae4dcfff",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v3_5bc31807a3490244cca848c4879205b4417ff7726d7ccdfa253b8f0dae4dcfff",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/baseline_cont100/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "50e631f174ad4c16222df1d8114c30171df6e974cac5e934fa230448d91479bf"
+      },
+      "id": "exp009_baseline_cont100_e100_50e631f1",
+      "paired_val200": {
+        "cache_key": "v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051",
+        "export_manifest": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051/export_manifest.json",
+        "export_sha256": "52f3ff3fdbbe9051e2470dad8116784bf73e25e888d48ca64fe0a16a731741b6",
+        "job_id": "j001_top20_val200_fresh",
+        "validation": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_2cef6f9ce93dc1670cb31c78771674cb5c8645268d84baa797db7e11027a0051/reproduction_validation.json",
+        "validation_sha256": "61d9812850dc81a0335f2bf0793d0ed5bafd31c7ddbd0d2b8ffd79bdabef28af"
+      },
+      "rank": 2
+    },
+    {
+      "cache_key": "v3_bb856dd6c4b492f5c697ba3885f062463036a839c208d35852c0f7dd953f38f9",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v3_bb856dd6c4b492f5c697ba3885f062463036a839c208d35852c0f7dd953f38f9",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/017_voxtell_iso07_hu_ddp_bs4_update_matched/runs/exp017_cont100_from_iso07_epoch100_20260816T165351Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+        "sha256": "4f36d9bba1ab5a59a8ef2e5b02200027d1053aa241631b1782bf98744c8bba02"
+      },
+      "id": "exp017_ddp_bs4_e050_4f36d9bb",
+      "paired_val200": {
+        "cache_key": "v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca",
+        "export_manifest": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca/export_manifest.json",
+        "export_sha256": "7e96b1e7ebccf56c28420c3a12dd0d135aa9b790ad4f63726bd93dce8ac827a2",
+        "job_id": "j001_top20_val200_fresh",
+        "validation": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d9eed4850d1a784ae877e393462193eaa10e9488e98838c4804c6d5094c291ca/reproduction_validation.json",
+        "validation_sha256": "18df5aea2b84f89898ed5dbb787f168fb345079a1a89502c9b60cb9213865ce6"
+      },
+      "rank": 3
+    },
+    {
+      "cache_key": "v3_144c527113b06c49a2155aafe894ce2f330e8648ab334fcb35e1461c25441a42",
+      "cache_root": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v3_144c527113b06c49a2155aafe894ce2f330e8648ab334fcb35e1461c25441a42",
+      "checkpoint": {
+        "path": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/009_voxtell_s3_attention_coupling_ablation/runs/exp009_s3_attention_20260727T081747Z/s3v2_balanced_feature_half_quarter/model_epoch100/fold_0/checkpoint_final.pth",
+        "sha256": "a3e93801ba121c0084ec52b7f7dc38cbb617dbec484b6113b4348aa7dec82f3d"
+      },
+      "id": "exp009_s3v2_balanced_feature_half_quarter_e100_a3e93801",
+      "paired_val200": {
+        "cache_key": "v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d",
+        "export_manifest": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d/export_manifest.json",
+        "export_sha256": "00af78e219f833d80808694edabfa3ce9378a036122a185754b055eba9aec9bb",
+        "job_id": "j001_top20_val200_fresh",
+        "validation": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_810f5b294b0b7d01d9ed818a7d30f254516d9f8003548e09c2392164398c1c5d/reproduction_validation.json",
+        "validation_sha256": "f2f2cad429f296571c7e4d1d9f79188fbf9eb9e1914d9519a5ad3cee8a49366b"
+      },
+      "rank": 4
+    }
+  ],
+  "cases": 300,
+  "files": 600,
+  "findings": 582,
+  "findings_sha256": "b3b101014d66690bca79faadf814e2e53bccf7a3d00131b16953dee0f68351e3",
+  "job_sha256": "c7b39164431a10288700e92484937cf0c30541bdaccb7e7c8f1a59ef6517af23",
+  "labels": "withheld",
+  "metrics": null,
+  "outputs": {
+    "d11": {
+      "bytes": 269258273,
+      "directory": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/d11",
+      "verification": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/manifests/d11.json",
+      "verification_sha256": "59cbec07bedcdd428e4d728231adf5d4820d2e647891732b076b968df378d3a0"
+    },
+    "d12": {
+      "bytes": 269231106,
+      "directory": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/024_test_inference_anatomy_audit/outputs/d12",
+      "verification": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r002_d1_test300_d11_d12_frozen_postprocessing/manifests/d12.json",
+      "verification_sha256": "587f6ac220e2288dcee15a7e5484f9f7a8109e9a497d111328b8886ee8d58a4a"
+    }
+  },
+  "report_sha256": "45290ba7bbe98c90adb8f829c618384d06ae23949021df440c1577aa1fb04e7d",
+  "routing_counts": {
+    "lobe": 131,
+    "side": 115,
+    "v2_selected": 62,
+    "whole": 336
+  },
+  "run_id": "r002_d1_test300_d11_d12_frozen_postprocessing",
+  "source_status": "PASS_PENDING_MANUAL_VISUAL_REVIEW",
+  "status": "complete",
+  "timings_worker_seconds": {
+    "nifti_write_seconds": 184.64073930680752,
+    "postprocessing_seconds": 8153.368880756199,
+    "read_hash_seconds": 1269.2120369896293,
+    "validation_seconds": 2622.6791500523686,
+    "wall_seconds": 12234.677896477282
+  },
+  "validation_dependency": {
+    "closeout_sha256": "f618b9d658dc429ed5b434353b3881e278a954afda58f3f189e387e3a9df55de",
+    "completion_sha256": "907eed2e8bfaf8041cdf7d44c1fe8870a5851984abe86f53fddc7c0219f9b6b8",
+    "job_sha256": "71413f80671f6019dd44948a19ef4d2639e34619824a7b31f371bd50cdc230a3",
+    "report_sha256": "1368fc27f5e4a4e066d00b4bd7aefc85542e2a22602a3d4f18f92cabb4b23feb",
+    "score_requirement": "none",
+    "summary_sha256": "15ce28bc2d90e0c71d923ea575e38ebd3cf3bca4e9ba006be4d41f132ed18d00"
+  },
+  "zip_policy": "skipped_by_request"
+}
