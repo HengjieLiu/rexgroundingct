@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-09-06
+updated: 2026-09-10
 status: active
 ---
 
@@ -11,6 +11,140 @@ agents. Update it when evidence changes the next action, not after every small
 edit.
 
 ## Active Work
+
+- Exp027's user-authorized four-loss A-only comparison launched at
+  2026-09-11 00:18:32 UTC (September10 17:18 Pacific) in container
+  `rex027_deletion_loss_ablation_a_20ep`, ID prefix `7b70eda09f13`.
+  Runtime: `027_voxtell_2a_residual_refinement/deletion_loss_ablation_a_20ep`.
+  Canonical config: `configs/experiments/027_deletion_loss_ablation_a.json`;
+  specification/live links/verification: Exp027 `deletion_loss_ablation/README.md`.
+  Fixed loss order is F+2K; F+K; D+0.25(F+2K)/3; D+0.25(F+K)/2. All four fit
+  the same35 A findings using the historical run3 schedule and pristine weights.
+  D is finding-aware single-patch Dice with outside predictions held at base;
+  all GT including base FNs enters its denominator. B's34 findings are excluded
+  from gradients and reported separately as held-out development evidence.
+  The accepted budget is2000 updates with100/500/1000/2000 evaluation barriers,
+  FP32/noTF32, LR1e-4, clipping1.0, batch1 and192³. The live3×3 board shows both
+  removal thresholds0.50/0.90, independent provisional A/B results and raw/smoothed
+  losses; a separate CPU process produces201-threshold saved-score sweeps.
+  Fifty-three CPU Docker tests and workflow/whitespace checks pass. Labeled
+  synthetic dashboard, test logs and exact source snapshots are saved under
+  runtime `verification/`. The launch begins with hash/geometry checks of all
+  63 validation CT caches/69 findings, without VoxTell inference or train-pool
+  preparation. Check runtime status for current phase. Completion audits8000
+  updates/16 evaluations and historical BCE reproduction before pending_user_review;
+  no automatic ranking or continuation. Earlier loss proposals are superseded
+  by this accepted four-objective contract.
+
+- The user clarified the deletion objective: prioritize mean Dice and allow TP
+  loss when sufficient FP removal improves it. Proposed blanket 99% pooled / 95%
+  per-finding retention gates are superseded; no replacement training was launched.
+  Exp027 `deletion_four_arm/dice_first_tradeoff_audit.md` records the CPU audit.
+  Uniform per-finding removal of 50% FP and 10% TP would increase mean Dice from
+  0.337215 to 0.379632; allocation of the same pooled budgets can change that
+  outcome substantially. At a retrospective 10% pooled TP-loss operating point,
+  epoch-20 run 3 removes 25.94% FP and achieves full Dice 0.351788 (B 0.340140).
+  Dense 0.005-step sweeps of all sixteen evaluations and base-threshold controls
+  are saved under `deletion_four_arm_20ep/reports/dice_tradeoff_audit/`; original
+  coarse results and score hashes reproduce. Threshold maxima are retrospective
+  diagnostics, with ranking/selection pending user review. Revise the next loss
+  comparison toward retained-mask mean Dice plus auxiliary deletion BCE, with
+  preservation/hit changes tracked rather than automatically vetoed.
+
+- The requested deletion-training rethink is recorded in Exp027
+  `deletion_four_arm/v2_training_proposal.md`, status proposal pending user review.
+  New CPU audits compare the late online loss against an analytic constant-score
+  reference and apply A-derived preservation rules to saved epoch-20 scores.
+  Evidence is under `deletion_four_arm_20ep/reports/v2_loss_audit/`. Proposed first
+  experiment: four loss variants on identical A-fit/calibration data (current
+  BCE, preservation-weight control, hard-TP protection, plus ranking), followed
+  by separate sampling/context tests and eventual return to four data conditions.
+  Coefficients, split and budgets remain proposals. No new training was launched.
+
+- Exp027 four-arm deletion stage 1 completed at 2026-09-10 20:08:43 UTC and is
+  `pending_user_review`. All arms have exactly 2,000 updates and all four planned
+  evaluations; the container exited with code 0 and GPUs are idle. The completion
+  audit verified 21 checkpoints per arm and checkpoint hashes/69-finding coverage
+  for all sixteen evaluations. At the fixed 0.90 removal threshold, epoch-20 full
+  Dice is 0.338747 / 0.337217 / 0.338133 / 0.340792 in run order, versus cached
+  base 0.337215. FP removal is 0.5359% / 0.0005% / 0.4957% / 1.2379%. Run 4 is
+  in-sample and loses one hit, with three findings below 95% TP retention and one
+  below 80%. Results and all milestones are recorded in
+  `experiments/027_voxtell_2a_residual_refinement/deletion_four_arm/results.md`.
+  The user requested all saved thresholds; `deletion_four_arm/all_thresholds.md`
+  now contains all four checkpoints and A/B/full tables, with 288 editor summary
+  rows and 6,624 per-finding rows exported under runtime `reports/threshold_sweep/`.
+  Base controls are identical across all sixteen evaluations and exported once.
+  Per-finding recomposition and monotonic deletion/threshold-1 identity checks
+  pass. Lower thresholds reveal more editing and TP loss; for example epoch-20
+  run 3 at 0.50 has full Dice 0.351784, TP retention 89.94% and 44 findings below
+  95% retention, versus Dice 0.341336 and 99.46% TP retention with zero such flags
+  at 0.80. No threshold/checkpoint selection or continuation was performed.
+  The requested frozen-base probability sweep (0.25–0.75, interval 0.05) is also
+  complete: `base_probability_threshold_sweep.md` records all 11 A/B/full results,
+  with 759 per-finding rows and the figure under runtime
+  `analysis/base_probability_threshold_sweep/`. Full Dice rises from 0.332122 at
+  0.25 to 0.339351 at 0.75, versus 0.337215 at 0.50. The 0.75 change is +0.002136;
+  mean finding precision rises from 35.282% to 37.590% and recall falls from
+  47.186% to 44.030%. All 63 cached logit/target hashes and exact per-finding
+  baseline reproduction passed; all cached extents cover the original CT extent.
+  The sweep used four CPU workers and no inference, taking 22 seconds before
+  plotting. No threshold was adopted automatically.
+  At the user's request, the sweep was extended through 0.95 in 0.05 steps.
+  Full Dice at 0.80/0.85/0.90/0.95 is
+  0.339387 / 0.339172 / 0.338372 / 0.335165. The observed full-cohort maximum is
+  at 0.80, with gain +0.002172 over 0.50 and only +0.000036 over 0.75. All prior
+  rows reproduced exactly; the original sweep and source are archived under
+  `analysis/base_probability_threshold_sweep/range_025_075/`. Current exports
+  contain 45 aggregate rows and 1,035 per-finding rows. All hashes, geometry,
+  monotonicity and baseline checks passed; CPU measurement took 18.1 seconds.
+  Threshold tradeoffs and any continuation remain for user review. Its canonical
+  config is `configs/experiments/027_deletion_four_arm.json`; the live entry is
+  `experiments/027_voxtell_2a_residual_refinement/deletion_four_arm/README.md`.
+  Container `rex027_deletion_four_20ep` (ID prefix 154b1f78847e) launched on
+  2026-09-10; its immutable launch manifest records 17:14:25 UTC. The separate
+  runtime is `027_voxtell_2a_residual_refinement/deletion_four_arm_20ep`.
+  CPU preparation passed complete coverage of 864 CT caches / 1,189 findings in
+  705.0 seconds. One base-empty training finding is explicitly bypassed, leaving
+  1,119 eligible training findings. All four GPU trainers started at 17:26:05 UTC;
+  initial losses/gradients are finite and allocated memory is 11.97 GiB per arm.
+  Actual schedules and all four pristine FP32 checkpoints were verified.
+  All arms completed update 100 and began their first concurrent evaluation at
+  17:30:21 UTC. Provisional per-finding results appeared on the live board by
+  17:30:59 UTC; all evaluations and later milestones subsequently completed.
+  Arms remain train / train+A 50:50 / A / A+B, with a 50/25/25 TP/FP/uniform-active
+  tile sampler. All models start from fresh common weights and use the tested
+  FP32 deletion head, TP loss weight 2, LR 1e-4 and clipping 1.0. Main removal
+  threshold 0.90; record the fixed six-threshold grid and base-threshold controls.
+  The independent CPU dashboard shows training, provisional A/B/full evaluation,
+  TP-retention flags and FP removal. Twenty-two CPU tests, synthetic dashboard
+  inspection, dry launcher, workflow and whitespace checks passed. Stage 1 runs
+  2,000 updates per arm with barriers at 100/500/1000/2000 and then stops for user
+  review. No epoch 21 continuation, FN addition or model ranking is automatic.
+
+- Exp027 deletion-only diagnostic: the user authorized coding and running the
+  bounded follow-up on 2026-09-10. See
+  `experiments/027_voxtell_2a_residual_refinement/deletion_diagnostic/README.md`.
+  It uses eight distinct A patients, 24 fixed 192³ patches (eight GT-empty FP
+  patches), 200 updates, and the existing backbone with a remove/keep head.
+  FP and TP loss terms have separate means and weights1/2. FP32, no TF32,
+  AdamW LR1e-4 and clipping1.0 are preserved. Eleven CPU Docker tests pass;
+  cache/patch preparation completed in51.1 seconds. The diagnostic completed
+  at 16:31:03 UTC with all 200 updates and eight full-volume evaluations; B is
+  excluded. The session took 429.5 seconds including evaluation/reporting, with
+  peak allocated memory 11.93 GiB; all values remained finite. At the fixed 0.5
+  threshold, full-volume Dice is 0.322993 versus base 0.327060, with only 71.15%
+  TP retained. A threshold of 0.89595 calibrated on the fitting patches gives
+  Dice 0.371671, 98.81% TP retention and 23.24% FP removal; six findings improve
+  and two worsen. One small finding loses 64% of its TP despite the strong
+  pooled retention, so per-finding protection remains unresolved. A retrospective
+  matched 99% full-volume TP-retention comparison removes 21.95% FP with the
+  editor versus 3.10% with simple base-threshold suppression. This demonstrates
+  useful in-sample discrimination, not held-out performance. All post-run checks
+  pass, all five checkpoints are retained, and GPUs are idle. The runtime is
+  `027_voxtell_2a_residual_refinement/deletion_diagnostic_v1`. Larger runs are
+  not authorized by this diagnostic; the previous four-arm experiment stays
+  stopped. Results and next training decisions remain pending user review.
 
 - `027_voxtell_2a_residual_refinement`: both 100-update precision benchmarks
   completed. The user adopted FP32 for refinement training/evaluation by default
@@ -28,9 +162,60 @@ edit.
   See `full_run_verification.md` and the experiment README for the current board,
   launch manifest and retained benchmark comparison. Ranking and checkpoint
   selection remain pending user review. The authorized orchestration launched
-  at 2026-09-10 06:50 UTC (host PID 2754829); all four cache workers are active,
-  each assigned 216 CTs. Training starts automatically only after complete cache
-  verification. The live full-run board is updating during preparation.
+  at 2026-09-10 06:50 UTC (host PID 2754829). Complete caching and verification
+  finished at 08:32 UTC: all 864 CTs / 1,189 findings passed, with 668 new caches
+  and 196 reused. Preparation took 6,132.993 seconds (102.2 minutes); dedicated
+  cache files occupy 353,227,386,533 bytes, excluding referenced CT images.
+  At the user's request, all four runs stopped at 15:27:08 UTC after completing
+  every epoch-50 validation, with exactly 5,000 updates each and no update 5,001.
+  Epoch-50 full Dice is 0.3330467 / 0.3262850 / 0.3184750 / 0.3375320 in fixed
+  run order, versus cached base 0.3372154; hits are 59 / 58 / 58 / 59 of 69.
+  Held-out B Dice for runs 1–3 is 0.3293772 / 0.3196950 / 0.3024115 versus base
+  0.3349501. Run 4's results are in-sample fitting diagnostics. All results
+  remain pending user review, with no ranking or checkpoint selection.
+  `full_run_progress.md` records all completed A/B/full evaluations through
+  epoch 50; the final dashboard shows `stopped_by_user`.
+  The user's subsequent learning diagnosis is recorded in
+  `experiments/027_voxtell_2a_residual_refinement/learning_diagnosis_e040.md`.
+  A CPU-only audit recomposed all sixteen completed evaluations, replayed 128
+  exact historical patches, and checked all four epoch-40 checkpoints. The
+  network is updating in finite FP32. Sampled nonempty patches improve, while
+  new foreground on empty patches incurs a very small loss penalty; harmful
+  full-volume edits offset useful corrections. Run 3 also has a pronounced B
+  deficit. A one-case CPU probe measured modest tile-context dependence.
+  Prioritize a fixed real-patch fitting diagnostic and a controlled negative-
+  voxel objective comparison, plus visual annotation review, before changing
+  LR or architecture. These are proposals for user review; the experiment was
+  evaluating epoch 50 during the audit. Detailed evidence is in the full runtime's
+  `analysis/learning_diagnosis_e040/` directory.
+  The user then requested stopping after all epoch-50 validations, before
+  update 5,001. At 15:18:35 UTC only coordinator PID 2755098 was suspended,
+  preventing further launches while all four evaluators and the CPU reporter
+  continued. CPU finalizer PID 3134835 verified complete summaries, checkpoint
+  hashes and exact update journals, then shut down the coordinator and refreshed
+  the dashboard. All processes exited and GPUs 0–3 were verified idle. See
+  `user_stop_after_val50.md` and runtime `stop_after_val50.json`. Original
+  config/schedules and all artifacts are preserved; the remaining 100-epoch
+  schedule is superseded, and no further training should start automatically.
+  The subsequent base-positive-tile proposal is audited in
+  `positive_tile_gate_audit.md`, with no model inference or training. On the
+  exact validation grid the gate skips 3,424/5,722 tiles (59.8%), while active
+  windows still cover 55.2% of pooled CT–finding voxels. All GT is reachable in
+  68/69 findings; one 116-voxel finding becomes unreachable. Of active tiles,
+  977/2,298 (42.5%) have no GT and must remain available for FP-removal training.
+  Prioritize a fixed-checkpoint gated-inference comparison, matched eligible
+  sampling and a controlled hard-negative objective. Gate-only inference at
+  fixed weights cannot change outputs on base-positive voxels. These are audit
+  recommendations; no new scheme or GPU run has been adopted or launched.
+  The next discussion proposes explicit keep/remove/add decisions, recorded in
+  `categorical_editing_proposal.md`: start with a voxelwise FP-removal head,
+  supervise base FP removal and base TP preservation with separate normalized
+  terms, and later add an FN head with explicit TN protection. A GT-assisted
+  perfect-removal oracle raises full mean Dice from 0.337215 to 0.590656; this
+  is theoretical headroom, not an achieved or predicted model result. Compare
+  against simple base-threshold suppression and verify real-patch fitting
+  before a long run. Architecture, action thresholds and loss weights remain
+  proposed; the experiment remains stopped and no new GPU work has started.
   The read-only `data_loading_audit.md` found synchronous patch loading, a
   two-case metadata/mapping cache and redundant buffer copies. Mean loading
   fell from 0.975–1.468 s in the earlier FP16 trial to 0.080–0.086 s in the

@@ -7,6 +7,13 @@ experiment_id: 027_voxtell_2a_residual_refinement
 
 # Exp027 execution spec
 
+## Authorized four-arm deletion follow-up (2026-09-10)
+
+The user authorized the new deletion-only method and a shared live dashboard.
+See [deletion_four_arm/codex_execution_spec.md](deletion_four_arm/codex_execution_spec.md).
+It starts four pristine FP32 models in a separate runtime, stops after the
+epoch20 evaluation barrier, and preserves the stopped residual experiment below.
+
 ## Approved full FP32 run (supersedes earlier timing-only boundaries)
 
 The user approved full 2a caching followed by four concurrent FP32 runs: 100
@@ -195,3 +202,60 @@ training time, data-loading time, evaluation time and peak memory alongside
 A/B/full metrics in fixed arm order. Preserve the FP16 trial and stop the FP32
 trial on OOM or non-finite values without changing tile size or optimizer.
 Full training and ranking remain pending user decisions.
+
+## Learning diagnosis requested during the authorized full run
+
+Audit completed epoch-10/20/30/40 evaluations and the first 4,000 recorded
+updates per arm. Keep the running FP32 experiment and its source fingerprint
+unchanged. Recompose per-finding metrics, examine edits and exposure, and replay
+a deterministic, mode-stratified sample of cached patches to compare each
+recorded training prediction with its exact frozen-base patch. Report empty
+targets and confidence margins separately. Use CPU only, with read-only inputs;
+any checkpoint probes use the existing Docker image with GPUs disabled and at
+most two CPU threads. Bound patch replay to 32 patches per arm. A two-window
+probe may measure whether a trained model's predictions depend on tile context.
+Save the standalone audit script outside the production `exp027_*.py` glob,
+small findings in `learning_diagnosis_e040.md`, and detailed JSON/CSV/figures in
+the external full-run analysis directory. Distinguish measured failure modes
+from hypotheses and proposed ablations; do not change training or select a
+checkpoint for deployment.
+
+## User-requested stop after epoch-50 validation
+
+The user superseded the remaining 100-epoch schedule: finish every arm's full
+69-finding validation at update 5,000, then stop before update 5,001. Preserve
+all full-state checkpoints, evaluations and histories. The running coordinator
+has no deferred-stop switch, so suspend only that exact coordinator process
+while its four independent evaluators and CPU reporter finish. Verify all four
+summaries and their checkpoint provenance, then terminate the suspended
+coordinator through its interruption handler and finalize a user-requested-stop
+record and dashboard. Do not modify the immutable training config, schedules,
+or production source fingerprint. Record process identities and stop evidence
+under the external full-run runtime. No subsequent GPU work is authorized by
+this stop request.
+
+Completed at 2026-09-10 15:27:08 UTC. All four models have exactly 5,000 updates
+and complete 69-finding epoch-50 evaluations; no update 5,001 occurred. Process
+exit and idle GPUs were verified. Status is `stopped_by_user`, with results
+pending user review. See [stop verification](user_stop_after_val50.md).
+
+## Audit of the proposed base-positive tile gate
+
+The user requested an audit, not implementation or launch of a new training
+scheme. Compare the accepted all-tile refiner with a per-finding gate that
+enables a tile only when a valid base logit is at least zero. Use a bounded
+CPU-only pass over the 69 validation finding caches on the established 192³,
+50%-overlap inference grid. Measure active tiles, active tiles without GT,
+the union of editable voxels, and reachable/unreachable GT (including GT lost
+outside the preprocessing crop). Inspect metadata-only prediction availability
+for all training findings. Preserve the stopped experiment, caches and source
+fingerprint; do not run model inference or training. Store raw diagnostic
+counts externally and a proposal audit in this experiment directory. Explicitly
+distinguish patch gating from voxel edit restrictions, specify overlap blending,
+and recommend controlled comparisons without adopting new hyperparameters.
+# Authorized deletion-only diagnostic follow-up (2026-09-10)
+
+The user authorized implementing and running the bounded diagnostic specified
+in [deletion_diagnostic/codex_execution_spec.md](deletion_diagnostic/codex_execution_spec.md).
+It uses a separate runtime and fresh model. The original four-arm run remains
+stopped; larger editing training runs will be planned after diagnostic review.

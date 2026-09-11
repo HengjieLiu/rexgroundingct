@@ -20,7 +20,7 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 
 ## Status
 
-- Status: `cache_preparation`
+- Status: `stopped_by_user`
 - Canonical config: `configs/experiments/027_voxtell_2a_residual_refinement.json`
 - Execution spec: `experiments/027_voxtell_2a_residual_refinement/codex_execution_spec.md`
 - Runtime directory: `/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/full_fp32_100ep`
@@ -42,6 +42,13 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 
 ## Exp027 references
 
+- [LIVE: four losses fitted on A](runtime/deletion_loss_ablation_a_20ep/reports/live_dashboard.md)
+- [A-only loss comparison: specification and verification](deletion_loss_ablation/README.md)
+- [Completed four-data-source deletion dashboard](runtime/deletion_four_arm_20ep/reports/live_dashboard.md)
+- [Four-arm deletion run and verification](deletion_four_arm/README.md)
+
+- [Frozen Exp007 base probability-threshold sweep](base_probability_threshold_sweep.md)
+
 - [Accepted questions and decisions](design_decisions.md)
 - [Live full-run dashboard](runtime/full_fp32_100ep/reports/live_dashboard.md)
 - [Live full-run subplot figure](runtime/full_fp32_100ep/reports/live_dashboard.png)
@@ -54,6 +61,17 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 - [FP32 benchmark configuration](fp32_benchmark_config.json)
 - [Data-loading audit and proposed improvements](data_loading_audit.md)
 
-The authorized full run uses FP32, 100 epochs × 100 updates, with evaluation every 10 epochs.
+- [Interim learning diagnosis through epoch 40](learning_diagnosis_e040.md)
+
+- [User-requested stop after epoch 50](user_stop_after_val50.md)
+
+- [Audit of the proposed base-positive tile gate](positive_tile_gate_audit.md)
+
+- [Proposed categorical keep/remove/add editor](categorical_editing_proposal.md)
+
+- [Authorized deletion-only fitting diagnostic](deletion_diagnostic/README.md)
+
+The original schedule was FP32, 100 epochs × 100 updates, with evaluation every 10 epochs.
+The user subsequently requested stopping after all epoch-50 validations, before update 5,001.
 Complete caching of all training and validation 2a cases is required before training.
 All results remain pending user review. No automatic ranking or promotion.

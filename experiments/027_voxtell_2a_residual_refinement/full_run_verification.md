@@ -1,7 +1,7 @@
 ---
 created: 2026-09-09
 updated: 2026-09-09
-status: cache_preparation
+status: training
 ---
 
 # Full FP32 run: verification and launch
@@ -21,6 +21,16 @@ The authorized orchestration launched at 2026-09-10 06:50 UTC, host PID
 `2754829`. All four cache workers started with 216 disjoint CTs each, and the
 independent board is refreshing. Current progress is in the live dashboard;
 training waits for the complete-cache gate.
+
+Complete-cache verification passed at 2026-09-10 08:32 UTC for all 864 CTs /
+1,189 findings. Preparation took 6,132.993 seconds (102.2 minutes), generating
+668 CT caches and reusing 196. All four FP32 trainers started automatically;
+the first full-run evaluation is scheduled at update 1,000. No failures were
+reported at the 08:42 UTC status check.
+
+Interim [results through epoch 40](full_run_progress.md) have been checked for
+complete finding coverage and exact metric recomposition. Training continues
+toward epoch 50 as of 2026-09-10 14:28 UTC; no failures are reported.
 
 ## Launch and monitoring
 
