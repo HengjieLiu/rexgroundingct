@@ -220,6 +220,14 @@ final normalized weights across all five scopes.
 
 ## GPU8 top-20 test300 caches
 
+**Current continuation: j005.** Wave 2 completed and j004 retired after the
+verified finish handoff. The separately frozen
+[j005 continuation](cache_jobs/j005_test300_r09_r20_streaming_gpu8/README.md)
+launched ranks 9–20 after its cold publication and regression gates, using
+in-memory storage proofs and overlapping publication/GPU waves. Do not resume
+j004. Use `stream_test300.py watch --job j005_test300_r09_r20_streaming_gpu8
+--once`. The dated rollout and hold notes below are historical.
+
 **2026-09-10 update:** profiling is complete and the user authorized Waves 2–5
 with four CPU workers. The separate [j004 continuation](cache_jobs/j004_test300_r05_r20_cpu4_gpu8/README.md)
 now owns that work. Original j003 remains closed after Wave 1; use

@@ -30,3 +30,9 @@ Job `j004_test300_r05_r20_cpu4_gpu8` continues original test ranks 5–20 after
 profiling, with the process-local NumPy allocation fix and four CPU workers.
 Its new source-bound v4 keys preserve all original checkpoint and data
 contracts; j003 Wave 1 and d1/d2/d3 remain unchanged.
+
+Job `j005_test300_r09_r20_streaming_gpu8` is the separately frozen ranks 9–20
+continuation after j004's Wave 2 finish guard. It computes storage proofs in
+memory and overlaps one-pass publication with subsequent GPU waves. Its
+automatic transition requires private cold-read parity and regression gates;
+see [its README](j005_test300_r09_r20_streaming_gpu8/README.md).
