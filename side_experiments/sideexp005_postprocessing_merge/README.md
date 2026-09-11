@@ -54,3 +54,30 @@ preserve validation results and submission history. See
 `test300_launch_report.json` for the detached launch and
 `test300_report.md` / `test300_completion.json` for final aggregate evidence
 when complete.
+
+## Top-eight e series
+
+**Complete:** r003 verified 1,000 val200 files and r004 verified 1,500 test300
+files. Read [the d/e comparison](de_val200_report.md) and
+[the test completion report](e_test300_report.md). The lifecycle below records
+the frozen launch and recovery contract. No ZIPs or uploads were created.
+
+[e_series_config.json](e_series_config.json) and
+[e_series_execution_spec.md](e_series_execution_spec.md) define independent
+r003 val200 and r004 test300 runs. Original ranks 1–8 receive equal probability
+weights; e2/e3/e11/e12 reuse the unchanged d-series postprocessors.
+
+`python side_experiments/sideexp005_postprocessing_merge/e_series.py arm`
+freezes sources, preflights both splits, starts val200 and arms an immediate,
+then 600-second Wave 2 poll. `watch --once` reads worker and poller progress.
+Test generation starts after the verified val report and eight published test
+caches plus successful Wave 2 worker exits, regardless of scores. Waves 3–5
+continue independently. Four CPU workers per stage, no GPU requests.
+
+The e1 val baseline must match 0.35234375344586844 Dice and 291/381 HITs before
+postprocessing. `de_val200_report.md` compares all ten d/e variants and links
+private finding-level benefit/harm records; the original d-only report stays
+unchanged. Test outputs are Exp024 `outputs/e1`, `e2`, `e3`, `e11`, `e12`,
+folders only. Verified completion updates the submission register and publishes
+`e_test300_report.md`. Frozen source, progress, locks, detailed records and
+logs live under the external SideExp005 r003/r004 runtime roots.

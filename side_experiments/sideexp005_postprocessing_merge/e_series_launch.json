@@ -1,0 +1,13 @@
+{
+  "armed_at_utc": "2026-09-10T15:21:25+00:00",
+  "command": [
+    "/home/linuxbrew/.linuxbrew/opt/python@3.14/bin/python3.14",
+    "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r003_top8_val200_frozen_postprocessing/source/side_experiments/sideexp005_postprocessing_merge/e_series.py",
+    "supervise",
+    "--config",
+    "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp005_postprocessing_merge/runs/r003_top8_val200_frozen_postprocessing/config.json"
+  ],
+  "pid": 375011,
+  "poll_seconds": 600,
+  "status": "armed"
+}

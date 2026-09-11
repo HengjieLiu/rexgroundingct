@@ -1,0 +1,86 @@
+{
+  "environment_note": "Default sandbox Python lacked BeautifulSoup; complete workflow succeeded in pinned image.",
+  "existing_submission_records_preserved": 14,
+  "files": [
+    {
+      "path": "side_experiments/sideexp005_postprocessing_merge/e_series.py",
+      "sha256": "e1e0088833949f1731e7242dceb20f0875dcf56357ad14f6843c7474e70e81bd"
+    },
+    {
+      "path": "side_experiments/sideexp005_postprocessing_merge/e_series_compute.py",
+      "sha256": "1074cfe1667f105fb9c96749ab6fd8335366cad3ae0c92ae5fbd30a2384dd7f7"
+    },
+    {
+      "path": "side_experiments/sideexp005_postprocessing_merge/e_series_config.json",
+      "sha256": "8b6bef88e0793900dd1e9663e552721a8601eac17d4f1bed67fc234033b63323"
+    },
+    {
+      "path": "side_experiments/sideexp005_postprocessing_merge/e_series_execution_spec.md",
+      "sha256": "c660164131a559d5163c9252b7bcaafbc2d331e026de2afa036bd359cdc1d470"
+    },
+    {
+      "path": "side_experiments/sideexp005_postprocessing_merge/test_e_series.py",
+      "sha256": "18f67c6a4b6907e365b00a07b7e9d531bd97676120b2c0138b973232ee862b8d"
+    },
+    {
+      "path": "submissions/manage.py",
+      "sha256": "1f47a8034a27c9b32806b44397740660cb851ba828a12cc1d6861a27f8b4401d"
+    },
+    {
+      "path": "submissions/test_manage.py",
+      "sha256": "db35d79267e81a58fe0260106f7a6f24c7b2ce2b62752f55b48e668e5f0b1f20"
+    }
+  ],
+  "image_id": "sha256:8ff421d05fbf6044553ba987d065a4d6fdaaaab8e2913272e620d08c4c286e0f",
+  "initial_wave2_poll_sha256": "f3344e754d3e5a231d5c2ce4009a9f93f19c9a25186bb197bbb7227722ecb6b3",
+  "preflights": {
+    "test300": {
+      "cases": 300,
+      "findings": 582,
+      "job_sha256": "5fee63d1859824ac8f52a6d9eec93ee62ecd6c11020f23f533fc753cf4892700",
+      "routing_counts": {
+        "lobe": 131,
+        "side": 115,
+        "v2_selected": 62,
+        "whole": 336
+      },
+      "space_available": true,
+      "status": "passed",
+      "updated_at_utc": "2026-09-10T15:17:50+00:00"
+    },
+    "val200": {
+      "cases": 200,
+      "findings": 381,
+      "job_sha256": "262ea94db0e8c19791b62926c2be25983949f173daf9f73d8de0786a83958c14",
+      "routing_counts": {
+        "lobe": 110,
+        "side": 67,
+        "v2_selected": 49,
+        "whole": 204
+      },
+      "space_available": true,
+      "status": "passed",
+      "updated_at_utc": "2026-09-10T15:21:07+00:00"
+    }
+  },
+  "repository_workflow": "passed in pinned image; existing consistency warnings retained",
+  "status": "passed",
+  "suites": {
+    "e_series_acceptance": 10,
+    "existing_sideexp005": 23,
+    "exp024_postprocessing": 6,
+    "sideexp003": 98,
+    "submission_register": 12
+  },
+  "supervisor": {
+    "next_wave2_poll_seconds": 526.4493654295802,
+    "pid": 375011,
+    "status": "validation_running",
+    "test_job_sha256": "5fee63d1859824ac8f52a6d9eec93ee62ecd6c11020f23f533fc753cf4892700",
+    "updated_at_utc": "2026-09-10T15:22:39+00:00",
+    "val_job_sha256": "262ea94db0e8c19791b62926c2be25983949f173daf9f73d8de0786a83958c14",
+    "wave2_status": "waiting"
+  },
+  "unique_targeted_tests": 149,
+  "verified_at_utc": "2026-09-10T15:18:20.958805+00:00"
+}
