@@ -21,7 +21,7 @@
   },
   "id": "027_voxtell_2a_residual_refinement",
   "metrics": {},
-  "repo_commit": "22b07e661f6bdedc4eab28a1c8f99b5e17a70e23",
+  "repo_commit": "4d46a6f50fa27cf13c3eea79836cbe3bd99a5bf7",
   "repo_dir": "experiments/027_voxtell_2a_residual_refinement",
   "repo_metrics": "experiments/027_voxtell_2a_residual_refinement/metrics_summary.json",
   "report": {
@@ -41,9 +41,9 @@
   },
   "runtime_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/full_fp32_100ep",
   "runtime_link_dir": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement",
-  "runtime_link_status": "disabled",
+  "runtime_link_status": "exists",
   "status": "stopped_by_user",
-  "synced_at_utc": "2026-09-10T22:22:35.486836+00:00",
+  "synced_at_utc": "2026-09-11T23:27:41.399251+00:00",
   "title": "Four-condition 2a residual logit refinement",
   "voxtell_commit": "ab284be17c002c106075227ca655f4da3269427f"
 }

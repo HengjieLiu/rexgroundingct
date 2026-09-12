@@ -42,8 +42,17 @@ config in the repo, and keep large runtime artifacts under `/mnt/shengdata1`.
 
 ## Exp027 references
 
-- [LIVE: four losses fitted on A](runtime/deletion_loss_ablation_a_20ep/reports/live_dashboard.md)
-- [A-only loss comparison: specification and verification](deletion_loss_ablation/README.md)
+- [A-only 2b–2e training and verification](multicategory_val_a/README.md)
+- [A-only 2b–2e live A/B dashboard](runtime/deletion_categories_bcde_val_a_20ep/reports/live_dashboard.md)
+- [2b–2e category training specification and verification](multicategory_training/README.md)
+- [2b–2e live full-validation dashboard](runtime/deletion_categories_bcde_50ep/reports/live_dashboard.md)
+- [Reusable frozen-base caches for 2b–2e](multicategory_cache/README.md)
+- [2b–2e live cache progress](runtime/cache_2bcde_v1/reports/live_dashboard.md)
+- [Train-only four-loss experiment and verification](deletion_loss_ablation_train/README.md)
+- [Train-only four-loss live dashboard](runtime/deletion_loss_ablation_train_100ep/reports/live_dashboard.md)
+- [Four losses fitted on A: results](deletion_loss_ablation/results.md)
+- [A-only loss comparison dashboard](runtime/deletion_loss_ablation_a_20ep/reports/live_dashboard.md)
+- [A-only loss comparison specification and verification](deletion_loss_ablation/README.md)
 - [Completed four-data-source deletion dashboard](runtime/deletion_four_arm_20ep/reports/live_dashboard.md)
 - [Four-arm deletion run and verification](deletion_four_arm/README.md)
 

@@ -1,6 +1,6 @@
 ---
 created: 2026-07-23
-updated: 2026-09-10
+updated: 2026-09-11
 status: active
 ---
 
@@ -12,29 +12,124 @@ edit.
 
 ## Active Work
 
-- Exp027's user-authorized four-loss A-only comparison launched at
-  2026-09-11 00:18:32 UTC (September10 17:18 Pacific) in container
-  `rex027_deletion_loss_ablation_a_20ep`, ID prefix `7b70eda09f13`.
-  Runtime: `027_voxtell_2a_residual_refinement/deletion_loss_ablation_a_20ep`.
-  Canonical config: `configs/experiments/027_deletion_loss_ablation_a.json`;
-  specification/live links/verification: Exp027 `deletion_loss_ablation/README.md`.
-  Fixed loss order is F+2K; F+K; D+0.25(F+2K)/3; D+0.25(F+K)/2. All four fit
-  the same35 A findings using the historical run3 schedule and pristine weights.
-  D is finding-aware single-patch Dice with outside predictions held at base;
-  all GT including base FNs enters its denominator. B's34 findings are excluded
-  from gradients and reported separately as held-out development evidence.
-  The accepted budget is2000 updates with100/500/1000/2000 evaluation barriers,
-  FP32/noTF32, LR1e-4, clipping1.0, batch1 and192³. The live3×3 board shows both
-  removal thresholds0.50/0.90, independent provisional A/B results and raw/smoothed
-  losses; a separate CPU process produces201-threshold saved-score sweeps.
-  Fifty-three CPU Docker tests and workflow/whitespace checks pass. Labeled
-  synthetic dashboard, test logs and exact source snapshots are saved under
-  runtime `verification/`. The launch begins with hash/geometry checks of all
-  63 validation CT caches/69 findings, without VoxTell inference or train-pool
-  preparation. Check runtime status for current phase. Completion audits8000
-  updates/16 evaluations and historical BCE reproduction before pending_user_review;
-  no automatic ranking or continuation. Earlier loss proposals are superseded
-  by this accepted four-objective contract.
+- Exp027 A-only category follow-up: the user approved four fresh 2b/2c/2d/2e
+  models using `D + 0.25(F + 2K)/3`, FP32/no TF32, 192-cubed patches and the
+  common pristine weights. The prior category run stopped at exactly 2000
+  updates per arm, without epoch-20 validation; completed barriers remain
+  100/500/1000 and all old artifacts are preserved. The new A fitting pools
+  contain 25/31/61/8 findings; B has 24/29/71/3 and is excluded from gradients.
+  Sixteen A-only tests and 29 cache tests passed on CPU, as did real cache-only
+  patch probes, exact baselines, schedules, patient separation and workflow
+  checks. Container `rex027_deletion_categories_bcde_val_a_20ep` / `2e6c1064960a`
+  launched on GPUs 0/1/2/3 for 2000 updates and evaluations at 100/500/1000/2000.
+  The 3x3 dashboard shows separate A and B curves at 0.50/0.90 with their own
+  baselines. Pending evaluations show CT/finding/tile progress; numerical
+  scores publish only after the individual category fully finishes. Full A+B
+  is retained as a mixed-exposure table/record. Completion requires 8000
+  updates, 16 full category evaluations and 16 dense analyses, followed by
+  pending_user_review without automatic continuation.
+  [A-only category run and live dashboard](../experiments/027_voxtell_2a_residual_refinement/multicategory_val_a/README.md).
+
+- Exp027: the 2a train-only loss study stopped at the user's requested epoch 60
+  after all four update-6000 evaluations and dense threshold analyses finished.
+  Histories contain exactly 6000 updates per arm; the coordinator exited and all
+  26 bound source hashes remain unchanged. Results remain pending user review.
+  The user then authorized 2b/2c/2d/2e category models, all using
+  `D + 0.25(F + 2K)/3`, FP32/no TF32 and unchanged 192-cubed tiles.
+  The confirmed overlapping 2d training finding is excluded; validation is intact.
+  Cache and preparation checks passed with eligible pools 1365/1506/1727/236,
+  and A/B counts 25/24,31/29,61/71,8/3. Fifteen category tests and 29 cache tests
+  passed on CPU. Container `rex027_deletion_categories_bcde_50ep` / `0b3640cdc9a4`
+  launched on GPUs 0/1/2/3, targeting 5000 updates per model and evaluations at
+  100,500,1000,2000,3000,4000,5000. The live 3x3 board shows complete full-category
+  Dice at removal 0.50/0.90 versus its own baseline. Pending evaluations do not
+  enter plots; A/B/full metrics are retained in the records. Completion requires
+  20,000 updates, 28 complete evaluations and 28 dense 201-threshold analyses.
+  Superseded by the user stop at 2000 without validation; see the A-only follow-up above.
+  [Category training and commands](../experiments/027_voxtell_2a_residual_refinement/multicategory_training/README.md).
+
+- Exp027's reusable 2b–2e cache completed at 2026-09-11 15:51 UTC
+  (08:51 Pacific), status `cache_ready_for_training`. The successful coordinator
+  `rex027_cache_2bcde_v1_resume_dice` / `5164d2f0609a` exited with code 0 after
+  7 h 26 min. All 2553 training CTs/4854 findings and 177 validation CTs/252
+  findings passed source/array integrity, geometry, exact baseline reproduction
+  and deletion-index checks. New selected arrays occupy 1.361 TiB, with shared
+  existing CT arrays. Validation was imported on CPU without new inference;
+  four guarded GPU workers exported training logits alongside the continuing 2a
+  experiment. All 29 CPU tests and eight GPU smoke cases passed. The initial
+  Dice-summary smoothing defect and recovery evidence were preserved; base
+  inference/storage and the 2a source hashes stayed unchanged.
+  Full-validation baseline Dice in 2b/2c/2d/2e order is
+  0.357030/0.415254/0.394980/0.410408. Category train/A/B/full manifests,
+  baseline tables, TP/FP/FN counts and cache-only loading are ready; all 16 views
+  and eight real loader probes passed the handoff check. Nineteen training and
+  three validation findings have no base-positive voxels; they remain cached
+  and are flagged for deletion eligibility. The original 2d split overlaps on
+  patient train_2936 (one training finding and two A findings); the new training
+  run excludes that training finding, as confirmed by the user. A/B remains disjoint, and 2e B
+  has only three findings. The later category-training launch is recorded above.
+  Completion report and stable links:
+  `experiments/027_voxtell_2a_residual_refinement/multicategory_cache/results.md`.
+
+- Exp027's train-only four-loss comparison launched at 2026-09-11 04:20:37 UTC
+  (September 10, 21:20 Pacific), container
+  `rex027_deletion_loss_ablation_train_100ep` / `16d2a53f86cc`.
+  It verifies all 864 CTs / 1,189 cached findings with four CPU workers before
+  automatically starting four concurrent FP32/no-TF32 models. All use the same
+  1,119 eligible original training findings, pristine weights, RNG seed 20261612
+  and immutable 10,000-event schedule; no A/B gradients. The first 2,000 events
+  reproduce historical `run1_train`; all 1,119 findings appear over 10,000.
+  The user selected 100 epochs × 100 updates, with evaluations at
+  100/500/1,000/2,000 and then every 1,000 through 10,000. The same four losses,
+  LR1e-4/clip1/192³, 3×3 live board, provisional A/B/full scores and dense 201-point
+  sweeps are retained. Both A and B are held-out development for these models;
+  full is their union. Early BCE reference mismatches stop before continuation.
+  78 distinct CPU tests passed, including recovery past update2,000 and no-GPU
+  launcher checks; synthetic dashboard inspected and workflow/whitespace passed.
+  All 12 original deletion and 19 A-only runtime source hashes remain unchanged.
+  Config: `configs/experiments/027_deletion_loss_ablation_train.json`.
+  Spec, verification and live links:
+  `experiments/027_voxtell_2a_residual_refinement/deletion_loss_ablation_train/README.md`.
+  Separate runtime: `deletion_loss_ablation_train_100ep`; target 40,000 total
+  updates, 48 evaluations and 48 dense analyses, then `pending_user_review`.
+  Update at 2026-09-11 06:41 UTC: complete cache verification passed (41.1 min),
+  all four epoch-1 and epoch-5 evaluations completed, and historical BCE weights
+  and per-finding metrics matched exactly at both barriers. The original
+  container lost NVML/CUDA visibility when starting the next workers; host GPUs
+  and fresh-container access were healthy. Preserved evidence and resumed from
+  update 500 in `rex027_deletion_loss_ablation_train_100ep_resume_e005`
+  (`fa2ced55be54`), with no code/method changes. All four were observed at update
+  507 with contiguous histories. The external GPU-visibility trigger is unconfirmed.
+
+- Exp027's four-loss A-only comparison completed at2026-09-11 02:14:41 UTC
+  (September10 19:14 Pacific), status `pending_user_review`. All four models
+  completed2000 updates, all16 evaluations and all16 dense threshold analyses.
+  The audit passed8000 updates and bit-for-bit historical A-only BCE checkpoint
+  and metric reproduction at100/500/1000/2000. No continuation or selection ran.
+  Results: `experiments/027_voxtell_2a_residual_refinement/deletion_loss_ablation/results.md`.
+  At epoch20/removal 0.50, A/B Dice in fixed loss order is0.363095/0.340140
+  (F+2K),0.358500/0.323392 (F+K),0.369552/0.344549 (D+0.25(F+2K)/3),
+  and0.368905/0.338723 (D+0.25(F+K)/2), versus A/B base0.339416/0.334950.
+  The Dice+2×TP auxiliary recipe gains0.009599 B Dice over base and0.004410
+  over original BCE at0.50, removing23.01% B FP with11.07% B TP loss. A gains
+  more than B. Equal BCE alone damages B at0.50 but improves at0.90; thresholds
+  materially affect comparisons. Dice recipes also rescale BCE, so this does
+  not isolate a Dice-only effect. All threshold curves remain retrospective;
+  B has informed development, and one seed/34 B findings do not prove robustness.
+  Canonical config `configs/experiments/027_deletion_loss_ablation_a.json` and
+  external runtime `027_voxtell_2a_residual_refinement/deletion_loss_ablation_a_20ep`
+  preserve the identical35-finding A schedule, pristine weights, FP32/noTF32,
+  LR1e-4, clip1, batch1 and192³. All63 CT/69 finding cache checks passed in88.80s;
+  total runtime was116.2 minutes. Fifty-three CPU tests and workflow/whitespace
+  checks passed; source snapshots and verification logs remain under runtime
+  `verification/`. The final A/B dashboard, per-finding scores, dense 201-threshold
+  reports and completion audit are linked from `deletion_loss_ablation/README.md`.
+  The requested consolidated sweep is in `deletion_loss_ablation/threshold_sweep_final.md`:
+  all 201 thresholds (0–1, step 0.005), all four final models, A/B/full tables
+  with constant frozen baselines, a combined figure, and all-milestone CSV.
+  All 16 sweep manifests, final per-finding recompositions and threshold-1
+  baseline identity passed verification; no additional inference was needed.
+  Ranking and any next run remain with the user.
 
 - The user clarified the deletion objective: prioritize mean Dice and allow TP
   loss when sufficient FP removal improves it. Proposed blanket 99% pooled / 95%
