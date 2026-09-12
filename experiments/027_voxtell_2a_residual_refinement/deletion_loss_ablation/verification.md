@@ -64,3 +64,24 @@ Its first phase verifies existing validation inputs before starting trainers.
 
 The source snapshot matches every file hash in the launched context. No trained
 historical weights or optimizer state were reused.
+
+Validation-cache verification passed all63 CTs/69 findings in88.80 seconds.
+All four trainers subsequently completed100 updates with finite losses and
+gradients, peak allocated memory about12.0 GiB, and began the first concurrent
+69-finding evaluation. The dashboard publishes partial A/B results independently.
+
+The update100 BCE-reference model digest is exactly identical to the historical
+A-only run3 checkpoint. All four new checkpoints share the pinned initial and
+schedule digests, while their trained model digests are distinct. The early
+reference losses, both BCE components and pre-clipping gradient norms also
+reproduce exactly. See the [checkpoint100 proof](../runtime/deletion_loss_ablation_a_20ep/verification/checkpoint100.json).
+Full experiment results remain pending; orchestration continues to2000 updates.
+
+## Completion
+
+Completed at2026-09-11 02:14:41 UTC, status `pending_user_review`. All8000
+updates,16 evaluations and16 dense analyses passed the automated audit. The
+BCE reference reproduces historical A-only model weights and per-finding
+metrics exactly at all four evaluated checkpoints. See [completed results](results.md)
+and the [completion audit](../runtime/deletion_loss_ablation_a_20ep/reports/completion.json).
+No automatic continuation, threshold selection or model ranking occurred.
