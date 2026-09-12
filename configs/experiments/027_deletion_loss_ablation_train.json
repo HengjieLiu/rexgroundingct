@@ -1,0 +1,66 @@
+{
+  "experiment": "exp027_deletion_loss_ablation_train_100ep",
+  "base_config": "configs/experiments/027_voxtell_2a_residual_refinement.json",
+  "runtime": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/deletion_loss_ablation_train_100ep",
+  "historical_runtime": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/deletion_four_arm_20ep",
+  "seed": 20260911,
+  "training_rng_seed": 20261612,
+  "initial_remove_probability": 0.05,
+  "initial_weights_sha256": "ff8d94ec3648a9ef24a0a2d4865c0590782da60a522b7f4b701cf57748cbba73",
+  "schedule_sha256": "6975fc98840f2b589d88294fff628923ad01989ea14ea32528368ef074ecfeda",
+  "arms": [
+    "bce_tp2",
+    "bce_tp1",
+    "dice_bce_tp2",
+    "dice_bce_tp1"
+  ],
+  "auxiliary_bce_weight": 0.25,
+  "dice_smoothing": 1e-06,
+  "dice_scope": "whole_finding_single_patch_edit",
+  "updates_per_epoch": 100,
+  "total_updates": 10000,
+  "evaluation_updates": [
+    100,
+    500,
+    1000,
+    2000,
+    3000,
+    4000,
+    5000,
+    6000,
+    7000,
+    8000,
+    9000,
+    10000
+  ],
+  "threshold": 0.9,
+  "display_thresholds": [
+    0.5,
+    0.9
+  ],
+  "thresholds": [
+    0.5,
+    0.8,
+    0.9,
+    0.95,
+    0.99,
+    1.0
+  ],
+  "dense_threshold_step": 0.005,
+  "base_thresholds": [
+    0.0,
+    0.1910400390625,
+    0.5,
+    1.0,
+    2.0,
+    4.0
+  ],
+  "precision": "fp32",
+  "tf32": false,
+  "cache_workers": 4,
+  "report_interval_seconds": 5,
+  "a_only_runtime": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/deletion_loss_ablation_a_20ep",
+  "training_source": "train",
+  "historical_arm": "run1_train",
+  "schedule_prefix_sha256": "cfe5c1bc3a450b4a2e4355c97e4ebeac605d9e8dab5a2c5f1e5b56856177e70f"
+}
