@@ -1,0 +1,100 @@
+{
+  "base": {
+    "candidate_id": "exp007_ddp_bs4_e050_a499ad1c",
+    "checkpoint": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/007_voxtell_cached_native_v123_e5_d4_ddp_bs4_update_matched/runs/exp007_cont100_from_ddp100_20260730T062051Z/ddp_bs4/model_epoch050/fold_0/checkpoint_final.pth",
+    "checkpoint_sha256": "a499ad1c0fada9a7e4d78e352fa5510d31295e82749e00ef0a4eee6da685e4aa",
+    "logit_clip": [
+      -30,
+      30
+    ],
+    "validation_cache": "/mnt/shengdata1/hengjie/side_experiments/rexgroundingct/sideexp003_ensemble_method_hub/cache/logits/by_cache_key/v2_d6dcddf705766db234bf631fa0925bfd69a5e18388767448b02a31b6484fcdbe"
+  },
+  "categories": [
+    "2b",
+    "2c",
+    "2d",
+    "2e"
+  ],
+  "category_counts": {
+    "2b": {
+      "A": 25,
+      "B": 24,
+      "train_cases": 911,
+      "train_findings": 1367,
+      "val_cases": 40,
+      "val_findings": 49
+    },
+    "2c": {
+      "A": 31,
+      "B": 29,
+      "train_cases": 1129,
+      "train_findings": 1507,
+      "val_cases": 53,
+      "val_findings": 60
+    },
+    "2d": {
+      "A": 61,
+      "B": 71,
+      "train_cases": 1305,
+      "train_findings": 1743,
+      "val_cases": 119,
+      "val_findings": 132
+    },
+    "2e": {
+      "A": 8,
+      "B": 3,
+      "train_cases": 182,
+      "train_findings": 237,
+      "val_cases": 11,
+      "val_findings": 11
+    }
+  },
+  "expected": {
+    "train": {
+      "cases": 2553,
+      "findings": 4854
+    },
+    "val": {
+      "cases": 177,
+      "findings": 252
+    }
+  },
+  "expected_train_val_patient_overlap": [
+    "train_2936"
+  ],
+  "experiment": "027_voxtell_2a_residual_refinement",
+  "gpu": {
+    "allocator_limit_mib": 26624,
+    "minimum_free_mib": 4096,
+    "minimum_start_free_mib": 32768,
+    "poll_seconds": 0.25
+  },
+  "metadata": "/data/hengjie/datasets/rexgroundingct/MICCAI_challenge_dataset.json",
+  "metadata_sha256": "3a66087608d5d0177a30c0238845a7e53518fcd82f8f41283a7d14fc02b37e6a",
+  "model": {
+    "patch_size": [
+      192,
+      192,
+      192
+    ]
+  },
+  "overlap": 0.5,
+  "preprocessing": {
+    "cache_root": "/mnt/shengdata1/hengjie/datasets/rexgroundingct/preprocessed/voxtell/crop_zscore_native_v1",
+    "classification": "cached-equivalent native VoxTell",
+    "manifest_sha256": "fd6787a18b9f12ef68035bd9a2dcca30c56322b3957e073bf513cbd3e71af4c3"
+  },
+  "report_interval_seconds": 5,
+  "runtime": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/cache_2bcde_v1",
+  "seed": 20260909,
+  "split_manifest": "configs/evaluation/rexgroundingct_exp027_halves_seed20260909.manifest.json",
+  "split_manifest_sha256": "15678ad99646a7269a2f3914a480cdf16bda60d36009e37700a30ec97eda1ef3",
+  "task": "multicategory_cache",
+  "validation_baselines": {
+    "2b": 0.35702996759089856,
+    "2c": 0.4152540394250477,
+    "2d": 0.3949795025988521,
+    "2e": 0.410407952609175
+  },
+  "workers": 4
+}
