@@ -1,0 +1,85 @@
+{
+  "arms": [
+    "2b",
+    "2c",
+    "2d",
+    "2e"
+  ],
+  "auxiliary_bce_weight": 0.25,
+  "base_config": "configs/experiments/027_voxtell_2a_residual_refinement.json",
+  "base_thresholds": [
+    0.0,
+    0.1910400390625,
+    0.5,
+    1.0,
+    2.0,
+    4.0
+  ],
+  "cache_inventory_sha256": "3f06a0eada5756f2c8314812b6e678a62d61c6675d94fc9b2da20869970732a5",
+  "cache_runtime": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/cache_2bcde_v1",
+  "cache_workers": 4,
+  "dense_threshold_step": 0.005,
+  "dice_scope": "whole_finding_single_patch_edit",
+  "dice_smoothing": 1e-06,
+  "display_thresholds": [
+    0.5,
+    0.9
+  ],
+  "evaluation_updates": [
+    100,
+    500,
+    1000,
+    2000,
+    3000,
+    4000,
+    5000
+  ],
+  "exclude_training_keys": [
+    "train_2936_a_1.nii.gz::3"
+  ],
+  "expected_eligible_train": {
+    "2b": 1365,
+    "2c": 1506,
+    "2d": 1727,
+    "2e": 236
+  },
+  "expected_val": {
+    "2b": 49,
+    "2c": 60,
+    "2d": 132,
+    "2e": 11
+  },
+  "experiment": "exp027_deletion_categories_bcde_50ep",
+  "historical_runtime": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/deletion_four_arm_20ep",
+  "initial_remove_probability": 0.05,
+  "initial_weights_sha256": "ff8d94ec3648a9ef24a0a2d4865c0590782da60a522b7f4b701cf57748cbba73",
+  "loss_arm": "dice_bce_tp2",
+  "precision": "fp32",
+  "report_interval_seconds": 5,
+  "runtime": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/deletion_categories_bcde_50ep",
+  "schedule_seeds": {
+    "2b": 20260911,
+    "2c": 20260912,
+    "2d": 20260913,
+    "2e": 20260914
+  },
+  "stop_receipt": "/mnt/shengdata1/hengjie/experiments/rexgroundingct/027_voxtell_2a_residual_refinement/deletion_loss_ablation_train_100ep/reports/user_stop_epoch60.json",
+  "tf32": false,
+  "threshold": 0.9,
+  "thresholds": [
+    0.5,
+    0.8,
+    0.9,
+    0.95,
+    0.99,
+    1.0
+  ],
+  "total_updates": 5000,
+  "training_rng_seed": 20261612,
+  "training_source": "train",
+  "updates_per_epoch": 100,
+  "validation_plot_policy": "complete_category_only",
+  "validation_plot_subsets": [
+    "full"
+  ]
+}
